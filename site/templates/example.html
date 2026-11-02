@@ -4,10 +4,17 @@
     <div class="example-head-grid">
       <div>
         <h1>$title</h1>
-        <p class="lede">$source_cloud → $target_cloud · assessed $date · StackToIT $tool_version</p>
-        <p class="hero-actions"><a class="btn btn-primary" href="report/index.html">Open the full assessment</a></p>
+        <p class="lede">$case_lede</p>
+        <p class="meta-line">$source_cloud → $target_cloud · assessed $date · StackToIT $tool_version · knowledge base $kb</p>
+        <p class="hero-actions"><a class="btn btn-primary" href="report/index.html">Open the full assessment</a><a class="btn btn-ghost" href="#terraform">Browse the Terraform draft</a></p>
       </div>
-      <div class="stamp stamp-$migration_ready stamp-lg" role="img" aria-label="Migration ready: $migration_ready"><span>Migration ready</span><strong>$migration_ready</strong><small>$approval</small></div>
+      <dl class="summary-panel" aria-label="Assessment summary">
+        <div><dt>Route</dt><dd>$source_cloud <span class="arrow" aria-hidden="true">→</span> $target_cloud</dd></div>
+        <div><dt>Status</dt><dd>Migration assessment generated</dd></div>
+        <div><dt>Resources analyzed</dt><dd class="num">$resources</dd></div>
+        <div><dt>Migration units identified</dt><dd class="num">$units</dd></div>
+        <div><dt>Target units drafted</dt><dd class="num">$drafted <small>of $units_considered considered</small></dd></div>
+      </dl>
     </div>
     <div class="origins" aria-label="Where the source and the output live">
       <div class="origin">
@@ -101,6 +108,7 @@ $cost_block
 
 <section id="readiness" class="block" aria-labelledby="readiness-h">
   <h2 id="readiness-h">Migration readiness</h2>
+  <p>StackToIT states readiness as three measures with their denominators and lists what closes each open item. On this estate the package is $package_words; the full register is in the report.</p>
   <div class="verdict verdict-wide">
     <div class="stamp stamp-$migration_ready" role="img" aria-label="Migration ready: $migration_ready"><span>Migration ready</span><strong>$migration_ready</strong></div>
     <div class="verdict-words">

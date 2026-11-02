@@ -273,5 +273,8 @@
     "excluded": [],
     "modified": [],
     "statement": "The output folder is published exactly as StackToIT wrote it. No file was removed, edited or redacted; stacktoit verify passes on the published copy."
+  },
+  "case_study": {
+    "lede": "Explore how StackToIT analyzed the AWS Retail Store Sample App and generated a structured migration assessment, proposed STACKIT infrastructure, architecture diagrams and a detailed migration plan."
   }
 }

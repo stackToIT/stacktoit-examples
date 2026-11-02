@@ -16,7 +16,8 @@
     "metrics",
     "key_findings",
     "report",
-    "publication"
+    "publication",
+    "case_study"
   ],
   "properties": {
     "schema_version": {
@@ -395,6 +396,17 @@
           }
         },
         "statement": {
+          "type": "string"
+        }
+      }
+    },
+    "case_study": {
+      "type": "object",
+      "required": [
+        "lede"
+      ],
+      "properties": {
+        "lede": {
           "type": "string"
         }
       }

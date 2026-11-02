@@ -323,7 +323,7 @@ def build_example(meta: dict, ex_dir: Path, out_dir: Path) -> dict:
 
     body = render(
         "example.html",
-        root=root, id=E(ex_id), title=E(meta["title"]), summary=E(meta["summary"]),
+        root=root, id=E(ex_id), title=E(meta["title"]), summary=E(meta["summary"]), case_lede=E(meta["case_study"]["lede"]),
         source_cloud=E(meta["source"]["cloud"]), target_cloud=E(meta["target"]["cloud"]), target_provider=E(meta["target"]["provider"]),
         project_name=E(meta["source"]["project_name"]), maintainer=E(meta["source"]["maintainer"]),
         repo_url=E(meta["source"]["repository_url"]), commit=E(meta["source"]["commit"]), commit_short=E(meta["source"]["commit"][:12]),
@@ -380,7 +380,9 @@ def build_index(cards: list[dict], out_dir: Path) -> None:
         meta = c["meta"]; m = meta["metrics"]; ex = m["execution"]; rd = m["readiness"]; dr = m["draft"]
         rows.append(render(
             "card.html",
-            href=E(c["href"]), title=E(meta["title"]), summary=E(meta["summary"]),
+            href=E(c["href"]), id=E(meta["id"]), title=E(meta["title"]), summary=E(meta["summary"]), case_lede=E(meta["case_study"]["lede"]),
+            variables=fmt(dr["variables"]), open_requests=fmt(m["decisions"]["open_input_requests"]), plan_steps=fmt(ex["plan_steps"]),
+            
             source_cloud=E(meta["source"]["cloud"]), target_cloud=E(meta["target"]["cloud"]),
             repo_url=E(meta["source"]["repository_url"]), repo_name=E(meta["source"]["project_name"]), commit_short=E(meta["source"]["commit"][:12]),
             commit_url=E(meta["source"]["commit_url"]), tf_root=E(meta["source"]["terraform_root"]),
@@ -398,9 +400,14 @@ def build_index(cards: list[dict], out_dir: Path) -> None:
     hero_actions = "".join(
         f'<a class="btn btn-primary" href="{E(c["href"])}report/index.html">View the {E(c["meta"]["title"])} assessment</a>' for c in cards[:1]
     ) + '<a class="btn btn-ghost" href="#register">Open the register</a><a class="btn btn-ghost" href="#reading">What the states mean</a>'
-    body = render("index.html", root="", cards="".join(rows), count=str(len(cards)), plural="" if len(cards) == 1 else "s", hero_actions=hero_actions)
+    hero = SITE_CONFIG["hero"]; reg = SITE_CONFIG["register"]
+    capabilities = "".join(
+        f'<li><span class="leg">{i}</span><div><h2>{E(name)}</h2><p>{E(text)}</p></div></li>' for i, (name, text) in enumerate(hero["capabilities"], 1))
+    body = render("index.html", root="", cards="".join(rows), count=str(len(cards)), plural="" if len(cards) == 1 else "s", hero_actions=hero_actions,
+                  hero_headline=E(hero["headline"]), hero_lede=E(hero["lede"]), capabilities=capabilities,
+                  register_headline=E(reg["headline"]), register_lede=E(reg["lede"]))
     (out_dir / "index.html").write_text(page("", "StackToIT Examples",
-        "Real migration assessments produced by StackToIT on public infrastructure-as-code projects: source estate, classifications, STACKIT Terraform draft, execution plan, open decisions.",
+        E(hero["headline"] + " " + hero["lede"]),
         body, "is-current"))
     # GitHub Pages serves 404.html for any missing URL, at any depth, so this one page uses the project base path.
     not_found = render("404.html", root=BASE_PATH)

@@ -1,40 +1,34 @@
-<article class="sheet" aria-labelledby="sheet-$title">
+<article class="sheet" aria-labelledby="sheet-$id">
   <header class="sheet-head">
     <span class="sheet-no" aria-hidden="true">■</span>
-    <h3 id="sheet-$title"><a href="$href">$title</a></h3>
+    <h3 id="sheet-$id"><a href="$href">$title</a></h3>
     <span class="route"><span>$source_cloud</span><span class="arrow" aria-hidden="true">→</span><span>$target_cloud</span></span>
   </header>
   <div class="sheet-body">
+    <p class="sheet-summary">$case_lede</p>
     <div class="fields fields-4">
       <div class="field"><span class="lab">Source repository</span><span class="val"><a href="$repo_url" rel="noopener">$repo_name</a></span></div>
-      <div class="field"><span class="lab">Pinned commit</span><span class="val mono"><a href="$commit_url" rel="noopener">$commit_short</a></span></div>
+      <div class="field"><span class="lab">Assessed commit</span><span class="val mono"><a href="$commit_url" rel="noopener">$commit_short</a></span></div>
       <div class="field"><span class="lab">Terraform root</span><span class="val mono">$tf_root</span></div>
       <div class="field"><span class="lab">Assessed</span><span class="val mono">$date</span></div>
     </div>
-    <p class="sheet-summary">$summary</p>
-    <div class="verdict">
-      <div class="stamp stamp-$migration_ready" role="img" aria-label="Migration ready: $migration_ready"><span>Migration ready</span><strong>$migration_ready</strong></div>
-      <div class="verdict-words"><span class="lab">Package state</span><span class="val">$package_state</span><span class="lab">Key finding</span><span class="val">$first_finding</span></div>
-    </div>
-    <div class="fields fields-5 figures">
-      <div class="field"><span class="lab">Resources read</span><span class="val num">$resources</span></div>
-      <div class="field"><span class="lab">Migration units</span><span class="val num">$units</span></div>
-      <div class="field"><span class="lab">Units drafted</span><span class="val num">$drafted <small>of $units_considered considered ($units present + $plan_time_units plan-time) · $no_resource need no resource · $manual_units manual</small></span></div>
-      <div class="field"><span class="lab">Automated steps runnable now</span><span class="val num">$can_run <small>of $automated</small></span></div>
-      <div class="field"><span class="lab">Automation-eligible units</span><span class="val num">$eligible <small>of $units</small></span></div>
+    <div class="fields fields-3 figures">
+      <div class="field"><span class="lab">$source_cloud resources analyzed</span><span class="val num">$resources</span></div>
+      <div class="field"><span class="lab">Migration units identified</span><span class="val num">$units</span></div>
+      <div class="field"><span class="lab">Target units drafted</span><span class="val num">$drafted <small>of $units_considered units considered</small></span></div>
     </div>
     $class_strip
-    <div class="fields fields-4 small">
-      <div class="field"><span class="lab">Decisions to make</span><span class="val">$decisions</span></div>
-      <div class="field"><span class="lab">Refused steps</span><span class="val">$refused</span></div>
-      <div class="field"><span class="lab">Source validation</span><span class="val"><span class="state st-$source_validation_cls">$source_validation</span></span></div>
-      <div class="field"><span class="lab">Draft validation (OpenTofu)</span><span class="val"><span class="state st-$draft_validation_cls">$draft_validation</span></span></div>
-    </div>
+    <ul class="delivered" aria-label="Generated for this example">
+      <li>$target_cloud Terraform draft generated <small>$variables variables · OpenTofu validation $draft_validation</small></li>
+      <li>Architecture diagrams generated <small>current, target, delta, network and data flows</small></li>
+      <li>Migration decisions structured <small>$decisions decisions, $open_requests inputs in the register</small></li>
+      <li>Execution plan written <small>$plan_steps steps: Terraform, $target_cloud API and manual, each with an owner</small></li>
+    </ul>
   </div>
   <footer class="sheet-actions">
     <a class="btn btn-primary" href="${href}report/index.html">View assessment</a>
     <a class="btn" href="${href}#architecture">View architecture</a>
     <a class="btn" href="${href}#terraform">Browse Terraform output</a>
-    <a class="more" href="$href">Example page, provenance and validation →</a>
+    <a class="more" href="$href">Case study, provenance and validation →</a>
   </footer>
 </article>
