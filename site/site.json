@@ -3,42 +3,7 @@
   "repository_branch": "main",
   "pages_url": "https://stacktoit.github.io/stacktoit-examples/",
   "canonical_base": "https://stacktoit.com/examples/",
-  "hero": {
-    "headline": "Turn AWS infrastructure into an actionable STACKIT migration plan.",
-    "lede": "Analyze Terraform estates, map infrastructure to STACKIT services, generate target configurations, and organize the decisions needed to move forward.",
-    "capabilities": [
-      [
-        "Infrastructure discovery and assessment",
-        "Every resource of a Terraform estate, its modules and dependencies, read and classified."
-      ],
-      [
-        "AWS-to-STACKIT resource mapping",
-        "Each resource mapped to its STACKIT service with a confidence level and the evidence behind it."
-      ],
-      [
-        "Generated STACKIT Terraform drafts",
-        "Target configurations written as Terraform and statically validated with OpenTofu."
-      ],
-      [
-        "Architecture transformation planning",
-        "Current, target and delta architecture diagrams generated from the same graph."
-      ],
-      [
-        "Migration sequencing and dependency analysis",
-        "Waves, work packages and data movement ordered by the dependencies of the estate."
-      ],
-      [
-        "Structured architecture decisions",
-        "Open decisions and inputs collected in a register the architect answers; the next run reads the answers."
-      ],
-      [
-        "Reviewable execution packages",
-        "Terraform steps, STACKIT API steps and manual actions with owners, ready for architect review."
-      ]
-    ]
-  },
   "register": {
-    "headline": "See StackToIT in action on real infrastructure.",
     "lede": "Each example is one StackToIT run on a public infrastructure-as-code project, published complete: the assessment, the generated STACKIT infrastructure, the architecture diagrams and the migration plan."
   }
 }

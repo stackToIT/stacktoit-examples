@@ -62,8 +62,8 @@ def render(name: str, **kw) -> str:
 ATTRIBUTIONS: list[str] = []  # filled from every example's source.attribution before any page is written
 
 
-def page(root: str, title: str, description: str, body: str, nav_examples: str = "") -> str:
-    return render("base.html", root=root, title=title, description=description, body=body, nav_examples=nav_examples,
+def page(root: str, title: str, description: str, body: str) -> str:
+    return render("base.html", root=root, title=title, description=description, body=body,
                   attributions=" ".join(E(a) for a in ATTRIBUTIONS))
 
 
@@ -375,7 +375,7 @@ def build_example(meta: dict, ex_dir: Path, out_dir: Path) -> dict:
     )
     (dest / "index.html").write_text(page(root, f"{E(meta['title'])} · StackToIT Examples",
         E(f"StackToIT migration assessment of {meta['title']} ({meta['source']['cloud']} → {meta['target']['cloud']}), run {meta['run']['date']}."),
-        body, "is-current"))
+        body))
     return {
         "href": f"{EXAMPLE_ROOT}{'/' if EXAMPLE_ROOT else ''}{ex_id}/", "meta": meta,
     }
@@ -404,18 +404,11 @@ def build_index(cards: list[dict], out_dir: Path) -> None:
             class_strip=class_strip(m["by_class"], m["units"]),
             first_finding=E(meta["key_findings"][0]["title"]) if meta["key_findings"] else "",
         ))
-    hero_actions = "".join(
-        f'<a class="btn btn-primary" href="{E(c["href"])}report/index.html">View the {E(c["meta"]["title"])} assessment</a>' for c in cards[:1]
-    ) + '<a class="btn btn-ghost" href="#register">Open the register</a><a class="btn btn-ghost" href="#reading">What the states mean</a>'
-    hero = SITE_CONFIG["hero"]; reg = SITE_CONFIG["register"]
-    capabilities = "".join(
-        f'<li><span class="leg">{i}</span><div><h2>{E(name)}</h2><p>{E(text)}</p></div></li>' for i, (name, text) in enumerate(hero["capabilities"], 1))
-    body = render("index.html", root="", cards="".join(rows), count=str(len(cards)), plural="" if len(cards) == 1 else "s", hero_actions=hero_actions,
-                  hero_headline=E(hero["headline"]), hero_lede=E(hero["lede"]), capabilities=capabilities,
-                  register_headline=E(reg["headline"]), register_lede=E(reg["lede"]))
+    reg = SITE_CONFIG["register"]
+    body = render("index.html", root="", cards="".join(rows), count=str(len(cards)), plural="" if len(cards) == 1 else "s", register_lede=E(reg["lede"]))
     (out_dir / "index.html").write_text(page("", "StackToIT Examples",
-        E(hero["headline"] + " " + hero["lede"]),
-        body, "is-current"))
+        E(reg["lede"]),
+        body))
     # GitHub Pages serves 404.html for any missing URL, at any depth, so this one page uses the project base path.
     not_found = render("404.html", root=BASE_PATH)
     (out_dir / "404.html").write_text(page(BASE_PATH, "Page not found · StackToIT Examples", "This page does not exist.", not_found))
