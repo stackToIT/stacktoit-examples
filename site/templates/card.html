@@ -19,7 +19,7 @@
     <div class="fields fields-5 figures">
       <div class="field"><span class="lab">Resources read</span><span class="val num">$resources</span></div>
       <div class="field"><span class="lab">Migration units</span><span class="val num">$units</span></div>
-      <div class="field"><span class="lab">Units drafted</span><span class="val num">$drafted <small>+ $no_resource need no resource</small></span></div>
+      <div class="field"><span class="lab">Units drafted</span><span class="val num">$drafted <small>of $units_considered considered ($units present + $plan_time_units plan-time) · $no_resource need no resource · $manual_units manual</small></span></div>
       <div class="field"><span class="lab">Automated steps runnable now</span><span class="val num">$can_run <small>of $automated</small></span></div>
       <div class="field"><span class="lab">Automation-eligible units</span><span class="val num">$eligible <small>of $units</small></span></div>
     </div>
@@ -27,8 +27,8 @@
     <div class="fields fields-4 small">
       <div class="field"><span class="lab">Decisions to make</span><span class="val">$decisions</span></div>
       <div class="field"><span class="lab">Refused steps</span><span class="val">$refused</span></div>
-      <div class="field"><span class="lab">Source validation</span><span class="val"><span class="state st-not-run">$source_validation</span></span></div>
-      <div class="field"><span class="lab">Draft validation (OpenTofu)</span><span class="val"><span class="state st-passed">$draft_validation</span></span></div>
+      <div class="field"><span class="lab">Source validation</span><span class="val"><span class="state st-$source_validation_cls">$source_validation</span></span></div>
+      <div class="field"><span class="lab">Draft validation (OpenTofu)</span><span class="val"><span class="state st-$draft_validation_cls">$draft_validation</span></span></div>
     </div>
   </div>
   <footer class="sheet-actions">

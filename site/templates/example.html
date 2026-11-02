@@ -43,7 +43,7 @@
 
 <section id="source" class="block" aria-labelledby="source-h">
   <h2 id="source-h">Source infrastructure</h2>
-  <p>The <a href="$repo_url" rel="noopener">$project_name</a> by $maintainer is a sample retail application: five services (ui, catalog, carts, checkout, orders) on Amazon ECS behind an Application Load Balancer, with Aurora (catalog, orders), DynamoDB (carts), OpenSearch (catalog), ElastiCache (checkout) and Amazon MQ as managed dependencies in one VPC. The estate assessed is its <code>$tf_root</code> root module and the local <code>terraform/lib</code> modules it calls.</p>
+  <p>$source_description</p>
   <div class="fields fields-2">
     <div class="field"><span class="lab">Repository</span><span class="val"><a href="$repo_url" rel="noopener">$repo_url</a></span></div>
     <div class="field"><span class="lab">Commit</span><span class="val mono"><a href="$commit_url" rel="noopener">$commit</a></span></div>
@@ -53,7 +53,7 @@
     <div class="field"><span class="lab">Upstream licence</span><span class="val">$source_license</span></div>
   </div>
   <p class="note">$source_note</p>
-  <p class="note">Source visibility as read by StackToIT: $source_visibility. Domains of the 44 units: $domains.</p>
+  <p class="note">Source visibility as read by StackToIT: $source_visibility. Domains of the $units units: $domains.</p>
 </section>
 
 <section id="assessment" class="block" aria-labelledby="assessment-h">
@@ -61,42 +61,30 @@
   <p>Classification of the $units units present in the source, as the knowledge base $kb decided them. The strip shows the share of each class; the legend keeps the classes with zero units so that what did not happen is visible too.</p>
   $class_strip
   <div class="fields fields-3">
-    <div class="field"><span class="lab">Confidence</span><span class="val">$conf_high HIGH · $conf_medium MEDIUM · $conf_low LOW <small>capped at MEDIUM: the source provider is unpinned</small></span></div>
+    <div class="field"><span class="lab">Confidence</span><span class="val">$conf_high HIGH · $conf_medium MEDIUM · $conf_low LOW <small>$confidence_note</small></span></div>
     <div class="field"><span class="lab">Units the draft considered</span><span class="val num">$units_considered <small>= $units present + $plan_time_units decided when OpenTofu plans</small></span></div>
     <div class="field"><span class="lab">Fate of those units</span><span class="val">$drafted generated <small>($tf_only Terraform-only, $hybrid hybrid)</small> · $no_resource need no resource · $manual_units left to the architect</span></div>
   </div>
-  <h3>Applications</h3>
-  <p>$apps_total applications proposed by StackToIT from the service structure, none confirmed by a customer: $apps_ready ready · $apps_blocked blocked · $apps_redesign redesign · $apps_not_ready not ready.</p>
-  <table class="table">
-    <thead><tr><th scope="col">Application</th><th scope="col">State</th><th scope="col">Why</th></tr></thead>
-    <tbody>$apps_rows</tbody>
-  </table>
-  <h3>Cost</h3>
-  <div class="fields fields-2">
-    <div class="field"><span class="lab">Financial comparison</span><span class="val"><span class="state st-not-available">$cost_comparison</span></span></div>
-    <div class="field"><span class="lab">STACKIT partial estimate</span><span class="val">$cost_stackit EUR / month <small>$cost_stackit_lines lines priced, list prices, not a bill</small></span></div>
-    <div class="field"><span class="lab">Source lines priced</span><span class="val">$cost_source_lines</span></div>
-    <div class="field"><span class="lab">Price source</span><span class="val">$price_source</span></div>
-  </div>
-  <p class="note">$cost_why</p>
+$applications_block
+$cost_block
 </section>
 
 <section id="architecture" class="block" aria-labelledby="architecture-h">
   <h2 id="architecture-h">Architecture</h2>
   <p>Three views StackToIT draws from the same graph: the source as read, the proposed STACKIT target, and the delta between them. The Mermaid sources are published beside the renderings.</p>
   <figure class="diagram">
-    <figcaption><span>Current (AWS, as read)</span><a href="report/architecture/current.svg">SVG</a><a href="files/architecture/current.mmd.html">Mermaid</a></figcaption>
+    <figcaption><span>Current ($source_cloud, as read)</span><a href="report/architecture/current.svg">SVG</a><a href="files/architecture/current.mmd.html">Mermaid</a></figcaption>
     <a href="report/architecture/current.svg"><img src="report/architecture/current.svg" alt="Current architecture diagram of the AWS estate as StackToIT read it" loading="lazy"></a>
   </figure>
   <figure class="diagram">
-    <figcaption><span>Target (STACKIT, proposed)</span><a href="report/architecture/target.svg">SVG</a><a href="files/architecture/target.mmd.html">Mermaid</a></figcaption>
+    <figcaption><span>Target ($target_cloud, proposed)</span><a href="report/architecture/target.svg">SVG</a><a href="files/architecture/target.mmd.html">Mermaid</a></figcaption>
     <a href="report/architecture/target.svg"><img src="report/architecture/target.svg" alt="Proposed STACKIT target architecture diagram" loading="lazy"></a>
   </figure>
   <figure class="diagram">
     <figcaption><span>Delta (what changes)</span><a href="report/architecture/delta.svg">SVG</a><a href="files/architecture/delta.mmd.html">Mermaid</a></figcaption>
     <a href="report/architecture/delta.svg"><img src="report/architecture/delta.svg" alt="Delta diagram between the AWS source and the STACKIT target" loading="lazy"></a>
   </figure>
-  <p class="note">Also in the package: <a href="report/architecture/network-security.svg">network and security</a>, <a href="report/architecture/data-flows.svg">data flows</a>, and the Mermaid-only <a href="files/architecture/dependencies.mmd.html">dependency</a> and <a href="files/architecture/identity.mmd.html">identity</a> views.</p>
+  <p class="note">Also in the package: $other_diagrams.</p>
 </section>
 
 <section id="readiness" class="block" aria-labelledby="readiness-h">
@@ -136,11 +124,11 @@
 
 <section id="terraform" class="block" aria-labelledby="terraform-h">
   <h2 id="terraform-h">Generated infrastructure</h2>
-  <p>The STACKIT Terraform draft as StackToIT wrote it: $drafted units generated, $variables variables, OpenTofu static validation <span class="state st-passed">PASSED</span>. It is a draft for an architect, validated against the provider schema, never planned against a live project. Each file opens in a read-only viewer; the raw file is linked from there.</p>
+  <p>The $target_cloud Terraform draft as StackToIT wrote it: $drafted of the $units_considered units the draft considered ($units present in the source, $plan_time_units decided only when OpenTofu plans) have a generated resource; $no_resource need none and $manual_units are left to the architect. $variables variables. OpenTofu static validation <span class="state st-$draft_validation_cls">$draft_validation</span>. It is a draft for an architect, validated against the provider schema, never planned against a live project. Each file opens in a read-only viewer; the raw file is linked from there.</p>
   $tf_tree
   <h3>Plans and documents</h3>
   <ul class="files">$docs_list</ul>
-  <p class="note">The execution package under <a href="report/execution/">execution/</a> holds the Terraform apply notes, the four STACKIT API scripts and the manual actions; <a href="report/migration/">migration/</a> holds the waves, work packages and data-movement plan as CSV, Markdown and JSON.</p>
+  <p class="note">The execution package under <a href="report/execution/">execution/</a> holds the Terraform apply notes, the $target_cloud API scripts and the manual actions; <a href="report/migration/">migration/</a> holds the waves, work packages and data-movement plan as CSV, Markdown and JSON.</p>
 </section>
 
 <section id="report" class="block" aria-labelledby="report-h">

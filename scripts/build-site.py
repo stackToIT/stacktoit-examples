@@ -51,6 +51,18 @@ def render(name: str, **kw) -> str:
     return tpl(name).safe_substitute(**kw)
 
 
+ATTRIBUTIONS: list[str] = []  # filled from every example's source.attribution before any page is written
+
+
+def page(root: str, title: str, description: str, body: str, nav_examples: str = "") -> str:
+    return render("base.html", root=root, title=title, description=description, body=body, nav_examples=nav_examples,
+                  attributions=" ".join(E(a) for a in ATTRIBUTIONS))
+
+
+def state_cls(state: str) -> str:
+    return state.lower().replace("_", "-").replace(" ", "-")
+
+
 def fmt(n) -> str:
     return f"{n:,}" if isinstance(n, int) else str(n)
 
@@ -179,10 +191,10 @@ def field(label: str, value: str, cls: str = "") -> str:
 
 def validation_rows(v: dict) -> str:
     rows = [
-        ("Source completeness", "PARTIAL", "8 units are decided only when OpenTofu plans (count/for_each)"),
+        ("Source completeness", v["source_completeness"]["state"], v["source_completeness"]["detail"]),
         ("Source provider", v["source_provider"]["state"], v["source_provider"]["detail"]),
         ("Source validation (OpenTofu)", v["source_opentofu"]["state"], v["source_opentofu"]["reason"]),
-        ("Draft generation", "GENERATED", "a STACKIT Terraform draft was written to terraform/"),
+        ("Draft generation", v["draft_generation"]["state"], v["draft_generation"]["detail"]),
         ("Draft checks (StackToIT)", v["draft_checks"]["state"], v["draft_checks"]["detail"]),
         ("Global invariants", v["global_invariants"]["state"], v["global_invariants"]["detail"]),
         ("Draft validation (OpenTofu)", v["draft_opentofu"]["state"], v["draft_opentofu"]["detail"]),
@@ -190,7 +202,7 @@ def validation_rows(v: dict) -> str:
     ]
     rows += [(r["id"].replace("_", " ").title(), r["state"], r["detail"]) for r in v["not_established"]]
     return "".join(
-        f'<tr><th scope="row">{E(n)}</th><td><span class="state st-{s.lower().replace("_", "-")}">{E(s)}</span></td><td>{E(d)}</td></tr>'
+        f'<tr><th scope="row">{E(n)}</th><td><span class="state st-{state_cls(s)}">{E(s)}</span></td><td>{E(d)}</td></tr>'
         for n, s, d in rows)
 
 
@@ -211,11 +223,10 @@ def file_tree(out: Path, sub: str, viewer_prefix: str, report_prefix: str) -> tu
 
 def write_viewer(dst: Path, title: str, rel: str, body_html: str, root: str, kind: str, raw_href: str, example_title: str, example_href: str) -> None:
     dst.parent.mkdir(parents=True, exist_ok=True)
-    page = render("viewer.html", title=E(title), rel=E(rel), body=body_html, kind=kind, raw_href=E(raw_href),
+    body = render("viewer.html", title=E(title), rel=E(rel), body=body_html, kind=kind, raw_href=E(raw_href),
                   example_title=E(example_title), example_href=E(example_href))
-    dst.write_text(render("base.html", root=root, title=f"{E(title)} · {E(example_title)} · StackToIT Examples",
-                          description=E(f"{rel} from the StackToIT migration package for {example_title}"),
-                          body=page, nav_examples="is-current" if False else ""))
+    dst.write_text(page(root, f"{E(title)} · {E(example_title)} · StackToIT Examples",
+                        E(f"{rel} from the StackToIT migration package for {example_title}"), body))
 
 
 def write_listings(report_copy: Path, meta: dict) -> None:
@@ -239,9 +250,8 @@ def write_listings(report_copy: Path, meta: dict) -> None:
                 f'the run\'s own files are listed in <a href="{up}manifest.json">manifest.json</a>.</p>'
                 f'<ul class="files">{rows}</ul><p class="note" style="margin-top:16px"><a href="{up}../index.html">Back to the example</a></p></div>')
         root = "../" * (depth + 3)  # report/<rel> is under examples/<id>/report/
-        (d / "index.html").write_text(render("base.html", root=root, title=f"{E(rel)}/ · {E(meta['title'])} · StackToIT Examples",
-                                             description=E(f"Folder listing of {rel}/ in the StackToIT package for {meta['title']}"),
-                                             body=body, nav_examples=""))
+        (d / "index.html").write_text(page(root, f"{E(rel)}/ · {E(meta['title'])} · StackToIT Examples",
+                                           E(f"Folder listing of {rel}/ in the StackToIT package for {meta['title']}"), body))
 
 
 # ---------------------------------------------------------------- pages
@@ -285,9 +295,29 @@ def build_example(meta: dict, ex_dir: Path, out_dir: Path) -> dict:
         f'<li><a href="report/pages/{E(p.name)}">{E(p.stem.replace("-", " "))}</a></li>' for p in sorted(pages_dir.glob("*.html"))) if pages_dir.is_dir() else ""
 
     findings = "".join(f'<li><h4>{E(f["title"])}</h4><p>{E(f["text"])}</p></li>' for f in meta["key_findings"])
-    apps = "".join(
-        f'<tr><th scope="row">{E(a["name"])}</th><td><span class="state st-{a["state"].lower().replace("_", "-")}">{E(a["state"].replace("_", " "))}</span></td><td>{E(a["why"])}</td></tr>'
-        for a in ap["list"])
+    arch = report / meta["report"]["architecture_dir"]
+    shown = {"current", "target", "delta"}
+    others = []
+    for stem in sorted({p.stem for p in arch.glob("*.mmd")} | {p.stem for p in arch.glob("*.svg")}):
+        if stem in shown:
+            continue
+        label = stem.replace("-", " ")
+        if (arch / f"{stem}.svg").exists():
+            others.append(f'<a href="report/{meta["report"]["architecture_dir"]}/{stem}.svg">{E(label)}</a>')
+        else:
+            others.append(f'<a href="files/{meta["report"]["architecture_dir"]}/{stem}.mmd.html">{E(label)}</a> (Mermaid only)')
+    other_diagrams = ", ".join(others) if others else "no further views"
+    applications_block = ""
+    if ap.get("list"):
+        applications_block = render("applications.html", apps_total=fmt(ap["total"]), apps_ready=fmt(ap["ready"]), apps_blocked=fmt(ap.get("blocked", 0)),
+                                    apps_redesign=fmt(ap.get("redesign", 0)), apps_not_ready=fmt(ap.get("not_ready", 0)), apps_rows="".join(
+            f'<tr><th scope="row">{E(a["name"])}</th><td><span class="state st-{state_cls(a["state"])}">{E(a["state"].replace("_", " "))}</span></td><td>{E(a["why"])}</td></tr>'
+            for a in ap["list"]))
+    cost_block = ""
+    if cost:
+        cost_block = render("cost.html", cost_comparison=E(cost["comparison"]), cost_cls=state_cls(cost["comparison"]), cost_why=E(cost["why"]),
+                            cost_stackit=E(cost.get("stackit_partial_eur", "")), cost_stackit_lines=E(cost.get("stackit_lines_priced", "")),
+                            cost_source_lines=E(cost.get("source_lines_priced", "")), price_source=E(cost.get("price_source", "")), target_cloud=E(meta["target"]["cloud"]))
     domains = ", ".join(f"{E(k)} {n}" for k, n in sorted(m.get("by_domain", {}).items(), key=lambda kv: -kv[1]))
 
     body = render(
@@ -298,6 +328,9 @@ def build_example(meta: dict, ex_dir: Path, out_dir: Path) -> dict:
         repo_url=E(meta["source"]["repository_url"]), commit=E(meta["source"]["commit"]), commit_short=E(meta["source"]["commit"][:12]),
         commit_url=E(meta["source"]["commit_url"]), tf_root=E(meta["source"]["terraform_root"]), tf_root_url=E(meta["source"]["terraform_root_url"]),
         source_license=E(meta["source"]["license"]), registry_modules=E(meta["source"].get("registry_modules", "")), source_note=E(meta["source"].get("note", "")),
+        source_description=E(meta["source"]["description"]), confidence_note=E(m.get("confidence_note", "")), other_diagrams=other_diagrams,
+        applications_block=applications_block, cost_block=cost_block,
+        draft_validation=E(v["draft_opentofu"]["state"]), draft_validation_cls=state_cls(v["draft_opentofu"]["state"]),
         iac=E(meta["source"]["iac"]),
         tool_version=E(meta["tool"]["version"]), tool_commit=E(meta["tool"]["commit"]), kb=E(meta["tool"]["kb_version"]), kb_sha=E(meta["tool"]["kb_sha256"]),
         schema=E(meta["tool"]["assessment_schema"]), opentofu=E(meta["tool"]["opentofu"]),
@@ -324,20 +357,15 @@ def build_example(meta: dict, ex_dir: Path, out_dir: Path) -> dict:
         live=E(rd.get("live_verification", "")),
         decisions_to_make=fmt(dc["decisions_to_make"]), defaults=fmt(dc.get("defaults_to_confirm", 0)), defaults_note=E(dc.get("defaults_to_confirm_note", "")),
         open_requests=fmt(dc["open_input_requests"]), blocking=fmt(dc.get("input_requests_blocking_draft", 0)), first_action=E(dc["first_required_action"]),
-        apps_total=fmt(ap["total"]), apps_ready=fmt(ap["ready"]), apps_blocked=fmt(ap.get("blocked", 0)), apps_redesign=fmt(ap.get("redesign", 0)),
-        apps_not_ready=fmt(ap.get("not_ready", 0)), apps_rows=apps,
-        cost_comparison=E(cost["comparison"]), cost_why=E(cost["why"]), cost_stackit=E(cost.get("stackit_partial_eur", "")),
-        cost_stackit_lines=E(cost.get("stackit_lines_priced", "")), cost_source_lines=E(cost.get("source_lines_priced", "")), price_source=E(cost.get("price_source", "")),
         validation_rows=validation_rows(v), findings=findings, tf_tree=tf_tree, docs_list=docs_list, report_pages=report_pages,
         published_files=fmt(meta["publication"]["published_files"]), manifest_files=fmt(meta["publication"]["manifest_files"]),
         outside_manifest=", ".join(E(x) for x in meta["publication"]["outside_manifest"]), outside_note=E(meta["publication"].get("outside_manifest_note", "")),
         pub_statement=E(meta["publication"]["statement"]),
         excluded=E(", ".join(meta["publication"]["excluded"]) or "none"), modified=E(", ".join(meta["publication"]["modified"]) or "none"),
     )
-    (dest / "index.html").write_text(render(
-        "base.html", root=root, title=f"{E(meta['title'])} · StackToIT Examples",
-        description=E(f"StackToIT migration assessment of {meta['title']} ({meta['source']['cloud']} → {meta['target']['cloud']}), run {meta['run']['date']}."),
-        body=body, nav_examples="is-current"))
+    (dest / "index.html").write_text(page(root, f"{E(meta['title'])} · StackToIT Examples",
+        E(f"StackToIT migration assessment of {meta['title']} ({meta['source']['cloud']} → {meta['target']['cloud']}), run {meta['run']['date']}."),
+        body, "is-current"))
     return {
         "href": f"examples/{ex_id}/", "meta": meta,
     }
@@ -356,21 +384,24 @@ def build_index(cards: list[dict], out_dir: Path) -> None:
             date=E(meta["run"]["date"]), tool_version=E(meta["tool"]["version"]), kb=E(meta["tool"]["kb_version"]),
             migration_ready=E(rd["migration_ready"]), package_state=E(ex["package_state"].replace("_", " ")),
             resources=fmt(m["resources"]), units=fmt(m["units"]), drafted=fmt(dr["generated"]), no_resource=fmt(dr["no_resource_needed"]),
+            units_considered=fmt(dr.get("units_considered", 0)), plan_time_units=fmt(m.get("plan_time_units", 0)), manual_units=fmt(dr["manual"]),
+            source_validation_cls=state_cls(m["validation"]["source_opentofu"]["state"]), draft_validation_cls=state_cls(m["validation"]["draft_opentofu"]["state"]),
             can_run=fmt(ex["automated_can_run_now"]), automated=fmt(ex["automated_steps"]), eligible=fmt(rd["automation_eligible_units"]),
             decisions=fmt(m["decisions"]["decisions_to_make"]), refused=fmt(ex["refused_steps"]),
             source_validation=E(m["validation"]["source_opentofu"]["state"].replace("_", " ")), draft_validation=E(m["validation"]["draft_opentofu"]["state"]),
             class_strip=class_strip(m["by_class"], m["units"]),
             first_finding=E(meta["key_findings"][0]["title"]) if meta["key_findings"] else "",
         ))
-    body = render("index.html", root="", cards="".join(rows), count=str(len(cards)), plural="" if len(cards) == 1 else "s")
-    (out_dir / "index.html").write_text(render(
-        "base.html", root="", title="StackToIT Examples",
-        description="Real migration assessments produced by StackToIT on public AWS Terraform projects: source estate, classifications, STACKIT Terraform draft, execution plan, open decisions.",
-        body=body, nav_examples="is-current"))
+    hero_actions = "".join(
+        f'<a class="btn btn-primary" href="{E(c["href"])}report/index.html">View the {E(c["meta"]["title"])} assessment</a>' for c in cards[:1]
+    ) + '<a class="btn btn-ghost" href="#register">Open the register</a><a class="btn btn-ghost" href="#reading">What the states mean</a>'
+    body = render("index.html", root="", cards="".join(rows), count=str(len(cards)), plural="" if len(cards) == 1 else "s", hero_actions=hero_actions)
+    (out_dir / "index.html").write_text(page("", "StackToIT Examples",
+        "Real migration assessments produced by StackToIT on public infrastructure-as-code projects: source estate, classifications, STACKIT Terraform draft, execution plan, open decisions.",
+        body, "is-current"))
     # GitHub Pages serves 404.html for any missing URL, at any depth, so this one page uses the project base path.
     not_found = render("404.html", root=BASE_PATH)
-    (out_dir / "404.html").write_text(render("base.html", root=BASE_PATH, title="Page not found · StackToIT Examples",
-                                             description="This page does not exist.", body=not_found, nav_examples=""))
+    (out_dir / "404.html").write_text(page(BASE_PATH, "Page not found · StackToIT Examples", "This page does not exist.", not_found))
 
 
 def main() -> int:
@@ -384,9 +415,10 @@ def main() -> int:
     shutil.copytree(SITE / "assets", out_dir / "assets")
     (out_dir / ".nojekyll").write_text("")
     shutil.copy(ROOT / "schema" / "example.schema.json", out_dir / "assets" / "example.schema.json")
+    metas = [json.loads((ex_dir / "example.json").read_text()) for ex_dir in sorted(p for p in EXAMPLES.iterdir() if p.is_dir())]
+    ATTRIBUTIONS.extend(dict.fromkeys(m["source"]["attribution"] for m in metas))
     cards = []
-    for ex_dir in sorted(p for p in EXAMPLES.iterdir() if p.is_dir()):
-        meta = json.loads((ex_dir / "example.json").read_text())
+    for ex_dir, meta in zip(sorted(p for p in EXAMPLES.iterdir() if p.is_dir()), metas):
         cards.append(build_example(meta, ex_dir, out_dir))
         print(f"built examples/{meta['id']}/")
     build_index(cards, out_dir)

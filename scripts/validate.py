@@ -140,6 +140,8 @@ def check_cross(ex_dir: Path, meta: dict, manifest: dict) -> None:
     for k, v in meta["metrics"]["by_confidence"].items():
         checks.append((f"metrics.by_confidence.{k}", v, by_conf.get(k, 0)))
     vm = {r["id"]: r["state"] for r in w["validation_matrix"]["rows"]}
+    checks.append(("validation.source_completeness.state", meta["metrics"]["validation"]["source_completeness"]["state"], vm["SOURCE_COMPLETENESS"]))
+    checks.append(("validation.draft_generation.state", meta["metrics"]["validation"]["draft_generation"]["state"], vm["DRAFT_GENERATION"]))
     checks.append(("validation.draft_checks.state", meta["metrics"]["validation"]["draft_checks"]["state"], vm["STACKTOIT_DRAFT_CHECKS"]))
     checks.append(("validation.global_invariants.state", meta["metrics"]["validation"]["global_invariants"]["state"], vm["GLOBAL_INVARIANTS"]))
     for row in meta["metrics"]["validation"]["not_established"]:
@@ -213,9 +215,53 @@ class LinkParser(html.parser.HTMLParser):
             self.ids.add(d["name"])
 
 
+PLACEHOLDER = re.compile(r"\$\{?[a-z][a-z0-9_]*\}?")
+SECRET_SHAPES = [
+    (re.compile(r"AKIA[0-9A-Z]{16}"), "AWS access key id"),
+    (re.compile(r"\bASIA[0-9A-Z]{16}\b"), "AWS session key id"),
+    (re.compile(r"\bgh[pousr]_[A-Za-z0-9]{20,}\b"), "GitHub token"),
+    (re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----"), "private key"),
+    (re.compile(r"\beyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{10,}\."), "JWT"),
+    (re.compile(r"(?i)\b(secret|token|password|passwd|api[_-]?key)\s*[:=]\s*['\"][^'\"\s]{8,}['\"]"), "credential assignment"),
+    (re.compile(r"(?<![\w/])/(?:Users|home)/[A-Za-z0-9._-]+/"), "absolute user path"),
+]
+EMAIL = re.compile(r"[A-Za-z0-9._%+-]+@(?!stacktoit\.com\b)[A-Za-z0-9.-]+\.[a-z]{2,}")
+
+
+def check_public_content(site: Path) -> None:
+    """Generic leak classes over everything the site publishes, authored pages and the copied report alike:
+    secret shapes, absolute user paths, e-mail addresses other than the project's, unresolved template placeholders
+    and HTML comments in the authored pages (the report keeps its own markup)."""
+    hits = 0
+    for p in sorted(site.rglob("*")):
+        if not p.is_file() or p.suffix in {".woff2", ".png", ".webp", ".svg"}:
+            continue
+        rel = p.relative_to(site).as_posix()
+        text = p.read_text(errors="replace")
+        for rx, what in SECRET_SHAPES:
+            if rx.search(text):
+                fail(f"public content: {what} in {rel}"); hits += 1
+        for m_ in EMAIL.finditer(text):
+            addr = m_.group(0)
+            if "@module." in addr or addr.endswith((".tf", ".this", ".aws", ".catalog", ".checkout", ".orders")):
+                continue  # plan step ids of the form name@module.x.y are not addresses
+            fail(f"public content: e-mail address {addr} in {rel}"); hits += 1; break
+        authored = p.suffix == ".html" and "/report/" not in f"/{rel}"
+        if authored:
+            if "/files/" in f"/{rel}":  # a viewer page embeds a file of the run; only the chrome around it is authored
+                text = re.sub(r'<div class="wrap viewer-body">.*?</main>', "", text, flags=re.S)
+            if PLACEHOLDER.search(text):
+                fail(f"public content: unresolved template placeholder {PLACEHOLDER.search(text).group(0)} in {rel}"); hits += 1
+            if "<!--" in text:
+                fail(f"public content: HTML comment in authored page {rel}"); hits += 1
+    if not hits:
+        ok("public content: no secret shapes, user paths, foreign e-mail addresses, placeholders or authored HTML comments")
+
+
 def check_site(site: Path) -> None:
     if not site.is_dir():
         fail(f"site folder {site} does not exist"); return
+    check_public_content(site)
     if not (site / ".nojekyll").exists():
         fail("site is missing .nojekyll (GitHub Pages would hide folders starting with _ and run Jekyll)")
     pages = sorted(site.rglob("*.html"))

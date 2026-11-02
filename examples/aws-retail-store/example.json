@@ -15,7 +15,9 @@
     "terraform_root_url": "https://github.com/aws-containers/retail-store-sample-app/tree/d7a380b843e0759e58754f74188ea18252a51415/terraform/ecs/default",
     "license": "MIT-0 (upstream LICENSE)",
     "registry_modules": "13 registry modules resolved by OpenTofu on 2026-10-26 (terraform-aws-modules, cloudposse)",
-    "note": "The estate was assessed exactly as published upstream: nothing in it was edited. It ships no .terraform.lock.hcl, which is why the source provider is UNPINNED and the source validation did not run."
+    "note": "The estate was assessed exactly as published upstream: nothing in it was edited. It ships no .terraform.lock.hcl, which is why the source provider is UNPINNED and the source validation did not run.",
+    "description": "The retail-store-sample-app by AWS Containers is a sample retail application: five services (ui, catalog, carts, checkout, orders) on Amazon ECS behind an Application Load Balancer, with Aurora (catalog, orders), DynamoDB (carts), OpenSearch (catalog), ElastiCache (checkout) and Amazon MQ as managed dependencies in one VPC. The estate assessed is its terraform/ecs/default root module and the local terraform/lib modules it calls.",
+    "attribution": "The source estate is the retail-store-sample-app published by AWS under MIT-0."
   },
   "target": {
     "cloud": "STACKIT",
@@ -61,8 +63,19 @@
       "MANUAL_REVIEW": 0,
       "BLOCKED": 0
     },
-    "by_confidence": { "HIGH": 0, "MEDIUM": 35, "LOW": 9 },
-    "by_domain": { "network": 16, "identity": 15, "compute": 6, "data": 5, "observability": 1, "messaging": 1 },
+    "by_confidence": {
+      "HIGH": 0,
+      "MEDIUM": 35,
+      "LOW": 9
+    },
+    "by_domain": {
+      "network": 16,
+      "identity": 15,
+      "compute": 6,
+      "data": 5,
+      "observability": 1,
+      "messaging": 1
+    },
     "draft": {
       "units_considered": 52,
       "generated": 38,
@@ -118,11 +131,31 @@
       "redesign": 2,
       "not_ready": 2,
       "list": [
-        { "name": "carts", "state": "REDESIGN", "why": "DynamoDB table is a REDESIGN (MongoDB Flex, data-model change)" },
-        { "name": "catalog", "state": "BLOCKED", "why": "OpenSearch engine downgrade 3.3 → 2 until tested or decided" },
-        { "name": "checkout", "state": "REDESIGN", "why": "shares the DynamoDB redesign; TLS-only Valkey endpoint for ElastiCache clients" },
-        { "name": "orders", "state": "NOT_READY", "why": "environment values required; workload identity undecided" },
-        { "name": "ui", "state": "NOT_READY", "why": "workload identity undecided; functional check not run" }
+        {
+          "name": "carts",
+          "state": "REDESIGN",
+          "why": "DynamoDB table is a REDESIGN (MongoDB Flex, data-model change)"
+        },
+        {
+          "name": "catalog",
+          "state": "BLOCKED",
+          "why": "OpenSearch engine downgrade 3.3 → 2 until tested or decided"
+        },
+        {
+          "name": "checkout",
+          "state": "REDESIGN",
+          "why": "shares the DynamoDB redesign; TLS-only Valkey endpoint for ElastiCache clients"
+        },
+        {
+          "name": "orders",
+          "state": "NOT_READY",
+          "why": "environment values required; workload identity undecided"
+        },
+        {
+          "name": "ui",
+          "state": "NOT_READY",
+          "why": "workload identity undecided; functional check not run"
+        }
       ]
     },
     "cost": {
@@ -134,28 +167,62 @@
       "price_source": "StackToIT price cache (STACKIT list prices retrieved 2026-10-26); AWS prices not fetched because the region is not stated in the source"
     },
     "validation": {
-      "source_opentofu": {
-        "state": "NOT_RUN",
-        "reason": "PROVIDER_NOT_IN_MIRROR — the source pins no provider version (no .terraform.lock.hcl) and hashicorp/aws, hashicorp/random were not in the provider mirror; nothing was downloaded. Neither a pass nor a failure."
+      "source_completeness": {
+        "state": "PARTIAL",
+        "detail": "source status RUNTIME_TOPOLOGY_PARTIAL: 8 units have a count/for_each decided only when OpenTofu plans"
       },
       "source_provider": {
         "state": "UNPINNED",
         "detail": "aws constraint ~> 5.0, tested against 5.100.0; confidence capped at MEDIUM, no automation eligibility until a lock file pins the version"
       },
+      "source_opentofu": {
+        "state": "NOT_RUN",
+        "reason": "PROVIDER_NOT_IN_MIRROR — the source pins no provider version (no .terraform.lock.hcl) and hashicorp/aws, hashicorp/random were not in the provider mirror; nothing was downloaded. Neither a pass nor a failure."
+      },
+      "draft_generation": {
+        "state": "GENERATED",
+        "detail": "a STACKIT Terraform draft was written to terraform/"
+      },
+      "draft_checks": {
+        "state": "PASSED",
+        "detail": "100 StackToIT draft checks, none found a violation"
+      },
+      "global_invariants": {
+        "state": "PASSED",
+        "detail": "12 of 12 invariants PASS"
+      },
       "draft_opentofu": {
         "state": "PASSED",
         "detail": "tofu init -backend=false and tofu validate accepted the draft (OpenTofu 1.13.1) — static validation against the pinned STACKIT provider schema, not target behaviour, not approval"
       },
-      "draft_checks": { "state": "PASSED", "detail": "100 StackToIT draft checks, none found a violation" },
-      "global_invariants": { "state": "PASSED", "detail": "12 of 12 invariants PASS" },
-      "manifest": { "state": "VERIFIED", "detail": "143 files match manifest.json; schema, run id, basis, inputs digest and invalidation keys PASS" },
+      "manifest": {
+        "state": "VERIFIED",
+        "detail": "143 files match manifest.json; schema, run id, basis, inputs digest and invalidation keys PASS"
+      },
       "not_established": [
-        { "id": "STACKIT_PLAN", "state": "NOT_RUN", "detail": "no OpenTofu plan was run against a live STACKIT project" },
-        { "id": "ARCHITECT_APPROVAL", "state": "NOT_PROVIDED", "detail": "the draft is a proposal; nobody has approved it" },
-        { "id": "SEMANTIC_EQUIVALENCE", "state": "NOT_ASSESSED", "detail": "equivalence of source and target behaviour is not asserted" },
-        { "id": "SAFE_TO_APPLY", "state": "NOT_ASSERTED", "detail": "nothing in the package says the draft is safe to apply" }
+        {
+          "id": "STACKIT_PLAN",
+          "state": "NOT_RUN",
+          "detail": "no OpenTofu plan was run against a live STACKIT project"
+        },
+        {
+          "id": "ARCHITECT_APPROVAL",
+          "state": "NOT_PROVIDED",
+          "detail": "the draft is a proposal; nobody has approved it"
+        },
+        {
+          "id": "SEMANTIC_EQUIVALENCE",
+          "state": "NOT_ASSESSED",
+          "detail": "equivalence of source and target behaviour is not asserted"
+        },
+        {
+          "id": "SAFE_TO_APPLY",
+          "state": "NOT_ASSERTED",
+          "detail": "nothing in the package says the draft is safe to apply"
+        }
       ]
-    }
+    },
+    "confidence_note": "capped at MEDIUM: the source provider is unpinned"
   },
   "key_findings": [
     {
@@ -195,7 +262,13 @@
   "publication": {
     "published_files": 147,
     "manifest_files": 142,
-    "outside_manifest": ["manifest.json", "review/applications.yaml", "review/decisions.yaml", "review/inputs.yaml", "review/progress.yaml"],
+    "outside_manifest": [
+      "manifest.json",
+      "review/applications.yaml",
+      "review/decisions.yaml",
+      "review/inputs.yaml",
+      "review/progress.yaml"
+    ],
     "outside_manifest_note": "review/ is the customer's answer area the run writes beside its files; it is excluded from the manifest by design. manifest.json lists every other file.",
     "excluded": [],
     "modified": [],
