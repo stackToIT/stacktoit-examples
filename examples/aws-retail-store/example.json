@@ -227,7 +227,7 @@
   "key_findings": [
     {
       "title": "Nothing is DIRECT",
-      "text": "All 44 present units need at least a reconfiguration: 34 RECONFIGURE, 9 REPLATFORM (Aurora → MariaDB/PostgreSQL Flex, OpenSearch, ElastiCache → Key Value Store, Amazon MQ → RabbitMQ, ECS → SKE), 1 REDESIGN (DynamoDB has no STACKIT counterpart; MongoDB Flex or PostgreSQL JSONB are the named options)."
+      "text": "All 44 present units need at least a reconfiguration: 34 RECONFIGURE, 9 REPLATFORM (ECS → SKE, Aurora → MariaDB/PostgreSQL Flex, OpenSearch), 1 REDESIGN (DynamoDB has no STACKIT counterpart; MongoDB Flex or PostgreSQL JSONB are the named options)."
     },
     {
       "title": "The source provider is unpinned, so the source was not validated",

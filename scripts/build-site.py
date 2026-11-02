@@ -48,6 +48,13 @@ def tpl(name: str) -> Template:
     return Template((TEMPLATES / name).read_text())
 
 
+EXAMPLE_ROOT = "examples"  # GitHub Pages keeps examples/<id>/; Cloudflare serves /examples/<id>/ with no second folder
+EXAMPLE_DEPTH = 2
+CANONICAL_MARK = "@@CANONICAL@@"
+RELATIVE_INDEX_LINK = re.compile(r'href="((?![a-z]+:|//|#)[^"#]*/)?index\.html(#[^"]*)?"')
+RELATIVE_HTML_LINK = re.compile(r'href="((?![a-z]+:|//|#)[^"#]*)\.html(#[^"]*)?"')
+
+
 def render(name: str, **kw) -> str:
     return tpl(name).safe_substitute(**kw)
 
@@ -250,7 +257,7 @@ def write_listings(report_copy: Path, meta: dict) -> None:
                 f'<p class="note">Folder of the StackToIT package for {E(meta["title"])}. This listing page is generated for the web site and is not a file of the run; '
                 f'the run\'s own files are listed in <a href="{up}manifest.json">manifest.json</a>.</p>'
                 f'<ul class="files">{rows}</ul><p class="note" style="margin-top:16px"><a href="{up}../index.html">Back to the example</a></p></div>')
-        root = "../" * (depth + 3)  # report/<rel> is under examples/<id>/report/
+        root = "../" * (depth + 1 + EXAMPLE_DEPTH)  # report/<rel> is under <examples root>/<id>/report/
         (d / "index.html").write_text(page(root, f"{E(rel)}/ · {E(meta['title'])} · StackToIT Examples",
                                            E(f"Folder listing of {rel}/ in the StackToIT package for {meta['title']}"), body))
 
@@ -259,8 +266,8 @@ def write_listings(report_copy: Path, meta: dict) -> None:
 
 def build_example(meta: dict, ex_dir: Path, out_dir: Path) -> dict:
     ex_id = meta["id"]
-    root = "../../"
-    dest = out_dir / "examples" / ex_id
+    root = "../" * EXAMPLE_DEPTH
+    dest = out_dir / EXAMPLE_ROOT / ex_id
     report = ex_dir / "output"
     shutil.copytree(report, dest / "report", dirs_exist_ok=True)
     shutil.copy(ex_dir / "example.json", dest / "example.json")
@@ -281,7 +288,7 @@ def build_example(meta: dict, ex_dir: Path, out_dir: Path) -> dict:
         else:
             body = f'<pre class="code" tabindex="0"><code>{E(text)}</code></pre>'; kind = "file"
         depth = len(Path(rel).parts)  # files/<rel>.html is under examples/<id>/files/..., the root is depth+1 up
-        vroot = "../" * (depth + 2)
+        vroot = "../" * (depth + EXAMPLE_DEPTH)
         write_viewer(dest / "files" / f"{rel}.html", Path(rel).name, rel, body, vroot, kind,
                      raw_href="../" * depth + "report/" + rel, example_title=meta["title"], example_href="../" * depth + "index.html")
 
@@ -370,7 +377,7 @@ def build_example(meta: dict, ex_dir: Path, out_dir: Path) -> dict:
         E(f"StackToIT migration assessment of {meta['title']} ({meta['source']['cloud']} → {meta['target']['cloud']}), run {meta['run']['date']}."),
         body, "is-current"))
     return {
-        "href": f"examples/{ex_id}/", "meta": meta,
+        "href": f"{EXAMPLE_ROOT}{'/' if EXAMPLE_ROOT else ''}{ex_id}/", "meta": meta,
     }
 
 
@@ -414,11 +421,42 @@ def build_index(cards: list[dict], out_dir: Path) -> None:
     (out_dir / "404.html").write_text(page(BASE_PATH, "Page not found · StackToIT Examples", "This page does not exist.", not_found))
 
 
+def finish_generated_pages(out_dir: Path, clean_urls: bool) -> None:
+    """Point every generated page at its canonical URL on stacktoit.com. The copied report pages hold no marker and stay byte for byte."""
+    for p in sorted(out_dir.rglob("*.html")):
+        html = p.read_text(encoding="utf-8")
+        if CANONICAL_MARK not in html:
+            continue
+        rel = p.relative_to(out_dir).as_posix()
+        if rel == "404.html":
+            html = html.replace(f'<link rel="canonical" href="{CANONICAL_MARK}">\n', "")
+        else:
+            path = rel[: -len("index.html")] if rel.endswith("index.html") else rel[: -len(".html")]
+            path = path.removeprefix("examples/")  # the same page has one canonical URL from either build
+            html = html.replace(CANONICAL_MARK, E(SITE_CONFIG["canonical_base"] + path))
+            html = RELATIVE_INDEX_LINK.sub(lambda m: f'href="{m[1] or "./"}{m[2] or ""}"', html)
+            if clean_urls:  # Cloudflare redirects foo.html to foo, so link straight to the final URL
+                html = RELATIVE_HTML_LINK.sub(r'href="\1\2"', html)
+        p.write_text(html, encoding="utf-8")
+
+
+def write_cloudflare_files(assets_dir: Path, example_ids: list[str]) -> None:
+    (assets_dir / ".assetsignore").write_text(".nojekyll\n")
+    rules = "/examples/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n"
+    rules += "".join(f"/examples/{i}/report/*\n  X-Robots-Tag: noindex\n" for i in example_ids)  # a rule allows one splat, so one rule per example
+    (assets_dir / "_headers").write_text(rules)
+
+
 def main() -> int:
+    global BASE_PATH, EXAMPLE_ROOT, EXAMPLE_DEPTH
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", type=Path, default=ROOT / "_site")
+    ap.add_argument("--target", choices=("pages", "cloudflare"), default="pages")
+    ap.add_argument("--out", type=Path)
     args = ap.parse_args()
-    out_dir = args.out.resolve()
+    cloudflare = args.target == "cloudflare"
+    if cloudflare:
+        BASE_PATH, EXAMPLE_ROOT, EXAMPLE_DEPTH = "/examples/", "", 1
+    out_dir = (args.out or ROOT / ("_cf/examples" if cloudflare else "_site")).resolve()
     if out_dir.exists():
         shutil.rmtree(out_dir)
     out_dir.mkdir(parents=True)
@@ -430,8 +468,11 @@ def main() -> int:
     cards = []
     for ex_dir, meta in zip(sorted(p for p in EXAMPLES.iterdir() if p.is_dir()), metas):
         cards.append(build_example(meta, ex_dir, out_dir))
-        print(f"built examples/{meta['id']}/")
+        print(f"built {meta['id']}")
     build_index(cards, out_dir)
+    finish_generated_pages(out_dir, cloudflare)
+    if cloudflare:
+        write_cloudflare_files(out_dir.parent, [m["id"] for m in metas])
     n = sum(1 for _ in out_dir.rglob("*") if _.is_file())
     print(f"site written to {out_dir} ({n} files)")
     return 0

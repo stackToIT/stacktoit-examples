@@ -328,6 +328,8 @@ pre.code { margin: 0; background: var(--sheet); border: 1px solid var(--rule); b
 .prose ul, .prose ol { padding-left: 1.4em; }
 .prose li { margin-bottom: 0.35em; }
 .prose code { background: var(--tint); padding: 1px 5px; border-radius: 2px; font-size: 0.86em; }
+.prose code { overflow-wrap: anywhere; }
+.prose table { display: block; overflow-x: auto; max-width: 100%; }
 .prose pre { background: var(--navy); color: var(--on-navy); padding: 14px 16px; border-radius: 3px; overflow-x: auto; }
 .prose pre code { background: transparent; padding: 0; color: inherit; }
 .prose blockquote { margin: 1em 0; padding: 10px 16px; border: 1px solid var(--amber-rule); background: var(--amber-bg); color: var(--amber-ink); border-radius: 3px; }

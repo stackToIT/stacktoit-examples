@@ -258,7 +258,7 @@ def check_public_content(site: Path) -> None:
         ok("public content: no secret shapes, user paths, foreign e-mail addresses, placeholders or authored HTML comments")
 
 
-def check_site(site: Path) -> None:
+def check_site(site: Path, clean_urls: bool = False) -> None:
     if not site.is_dir():
         fail(f"site folder {site} does not exist"); return
     check_public_content(site)
@@ -290,6 +290,8 @@ def check_site(site: Path) -> None:
             target = page if not target_path else (page.parent / target_path).resolve()
             if target.is_dir():
                 target = target / "index.html"
+            elif clean_urls and not target.exists() and target.with_name(target.name + ".html").exists():
+                target = target.with_name(target.name + ".html")
             checked += 1
             if not target.exists():
                 fail(f"{page.relative_to(site)}: broken link {ref!r}"); broken += 1; continue
@@ -300,7 +302,7 @@ def check_site(site: Path) -> None:
         ok(f"site: {checked} internal references in {len(pages)} pages resolve")
     # every published report file must be present in the site copy, byte for byte
     for ex_dir in sorted(p for p in EXAMPLES.iterdir() if p.is_dir()):
-        src = ex_dir / "output"; dst = site / "examples" / ex_dir.name / "report"
+        src = ex_dir / "output"; dst = site / ("" if clean_urls else "examples") / ex_dir.name / "report"
         mism = [str(p.relative_to(src)) for p in src.rglob("*") if p.is_file() and (not (dst / p.relative_to(src)).exists() or sha256(dst / p.relative_to(src)) != sha256(p))]
         if mism:
             fail(f"site: {len(mism)} report files differ from examples/{ex_dir.name}/output (e.g. {mism[0]})")
@@ -311,10 +313,11 @@ def check_site(site: Path) -> None:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--site", type=Path, help="built site folder to link-check")
+    ap.add_argument("--clean-urls", action="store_true", help="the site is built for Cloudflare, where foo serves foo.html")
     args = ap.parse_args()
     check_examples()
     if args.site:
-        check_site(args.site.resolve())
+        check_site(args.site.resolve(), args.clean_urls)
     print()
     if failures:
         print(f"{len(failures)} failure(s)")

@@ -2,8 +2,8 @@
 
 One StackToIT run on the ECS Terraform estate of the AWS Retail Store Sample App, published unchanged.
 
-**Example page:** https://stacktoit.github.io/stacktoit-examples/examples/aws-retail-store/
-**Full assessment:** https://stacktoit.github.io/stacktoit-examples/examples/aws-retail-store/report/index.html
+**Example page:** https://stacktoit.com/examples/examples/aws-retail-store/
+**Full assessment:** https://stacktoit.com/examples/examples/aws-retail-store/report/
 
 ## Source
 

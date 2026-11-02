@@ -2,6 +2,7 @@
   "repository_url": "https://github.com/stackToIT/stacktoit-examples",
   "repository_branch": "main",
   "pages_url": "https://stacktoit.github.io/stacktoit-examples/",
+  "canonical_base": "https://stacktoit.com/examples/",
   "hero": {
     "headline": "Turn AWS infrastructure into an actionable STACKIT migration plan.",
     "lede": "Analyze Terraform estates, map infrastructure to STACKIT services, generate target configurations, and organize the decisions needed to move forward.",

@@ -4,13 +4,13 @@ Real migration assessments produced by StackToIT on public AWS Terraform project
 
 StackToIT reads a Terraform estate and writes a migration package for STACKIT: the assessment of every resource, a STACKIT Terraform draft, an ordered execution plan and the decisions that are still open. This repository publishes such runs exactly as the tool wrote them, with the metadata needed to check them.
 
-**Site:** https://stacktoit.github.io/stacktoit-examples/
+**Site:** https://stacktoit.com/examples/
 
 ## Examples
 
 | Example | Source | Assessed | Result |
 |---|---|---|---|
-| [AWS Retail Store Sample App](examples/aws-retail-store/) | [aws-containers/retail-store-sample-app](https://github.com/aws-containers/retail-store-sample-app) @ `d7a380b8`, `terraform/ecs/default` | 2026-11-02 | 282 resources, 44 units · 34 RECONFIGURE / 9 REPLATFORM / 1 REDESIGN · 38 units drafted · migration ready: **NO** · [full assessment](https://stacktoit.github.io/stacktoit-examples/examples/aws-retail-store/report/index.html) |
+| [AWS Retail Store Sample App](examples/aws-retail-store/) | [aws-containers/retail-store-sample-app](https://github.com/aws-containers/retail-store-sample-app) @ `d7a380b8`, `terraform/ecs/default` | 2026-11-02 | 282 resources, 44 units · 34 RECONFIGURE / 9 REPLATFORM / 1 REDESIGN · 38 units drafted · migration ready: **NO** · [full assessment](https://stacktoit.com/examples/examples/aws-retail-store/report/) |
 
 ## What a run produces
 
@@ -55,3 +55,14 @@ Adding an example means adding `examples/<id>/` with `example.json`, `README.md`
 ## Licence
 
 All rights reserved — see [LICENSE.md](LICENSE.md). The source estate of each example keeps its upstream licence (the Retail Store Sample App is published by AWS under MIT-0).
+
+## Publishing
+
+The site is served at `https://stacktoit.com/examples/` by a Cloudflare Worker with static assets, built from this repository:
+
+```bash
+npm ci
+npm run deploy
+```
+
+GitHub Pages keeps serving the same content from `main` for existing links. Its generated pages name the `stacktoit.com` URL as canonical.
