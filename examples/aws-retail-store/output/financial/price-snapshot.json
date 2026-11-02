@@ -1,5 +1,5 @@
 {
-  "run_id": "f576c5a4-ff5f-4981-8b67-054d7359483f",
+  "run_id": "f6267c3f-2848-4aa5-89df-5fee8b15b3b9",
   "source_digest": "sha256:812c5ae3f6cc8530163abbf5b6fbe305ed3b363c4886ec6b87623db857ea0c70",
   "price_snapshot": {
     "statement": "These are list prices only: no quantity is read and no total is built from them here; the quantities, amounts and totals of the priced families are in financial/cost-model.json, and no usage and no egress is computed anywhere. This block names the snapshot of the public STACKIT price list the run cites and, for each drafted resource of a kind the price rules list, the list price of the one SKU a tested rule joins it to, or why it has none.",

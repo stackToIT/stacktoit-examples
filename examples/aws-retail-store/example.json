@@ -15,7 +15,7 @@
     "terraform_root_url": "https://github.com/aws-containers/retail-store-sample-app/tree/d7a380b843e0759e58754f74188ea18252a51415/terraform/ecs/default",
     "license": "MIT-0 (upstream LICENSE)",
     "registry_modules": "13 registry modules resolved by OpenTofu on 2026-10-26 (terraform-aws-modules, cloudposse)",
-    "note": "The estate was assessed exactly as published upstream: nothing in it was edited. It ships no .terraform.lock.hcl, which is why the source provider is UNPINNED and the source validation did not run.",
+    "note": "The estate was assessed exactly as published upstream: nothing in it was edited. It ships no .terraform.lock.hcl. Because of that the source provider is UNPINNED and the OpenTofu validation of the source did not run, even with a provider mirror prepared beforehand: StackToIT validates a source only against the provider versions its lock file records, and will not pick one for it.",
     "description": "The retail-store-sample-app by AWS Containers is a sample retail application: five services (ui, catalog, carts, checkout, orders) on Amazon ECS behind an Application Load Balancer, with Aurora (catalog, orders), DynamoDB (carts), OpenSearch (catalog), ElastiCache (checkout) and Amazon MQ as managed dependencies in one VPC. The estate assessed is its terraform/ecs/default root module and the local terraform/lib modules it calls.",
     "attribution": "The source estate is the retail-store-sample-app published by AWS under MIT-0."
   },
@@ -25,8 +25,8 @@
   },
   "tool": {
     "name": "StackToIT",
-    "version": "0.6.0-11557-ge42ad46ccc",
-    "commit": "e42ad46ccc",
+    "version": "0.6.0-11562-g1966ddf116",
+    "commit": "1966ddf116",
     "kb_version": "0.384.0",
     "kb_sha256": "fc24dfbd7370bd23bbae090adf2960acf5d9b4ac749be7362ac50053ceddc6d9",
     "assessment_schema": "0.24.0",
@@ -34,14 +34,14 @@
     "opentofu": "1.13.1"
   },
   "run": {
-    "run_id": "f576c5a4-ff5f-4981-8b67-054d7359483f",
-    "generated_at": "2026-11-02T11:24:38Z",
+    "run_id": "f6267c3f-2848-4aa5-89df-5fee8b15b3b9",
+    "generated_at": "2026-11-02T12:08:24Z",
     "date": "2026-11-02",
-    "mode": "online (default options; prices from the local price cache retrieved 2026-10-26)",
-    "command": "stacktoit assess terraform/ecs/default ./aws-retail-store",
-    "command_note": "Run from the vendored copy of the upstream repository; the output directory is this example's output/ folder, unchanged.",
+    "mode": "online (default options; a local OpenTofu provider mirror with hashicorp/aws 5.100.0 was prepared beforehand as the console suggests; prices from the local price cache retrieved 2026-10-26)",
+    "command": "stacktoit assess terraform/ecs/default ./aws-retail-store --provider-mirror /path/to/mirror",
+    "command_note": "Run from the vendored copy of the upstream repository. A local OpenTofu provider mirror (hashicorp/aws 5.100.0, the version the constraints resolve to) was prepared first with `tofu providers mirror`, as the first run's console suggested; the source validation still did not run because the source has no lock file. The output directory is this example's output/ folder, unchanged.",
     "verify_command": "stacktoit verify ./aws-retail-store",
-    "verify_result": "VERIFIED — 143 files match manifest.json (size and SHA-256); 6 of 6 checks PASS",
+    "verify_result": "VERIFIED — 143 files match manifest.json (size and SHA-256); 7 of 7 checks PASS",
     "source_digest": "sha256:812c5ae3f6cc8530163abbf5b6fbe305ed3b363c4886ec6b87623db857ea0c70"
   },
   "metrics": {
@@ -169,23 +169,23 @@
     "validation": {
       "source_completeness": {
         "state": "PARTIAL",
-        "detail": "source status RUNTIME_TOPOLOGY_PARTIAL: 8 units have a count/for_each decided only when OpenTofu plans"
+        "detail": "source status RUNTIME_TOPOLOGY_PARTIAL: 8 unit(s) have a count/for_each that is not known statically; whether and how often they exist is decided at plan time"
       },
       "source_provider": {
         "state": "UNPINNED",
-        "detail": "aws constraint ~> 5.0, tested against 5.100.0; confidence capped at MEDIUM, no automation eligibility until a lock file pins the version"
+        "detail": "aws constraints ~> 5.0, tested against 5.100.0; No lock file entry pins this provider, so the version a plan would use is not proven; the knowledge base was checked against one version only. Until the exact version is pinned (commit .terraform.lock.hcl), the units of this provider are capped at MEDIUM confidence and are not automation eligible."
       },
       "source_opentofu": {
         "state": "NOT_RUN",
-        "reason": "PROVIDER_NOT_IN_MIRROR — the source pins no provider version (no .terraform.lock.hcl) and hashicorp/aws, hashicorp/random were not in the provider mirror; nothing was downloaded. Neither a pass nor a failure."
+        "reason": "LOCK_FILE — the source has no dependency lock file (.terraform.lock.hcl), so provider identity and integrity cannot be verified; the validation never updates it (Provider dependency changes detected). No validation result exists; this is neither a pass nor a failure of the source."
       },
       "draft_generation": {
         "state": "GENERATED",
-        "detail": "a STACKIT Terraform draft was written to terraform/"
+        "detail": "the draft is in terraform/"
       },
       "draft_checks": {
         "state": "PASSED",
-        "detail": "100 StackToIT draft checks, none found a violation"
+        "detail": "100 checks, none found a violation"
       },
       "global_invariants": {
         "state": "PASSED",
@@ -193,32 +193,32 @@
       },
       "draft_opentofu": {
         "state": "PASSED",
-        "detail": "tofu init -backend=false and tofu validate accepted the draft (OpenTofu 1.13.1) — static validation against the pinned STACKIT provider schema, not target behaviour, not approval"
+        "detail": "tofu init -backend=false and tofu validate accepted the draft; tofu 1.13.1 — static validation of the draft against the pinned provider schema — not target behaviour, not approval"
       },
       "manifest": {
         "state": "VERIFIED",
-        "detail": "143 files match manifest.json; schema, run id, basis, inputs digest and invalidation keys PASS"
+        "detail": "143 files match manifest.json; EVIDENCE, SCHEMA, RUN_ID, BASIS, INPUTS_DIGEST, INVALIDATION_KEYS, EXECUTION_PLAN PASS"
       },
       "not_established": [
         {
           "id": "STACKIT_PLAN",
           "state": "NOT_RUN",
-          "detail": "no OpenTofu plan was run against a live STACKIT project"
+          "detail": "this build runs no plan against a STACKIT project"
         },
         {
           "id": "ARCHITECT_APPROVAL",
           "state": "NOT_PROVIDED",
-          "detail": "the draft is a proposal; nobody has approved it"
+          "detail": "no review decision is recorded for this run"
         },
         {
           "id": "SEMANTIC_EQUIVALENCE",
           "state": "NOT_ASSESSED",
-          "detail": "equivalence of source and target behaviour is not asserted"
+          "detail": "this build has no measure for it"
         },
         {
           "id": "SAFE_TO_APPLY",
           "state": "NOT_ASSERTED",
-          "detail": "nothing in the package says the draft is safe to apply"
+          "detail": "StackToIT never asserts it"
         }
       ]
     },
@@ -230,8 +230,8 @@
       "text": "All 44 present units need at least a reconfiguration: 34 RECONFIGURE, 9 REPLATFORM (Aurora → MariaDB/PostgreSQL Flex, OpenSearch, ElastiCache → Key Value Store, Amazon MQ → RabbitMQ, ECS → SKE), 1 REDESIGN (DynamoDB has no STACKIT counterpart; MongoDB Flex or PostgreSQL JSONB are the named options)."
     },
     {
-      "title": "The source provider is unpinned",
-      "text": "The upstream estate commits no .terraform.lock.hcl. StackToIT caps every unit at MEDIUM confidence, marks none automation-eligible, and names the two remedies (lock aws 5.100.0, or raise the constraint to ~> 6.0 and lock 6.67.0)."
+      "title": "The source provider is unpinned, so the source was not validated",
+      "text": "The upstream estate commits no .terraform.lock.hcl. StackToIT caps every unit at MEDIUM confidence, marks none automation-eligible, and does not run OpenTofu validation on the source, with or without a provider mirror, because no lock file states which provider version to validate against. It names the two remedies (commit a lock file with aws 5.100.0, or raise the constraint to ~> 6.0 and lock 6.67.0); only a lock file and a source validation show that either works."
     },
     {
       "title": "Catalog is deployment-blocked",

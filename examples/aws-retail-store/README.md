@@ -23,7 +23,7 @@ The source code itself is not republished here; the links above point to the exa
 
 | | |
 |---|---|
-| StackToIT | `0.6.0-11557-ge42ad46ccc` (commit `e42ad46ccc`) |
+| StackToIT | `0.6.0-11562-g1966ddf116` (commit `1966ddf116`) |
 | Knowledge base | `0.384.0` (sha256 `fc24dfbd7370bd23bbae090adf2960acf5d9b4ac749be7362ac50053ceddc6d9`) |
 | Assessment schema · manifest | `0.24.0` · `0.4.0` |
 | STACKIT provider | `0.121.0` |
@@ -33,11 +33,11 @@ The source code itself is not republished here; the links above point to the exa
 
 | | |
 |---|---|
-| Date | 2026-11-02 (`generated_at` 2026-11-02T11:24:38Z) |
-| Run id | `f576c5a4-ff5f-4981-8b67-054d7359483f` |
+| Date | 2026-11-02 (`generated_at` 2026-11-02T12:08:24Z) |
+| Run id | `f6267c3f-2848-4aa5-89df-5fee8b15b3b9` |
 | Source digest | `sha256:812c5ae3f6cc8530163abbf5b6fbe305ed3b363c4886ec6b87623db857ea0c70` |
-| Command | `stacktoit assess terraform/ecs/default ./aws-retail-store` — default options (online; prices from the local price cache retrieved 2026-10-26) |
-| Verification | `stacktoit verify ./aws-retail-store` → **VERIFIED**: 143 files match `manifest.json` (size and SHA-256); EVIDENCE, SCHEMA, RUN_ID, BASIS, INPUTS_DIGEST, INVALIDATION_KEYS all PASS |
+| Command | `stacktoit assess terraform/ecs/default ./aws-retail-store --provider-mirror DIR` — default options (online; prices from the local price cache retrieved 2026-10-26). `DIR` is a local OpenTofu provider mirror prepared first with `tofu providers mirror -platform=darwin_arm64 DIR` in the Terraform root (hashicorp/aws 5.100.0, hashicorp/random 3.7.x), as the first run's console suggested. |
+| Verification | `stacktoit verify ./aws-retail-store` → **VERIFIED**: 143 files match `manifest.json` (size and SHA-256); EVIDENCE, SCHEMA, RUN_ID, BASIS, INPUTS_DIGEST, INVALIDATION_KEYS, EXECUTION_PLAN all PASS |
 
 ## Validation, as the run recorded it
 
@@ -45,7 +45,7 @@ The source code itself is not republished here; the links above point to the exa
 |---|---|---|
 | Source completeness | PARTIAL | 8 units have a `count`/`for_each` decided only when OpenTofu plans |
 | Source provider | UNPINNED | `aws ~> 5.0`, no lock file; tested against 5.100.0; confidence capped at MEDIUM, no automation eligibility |
-| Source validation (OpenTofu) | NOT_RUN | `PROVIDER_NOT_IN_MIRROR`: hashicorp/aws and hashicorp/random were not in the provider mirror and nothing is downloaded during validation. Neither a pass nor a failure. |
+| Source validation (OpenTofu) | NOT_RUN | `LOCK_FILE`: the source has no `.terraform.lock.hcl`, so provider identity and integrity cannot be verified and StackToIT does not pick a version for it; a prepared provider mirror does not change this. Neither a pass nor a failure. |
 | Draft checks (StackToIT) | PASSED | 100 checks, no violation |
 | Global invariants | PASSED | 12 of 12 |
 | Draft validation (OpenTofu) | PASSED | `tofu init -backend=false` and `tofu validate` on the draft; static, against the provider schema |

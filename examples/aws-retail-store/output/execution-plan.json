@@ -1114,7 +1114,8 @@
               "success_condition": "A person decides whether the egress path must stay in one zone or per zone, because the STACKIT documentation does not state whether the implicit outbound path is scoped to a zone.",
               "decision": "DEC-NET-MODULE-VPC-MODULE-VPC-AWS-NAT-GATEWAY-THIS"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -1244,7 +1245,8 @@
               "success_condition": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
               "decision": "DEC-NET-MODULE-VPC-MODULE-VPC-AWS-ROUTE-TABLE-PRIVATE"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -1346,7 +1348,8 @@
               "success_condition": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
               "decision": "DEC-NET-MODULE-VPC-MODULE-VPC-AWS-ROUTE-TABLE-PUBLIC"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -1469,7 +1472,8 @@
               "success_condition": "A literal value or a resolved reference in the source closes it, or a person confirms the value.",
               "decision": "DEC-NET-MODULE-VPC-MODULE-VPC-AWS-SUBNET-PRIVATE"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -1602,7 +1606,8 @@
               "success_condition": "A literal value or a resolved reference in the source closes it, or a person confirms the value.",
               "decision": "DEC-NET-MODULE-VPC-MODULE-VPC-AWS-SUBNET-PUBLIC"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -1729,7 +1734,8 @@
               "success_condition": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
               "decision": "DEC-NET-MODULE-VPC-MODULE-VPC-AWS-VPC-THIS"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -2487,7 +2493,8 @@
               "success_condition": "This draft writes no stackit_security_group, stackit_security_group_rule for this unit: every unit that names the group is a managed data service of STACKIT, which has no security group and takes its clients from an access list of its own, so the group is listed by no resource and what it admitted reaches those access lists as addresses only. What follows states the knowledge base's candidate target, not a block of this draft: A person re-creates the rule with the STACKIT security group or address range it needs; the draft does not widen it (a stackit_security_group_rule without a source allows everything, pinned provider).",
               "decision": "DEC-NET-MODULE-DEPENDENCIES-AWS-SECURITY-GROUP-CATALOG-OPENSEARCH-SG"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -2570,7 +2577,8 @@
               "success_condition": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
               "decision": "DEC-NET-MODULE-DEPENDENCIES-AWS-SECURITY-GROUP-MQ"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -2607,6 +2615,7 @@
       "executable": true,
       "blocked_by": [],
       "shape": "AS-989e84d28196",
+      "shape_runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT",
       "aliases": [
         "MAN/semantic/module.dependencies.module.catalog_rds.aws_security_group.this/egress-restriction",
         "MAN/semantic/module.dependencies.module.catalog_rds.aws_security_group.this/network-topology-boundary",
@@ -2694,7 +2703,8 @@
               "success_condition": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
               "decision": "DEC-NET-MODULE-DEPENDENCIES-MODULE-CHECKOUT-ELASTICACHE-REDIS-M-D58733D0"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -2733,6 +2743,7 @@
       "executable": true,
       "blocked_by": [],
       "shape": "AS-989e84d28196",
+      "shape_runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT",
       "aliases": [
         "MAN/semantic/module.dependencies.module.orders_rds.aws_security_group.this/egress-restriction",
         "MAN/semantic/module.dependencies.module.orders_rds.aws_security_group.this/network-topology-boundary",
@@ -2814,7 +2825,8 @@
               "success_condition": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
               "decision": "DEC-SEC-MODULE-RETAIL-APP-ECS-AWS-SECRETSMANAGER-SECRET-CATALOG-DB"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -2908,7 +2920,8 @@
               "success_condition": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
               "decision": "DEC-SEC-MODULE-RETAIL-APP-ECS-AWS-SECRETSMANAGER-SECRET-CATALOG-F9E3300E"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -3148,7 +3161,8 @@
               "success_condition": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
               "decision": "DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-ALB-AWS-SECURITY-GROUP-THIS"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -3249,7 +3263,8 @@
               "success_condition": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
               "decision": "DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-ALB-SG-AWS-SECURITY-GROUP-68F6B862"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -3333,7 +3348,8 @@
               "success_condition": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
               "decision": "DEC-IAM-MODULE-RETAIL-APP-ECS-MODULE-CARTS-SERVICE-AWS-IAM-ROLE-0AE33885"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -3415,7 +3431,8 @@
               "success_condition": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
               "decision": "DEC-IAM-MODULE-RETAIL-APP-ECS-MODULE-CARTS-SERVICE-AWS-IAM-ROLE-527061DA"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -3517,7 +3534,8 @@
               "success_condition": "A person designs how the target enforces what the group allowed (attaches the group, or its replacement, to the target resources that take its place), or accepts the difference.",
               "decision": "DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-CARTS-SERVICE-AWS-SECURITY-6B55ABCF"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -3601,7 +3619,8 @@
               "success_condition": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
               "decision": "DEC-IAM-MODULE-RETAIL-APP-ECS-MODULE-CATALOG-SERVICE-AWS-IAM-RO-88D16913"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -3683,7 +3702,8 @@
               "success_condition": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
               "decision": "DEC-IAM-MODULE-RETAIL-APP-ECS-MODULE-CATALOG-SERVICE-AWS-IAM-RO-724FEFE1"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -3785,7 +3805,8 @@
               "success_condition": "A person designs how the target enforces what the group allowed (attaches the group, or its replacement, to the target resources that take its place), or accepts the difference.",
               "decision": "DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-CATALOG-SERVICE-AWS-SECURI-ACC9368F"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -3869,7 +3890,8 @@
               "success_condition": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
               "decision": "DEC-IAM-MODULE-RETAIL-APP-ECS-MODULE-CHECKOUT-SERVICE-AWS-IAM-R-7A7D9673"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -3951,7 +3973,8 @@
               "success_condition": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
               "decision": "DEC-IAM-MODULE-RETAIL-APP-ECS-MODULE-CHECKOUT-SERVICE-AWS-IAM-R-C6834CB6"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -4053,7 +4076,8 @@
               "success_condition": "A person designs how the target enforces what the group allowed (attaches the group, or its replacement, to the target resources that take its place), or accepts the difference.",
               "decision": "DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-CHECKOUT-SERVICE-AWS-SECUR-2F7B1E2F"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -4137,7 +4161,8 @@
               "success_condition": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
               "decision": "DEC-IAM-MODULE-RETAIL-APP-ECS-MODULE-ORDERS-SERVICE-AWS-IAM-ROL-05049202"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -4219,7 +4244,8 @@
               "success_condition": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
               "decision": "DEC-IAM-MODULE-RETAIL-APP-ECS-MODULE-ORDERS-SERVICE-AWS-IAM-ROL-967A9A65"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -4321,7 +4347,8 @@
               "success_condition": "A person designs how the target enforces what the group allowed (attaches the group, or its replacement, to the target resources that take its place), or accepts the difference.",
               "decision": "DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-ORDERS-SERVICE-AWS-SECURIT-D4CC95B3"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -4405,7 +4432,8 @@
               "success_condition": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
               "decision": "DEC-IAM-MODULE-RETAIL-APP-ECS-MODULE-UI-SERVICE-AWS-IAM-ROLE-TA-E93926D0"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -4487,7 +4515,8 @@
               "success_condition": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
               "decision": "DEC-IAM-MODULE-RETAIL-APP-ECS-MODULE-UI-SERVICE-AWS-IAM-ROLE-TASK-ROLE"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -4589,7 +4618,8 @@
               "success_condition": "A person designs how the target enforces what the group allowed (attaches the group, or its replacement, to the target resources that take its place), or accepts the difference.",
               "decision": "DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-UI-SERVICE-AWS-SECURITY-GROUP-THIS"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -7491,7 +7521,8 @@
               "success_condition": "A person lists the principals and conditions the policy names, decides how their separation is kept (one instance per trust level, or in the application) and puts the source ranges into sgw_acl.",
               "decision": "DEC-IAM-MODULE-DEPENDENCIES-MODULE-CATALOG-OPENSEARCH-AWS-OPENS-0034548E"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -7554,7 +7585,8 @@
               "success_condition": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
               "decision": "DEC-NET-MODULE-DEPENDENCIES-MODULE-CATALOG-OPENSEARCH-AWS-OPENS-0034548E"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -7634,7 +7666,8 @@
               "success_condition": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
               "decision": "DEC-OPS-MODULE-DEPENDENCIES-MODULE-CATALOG-OPENSEARCH-AWS-OPENS-0034548E"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -7711,7 +7744,8 @@
               "success_condition": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
               "decision": "DEC-DATA-MODULE-DEPENDENCIES-MODULE-CATALOG-RDS-AWS-RDS-CLUSTER-THIS"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -7746,6 +7780,7 @@
       "executable": true,
       "blocked_by": [],
       "shape": "AS-6cba00bd25b9",
+      "shape_runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT",
       "aliases": [
         "MAN/semantic/module.dependencies.module.catalog_rds.aws_rds_cluster.this/db-network-placement",
         "MAN/semantic/module.dependencies.module.catalog_rds.aws_rds_cluster.this/member-settings",
@@ -7821,7 +7856,8 @@
               "success_condition": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
               "decision": "DEC-OPS-MODULE-DEPENDENCIES-MODULE-CATALOG-RDS-AWS-RDS-CLUSTER-THIS"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -7894,7 +7930,8 @@
               "success_condition": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
               "decision": "DEC-SEC-MODULE-DEPENDENCIES-MODULE-CATALOG-RDS-AWS-RDS-CLUSTER-THIS"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -7989,7 +8026,8 @@
               "success_condition": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
               "decision": "DEC-DATA-MODULE-DEPENDENCIES-MODULE-CHECKOUT-ELASTICACHE-REDIS-A-D6A5B374"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -8069,7 +8107,8 @@
               "success_condition": "A person confirms the instance name the target uses against what refers to the replication group id, or accepts the new name.",
               "decision": "DEC-OPS-MODULE-DEPENDENCIES-MODULE-CHECKOUT-ELASTICACHE-REDIS-A-D6A5B374"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -8131,7 +8170,8 @@
               "success_condition": "A person confirms that clients reach the cache over TLS on the target, so that data and the authentication token are not sent in clear.",
               "decision": "DEC-SEC-MODULE-DEPENDENCIES-MODULE-CHECKOUT-ELASTICACHE-REDIS-A-D6A5B374"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -8235,7 +8275,8 @@
               "success_condition": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
               "decision": "DEC-DATA-MODULE-DEPENDENCIES-MODULE-DYNAMODB-CARTS-AWS-DYNAMODB-2133F4BE"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -8296,7 +8337,8 @@
               "success_condition": "A person confirms the name the replacement collection carries on the target against what refers to the source name, or accepts the new name.",
               "decision": "DEC-OPS-MODULE-DEPENDENCIES-MODULE-DYNAMODB-CARTS-AWS-DYNAMODB-2133F4BE"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -8380,6 +8422,7 @@
       "executable": true,
       "blocked_by": [],
       "shape": "AS-6cba00bd25b9",
+      "shape_runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT",
       "aliases": [
         "MAN/semantic/module.dependencies.module.orders_rds.aws_rds_cluster.this/db-network-placement",
         "MAN/semantic/module.dependencies.module.orders_rds.aws_rds_cluster.this/member-settings",
@@ -8435,7 +8478,8 @@
               "success_condition": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
               "decision": "DEC-SEC-MODULE-DEPENDENCIES-MODULE-ORDERS-RDS-AWS-RDS-CLUSTER-THIS"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -9041,7 +9085,8 @@
               "success_condition": "A person confirms the user names the clients log in with; STACKIT generates each RabbitMQ credential's username, so the clients move to the new usernames.",
               "decision": "DEC-IAM-MODULE-DEPENDENCIES-AWS-MQ-BROKER-MQ"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -9111,7 +9156,8 @@
               "success_condition": "A person confirms the broker name the target uses against what refers to the source broker name, or accepts the new name.",
               "decision": "DEC-OPS-MODULE-DEPENDENCIES-AWS-MQ-BROKER-MQ"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -9172,7 +9218,8 @@
               "success_condition": "A person hands the clients the password of the generated target credential instead of the literal in the source.",
               "decision": "DEC-SEC-MODULE-DEPENDENCIES-AWS-MQ-BROKER-MQ"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -9262,7 +9309,8 @@
               "success_condition": "A literal value or a resolved reference in the source closes it, or a person confirms the value.",
               "decision": "DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-ALB-AWS-LB-THIS"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -9335,7 +9383,8 @@
               "success_condition": "A person confirms the name the load balancer carries on the target against what refers to the source name, or accepts the new name.",
               "decision": "DEC-OPS-MODULE-RETAIL-APP-ECS-MODULE-ALB-AWS-LB-THIS"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -9371,6 +9420,7 @@
       "executable": true,
       "blocked_by": [],
       "shape": "AS-d20a67850e9c",
+      "shape_runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT",
       "aliases": [
         "MAN/semantic/module.retail_app_ecs.module.carts_service.aws_ecs_service.this/service-execute-command",
         "MAN/semantic/module.retail_app_ecs.module.carts_service.aws_ecs_service.this/service-task-definition",
@@ -9392,6 +9442,7 @@
       "executable": true,
       "blocked_by": [],
       "shape": "AS-cc8bc6da40b8",
+      "shape_runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT",
       "aliases": [
         "MAN/semantic/module.retail_app_ecs.module.carts_service.aws_ecs_service.this/service-connect-values",
         "MAN/semantic/module.retail_app_ecs.module.carts_service.aws_ecs_service.this/service-discovery",
@@ -9414,6 +9465,7 @@
       "executable": true,
       "blocked_by": [],
       "shape": "AS-54e0c354abc0",
+      "shape_runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT",
       "aliases": [
         "MAN/semantic/module.retail_app_ecs.module.carts_service.aws_ecs_service.this/service-desired-count",
         "MAN/semantic/module.retail_app_ecs.module.carts_service.aws_ecs_service.this/task-definition"
@@ -9478,7 +9530,8 @@
               "success_condition": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
               "decision": "DEC-SEC-MODULE-RETAIL-APP-ECS-MODULE-CARTS-SERVICE-AWS-ECS-SERVICE-THIS"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -9560,7 +9613,8 @@
               "success_condition": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
               "decision": "DEC-IAM-MODULE-RETAIL-APP-ECS-MODULE-CATALOG-SERVICE-AWS-ECS-SE-865F7883"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -9652,7 +9706,8 @@
               "success_condition": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
               "decision": "DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-CATALOG-SERVICE-AWS-ECS-SE-865F7883"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -9715,7 +9770,8 @@
               "success_condition": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
               "decision": "DEC-OPS-MODULE-RETAIL-APP-ECS-MODULE-CATALOG-SERVICE-AWS-ECS-SE-865F7883"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -9795,7 +9851,8 @@
               "success_condition": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
               "decision": "DEC-SEC-MODULE-RETAIL-APP-ECS-MODULE-CATALOG-SERVICE-AWS-ECS-SE-865F7883"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -9877,7 +9934,8 @@
               "success_condition": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
               "decision": "DEC-IAM-MODULE-RETAIL-APP-ECS-MODULE-CHECKOUT-SERVICE-AWS-ECS-S-3DCDC7C6"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -9969,7 +10027,8 @@
               "success_condition": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
               "decision": "DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-CHECKOUT-SERVICE-AWS-ECS-S-3DCDC7C6"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -10032,7 +10091,8 @@
               "success_condition": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
               "decision": "DEC-OPS-MODULE-RETAIL-APP-ECS-MODULE-CHECKOUT-SERVICE-AWS-ECS-S-3DCDC7C6"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -10112,7 +10172,8 @@
               "success_condition": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
               "decision": "DEC-SEC-MODULE-RETAIL-APP-ECS-MODULE-CHECKOUT-SERVICE-AWS-ECS-S-3DCDC7C6"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -10149,6 +10210,7 @@
       "executable": true,
       "blocked_by": [],
       "shape": "AS-d20a67850e9c",
+      "shape_runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT",
       "aliases": [
         "MAN/semantic/module.retail_app_ecs.module.orders_service.aws_ecs_service.this/service-execute-command",
         "MAN/semantic/module.retail_app_ecs.module.orders_service.aws_ecs_service.this/service-task-definition",
@@ -10170,6 +10232,7 @@
       "executable": true,
       "blocked_by": [],
       "shape": "AS-cc8bc6da40b8",
+      "shape_runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT",
       "aliases": [
         "MAN/semantic/module.retail_app_ecs.module.orders_service.aws_ecs_service.this/service-connect-values",
         "MAN/semantic/module.retail_app_ecs.module.orders_service.aws_ecs_service.this/service-discovery",
@@ -10192,6 +10255,7 @@
       "executable": true,
       "blocked_by": [],
       "shape": "AS-54e0c354abc0",
+      "shape_runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT",
       "aliases": [
         "MAN/semantic/module.retail_app_ecs.module.orders_service.aws_ecs_service.this/service-desired-count",
         "MAN/semantic/module.retail_app_ecs.module.orders_service.aws_ecs_service.this/task-definition"
@@ -10256,7 +10320,8 @@
               "success_condition": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
               "decision": "DEC-SEC-MODULE-RETAIL-APP-ECS-MODULE-ORDERS-SERVICE-AWS-ECS-SERVICE-THIS"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -10293,6 +10358,7 @@
       "executable": true,
       "blocked_by": [],
       "shape": "AS-d20a67850e9c",
+      "shape_runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT",
       "aliases": [
         "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_ecs_service.this/service-execute-command",
         "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_ecs_service.this/service-task-definition",
@@ -10379,7 +10445,8 @@
               "success_condition": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
               "decision": "DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-UI-SERVICE-AWS-ECS-SERVICE-THIS"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -10418,6 +10485,7 @@
       "executable": true,
       "blocked_by": [],
       "shape": "AS-54e0c354abc0",
+      "shape_runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT",
       "aliases": [
         "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_ecs_service.this/service-desired-count",
         "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_ecs_service.this/task-definition"
@@ -10482,7 +10550,8 @@
               "success_condition": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
               "decision": "DEC-SEC-MODULE-RETAIL-APP-ECS-MODULE-UI-SERVICE-AWS-ECS-SERVICE-THIS"
             }
-          ]
+          ],
+          "runbook_semantic_digest": "UNBOUND:DOCUMENT_OUTSIDE_DRAFT"
         }
       },
       "postconditions": [],
@@ -13522,12 +13591,12 @@
       ],
       "operation": {
         "manual": {
-          "what": "Inside the freeze, copy every key of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default to stackit_valkey_instance.dependencies_checkout_elasticache_redis_default with a client that you run, not with the MIGRATE command: iterate the keys of the source with SCAN (never KEYS), read each key with DUMP and its remaining time to live with PTTL, and write it into stackit_valkey_instance.dependencies_checkout_elasticache_redis_default with RESTORE (the TTL in milliseconds, 0 for a key that has none, and without REPLACE), after you isolated the source (no application connected to it) and took a backup of it. The source shows one shard (it states num_cache_clusters, which the provider documents as conflicting with num_node_groups): the copy iterates one node, the primary. Runbook section: `terraform/handover/cache-dependencies_checkout_elasticache_redis_default/data-move.md#final-sync-client-import`.",
+          "what": "Inside the freeze, copy every key of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default to stackit_valkey_instance.dependencies_checkout_elasticache_redis_default with a client that you run, not with the `MIGRATE` command: iterate the keys of the source with `SCAN` (never `KEYS`), read each key with `DUMP` and its remaining time to live with `PTTL`, and write it into stackit_valkey_instance.dependencies_checkout_elasticache_redis_default with `RESTORE` (the TTL in milliseconds, 0 for a key that has none, and without `REPLACE`), after you isolated the source (no application connected to it) and took a backup of it. The source shows one shard (it states num_cache_clusters, which the provider documents as conflicting with num_node_groups): the copy iterates one node, the primary. Runbook section: `terraform/handover/cache-dependencies_checkout_elasticache_redis_default/data-move.md#final-sync-client-import`.",
           "why": "the draft creates the instance empty; the tutorial \"Migrate data to a new instance\" of the service migrates a STACKIT Redis instance by the MIGRATE command or by a script, and the plan holds a copy by a client that rests on commands the source's service lists as supported (below); the plan does not know the number of keys, their names or types, or the network between the source and the target",
           "owner_role": "Data Architect",
           "required_input": "the number of keys, the network path from the host that runs the client to the source and to the target, and the downtime the business accepts; Precondition, checked by a person before the copy (the plan reads no network of the source and the target, so reachability is not claimed): the host that runs the client must reach the source and the host and port of stackit_valkey_instance.dependencies_checkout_elasticache_redis_default that its service key states (the tutorial says to use the exact host of the credentials for the source and the target; it names the backend host only for MIGRATE, whose connection is made by the source, and states nothing more for a client, so confirm the target host with a first connection); the access list the draft writes for stackit_valkey_instance.dependencies_checkout_elasticache_redis_default (parameters.sgw_acl, from var.dependencies_checkout_elasticache_redis_default_allowed_cidrs, which has no default) must admit the address the client connects from, and the tutorial does not say how that list applies to the backend route, so confirm it with a first connection from that address; and stackit_valkey_instance.dependencies_checkout_elasticache_redis_default must be empty (the tutorial: \"Do not insert any data into the target instance until the migration and consistency checks are fully completed\"); the maintenance window is not given: the plan states none and invents none; state the window, the blackout days and the longest downtime of one switch with ops.maintenance_window in the inputs file (inputs-template.yaml shows the empty answer), then run again",
           "success_condition": "every key of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default is in stackit_valkey_instance.dependencies_checkout_elasticache_redis_default: the client reported no error and the comparison of the two key spaces ends in GO",
-          "runbook_semantic_digest": "sha256:64fd796b56be353662c406c87fb799fa6cc715649bfcd034010a2097c8cfb93f"
+          "runbook_semantic_digest": "sha256:c3b6e26da64e7cdb3e2257523968a3699881ce29138e3c7c4c8091243450186f"
         }
       },
       "postconditions": [],
@@ -13595,12 +13664,12 @@
       ],
       "operation": {
         "manual": {
-          "what": "Reconcile module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default and stackit_valkey_instance.dependencies_checkout_elasticache_redis_default with the writers stopped (DBSIZE and INFO KEYSPACE on both sides: the number of keys and the keys and expires values must be equal, where the cache returns the section; the sorted lists of the keys of both, each listed with SCAN and never KEYS: their difference must be empty; and one read the application does) and record GO or NO-GO. Runbook section: `terraform/handover/cache-dependencies_checkout_elasticache_redis_default/data-move.md#reconcile-client-import`.",
+          "what": "Reconcile module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default and stackit_valkey_instance.dependencies_checkout_elasticache_redis_default with the writers stopped (`DBSIZE` and `INFO KEYSPACE` on both sides: the number of keys and the keys and expires values must be equal, where the cache returns the section; the sorted lists of the keys of both, each listed with `SCAN` and never `KEYS`: their difference must be empty; and one read the application does) and record GO or NO-GO. Runbook section: `terraform/handover/cache-dependencies_checkout_elasticache_redis_default/data-move.md#reconcile-client-import`.",
           "why": "the comparison of the two sides with the writers stopped is the check of the tutorial of the service (INFO KEYSPACE and the lists of the keys, which the plan makes with SCAN where the tutorial uses KEYS) and does not depend on the way the keys were copied",
           "owner_role": "Data Architect",
           "required_input": "the answer of DEC-GEN-CONVERT-DATA-MOVEMENT in decisions.yaml, which names the path this step belongs to",
           "success_condition": "the records and the sample match on both sides, the read the application does returns the same on both, and the owner records GO",
-          "runbook_semantic_digest": "sha256:f597e05c52e975b1db5bb77e9cd70018d60a8d3e4dddc78e82f29363dc843493",
+          "runbook_semantic_digest": "sha256:1aac71328a1aaf6aa6c1615a6a027fb1e677f2841fa6fc96449af6b282a932d0",
           "verification": [
             {
               "id": "key-counts",
@@ -13833,12 +13902,12 @@
       ],
       "operation": {
         "manual": {
-          "what": "Reconcile module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default and stackit_valkey_instance.dependencies_checkout_elasticache_redis_default with the writers stopped (DBSIZE and INFO KEYSPACE on both sides: the number of keys and the keys and expires values must be equal, where the cache returns the section; the sorted lists of the keys of both, each listed with SCAN and never KEYS: their difference must be empty; and one read the application does) and record GO or NO-GO. Runbook section: `terraform/handover/cache-dependencies_checkout_elasticache_redis_default/data-move.md#reconcile-own-tool`.",
+          "what": "Reconcile module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default and stackit_valkey_instance.dependencies_checkout_elasticache_redis_default with the writers stopped (`DBSIZE` and `INFO KEYSPACE` on both sides: the number of keys and the keys and expires values must be equal, where the cache returns the section; the sorted lists of the keys of both, each listed with `SCAN` and never `KEYS`: their difference must be empty; and one read the application does) and record GO or NO-GO. Runbook section: `terraform/handover/cache-dependencies_checkout_elasticache_redis_default/data-move.md#reconcile-own-tool`.",
           "why": "the comparison of the two sides with the writers stopped is the check of the tutorial of the service (INFO KEYSPACE and the lists of the keys, which the plan makes with SCAN where the tutorial uses KEYS) and does not depend on the way the keys were copied",
           "owner_role": "Data Architect",
           "required_input": "the answer of DEC-GEN-CONVERT-DATA-MOVEMENT in decisions.yaml, which names the path this step belongs to",
           "success_condition": "the records and the sample match on both sides, the read the application does returns the same on both, and the owner records GO",
-          "runbook_semantic_digest": "sha256:5b8223bf7996ed8bdddef6ca6b81035aa209169f69e25a4a94461404f305eb0c",
+          "runbook_semantic_digest": "sha256:dc5681474a6b406b8c0c8871e11765f1f8b47e097dad1d9f094d0b1b4e4cf3f4",
           "verification": [
             {
               "id": "key-counts",

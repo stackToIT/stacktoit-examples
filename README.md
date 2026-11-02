@@ -29,11 +29,11 @@ Each example's `output/` folder is one StackToIT run, unchanged:
 ## How the runs were made
 
 ```sh
-stacktoit assess terraform/ecs/default ./aws-retail-store   # default options: full package, OpenTofu validation, online prices
-stacktoit verify ./aws-retail-store                          # the folder matches its manifest
+stacktoit assess terraform/ecs/default ./aws-retail-store --provider-mirror DIR   # default options: full package, OpenTofu validation, online prices
+stacktoit verify ./aws-retail-store                                                 # the folder matches its manifest
 ```
 
-No `--no-validate`, no `--analysis-only`. Where a check could not run, the run says `NOT_RUN` and why; that is kept as it is.
+No `--no-validate`, no `--analysis-only`. `DIR` is a local OpenTofu provider mirror prepared beforehand with `tofu providers mirror`; StackToIT downloads nothing during validation. Where a check could not run, the run says `NOT_RUN` and why; that is kept as it is (here: the upstream estate has no lock file, so its source was not validated).
 
 ## What these results are
 

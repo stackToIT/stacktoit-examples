@@ -1,4 +1,4 @@
-# Review template of run f576c5a4-ff5f-4981-8b67-054d7359483f (written by stacktoit; copy this file, fill the `resolution`, `rationale`, `evidence_refs` and `reviewed_at` lines of the records you review, pass it with --decisions).
+# Review template of run f6267c3f-2848-4aa5-89df-5fee8b15b3b9 (written by stacktoit; copy this file, fill the `resolution`, `rationale`, `evidence_refs` and `reviewed_at` lines of the records you review, pass it with --decisions).
 # A review RECORDS that an architect looked at a decision and what the architect decided. It does not regenerate the draft and, by itself, frees no step:
 #   - to ANSWER a question of the draft (the network of the load balancer, a zone, an image, ...) write the answer in the inputs file (inputs-template.yaml, --inputs):
 #     only a rerun with the answer regenerates the draft. A review that chooses an option marked REGENERATE_REQUIRED keeps its steps held until that rerun (#205).
@@ -83,7 +83,7 @@ decisions:
     reviewed_by: Data Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:bd6dc33bd3777ba67c03a89361624334a25a61983906190c138fe87904c08a32
-    artifact_sha256: sha256:42750d72bbcbed246dbbde3df6312f97df155298537e17504729bd6651d9bfee
+    artifact_sha256: sha256:15bd4a976759c2e9e78fcac08a2e4bb165e943ae8006503f5b7e166f2e075a97
     kb_dependencies_sha256: sha256:610870c4321b580122859ef332af5301a6bd3a8973057240bd04c7d631e03a41
     # This record holds 5 questions, one per unit. An answer applies only to the members it names (members: in the decisions file; a member is named by the record id, a slash and its unit); an entry that names none answers every member, and that blanket answer is yours to write: the template never writes it.
     # members: remove the # of the next line and of the members the answer applies to; delete the others (a member is named by its id below)

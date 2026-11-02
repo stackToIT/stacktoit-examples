@@ -1,6 +1,6 @@
 {
   "schema_version": "0.1.0",
-  "run_id": "f576c5a4-ff5f-4981-8b67-054d7359483f",
+  "run_id": "f6267c3f-2848-4aa5-89df-5fee8b15b3b9",
   "source_digest": "sha256:812c5ae3f6cc8530163abbf5b6fbe305ed3b363c4886ec6b87623db857ea0c70",
   "statement": "This file plans how the data of the stateful units the draft moves is carried to STACKIT, for the families of data stores that have a planner (families). It moves no data and opens no connection: every step is for a person. A number in it is the customer's own statement (origin CUSTOMER_INPUT, with the answer it came from) or it is UNKNOWN; a quantity nobody stated is never zero. A duration is a lower bound of the transfer alone and a comparison with the accepted downtime says only whether that bound exceeds it, never that the window fits. Stateful units of other families have no plan here.",
   "families": [

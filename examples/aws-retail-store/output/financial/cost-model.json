@@ -1,6 +1,6 @@
 {
   "schema_version": "0.2.1",
-  "run_id": "f576c5a4-ff5f-4981-8b67-054d7359483f",
+  "run_id": "f6267c3f-2848-4aa5-89df-5fee8b15b3b9",
   "source_digest": "sha256:812c5ae3f6cc8530163abbf5b6fbe305ed3b363c4886ec6b87623db857ea0c70",
   "statement": "An initial infrastructure cost estimate under explicit assumptions (the scenario and the assumption file this model names), not a bill: list prices (net, no discount, no Spot, no savings plan, no private price) times quantities the source or the assumption file states. A total is FULL only when every line of its scope is priced; a line that cannot be priced says why and is never filled in, and an unknown quantity is neither 0 nor 1. A savings percentage is given only for the same scope, in one currency (or with an exchange rate that names its source and date), with every line of both sides priced. No usage, traffic, request, egress, support or one-off migration cost is computed.",
   "file": "financial/cost-model.json",
@@ -373,6 +373,18 @@
   "modelled": {
     "resources": 10,
     "source_resources": 140
+  },
+  "defaults": {
+    "unconfirmed_lines": 3,
+    "unconfirmed_amount": {
+      "currency": "EUR",
+      "min": "713.67",
+      "max": "713.67"
+    },
+    "unconfirmed_decisions": [
+      "DEC-GEN-CONVERT-SIZE-FROM-SOURCE"
+    ],
+    "confirmed_lines": 0
   },
   "coverage": {
     "billable": {
@@ -2765,6 +2777,9 @@
         "module.retail_app_ecs.module.alb.aws_lb.this"
       ],
       "target_subject": "stackit_application_load_balancer.retail_app_ecs_alb_this",
+      "draft_default": {
+        "state": "OPEN"
+      },
       "state": "PRICED",
       "reason": "list price ST-0204801 0.02627777778 EUR per hour applied to 730 hours; plan_id \"p10\" read from the draft: DEFAULT: priced on the draft's default \"p10\" of var.retail_app_ecs_alb_this_plan_id (draft variables.tf:230); no answer or standing policy of the run chose it, so another value changes the price",
       "quantity": {
@@ -3041,8 +3056,12 @@
         "module.dependencies.aws_mq_broker.mq"
       ],
       "target_subject": "stackit_rabbitmq_instance.dependencies_mq",
+      "draft_default": {
+        "decision": "DEC-GEN-CONVERT-SIZE-FROM-SOURCE",
+        "state": "OPEN"
+      },
       "state": "PRICED",
-      "reason": "list price ST-0044501 0.85140277778 EUR per hour applied to 730 hours; plan_name \"stackit-rabbitmq-8.16.50-replica\" read from the draft: DEFAULT: priced on the draft's default \"stackit-rabbitmq-8.16.50-replica\" of var.dependencies_mq_plan_name (draft variables.tf:92); no answer or standing policy of the run chose it, so another value changes the price; the SKU is named by the plan (INFERRED from the names of the list) and its nodes and disk are checked against the list's attributes",
+      "reason": "list price ST-0044501 0.85140277778 EUR per hour applied to 730 hours; plan_name \"stackit-rabbitmq-8.16.50-replica\" read from the draft: DEFAULT: priced on the draft's default \"stackit-rabbitmq-8.16.50-replica\" of var.dependencies_mq_plan_name (draft variables.tf:92); no answer or standing policy of the run chose it; decision DEC-GEN-CONVERT-SIZE-FROM-SOURCE is open: nobody confirmed the default, so another value changes the price; the SKU is named by the plan (INFERRED from the names of the list) and its nodes and disk are checked against the list's attributes",
       "quantity": {
         "form": "VALUE",
         "min": "1",
@@ -3191,8 +3210,12 @@
         "module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default"
       ],
       "target_subject": "stackit_valkey_instance.dependencies_checkout_elasticache_redis_default",
+      "draft_default": {
+        "decision": "DEC-GEN-CONVERT-SIZE-FROM-SOURCE",
+        "state": "OPEN"
+      },
       "state": "PRICED",
-      "reason": "list price ST-0226701 0.09995833333 EUR per hour applied to 730 hours; plan_name \"stackit-keyvalue-1.4.10-single\" read from the draft: DEFAULT: priced on the draft's default \"stackit-keyvalue-1.4.10-single\" of var.dependencies_checkout_elasticache_redis_default_plan_name (draft variables.tf:71); no answer or standing policy of the run chose it, so another value changes the price; the SKU is named by the plan (INFERRED from the names of the list) and its nodes and disk are checked against the list's attributes",
+      "reason": "list price ST-0226701 0.09995833333 EUR per hour applied to 730 hours; plan_name \"stackit-keyvalue-1.4.10-single\" read from the draft: DEFAULT: priced on the draft's default \"stackit-keyvalue-1.4.10-single\" of var.dependencies_checkout_elasticache_redis_default_plan_name (draft variables.tf:71); no answer or standing policy of the run chose it; decision DEC-GEN-CONVERT-SIZE-FROM-SOURCE is open: nobody confirmed the default, so another value changes the price; the SKU is named by the plan (INFERRED from the names of the list) and its nodes and disk are checked against the list's attributes",
       "quantity": {
         "form": "VALUE",
         "min": "1",
