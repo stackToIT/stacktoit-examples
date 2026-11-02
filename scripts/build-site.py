@@ -26,7 +26,8 @@ EXAMPLES = ROOT / "examples"
 SITE = ROOT / "site"
 TEMPLATES = SITE / "templates"
 
-BASE_PATH = "/stacktoit-examples/"  # only the 404 page needs it; every other link is relative
+SITE_CONFIG = json.loads((SITE / "site.json").read_text())  # repository and Pages addresses; nothing else about the deployment is in the templates
+BASE_PATH = "/" + SITE_CONFIG["pages_url"].rstrip("/").rsplit("/", 1)[-1] + "/"  # only the 404 page needs it; every other link is relative
 
 CLASS_ORDER = ["DIRECT", "RECONFIGURE", "REPLATFORM", "CONTAINERIZE", "REDESIGN", "MANUAL_REVIEW", "BLOCKED"]
 CLASS_WORDS = {
@@ -332,6 +333,8 @@ def build_example(meta: dict, ex_dir: Path, out_dir: Path) -> dict:
         applications_block=applications_block, cost_block=cost_block,
         draft_validation=E(v["draft_opentofu"]["state"]), draft_validation_cls=state_cls(v["draft_opentofu"]["state"]),
         iac=E(meta["source"]["iac"]),
+        example_repo_url=E(f"{SITE_CONFIG['repository_url']}/tree/{SITE_CONFIG['repository_branch']}/examples/{ex_id}"),
+        repo_name=E(SITE_CONFIG["repository_url"].rstrip("/").rsplit("/", 1)[-1]),
         tool_version=E(meta["tool"]["version"]), tool_commit=E(meta["tool"]["commit"]), kb=E(meta["tool"]["kb_version"]), kb_sha=E(meta["tool"]["kb_sha256"]),
         schema=E(meta["tool"]["assessment_schema"]), opentofu=E(meta["tool"]["opentofu"]),
         run_id=E(meta["run"]["run_id"]), date=E(meta["run"]["date"]), generated_at=E(meta["run"]["generated_at"]), mode=E(meta["run"]["mode"]),
