@@ -1,0 +1,31 @@
+{
+  "run_id": "f576c5a4-ff5f-4981-8b67-054d7359483f",
+  "source_digest": "sha256:812c5ae3f6cc8530163abbf5b6fbe305ed3b363c4886ec6b87623db857ea0c70",
+  "price_snapshot": {
+    "statement": "These are list prices only: no quantity is read and no total is built from them here; the quantities, amounts and totals of the priced families are in financial/cost-model.json, and no usage and no egress is computed anywhere. This block names the snapshot of the public STACKIT price list the run cites and, for each drafted resource of a kind the price rules list, the list price of the one SKU a tested rule joins it to, or why it has none.",
+    "source_url": "https://pim.api.stackit.cloud/v2/skus?pageSize=100\u0026language=en",
+    "retrieved_at": "2026-10-26T18:27:45Z",
+    "sha256": "94244fec5b573614dcff15f79238ce4a0e60cf197768be287e45092d7e1e61ca",
+    "currency": "EUR",
+    "price_basis": "net list price",
+    "licence_note": "reuse terms not found (U1)",
+    "sku_count": 1134,
+    "region": "eu01",
+    "coverage": {
+      "resources": 11,
+      "priced": 6,
+      "unpriced": 0,
+      "not_assessed": 5
+    },
+    "other_drafted_resources": 42,
+    "unowned_resources": 0,
+    "limits": [
+      "A list price is the price of one unit of one SKU. It is not a cost: this block reads no quantity and builds no total; the quantities, amounts and totals of the priced families are in financial/cost-model.json.",
+      "A resource is joined to a SKU only where the draft itself names the machine type, performance class or flavor; where the draft leaves that to a person (a variable), no SKU is named and the resource is NOT_ASSESSED.",
+      "Prices are net list prices of the public STACKIT price list: excluding taxes, with no contract discount, no savings plan and no other currency. A SKU that is not in the public list, a deprecated SKU and the metro variant of a SKU are never used as a price.",
+      "Egress and traffic, support plans, the container registry and every resource of a kind the price rules do not list have no row: nothing is stated about their cost.",
+      "Only the region eu01 is looked at: it is the region of the knowledge-base catalogue the draft takes its flavors from.",
+      "The row of a volume is the per-hour fee of its performance class; the capacity fee of the disk is a separate SKU that depends on the size, and is a line of the cost model, not a row here."
+    ]
+  }
+}

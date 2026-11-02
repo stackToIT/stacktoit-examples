@@ -1,0 +1,1699 @@
+# Progress journal of the run (written by stacktoit). Run f576c5a4-ff5f-4981-8b67-054d7359483f · source digest sha256:812c5ae3f6cc8530163abbf5b6fbe305ed3b363c4886ec6b87623db857ea0c70
+# This file is where YOU record how far each step of execution-plan.json has come. It is a record of what you did, not a proof: StackToIT reads no
+# cloud, runs nothing and checks nothing of what you write here, and the journal changes no step, no readiness count and no decision.
+#   - to record a step change its `state` to BLOCKED, IN_PROGRESS, DONE, FAILED or WAIVED; you may add `owner`, `note` and `at` (a quoted RFC 3339 time,
+#     "2026-10-29T10:00:00Z") to an entry;
+#   - keep `contract_sha256` as it is: it ties the entry to the step as it is now. When a later run changes the step, its entry is shown as STALE beside
+#     the state you recorded, and DONE is not carried over to the changed step; an entry for a step the plan no longer holds is listed as ORPHANED;
+#   - a step with no entry is NOT_STARTED; you may delete the entries you do not use;
+#   - keep `steps_sha256` as it is: it says which plan this file was written from, so that the next run can tell an entry you
+#     deleted from a journal written for an older plan (it is not a state and changes no step);
+#   - keep `environment_sha256` as it is: it says which environment (which root folder, workspace and variable files, by their names) this journal was
+#     written for. A run of another environment reads every entry of it as STALE, never as DONE; an edit of the Terraform does not change it. KNOWN LIMIT:
+#     no variable value is part of it (a value, a password above all, must never reach a digest), so a value changed in a variable file of the same name
+#     is the same environment. After you changed the environment on purpose and checked the steps, copy the `environment_sha256` of the newest
+#     progress-template.yaml here;
+#   - the entry of the reconcile step of a data move lists its checks after the transfer, each NOT_RUN. When you have made a check, change its `result` to PASS
+#     or FAIL (add `owner`, `note`, `at`); to leave one out on purpose write WAIVED and the reason in `note` (a WAIVED check with no note is refused). A FAIL keeps
+#     the step from DONE. The results belong to the entry and are bound to its `contract_sha256`: when a later run changes the step (a check added, dropped
+#     or changed in kind or mode) they are shown as STALE, never applied. They are what you record, not a proof: StackToIT runs none of the checks. The
+#     data move of a store reads DATA_MOVE_PLANNED, DATA_MOVE_EXECUTED (its copy steps are DONE) or DATA_VERIFIED (and its reconcile is DONE, every check PASS or
+#     WAIVED) in migration/progress.json, from these records;
+#   - pass the file back with --progress, or keep it as review/progress.yaml; the run writes migration/progress.json from it.
+steps_sha256: "sha256:b61a0c69187538290662bdaeafbfcc24905c52496393b6546c4bfb70f2732418"
+environment_sha256: "sha256:4a0687397fc16487936667e3e387d3b4f18a9d03added7a08fb29f0cecd5b4c6"
+entries:
+
+  # MANUAL decision - module.vpc.module.vpc.aws_route_table.private
+  - action_id: "DEC/routing/stackitroute:module.vpc.module.vpc.aws_route_table.private:NAT_FIXED_EGRESS_ADDRESS_LOST"
+    contract_sha256: "sha256:626b08a38de564d3542bb11327615ee8efff65c065ddd2f742c5cd3ffa15a5d0"
+    state: NOT_STARTED
+
+  # MANUAL OTHER - module.retail_app_ecs.module.carts_service.aws_ecs_service.this
+  - action_id: "MAN/identity/facts:module.retail_app_ecs.module.carts_service.aws_ecs_service.this:module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this.execution_role_arn-586451"
+    contract_sha256: "sha256:b7c420c9c582321e547ff3d289fb595956f144aa13b7284d733412a5a276ec61"
+    state: NOT_STARTED
+
+  # MANUAL OTHER - module.retail_app_ecs.module.carts_service.aws_ecs_service.this
+  - action_id: "MAN/identity/facts:module.retail_app_ecs.module.carts_service.aws_ecs_service.this:module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this.task_role_arn-686488"
+    contract_sha256: "sha256:4796d981b29793cd024e515949a07cfc3afb4216b495b52749dcf29647084192"
+    state: NOT_STARTED
+
+  # MANUAL OTHER - module.retail_app_ecs.module.catalog_service.aws_ecs_service.this
+  - action_id: "MAN/identity/facts:module.retail_app_ecs.module.catalog_service.aws_ecs_service.this:module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this.execution_role_arn-dedc98"
+    contract_sha256: "sha256:e5bfddb9dee507fb0b8b65d0ccf688b3cd52a42fba540108f78650f8a0207c3b"
+    state: NOT_STARTED
+
+  # MANUAL OTHER - module.retail_app_ecs.module.catalog_service.aws_ecs_service.this
+  - action_id: "MAN/identity/facts:module.retail_app_ecs.module.catalog_service.aws_ecs_service.this:module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this.task_role_arn-15a967"
+    contract_sha256: "sha256:ac4bac9acea58bb212017085f6074ecb97990df383d21ab5601305aa0162016d"
+    state: NOT_STARTED
+
+  # MANUAL OTHER - module.retail_app_ecs.module.checkout_service.aws_ecs_service.this
+  - action_id: "MAN/identity/facts:module.retail_app_ecs.module.checkout_service.aws_ecs_service.this:module.retail_app_ecs.module.checkout_service.aws_ecs_task_definition.this.execution_role_arn-b70bc2"
+    contract_sha256: "sha256:2b6fe0ab4de194755f083cf66ba2cfcb587f8fd4026101e8f191828e4a4cab0a"
+    state: NOT_STARTED
+
+  # MANUAL OTHER - module.retail_app_ecs.module.checkout_service.aws_ecs_service.this
+  - action_id: "MAN/identity/facts:module.retail_app_ecs.module.checkout_service.aws_ecs_service.this:module.retail_app_ecs.module.checkout_service.aws_ecs_task_definition.this.task_role_arn-9651e2"
+    contract_sha256: "sha256:3ce69bf03f63515fd5c49fda0a4471e1ffc6b17aa2fb013eaba51494065ff81a"
+    state: NOT_STARTED
+
+  # MANUAL OTHER - module.retail_app_ecs.module.orders_service.aws_ecs_service.this
+  - action_id: "MAN/identity/facts:module.retail_app_ecs.module.orders_service.aws_ecs_service.this:module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this.execution_role_arn-eacc48"
+    contract_sha256: "sha256:fce82f3c82c1dc06a0415af81b4ab8fe91e556b27d869096566df63e6f14fceb"
+    state: NOT_STARTED
+
+  # MANUAL OTHER - module.retail_app_ecs.module.orders_service.aws_ecs_service.this
+  - action_id: "MAN/identity/facts:module.retail_app_ecs.module.orders_service.aws_ecs_service.this:module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this.task_role_arn-d0b927"
+    contract_sha256: "sha256:b0df356aa9e1d326f116f31e4ba8148a0baebd716c13794bd278100067dab0a9"
+    state: NOT_STARTED
+
+  # MANUAL OTHER - module.retail_app_ecs.module.ui_service.aws_ecs_service.this
+  - action_id: "MAN/identity/facts:module.retail_app_ecs.module.ui_service.aws_ecs_service.this:module.retail_app_ecs.module.ui_service.aws_ecs_task_definition.this.execution_role_arn-2d22d2"
+    contract_sha256: "sha256:2fc9b444f8433b89ed08ffbeff98969fd2f5803670ffe0cca8b170ad61dc8c0f"
+    state: NOT_STARTED
+
+  # MANUAL OTHER - module.retail_app_ecs.module.ui_service.aws_ecs_service.this
+  - action_id: "MAN/identity/facts:module.retail_app_ecs.module.ui_service.aws_ecs_service.this:module.retail_app_ecs.module.ui_service.aws_ecs_task_definition.this.task_role_arn-0c66b7"
+    contract_sha256: "sha256:0ac6a3f83890482e45349b260a9538354322c51434c9d6fc099d03d054d6654a"
+    state: NOT_STARTED
+
+  # MANUAL TARGET_PRECONDITION - module.vpc.module.vpc.aws_route_table.private
+  - action_id: "MAN/routing/precondition-outside-area:module.vpc.module.vpc.aws_route_table.private"
+    contract_sha256: "sha256:1700fffa7a5dee038cfc725ce636dee872684cce45d76d6e76959bc96f784c36"
+    state: NOT_STARTED
+
+  # MANUAL TARGET_PRECONDITION - module.vpc.module.vpc.aws_route_table.public
+  - action_id: "MAN/routing/precondition-outside-area:module.vpc.module.vpc.aws_route_table.public"
+    contract_sha256: "sha256:44b94437e412bbb4ef04519795e331010a7e2c935bb99a693cdaef306fbae913"
+    state: NOT_STARTED
+
+  # MANUAL UNPLACED - module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix
+  - action_id: "MAN/security/aws/unplaced:module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix:module.retail_app_ecs.module.alb_sg.aws_security_group_rule.egress_rules.0-217968"
+    contract_sha256: "sha256:de8de532cc2f0e7b4d3fd9088e0f05bab2a3368f88fc651ad151ae9c146f24a1"
+    state: NOT_STARTED
+
+  # MANUAL UNPLACED - module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix
+  - action_id: "MAN/security/aws/unplaced:module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix:module.retail_app_ecs.module.alb_sg.aws_security_group_rule.ingress_rules.0-f26028"
+    contract_sha256: "sha256:7501ed775983e03f15769004de39f01b2cf78568e3be1e2efa0d04e16a1296f9"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.vpc.module.vpc.aws_eip.nat
+  - action_id: "MAN/semantic/module.vpc.module.vpc.aws_eip.nat/public-address"
+    contract_sha256: "sha256:cbdc4783384ddf8d3f2e97f14ee76963618a4ebddb9fd2b449a2f33a9211c94d"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.vpc.module.vpc.aws_internet_gateway.this
+  - action_id: "MAN/semantic/module.vpc.module.vpc.aws_internet_gateway.this/network-topology-boundary"
+    contract_sha256: "sha256:c3eb277f8f6373adc9981243551aa311d002870cb87d1c9c259421e88653ea07"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.vpc.module.vpc.aws_nat_gateway.this
+  - action_id: "MAN/semantic/module.vpc.module.vpc.aws_nat_gateway.this/open-settings"
+    contract_sha256: "sha256:79ee8d333827d3746eefc6fd091cfae9311a2a884eedd7807b5155dd1f3fcf74"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.vpc.module.vpc.aws_route_table.private
+  - action_id: "MAN/semantic/module.vpc.module.vpc.aws_route_table.private/open-settings"
+    contract_sha256: "sha256:d54627cc6e36ca038c0f3b73347c7df9408310e624280350a09c735d1abfe0a0"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.vpc.module.vpc.aws_route_table.public
+  - action_id: "MAN/semantic/module.vpc.module.vpc.aws_route_table.public/open-settings"
+    contract_sha256: "sha256:fd80c37b04fed8ab56ce7086d9980e299ae8fbb35f04981661f1aacf63fa2d98"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.vpc.module.vpc.aws_subnet.private
+  - action_id: "MAN/semantic/module.vpc.module.vpc.aws_subnet.private/availability-zone"
+    contract_sha256: "sha256:274de3ef5319f788fddc250dc750d5101a1b42eee2a4a89820afffaa51a80b47"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.vpc.module.vpc.aws_subnet.private
+  - action_id: "MAN/semantic/module.vpc.module.vpc.aws_subnet.private/open-settings-network-architect"
+    contract_sha256: "sha256:daeecc023e3db7ed21c17e3d2de092575d1c074b5b0563be316d9c82e810dda6"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.vpc.module.vpc.aws_subnet.public
+  - action_id: "MAN/semantic/module.vpc.module.vpc.aws_subnet.public/availability-zone"
+    contract_sha256: "sha256:621c3acfbcae7362ebfaa5a6508d3624f52f202eba49c4dedd5910b75370131e"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.vpc.module.vpc.aws_subnet.public
+  - action_id: "MAN/semantic/module.vpc.module.vpc.aws_subnet.public/open-settings-network-architect"
+    contract_sha256: "sha256:554e70d8d8b7417be37a005acb6a4a38ace30a3c09f244593f9f2d7379783cd8"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.vpc.module.vpc.aws_vpc.this
+  - action_id: "MAN/semantic/module.vpc.module.vpc.aws_vpc.this/dns-settings"
+    contract_sha256: "sha256:8152fc1d3bfbfe73ff6080770d3ac790c4275b5d93f9f13d124d160285784ea6"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.vpc.module.vpc.aws_vpc.this
+  - action_id: "MAN/semantic/module.vpc.module.vpc.aws_vpc.this/open-settings-network-architect"
+    contract_sha256: "sha256:d90b8b867282fa16c325f2b2dca15138e7dfa2543aa0776816a6440a1ae7761e"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_network - module.vpc.module.vpc.aws_subnet.private
+  - action_id: "TF/stackit_network.vpc_vpc_private"
+    contract_sha256: "sha256:a4a93ff87a76b5f442ab2e28dfba5f3748d166a14bffaaddcedbaf2a50a9d01b"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_network - module.vpc.module.vpc.aws_subnet.public
+  - action_id: "TF/stackit_network.vpc_vpc_public"
+    contract_sha256: "sha256:84450f815930ee2c78d4f64227ee7be818de858722c9d3dd73708b38f09a4386"
+    state: NOT_STARTED
+
+  # MANUAL SECURITY_ACCEPTANCE - module.retail_app_ecs.module.alb.aws_lb.this
+  - action_id: "MAN/security/accept/module.retail_app_ecs.module.alb.aws_lb.this:plaintext-public-listener"
+    contract_sha256: "sha256:1c92fd6d2447a01277b5dc0b20a07d5eeb0975aba0efaf8d9486a64f4578e2a8"
+    state: NOT_STARTED
+
+  # MANUAL security-attachment-design - module.retail_app_ecs.module.carts_service.aws_ecs_service.this
+  - action_id: "MAN/security/attachment-design:module.retail_app_ecs.module.carts_service.aws_security_group.this"
+    contract_sha256: "sha256:a00c15d6c70eeff7897819bd81425cd1a64c780533227e3eaeced99fa46e115c"
+    state: NOT_STARTED
+
+  # MANUAL SECURITY_ACCEPTANCE - module.retail_app_ecs.module.carts_service.aws_security_group.this
+  - action_id: "MAN/security/accept/module.retail_app_ecs.module.carts_service.aws_security_group.this:open-ingress-application-port"
+    contract_sha256: "sha256:fef95ec2b3c015ea1ecaef0e717b6840da75e56402cf27123bf327f105b0fa29"
+    state: NOT_STARTED
+
+  # MANUAL security-attachment-design - module.retail_app_ecs.module.catalog_service.aws_ecs_service.this
+  - action_id: "MAN/security/attachment-design:module.retail_app_ecs.module.catalog_service.aws_security_group.this"
+    contract_sha256: "sha256:b744262b31d0455e64bb884307bec889a239deea6771b88a8fa012840693613d"
+    state: NOT_STARTED
+
+  # MANUAL SECURITY_ACCEPTANCE - module.retail_app_ecs.module.catalog_service.aws_security_group.this
+  - action_id: "MAN/security/accept/module.retail_app_ecs.module.catalog_service.aws_security_group.this:open-ingress-application-port"
+    contract_sha256: "sha256:a695085c7e73460cd1255e4422913b92ddf8695486273d9414f702b5d078e517"
+    state: NOT_STARTED
+
+  # MANUAL security-attachment-design - module.retail_app_ecs.module.checkout_service.aws_ecs_service.this
+  - action_id: "MAN/security/attachment-design:module.retail_app_ecs.module.checkout_service.aws_security_group.this"
+    contract_sha256: "sha256:746388f9fb222a41fe4097a50c7ce641c7030339a3b8e98dee0002524beefe02"
+    state: NOT_STARTED
+
+  # MANUAL SECURITY_ACCEPTANCE - module.retail_app_ecs.module.checkout_service.aws_security_group.this
+  - action_id: "MAN/security/accept/module.retail_app_ecs.module.checkout_service.aws_security_group.this:open-ingress-application-port"
+    contract_sha256: "sha256:5d9b7c6475f79ace6d0739c655c7824775ebf82ada4d0e9a7f40c556c1e8bdc4"
+    state: NOT_STARTED
+
+  # MANUAL security-attachment-design - module.retail_app_ecs.module.orders_service.aws_ecs_service.this
+  - action_id: "MAN/security/attachment-design:module.retail_app_ecs.module.orders_service.aws_security_group.this"
+    contract_sha256: "sha256:98c83a53ae93a23b0d8b4b763b8bb752e0ae6db92424c157596ccac4d6498316"
+    state: NOT_STARTED
+
+  # MANUAL SECURITY_ACCEPTANCE - module.retail_app_ecs.module.orders_service.aws_security_group.this
+  - action_id: "MAN/security/accept/module.retail_app_ecs.module.orders_service.aws_security_group.this:open-ingress-application-port"
+    contract_sha256: "sha256:a91b945803812e58fc5c6630b5574f3b19b6e9acf1972c110af2c9f5917009a7"
+    state: NOT_STARTED
+
+  # MANUAL security-attachment-design - module.retail_app_ecs.module.ui_service.aws_ecs_service.this
+  - action_id: "MAN/security/attachment-design:module.retail_app_ecs.module.ui_service.aws_security_group.this"
+    contract_sha256: "sha256:59f1d1dddeccd881a8b0d0668d380759b89525f383b06c991df2887bf5717155"
+    state: NOT_STARTED
+
+  # MANUAL SECURITY_ACCEPTANCE - module.retail_app_ecs.module.ui_service.aws_security_group.this
+  - action_id: "MAN/security/accept/module.retail_app_ecs.module.ui_service.aws_security_group.this:open-ingress-application-port"
+    contract_sha256: "sha256:f3e3d17bd445f18857ff7f422d023077263f57a29f317824bf7b3a0140dbce62"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.aws_security_group.catalog_opensearch_sg
+  - action_id: "MAN/semantic/module.dependencies.aws_security_group.catalog_opensearch_sg/open-settings"
+    contract_sha256: "sha256:849893ad480f7e3d7d9aeee37ecbfef5ca6783a68e66ae1a9b30e5ae45b0b6dc"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.aws_security_group.mq
+  - action_id: "MAN/semantic/module.dependencies.aws_security_group.mq/open-settings"
+    contract_sha256: "sha256:f494bbf9e54abc655e112df859a3c0156a8212ef9595dddf7a0ac0a28e504c11"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.catalog_rds.aws_security_group.this
+  - action_id: "MAN/semantic/module.dependencies.module.catalog_rds.aws_security_group.this/open-settings"
+    contract_sha256: "sha256:7416296251a015c53dcf7fac0005464ae31d1ee545f151ca21b6d6cc165a5241"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.checkout_elasticache_redis.module.aws_security_group.aws_security_group.cbd
+  - action_id: "MAN/semantic/module.dependencies.module.checkout_elasticache_redis.module.aws_security_group.aws_security_group.cbd/open-settings"
+    contract_sha256: "sha256:9bb80b5603ef2b38b8ab0a5f6cefa3c6775ec8b8f61a064dd85eabea8776fe1b"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.orders_rds.aws_security_group.this
+  - action_id: "MAN/semantic/module.dependencies.module.orders_rds.aws_security_group.this/open-settings"
+    contract_sha256: "sha256:0e3db4f0808274a59640ce7b5c0366f052b8600a70b48988875ba0108d93cd9b"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.aws_kms_key.cmk
+  - action_id: "MAN/semantic/module.retail_app_ecs.aws_kms_key.cmk/deletion-window"
+    contract_sha256: "sha256:85cb23486a0dd31474e879080d68357be451d4c75ad9552e06d737628836a749"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.aws_secretsmanager_secret.catalog_db
+  - action_id: "MAN/semantic/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db/open-settings-security-architect"
+    contract_sha256: "sha256:184f2940f029f8fb5c0dbd283f3710e498b05e9f67176420f30c1a8759f77fd2"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.aws_secretsmanager_secret.catalog_db
+  - action_id: "MAN/semantic/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db/tc-secretsmanager-secret-name"
+    contract_sha256: "sha256:b6acdaf50a3b465a77bcb15bc75dfde1498d64c476e24bee7e10f213d4e0df16"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch
+  - action_id: "MAN/semantic/module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch/open-settings-security-architect"
+    contract_sha256: "sha256:5afea3d51535ac277ed0087329bea9f3af4bf2b638b5c067283649b87b96d1ef"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch
+  - action_id: "MAN/semantic/module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch/tc-secretsmanager-secret-name"
+    contract_sha256: "sha256:11aa6c043e546f04bde88b930d2b31d17bc9517838a09bd8306301e124ba2bd2"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.aws_secretsmanager_secret.mq
+  - action_id: "MAN/semantic/module.retail_app_ecs.aws_secretsmanager_secret.mq/secret-value"
+    contract_sha256: "sha256:ee7f952d8f380a31d15220d0d6a9e43d14321a654f5592c652e8c3caaaab4791"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.aws_secretsmanager_secret.mq
+  - action_id: "MAN/semantic/module.retail_app_ecs.aws_secretsmanager_secret.mq/tc-secretsmanager-secret-name"
+    contract_sha256: "sha256:59f162c74cf0b55ce10d86ae784291841dc9d0a9877313ac42951fdfb4d89809"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.aws_secretsmanager_secret.orders_db
+  - action_id: "MAN/semantic/module.retail_app_ecs.aws_secretsmanager_secret.orders_db/secret-value"
+    contract_sha256: "sha256:9eb897f6028ae0c7c7880b3dd904af876bf1e2465ad5bb3a5da1f9f5b30986a9"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.aws_secretsmanager_secret.orders_db
+  - action_id: "MAN/semantic/module.retail_app_ecs.aws_secretsmanager_secret.orders_db/tc-secretsmanager-secret-name"
+    contract_sha256: "sha256:4b9efdba8026716ae829f21321b11fb8bbcb88c8c94838b5495e3cf24682d9dd"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.alb.aws_security_group.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.alb.aws_security_group.this/open-settings"
+    contract_sha256: "sha256:d93f00f8335fd3d6fc204e2a9ea0acded2716fe3386bd3fa8989b7a34153dca1"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix/open-settings"
+    contract_sha256: "sha256:574e63bac2c5cde6cb903128d5a0662e7e5043e4144b74bafb1ce94796b7e506"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role/open-settings"
+    contract_sha256: "sha256:dcaac6d401570d70f2a44aa9931b522da32d11ba9005779b5d960ab2012f5508"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.carts_service.aws_iam_role.task_role
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.carts_service.aws_iam_role.task_role/open-settings"
+    contract_sha256: "sha256:816a0b9883c361dd8e6de6e108ac793d5af8eb3a58d0a8e3594dd8410d848105"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.carts_service.aws_security_group.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.carts_service.aws_security_group.this/open-settings"
+    contract_sha256: "sha256:0bbda1ea1bc8b85e039be3283131d58608a0cd711170bad65fe90d9157f61765"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role/open-settings"
+    contract_sha256: "sha256:d635034aa54c0265a12786b698f8bdcfe502999e28eb6c337a54af53d6782f64"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role/open-settings"
+    contract_sha256: "sha256:74e2ac76a85fac2e05a064eaf14b2166e7317c446fac16ab963a8ebd26107ff1"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.catalog_service.aws_security_group.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.catalog_service.aws_security_group.this/open-settings"
+    contract_sha256: "sha256:a22835ffe9668846df2e3cdd98a4dc0f529fbf260ecc0443659d8f373f611be8"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role/open-settings"
+    contract_sha256: "sha256:4e275fed404a133ffc379ae5c84e821705fbdb28c6fe18999c3d1fbf91b94016"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role/open-settings"
+    contract_sha256: "sha256:f7bccccfa671ce81ebc2fe5db64dfe19860a3d40d61c72a4c1aada57decad383"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.checkout_service.aws_security_group.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.checkout_service.aws_security_group.this/open-settings"
+    contract_sha256: "sha256:570faf9064038f6fb66bb03dd75f61a174abe97a76abe64bbadb6e309996cc03"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role/open-settings"
+    contract_sha256: "sha256:a65fc56d7e9beef442cae1c6993dfc8f0213fd98a565b17cbf9e9580cf47919f"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.orders_service.aws_iam_role.task_role
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.orders_service.aws_iam_role.task_role/open-settings"
+    contract_sha256: "sha256:5871fe68e62fd8dafffa9c3f7f0e83f906bf2dd3a47cf4d92f4113e1c009e053"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.orders_service.aws_security_group.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.orders_service.aws_security_group.this/open-settings"
+    contract_sha256: "sha256:457e1e32901ea77bff2a7c3ecc62fef1723e67cff8a3a4ddb678bdc9a461dd47"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role/open-settings"
+    contract_sha256: "sha256:11a8feff21bde9c38caecf2f16cefdc388a8d78c0efcd4015841b6f8bd09aa70"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.ui_service.aws_iam_role.task_role
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_iam_role.task_role/open-settings"
+    contract_sha256: "sha256:6e6cff4726e54521a0aa4726dcb4feb0efbc0a6efd3a129d309615bad24d9e20"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.ui_service.aws_security_group.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_security_group.this/open-settings"
+    contract_sha256: "sha256:86c9be66cffbbe7b0f68dc8f779b34090ffa83478d0827c24d5206234c389577"
+    state: NOT_STARTED
+
+  # REFUSE aws_security_group.security-group-vpc-membership - module.dependencies.aws_security_group.catalog_opensearch_sg
+  - action_id: "REF/root/security-group-membership-parity"
+    contract_sha256: "sha256:29cdb4c2eb1dd2f2e7f4de4a4a0f3d21c0fe58fef5d892f65baed2199f332d96"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_kms_keyring - module.retail_app_ecs.aws_kms_key.cmk
+  - action_id: "TF/stackit_kms_keyring.migrated"
+    contract_sha256: "sha256:e850780974e0af25c2612ebb30903643d9ccbfe69ccad2a85d0221ac6b0312c1"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_kms_key - module.retail_app_ecs.aws_kms_key.cmk
+  - action_id: "TF/stackit_kms_key.retail_app_ecs_cmk"
+    contract_sha256: "sha256:93479f1fea25c48df5bad6c7b0eeca3c8cdffb412e03b21a8cf0fb038ba75c35"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_secretsmanager_instance - module.retail_app_ecs.aws_secretsmanager_secret.catalog_db
+  - action_id: "TF/stackit_secretsmanager_instance.migrated_secrets"
+    contract_sha256: "sha256:fad92cfc9eaf7d1fd1b056997e62fc158ad1332ed4a76f29c5bd018d5047f224"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_secretsmanager_user - module.retail_app_ecs.aws_secretsmanager_secret.catalog_db
+  - action_id: "TF/stackit_secretsmanager_user.migration"
+    contract_sha256: "sha256:32094b0db1a91241e35a89396689bfdcebe9e8fa4e4202ac8d75184d0afa116c"
+    state: NOT_STARTED
+
+  # STACKIT_API identity.secret - module.retail_app_ecs.aws_secretsmanager_secret.catalog_db
+  - action_id: "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db"
+    contract_sha256: "sha256:60ed76682460dbe6e071c501a4adec1eee7d60b7bf31ab8b6f7d560ca3d70cfb"
+    state: NOT_STARTED
+
+  # STACKIT_API identity.secret - module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch
+  - action_id: "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch"
+    contract_sha256: "sha256:229cde04cd8fa6534494613c5d5102a71ab550284523fc0f00175074c46f1701"
+    state: NOT_STARTED
+
+  # STACKIT_API identity.secret - module.retail_app_ecs.aws_secretsmanager_secret.mq
+  - action_id: "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.mq"
+    contract_sha256: "sha256:3ab334735e591017fe7c009ad9fb66c1339fbd4d8c3fe99c44c9a1b560affce6"
+    state: NOT_STARTED
+
+  # STACKIT_API identity.secret - module.retail_app_ecs.aws_secretsmanager_secret.orders_db
+  - action_id: "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.orders_db"
+    contract_sha256: "sha256:9e5b8a363517a641764dca3035961cea692152697127f87e24d016cb9e18fd36"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_security_group - module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix
+  - action_id: "TF/stackit_security_group.retail_app_ecs_alb_sg_this_name_prefix"
+    contract_sha256: "sha256:88a3722b708efbcba5674af3481b543b4ab5fddd2833be6f5794a4e6c83b3644"
+    state: NOT_STARTED
+
+  # MANUAL INCOMPLETE - module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix
+  - action_id: "MAN/security/aws/incomplete:module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix:group-module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix.0.:rules:module.retail_app_ecs.module.alb_sg.aws_security_group_rule.egress_rules-b506f3"
+    contract_sha256: "sha256:32ab3388656418e73622d7baf8d77b77b7caa6862a953bb13c9bd7676a625a94"
+    state: NOT_STARTED
+
+  # MANUAL INCOMPLETE - module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix
+  - action_id: "MAN/security/aws/incomplete:module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix:group-module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix.0.:rules:module.retail_app_ecs.module.alb_sg.aws_security_group_rule.ingress_rules-a538f6"
+    contract_sha256: "sha256:da07791c3ae4a892d7b25f8d0ec298f81b3c998dcd0cddb6bc87e4d3f5a673d8"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_security_group - module.retail_app_ecs.module.alb.aws_security_group.this
+  - action_id: "TF/stackit_security_group.retail_app_ecs_alb_this"
+    contract_sha256: "sha256:68647dfd8c8db35796a1fa9ab0ee50cf6f71d3b4f500275c9671bdc201117a69"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_security_group - module.retail_app_ecs.module.carts_service.aws_security_group.this
+  - action_id: "TF/stackit_security_group.retail_app_ecs_carts_service_this"
+    contract_sha256: "sha256:53590f366a6992f26266ca882aee80c3f1e9366e64ce8038489f5fe8a187153d"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_security_group - module.retail_app_ecs.module.catalog_service.aws_security_group.this
+  - action_id: "TF/stackit_security_group.retail_app_ecs_catalog_service_this"
+    contract_sha256: "sha256:4eccb0cd0630becc578bbbea457e65a898016245593acedfe54a800c36b96162"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_security_group - module.retail_app_ecs.module.checkout_service.aws_security_group.this
+  - action_id: "TF/stackit_security_group.retail_app_ecs_checkout_service_this"
+    contract_sha256: "sha256:fb32d63210e0755fba527226032fa9c291264a258550ab49ca70d7695ffad89f"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_security_group - module.retail_app_ecs.module.orders_service.aws_security_group.this
+  - action_id: "TF/stackit_security_group.retail_app_ecs_orders_service_this"
+    contract_sha256: "sha256:5d0a53ab9b304d96558368baa1a2deb6137868564e372a4d24f3e9f47b599735"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_security_group - module.retail_app_ecs.module.ui_service.aws_security_group.this
+  - action_id: "TF/stackit_security_group.retail_app_ecs_ui_service_this"
+    contract_sha256: "sha256:b3e23bfdbf0b6166594d0e35ce0be21a444af5e068b2502ed4c73c9cf4fb9293"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_security_group_rule - module.retail_app_ecs.module.carts_service.aws_security_group.this
+  - action_id: "TF/stackit_security_group_rule.retail_app_ecs_carts_service_this_ingress_1"
+    contract_sha256: "sha256:7f34e9d1b453ea8b25ed669e7bc140e3104b5d807f2f01ec684a59e637cf6787"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_security_group_rule - module.retail_app_ecs.module.catalog_service.aws_security_group.this
+  - action_id: "TF/stackit_security_group_rule.retail_app_ecs_catalog_service_this_ingress_1"
+    contract_sha256: "sha256:a40b0f52c5e499533ac72478397d3db82a1339bab2a1933ecc1fc3feb4e68136"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_security_group_rule - module.retail_app_ecs.module.checkout_service.aws_security_group.this
+  - action_id: "TF/stackit_security_group_rule.retail_app_ecs_checkout_service_this_ingress_1"
+    contract_sha256: "sha256:a02272df500df8a971c507018f647e10fa290d139bc859070a5d4f0e6b1b0c82"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_security_group_rule - module.retail_app_ecs.module.orders_service.aws_security_group.this
+  - action_id: "TF/stackit_security_group_rule.retail_app_ecs_orders_service_this_ingress_1"
+    contract_sha256: "sha256:fb9752a25dca69bf05c792121e43f824efbe6207ccbde762772d3b5e8b02a558"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_security_group_rule - module.retail_app_ecs.module.ui_service.aws_security_group.this
+  - action_id: "TF/stackit_security_group_rule.retail_app_ecs_ui_service_this_ingress_1"
+    contract_sha256: "sha256:cd7135aa8be55f9c32837bccd10555b415036d1e21427a1e2a949c87445704a9"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_service_account - module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role
+  - action_id: "TF/stackit_service_account.retail_app_ecs_carts_service_task_execution_role"
+    contract_sha256: "sha256:596e543e80b0849953262e07951daabeae399f88b2c1dfd37899fa3d7cdbb429"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_authorization_project_role_assignment - module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role
+  - action_id: "TF/stackit_authorization_project_role_assignment.retail_app_ecs_carts_service_task_execution_role"
+    contract_sha256: "sha256:03b0b241f075767c744d35b9505a59771a2543f71ba4f971c2f5b78341c8cfbf"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_service_account - module.retail_app_ecs.module.carts_service.aws_iam_role.task_role
+  - action_id: "TF/stackit_service_account.retail_app_ecs_carts_service_task_role"
+    contract_sha256: "sha256:ba4f144312c9e563217a93e8eb71af97f7622f19f502153741266d087d9fb1db"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_authorization_project_role_assignment - module.retail_app_ecs.module.carts_service.aws_iam_role.task_role
+  - action_id: "TF/stackit_authorization_project_role_assignment.retail_app_ecs_carts_service_task_role"
+    contract_sha256: "sha256:3bd0fb2aa0b867e8e83a4d997b75815f03fe741147b62f670caf02cc559799e5"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_service_account - module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role
+  - action_id: "TF/stackit_service_account.retail_app_ecs_catalog_service_task_execution_role"
+    contract_sha256: "sha256:5b4d479df572fd9c1dca757d465ca3c7687ab7967f658aabb0524335a8092e9f"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_authorization_project_role_assignment - module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role
+  - action_id: "TF/stackit_authorization_project_role_assignment.retail_app_ecs_catalog_service_task_execution_role"
+    contract_sha256: "sha256:65b0d65842330ebc7ba519ff9674a0a4a360e3b3658614d187708c5d76417444"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_service_account - module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role
+  - action_id: "TF/stackit_service_account.retail_app_ecs_catalog_service_task_role"
+    contract_sha256: "sha256:639989fa89e6e9a786ccf5d32d6c8afa133b53cb777e1a69fc1c59a9935568ea"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_authorization_project_role_assignment - module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role
+  - action_id: "TF/stackit_authorization_project_role_assignment.retail_app_ecs_catalog_service_task_role"
+    contract_sha256: "sha256:6ff60a6c430133f1d8772fc121a47b4e9af6ad59323f3591245caf5dbc30a439"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_service_account - module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role
+  - action_id: "TF/stackit_service_account.retail_app_ecs_checkout_service_task_execution_role"
+    contract_sha256: "sha256:31d98def5fd91b23b5cda9548b1ff63339c8e3bb676bef78beb6c563dbfc85e9"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_authorization_project_role_assignment - module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role
+  - action_id: "TF/stackit_authorization_project_role_assignment.retail_app_ecs_checkout_service_task_execution_role"
+    contract_sha256: "sha256:1191aca77edd5ea852fcced8256e739a9ada5ad7a475bc26ed9fa73fb9a4c578"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_service_account - module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role
+  - action_id: "TF/stackit_service_account.retail_app_ecs_checkout_service_task_role"
+    contract_sha256: "sha256:13c5940ac0b7471d20d07cd16bd6888a9866deb79d6020629e0348a1c50071b6"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_authorization_project_role_assignment - module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role
+  - action_id: "TF/stackit_authorization_project_role_assignment.retail_app_ecs_checkout_service_task_role"
+    contract_sha256: "sha256:b2ab7fbd1cec198867a09ac2fbe98a717d61f4ee29895a6e702664f5f869e7fe"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_service_account - module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role
+  - action_id: "TF/stackit_service_account.retail_app_ecs_orders_service_task_execution_role"
+    contract_sha256: "sha256:f137d9fb680e43f735f792c92fb49f0ea4f925e27a6274c0285308f9800e0838"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_authorization_project_role_assignment - module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role
+  - action_id: "TF/stackit_authorization_project_role_assignment.retail_app_ecs_orders_service_task_execution_role"
+    contract_sha256: "sha256:b971c55acea0b761db5c3da2ff322314b2726279a3b4b215ad5c90a4e320abf3"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_service_account - module.retail_app_ecs.module.orders_service.aws_iam_role.task_role
+  - action_id: "TF/stackit_service_account.retail_app_ecs_orders_service_task_role"
+    contract_sha256: "sha256:7b5144de67e75b55a1a3308631ed463c71d5c1982e57e0caf9c2cb19295cab16"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_authorization_project_role_assignment - module.retail_app_ecs.module.orders_service.aws_iam_role.task_role
+  - action_id: "TF/stackit_authorization_project_role_assignment.retail_app_ecs_orders_service_task_role"
+    contract_sha256: "sha256:b9c257463ee181654cf03557da305724d20f64fd44a20ba764f028686433b780"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_service_account - module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role
+  - action_id: "TF/stackit_service_account.retail_app_ecs_ui_service_task_execution_role"
+    contract_sha256: "sha256:6db591432cbbacdb5740ed6bf960bf2e4b68f722ee806899f95919dff9fd151c"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_authorization_project_role_assignment - module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role
+  - action_id: "TF/stackit_authorization_project_role_assignment.retail_app_ecs_ui_service_task_execution_role"
+    contract_sha256: "sha256:081f9e731bb6d8e956e4a797e35bbf298d39e8c795b3dfc314375db33b11a93d"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_service_account - module.retail_app_ecs.module.ui_service.aws_iam_role.task_role
+  - action_id: "TF/stackit_service_account.retail_app_ecs_ui_service_task_role"
+    contract_sha256: "sha256:8ba17313c50d7cefca03d96c3cd1ab267e7aa81e33ef1703ff7826ab4f2f0547"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_authorization_project_role_assignment - module.retail_app_ecs.module.ui_service.aws_iam_role.task_role
+  - action_id: "TF/stackit_authorization_project_role_assignment.retail_app_ecs_ui_service_task_role"
+    contract_sha256: "sha256:0ea16133340beeff2fba80a68bb74c355e24ee992bcea8c9355f1e9a22c53090"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this
+  - action_id: "MAN/semantic/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/encryption-at-rest"
+    contract_sha256: "sha256:64f188ac610fb113a882635cc978bf07e64eb4b1c94cfad75c047620c5bc821b"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this
+  - action_id: "MAN/semantic/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/open-settings-identity-architect"
+    contract_sha256: "sha256:054e22b3089152be112f9bc96158adbef21095e2299b345aa592b03901059b13"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this
+  - action_id: "MAN/semantic/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/open-settings-network-architect"
+    contract_sha256: "sha256:2ceea0a98850932f392c6e442d2ba0a4304abfc864f60eb355f7527995f72787"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this
+  - action_id: "MAN/semantic/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/open-settings-platform-architect"
+    contract_sha256: "sha256:9bf752895470a74a5d9d7a71e453fb03eb6f199cd3dc321fa264b080c8309634"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.catalog_rds.aws_rds_cluster.this
+  - action_id: "MAN/semantic/module.dependencies.module.catalog_rds.aws_rds_cluster.this/admin-username-not-carried"
+    contract_sha256: "sha256:79ea02dec041d9f3ab8c7d8e3c87be0e79e017c0636736a9e5dff2cdd9b86b9d"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.catalog_rds.aws_rds_cluster.this
+  - action_id: "MAN/semantic/module.dependencies.module.catalog_rds.aws_rds_cluster.this/open-settings-data-architect"
+    contract_sha256: "sha256:bfc1dd24533f40f163298d5280e998ecccf92721417476dbb0795f279a412642"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.catalog_rds.aws_rds_cluster.this
+  - action_id: "MAN/semantic/module.dependencies.module.catalog_rds.aws_rds_cluster.this/open-settings-network-architect"
+    contract_sha256: "sha256:04c27df25e72d8c72f67645fac46bb85279bd79fdc624581063652ba367847f8"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.catalog_rds.aws_rds_cluster.this
+  - action_id: "MAN/semantic/module.dependencies.module.catalog_rds.aws_rds_cluster.this/open-settings-platform-architect"
+    contract_sha256: "sha256:84021e8077fceba1bd12cbacdde4e19dfd6b64664016a667cb5a34cb77878f64"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.catalog_rds.aws_rds_cluster.this
+  - action_id: "MAN/semantic/module.dependencies.module.catalog_rds.aws_rds_cluster.this/open-settings-security-architect"
+    contract_sha256: "sha256:6e8eb60e2b7851acf47d9b3ccc843e062aba0f81ea2405f1661cb687dbc01bdc"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+  - action_id: "MAN/semantic/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/network-placement"
+    contract_sha256: "sha256:e9ddc3dd3dab522aa5b3da67781689f1de93a7ab3152a2fcbe0913c956c4cf3d"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+  - action_id: "MAN/semantic/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/open-settings-data-architect"
+    contract_sha256: "sha256:a21225207c65fd140e1b5f3f4bde20c99886f865205459e1789f2d8157a06cc0"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+  - action_id: "MAN/semantic/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/open-settings-platform-architect"
+    contract_sha256: "sha256:3f5f7b53e9203eefb4b37cfe2ef0bcbc302afaf45c0802da8bcbf256377c036c"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+  - action_id: "MAN/semantic/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/open-settings-security-architect"
+    contract_sha256: "sha256:20a7f44bd66c82c64b6e424da9625a173989d9e51d241ab582db84c0b159b614"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this
+  - action_id: "MAN/semantic/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/encryption-at-rest"
+    contract_sha256: "sha256:adc46c278813485da33619547e93eae7e6d05e9b3b4551c0f176ff19644a0ebb"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this
+  - action_id: "MAN/semantic/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/open-settings-data-architect"
+    contract_sha256: "sha256:56a65b8408f94d5dd26a5c5c831d6ffdfbae903ae12efe941d47b0f7543edb14"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this
+  - action_id: "MAN/semantic/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/open-settings-platform-architect"
+    contract_sha256: "sha256:624840056a2228c77599163732588d1f0b633d5ffddb241d4e7f1b84ee6c8c16"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "MAN/semantic/module.dependencies.module.orders_rds.aws_rds_cluster.this/admin-username-not-carried"
+    contract_sha256: "sha256:59e4e13ae088e1c683871bf79503a312312cf5711a5a712374519ad423bb7586"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "MAN/semantic/module.dependencies.module.orders_rds.aws_rds_cluster.this/final-snapshot"
+    contract_sha256: "sha256:48fd251b605ea27a31a21f192fae3dbdd125cbb52465b642c3f4345ee162cb2c"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "MAN/semantic/module.dependencies.module.orders_rds.aws_rds_cluster.this/open-settings-network-architect"
+    contract_sha256: "sha256:e022745de2a09e619cd45312e5f416dfa3139c5d8af4ff5afeb03addf5df4a47"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "MAN/semantic/module.dependencies.module.orders_rds.aws_rds_cluster.this/open-settings-security-architect"
+    contract_sha256: "sha256:eb28292156b2faa98441d33e283591e06b559745d0e50b47e2e1cab73174baa5"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "MAN/semantic/module.dependencies.module.orders_rds.aws_rds_cluster.this/tcf-rds-cluster-instance--identifier"
+    contract_sha256: "sha256:fe090d8c92349ee17e74544b82505f826b5052cbf78a4fefef378483b37860df"
+    state: NOT_STARTED
+
+  # REFUSE aws_opensearch_domain.credentials-and-keys-settings - module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this
+  - action_id: "REF/semantic/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/credentials-and-keys-settings"
+    contract_sha256: "sha256:24c077651bd5585ef5f1e5f0b121bb50749cdbd6abbc08351ed7990029a9f667"
+    state: NOT_STARTED
+
+  # REFUSE aws_opensearch_domain.domain-credentials-and-keys - module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this
+  - action_id: "REF/semantic/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/domain-credentials-and-keys"
+    contract_sha256: "sha256:3706ec632054630d295061238d92d295d39734d42c648a3d2c82bb65ad504e7c"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_mongodbflex_instance - module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this
+  - action_id: "TF/stackit_mongodbflex_instance.dynamodb_tables"
+    contract_sha256: "sha256:34df22f60755985ee2f7928d1b2dff9c5b7855500e5b74073e27f19db2d99ea8"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_valkey_instance - module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+  - action_id: "TF/stackit_valkey_instance.dependencies_checkout_elasticache_redis_default"
+    contract_sha256: "sha256:cf3abb9e924b77f0160990d71b457916638f5e31349e05f5d393272406b954a0"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_valkey_credential - module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+  - action_id: "TF/stackit_valkey_credential.dependencies_checkout_elasticache_redis_default"
+    contract_sha256: "sha256:71a61e3c645d6a5b08300596843c7eb7e8a13591af8007f692b01b9429f28377"
+    state: NOT_STARTED
+
+  # MANUAL DATA_PREFLIGHT - module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+  - action_id: "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/preflight"
+    contract_sha256: "sha256:4e321200d48b8484644d29069d99d539f534a32cf842f125e707bdd097024f41"
+    state: NOT_STARTED
+
+  # MANUAL DATA_REHEARSAL - module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+  - action_id: "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/rehearsal"
+    contract_sha256: "sha256:6450db32e0790c893ba0a26469e5235056e0716c865abbfd6ddf18ff3dc8cf80"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.aws_mq_broker.mq
+  - action_id: "MAN/semantic/module.dependencies.aws_mq_broker.mq/broker-network"
+    contract_sha256: "sha256:12859dc380ccc0374007c5437a94ee3c98b2f4288f8c53f8bffee545f3071a58"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.aws_mq_broker.mq
+  - action_id: "MAN/semantic/module.dependencies.aws_mq_broker.mq/open-settings-identity-architect"
+    contract_sha256: "sha256:92575aa3ea442557e4b2094166b02fdcdcba63967299d5e61f37e3d15b5f41f4"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.aws_mq_broker.mq
+  - action_id: "MAN/semantic/module.dependencies.aws_mq_broker.mq/open-settings-platform-architect"
+    contract_sha256: "sha256:bc121155b8f47e11f460402fbc83d6500e126f2c77289636da8f3674ffda5cd8"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.dependencies.aws_mq_broker.mq
+  - action_id: "MAN/semantic/module.dependencies.aws_mq_broker.mq/open-settings-security-architect"
+    contract_sha256: "sha256:79bca931b4f995409d9ee5097fd4108d06a0952b87214c5b8a9a6c8da1d49095"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.alb.aws_lb.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.alb.aws_lb.this/open-settings-network-architect"
+    contract_sha256: "sha256:f2f9fff4e6ab547fea8a867b049910e9a9bbbf8c977b76b46ac2176566813d6c"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.alb.aws_lb.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.alb.aws_lb.this/open-settings-platform-architect"
+    contract_sha256: "sha256:d7e8842e87dc649411d811b84ecbdbe157c61413a0fc196ed5b92fd3f4de6801"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.carts_service.aws_ecs_service.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.carts_service.aws_ecs_service.this/open-settings-identity-architect"
+    contract_sha256: "sha256:5e090cae2280b8db0bb5921017fe24229f7de92211f936bb4d0678b134b72a48"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.carts_service.aws_ecs_service.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.carts_service.aws_ecs_service.this/open-settings-network-architect"
+    contract_sha256: "sha256:c8894181f4efa9dfeead3cb97e78b320ef0b18dedc793ac39d1220a073bbe050"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.carts_service.aws_ecs_service.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.carts_service.aws_ecs_service.this/open-settings-platform-architect"
+    contract_sha256: "sha256:2d8a24b67851a4d2d1a05a260caa87c18f5a8d5fdf2e089b5b01a96a5217f84a"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.carts_service.aws_ecs_service.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.carts_service.aws_ecs_service.this/open-settings-security-architect"
+    contract_sha256: "sha256:e8296575f972cd86317c70d2d548cf952101ef3a39a059aa135cd5094af17766"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.catalog_service.aws_ecs_service.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.catalog_service.aws_ecs_service.this/open-settings-identity-architect"
+    contract_sha256: "sha256:47af12cee1033d25d2389761027ab6ca429f2dcd5973fef036283a0c2307d778"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.catalog_service.aws_ecs_service.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.catalog_service.aws_ecs_service.this/open-settings-network-architect"
+    contract_sha256: "sha256:4b37fa2f71c6bf593b848754d88afc3450259a73b29d749a4741890511ddac0c"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.catalog_service.aws_ecs_service.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.catalog_service.aws_ecs_service.this/open-settings-platform-architect"
+    contract_sha256: "sha256:c863a211b46a2c93aed2edb4043c1ba46b71c218b0c90a353140b1c4f7480238"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.catalog_service.aws_ecs_service.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.catalog_service.aws_ecs_service.this/open-settings-security-architect"
+    contract_sha256: "sha256:580b1650d3551b938c109e0c529f37912c601e9da46de8eed81adf2e0a67e070"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.checkout_service.aws_ecs_service.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.checkout_service.aws_ecs_service.this/open-settings-identity-architect"
+    contract_sha256: "sha256:26ad1d45f9394e8f8158d13960deaddd52b8ce64feb83e64e6e2d27549f90452"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.checkout_service.aws_ecs_service.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.checkout_service.aws_ecs_service.this/open-settings-network-architect"
+    contract_sha256: "sha256:2ad954473c19a8b332fbf0613a2278278d6bc4c92eb6d6b7574b2b6678346be6"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.checkout_service.aws_ecs_service.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.checkout_service.aws_ecs_service.this/open-settings-platform-architect"
+    contract_sha256: "sha256:f3f2763ace9f2ba7ae0ec30ec7f67769db68f18913628f59ad8bdfb01e099596"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.checkout_service.aws_ecs_service.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.checkout_service.aws_ecs_service.this/open-settings-security-architect"
+    contract_sha256: "sha256:14dd8d5aee30a4d331370687088093d2e88f553ca7678679ef20315a0487220c"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.orders_service.aws_ecs_service.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.orders_service.aws_ecs_service.this/open-settings-identity-architect"
+    contract_sha256: "sha256:f8c4e3c867e4d4d7cc6aeca693a8eb830498c5e3cff3db9a2687c29b35a0ebae"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.orders_service.aws_ecs_service.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.orders_service.aws_ecs_service.this/open-settings-network-architect"
+    contract_sha256: "sha256:be9ef632320ca1ee2e66a45b0dfdc88ac48c01d8098a137635b504ab28a4ddda"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.orders_service.aws_ecs_service.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.orders_service.aws_ecs_service.this/open-settings-platform-architect"
+    contract_sha256: "sha256:9b3ed6135d409ae145297f041406c32ee061e78fabcd6fcde233062fc867b61c"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.orders_service.aws_ecs_service.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.orders_service.aws_ecs_service.this/open-settings-security-architect"
+    contract_sha256: "sha256:e400d8242fd02270b1327853c6bfdaf975e8511503ba572a86420e2f3f51a945"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.ui_service.aws_ecs_service.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_ecs_service.this/open-settings-identity-architect"
+    contract_sha256: "sha256:335a32d9193ff4f83507645645aaec3c5cd17062e02529a7401e30984cb40bcb"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.ui_service.aws_ecs_service.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_ecs_service.this/open-settings-network-architect"
+    contract_sha256: "sha256:a3dd7b9076c89f37b8a9bef924cb9e7f656297cd6d19920fd66b5e032465d07a"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.ui_service.aws_ecs_service.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_ecs_service.this/open-settings-platform-architect"
+    contract_sha256: "sha256:f8c4f9abc0bfd75582097713f5f4b00922dbd7f721fe6ff53c4f3794ae36dfa6"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - module.retail_app_ecs.module.ui_service.aws_ecs_service.this
+  - action_id: "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_ecs_service.this/open-settings-security-architect"
+    contract_sha256: "sha256:d27443c9c0ae7008a38f1f5994cc61d6e0261826fda1e58bd10a46d2e5f5fdab"
+    state: NOT_STARTED
+
+  # MANUAL manual-migration - module.retail_app_ecs.aws_cloudwatch_event_rule.ecs_events
+  - action_id: "MAN/unit/module.retail_app_ecs.aws_cloudwatch_event_rule.ecs_events"
+    contract_sha256: "sha256:09ef0f94375a481c058beba2f158872f266271ab3367bb86b7a17c3fd07b4cd8"
+    state: NOT_STARTED
+
+  # MANUAL manual-migration - module.retail_app_ecs.aws_cloudwatch_log_group.ecs_container_insights
+  - action_id: "MAN/unit/module.retail_app_ecs.aws_cloudwatch_log_group.ecs_container_insights"
+    contract_sha256: "sha256:c2f12ce46d1abfddebe6f6332ef314856570b6f563803316c482e53c3cba156d"
+    state: NOT_STARTED
+
+  # MANUAL manual-migration - module.retail_app_ecs.aws_cloudwatch_log_resource_policy.eventbridge_ecs
+  - action_id: "MAN/unit/module.retail_app_ecs.aws_cloudwatch_log_resource_policy.eventbridge_ecs"
+    contract_sha256: "sha256:63d3b4aae333624c12f0c0e3115b279b300bb5afc2f7474d37e62b9c8332659f"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_application_load_balancer - module.retail_app_ecs.module.alb.aws_lb.this
+  - action_id: "TF/stackit_application_load_balancer.retail_app_ecs_alb_this"
+    contract_sha256: "sha256:a3cb5ef27ce4ed18f8ebde6c0aad5f5191df258954ead6a19cce8cd934943639"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_logs_instance - module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks
+  - action_id: "TF/stackit_logs_instance.logs_retention_180d"
+    contract_sha256: "sha256:4f970772a7a77d362a6b1983607b25742e662b09225c1c88209202af4a330a70"
+    state: NOT_STARTED
+
+  # MANUAL ARCHIVE_FLOW - module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks
+  - action_id: "MAN/logs/archive:module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks"
+    contract_sha256: "sha256:52a0d62f996148ff5ac8ca335273abc413128359aee5785fb217c7a3bdcf964c"
+    state: NOT_STARTED
+
+  # MANUAL TARGET_PRECONDITION - module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks
+  - action_id: "MAN/logs/token:stackit_logs_instance.logs_retention_180d"
+    contract_sha256: "sha256:c170b6618d65514c4cbb19af6baa0f37d745d4b650195e2b6267e7daa8d62494"
+    state: NOT_STARTED
+
+  # MANUAL LABEL_CONVENTION - module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks
+  - action_id: "MAN/logs/label-convention:module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks"
+    contract_sha256: "sha256:df9aa2d9f1a16f7df5a12ed0e2c1c7f9d61763ca7d11cb512efc3aa8854637f2"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_ske_cluster - module.retail_app_ecs.aws_ecs_cluster.cluster
+  - action_id: "TF/stackit_ske_cluster.retail_app_ecs_cluster"
+    contract_sha256: "sha256:e595741dd3b762dbac2c973f3890880737c4c214f5ef40bbe1b05a91877c6bda"
+    state: NOT_STARTED
+
+  # MANUAL CLUSTER_ACCESS - module.retail_app_ecs.aws_ecs_cluster.cluster
+  - action_id: "MAN/draft/handover/cluster-access/kubeconfig-md"
+    contract_sha256: "sha256:8cb6330228731e637d570e5d1a338ec6716d998b781febc022188359409a32c6"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_mariadb_instance - module.dependencies.module.catalog_rds.aws_rds_cluster.this
+  - action_id: "TF/stackit_mariadb_instance.dependencies_catalog_rds_this"
+    contract_sha256: "sha256:f295146f8382b2831dc3e5e3bf144e04ef6899e0fd11fc267cef5b0a1add9910"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_mariadb_credential - module.dependencies.module.catalog_rds.aws_rds_cluster.this
+  - action_id: "TF/stackit_mariadb_credential.dependencies_catalog_rds_this"
+    contract_sha256: "sha256:c14c0fedbf450ec152de3844591f9a124bcccbfe5466d2b73bc2b76ac0af4bb8"
+    state: NOT_STARTED
+
+  # MANUAL DATA_PREFLIGHT - module.dependencies.module.catalog_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/preflight"
+    contract_sha256: "sha256:137c98411bb961ec7e02340eda49eff81a3e7d22a7b2d662b14e0c61262993c7"
+    state: NOT_STARTED
+
+  # MANUAL DATA_REHEARSAL - module.dependencies.module.catalog_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/rehearsal"
+    contract_sha256: "sha256:8182e0083a583be3fa2f120208366d3a8b3d3e282074be913a77ff56ebe30c81"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_opensearch_instance - module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this
+  - action_id: "TF/stackit_opensearch_instance.dependencies_catalog_opensearch_this"
+    contract_sha256: "sha256:46cd6094912531088b208574b4a32bee0d9eac6699ff958ba32c6e7b6d27e75f"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_opensearch_credential - module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this
+  - action_id: "TF/stackit_opensearch_credential.dependencies_catalog_opensearch_this"
+    contract_sha256: "sha256:2a8eed7462a622d5e69b999d56042a906c9a475f5f6e58479dfa5a06fca50a2e"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_postgresflex_instance - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "TF/stackit_postgresflex_instance.dependencies_orders_rds_this"
+    contract_sha256: "sha256:13b2b980048baea5f594dec958436401f0517ff3b6d8dfd465d9cfab28f1264d"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_postgresflex_user - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "TF/stackit_postgresflex_user.dependencies_orders_rds_this"
+    contract_sha256: "sha256:a14bf1540f3ca68c0748389bb63bbb0e1a2a192a4d75433f0e7f411a27f50226"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_postgresflex_database - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "TF/stackit_postgresflex_database.dependencies_orders_rds_this_orders"
+    contract_sha256: "sha256:acd6104c7c692c8a19e2d435ffc9705fc4266369fa28e818d3039f1d56eb24d9"
+    state: NOT_STARTED
+
+  # MANUAL DATA_PREFLIGHT - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/preflight"
+    contract_sha256: "sha256:f0b50c2bcd24d5a5eb33b71b83fccd4c5a903818042d96b04186aa7822e0c5e7"
+    state: NOT_STARTED
+
+  # MANUAL DATA_REHEARSAL - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/rehearsal"
+    contract_sha256: "sha256:edc855da1c6a0d6dd0b7605e369f988a772f8a400b7227918abfda0a2e40bd57"
+    state: NOT_STARTED
+
+  # MANUAL DATA_MIGRATION - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/initial-copy/logical-replication"
+    contract_sha256: "sha256:260fbfdad119183de353ded3a136511a2a92b49c3474ad2e28b13c741bc701c8"
+    state: NOT_STARTED
+
+  # MANUAL DATA_DELTA_SYNC - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/delta-sync/logical-replication"
+    contract_sha256: "sha256:8d40135efd44e65db9cb9c207cb9c0048dd22186fadb407a5c1c209f0536600d"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_rabbitmq_instance - module.dependencies.aws_mq_broker.mq
+  - action_id: "TF/stackit_rabbitmq_instance.dependencies_mq"
+    contract_sha256: "sha256:7b4c6d0aa3c0c448ffed8f6197a83857beef560302affc2e5c04b2cac37dbf7d"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_rabbitmq_credential - module.dependencies.aws_mq_broker.mq
+  - action_id: "TF/stackit_rabbitmq_credential.dependencies_mq"
+    contract_sha256: "sha256:f1f114dcffbee90b5de342d78ac75023ce7a9c9df7488dba7cc66a7f275e8039"
+    state: NOT_STARTED
+
+  # MANUAL KUBERNETES_APPLY - module.retail_app_ecs.module.carts_service.aws_ecs_service.this
+  - action_id: "MAN/draft/kubernetes/carts/manifests-yaml"
+    contract_sha256: "sha256:4e4ad1c57e30c281e8916fbeb7c713bc809d6079b2c0fbbb8bf30452e2903bd2"
+    state: NOT_STARTED
+
+  # MANUAL KUBERNETES_APPLY - module.retail_app_ecs.module.catalog_service.aws_ecs_service.this
+  - action_id: "MAN/draft/kubernetes/catalog/manifests-yaml"
+    contract_sha256: "sha256:76c4f8200cd3989fc501d6774567f637bc091c0037ce1a98c80aecd581a492e8"
+    state: NOT_STARTED
+
+  # MANUAL KUBERNETES_APPLY - module.retail_app_ecs.module.checkout_service.aws_ecs_service.this
+  - action_id: "MAN/draft/kubernetes/checkout/manifests-yaml"
+    contract_sha256: "sha256:e558375823126c7cc8b3b05bc170905785a294b690aea30100a2a79af3d84013"
+    state: NOT_STARTED
+
+  # MANUAL KUBERNETES_APPLY - module.retail_app_ecs.module.orders_service.aws_ecs_service.this
+  - action_id: "MAN/draft/kubernetes/orders/manifests-yaml"
+    contract_sha256: "sha256:e06a7e143f5bd6bab5cf36edd866b9348fa293e0cf681c9b517fd62844050497"
+    state: NOT_STARTED
+
+  # MANUAL KUBERNETES_APPLY - module.retail_app_ecs.module.ui_service.aws_ecs_service.this
+  - action_id: "MAN/draft/kubernetes/ui/manifests-yaml"
+    contract_sha256: "sha256:2eec4a2c16e2f36716fab7feb6a80c3790b700917fd7d4a723a1e20cca16360c"
+    state: NOT_STARTED
+
+  # MANUAL DATA_WRITE_FREEZE - module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this
+  - action_id: "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/write-freeze/client-import"
+    contract_sha256: "sha256:990c1f6ce59067a382ad8f20211d7f88ee2d10bb11b154b46b8f5f8f6e52ed10"
+    state: NOT_STARTED
+
+  # MANUAL DATA_FINAL_SYNC - module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this
+  - action_id: "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/final-sync/client-import"
+    contract_sha256: "sha256:4ee4cb8c56f46785be468beb7c5db738bce895597a5ca0f33a2af1b11c00365b"
+    state: NOT_STARTED
+
+  # MANUAL DATA_RECONCILE - module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this
+  - action_id: "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/reconcile/client-import"
+    contract_sha256: "sha256:6d7a92ae65bb2e4e5970ebc36a388648f901b7d593dfaa11ab549e88b21bb7c8"
+    state: NOT_STARTED
+    checks:
+      - check_id: "counts"
+        result: NOT_RUN
+      - check_id: "content"
+        result: NOT_RUN
+      - check_id: "application-check"
+        result: NOT_RUN
+      - check_id: "rollback-limit"
+        result: NOT_RUN
+
+  # MANUAL DATA_WRITE_FREEZE - module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this
+  - action_id: "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/write-freeze/own-tool"
+    contract_sha256: "sha256:c2bde1ad0b78160243fd74529c94f43bd6b0c3bbaaa39316617ff4c92b294151"
+    state: NOT_STARTED
+
+  # MANUAL DATA_FINAL_SYNC - module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this
+  - action_id: "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/final-sync/own-tool"
+    contract_sha256: "sha256:bf44dfc23bb3afdeac1e34cad52c033acea4c72235e17aacd16f95bb81d591f8"
+    state: NOT_STARTED
+
+  # MANUAL DATA_RECONCILE - module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this
+  - action_id: "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/reconcile/own-tool"
+    contract_sha256: "sha256:4fc29d7df12205a57fe612bc48f91a58ca97cec8da190bd3b52115a5c275e2fd"
+    state: NOT_STARTED
+    checks:
+      - check_id: "counts"
+        result: NOT_RUN
+      - check_id: "content"
+        result: NOT_RUN
+      - check_id: "application-check"
+        result: NOT_RUN
+      - check_id: "rollback-limit"
+        result: NOT_RUN
+
+  # MANUAL DATA_WRITE_FREEZE - module.dependencies.module.catalog_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/write-freeze/dump-restore"
+    contract_sha256: "sha256:734a16efa5da16282f3eeeb31d1af80c4e7bcb461c33eeee7d365e1fe85a50e4"
+    state: NOT_STARTED
+
+  # MANUAL DATA_FINAL_SYNC - module.dependencies.module.catalog_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/final-sync/dump-restore"
+    contract_sha256: "sha256:76109cae9e5fbd008330a0fb279f7278b640319bdd4752688a040703c225bf53"
+    state: NOT_STARTED
+
+  # MANUAL DATA_RECONCILE - module.dependencies.module.catalog_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/reconcile/dump-restore"
+    contract_sha256: "sha256:e9f94c3e06954b656ff4992c5ffda52be0b7781aff368b2cd0444fdbead31e75"
+    state: NOT_STARTED
+    checks:
+      - check_id: "table-counts"
+        result: NOT_RUN
+      - check_id: "content-aggregates"
+        result: NOT_RUN
+      - check_id: "objects-and-settings"
+        result: NOT_RUN
+      - check_id: "application-check"
+        result: NOT_RUN
+      - check_id: "rollback-limit"
+        result: NOT_RUN
+
+  # MANUAL DATA_WRITE_FREEZE - module.dependencies.module.catalog_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/write-freeze/own-tool"
+    contract_sha256: "sha256:d51093a81fa461c8ef5138fda8a0c8eaf72c31296f970d5cbacd760e13f8b7dd"
+    state: NOT_STARTED
+
+  # MANUAL DATA_FINAL_SYNC - module.dependencies.module.catalog_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/final-sync/own-tool"
+    contract_sha256: "sha256:6822e7c7efb11da30e058e9c8e780f0646b1da98b2358275f983631557228d0d"
+    state: NOT_STARTED
+
+  # MANUAL DATA_RECONCILE - module.dependencies.module.catalog_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/reconcile/own-tool"
+    contract_sha256: "sha256:6d36b9f0b0d72472d4659dc065af12ffca1c0b349a042b69b603d6c7cec8c0dc"
+    state: NOT_STARTED
+    checks:
+      - check_id: "table-counts"
+        result: NOT_RUN
+      - check_id: "content-aggregates"
+        result: NOT_RUN
+      - check_id: "objects-and-settings"
+        result: NOT_RUN
+      - check_id: "application-check"
+        result: NOT_RUN
+      - check_id: "rollback-limit"
+        result: NOT_RUN
+
+  # MANUAL DATA_CONSUMER_SWITCH - module.dependencies.module.catalog_rds.aws_rds_cluster.this
+  - action_id: "MAN/cutover/connection/module.dependencies.module.catalog_rds.aws_rds_cluster.this"
+    contract_sha256: "sha256:271ec72bc2da6cb79fae1e06e4bc61845b0240d20a3d16f0207cd88cbdff7712"
+    state: NOT_STARTED
+
+  # MANUAL DATA_WRITE_FREEZE - module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+  - action_id: "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/write-freeze/client-import"
+    contract_sha256: "sha256:84ea4b66588b3739ca12b15b0e533622ecd417f3babe349607da3244ae89535b"
+    state: NOT_STARTED
+
+  # MANUAL DATA_FINAL_SYNC - module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+  - action_id: "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/final-sync/client-import"
+    contract_sha256: "sha256:bd5f447d7127a981a95361a45c4757defbc2f0101bec3a7bbe5cc248af48e925"
+    state: NOT_STARTED
+
+  # MANUAL DATA_RECONCILE - module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+  - action_id: "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/reconcile/client-import"
+    contract_sha256: "sha256:7ac0072563498c60afc64f5ef14f1ce5e5da17613a9481b232a888b979c37cb6"
+    state: NOT_STARTED
+    checks:
+      - check_id: "key-counts"
+        result: NOT_RUN
+      - check_id: "key-lists"
+        result: NOT_RUN
+      - check_id: "application-check"
+        result: NOT_RUN
+      - check_id: "rollback-limit"
+        result: NOT_RUN
+
+  # MANUAL DATA_WRITE_FREEZE - module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+  - action_id: "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/write-freeze/own-tool"
+    contract_sha256: "sha256:56ea0a8b9a3cb0c420a13b033cb1e0251f19ea8598d0996d5446d3124482f507"
+    state: NOT_STARTED
+
+  # MANUAL DATA_FINAL_SYNC - module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+  - action_id: "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/final-sync/own-tool"
+    contract_sha256: "sha256:6fe209aff2136c15e868a1f5221477adfd20a58b06abac4ef142376909533bd3"
+    state: NOT_STARTED
+
+  # MANUAL DATA_RECONCILE - module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+  - action_id: "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/reconcile/own-tool"
+    contract_sha256: "sha256:201458c9c5d9540fe26661bf4157d411c24457c8521122d2a233d733798f8013"
+    state: NOT_STARTED
+    checks:
+      - check_id: "key-counts"
+        result: NOT_RUN
+      - check_id: "key-lists"
+        result: NOT_RUN
+      - check_id: "application-check"
+        result: NOT_RUN
+      - check_id: "rollback-limit"
+        result: NOT_RUN
+
+  # MANUAL DATA_CONSUMER_SWITCH - module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+  - action_id: "MAN/cutover/connection/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default"
+    contract_sha256: "sha256:78ddf81ad7c75c175d4e5d92d64bff3299880be6a0496646154bcc530d262422"
+    state: NOT_STARTED
+
+  # MANUAL DATA_WRITE_FREEZE - module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this
+  - action_id: "MAN/data/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/write-freeze/own-tool"
+    contract_sha256: "sha256:b23c1221b6b8beab713126dc103fe184c26d9399398e402b4adf79c2077e1bba"
+    state: NOT_STARTED
+
+  # MANUAL DATA_MIGRATION - module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this
+  - action_id: "MAN/data/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/export/own-tool"
+    contract_sha256: "sha256:4d23971cd5ec5455e554057a0a6bf0bd73b6b313e711f6ebaaa552a28235a075"
+    state: NOT_STARTED
+
+  # MANUAL DATA_TRANSFORM - module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this
+  - action_id: "MAN/data/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/transform/own-tool"
+    contract_sha256: "sha256:a876ad5754ebd75f9da2c08749437d351e0065a1f947208ecdd3c3bdf01ac6a4"
+    state: NOT_STARTED
+
+  # MANUAL DATA_FINAL_SYNC - module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this
+  - action_id: "MAN/data/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/final-sync/own-tool"
+    contract_sha256: "sha256:982cd859cab5317d6163a22fea7380823d4953c048d7dbe67e76a365d1027449"
+    state: NOT_STARTED
+
+  # MANUAL DATA_RECONCILE - module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this
+  - action_id: "MAN/data/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/reconcile/own-tool"
+    contract_sha256: "sha256:3de236d9cab10fc484e0fc358316ee0585670be35b28329560e695c130e76739"
+    state: NOT_STARTED
+    checks:
+      - check_id: "document-count"
+        result: NOT_RUN
+      - check_id: "key-sample"
+        result: NOT_RUN
+      - check_id: "application-check"
+        result: NOT_RUN
+      - check_id: "rollback-limit"
+        result: NOT_RUN
+
+  # MANUAL DATA_CONSUMER_SWITCH - module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this
+  - action_id: "MAN/cutover/connection/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this"
+    contract_sha256: "sha256:4c21ba10204cbf743d2d4df96af20d1d21ed884869cb7b979d7d250961be799b"
+    state: NOT_STARTED
+
+  # MANUAL DATA_WRITE_FREEZE - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/write-freeze/dump-restore"
+    contract_sha256: "sha256:24412a2737f26e39b8de42dbf34c5ae9c107c0f3b9808bd7cdefafa87a54fd57"
+    state: NOT_STARTED
+
+  # MANUAL DATA_FINAL_SYNC - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/final-sync/dump-restore"
+    contract_sha256: "sha256:427430e9dcf51dacc96b45c3bae6a07a573b09f441d9acd5ced2c99598ba5b14"
+    state: NOT_STARTED
+
+  # MANUAL DATA_RECONCILE - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/reconcile/dump-restore"
+    contract_sha256: "sha256:df4668fd86c3f7c975b6dcb7a4d6368865907006e931622f439feaeb049fd58b"
+    state: NOT_STARTED
+    checks:
+      - check_id: "row-counts"
+        result: NOT_RUN
+      - check_id: "table-checksums"
+        result: NOT_RUN
+      - check_id: "sequences"
+        result: NOT_RUN
+      - check_id: "application-check"
+        result: NOT_RUN
+      - check_id: "rollback-limit"
+        result: NOT_RUN
+
+  # MANUAL DATA_WRITE_FREEZE - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/write-freeze/logical-replication"
+    contract_sha256: "sha256:a644afe952cfc95bbc00f3ad8ecee250d13fc96d5b6362ef9797b7ca1c2defab"
+    state: NOT_STARTED
+
+  # MANUAL DATA_FINAL_SYNC - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/final-sync/logical-replication"
+    contract_sha256: "sha256:2887773b2c97fab80c4eb785782844b34028113f9ab5410c4b08d0cd80318bc2"
+    state: NOT_STARTED
+
+  # MANUAL DATA_RECONCILE - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/reconcile/logical-replication"
+    contract_sha256: "sha256:876e5dad676f5ac2936c25e3cc3629b621b536ccf754511acf9c213f79c4de87"
+    state: NOT_STARTED
+    checks:
+      - check_id: "replication-lag"
+        result: NOT_RUN
+      - check_id: "last-sync-time"
+        result: NOT_RUN
+      - check_id: "row-counts"
+        result: NOT_RUN
+      - check_id: "table-checksums"
+        result: NOT_RUN
+      - check_id: "sequences"
+        result: NOT_RUN
+      - check_id: "application-check"
+        result: NOT_RUN
+      - check_id: "rollback-limit"
+        result: NOT_RUN
+
+  # MANUAL DATA_WRITE_FREEZE - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/write-freeze/own-tool"
+    contract_sha256: "sha256:959ca6992045b68f00fea67dd557e0a87352c90836bd4260a5b53930c6133af0"
+    state: NOT_STARTED
+
+  # MANUAL DATA_FINAL_SYNC - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/final-sync/own-tool"
+    contract_sha256: "sha256:a43d604fa7862d1e09c0516e78dd9b98d009e70f7df394bab7b3e36526ce21ea"
+    state: NOT_STARTED
+
+  # MANUAL DATA_RECONCILE - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/reconcile/own-tool"
+    contract_sha256: "sha256:89cb3d18a62640eaf6084cdd878b7d5b5853d64d475983fb87c73fe827afe727"
+    state: NOT_STARTED
+    checks:
+      - check_id: "row-counts"
+        result: NOT_RUN
+      - check_id: "table-checksums"
+        result: NOT_RUN
+      - check_id: "sequences"
+        result: NOT_RUN
+      - check_id: "application-check"
+        result: NOT_RUN
+      - check_id: "rollback-limit"
+        result: NOT_RUN
+
+  # MANUAL DATA_CONSUMER_SWITCH - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "MAN/cutover/connection/module.dependencies.module.orders_rds.aws_rds_cluster.this"
+    contract_sha256: "sha256:1f589fad7f8d6b6fcc343456d18837424f1667dcd11ec15043cd40c9484c747a"
+    state: NOT_STARTED
+
+  # MANUAL CUTOVER_READINESS
+  - action_id: "MAN/cutover/readiness"
+    contract_sha256: "sha256:c6d6ce9a23630925d107e209d78bbf4bb255e28c5a38f4f47d6d7af0ecc9c3af"
+    state: NOT_STARTED
+
+  # MANUAL DATA_CONSUMER_SWITCH - module.retail_app_ecs.aws_secretsmanager_secret.catalog_db
+  - action_id: "MAN/cutover/connection/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db"
+    contract_sha256: "sha256:7368f783645536f82eb13947861b9c89b0cc662cf6e96f2f93e10336180c142d"
+    state: NOT_STARTED
+
+  # MANUAL DATA_CONSUMER_SWITCH - module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch
+  - action_id: "MAN/cutover/connection/module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch"
+    contract_sha256: "sha256:38edd732edb1aa071f0de79a5b6b1762d1b1e8a78121794989063acbe6388db6"
+    state: NOT_STARTED
+
+  # MANUAL DATA_CONSUMER_SWITCH - module.retail_app_ecs.aws_secretsmanager_secret.mq
+  - action_id: "MAN/cutover/connection/module.retail_app_ecs.aws_secretsmanager_secret.mq"
+    contract_sha256: "sha256:9f50ca9bebed151a1142815da948f0a718ee8dfdcfb9d689dc8fe9f3aca5725d"
+    state: NOT_STARTED
+
+  # MANUAL DATA_CONSUMER_SWITCH - module.retail_app_ecs.aws_secretsmanager_secret.orders_db
+  - action_id: "MAN/cutover/connection/module.retail_app_ecs.aws_secretsmanager_secret.orders_db"
+    contract_sha256: "sha256:299edfe527b063986af5ce6c730d95663f5dac4f347d6fbf5bd51edbf55d1ff0"
+    state: NOT_STARTED
+
+  # MANUAL TRAFFIC_CUTOVER - module.dependencies.aws_mq_broker.mq
+  - action_id: "MAN/cutover/module.dependencies.aws_mq_broker.mq"
+    contract_sha256: "sha256:c6468f3f37f5384a1a98c3320958fdca45dcbb4ae96ba7becb55f772830cadad"
+    state: NOT_STARTED
+
+  # MANUAL MESSAGING_DRAIN - module.dependencies.aws_mq_broker.mq
+  - action_id: "MAN/cutover/messaging-drain/module.dependencies.aws_mq_broker.mq"
+    contract_sha256: "sha256:fdb5f00a5fe2197a086f898109aef38f587e4cddd1d91dc1ec58951def9fa062"
+    state: NOT_STARTED
+
+  # MANUAL MESSAGING_CONSUMER_SWITCH - module.dependencies.aws_mq_broker.mq
+  - action_id: "MAN/cutover/messaging-consumers/module.dependencies.aws_mq_broker.mq"
+    contract_sha256: "sha256:63b94a8c0c40f923f2863494e08dbcb8345ad2d3850383b9699ae6c62ae58efe"
+    state: NOT_STARTED
+
+  # MANUAL TRAFFIC_CUTOVER - module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this
+  - action_id: "MAN/cutover/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this"
+    contract_sha256: "sha256:b075f4ff9beb45555b801fcee2d8b4fc51155fcee5aaf0637146bdb3d539d678"
+    state: NOT_STARTED
+
+  # MANUAL TRAFFIC_CUTOVER - module.retail_app_ecs.module.alb.aws_lb.this
+  - action_id: "MAN/cutover/module.retail_app_ecs.module.alb.aws_lb.this"
+    contract_sha256: "sha256:88501a8c53e6ec2b0c4eb6d274580d341ae6f06f65b090ee342ad54d4234bda0"
+    state: NOT_STARTED
+
+  # MANUAL CUTOVER_COMPLETE
+  - action_id: "MAN/cutover/complete"
+    contract_sha256: "sha256:b7b7f3b6a2b5451f6501352e9798125ae111aa9d7baae6e2e6ae5ef404d97d50"
+    state: NOT_STARTED
+
+  # MANUAL CONSUMER_VALIDATION - module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this
+  - action_id: "MAN/verify/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this"
+    contract_sha256: "sha256:b50144cd79530bae264356ae4a1f1e6b41b24ed10d676fbde303fdb321feb64e"
+    state: NOT_STARTED
+
+  # MANUAL CONSUMER_VALIDATION - module.dependencies.module.catalog_rds.aws_rds_cluster.this
+  - action_id: "MAN/verify/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this"
+    contract_sha256: "sha256:ba3b0c4a983a1dbd77f127ebecc66ef9178e2ec493cd03cbf26586148fb8e4cc"
+    state: NOT_STARTED
+
+  # MANUAL CONSUMER_VALIDATION - module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+  - action_id: "MAN/verify/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default"
+    contract_sha256: "sha256:9752065bfc9485c7068ae629bae622eff01ef67c8299d2f1b1f59b9b22aa7d11"
+    state: NOT_STARTED
+
+  # MANUAL CONSUMER_VALIDATION - module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this
+  - action_id: "MAN/verify/data/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this"
+    contract_sha256: "sha256:552fc6ea51e3d62e0c740c4b0efe57e00433ed06e1521a1a4ba275e4c73d2a6f"
+    state: NOT_STARTED
+
+  # MANUAL CONSUMER_VALIDATION - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "MAN/verify/data/module.dependencies.module.orders_rds.aws_rds_cluster.this"
+    contract_sha256: "sha256:8ad26d8ab8c034a2f382ef605098faf0c9941d56029aa0d1e61f5f530bcfe860"
+    state: NOT_STARTED
+
+  # MANUAL DNS_RESOLUTION_CHECK - module.retail_app_ecs.module.carts_service.aws_ecs_service.this
+  - action_id: "MAN/verify/dns/module.retail_app_ecs.module.carts_service.aws_ecs_service.this"
+    contract_sha256: "sha256:1e52ed1526c384baa6a4fb6d4f0e46dab6ce07a6f209da10ba90289f5ba81599"
+    state: NOT_STARTED
+
+  # MANUAL DNS_RESOLUTION_CHECK - module.retail_app_ecs.module.catalog_service.aws_ecs_service.this
+  - action_id: "MAN/verify/dns/module.retail_app_ecs.module.catalog_service.aws_ecs_service.this"
+    contract_sha256: "sha256:0b3f541371d1e6d19417825842272a79be2eebea58337349d02355b542166e4d"
+    state: NOT_STARTED
+
+  # MANUAL DNS_RESOLUTION_CHECK - module.retail_app_ecs.module.checkout_service.aws_ecs_service.this
+  - action_id: "MAN/verify/dns/module.retail_app_ecs.module.checkout_service.aws_ecs_service.this"
+    contract_sha256: "sha256:a9776e8b93e9bcf40fbf9f0959240053b13d0cb3b6d1282b734c0517f1372ef8"
+    state: NOT_STARTED
+
+  # MANUAL DNS_RESOLUTION_CHECK - module.retail_app_ecs.module.orders_service.aws_ecs_service.this
+  - action_id: "MAN/verify/dns/module.retail_app_ecs.module.orders_service.aws_ecs_service.this"
+    contract_sha256: "sha256:ca2a54f29eeb90f6356ca9a60401f9b6883ad895c9a894a70a43c5bf1cdbf613"
+    state: NOT_STARTED
+
+  # MANUAL DNS_RESOLUTION_CHECK - module.retail_app_ecs.module.ui_service.aws_ecs_service.this
+  - action_id: "MAN/verify/dns/module.retail_app_ecs.module.ui_service.aws_ecs_service.this"
+    contract_sha256: "sha256:001a94f2426c1e03edaa823d9f220e3e9f210dbb49a0b889c52863b73afe9880"
+    state: NOT_STARTED
+
+  # MANUAL ENDPOINT_SMOKE_CHECK - module.dependencies.aws_mq_broker.mq
+  - action_id: "MAN/verify/endpoint/module.dependencies.aws_mq_broker.mq"
+    contract_sha256: "sha256:5ab42eb93f4446315536e1c4196b0cfd690c1a08bf502fc731702d59f12ebb8c"
+    state: NOT_STARTED
+
+  # MANUAL ENDPOINT_SMOKE_CHECK - module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this
+  - action_id: "MAN/verify/endpoint/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this"
+    contract_sha256: "sha256:5c479b74273a2e594606e3ac6dbca204e568431ca2fe08459d9e61fdcb055f60"
+    state: NOT_STARTED
+
+  # MANUAL ENDPOINT_SMOKE_CHECK - module.retail_app_ecs.module.alb.aws_lb.this
+  - action_id: "MAN/verify/endpoint/module.retail_app_ecs.module.alb.aws_lb.this"
+    contract_sha256: "sha256:c20af48b9d9633a34fc68687cd90dca48511c578b250e6f438a96fbcc2a9b075"
+    state: NOT_STARTED
+
+  # MANUAL ROLLBACK_DECISION
+  - action_id: "MAN/verify/rollback-decision"
+    contract_sha256: "sha256:2a6e69cca5937f7446801d70d627ec6a4d4628ff6b11deba89f94fd047ad3cd7"
+    state: NOT_STARTED
+
+  # MANUAL DATA_CLEANUP - module.dependencies.module.catalog_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/cleanup/dump-restore"
+    contract_sha256: "sha256:554ae04a2cadd28aa03d69c32994177a2b5d2f537c1dc03e048e5d96af079c15"
+    state: NOT_STARTED
+
+  # MANUAL DATA_CLEANUP - module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+  - action_id: "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/cleanup/client-import"
+    contract_sha256: "sha256:f7a821b77094c4a55bedac60638edfa7bd10e2d2c566f6f64e916674831c04bb"
+    state: NOT_STARTED
+
+  # MANUAL DATA_CLEANUP - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/cleanup/dump-restore"
+    contract_sha256: "sha256:469f30196a41d56a134a2bd28b6b204fff38d97745980af8f50d8acd4676bb65"
+    state: NOT_STARTED
+
+  # MANUAL DATA_CLEANUP - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/cleanup/logical-replication"
+    contract_sha256: "sha256:324e5417d3b9914100fa6eda15b300d4560a16fcb2c0d3dabd4f2eba3351e9f7"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.aws_cloudwatch_event_rule.ecs_events
+  - action_id: "MAN/decommission/module.retail_app_ecs.aws_cloudwatch_event_rule.ecs_events"
+    contract_sha256: "sha256:0a3907b4b992a2ab1ff1d995c72af5c5d251091e90e363a4dd1f5a0e46491d43"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.aws_cloudwatch_log_group.ecs_container_insights
+  - action_id: "MAN/decommission/module.retail_app_ecs.aws_cloudwatch_log_group.ecs_container_insights"
+    contract_sha256: "sha256:515240183fa9b07f1e9e74e336911b7ddbe74295ca11d00b7c27db280c9dd743"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.aws_cloudwatch_log_resource_policy.eventbridge_ecs
+  - action_id: "MAN/decommission/module.retail_app_ecs.aws_cloudwatch_log_resource_policy.eventbridge_ecs"
+    contract_sha256: "sha256:cc8b79966a052c16339f45fdaafe7515e20e63d7211f483670b7ad3a2557fde5"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.module.alb.aws_lb.this
+  - action_id: "MAN/decommission/module.retail_app_ecs.module.alb.aws_lb.this"
+    contract_sha256: "sha256:89e6e17f8ea203ff264bba88c55eea91608983246499806b3bfc5d9b80f60154"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.module.alb.aws_security_group.this
+  - action_id: "MAN/decommission/module.retail_app_ecs.module.alb.aws_security_group.this"
+    contract_sha256: "sha256:b3d7e51240f480c3e0ef9878f4dec1e2f12c02d835b2c6a364361c5ae1b32df0"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix
+  - action_id: "MAN/decommission/module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix"
+    contract_sha256: "sha256:d48d8d800dc67fb482d0d08d2501503b81a8b5cc9b79ce425712e2855460ed8a"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.module.ui_service.aws_ecs_service.this
+  - action_id: "MAN/decommission/module.retail_app_ecs.module.ui_service.aws_ecs_service.this"
+    contract_sha256: "sha256:809f18fea298a3ed8267bff562e1ab06bb89e69b11fecf85591602a59acd36b8"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.module.carts_service.aws_ecs_service.this
+  - action_id: "MAN/decommission/module.retail_app_ecs.module.carts_service.aws_ecs_service.this"
+    contract_sha256: "sha256:3f5eb0410fd7d5198fca7db4f2ad6bd70b75c5c5b7228dbbf610bbba41e9cee2"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role
+  - action_id: "MAN/decommission/module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role"
+    contract_sha256: "sha256:330285860e2cb245b7c8c5499c4870c2e8d7967d338b12617934e0639397b2f1"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.module.carts_service.aws_iam_role.task_role
+  - action_id: "MAN/decommission/module.retail_app_ecs.module.carts_service.aws_iam_role.task_role"
+    contract_sha256: "sha256:d773c0f60f1b95011af3673054e5f76efdb9273c25b70297f518f5b84c5a9dd5"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.module.carts_service.aws_security_group.this
+  - action_id: "MAN/decommission/module.retail_app_ecs.module.carts_service.aws_security_group.this"
+    contract_sha256: "sha256:6ca8ef66e7aeb96681a59ab734663fa4c73cce88ead3c42a30fd043ecb2a92d8"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.module.catalog_service.aws_ecs_service.this
+  - action_id: "MAN/decommission/module.retail_app_ecs.module.catalog_service.aws_ecs_service.this"
+    contract_sha256: "sha256:66004209b7988d070814f36e4c1b6c9fdeb0afcdb3f0258c1af03a0008fb50c1"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this
+  - action_id: "MAN/decommission/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this"
+    contract_sha256: "sha256:f2e38687da1a647f59233e244c5a0f332f1d5cb27ef949cadd9736f98a44cded"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.dependencies.aws_security_group.catalog_opensearch_sg
+  - action_id: "MAN/decommission/module.dependencies.aws_security_group.catalog_opensearch_sg"
+    contract_sha256: "sha256:7c09b6797bcafcf1d61b1a8422462283f0246dbde854f0da8bae8893a271bc6e"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role
+  - action_id: "MAN/decommission/module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role"
+    contract_sha256: "sha256:f68dc59164b26ab6e40c6f9bb6f6bb1077d96503e6f1ac13500e4426689c95bf"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.aws_secretsmanager_secret.catalog_db
+  - action_id: "MAN/decommission/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db"
+    contract_sha256: "sha256:b37bb741c1f87300126144cdfc862beb23c7335f0164e38f7317501f7120247f"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.dependencies.module.catalog_rds.aws_rds_cluster.this
+  - action_id: "MAN/decommission/module.dependencies.module.catalog_rds.aws_rds_cluster.this"
+    contract_sha256: "sha256:4b658764f6eb134d1bc19675504cf07d43cc566ae07c13b3854a8a5aa2f27850"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.dependencies.module.catalog_rds.aws_security_group.this
+  - action_id: "MAN/decommission/module.dependencies.module.catalog_rds.aws_security_group.this"
+    contract_sha256: "sha256:4af2e8ead078d35c6fd64f8f3f65f677dbc5f3359311a7c2724236409f0d16cc"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch
+  - action_id: "MAN/decommission/module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch"
+    contract_sha256: "sha256:ecd0764f8dbe3d4a02c104941886d9bba70ecc4a14309a77bfcef7634de3814e"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role
+  - action_id: "MAN/decommission/module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role"
+    contract_sha256: "sha256:9c3e61a957b0c30141ad51fb9dd06882f65e8eb843883029cdff3c738b5c1bb8"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.module.catalog_service.aws_security_group.this
+  - action_id: "MAN/decommission/module.retail_app_ecs.module.catalog_service.aws_security_group.this"
+    contract_sha256: "sha256:fd99af3ee36891abe57c7b8aae3f15b12c2419297f52ea68216b1dfa4d6e590a"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.module.checkout_service.aws_ecs_service.this
+  - action_id: "MAN/decommission/module.retail_app_ecs.module.checkout_service.aws_ecs_service.this"
+    contract_sha256: "sha256:aaff491270b768c35416ea395ca0607c233c89e282d402c31795b35c7e77259f"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+  - action_id: "MAN/decommission/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default"
+    contract_sha256: "sha256:84d7fdf0016552bf20f08fd4e538eea20776879ba38c3dd3415108ed4526f8be"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.dependencies.module.checkout_elasticache_redis.module.aws_security_group.aws_security_group.cbd
+  - action_id: "MAN/decommission/module.dependencies.module.checkout_elasticache_redis.module.aws_security_group.aws_security_group.cbd"
+    contract_sha256: "sha256:6077ddb9d53600e39c26256172fa50e5021b38afd60ca9406c629df68dbc3235"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role
+  - action_id: "MAN/decommission/module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role"
+    contract_sha256: "sha256:41472c69abe69266872e69a23fd768df3ce7c70e106fe916f3c7007c3c91fc73"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role
+  - action_id: "MAN/decommission/module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role"
+    contract_sha256: "sha256:27fbdebce80e59732c6b50e4408758b0c0491c18608620407d14e62e59219b5b"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this
+  - action_id: "MAN/decommission/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this"
+    contract_sha256: "sha256:9c4ee85dd3404a3ead048cf67130c4b515ef2dc0451a1e263b65cb767b033cd4"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.module.checkout_service.aws_security_group.this
+  - action_id: "MAN/decommission/module.retail_app_ecs.module.checkout_service.aws_security_group.this"
+    contract_sha256: "sha256:b40e6d221320c92d0d96645a4a015c15f570ae10b4da6a41120ac8211add90d4"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.module.orders_service.aws_ecs_service.this
+  - action_id: "MAN/decommission/module.retail_app_ecs.module.orders_service.aws_ecs_service.this"
+    contract_sha256: "sha256:1f03712bce8452bf680553e0081aee821d646c782b43c27cad0261cdba7b23dd"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.aws_ecs_cluster.cluster
+  - action_id: "MAN/decommission/module.retail_app_ecs.aws_ecs_cluster.cluster"
+    contract_sha256: "sha256:0a75e667f181fed2483baa977ef0ddadb4d4e1c4d7fad580abab6d0444b476bc"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role
+  - action_id: "MAN/decommission/module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role"
+    contract_sha256: "sha256:7fef54055dfbc768bd7411e9b4b700465dc285b4e9e17fd19ab094b218a41182"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.aws_kms_key.cmk
+  - action_id: "MAN/decommission/module.retail_app_ecs.aws_kms_key.cmk"
+    contract_sha256: "sha256:1f3aa425618bcfaceb530446a52d71ef8784a37dc3eb6793438a0d6c30d1e1c3"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.aws_secretsmanager_secret.mq
+  - action_id: "MAN/decommission/module.retail_app_ecs.aws_secretsmanager_secret.mq"
+    contract_sha256: "sha256:082e24fb5aeb1d0101951c151e5cc9a6e217c902ca366d24eef6aba68d97e94a"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.dependencies.aws_mq_broker.mq
+  - action_id: "MAN/decommission/module.dependencies.aws_mq_broker.mq"
+    contract_sha256: "sha256:a6208658daba67f0101dc30411031223bd6e8ffda02168f257ce70ed039a81e5"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.dependencies.aws_security_group.mq
+  - action_id: "MAN/decommission/module.dependencies.aws_security_group.mq"
+    contract_sha256: "sha256:263717bd80b0aaaef884bc65913e49ec4d988657bb1387a7efc5f33f15fbc6e9"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.aws_secretsmanager_secret.orders_db
+  - action_id: "MAN/decommission/module.retail_app_ecs.aws_secretsmanager_secret.orders_db"
+    contract_sha256: "sha256:512812d7c534ebbe2750264df872373a0ee355838acfb677777f1b4f4dec17e3"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.dependencies.module.orders_rds.aws_rds_cluster.this
+  - action_id: "MAN/decommission/module.dependencies.module.orders_rds.aws_rds_cluster.this"
+    contract_sha256: "sha256:ab5c9809f71580df7f2d4a29fc6925817c0c62a61339128417aa755291647ac7"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.dependencies.module.orders_rds.aws_security_group.this
+  - action_id: "MAN/decommission/module.dependencies.module.orders_rds.aws_security_group.this"
+    contract_sha256: "sha256:6958b92cc15f48913ccba5cc98139faf2e10d3ca185976377e47a1ea0eae1e1b"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.module.orders_service.aws_iam_role.task_role
+  - action_id: "MAN/decommission/module.retail_app_ecs.module.orders_service.aws_iam_role.task_role"
+    contract_sha256: "sha256:0e678629f272f4ece59eefec7193818cd4cd30483bf3b7667352c4d557440993"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.module.orders_service.aws_security_group.this
+  - action_id: "MAN/decommission/module.retail_app_ecs.module.orders_service.aws_security_group.this"
+    contract_sha256: "sha256:7fa02c12c7400996f422867b744de4ab7ed62350744470d1561915c0d8808720"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role
+  - action_id: "MAN/decommission/module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role"
+    contract_sha256: "sha256:b1b6b03fba7f4288b101d8f7e8df24027fc5be78460a8f71400ca0bc17c2e9d3"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.module.ui_service.aws_iam_role.task_role
+  - action_id: "MAN/decommission/module.retail_app_ecs.module.ui_service.aws_iam_role.task_role"
+    contract_sha256: "sha256:59e3e3579d82496f641798548c5c2c41d17446b52f33beffd9ea4938d7634329"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks
+  - action_id: "MAN/decommission/module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks"
+    contract_sha256: "sha256:3de60316610ac821f2fca4cd1b89fdc75490fa7e1dd614540f4e343431bb664a"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.retail_app_ecs.module.ui_service.aws_security_group.this
+  - action_id: "MAN/decommission/module.retail_app_ecs.module.ui_service.aws_security_group.this"
+    contract_sha256: "sha256:de1c55c17fc321f0ea82b76ff8ebd0a7dbca3f92b0253710cb06493cb9c6bf8c"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.vpc.module.vpc.aws_route_table.private
+  - action_id: "MAN/decommission/module.vpc.module.vpc.aws_route_table.private"
+    contract_sha256: "sha256:8dce350ed0d4102a712928ee42f1773d1c2a7206833d0b2d0443a3f397e4abb0"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.vpc.module.vpc.aws_nat_gateway.this
+  - action_id: "MAN/decommission/module.vpc.module.vpc.aws_nat_gateway.this"
+    contract_sha256: "sha256:856f7f4bb0866251211c6cc104f6dd2b6fbcb25de105b9988426eaa8cc5d4763"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.vpc.module.vpc.aws_eip.nat
+  - action_id: "MAN/decommission/module.vpc.module.vpc.aws_eip.nat"
+    contract_sha256: "sha256:9b1da9b979bb1aad8440b4b5a8fa268f5a79388f1fc9aacdeaa87e311ecbbea5"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.vpc.module.vpc.aws_route_table.public
+  - action_id: "MAN/decommission/module.vpc.module.vpc.aws_route_table.public"
+    contract_sha256: "sha256:081d6997aa92838a55814b56f01a035ba83b10512491001b3395a8dd18b2a33e"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.vpc.module.vpc.aws_internet_gateway.this
+  - action_id: "MAN/decommission/module.vpc.module.vpc.aws_internet_gateway.this"
+    contract_sha256: "sha256:b2a8bcfd4af78a989c9b3666a1704f51017a5ed3b7c9c813e30bd5b5ada79c11"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.vpc.module.vpc.aws_subnet.private
+  - action_id: "MAN/decommission/module.vpc.module.vpc.aws_subnet.private"
+    contract_sha256: "sha256:2983818e7ce352a1350157b54939a54199ce3f87a72e1615982f4882b50b810c"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.vpc.module.vpc.aws_subnet.public
+  - action_id: "MAN/decommission/module.vpc.module.vpc.aws_subnet.public"
+    contract_sha256: "sha256:6bdbfcb725d599ce5af7b0a8bfe9bc01f208373b4cebbeae41678db79938a272"
+    state: NOT_STARTED
+
+  # MANUAL SOURCE_DECOMMISSION - module.vpc.module.vpc.aws_vpc.this
+  - action_id: "MAN/decommission/module.vpc.module.vpc.aws_vpc.this"
+    contract_sha256: "sha256:1ca231dcf60350da7f667dff3edbee40ade657e3c4d681ac33f8132d3397f09a"
+    state: NOT_STARTED

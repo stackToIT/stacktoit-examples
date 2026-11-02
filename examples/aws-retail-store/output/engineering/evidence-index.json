@@ -1,0 +1,1300 @@
+{
+  "run_id": "f576c5a4-ff5f-4981-8b67-054d7359483f",
+  "source_digest": "sha256:812c5ae3f6cc8530163abbf5b6fbe305ed3b363c4886ec6b87623db857ea0c70",
+  "evidence_index": {
+    "limits": [
+      "A unit id is its Terraform address: renaming a resource in the source is a new unit. Continuity of a unit across a rename is not built (a semantic fingerprint is a later item).",
+      "An id names an object and holds no run: the same estate gives the same ids in every run. The JSON pointer into a file of the report is valid for the run named in header.run.",
+      "A line is given only for a block of the draft that parses as HCL. A block the draft writes as a comment has a file and no line, and a block the report could not place has neither.",
+      "A hop that reads UNSUPPORTED is not produced by this build; one that reads NOT_AVAILABLE is produced by this build and made nothing in this run. Neither is a finding of no risk."
+    ],
+    "counts": {
+      "units": 93,
+      "units_with_targets": 38,
+      "targets": 53,
+      "edges": 64,
+      "unowned_targets": 0
+    },
+    "families": [
+      {
+        "family": "AWS_SECURITY_GROUP",
+        "units": 15,
+        "trace_producer": true,
+        "traced_units": 15,
+        "hops": [
+          {
+            "hop": "source",
+            "states": [
+              {
+                "state": "ESTABLISHED",
+                "units": 15
+              }
+            ]
+          },
+          {
+            "hop": "intent",
+            "states": [
+              {
+                "state": "ESTABLISHED",
+                "units": 12
+              },
+              {
+                "state": "NONE",
+                "units": 3
+              }
+            ]
+          },
+          {
+            "hop": "plan",
+            "states": [
+              {
+                "state": "ESTABLISHED",
+                "units": 1
+              },
+              {
+                "state": "OPEN",
+                "units": 6
+              },
+              {
+                "state": "NONE",
+                "units": 8
+              }
+            ]
+          },
+          {
+            "hop": "hcl",
+            "states": [
+              {
+                "state": "ESTABLISHED",
+                "units": 7
+              },
+              {
+                "state": "NONE",
+                "units": 8
+              }
+            ]
+          },
+          {
+            "hop": "validation",
+            "states": [
+              {
+                "state": "ESTABLISHED",
+                "units": 12
+              },
+              {
+                "state": "NONE",
+                "units": 3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "family": "AWS_ROUTING",
+        "units": 6,
+        "trace_producer": true,
+        "traced_units": 6,
+        "hops": [
+          {
+            "hop": "source",
+            "states": [
+              {
+                "state": "ESTABLISHED",
+                "units": 6
+              }
+            ]
+          },
+          {
+            "hop": "intent",
+            "states": [
+              {
+                "state": "ESTABLISHED",
+                "units": 2
+              },
+              {
+                "state": "NONE",
+                "units": 4
+              }
+            ]
+          },
+          {
+            "hop": "plan",
+            "states": [
+              {
+                "state": "NONE",
+                "units": 6
+              }
+            ]
+          },
+          {
+            "hop": "hcl",
+            "states": [
+              {
+                "state": "NONE",
+                "units": 6
+              }
+            ]
+          },
+          {
+            "hop": "validation",
+            "states": [
+              {
+                "state": "ESTABLISHED",
+                "units": 2
+              },
+              {
+                "state": "NONE",
+                "units": 4
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "family": "AWS_IDENTITY_ATTACH",
+        "units": 5,
+        "trace_producer": true,
+        "traced_units": 5,
+        "hops": [
+          {
+            "hop": "source",
+            "states": [
+              {
+                "state": "ESTABLISHED",
+                "units": 5
+              }
+            ]
+          },
+          {
+            "hop": "intent",
+            "states": [
+              {
+                "state": "ESTABLISHED",
+                "units": 5
+              }
+            ]
+          },
+          {
+            "hop": "plan",
+            "states": [
+              {
+                "state": "OPEN",
+                "units": 5
+              }
+            ]
+          },
+          {
+            "hop": "hcl",
+            "states": [
+              {
+                "state": "ESTABLISHED",
+                "units": 5
+              }
+            ]
+          },
+          {
+            "hop": "validation",
+            "states": [
+              {
+                "state": "ESTABLISHED",
+                "units": 5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "family": "LOG_SOURCE",
+        "units": 6,
+        "trace_producer": true,
+        "traced_units": 6,
+        "hops": [
+          {
+            "hop": "source",
+            "states": [
+              {
+                "state": "ESTABLISHED",
+                "units": 6
+              }
+            ]
+          },
+          {
+            "hop": "intent",
+            "states": [
+              {
+                "state": "ESTABLISHED",
+                "units": 2
+              },
+              {
+                "state": "NONE",
+                "units": 4
+              }
+            ]
+          },
+          {
+            "hop": "plan",
+            "states": [
+              {
+                "state": "OPEN",
+                "units": 1
+              },
+              {
+                "state": "NONE",
+                "units": 5
+              }
+            ]
+          },
+          {
+            "hop": "hcl",
+            "states": [
+              {
+                "state": "ESTABLISHED",
+                "units": 1
+              },
+              {
+                "state": "NONE",
+                "units": 5
+              }
+            ]
+          },
+          {
+            "hop": "validation",
+            "states": [
+              {
+                "state": "ESTABLISHED",
+                "units": 1
+              },
+              {
+                "state": "NONE",
+                "units": 5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "family": "LEGACY_GENERATOR",
+        "units": 61,
+        "trace_producer": true,
+        "traced_units": 25,
+        "hops": [
+          {
+            "hop": "source",
+            "states": [
+              {
+                "state": "ESTABLISHED",
+                "units": 61
+              }
+            ]
+          },
+          {
+            "hop": "intent",
+            "states": [
+              {
+                "state": "NONE",
+                "units": 30
+              },
+              {
+                "state": "UNSUPPORTED",
+                "units": 31
+              }
+            ]
+          },
+          {
+            "hop": "plan",
+            "states": [
+              {
+                "state": "NONE",
+                "units": 30
+              },
+              {
+                "state": "UNSUPPORTED",
+                "units": 31
+              }
+            ]
+          },
+          {
+            "hop": "hcl",
+            "states": [
+              {
+                "state": "ESTABLISHED",
+                "units": 25
+              },
+              {
+                "state": "NONE",
+                "units": 36
+              }
+            ]
+          },
+          {
+            "hop": "validation",
+            "states": [
+              {
+                "state": "NONE",
+                "units": 30
+              },
+              {
+                "state": "UNSUPPORTED",
+                "units": 31
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "targets": [
+      {
+        "id": "target:stackit_application_load_balancer.retail_app_ecs_alb_this",
+        "address": "stackit_application_load_balancer.retail_app_ecs_alb_this",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/loadbalancing.tf",
+        "line": 21,
+        "end_line": 62,
+        "units": [
+          "unit:module.retail_app_ecs.module.alb.aws_lb.this"
+        ],
+        "trace_id": "TR-c243e261bc0d",
+        "trace_file": "engineering/trace/loadbalancing.md"
+      },
+      {
+        "id": "target:stackit_authorization_project_role_assignment.retail_app_ecs_carts_service_task_execution_role",
+        "address": "stackit_authorization_project_role_assignment.retail_app_ecs_carts_service_task_execution_role",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 18,
+        "end_line": 23,
+        "units": [
+          "unit:module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role"
+        ],
+        "trace_id": "TR-58f6779c70bf",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_authorization_project_role_assignment.retail_app_ecs_carts_service_task_role",
+        "address": "stackit_authorization_project_role_assignment.retail_app_ecs_carts_service_task_role",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 41,
+        "end_line": 46,
+        "units": [
+          "unit:module.retail_app_ecs.module.carts_service.aws_iam_role.task_role"
+        ],
+        "trace_id": "TR-74ede57c41f1",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_authorization_project_role_assignment.retail_app_ecs_catalog_service_task_execution_role",
+        "address": "stackit_authorization_project_role_assignment.retail_app_ecs_catalog_service_task_execution_role",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 65,
+        "end_line": 70,
+        "units": [
+          "unit:module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role"
+        ],
+        "trace_id": "TR-2eebb342bc5c",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_authorization_project_role_assignment.retail_app_ecs_catalog_service_task_role",
+        "address": "stackit_authorization_project_role_assignment.retail_app_ecs_catalog_service_task_role",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 87,
+        "end_line": 92,
+        "units": [
+          "unit:module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role"
+        ],
+        "trace_id": "TR-cf63149db4be",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_authorization_project_role_assignment.retail_app_ecs_checkout_service_task_execution_role",
+        "address": "stackit_authorization_project_role_assignment.retail_app_ecs_checkout_service_task_execution_role",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 109,
+        "end_line": 114,
+        "units": [
+          "unit:module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role"
+        ],
+        "trace_id": "TR-b9a8861fdbd3",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_authorization_project_role_assignment.retail_app_ecs_checkout_service_task_role",
+        "address": "stackit_authorization_project_role_assignment.retail_app_ecs_checkout_service_task_role",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 132,
+        "end_line": 137,
+        "units": [
+          "unit:module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role"
+        ],
+        "trace_id": "TR-8e7b4456f29a",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_authorization_project_role_assignment.retail_app_ecs_orders_service_task_execution_role",
+        "address": "stackit_authorization_project_role_assignment.retail_app_ecs_orders_service_task_execution_role",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 156,
+        "end_line": 161,
+        "units": [
+          "unit:module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role"
+        ],
+        "trace_id": "TR-a77098085913",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_authorization_project_role_assignment.retail_app_ecs_orders_service_task_role",
+        "address": "stackit_authorization_project_role_assignment.retail_app_ecs_orders_service_task_role",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 178,
+        "end_line": 183,
+        "units": [
+          "unit:module.retail_app_ecs.module.orders_service.aws_iam_role.task_role"
+        ],
+        "trace_id": "TR-cf173263597f",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_authorization_project_role_assignment.retail_app_ecs_ui_service_task_execution_role",
+        "address": "stackit_authorization_project_role_assignment.retail_app_ecs_ui_service_task_execution_role",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 200,
+        "end_line": 205,
+        "units": [
+          "unit:module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role"
+        ],
+        "trace_id": "TR-be8af2d2983d",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_authorization_project_role_assignment.retail_app_ecs_ui_service_task_role",
+        "address": "stackit_authorization_project_role_assignment.retail_app_ecs_ui_service_task_role",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 222,
+        "end_line": 227,
+        "units": [
+          "unit:module.retail_app_ecs.module.ui_service.aws_iam_role.task_role"
+        ],
+        "trace_id": "TR-759ef9228645",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_kms_key.retail_app_ecs_cmk",
+        "address": "stackit_kms_key.retail_app_ecs_cmk",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/security.tf",
+        "line": 286,
+        "end_line": 294,
+        "units": [
+          "unit:module.retail_app_ecs.aws_kms_key.cmk"
+        ],
+        "trace_id": "TR-e47c9c2d3326",
+        "trace_file": "engineering/trace/security.md"
+      },
+      {
+        "id": "target:stackit_kms_keyring.migrated",
+        "address": "stackit_kms_keyring.migrated",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/security.tf",
+        "line": 274,
+        "end_line": 277,
+        "units": [
+          "unit:module.retail_app_ecs.aws_kms_key.cmk"
+        ],
+        "trace_id": "TR-af9e2a025af8",
+        "trace_file": "engineering/trace/security.md"
+      },
+      {
+        "id": "target:stackit_logs_instance.logs_retention_180d",
+        "address": "stackit_logs_instance.logs_retention_180d",
+        "origin": "PLAN",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/observability.tf",
+        "line": 19,
+        "end_line": 23,
+        "units": [
+          "unit:module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks"
+        ],
+        "trace_id": "TR-c0888ccac0ab",
+        "trace_file": "engineering/trace/observability.md"
+      },
+      {
+        "id": "target:stackit_mariadb_credential.dependencies_catalog_rds_this",
+        "address": "stackit_mariadb_credential.dependencies_catalog_rds_this",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/data.tf",
+        "line": 49,
+        "end_line": 52,
+        "units": [
+          "unit:module.dependencies.module.catalog_rds.aws_rds_cluster.this"
+        ],
+        "trace_id": "TR-2fa350496480",
+        "trace_file": "engineering/trace/data.md"
+      },
+      {
+        "id": "target:stackit_mariadb_instance.dependencies_catalog_rds_this",
+        "address": "stackit_mariadb_instance.dependencies_catalog_rds_this",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/data.tf",
+        "line": 35,
+        "end_line": 43,
+        "units": [
+          "unit:module.dependencies.module.catalog_rds.aws_rds_cluster.this"
+        ],
+        "trace_id": "TR-c392beafd341",
+        "trace_file": "engineering/trace/data.md"
+      },
+      {
+        "id": "target:stackit_mongodbflex_instance.dynamodb_tables",
+        "address": "stackit_mongodbflex_instance.dynamodb_tables",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/data.tf",
+        "line": 242,
+        "end_line": 261,
+        "units": [
+          "unit:module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this"
+        ],
+        "trace_id": "TR-a2c77bb1d7ef",
+        "trace_file": "engineering/trace/data.md"
+      },
+      {
+        "id": "target:stackit_network.vpc_vpc_private",
+        "address": "stackit_network.vpc_vpc_private",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/network.tf",
+        "line": 23,
+        "end_line": 29,
+        "units": [
+          "unit:module.vpc.module.vpc.aws_subnet.private"
+        ],
+        "trace_id": "TR-d39d5b78739a",
+        "trace_file": "engineering/trace/network.md"
+      },
+      {
+        "id": "target:stackit_network.vpc_vpc_public",
+        "address": "stackit_network.vpc_vpc_public",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/network.tf",
+        "line": 46,
+        "end_line": 52,
+        "units": [
+          "unit:module.vpc.module.vpc.aws_subnet.public"
+        ],
+        "trace_id": "TR-ca04594a2ad9",
+        "trace_file": "engineering/trace/network.md"
+      },
+      {
+        "id": "target:stackit_opensearch_credential.dependencies_catalog_opensearch_this",
+        "address": "stackit_opensearch_credential.dependencies_catalog_opensearch_this",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/data.tf",
+        "line": 221,
+        "end_line": 224,
+        "units": [
+          "unit:module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this"
+        ],
+        "trace_id": "TR-71c158d59d3e",
+        "trace_file": "engineering/trace/data.md"
+      },
+      {
+        "id": "target:stackit_opensearch_instance.dependencies_catalog_opensearch_this",
+        "address": "stackit_opensearch_instance.dependencies_catalog_opensearch_this",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/data.tf",
+        "line": 204,
+        "end_line": 212,
+        "units": [
+          "unit:module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this"
+        ],
+        "trace_id": "TR-5efbbe752c59",
+        "trace_file": "engineering/trace/data.md"
+      },
+      {
+        "id": "target:stackit_postgresflex_database.dependencies_orders_rds_this_orders",
+        "address": "stackit_postgresflex_database.dependencies_orders_rds_this_orders",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/data.tf",
+        "line": 128,
+        "end_line": 133,
+        "units": [
+          "unit:module.dependencies.module.orders_rds.aws_rds_cluster.this"
+        ],
+        "trace_id": "TR-7bc47518665f",
+        "trace_file": "engineering/trace/data.md"
+      },
+      {
+        "id": "target:stackit_postgresflex_instance.dependencies_orders_rds_this",
+        "address": "stackit_postgresflex_instance.dependencies_orders_rds_this",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/data.tf",
+        "line": 89,
+        "end_line": 104,
+        "units": [
+          "unit:module.dependencies.module.orders_rds.aws_rds_cluster.this"
+        ],
+        "trace_id": "TR-8ede34dda579",
+        "trace_file": "engineering/trace/data.md"
+      },
+      {
+        "id": "target:stackit_postgresflex_user.dependencies_orders_rds_this",
+        "address": "stackit_postgresflex_user.dependencies_orders_rds_this",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/data.tf",
+        "line": 110,
+        "end_line": 115,
+        "units": [
+          "unit:module.dependencies.module.orders_rds.aws_rds_cluster.this"
+        ],
+        "trace_id": "TR-e7d38d4bcda5",
+        "trace_file": "engineering/trace/data.md"
+      },
+      {
+        "id": "target:stackit_rabbitmq_credential.dependencies_mq",
+        "address": "stackit_rabbitmq_credential.dependencies_mq",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/messaging.tf",
+        "line": 34,
+        "end_line": 37,
+        "units": [
+          "unit:module.dependencies.aws_mq_broker.mq"
+        ],
+        "trace_id": "TR-9aa24821e695",
+        "trace_file": "engineering/trace/messaging.md"
+      },
+      {
+        "id": "target:stackit_rabbitmq_instance.dependencies_mq",
+        "address": "stackit_rabbitmq_instance.dependencies_mq",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/messaging.tf",
+        "line": 17,
+        "end_line": 25,
+        "units": [
+          "unit:module.dependencies.aws_mq_broker.mq"
+        ],
+        "trace_id": "TR-6212f52df434",
+        "trace_file": "engineering/trace/messaging.md"
+      },
+      {
+        "id": "target:stackit_secretsmanager_instance.migrated_secrets",
+        "address": "stackit_secretsmanager_instance.migrated_secrets",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/security.tf",
+        "line": 317,
+        "end_line": 320,
+        "units": [
+          "unit:module.retail_app_ecs.aws_secretsmanager_secret.catalog_db",
+          "unit:module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch",
+          "unit:module.retail_app_ecs.aws_secretsmanager_secret.mq",
+          "unit:module.retail_app_ecs.aws_secretsmanager_secret.orders_db"
+        ],
+        "trace_id": "TR-b77494749ed2",
+        "trace_file": "engineering/trace/security.md"
+      },
+      {
+        "id": "target:stackit_secretsmanager_user.migration",
+        "address": "stackit_secretsmanager_user.migration",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/security.tf",
+        "line": 325,
+        "end_line": 330,
+        "units": [
+          "unit:module.retail_app_ecs.aws_secretsmanager_secret.catalog_db",
+          "unit:module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch",
+          "unit:module.retail_app_ecs.aws_secretsmanager_secret.mq",
+          "unit:module.retail_app_ecs.aws_secretsmanager_secret.orders_db"
+        ],
+        "trace_id": "TR-6003c14a24b3",
+        "trace_file": "engineering/trace/security.md"
+      },
+      {
+        "id": "target:stackit_security_group.retail_app_ecs_alb_sg_this_name_prefix",
+        "address": "stackit_security_group.retail_app_ecs_alb_sg_this_name_prefix",
+        "origin": "PLAN",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/security.tf",
+        "line": 31,
+        "end_line": 39,
+        "units": [
+          "unit:module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix"
+        ],
+        "trace_id": "TR-70b29ec245ac",
+        "trace_file": "engineering/trace/security.md"
+      },
+      {
+        "id": "target:stackit_security_group.retail_app_ecs_alb_this",
+        "address": "stackit_security_group.retail_app_ecs_alb_this",
+        "origin": "PLAN",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/security.tf",
+        "line": 53,
+        "end_line": 60,
+        "units": [
+          "unit:module.retail_app_ecs.module.alb.aws_security_group.this"
+        ],
+        "trace_id": "TR-a59ae230c5b5",
+        "trace_file": "engineering/trace/security.md"
+      },
+      {
+        "id": "target:stackit_security_group.retail_app_ecs_carts_service_this",
+        "address": "stackit_security_group.retail_app_ecs_carts_service_this",
+        "origin": "PLAN",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/security.tf",
+        "line": 74,
+        "end_line": 77,
+        "units": [
+          "unit:module.retail_app_ecs.module.carts_service.aws_security_group.this"
+        ],
+        "trace_id": "TR-5cd0f19b7ac7",
+        "trace_file": "engineering/trace/security.md"
+      },
+      {
+        "id": "target:stackit_security_group.retail_app_ecs_catalog_service_this",
+        "address": "stackit_security_group.retail_app_ecs_catalog_service_this",
+        "origin": "PLAN",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/security.tf",
+        "line": 106,
+        "end_line": 109,
+        "units": [
+          "unit:module.retail_app_ecs.module.catalog_service.aws_security_group.this"
+        ],
+        "trace_id": "TR-66eb9edf4074",
+        "trace_file": "engineering/trace/security.md"
+      },
+      {
+        "id": "target:stackit_security_group.retail_app_ecs_checkout_service_this",
+        "address": "stackit_security_group.retail_app_ecs_checkout_service_this",
+        "origin": "PLAN",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/security.tf",
+        "line": 138,
+        "end_line": 141,
+        "units": [
+          "unit:module.retail_app_ecs.module.checkout_service.aws_security_group.this"
+        ],
+        "trace_id": "TR-e031d5a780d5",
+        "trace_file": "engineering/trace/security.md"
+      },
+      {
+        "id": "target:stackit_security_group.retail_app_ecs_orders_service_this",
+        "address": "stackit_security_group.retail_app_ecs_orders_service_this",
+        "origin": "PLAN",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/security.tf",
+        "line": 170,
+        "end_line": 173,
+        "units": [
+          "unit:module.retail_app_ecs.module.orders_service.aws_security_group.this"
+        ],
+        "trace_id": "TR-382b1ee0a726",
+        "trace_file": "engineering/trace/security.md"
+      },
+      {
+        "id": "target:stackit_security_group.retail_app_ecs_ui_service_this",
+        "address": "stackit_security_group.retail_app_ecs_ui_service_this",
+        "origin": "PLAN",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/security.tf",
+        "line": 202,
+        "end_line": 205,
+        "units": [
+          "unit:module.retail_app_ecs.module.ui_service.aws_security_group.this"
+        ],
+        "trace_id": "TR-da82ede17870",
+        "trace_file": "engineering/trace/security.md"
+      },
+      {
+        "id": "target:stackit_security_group_rule.retail_app_ecs_carts_service_this_ingress_1",
+        "address": "stackit_security_group_rule.retail_app_ecs_carts_service_this_ingress_1",
+        "origin": "PLAN",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/security.tf",
+        "line": 79,
+        "end_line": 92,
+        "units": [
+          "unit:module.retail_app_ecs.module.carts_service.aws_security_group.this"
+        ]
+      },
+      {
+        "id": "target:stackit_security_group_rule.retail_app_ecs_catalog_service_this_ingress_1",
+        "address": "stackit_security_group_rule.retail_app_ecs_catalog_service_this_ingress_1",
+        "origin": "PLAN",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/security.tf",
+        "line": 111,
+        "end_line": 124,
+        "units": [
+          "unit:module.retail_app_ecs.module.catalog_service.aws_security_group.this"
+        ]
+      },
+      {
+        "id": "target:stackit_security_group_rule.retail_app_ecs_checkout_service_this_ingress_1",
+        "address": "stackit_security_group_rule.retail_app_ecs_checkout_service_this_ingress_1",
+        "origin": "PLAN",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/security.tf",
+        "line": 143,
+        "end_line": 156,
+        "units": [
+          "unit:module.retail_app_ecs.module.checkout_service.aws_security_group.this"
+        ]
+      },
+      {
+        "id": "target:stackit_security_group_rule.retail_app_ecs_orders_service_this_ingress_1",
+        "address": "stackit_security_group_rule.retail_app_ecs_orders_service_this_ingress_1",
+        "origin": "PLAN",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/security.tf",
+        "line": 175,
+        "end_line": 188,
+        "units": [
+          "unit:module.retail_app_ecs.module.orders_service.aws_security_group.this"
+        ]
+      },
+      {
+        "id": "target:stackit_security_group_rule.retail_app_ecs_ui_service_this_ingress_1",
+        "address": "stackit_security_group_rule.retail_app_ecs_ui_service_this_ingress_1",
+        "origin": "PLAN",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/security.tf",
+        "line": 207,
+        "end_line": 220,
+        "units": [
+          "unit:module.retail_app_ecs.module.ui_service.aws_security_group.this"
+        ]
+      },
+      {
+        "id": "target:stackit_service_account.retail_app_ecs_carts_service_task_execution_role",
+        "address": "stackit_service_account.retail_app_ecs_carts_service_task_execution_role",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 9,
+        "end_line": 12,
+        "units": [
+          "unit:module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role"
+        ],
+        "trace_id": "TR-935427f3024d",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_service_account.retail_app_ecs_carts_service_task_role",
+        "address": "stackit_service_account.retail_app_ecs_carts_service_task_role",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 32,
+        "end_line": 35,
+        "units": [
+          "unit:module.retail_app_ecs.module.carts_service.aws_iam_role.task_role"
+        ],
+        "trace_id": "TR-eb88a52a7e37",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_service_account.retail_app_ecs_catalog_service_task_execution_role",
+        "address": "stackit_service_account.retail_app_ecs_catalog_service_task_execution_role",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 56,
+        "end_line": 59,
+        "units": [
+          "unit:module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role"
+        ],
+        "trace_id": "TR-089026082d6f",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_service_account.retail_app_ecs_catalog_service_task_role",
+        "address": "stackit_service_account.retail_app_ecs_catalog_service_task_role",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 78,
+        "end_line": 81,
+        "units": [
+          "unit:module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role"
+        ],
+        "trace_id": "TR-e48f32c8ead8",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_service_account.retail_app_ecs_checkout_service_task_execution_role",
+        "address": "stackit_service_account.retail_app_ecs_checkout_service_task_execution_role",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 100,
+        "end_line": 103,
+        "units": [
+          "unit:module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role"
+        ],
+        "trace_id": "TR-101825075cda",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_service_account.retail_app_ecs_checkout_service_task_role",
+        "address": "stackit_service_account.retail_app_ecs_checkout_service_task_role",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 123,
+        "end_line": 126,
+        "units": [
+          "unit:module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role"
+        ],
+        "trace_id": "TR-822b8a98ff0d",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_service_account.retail_app_ecs_orders_service_task_execution_role",
+        "address": "stackit_service_account.retail_app_ecs_orders_service_task_execution_role",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 147,
+        "end_line": 150,
+        "units": [
+          "unit:module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role"
+        ],
+        "trace_id": "TR-0054e8101f59",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_service_account.retail_app_ecs_orders_service_task_role",
+        "address": "stackit_service_account.retail_app_ecs_orders_service_task_role",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 169,
+        "end_line": 172,
+        "units": [
+          "unit:module.retail_app_ecs.module.orders_service.aws_iam_role.task_role"
+        ],
+        "trace_id": "TR-60af0bd02bd2",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_service_account.retail_app_ecs_ui_service_task_execution_role",
+        "address": "stackit_service_account.retail_app_ecs_ui_service_task_execution_role",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 191,
+        "end_line": 194,
+        "units": [
+          "unit:module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role"
+        ],
+        "trace_id": "TR-02dcd9e3db54",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_service_account.retail_app_ecs_ui_service_task_role",
+        "address": "stackit_service_account.retail_app_ecs_ui_service_task_role",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 213,
+        "end_line": 216,
+        "units": [
+          "unit:module.retail_app_ecs.module.ui_service.aws_iam_role.task_role"
+        ],
+        "trace_id": "TR-14c0a005bdbf",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_ske_cluster.retail_app_ecs_cluster",
+        "address": "stackit_ske_cluster.retail_app_ecs_cluster",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/kubernetes.tf",
+        "line": 36,
+        "end_line": 46,
+        "units": [
+          "unit:module.retail_app_ecs.aws_ecs_cluster.cluster",
+          "unit:module.retail_app_ecs.module.carts_service.aws_ecs_service.this",
+          "unit:module.retail_app_ecs.module.catalog_service.aws_ecs_service.this",
+          "unit:module.retail_app_ecs.module.checkout_service.aws_ecs_service.this",
+          "unit:module.retail_app_ecs.module.orders_service.aws_ecs_service.this",
+          "unit:module.retail_app_ecs.module.ui_service.aws_ecs_service.this"
+        ],
+        "trace_id": "TR-364b2c550bbd",
+        "trace_file": "engineering/trace/kubernetes.md"
+      },
+      {
+        "id": "target:stackit_valkey_credential.dependencies_checkout_elasticache_redis_default",
+        "address": "stackit_valkey_credential.dependencies_checkout_elasticache_redis_default",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/data.tf",
+        "line": 175,
+        "end_line": 178,
+        "units": [
+          "unit:module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default"
+        ],
+        "trace_id": "TR-6a8844a36ea2",
+        "trace_file": "engineering/trace/data.md"
+      },
+      {
+        "id": "target:stackit_valkey_instance.dependencies_checkout_elasticache_redis_default",
+        "address": "stackit_valkey_instance.dependencies_checkout_elasticache_redis_default",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/data.tf",
+        "line": 158,
+        "end_line": 166,
+        "units": [
+          "unit:module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default"
+        ],
+        "trace_id": "TR-31aa12c1dfa8",
+        "trace_file": "engineering/trace/data.md"
+      }
+    ],
+    "checks": [
+      {
+        "id": "check:GLOBAL_RESOURCE_UNIQUENESS",
+        "state": "PASS",
+        "checked": 134,
+        "file": "manifest.json",
+        "pointer": "/verification/0"
+      },
+      {
+        "id": "check:NO_UNPLANNED_RESOURCE",
+        "state": "PASS",
+        "checked": 53,
+        "file": "manifest.json",
+        "pointer": "/verification/1"
+      },
+      {
+        "id": "check:NO_UNPLANNED_REFERENCE",
+        "state": "PASS",
+        "checked": 37,
+        "file": "manifest.json",
+        "pointer": "/verification/2"
+      },
+      {
+        "id": "check:NO_UNRESOLVED_REQUIRED_FIELD",
+        "state": "PASS",
+        "checked": 155,
+        "file": "manifest.json",
+        "pointer": "/verification/3"
+      },
+      {
+        "id": "check:NO_SECURITY_WIDENING",
+        "state": "PASS",
+        "checked": 35,
+        "file": "manifest.json",
+        "pointer": "/verification/4"
+      },
+      {
+        "id": "check:ALL_OUTPUTS_SAME_RUN",
+        "state": "PASS",
+        "checked": 47,
+        "file": "manifest.json",
+        "pointer": "/verification/5"
+      },
+      {
+        "id": "check:VARIABLE_IDENTITY_PRESERVED",
+        "state": "PASS",
+        "checked": 29,
+        "file": "manifest.json",
+        "pointer": "/verification/6"
+      },
+      {
+        "id": "check:NO_ORPHAN_MANUAL_ACTION",
+        "state": "PASS",
+        "checked": 21,
+        "file": "manifest.json",
+        "pointer": "/verification/7"
+      },
+      {
+        "id": "check:SOURCE_PROVIDER_MATCHES_SCHEMA_OR_IS_UNVERIFIED",
+        "state": "PASS",
+        "checked": 93,
+        "file": "manifest.json",
+        "pointer": "/verification/8"
+      },
+      {
+        "id": "check:APPLICATION_READY_IMPLIES_REQUIRED_ENV_SECRETS_DEPENDENCIES",
+        "state": "PASS",
+        "checked": 5,
+        "file": "manifest.json",
+        "pointer": "/verification/9"
+      },
+      {
+        "id": "check:ALL_EMITTED_TARGET_TYPES_CLASSIFIED",
+        "state": "PASS",
+        "checked": 53,
+        "file": "manifest.json",
+        "pointer": "/verification/10"
+      },
+      {
+        "id": "check:ALL_UNACCOUNTED_PROPERTIES_EXPLICIT",
+        "state": "PASS",
+        "checked": 404,
+        "file": "manifest.json",
+        "pointer": "/verification/11"
+      },
+      {
+        "id": "check:SOURCE_COMPLETENESS",
+        "state": "PARTIAL",
+        "checked": 0,
+        "file": "workspace.json",
+        "pointer": "/validation_matrix/rows/0"
+      },
+      {
+        "id": "check:DRAFT_GENERATION",
+        "state": "GENERATED",
+        "checked": 0,
+        "file": "workspace.json",
+        "pointer": "/validation_matrix/rows/1"
+      },
+      {
+        "id": "check:STACKTOIT_DRAFT_CHECKS",
+        "state": "PASSED",
+        "checked": 0,
+        "file": "workspace.json",
+        "pointer": "/validation_matrix/rows/2"
+      },
+      {
+        "id": "check:GLOBAL_INVARIANTS",
+        "state": "PASSED",
+        "checked": 0,
+        "file": "workspace.json",
+        "pointer": "/validation_matrix/rows/3"
+      },
+      {
+        "id": "check:TOFU_STATIC_VALIDATION",
+        "state": "PASSED",
+        "checked": 0,
+        "file": "workspace.json",
+        "pointer": "/validation_matrix/rows/4"
+      },
+      {
+        "id": "check:OUTPUT_SCHEMA_VALIDATION",
+        "state": "PASSED",
+        "checked": 0,
+        "file": "workspace.json",
+        "pointer": "/validation_matrix/rows/5"
+      },
+      {
+        "id": "check:STACKIT_PLAN",
+        "state": "NOT_RUN",
+        "checked": 0,
+        "file": "workspace.json",
+        "pointer": "/validation_matrix/rows/6"
+      },
+      {
+        "id": "check:ARCHITECT_APPROVAL",
+        "state": "NOT_PROVIDED",
+        "checked": 0,
+        "file": "workspace.json",
+        "pointer": "/validation_matrix/rows/7"
+      },
+      {
+        "id": "check:SEMANTIC_EQUIVALENCE",
+        "state": "NOT_ASSESSED",
+        "checked": 0,
+        "file": "workspace.json",
+        "pointer": "/validation_matrix/rows/8"
+      },
+      {
+        "id": "check:SAFE_TO_APPLY",
+        "state": "NOT_ASSERTED",
+        "checked": 0,
+        "file": "workspace.json",
+        "pointer": "/validation_matrix/rows/9"
+      }
+    ]
+  }
+}

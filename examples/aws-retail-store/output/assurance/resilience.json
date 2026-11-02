@@ -1,0 +1,163 @@
+{
+  "run_id": "f576c5a4-ff5f-4981-8b67-054d7359483f",
+  "source_digest": "sha256:812c5ae3f6cc8530163abbf5b6fbe305ed3b363c4886ec6b87623db857ea0c70",
+  "resilience": {
+    "requirement": {
+      "state": "BUSINESS_REQUIREMENT_NOT_PROVIDED",
+      "statement": "No RTO or RPO was stated (BUSINESS_REQUIREMENT_NOT_PROVIDED): no architecture is called resilient against it, and no value is assumed.",
+      "applications": []
+    },
+    "units": [
+      {
+        "source_unit": "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
+        "source_type": "aws_opensearch_domain",
+        "source_facts": [
+          {
+            "path": "availability zone",
+            "value": "not stated in the source",
+            "label": "an absent zone is not read as a default zone"
+          }
+        ],
+        "intent": "UNKNOWN",
+        "state": "EVIDENCE_REQUIRED",
+        "detail": "Intent UNKNOWN: decision requires evidence. No applications file was given, so no RTO or RPO is stated. The availability-zone and metro placement of the target are NOT_ASSESSED: this build holds no evidence for them.",
+        "derived_from": [
+          "assessment.json#/units/31"
+        ]
+      },
+      {
+        "source_unit": "module.dependencies.module.catalog_rds.aws_rds_cluster.this",
+        "source_type": "aws_rds_cluster",
+        "source_facts": [
+          {
+            "path": "availability zone",
+            "value": "not stated in the source",
+            "label": "an absent zone is not read as a default zone"
+          },
+          {
+            "path": "contract item backup-retention",
+            "value": "observed yes; disposition LEDGER",
+            "label": "the state of the contract item, not a setting of the target"
+          },
+          {
+            "path": "contract item readable-standbys",
+            "value": "observed yes; disposition NOT_APPLICABLE",
+            "label": "the state of the contract item, not a setting of the target"
+          }
+        ],
+        "intent": "UNKNOWN",
+        "state": "EVIDENCE_REQUIRED",
+        "detail": "Intent UNKNOWN: decision requires evidence. No applications file was given, so no RTO or RPO is stated. The availability-zone and metro placement of the target are NOT_ASSESSED: this build holds no evidence for them.",
+        "derived_from": [
+          "assessment.json#/units/32",
+          "assessment.json#/units/32/result/semantics/items/4",
+          "assessment.json#/units/32/result/semantics/items/31"
+        ],
+        "items": [
+          "claim:module.dependencies.module.catalog_rds.aws_rds_cluster.this#backup-retention",
+          "claim:module.dependencies.module.catalog_rds.aws_rds_cluster.this#readable-standbys"
+        ]
+      },
+      {
+        "source_unit": "module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default",
+        "source_type": "aws_elasticache_replication_group",
+        "source_facts": [
+          {
+            "path": "multi-zone switch of the service",
+            "value": "false",
+            "label": "the switch as the source writes it"
+          }
+        ],
+        "intent": "UNKNOWN",
+        "state": "EVIDENCE_REQUIRED",
+        "detail": "Intent UNKNOWN: decision requires evidence. No applications file was given, so no RTO or RPO is stated. The availability-zone and metro placement of the target are NOT_ASSESSED: this build holds no evidence for them.",
+        "derived_from": [
+          "assessment.json#/units/33"
+        ]
+      },
+      {
+        "source_unit": "module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this",
+        "source_type": "aws_dynamodb_table",
+        "source_facts": [
+          {
+            "path": "availability zone",
+            "value": "NOT_ASSESSED: no placement adapter reads this source type in this build",
+            "label": "not read, which is not the same as not stated"
+          }
+        ],
+        "intent": "UNKNOWN",
+        "state": "EVIDENCE_REQUIRED",
+        "detail": "Intent UNKNOWN: decision requires evidence. No applications file was given, so no RTO or RPO is stated. The availability-zone and metro placement of the target are NOT_ASSESSED: this build holds no evidence for them.",
+        "derived_from": [
+          "assessment.json#/units/0"
+        ]
+      },
+      {
+        "source_unit": "module.dependencies.module.orders_rds.aws_rds_cluster.this",
+        "source_type": "aws_rds_cluster",
+        "source_facts": [
+          {
+            "path": "availability zone",
+            "value": "not stated in the source",
+            "label": "an absent zone is not read as a default zone"
+          },
+          {
+            "path": "contract item backup-retention",
+            "value": "observed yes; disposition LEDGER",
+            "label": "the state of the contract item, not a setting of the target"
+          },
+          {
+            "path": "contract item readable-standbys",
+            "value": "observed yes; disposition NOT_APPLICABLE",
+            "label": "the state of the contract item, not a setting of the target"
+          }
+        ],
+        "intent": "UNKNOWN",
+        "state": "EVIDENCE_REQUIRED",
+        "detail": "Intent UNKNOWN: decision requires evidence. No applications file was given, so no RTO or RPO is stated. The availability-zone and metro placement of the target are NOT_ASSESSED: this build holds no evidence for them.",
+        "derived_from": [
+          "assessment.json#/units/34",
+          "assessment.json#/units/34/result/semantics/items/4",
+          "assessment.json#/units/34/result/semantics/items/31"
+        ],
+        "items": [
+          "claim:module.dependencies.module.orders_rds.aws_rds_cluster.this#backup-retention",
+          "claim:module.dependencies.module.orders_rds.aws_rds_cluster.this#readable-standbys"
+        ]
+      },
+      {
+        "source_unit": "module.retail_app_ecs.module.alb.aws_lb.this",
+        "source_type": "aws_lb",
+        "source_facts": [
+          {
+            "path": "availability zone",
+            "value": "not stated in the source",
+            "label": "an absent zone is not read as a default zone"
+          },
+          {
+            "path": "contract item cross-zone",
+            "value": "observed yes; disposition PRESERVED",
+            "label": "the state of the contract item, not a setting of the target"
+          }
+        ],
+        "intent": "UNKNOWN",
+        "state": "EVIDENCE_REQUIRED",
+        "detail": "Intent UNKNOWN: decision requires evidence. No applications file was given, so no RTO or RPO is stated. The availability-zone and metro placement of the target are NOT_ASSESSED: this build holds no evidence for them.",
+        "derived_from": [
+          "assessment.json#/units/28",
+          "assessment.json#/units/28/result/semantics/items/27"
+        ],
+        "items": [
+          "claim:module.retail_app_ecs.module.alb.aws_lb.this#cross-zone"
+        ]
+      }
+    ],
+    "limits": [
+      "No unit is called resilient and no resilience intent is chosen: the intent of every unit is UNKNOWN until a person decides it from a stated requirement and the facts of the source.",
+      "No RTO or RPO is defaulted or inferred from a resource name; the requirement is what the applications file states, word for word, or it is not provided.",
+      "The zone facts of the source are read by the AWS placement adapter only; for every other source they are NOT_ASSESSED, which does not mean that the source states none.",
+      "The availability zones and metro placement of the STACKIT target are NOT_ASSESSED: this build holds no evidence for them, so nothing here compares the source with the target.",
+      "A unit is listed when it holds state or states a failure-domain, replication or backup fact; a unit that states none and holds no data is not looked at, and the network a unit stands in (a subnet, a route table, a security group) is not a unit with an intent of its own: 46 of the 52 units present in the source are not listed here, and the block says nothing about them."
+    ]
+  }
+}

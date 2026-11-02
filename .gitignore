@@ -1,0 +1,12 @@
+# build output (GitHub Actions builds it)
+/_site/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Python
+__pycache__/
+*.pyc

@@ -1,0 +1,91 @@
+{
+  "contract": "APPLICATION_COMPATIBILITY",
+  "unit": "module.retail_app_ecs.module.ui_service.aws_ecs_service.this",
+  "task_definition": "module.retail_app_ecs.module.ui_service.aws_ecs_task_definition.this",
+  "workload": "ui",
+  "manifest": "kubernetes/ui/manifests.yaml",
+  "file": "applications/ui.json",
+  "cluster": "stackit_ske_cluster.retail_app_ecs_cluster",
+  "readiness": "NOT_READY",
+  "readiness_reasons": [
+    "IDENTITY_OPEN",
+    "FUNCTIONAL_CHECK_NOT_RUN"
+  ],
+  "readiness_words": "Checklist items are open: StackToIT lists the work and counts an item done only when the customer marks it in the decisions file (application_checklists); StackToIT never deploys the application.",
+  "checklist_sha256": "sha256:5c46aff10b83e5f4ea394fb87a03c2dc38bca87b58dcc240a84c60226e98d247",
+  "templates": "applications/ui.templates.yaml",
+  "validation_scope": "A kubeconform check or a kubectl apply --dry-run of the manifest establishes YAML validity only, not behaviour: it accepts a REQUIRED_ token in a string field, an empty ConfigMap and a Secret that does not exist, and runs nothing; the checklist of the application compatibility contract and an application smoke test on the target are what show that the workload works.",
+  "containers": [
+    {
+      "name": "ui-service",
+      "image": "public.ecr.aws/aws-containers/retail-store-sample-ui:1.6.3",
+      "image_rebinding": "pulled from where the source pulls it (Amazon ECR image public.ecr.aws/aws-containers/retail-store-sample-ui:1.6.3): decide where the images live on STACKIT, that the cluster can reach the registry, and the pull secret",
+      "ports": [
+        "8080/TCP"
+      ],
+      "probes": [
+        "livenessProbe: exec curl -f http://localhost:8080/actuator/health (the ECS health check)",
+        "startupProbe: the same check over the start period"
+      ],
+      "env": []
+    }
+  ],
+  "endpoints": [
+    {
+      "kind": "SERVICE_CONNECT_ALIAS",
+      "source": "ui:80 (the Service Connect alias of port ui-service in the namespace not visible statically)",
+      "target": "ui:80 (the Kubernetes Service ui, port 80 → container port 8080, in the namespace the manifests are applied into)",
+      "work": "the Kubernetes Service keeps the name and port the clients call: check that they resolve it from their namespace; the Service Connect proxy (its retries, timeouts, TLS and metrics) is not carried"
+    },
+    {
+      "kind": "LOAD_BALANCER_TARGET",
+      "source": "a load balancer target group → container not visible statically port not visible statically",
+      "target": "the NodePort Service ui-nodeport (node port 30000 → container port 8080), the target pool of stackit_application_load_balancer.retail_app_ecs_alb_this at the private IPs of the cluster's nodes",
+      "work": "set the node IPs of the target pool (an input of the load balancer) and keep them current as the node pool changes, or answer the decision DEC-GEN-DEC-GEN-CONVERT-INGRESS-EXPOSURE-PATH-ALIAS-CONVERT-MOD-06557BC6 (aws.ingress.exposure-path) with another exposure path"
+    }
+  ],
+  "identity": {
+    "task_role": "module.retail_app_ecs.module.ui_service.aws_iam_role.task_role",
+    "target": "open: the decision target.workload.identity (inputs.json) chooses federated_service_account (a Kubernetes ServiceAccount federated to the STACKIT service account of the role), service_account_key (a key of that service account mounted as a Secret) or no_workload_identity",
+    "work": "answer target.workload.identity for module.retail_app_ecs.module.ui_service.aws_ecs_service.this; until then the pods run with no identity and every call the application made with the task role module.retail_app_ecs.module.ui_service.aws_iam_role.task_role fails",
+    "service_account_template": "applications/ui.templates.yaml",
+    "manual_steps": [
+      "answer the input target.workload.identity for module.retail_app_ecs.module.ui_service.aws_ecs_service.this in inputs.json: with federated_service_account the draft writes the stackit_service_account of module.retail_app_ecs.module.ui_service.aws_iam_role.task_role, its federated identity provider for the SKE cluster's service-account issuer and the Kubernetes ServiceAccount ui in the manifest",
+      "until then, create a STACKIT service account named after the task role module.retail_app_ecs.module.ui_service.aws_iam_role.task_role and grant it the role assignments the policies of module.retail_app_ecs.module.ui_service.aws_iam_role.task_role give (identity.tf lists them as the architect's variable)",
+      "federate it to the SKE cluster's service-account issuer for the subject system:serviceaccount:<namespace>:ui, and apply the ServiceAccount of applications/ui.templates.yaml (its annotation holds the service account's e-mail) in the namespace of the workload",
+      "change the application from the AWS SDK credential chain to the STACKIT SDK, which picks up the projected token: every call the application made with module.retail_app_ecs.module.ui_service.aws_iam_role.task_role fails until it does"
+    ]
+  },
+  "datastores": [],
+  "dns_dependencies": [
+    {
+      "kind": "SERVICE_CONNECT_ALIAS",
+      "name": "ui",
+      "source": "a Service Connect alias in the Cloud Map private DNS namespace retailstore.local (module.retail_app_ecs.aws_service_discovery_private_dns_namespace.this): the clients of the namespace resolve it through the Service Connect proxy of their tasks",
+      "consumers": [],
+      "provision": "CLUSTER_SERVICE",
+      "target": "ui.<namespace>.svc.cluster.local (the Kubernetes Service ui; ui from a pod of the same namespace)",
+      "verification": "resolve, from a pod of a client of ui, ui and ui.<namespace>.svc.cluster.local: expect the ClusterIP of the Kubernetes Service ui (kubectl get service ui)"
+    }
+  ],
+  "checklist": [
+    {
+      "id": "identity:module.retail_app_ecs.module.ui_service.aws_iam_role.task_role",
+      "kind": "IDENTITY",
+      "subject": "module.retail_app_ecs.module.ui_service.aws_iam_role.task_role",
+      "blocking": true,
+      "sha256": "sha256:7184de62a9f703854bfef735201ac410813bcb4120d8fd08306cd98b3d186cb7",
+      "state": "OPEN",
+      "work": "answer target.workload.identity for module.retail_app_ecs.module.ui_service.aws_ecs_service.this; until then the pods run with no identity and every call the application made with the task role module.retail_app_ecs.module.ui_service.aws_iam_role.task_role fails"
+    },
+    {
+      "id": "smoke_test:ui",
+      "kind": "SMOKE_TEST",
+      "subject": "ui",
+      "blocking": true,
+      "sha256": "sha256:6807f114890547e5a95a35f7650329b48d182fa9c12e17f39b4c559c9ceeb727",
+      "state": "OPEN",
+      "work": "run an application smoke test on the target: the pods start, answer their clients through the Kubernetes Service ui, reach every dependency above and read and write their data; StackToIT runs nothing on the target"
+    }
+  ]
+}

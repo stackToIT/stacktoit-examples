@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'self' file:; script-src 'sha256-CwASM6IjFFU0cbLjKYkJ0eTksrLAqSrzVwwNUyJ01Fs='; base-uri 'none'; form-action 'none'">
+<title>StackToIT Migration Intelligence Workspace - Sovereignty</title>
+<style>
+:root{color-scheme:light dark;--bg:#f2f5f4;--surface:#fff;--panel:#f7f9f8;--panel2:#e9eeec;--ink:#10201d;--ink2:#2c3b38;--muted:#4f5b58;--line:#d3dad8;--line2:#b9c4c1;--accent:#17603f;--accent2:#0f4a30;--accent-soft:#e2f0e7;--focus:#0b57d0;--crit:#a82218;--crit-soft:#fbe6e2;--warn:#7c5208;--warn-soft:#fbf0d4;--ok:#26683a;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+@media screen and (prefers-color-scheme:dark){:root{--bg:#0e1514;--surface:#151f1d;--panel:#1a2624;--panel2:#22302d;--ink:#e3ebe8;--ink2:#c8d3d0;--muted:#9eafab;--line:#2b3a37;--line2:#3d4f4b;--accent:#74d19c;--accent2:#9be3b9;--accent-soft:#183326;--focus:#8fb4ff;--crit:#ff958a;--crit-soft:#3a1c18;--warn:#ecc56f;--warn-soft:#33290f;--ok:#86d494}}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:1rem;line-height:1.5;color:var(--ink);background:var(--bg);margin:0 auto;padding:0 1.5rem 3rem;max-width:84rem;overflow-wrap:break-word;-webkit-text-size-adjust:100%}
+h1,h2,h3,h4,h5{color:var(--ink);line-height:1.25;text-wrap:balance}h1{font-size:1.3rem;margin:1.25rem 0 .4rem;letter-spacing:-.01em}h2{font-size:1.4rem;margin:1.5rem 0 .6rem;letter-spacing:-.01em}h3{font-size:1.15rem;margin:1.4rem 0 .5rem}h4{font-size:1rem;margin:1.2rem 0 .4rem}p,li{max-width:110ch}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:.18em}a:hover{color:var(--accent2);text-decoration-thickness:2px}
+code{font-family:var(--mono);font-size:.84em;background:var(--panel2);border-radius:4px;padding:.05em .3em}
+summary{cursor:pointer}summary:hover{color:var(--accent2)}
+header>p:first-of-type{display:inline-block;margin:0 0 .75rem;padding:.3rem .8rem;font-size:.875rem;color:var(--ink2);background:var(--warn-soft);border:1px solid color-mix(in srgb,var(--warn) 35%,transparent);border-radius:4px}
+header>p[role=status],header>details.technical{font-size:.875rem;color:var(--ink2);margin:.35rem 0}
+nav{display:flex;flex-wrap:wrap;align-items:center;column-gap:.75rem;row-gap:.25rem;margin:1rem 0 .5rem;padding:.35rem .5rem;background:var(--surface);border:1px solid var(--line);border-radius:4px;font-size:1.05rem}
+nav ol{display:flex;flex-wrap:wrap;gap:.15rem .2rem;list-style:none;margin:0;padding:0;font-size:.85em}
+nav ol a{display:block;padding:.3rem .6rem;border-radius:4px;color:var(--ink2);text-decoration:none}nav ol a:hover{background:var(--panel2);color:var(--ink)}nav [aria-current]{background:var(--accent-soft);color:var(--accent2);box-shadow:inset 0 -2px 0 var(--accent)}
+nav ol:first-child{font-weight:600}.navmore{font-size:.8em;color:var(--muted);padding-left:.75rem;border-left:1px solid var(--line2)}
+a:focus,summary:focus,button:focus,input:focus,[tabindex]:focus{outline:3px solid var(--focus);outline-offset:2px}
+[hidden]{display:none!important}
+.toolbar{display:flex;flex-wrap:wrap;gap:.5rem;padding:.5rem 0}
+.toolbar button{font:inherit;font-size:.875rem;line-height:1.3;padding:.3rem .8rem;cursor:pointer;color:var(--ink);background:var(--surface);border:1px solid var(--line2);border-radius:4px}
+.toolbar button:hover{background:var(--panel2)}
+.toolbar button[aria-pressed="true"]{font-weight:bold;color:var(--accent2);background:var(--accent-soft);border-color:var(--accent)}
+.skip{position:absolute;left:-999px}.skip:focus{position:static}
+table{border-collapse:collapse;margin:.5rem 0 1rem;font-size:.9rem;font-variant-numeric:tabular-nums;background:var(--surface)}
+th,td{border:1px solid var(--line);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:var(--panel2);font-size:.8rem;font-weight:600;color:var(--ink2);text-transform:uppercase;letter-spacing:.03em}tbody th{font-weight:600}tbody tr:nth-child(even)>*{background:color-mix(in srgb,var(--panel) 70%,transparent)}
+caption{font-weight:600;text-align:left;padding-bottom:.4rem;color:var(--ink)}
+.scroll{overflow-x:auto;content-visibility:auto;contain-intrinsic-size:auto 40rem}
+dl.topbar{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.6rem 1.5rem}
+dl.topbar dt{font-weight:600;font-size:.8rem;color:var(--muted)}dl.topbar dd{margin:0}
+
+ul.actions{display:flex;flex-wrap:wrap;gap:.3rem .4rem;list-style:none;margin:.4rem 0;padding:0}
+ul.actions li{border:1px solid var(--line2);background:var(--panel);border-radius:999px;padding:.05rem .55rem;white-space:nowrap;font-size:.9rem}ul.actions .fig{font-weight:bold;font-variant-numeric:tabular-nums}ul.actions .zero{opacity:.6}ul.actions [data-action-state=BLOCKED]{background:var(--crit-soft);border-color:color-mix(in srgb,var(--crit) 40%,transparent)}
+.state{display:inline-block;padding:0 .45rem;font-size:.85em;line-height:1.5;white-space:nowrap;background:var(--panel);border:1px solid var(--line);border-radius:4px}
+[data-dim-state] strong{color:var(--warn)}[data-dim-state^=COMPLETE] strong,[data-dim-state^=PASSED] strong,[data-dim-state^=SETTINGS] strong{color:var(--ink)}[data-dim-state=EXECUTION_READY] strong{color:var(--ok)}[data-dim-state^=REJECTED] strong,[data-dim-state^=BLOCKED] strong{color:var(--crit)}[data-dim-state^=NOT] strong,[data-dim-state^=NONE] strong{color:var(--muted)}
+@media screen and (max-width:40rem){nav{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;padding:.3rem .4rem;background:linear-gradient(90deg,var(--surface) 40%,transparent) left/1.5rem 100% no-repeat local,linear-gradient(270deg,var(--surface) 40%,transparent) right/1.5rem 100% no-repeat local,linear-gradient(90deg,color-mix(in srgb,var(--ink) 22%,transparent),transparent) left/.6rem 100% no-repeat scroll,linear-gradient(270deg,color-mix(in srgb,var(--ink) 22%,transparent),transparent) right/.6rem 100% no-repeat scroll,var(--surface)}nav ol{flex-wrap:nowrap}nav ol a,.navmore{white-space:nowrap}nav [aria-current]{scroll-initial-target:nearest}}
+@media (max-width:40rem){body{padding:0 1rem 2rem}nav ol a{padding:.25rem .45rem;min-height:2.75rem;display:flex;align-items:center}summary{min-height:2.75rem;padding-top:.6rem;padding-bottom:.6rem;box-sizing:border-box}.toolbar button{min-height:2.75rem}h2{font-size:1.25rem}}
+.lensnow{display:none}
+details.lensgroup{margin:.25rem 0}details.lensgroup>summary{font-size:.85em;color:var(--muted)}
+details.technical{margin:.5rem 0}details.technical[open]{padding:.25rem 1rem .75rem;background:var(--surface);border:1px solid var(--line);border-radius:4px}
+details.fold{margin:0;border-top:1px solid var(--line)}details.fold:last-of-type{border-bottom:1px solid var(--line)}details.fold>summary{font-weight:bold;padding:.65rem .25rem}details.fold>summary:hover{background:var(--panel)}details.fold>summary>h3{display:inline;margin:0;font-size:1.08em}details.fold[open]>summary{margin-bottom:.25rem}.foldcount{font-weight:normal;font-size:.85em;color:var(--muted);margin-left:.35rem}
+.na,small{color:var(--muted)}
+section{padding-top:1rem;border-top:1px solid var(--line)}
+main>section{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:.5rem 1.75rem 1.5rem;margin:1rem 0}main>section>h2:first-child{margin-top:.9rem}@media (max-width:40rem){main>section{padding:.25rem 1rem 1rem}}
+.lensnote{display:none;margin:.4rem 0;padding:.4rem .75rem;font-size:.9rem;background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);border-radius:4px}
+body[data-lens=executive] [data-lens]:not([data-lens~=executive]),body[data-lens=architect] [data-lens]:not([data-lens~=architect]),body[data-lens=platform] [data-lens]:not([data-lens~=platform]),body[data-lens=security] [data-lens]:not([data-lens~=security]),body[data-lens=application-owner] [data-lens]:not([data-lens~=application-owner]),body[data-lens=programme] [data-lens]:not([data-lens~=programme]),body[data-lens=finops] [data-lens]:not([data-lens~=finops]),body[data-lens=engineering] [data-lens]:not([data-lens~=engineering]){display:none}
+body[data-lens=all] .lensnow[data-for=all],body[data-lens=executive] .lensnow[data-for=executive],body[data-lens=executive] .lensnote[data-lens-note=executive],body[data-lens=architect] .lensnow[data-for=architect],body[data-lens=architect] .lensnote[data-lens-note=architect],body[data-lens=platform] .lensnow[data-for=platform],body[data-lens=platform] .lensnote[data-lens-note=platform],body[data-lens=security] .lensnow[data-for=security],body[data-lens=security] .lensnote[data-lens-note=security],body[data-lens=application-owner] .lensnow[data-for=application-owner],body[data-lens=application-owner] .lensnote[data-lens-note=application-owner],body[data-lens=programme] .lensnow[data-for=programme],body[data-lens=programme] .lensnote[data-lens-note=programme],body[data-lens=finops] .lensnow[data-for=finops],body[data-lens=finops] .lensnote[data-lens-note=finops],body[data-lens=engineering] .lensnow[data-for=engineering],body[data-lens=engineering] .lensnote[data-lens-note=engineering]{display:revert}
+
+@media print{.skip,nav,.toolbar,details.lensgroup,.lensnote,[data-js-only]{display:none!important}section{break-inside:avoid-page}details::details-content,.scroll{content-visibility:visible}[data-lens],[data-item][hidden],[data-group][hidden]{display:revert!important}body{background:#fff;max-width:none;padding:0}section.hero,main>section,ul.glance li{break-inside:auto}main>section{border:0;padding:0}a{color:inherit}}
+</style>
+</head>
+<body data-lens="all" data-pages="">
+<a class="skip" href="#main">Skip to the content</a>
+<noscript><p>Scripts are switched off. Nothing in this workspace needs them: every page is shown in full. A script would only add buttons: one that opens or closes every group of details, the lenses that put the navigation in another order, and the filters and sorts of the decision records and of the Target Fit rows.</p></noscript>
+<header>
+<h1>StackToIT Migration Intelligence Workspace</h1>
+<p>PROPOSAL — generated by StackToIT Assess. Architect review required before any decision.</p>
+<nav aria-label="Workspace pages">
+<ol>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="overview"><a href="../index.html">Overview</a></li>
+<li data-lens="architect platform security application-owner programme engineering" data-nav="architecture"><a href="architecture.html">Architecture</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="decisions"><a href="decisions.html">Decisions</a></li>
+<li data-lens="executive architect platform application-owner programme finops engineering" data-nav="migration"><a href="migration.html">Migration Plan</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="work-board"><a href="work-board.html">Work Board</a></li>
+<li data-lens="executive application-owner programme finops" data-nav="cost"><a href="cost.html">Costs</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="security-assurance"><a href="security-assurance.html">Security &amp; Resilience</a></li>
+<li data-lens="architect platform security engineering" data-nav="engineering"><a href="engineering.html">Engineering Evidence</a></li>
+</ol>
+<span class="navmore" aria-hidden="true">More</span><ol aria-label="More pages">
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="applications"><a href="applications.html">Applications</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="target-fit"><a href="target-fit.html">Target Fit</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="sovereignty"><a href="#sovereignty" aria-current="page">Sovereignty</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="operations"><a href="operations.html">Operations</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="evidence"><a href="evidence.html">Evidence</a></li>
+</ol>
+</nav>
+<p role="status"><strong>Partially executable migration package</strong> &middot; Proposal only &middot; Not approved.</p>
+<details class="technical">
+<summary>Technical details: run, versions, digest and evidence freshness</summary>
+<h2>Assessment</h2>
+<dl class="topbar">
+<div><dt>Assessment</dt><dd>default (assessment format 0.24.0)</dd></div>
+<div><dt>Assessment timestamp</dt><dd>Generated 2026-11-02 11:24 UTC by stacktoit 0.6.0-11557-ge42ad46ccc (e42ad46ccc)</dd></div>
+<div><dt>Run</dt><dd>f576c5a4-ff5f-4981-8b67-054d7359483f &middot; source digest sha256:812c5ae3f6cc8530163abbf5b6fbe305ed3b363c4886ec6b87623db857ea0c70</dd></div>
+<div><dt>Source snapshot</dt><dd>partly decided only at plan time &middot; aws not locked; random not locked</dd></div>
+<div><dt>STACKIT target profile</dt><dd>Stable network model: the experimental STACKIT VPC resources are not used (STACKIT_STABLE)</dd></div>
+<div><dt>STACKIT provider version</dt><dd>0.121.0</dd></div>
+<div><dt>Knowledge base version</dt><dd>0.384.0</dd></div>
+<div><dt>Evidence freshness</dt><dd><span class="state"><span aria-hidden="true">○</span> Not assessed</span> &mdash; Evidence freshness as one measure is not assessed in this build. Dated evidence is shown where it is used: each STACKIT support option and each assurance row states when it was verified (verified_at, and recheck_after for support), in support_suitability and assurance. The date beside a readiness dimension is the assessment date, not a retrieval date.</dd></div>
+</dl>
+<p role="status"><strong>Staleness:</strong> <span class="state"><span aria-hidden="true">○</span> Not assessed</span> &mdash; This build has no change detection, so there has been no re-check since the assessment was made (Generated 2026-11-02 11:24 UTC). The source may have changed since.</p>
+</details>
+<p role="status"><strong>Source checks:</strong> Built-in source checks passed — OpenTofu validation of the source did not run (PROVIDER_NOT_IN_MIRROR)</p>
+<p role="status"><strong>Run status:</strong> COMPLETE (report published). Source: partly decided only at plan time. Draft: GENERATED. The report was written whole; this is not a statement that the migration is ready.</p>
+
+</header>
+<div class="toolbar" role="group" aria-label="Page controls" data-js-only hidden>
+<button type="button" aria-pressed="false" data-act="details">Open all details</button>
+</div>
+<details class="lensgroup" data-js-only hidden><summary>Read this page as<span class="lensnow" data-for="all">: All</span><span class="lensnow" data-for="executive">: Executive</span><span class="lensnow" data-for="architect">: Architect</span><span class="lensnow" data-for="platform">: Platform</span><span class="lensnow" data-for="security">: Security</span><span class="lensnow" data-for="application-owner">: Application owner</span><span class="lensnow" data-for="programme">: Programme</span><span class="lensnow" data-for="finops">: FinOps</span><span class="lensnow" data-for="engineering">: Engineering</span></summary>
+<div class="toolbar" role="group" aria-label="Reader lens" data-js-only hidden>
+<button type="button" aria-pressed="true" data-lens-set="all" data-lens-order="overview architecture decisions migration work-board cost security-assurance engineering applications target-fit sovereignty operations evidence">All</button>
+<button type="button" aria-pressed="false" data-lens-set="executive" data-lens-order="overview decisions applications target-fit security-assurance sovereignty cost migration work-board operations evidence architecture engineering">Executive</button>
+<button type="button" aria-pressed="false" data-lens-set="architect" data-lens-order="overview architecture applications decisions target-fit migration work-board operations security-assurance sovereignty evidence cost engineering">Architect</button>
+<button type="button" aria-pressed="false" data-lens-set="platform" data-lens-order="overview architecture target-fit operations security-assurance decisions applications migration work-board evidence sovereignty cost engineering">Platform</button>
+<button type="button" aria-pressed="false" data-lens-set="security" data-lens-order="overview security-assurance decisions sovereignty target-fit architecture evidence applications operations migration work-board cost engineering">Security</button>
+<button type="button" aria-pressed="false" data-lens-set="application-owner" data-lens-order="overview applications decisions architecture target-fit operations migration work-board evidence security-assurance sovereignty cost engineering">Application owner</button>
+<button type="button" aria-pressed="false" data-lens-set="programme" data-lens-order="overview applications decisions migration work-board operations target-fit architecture evidence security-assurance sovereignty cost engineering">Programme</button>
+<button type="button" aria-pressed="false" data-lens-set="finops" data-lens-order="overview cost applications target-fit decisions operations security-assurance migration work-board sovereignty evidence architecture engineering">FinOps</button>
+<button type="button" aria-pressed="false" data-lens-set="engineering" data-lens-order="overview engineering architecture evidence decisions target-fit operations applications security-assurance migration work-board sovereignty cost">Engineering</button>
+</div></details>
+<p class="lensnote" role="status" data-lens-note="executive">Executive lens: the sections are in the order this reader usually wants, and Architecture and Engineering Evidence are put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="architect">Architect lens: the sections are in the order this reader usually wants, and Costs is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="platform">Platform lens: the sections are in the order this reader usually wants, and Costs is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="security">Security lens: the sections are in the order this reader usually wants, and Costs and Migration Plan are put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="application-owner">Application owner lens: the sections are in the order this reader usually wants, and Engineering Evidence is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="programme">Programme lens: the sections are in the order this reader usually wants, and Engineering Evidence is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="finops">FinOps lens: the sections are in the order this reader usually wants, and Architecture and Engineering Evidence are put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="engineering">Engineering lens: the sections are in the order this reader usually wants, and Costs is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<main id="main" tabindex="-1">
+<section id="sovereignty" aria-labelledby="h-sovereignty">
+<h2 id="h-sovereignty">Sovereignty</h2>
+<p>Dependencies, jurisdiction, data placement, key control and exit paths, source against target.</p>
+<p id="sovereignty-never-a-percentage">Sovereignty is not residency, and it is never expressed as a percentage or a score. This page is technical evidence and gaps: it does not certify legal compliance, and legal conclusions stay with counsel.</p>
+<h3 id="sovereignty-requirement">Requirement</h3>
+<p>Sovereignty requirement: <strong>not provided</strong>. No sovereignty requirement was provided: no applications file gives a tier or constraints. It is not inferred from the location of the company or of the provider.</p>
+<h3 id="sovereignty-dimensions">The thirteen dimensions</h3>
+<p>Each dimension states the requirement, what the source shows, what the target is proposed to be, the delta, the evidence, what is unknown and the actions. A statement that reads not assessed says that this build has no evidence for it; it is not a finding.</p>
+<div class="scroll" role="region" aria-label="Sovereignty dimensions" tabindex="0">
+<table id="sovereignty-dimensions-table">
+<caption>Sovereignty by dimension (13 dimensions). A state says what is open for the dimension, never that it is met.</caption>
+<thead><tr><th scope="col">Dimension</th><th scope="col">State</th><th scope="col">Requirement</th><th scope="col">Observed in the source</th><th scope="col">Proposed for the target</th><th scope="col">Delta</th><th scope="col">Evidence</th><th scope="col">Unknowns</th><th scope="col">Actions</th></tr></thead>
+<tbody>
+<tr>
+<th scope="row">Data location</th>
+<td data-state="Evidence required"><span class="state"><span aria-hidden="true">○</span> Evidence required</span></td>
+<td>NOT_PROVIDED</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> The location of the source resources is not read: this build computes no region or zone placement for the source.</td>
+<td><span class="state"><span aria-hidden="true">●</span> Stated</span> Name resolution: stackit_network.vpc_vpc_private, stackit_network.vpc_vpc_public take the shared variable default_ipv4_nameservers, which defaults to the addresses of the STACKIT DNS Resolver (beta) in eu01 (192.214.161.53, 213.17.17.17, 188.34.111.111), so those name queries go to the resolver STACKIT operates and not to the public resolvers 1.1.1.1, 8.8.8.8 and 9.9.9.9 that STACKIT sets in a public project when none are given. The resolver is a beta product documented for workloads inside STACKIT (docs.stackit.cloud, DNS Resolver, Concepts); no check that it answers from these networks is made here, and who operates it and under which jurisdiction is not assessed here. The capability catalogue lists the STACKIT services of the draft as available in: eu01, eu02. That a service is available in a region is a fact about the service. Region assumed for pricing: eu01 (default; no input chose a region). The catalogue lists the service of 13 units there, but no input or profile has chosen the region, so no resource is tied to it.</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> No source location is established, so no change of location is stated.</td>
+<td>pointers into workspace.json</td>
+<td>The provider&#39;s own statement on data location is a statement of the provider with control shared: STACKIT states that the development of its cloud takes place in Germany, that its servers and data centers are located in Germany and Austria, and that its cloud operates in accordance with European data protection standards. It names no region id, so it does not tie any resource of the draft to a region.<br>Where backups, logs and replicas are stored is the subject of the backup chain and the telemetry chain.<br></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row">Jurisdiction chain</th>
+<td data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td>NOT_PROVIDED</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> The jurisdiction chain (the legal seat of the provider, of its owners and of its operators, and the legal reach over them) is not assessed. It is not a fact of the Terraform source or of the draft, and legal conclusions stay external.</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> No target state is stated: the source state is not established.</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> No change is stated.</td>
+<td></td>
+<td>Which legal order applies to the provider, to its parent organisations and to its operators is a question for counsel, not for this build.<br></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row">Operator access</th>
+<td data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td>NOT_PROVIDED</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> Who at the provider or at an operator can reach the resources and the data, and under which conditions, is not assessed. It is not a fact of the Terraform source or of the draft.</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> No target state is stated: the source state is not established.</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> No change is stated.</td>
+<td></td>
+<td>The access model of the provider&#39;s staff and subcontractors is not a fact of the Terraform source.<br></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row">Key control</th>
+<td data-state="Evidence required"><span class="state"><span aria-hidden="true">○</span> Evidence required</span></td>
+<td>NOT_PROVIDED</td>
+<td><span class="state"><span aria-hidden="true">●</span> Stated</span> A customer-managed key may be stated, but its value is not visible statically, on: module.retail_app_ecs.aws_secretsmanager_secret.catalog_db, module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch.</td>
+<td><span class="state"><span aria-hidden="true">●</span> Stated</span> A customer-managed key is a separate setting that exists only where the source names a key: no platform encryption stands in for it, and whether the key management of the source is equivalent to the STACKIT key service is not established. Which target services of the draft can use a key of the customer is not established here.</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> Whether key ownership changes is not established: the key of the source and the key of the target are not compared.</td>
+<td>pointers into workspace.json</td>
+<td>Who holds the key material and who can use it on the target is not established.<br></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row">Identity chain</th>
+<td data-state="Decision required"><span class="state"><span aria-hidden="true">◐</span> Decision required</span></td>
+<td>NOT_PROVIDED</td>
+<td><span class="state"><span aria-hidden="true">●</span> Stated</span> The source names identities for its workloads or states them as units: module.retail_app_ecs.module.carts_service.aws_ecs_service.this, module.retail_app_ecs.module.catalog_service.aws_ecs_service.this, module.retail_app_ecs.module.checkout_service.aws_ecs_service.this, module.retail_app_ecs.module.orders_service.aws_ecs_service.this, module.retail_app_ecs.module.ui_service.aws_ecs_service.this.</td>
+<td><span class="state"><span aria-hidden="true">●</span> Stated</span> The draft attaches a STACKIT service account to a server only where the identity plan attaches it exactly; every other attachment is stated as open. Where the draft writes a project role assignment (for an AWS role, machine user or IAM group it turns into service accounts or members), the role it grants is a variable the architect chooses, because an AWS action is not translated into a STACKIT role: the draft derives no role from the source.</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> Whether the identity dependency changes is not established: the privilege delta and the external identity provider are not assessed.</td>
+<td>pointers into workspace.json</td>
+<td>Whether an external identity provider is a dependency of the sign-in of people is not assessed.<br>The privilege delta between the source identities and the target roles is not assessed.<br></td>
+<td><span title="MAN/identity/facts:module.retail_app_ecs.module.carts_service.aws_ecs_service.this:module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this.execution_role_arn-586451">the step &#34;Decide how module.retail_app_ecs.module.carts_service.aws_ecs_service.this…&#34;</span> <span title="MAN/identity/facts:module.retail_app_ecs.module.carts_service.aws_ecs_service.this:module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this.task_role_arn-686488">the step &#34;Decide how module.retail_app_ecs.module.carts_service.aws_ecs_service.this gets…&#34;</span> <span title="MAN/identity/facts:module.retail_app_ecs.module.catalog_service.aws_ecs_service.this:module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this.execution_role_arn-dedc98">the step &#34;Decide how module.retail_app_ecs.module.catalog_service.aws_ecs_service.this…&#34;</span> <span title="MAN/identity/facts:module.retail_app_ecs.module.catalog_service.aws_ecs_service.this:module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this.task_role_arn-15a967">the step &#34;Decide how module.retail_app_ecs.module.catalog_service.aws_ecs_service.this…&#34;</span> <span title="MAN/identity/facts:module.retail_app_ecs.module.checkout_service.aws_ecs_service.this:module.retail_app_ecs.module.checkout_service.aws_ecs_task_definition.this.execution_role_arn-b70bc2">the step &#34;Decide how module.retail_app_ecs.module.checkout_service.aws_ecs_service.this…&#34;</span> <span title="MAN/identity/facts:module.retail_app_ecs.module.checkout_service.aws_ecs_service.this:module.retail_app_ecs.module.checkout_service.aws_ecs_task_definition.this.task_role_arn-9651e2">the step &#34;Decide how module.retail_app_ecs.module.checkout_service.aws_ecs_service.this…&#34;</span> <span title="MAN/identity/facts:module.retail_app_ecs.module.orders_service.aws_ecs_service.this:module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this.execution_role_arn-eacc48">the step &#34;Decide how module.retail_app_ecs.module.orders_service.aws_ecs_service.this…&#34;</span> <span title="MAN/identity/facts:module.retail_app_ecs.module.orders_service.aws_ecs_service.this:module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this.task_role_arn-d0b927">the step &#34;Decide how module.retail_app_ecs.module.orders_service.aws_ecs_service.this…&#34;</span> <span title="MAN/identity/facts:module.retail_app_ecs.module.ui_service.aws_ecs_service.this:module.retail_app_ecs.module.ui_service.aws_ecs_task_definition.this.execution_role_arn-2d22d2">the step &#34;Decide how module.retail_app_ecs.module.ui_service.aws_ecs_service.this pulls…&#34;</span> <span title="MAN/identity/facts:module.retail_app_ecs.module.ui_service.aws_ecs_service.this:module.retail_app_ecs.module.ui_service.aws_ecs_task_definition.this.task_role_arn-0c66b7">the step &#34;Decide how module.retail_app_ecs.module.ui_service.aws_ecs_service.this gets…&#34;</span> </td>
+</tr>
+<tr>
+<th scope="row">Telemetry chain</th>
+<td data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td>NOT_PROVIDED</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> No log sink of the source is read in this run. That is not a finding that no telemetry leaves the estate.</td>
+<td><span class="state"><span aria-hidden="true">●</span> Stated</span> The draft writes log sources as STACKIT Logs instances. Where an export of the source goes is stated in the plan of the log source, not here.</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> Whether the destination of the telemetry changes is not established.</td>
+<td><code>capability:observability.logs</code> </td>
+<td>Where metrics, traces and agent telemetry go is not read by this build.<br></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row">Backup chain</th>
+<td data-state="Evidence required"><span class="state"><span aria-hidden="true">○</span> Evidence required</span></td>
+<td>NOT_PROVIDED</td>
+<td><span class="state"><span aria-hidden="true">●</span> Stated</span> The contracts of the source observe a backup, retention or geo-replication setting on: module.dependencies.module.catalog_rds.aws_rds_cluster.this, module.dependencies.module.orders_rds.aws_rds_cluster.this.</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> Where the backups of the target are stored and who operates the destination is not stated by the draft or by this build.</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> Whether the destination of the backups changes is not established.</td>
+<td>pointers into workspace.json</td>
+<td>The destination of the backups and replicas, and the jurisdiction of that destination, are not assessed.<br></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row">Supply chain</th>
+<td data-state="Observed"><span class="state"><span aria-hidden="true">●</span> Observed</span></td>
+<td>NOT_PROVIDED</td>
+<td><span class="state"><span aria-hidden="true">●</span> Stated</span> The source records these Terraform providers, required by its configuration or locked in its lock file: aws, random.</td>
+<td><span class="state"><span aria-hidden="true">●</span> Stated</span> The draft is written for the STACKIT provider 0.121.0.</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> Whether the supply chain of the estate changes is not established.</td>
+<td>pointers into workspace.json</td>
+<td>The registries and the build chain of the providers, and the provenance of the modules the source calls, are not assessed.<br></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row">Third-party processing</th>
+<td data-state="Evidence required"><span class="state"><span aria-hidden="true">○</span> Evidence required</span></td>
+<td>NOT_PROVIDED</td>
+<td><span class="state"><span aria-hidden="true">●</span> Stated</span> The source depends on providers or resource types the knowledge base holds no schema of: provider random.</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> The draft names no STACKIT counterpart for these dependencies.</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> Whether a third party processes the data after the move is not established.</td>
+<td>pointers into workspace.json</td>
+<td>What data a third-party provider or service handles is not read from the Terraform source.<br></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row">Open interfaces</th>
+<td data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td>NOT_PROVIDED</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> Whether the interfaces the source depends on are open standards and whether the target keeps them is not assessed.</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> No target state is stated: the source state is not established.</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> No change is stated.</td>
+<td></td>
+<td>Which of the interfaces the source uses are proprietary is not read.<br></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row">Data portability</th>
+<td data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td>NOT_PROVIDED</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> Whether the data can be exported in a documented format, and by which path, is not assessed.</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> No target state is stated: the source state is not established.</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> No change is stated.</td>
+<td></td>
+<td>How the data of each stateful unit leaves its service is not read.<br></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row">Application coupling</th>
+<td data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td>NOT_PROVIDED</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> The coupling of application code to the interfaces of the source (SDKs, proprietary protocols) is not assessed: the application code is not scanned.</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> No target state is stated: the source state is not established.</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> No change is stated.</td>
+<td></td>
+<td>Which SDKs and protocols the application code uses is not read.<br></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row">Exitability</th>
+<td data-state="Observed"><span class="state"><span aria-hidden="true">●</span> Observed</span></td>
+<td>NOT_PROVIDED</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> The interface, data format, code coupling, replacement complexity, extraction path and alternatives of the source&#39;s dependencies are not assessed.</td>
+<td><span class="state"><span aria-hidden="true">●</span> Stated</span> The draft is provider-specific Terraform for the STACKIT provider; that is the only exit fact stated, and it is listed per dependency in the exitability entries.</td>
+<td><span class="state"><span aria-hidden="true">○</span> Not assessed</span> No change of exit cost is stated: no cost, no duration and no complexity is estimated.</td>
+<td></td>
+<td>Every field of the exitability model but the Terraform coupling is not assessed, so no exit path is proven and none is ruled out.<br></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="sovereignty-dependencies">Dependencies, source to target</h3>
+<p>The dependencies of the source and what the draft makes of them. A dependency replaced is a unit the knowledge base maps to a STACKIT service; retained is a source type the knowledge base does not know, for which the draft names no counterpart.</p>
+<div class="scroll" role="region" aria-label="Sovereignty dependencies" tabindex="0">
+<table id="sovereignty-dependencies-table">
+<caption>38 dependencies</caption>
+<thead><tr><th scope="col">Source</th><th scope="col">Source type</th><th scope="col">Target service</th><th scope="col">Change</th><th scope="col">Dimensions it bears on</th></tr></thead>
+<tbody>
+<tr><th scope="row"><code>provider:random</code></th><td><code>source provider</code></td><td>none</td><td>retained</td><td>supply chain, third-party processing</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.dependencies.aws_mq_broker.mq"><code>module.dependencies.aws_mq_broker.mq</code></a></th><td><code>aws_mq_broker</code></td><td>STACKIT RabbitMQ</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this"><code>module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this</code></a></th><td><code>aws_opensearch_domain</code></td><td>STACKIT OpenSearch</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.dependencies.module.catalog_rds.aws_rds_cluster.this"><code>module.dependencies.module.catalog_rds.aws_rds_cluster.this</code></a></th><td><code>aws_rds_cluster</code></td><td>STACKIT MariaDB</td><td>replaced</td><td>data location, backup chain, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default"><code>module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default</code></a></th><td><code>aws_elasticache_replication_group</code></td><td>STACKIT Key Value Store (Valkey)</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this"><code>module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this</code></a></th><td><code>aws_dynamodb_table</code></td><td>STACKIT MongoDB Flex (alternative — data-model redesign; PostgreSQL Flex JSONB is the other option)</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.dependencies.module.orders_rds.aws_rds_cluster.this"><code>module.dependencies.module.orders_rds.aws_rds_cluster.this</code></a></th><td><code>aws_rds_cluster</code></td><td>STACKIT PostgreSQL Flex</td><td>replaced</td><td>data location, backup chain, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks"><code>module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks</code></a></th><td><code>aws_cloudwatch_log_group</code></td><td>STACKIT Logs</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.aws_ecs_cluster.cluster"><code>module.retail_app_ecs.aws_ecs_cluster.cluster</code></a></th><td><code>aws_ecs_cluster</code></td><td>STACKIT Kubernetes Engine (SKE)</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.aws_kms_key.cmk"><code>module.retail_app_ecs.aws_kms_key.cmk</code></a></th><td><code>aws_kms_key</code></td><td>STACKIT KMS</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db"><code>module.retail_app_ecs.aws_secretsmanager_secret.catalog_db</code></a></th><td><code>aws_secretsmanager_secret</code></td><td>STACKIT Secrets Manager</td><td>replaced</td><td>data location, key control, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch"><code>module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch</code></a></th><td><code>aws_secretsmanager_secret</code></td><td>STACKIT Secrets Manager</td><td>replaced</td><td>data location, key control, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.aws_secretsmanager_secret.mq"><code>module.retail_app_ecs.aws_secretsmanager_secret.mq</code></a></th><td><code>aws_secretsmanager_secret</code></td><td>STACKIT Secrets Manager</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.aws_secretsmanager_secret.orders_db"><code>module.retail_app_ecs.aws_secretsmanager_secret.orders_db</code></a></th><td><code>aws_secretsmanager_secret</code></td><td>STACKIT Secrets Manager</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.alb.aws_lb.this"><code>module.retail_app_ecs.module.alb.aws_lb.this</code></a></th><td><code>aws_lb</code></td><td>STACKIT Application Load Balancer</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.alb.aws_security_group.this"><code>module.retail_app_ecs.module.alb.aws_security_group.this</code></a></th><td><code>aws_security_group</code></td><td>STACKIT security group</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix"><code>module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix</code></a></th><td><code>aws_security_group</code></td><td>STACKIT security group</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.carts_service.aws_ecs_service.this"><code>module.retail_app_ecs.module.carts_service.aws_ecs_service.this</code></a></th><td><code>aws_ecs_service</code></td><td>STACKIT Kubernetes Engine (SKE)</td><td>replaced</td><td>data location, identity chain, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role"><code>module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role</code></a></th><td><code>aws_iam_role</code></td><td>STACKIT service account for the workload</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.carts_service.aws_iam_role.task_role"><code>module.retail_app_ecs.module.carts_service.aws_iam_role.task_role</code></a></th><td><code>aws_iam_role</code></td><td>STACKIT service account for the workload</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.carts_service.aws_security_group.this"><code>module.retail_app_ecs.module.carts_service.aws_security_group.this</code></a></th><td><code>aws_security_group</code></td><td>STACKIT security group</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.catalog_service.aws_ecs_service.this"><code>module.retail_app_ecs.module.catalog_service.aws_ecs_service.this</code></a></th><td><code>aws_ecs_service</code></td><td>STACKIT Kubernetes Engine (SKE)</td><td>replaced</td><td>data location, identity chain, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role"><code>module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role</code></a></th><td><code>aws_iam_role</code></td><td>STACKIT service account for the workload</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role"><code>module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role</code></a></th><td><code>aws_iam_role</code></td><td>STACKIT service account for the workload</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.catalog_service.aws_security_group.this"><code>module.retail_app_ecs.module.catalog_service.aws_security_group.this</code></a></th><td><code>aws_security_group</code></td><td>STACKIT security group</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.checkout_service.aws_ecs_service.this"><code>module.retail_app_ecs.module.checkout_service.aws_ecs_service.this</code></a></th><td><code>aws_ecs_service</code></td><td>STACKIT Kubernetes Engine (SKE)</td><td>replaced</td><td>data location, identity chain, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role"><code>module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role</code></a></th><td><code>aws_iam_role</code></td><td>STACKIT service account for the workload</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role"><code>module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role</code></a></th><td><code>aws_iam_role</code></td><td>STACKIT service account for the workload</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.checkout_service.aws_security_group.this"><code>module.retail_app_ecs.module.checkout_service.aws_security_group.this</code></a></th><td><code>aws_security_group</code></td><td>STACKIT security group</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.orders_service.aws_ecs_service.this"><code>module.retail_app_ecs.module.orders_service.aws_ecs_service.this</code></a></th><td><code>aws_ecs_service</code></td><td>STACKIT Kubernetes Engine (SKE)</td><td>replaced</td><td>data location, identity chain, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role"><code>module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role</code></a></th><td><code>aws_iam_role</code></td><td>STACKIT service account for the workload</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.orders_service.aws_iam_role.task_role"><code>module.retail_app_ecs.module.orders_service.aws_iam_role.task_role</code></a></th><td><code>aws_iam_role</code></td><td>STACKIT service account for the workload</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.orders_service.aws_security_group.this"><code>module.retail_app_ecs.module.orders_service.aws_security_group.this</code></a></th><td><code>aws_security_group</code></td><td>STACKIT security group</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.ui_service.aws_ecs_service.this"><code>module.retail_app_ecs.module.ui_service.aws_ecs_service.this</code></a></th><td><code>aws_ecs_service</code></td><td>STACKIT Kubernetes Engine (SKE)</td><td>replaced</td><td>data location, identity chain, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role"><code>module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role</code></a></th><td><code>aws_iam_role</code></td><td>STACKIT service account for the workload</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.ui_service.aws_iam_role.task_role"><code>module.retail_app_ecs.module.ui_service.aws_iam_role.task_role</code></a></th><td><code>aws_iam_role</code></td><td>STACKIT service account for the workload</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.ui_service.aws_security_group.this"><code>module.retail_app_ecs.module.ui_service.aws_security_group.this</code></a></th><td><code>aws_security_group</code></td><td>STACKIT security group</td><td>replaced</td><td>data location, exitability</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.vpc.module.vpc.aws_vpc.this"><code>module.vpc.module.vpc.aws_vpc.this</code></a></th><td><code>aws_vpc</code></td><td>STACKIT project networking / Network Area (SNA)</td><td>replaced</td><td>data location, exitability</td></tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong>retained:</strong> The knowledge base holds no source schema of this provider and the draft names no STACKIT counterpart for it. What the provider processes is not established.</li>
+<li><strong>replaced:</strong> The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit.</li>
+</ul>
+<h3 id="sovereignty-exitability">Exitability</h3>
+<p>For each target dependency the model asks for the interface, the data format, the provider-specific code, the Terraform dependency, the replacement complexity, the data extraction path, the alternative implementation and the exit evidence. The only field this build states is the Terraform dependency: the draft is Terraform written for the STACKIT provider. No cost, duration or complexity is estimated.</p>
+<div class="scroll" role="region" aria-label="Exitability" tabindex="0">
+<table id="sovereignty-exitability-table">
+<caption>37 target dependencies</caption>
+<thead><tr><th scope="col">Dependency</th><th scope="col">Target service</th><th scope="col">State</th><th scope="col">Terraform dependency</th><th scope="col">Every other field of the model</th></tr></thead>
+<tbody>
+<tr><th scope="row"><a href="architecture.html#unit/module.dependencies.aws_mq_broker.mq"><code>module.dependencies.aws_mq_broker.mq</code></a></th><td>STACKIT RabbitMQ</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this"><code>module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this</code></a></th><td>STACKIT OpenSearch</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.dependencies.module.catalog_rds.aws_rds_cluster.this"><code>module.dependencies.module.catalog_rds.aws_rds_cluster.this</code></a></th><td>STACKIT MariaDB</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default"><code>module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default</code></a></th><td>STACKIT Key Value Store (Valkey)</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this"><code>module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this</code></a></th><td>STACKIT MongoDB Flex (alternative — data-model redesign; PostgreSQL Flex JSONB is the other option)</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.dependencies.module.orders_rds.aws_rds_cluster.this"><code>module.dependencies.module.orders_rds.aws_rds_cluster.this</code></a></th><td>STACKIT PostgreSQL Flex</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks"><code>module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks</code></a></th><td>STACKIT Logs</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.aws_ecs_cluster.cluster"><code>module.retail_app_ecs.aws_ecs_cluster.cluster</code></a></th><td>STACKIT Kubernetes Engine (SKE)</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.aws_kms_key.cmk"><code>module.retail_app_ecs.aws_kms_key.cmk</code></a></th><td>STACKIT KMS</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db"><code>module.retail_app_ecs.aws_secretsmanager_secret.catalog_db</code></a></th><td>STACKIT Secrets Manager</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch"><code>module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch</code></a></th><td>STACKIT Secrets Manager</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.aws_secretsmanager_secret.mq"><code>module.retail_app_ecs.aws_secretsmanager_secret.mq</code></a></th><td>STACKIT Secrets Manager</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.aws_secretsmanager_secret.orders_db"><code>module.retail_app_ecs.aws_secretsmanager_secret.orders_db</code></a></th><td>STACKIT Secrets Manager</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.alb.aws_lb.this"><code>module.retail_app_ecs.module.alb.aws_lb.this</code></a></th><td>STACKIT Application Load Balancer</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.alb.aws_security_group.this"><code>module.retail_app_ecs.module.alb.aws_security_group.this</code></a></th><td>STACKIT security group</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix"><code>module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix</code></a></th><td>STACKIT security group</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.carts_service.aws_ecs_service.this"><code>module.retail_app_ecs.module.carts_service.aws_ecs_service.this</code></a></th><td>STACKIT Kubernetes Engine (SKE)</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role"><code>module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role</code></a></th><td>STACKIT service account for the workload</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.carts_service.aws_iam_role.task_role"><code>module.retail_app_ecs.module.carts_service.aws_iam_role.task_role</code></a></th><td>STACKIT service account for the workload</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.carts_service.aws_security_group.this"><code>module.retail_app_ecs.module.carts_service.aws_security_group.this</code></a></th><td>STACKIT security group</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.catalog_service.aws_ecs_service.this"><code>module.retail_app_ecs.module.catalog_service.aws_ecs_service.this</code></a></th><td>STACKIT Kubernetes Engine (SKE)</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role"><code>module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role</code></a></th><td>STACKIT service account for the workload</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role"><code>module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role</code></a></th><td>STACKIT service account for the workload</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.catalog_service.aws_security_group.this"><code>module.retail_app_ecs.module.catalog_service.aws_security_group.this</code></a></th><td>STACKIT security group</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.checkout_service.aws_ecs_service.this"><code>module.retail_app_ecs.module.checkout_service.aws_ecs_service.this</code></a></th><td>STACKIT Kubernetes Engine (SKE)</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role"><code>module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role</code></a></th><td>STACKIT service account for the workload</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role"><code>module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role</code></a></th><td>STACKIT service account for the workload</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.checkout_service.aws_security_group.this"><code>module.retail_app_ecs.module.checkout_service.aws_security_group.this</code></a></th><td>STACKIT security group</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.orders_service.aws_ecs_service.this"><code>module.retail_app_ecs.module.orders_service.aws_ecs_service.this</code></a></th><td>STACKIT Kubernetes Engine (SKE)</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role"><code>module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role</code></a></th><td>STACKIT service account for the workload</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.orders_service.aws_iam_role.task_role"><code>module.retail_app_ecs.module.orders_service.aws_iam_role.task_role</code></a></th><td>STACKIT service account for the workload</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.orders_service.aws_security_group.this"><code>module.retail_app_ecs.module.orders_service.aws_security_group.this</code></a></th><td>STACKIT security group</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.ui_service.aws_ecs_service.this"><code>module.retail_app_ecs.module.ui_service.aws_ecs_service.this</code></a></th><td>STACKIT Kubernetes Engine (SKE)</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role"><code>module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role</code></a></th><td>STACKIT service account for the workload</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.ui_service.aws_iam_role.task_role"><code>module.retail_app_ecs.module.ui_service.aws_iam_role.task_role</code></a></th><td>STACKIT service account for the workload</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.retail_app_ecs.module.ui_service.aws_security_group.this"><code>module.retail_app_ecs.module.ui_service.aws_security_group.this</code></a></th><td>STACKIT security group</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+<tr><th scope="row"><a href="architecture.html#unit/module.vpc.module.vpc.aws_vpc.this"><code>module.vpc.module.vpc.aws_vpc.this</code></a></th><td>STACKIT project networking / Network Area (SNA)</td><td data-state="Provider specific"><span class="state"><span aria-hidden="true">●</span> Provider specific</span></td><td>provider specific</td><td>not assessed</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="sovereignty-limits">What this page does not say</h3>
+<ul>
+<li>Legal conclusions remain external. The block provides technical evidence and gaps and does not certify legal compliance.</li>
+<li>Sovereignty is not residency: a region of a service is a fact about the service, never a statement about the sovereignty of a workload.</li>
+<li>There is no score, no percentage and no count in this block, and no dimension is compared with a requirement in this build.</li>
+<li>Jurisdiction, operator access, open interfaces, data portability and application coupling are not assessed, and every field of the exitability model but the Terraform coupling is not assessed.</li>
+<li>Dependencies are the units the knowledge base maps to a STACKIT service, the source providers the knowledge base holds no schema of and the source types it does not know. A dependency the draft introduces without a source unit is not listed, and a unit with no STACKIT resource is not listed as removed.</li>
+</ul>
+<p>The same block, with the pointers of its evidence, is in <code>assurance/sovereignty.json</code>, and in words in <code>assurance/sovereignty.md</code>.</p>
+</section></main>
+<script>(function () {
+  'use strict';
+  var doc = document;
+  var win = window;
+  function all(selector, root) { return Array.prototype.slice.call((root || doc).querySelectorAll(selector)); }
+  function press(button, on) { button.setAttribute('aria-pressed', on ? 'true' : 'false'); }
+  function pressed(button) { return button.getAttribute('aria-pressed') === 'true'; }
+
+  all('[data-js-only]').forEach(function (e) { e.hidden = false; });
+
+  var detailsButton = doc.querySelector('[data-act="details"]');
+  if (detailsButton) {
+    detailsButton.addEventListener('click', function () {
+      var on = !pressed(detailsButton);
+      press(detailsButton, on);
+      all('details').forEach(function (d) { d.open = on; });
+    });
+  }
+
+  function listOf(scope) { return doc.querySelector('[data-list="' + scope + '"]'); }
+  function itemsOf(list) {
+    return all('[data-item]', list);
+  }
+  function chosen(scope) {
+    var by = {};
+    all('[data-controls="' + scope + '"] [data-filter]').forEach(function (b) {
+      if (!pressed(b)) { return; }
+      var group = b.getAttribute('data-filter');
+      (by[group] = by[group] || []).push(b.getAttribute('data-value'));
+    });
+    return by;
+  }
+  function passes(item, by, cells) {
+    if (cells) {
+      if (!by.dim && !by.state) { return true; }
+      return all('[data-state]', item).some(function (c) {
+        return (!by.dim || by.dim.indexOf(c.getAttribute('data-dim')) >= 0) && (!by.state || by.state.indexOf(c.getAttribute('data-state')) >= 0);
+      });
+    }
+    return Object.keys(by).every(function (group) { return by[group].indexOf(item.getAttribute('data-' + group)) >= 0; });
+  }
+  function refresh(scope) {
+    var list = listOf(scope);
+    if (!list) { return; }
+    var by = chosen(scope);
+    var cells = list.hasAttribute('data-cells');
+    var seen = false;
+    var search = doc.querySelector('[data-search="' + scope + '"]');
+    var words = search ? search.value.toLowerCase().split(' ').filter(Boolean) : [];
+    itemsOf(list).forEach(function (item) {
+      var text = (item.id + ' ' + (item.getAttribute('data-text') || '')).toLowerCase();
+      var ok = passes(item, by, cells) && words.every(function (w) { return text.indexOf(w) >= 0; });
+      item.hidden = !ok;
+      if (ok) { seen = true; }
+    });
+    all('[data-group]', list).forEach(function (g) {
+      g.hidden = !all('[data-item]', g).some(function (item) { return !item.hidden; });
+      if (words[0] && !g.hidden && g.tagName === 'DETAILS') { g.open = true; }
+    });
+    var none = doc.querySelector('[data-empty="' + scope + '"]');
+    if (none) { none.hidden = seen; }
+  }
+  function sortBy(scope, button) {
+    var list = listOf(scope);
+    if (!list) { return; }
+    var key = button.getAttribute('data-sort');
+    var attr = key === 'record' ? 'data-seq' : 'data-sort-' + key;
+    var desc = button.getAttribute('data-dir') === 'desc';
+    var items = itemsOf(list);
+    var parents = items.map(function (i) { return i.parentNode; }).filter(function (p, k, a) { return a.indexOf(p) === k; });
+    parents.forEach(function (parent) {
+      items.filter(function (i) { return i.parentNode === parent; }).sort(function (a, b) {
+        var x = Number(a.getAttribute(attr));
+        var y = Number(b.getAttribute(attr));
+        if (x !== y) { return desc ? y - x : x - y; }
+        return Number(a.getAttribute('data-seq')) - Number(b.getAttribute('data-seq'));
+      }).forEach(function (item) { parent.appendChild(item); });
+    });
+    all('[data-controls="' + scope + '"] [data-sort]').forEach(function (b) { press(b, b === button); });
+  }
+  all('[data-controls]').forEach(function (box) {
+    var scope = box.getAttribute('data-controls');
+    all('[data-filter]', box).forEach(function (b) {
+      b.addEventListener('click', function () { press(b, !pressed(b)); refresh(scope); });
+    });
+    all('[data-sort]', box).forEach(function (b) {
+      b.addEventListener('click', function () { sortBy(scope, b); });
+    });
+    var search = box.querySelector('[data-search]');
+    if (search) {
+      search.addEventListener('input', function () { refresh(scope); });
+    }
+    var clear = box.querySelector('[data-act="clear-filters"]');
+    if (clear) {
+      clear.addEventListener('click', function () {
+        all('[data-filter]', box).forEach(function (b) { press(b, false); });
+        if (search) { search.value = ''; }
+        refresh(scope);
+      });
+    }
+  });
+
+  var main = doc.getElementById('main');
+  var lensButtons = all('[data-lens-set]');
+  function setLens(lens) {
+    doc.body.setAttribute('data-lens', lens);
+    lensButtons.forEach(function (b) {
+      var on = b.getAttribute('data-lens-set') === lens;
+      press(b, on);
+      if (on) {
+        b.getAttribute('data-lens-order').split(' ').forEach(function (id) {
+          var section = doc.getElementById(id);
+          if (main && section && section.parentNode === main && (section.nextElementSibling || section.previousElementSibling)) { main.appendChild(section); }
+          var entry = doc.querySelector('nav [data-nav="' + id + '"]');
+          if (entry) { entry.parentNode.appendChild(entry); }
+        });
+      }
+    });
+  }
+  lensButtons.forEach(function (b) {
+    b.addEventListener('click', function () { setLens(b.getAttribute('data-lens-set')); });
+  });
+
+  function indicated() {
+    var hash = win.location.hash;
+    if (hash === '' || hash === '#') { return null; }
+    var id = hash.slice(1);
+    var found = doc.getElementById(id);
+    if (!found) {
+      try { found = doc.getElementById(decodeURIComponent(id)); } catch (e) { found = null; }
+    }
+    return found;
+  }
+  var kindPages = {'action': 'decisions', 'application': 'applications', 'capability': 'target-fit', 'check': 'evidence', 'claim': 'engineering', 'decision': 'decisions', 'evidence': 'engineering', 'field': 'engineering', 'findinggroup': 'evidence', 'intent': 'engineering', 'residual': 'engineering', 'target': 'evidence', 'unit': 'architecture'};
+  var sectionPages = ' applications architecture decisions target-fit migration security-assurance sovereignty operations cost evidence engineering work-board ';
+  function before(a, b) {
+    var x = Array.from(a);
+    var y = Array.from(b);
+    for (var i = 0; ; i++) {
+      if (x[i] === undefined) { return y[i] !== undefined; }
+      if (y[i] === undefined) { return false; }
+      if (x[i] !== y[i]) { return x[i].codePointAt(0) < y[i].codePointAt(0); }
+    }
+  }
+  function grouped(kind, key) {
+    var rows = all('[data-routes] [data-kind="' + kind + '"]');
+    if (!rows[0]) { return null; }
+    var at = rows[0];
+    rows.forEach(function (r) { if (!before(key, r.getAttribute('data-first'))) { at = r; } });
+    return at.getAttribute('data-page');
+  }
+  function routed(id) {
+    var slash = id.indexOf('/');
+    if (slash > 0) {
+      var kind = id.slice(0, slash);
+      var key = null;
+      try { key = decodeURIComponent(id.slice(slash + 1)); } catch (e) { key = null; }
+      var group = key === null ? null : grouped(kind, key);
+      if (group !== null) { return group; }
+      return kindPages.hasOwnProperty(kind) ? kindPages[kind] : null;
+    }
+    return sectionPages.indexOf(' ' + id + ' ') >= 0 ? id : null;
+  }
+  function route() {
+    var base = doc.body.getAttribute('data-pages');
+    var page = routed(win.location.hash.slice(1));
+    if (base === null || page === null || win.location.pathname.endsWith('/' + page + '.html')) { return; }
+    win.location.replace(base + page + '.html' + win.location.hash);
+  }
+  function reveal() {
+    var target = indicated();
+    if (!target) { route(); return; }
+    if (target.tagName === 'DETAILS') { target.open = true; }
+    for (var p = target.parentElement; p; p = p.parentElement) {
+      if (p.tagName === 'DETAILS') { p.open = true; }
+    }
+    var body = target.querySelector(':scope > details');
+    if (body) { body.open = true; }
+    if (!target.getClientRects()[0]) {
+      all('[data-controls] [data-filter]').forEach(function (b) { press(b, false); });
+      all('[data-search]').forEach(function (b) { b.value = ''; });
+      all('[data-controls]').forEach(function (box) { refresh(box.getAttribute('data-controls')); });
+      if (lensButtons[0]) { setLens('all'); }
+    }
+    target.scrollIntoView();
+  }
+  win.addEventListener('hashchange', reveal);
+  reveal();
+
+  var opened = [];
+  win.addEventListener('beforeprint', function () {
+    opened = all('details:not([open])');
+    opened.forEach(function (d) { d.open = true; });
+  });
+  win.addEventListener('afterprint', function () {
+    opened.forEach(function (d) { d.open = false; });
+    opened = [];
+  });
+})();
+</script>
+</body>
+</html>

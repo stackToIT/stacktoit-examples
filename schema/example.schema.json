@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stacktoit.github.io/stacktoit-examples/schema/example.schema.json",
+  "title": "StackToIT example metadata",
+  "description": "One record per published example. Every figure must come from the example's own output folder; scripts/validate.py cross-checks the ones it can.",
+  "type": "object",
+  "required": ["schema_version", "id", "title", "summary", "source", "target", "tool", "run", "metrics", "key_findings", "report", "publication"],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^1\\.[0-9]+\\.[0-9]+$" },
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "title": { "type": "string" },
+    "summary": { "type": "string" },
+    "source": {
+      "type": "object",
+      "required": ["cloud", "iac", "project_name", "maintainer", "repository_url", "commit", "commit_url", "terraform_root", "terraform_root_url", "license"],
+      "properties": {
+        "cloud": { "type": "string", "enum": ["AWS", "Azure", "Google Cloud", "VMware"] },
+        "iac": { "type": "string" },
+        "project_name": { "type": "string" },
+        "maintainer": { "type": "string" },
+        "repository_url": { "type": "string", "pattern": "^https://" },
+        "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "commit_url": { "type": "string", "pattern": "^https://" },
+        "terraform_root": { "type": "string" },
+        "terraform_root_url": { "type": "string", "pattern": "^https://" },
+        "license": { "type": "string" },
+        "registry_modules": { "type": "string" },
+        "note": { "type": "string" }
+      }
+    },
+    "target": {
+      "type": "object",
+      "required": ["cloud", "provider"],
+      "properties": { "cloud": { "type": "string" }, "provider": { "type": "string" } }
+    },
+    "tool": {
+      "type": "object",
+      "required": ["name", "version", "commit", "kb_version", "kb_sha256", "assessment_schema", "manifest_version", "opentofu"],
+      "properties": {
+        "name": { "type": "string" },
+        "version": { "type": "string" },
+        "commit": { "type": "string", "pattern": "^[0-9a-f]{7,40}$" },
+        "kb_version": { "type": "string" },
+        "kb_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "assessment_schema": { "type": "string" },
+        "manifest_version": { "type": "string" },
+        "opentofu": { "type": "string" }
+      }
+    },
+    "run": {
+      "type": "object",
+      "required": ["run_id", "generated_at", "date", "mode", "command", "verify_command", "verify_result", "source_digest"],
+      "properties": {
+        "run_id": { "type": "string", "pattern": "^[0-9a-f-]{36}$" },
+        "generated_at": { "type": "string" },
+        "date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+        "mode": { "type": "string" },
+        "command": { "type": "string" },
+        "command_note": { "type": "string" },
+        "verify_command": { "type": "string" },
+        "verify_result": { "type": "string" },
+        "source_digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "required": ["files_read", "resources", "units", "module_calls", "source_status", "by_class", "by_confidence", "draft", "execution", "readiness", "decisions", "applications", "cost", "validation"],
+      "properties": {
+        "files_read": { "type": "integer" },
+        "resources": { "type": "integer" },
+        "units": { "type": "integer" },
+        "plan_time_units": { "type": "integer" },
+        "module_calls": { "type": "integer" },
+        "source_status": { "type": "string" },
+        "by_class": {
+          "type": "object",
+          "required": ["DIRECT", "RECONFIGURE", "REPLATFORM", "CONTAINERIZE", "REDESIGN", "MANUAL_REVIEW", "BLOCKED"],
+          "additionalProperties": { "type": "integer" }
+        },
+        "by_confidence": {
+          "type": "object",
+          "required": ["HIGH", "MEDIUM", "LOW"],
+          "additionalProperties": { "type": "integer" }
+        },
+        "draft": { "type": "object", "required": ["generated", "no_resource_needed", "manual", "variables"] },
+        "execution": { "type": "object", "required": ["package_state", "plan_steps", "automated_steps", "automated_can_run_now", "refused_steps"] },
+        "readiness": { "type": "object", "required": ["migration_ready", "approval", "automation_eligible_units"] },
+        "decisions": { "type": "object", "required": ["decisions_to_make", "open_input_requests", "first_required_action"] },
+        "applications": { "type": "object", "required": ["total", "ready", "list"] },
+        "cost": { "type": "object", "required": ["comparison", "why"] },
+        "validation": {
+          "type": "object",
+          "required": ["source_opentofu", "source_provider", "draft_opentofu", "draft_checks", "global_invariants", "manifest", "not_established"]
+        }
+      }
+    },
+    "key_findings": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "object", "required": ["title", "text"] }
+    },
+    "report": {
+      "type": "object",
+      "required": ["entry", "architecture_dir", "terraform_dir", "executive_brief", "execution_plan", "manifest"]
+    },
+    "publication": {
+      "type": "object",
+      "required": ["published_files", "manifest_files", "outside_manifest", "excluded", "modified", "statement"],
+      "properties": {
+        "published_files": { "type": "integer" },
+        "manifest_files": { "type": "integer" },
+        "outside_manifest": { "type": "array", "items": { "type": "string" } },
+        "excluded": { "type": "array", "items": { "type": "string" } },
+        "modified": { "type": "array", "items": { "type": "string" } },
+        "statement": { "type": "string" }
+      }
+    }
+  }
+}

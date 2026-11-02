@@ -1,0 +1,136 @@
+{
+  "contract": "APPLICATION_COMPATIBILITY",
+  "unit": "module.retail_app_ecs.module.checkout_service.aws_ecs_service.this",
+  "task_definition": "module.retail_app_ecs.module.checkout_service.aws_ecs_task_definition.this",
+  "workload": "checkout",
+  "manifest": "kubernetes/checkout/manifests.yaml",
+  "file": "applications/checkout.json",
+  "cluster": "stackit_ske_cluster.retail_app_ecs_cluster",
+  "readiness": "BLOCKED",
+  "readiness_reasons": [
+    "DATASTORE_PROTOCOL_NOT_ASSESSED",
+    "IDENTITY_OPEN",
+    "FUNCTIONAL_CHECK_NOT_RUN"
+  ],
+  "readiness_words": "A data store this workload reaches changes protocol or has no assessed protocol, and its code migration decision is not answered: StackToIT keeps the workload blocked until the customer answers it in the decisions file.",
+  "checklist_sha256": "sha256:4bae9ab778c2772005b360df4f79c52fd5f0a677d0c3003ea84986eb3050cf92",
+  "templates": "applications/checkout.templates.yaml",
+  "validation_scope": "A kubeconform check or a kubectl apply --dry-run of the manifest establishes YAML validity only, not behaviour: it accepts a REQUIRED_ token in a string field, an empty ConfigMap and a Secret that does not exist, and runs nothing; the checklist of the application compatibility contract and an application smoke test on the target are what show that the workload works.",
+  "containers": [
+    {
+      "name": "checkout-service",
+      "image": "public.ecr.aws/aws-containers/retail-store-sample-checkout:1.6.3",
+      "image_rebinding": "pulled from where the source pulls it (Amazon ECR image public.ecr.aws/aws-containers/retail-store-sample-checkout:1.6.3): decide where the images live on STACKIT, that the cluster can reach the registry, and the pull secret",
+      "ports": [
+        "8080/TCP"
+      ],
+      "probes": [
+        "livenessProbe: exec curl -f http://localhost:8080/health (the ECS health check)",
+        "startupProbe: the same check over the start period"
+      ],
+      "env": []
+    }
+  ],
+  "endpoints": [
+    {
+      "kind": "SERVICE_CONNECT_ALIAS",
+      "source": "checkout:80 (the Service Connect alias of port checkout-service in the namespace not visible statically)",
+      "target": "checkout:80 (the Kubernetes Service checkout, port 80 → container port 8080, in the namespace the manifests are applied into)",
+      "work": "the Kubernetes Service keeps the name and port the clients call: check that they resolve it from their namespace; the Service Connect proxy (its retries, timeouts, TLS and metrics) is not carried"
+    }
+  ],
+  "identity": {
+    "task_role": "module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role",
+    "target": "open: the decision target.workload.identity (inputs.json) chooses federated_service_account (a Kubernetes ServiceAccount federated to the STACKIT service account of the role), service_account_key (a key of that service account mounted as a Secret) or no_workload_identity",
+    "work": "answer target.workload.identity for module.retail_app_ecs.module.checkout_service.aws_ecs_service.this; until then the pods run with no identity and every call the application made with the task role module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role fails",
+    "service_account_template": "applications/checkout.templates.yaml",
+    "manual_steps": [
+      "answer the input target.workload.identity for module.retail_app_ecs.module.checkout_service.aws_ecs_service.this in inputs.json: with federated_service_account the draft writes the stackit_service_account of module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role, its federated identity provider for the SKE cluster's service-account issuer and the Kubernetes ServiceAccount checkout in the manifest",
+      "until then, create a STACKIT service account named after the task role module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role and grant it the role assignments the policies of module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role give (identity.tf lists them as the architect's variable)",
+      "federate it to the SKE cluster's service-account issuer for the subject system:serviceaccount:<namespace>:checkout, and apply the ServiceAccount of applications/checkout.templates.yaml (its annotation holds the service account's e-mail) in the namespace of the workload",
+      "change the application from the AWS SDK credential chain to the STACKIT SDK, which picks up the projected token: every call the application made with module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role fails until it does"
+    ]
+  },
+  "datastores": [
+    {
+      "source": "module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default",
+      "source_kind": "ElastiCache",
+      "target": "stackit_valkey_instance.dependencies_checkout_elasticache_redis_default",
+      "target_kind": "Key Value Store (Valkey)",
+      "protocol": "PROTOCOL_NOT_ASSESSED",
+      "evidence": "module.retail_app_ecs.module.checkout_service.aws_ecs_task_definition.this references module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default",
+      "work": "the target stackit_valkey_instance.dependencies_checkout_elasticache_redis_default (Key Value Store, Valkey) speaks the Redis protocol and accepts TLS connections only, so the clients change: the source runs without TLS (transit_encryption_enabled = false), so the scheme redis:// becomes rediss://, the client's TLS option is switched on and the CA certificate of the instance is trusted; check the commands the application sends against the target before the manifest is applied (its credential is no administrator: CONFIG, ACL and MODULE are denied)",
+      "code_migration": {
+        "id": "application:checkout:code-migration:module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default",
+        "question": "The protocol compatibility of ElastiCache and the target stackit_valkey_instance.dependencies_checkout_elasticache_redis_default is not assessed: has the application's use of it been checked?",
+        "owner": "Application owner (development team)",
+        "blocks": "BLOCKED",
+        "options": [
+          {
+            "id": "compatibility-verified",
+            "title": "the calls the application makes were checked against the target store and found compatible",
+            "unblocks": true
+          },
+          {
+            "id": "different-target-store",
+            "title": "a target store that speaks the protocol of the source is wanted instead: the draft is regenerated with it, and the workload stays blocked until then",
+            "unblocks": false
+          }
+        ],
+        "sha256": "sha256:d2632928c6a75f74c14ad8d0b4552ace49e36051cc4e6b5690cc009e40f937b3",
+        "state": "OPEN"
+      }
+    }
+  ],
+  "dns_dependencies": [
+    {
+      "kind": "MANAGED_ENDPOINT",
+      "name": "the endpoint host of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default (ElastiCache)",
+      "source": "the endpoint host AWS assigns ElastiCache module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default when it is applied (not visible statically), answered by AWS DNS (inside a VPC the VPC resolver answers it with a private address)",
+      "consumers": [
+        "checkout: module.retail_app_ecs.module.checkout_service.aws_ecs_task_definition.this references module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default"
+      ],
+      "provision": "ENDPOINT_ATTRIBUTE",
+      "target": "the host name the STACKIT instance stackit_valkey_instance.dependencies_checkout_elasticache_redis_default (Key Value Store (Valkey)) publishes, read from the instance and its credential after it is applied; the draft holds no value of it",
+      "verification": "resolve, from a pod of checkout, the host of stackit_valkey_instance.dependencies_checkout_elasticache_redis_default and connect to its port: the draft does not state whether the name resolves to an address the cluster's network reaches, so record the address and that the connection opens"
+    },
+    {
+      "kind": "SERVICE_CONNECT_ALIAS",
+      "name": "checkout",
+      "source": "a Service Connect alias in the Cloud Map private DNS namespace retailstore.local (module.retail_app_ecs.aws_service_discovery_private_dns_namespace.this): the clients of the namespace resolve it through the Service Connect proxy of their tasks",
+      "consumers": [],
+      "provision": "CLUSTER_SERVICE",
+      "target": "checkout.<namespace>.svc.cluster.local (the Kubernetes Service checkout; checkout from a pod of the same namespace)",
+      "verification": "resolve, from a pod of a client of checkout, checkout and checkout.<namespace>.svc.cluster.local: expect the ClusterIP of the Kubernetes Service checkout (kubectl get service checkout)"
+    }
+  ],
+  "checklist": [
+    {
+      "id": "datastore_protocol_check:module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default",
+      "kind": "DATASTORE_PROTOCOL_CHECK",
+      "subject": "module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default",
+      "blocking": true,
+      "sha256": "sha256:a426acab1dbc5d4cf073c913f54e7e451c42424ff68fb1e77451a8f9e8907608",
+      "state": "OPEN",
+      "work": "the target stackit_valkey_instance.dependencies_checkout_elasticache_redis_default (Key Value Store, Valkey) speaks the Redis protocol and accepts TLS connections only, so the clients change: the source runs without TLS (transit_encryption_enabled = false), so the scheme redis:// becomes rediss://, the client's TLS option is switched on and the CA certificate of the instance is trusted; check the commands the application sends against the target before the manifest is applied (its credential is no administrator: CONFIG, ACL and MODULE are denied)"
+    },
+    {
+      "id": "identity:module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role",
+      "kind": "IDENTITY",
+      "subject": "module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role",
+      "blocking": true,
+      "sha256": "sha256:584bf44338daf24e3d6bb96626e6681acf2477a2e0c5a9dc94e70a1db07af471",
+      "state": "OPEN",
+      "work": "answer target.workload.identity for module.retail_app_ecs.module.checkout_service.aws_ecs_service.this; until then the pods run with no identity and every call the application made with the task role module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role fails"
+    },
+    {
+      "id": "smoke_test:checkout",
+      "kind": "SMOKE_TEST",
+      "subject": "checkout",
+      "blocking": true,
+      "sha256": "sha256:6ebcff17abc01e49263b3fcc3a614249619bae82e7733dee1cdd38675a6551cf",
+      "state": "OPEN",
+      "work": "run an application smoke test on the target: the pods start, answer their clients through the Kubernetes Service checkout, reach every dependency above and read and write their data; StackToIT runs nothing on the target"
+    }
+  ]
+}

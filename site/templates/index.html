@@ -1,0 +1,40 @@
+<section class="field hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <h1>StackToIT Examples</h1>
+      <p class="lede">Real infrastructure. Real migration assessments. Reviewable STACKIT target plans.</p>
+      <p class="hero-p">StackToIT reads a Terraform estate and writes a migration package for STACKIT: the assessment of every resource, a Terraform draft of the target, an ordered execution plan and the decisions that are still open. The runs published here were made on public AWS projects, with default options, and are shown exactly as the tool wrote them.</p>
+      <p class="hero-actions"><a class="btn btn-primary" href="#register">Open the register</a><a class="btn btn-ghost" href="#reading">What the states mean</a></p>
+    </div>
+    <ol class="dispatch" aria-label="What one run does">
+      <li><span class="leg">1</span><div><h2>Read the source</h2><p>The Terraform root, its local and registry modules, variables and the resources they declare. What is decided only at plan time is named, not guessed.</p></div></li>
+      <li><span class="leg">2</span><div><h2>Assess and map</h2><p>Every resource is classified against the STACKIT knowledge base: DIRECT, RECONFIGURE, REPLATFORM, CONTAINERIZE, REDESIGN, MANUAL REVIEW or BLOCKED, with a confidence and the evidence.</p></div></li>
+      <li><span class="leg">3</span><div><h2>Write the package</h2><p>A STACKIT Terraform draft, API steps where Terraform cannot carry a setting, manual steps with an owner, an execution plan and a decision register. Nothing is applied.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="wrap register" id="register" aria-labelledby="register-h">
+  <div class="section-head">
+    <h2 id="register-h">Register</h2>
+    <p>$count example$plural · each sheet is one run on one public estate.</p>
+  </div>
+  $cards
+</section>
+
+<section class="wrap reading" id="reading" aria-labelledby="reading-h">
+  <div class="section-head">
+    <h2 id="reading-h">How to read these examples</h2>
+    <p>StackToIT keeps its words apart on purpose. The sheets above use them the same way.</p>
+  </div>
+  <dl class="glossary">
+    <div><dt>Execution-ready</dt><dd>A step the plan can carry out as written, by OpenTofu or a script a person starts. It says nothing about whether anyone should.</dd></div>
+    <div><dt>Approved</dt><dd>Every decision and default a step rests on has been answered in the decisions file by the customer's architect. No example here is approved: the decision files are published unanswered.</dd></div>
+    <div><dt>Executed / deployed</dt><dd>Never, on this site. StackToIT has no execute command and these runs touched no cloud.</dd></div>
+    <div><dt>Migration ready</dt><dd>YES only when no critical setting of the source is left to a manual or refused step. A NO is the normal first answer on a real estate.</dd></div>
+    <div><dt>Automation-eligible</dt><dd>A unit whose critical settings are all closed. Different from "steps that can run now": a step can be runnable while its unit still waits on a decision.</dd></div>
+    <div><dt>Refused</dt><dd>A step StackToIT will not write because it cannot prove equivalence. It is listed, with the reason, instead of being approximated.</dd></div>
+    <div><dt>NOT RUN</dt><dd>A check that did not happen, with the reason. It is neither a pass nor a failure and is never shown as either.</dd></div>
+    <div><dt>Proposal</dt><dd>Everything in a package. The architect decides; StackToIT lists what there is to decide.</dd></div>
+  </dl>
+</section>

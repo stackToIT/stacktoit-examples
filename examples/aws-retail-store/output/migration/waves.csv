@@ -1,0 +1,94 @@
+wave,wave_state,unit,type,module_call,presence,class,confidence,application,application_status,proposed_group
+1,MEMBER,module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this,aws_dynamodb_table,module.dependencies.module.dynamodb_carts,KNOWN_PRESENT,REDESIGN,MEDIUM,,SHARED,carts; checkout
+1,MEMBER,module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks,aws_cloudwatch_log_group,module.retail_app_ecs,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,SHARED,carts; catalog; checkout; orders; ui
+1,MEMBER,module.retail_app_ecs.aws_ecs_cluster.cluster,aws_ecs_cluster,module.retail_app_ecs,KNOWN_PRESENT,REPLATFORM,MEDIUM,,UNASSIGNED,
+1,MEMBER,module.retail_app_ecs.aws_kms_key.cmk,aws_kms_key,module.retail_app_ecs,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,SHARED,catalog; orders
+1,MEMBER,module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role,aws_iam_role,module.retail_app_ecs.module.carts_service,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,carts
+1,MEMBER,module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role,aws_iam_role,module.retail_app_ecs.module.checkout_service,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,checkout
+1,MEMBER,module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role,aws_iam_role,module.retail_app_ecs.module.ui_service,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,ui
+1,MEMBER,module.vpc.module.vpc.aws_eip.nat,aws_eip,module.vpc.module.vpc,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,UNASSIGNED,
+1,MEMBER,module.vpc.module.vpc.aws_vpc.this,aws_vpc,module.vpc.module.vpc,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,UNASSIGNED,
+2,MEMBER,module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch,aws_secretsmanager_secret,module.retail_app_ecs,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,SHARED,catalog; orders
+2,MEMBER,module.retail_app_ecs.module.alb.aws_security_group.this,aws_security_group,module.retail_app_ecs.module.alb,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,ui
+2,MEMBER,module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix,aws_security_group,module.retail_app_ecs.module.alb_sg,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,ui
+2,MEMBER,module.retail_app_ecs.module.carts_service.aws_iam_role.task_role,aws_iam_role,module.retail_app_ecs.module.carts_service,KNOWN_PRESENT,RECONFIGURE,LOW,,PROPOSED,carts
+2,MEMBER,module.retail_app_ecs.module.carts_service.aws_security_group.this,aws_security_group,module.retail_app_ecs.module.carts_service,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,carts
+2,MEMBER,module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role,aws_iam_role,module.retail_app_ecs.module.catalog_service,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,catalog
+2,MEMBER,module.retail_app_ecs.module.catalog_service.aws_security_group.this,aws_security_group,module.retail_app_ecs.module.catalog_service,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,SHARED,catalog; orders
+2,MEMBER,module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role,aws_iam_role,module.retail_app_ecs.module.checkout_service,KNOWN_PRESENT,RECONFIGURE,LOW,,PROPOSED,checkout
+2,MEMBER,module.retail_app_ecs.module.checkout_service.aws_security_group.this,aws_security_group,module.retail_app_ecs.module.checkout_service,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,checkout
+2,MEMBER,module.retail_app_ecs.module.orders_service.aws_iam_role.task_role,aws_iam_role,module.retail_app_ecs.module.orders_service,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,orders
+2,MEMBER,module.retail_app_ecs.module.orders_service.aws_security_group.this,aws_security_group,module.retail_app_ecs.module.orders_service,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,orders
+2,MEMBER,module.retail_app_ecs.module.ui_service.aws_iam_role.task_role,aws_iam_role,module.retail_app_ecs.module.ui_service,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,ui
+2,MEMBER,module.retail_app_ecs.module.ui_service.aws_security_group.this,aws_security_group,module.retail_app_ecs.module.ui_service,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,ui
+2,MEMBER,module.vpc.module.vpc.aws_nat_gateway.this,aws_nat_gateway,module.vpc.module.vpc,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,UNASSIGNED,
+3,MEMBER,module.dependencies.aws_security_group.catalog_opensearch_sg,aws_security_group,module.dependencies,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,catalog
+3,MEMBER,module.dependencies.aws_security_group.mq,aws_security_group,module.dependencies,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,orders
+3,MEMBER,module.dependencies.module.catalog_rds.aws_security_group.this,aws_security_group,module.dependencies.module.catalog_rds,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,SHARED,catalog; orders
+3,MEMBER,module.dependencies.module.checkout_elasticache_redis.module.aws_security_group.aws_security_group.cbd,aws_security_group,module.dependencies.module.checkout_elasticache_redis.module.aws_security_group,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,checkout
+3,MEMBER,module.dependencies.module.orders_rds.aws_security_group.this,aws_security_group,module.dependencies.module.orders_rds,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,orders
+3,MEMBER,module.retail_app_ecs.module.alb.aws_lb.this,aws_lb,module.retail_app_ecs.module.alb,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,ui
+3,MEMBER,module.retail_app_ecs.module.carts_service.aws_ecs_service.this,aws_ecs_service,module.retail_app_ecs.module.carts_service,KNOWN_PRESENT,REPLATFORM,LOW,,PROPOSED,carts
+4,MEMBER,module.dependencies.aws_mq_broker.mq,aws_mq_broker,module.dependencies,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,orders
+4,MEMBER,module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this,aws_opensearch_domain,module.dependencies.module.catalog_opensearch,KNOWN_PRESENT,REPLATFORM,LOW,,PROPOSED,catalog
+4,MEMBER,module.dependencies.module.catalog_rds.aws_rds_cluster.this,aws_rds_cluster,module.dependencies.module.catalog_rds,KNOWN_PRESENT,REPLATFORM,LOW,,SHARED,catalog; orders
+4,MEMBER,module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default,aws_elasticache_replication_group,module.dependencies.module.checkout_elasticache_redis,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,checkout
+4,MEMBER,module.dependencies.module.orders_rds.aws_rds_cluster.this,aws_rds_cluster,module.dependencies.module.orders_rds,KNOWN_PRESENT,REPLATFORM,MEDIUM,,PROPOSED,orders
+5,MEMBER,module.retail_app_ecs.aws_secretsmanager_secret.catalog_db,aws_secretsmanager_secret,module.retail_app_ecs,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,SHARED,catalog; orders
+5,MEMBER,module.retail_app_ecs.aws_secretsmanager_secret.mq,aws_secretsmanager_secret,module.retail_app_ecs,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,orders
+5,MEMBER,module.retail_app_ecs.aws_secretsmanager_secret.orders_db,aws_secretsmanager_secret,module.retail_app_ecs,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,orders
+6,MEMBER,module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role,aws_iam_role,module.retail_app_ecs.module.catalog_service,KNOWN_PRESENT,RECONFIGURE,LOW,,PROPOSED,catalog
+6,MEMBER,module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role,aws_iam_role,module.retail_app_ecs.module.orders_service,KNOWN_PRESENT,RECONFIGURE,LOW,,PROPOSED,orders
+7,MEMBER,module.retail_app_ecs.module.catalog_service.aws_ecs_service.this,aws_ecs_service,module.retail_app_ecs.module.catalog_service,KNOWN_PRESENT,REPLATFORM,LOW,,PROPOSED,catalog
+7,MEMBER,module.retail_app_ecs.module.orders_service.aws_ecs_service.this,aws_ecs_service,module.retail_app_ecs.module.orders_service,KNOWN_PRESENT,REPLATFORM,LOW,,PROPOSED,orders
+8,MEMBER,module.retail_app_ecs.module.checkout_service.aws_ecs_service.this,aws_ecs_service,module.retail_app_ecs.module.checkout_service,KNOWN_PRESENT,REPLATFORM,MEDIUM,,PROPOSED,checkout
+9,MEMBER,module.retail_app_ecs.module.ui_service.aws_ecs_service.this,aws_ecs_service,module.retail_app_ecs.module.ui_service,KNOWN_PRESENT,REPLATFORM,MEDIUM,,PROPOSED,ui
+0,NOT_A_MEMBER,module.dependencies.module.catalog_opensearch.aws_cloudwatch_log_group.this,aws_cloudwatch_log_group,module.dependencies.module.catalog_opensearch,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.dependencies.module.catalog_opensearch.aws_cloudwatch_log_resource_policy.this,aws_cloudwatch_log_resource_policy,module.dependencies.module.catalog_opensearch,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.dependencies.module.catalog_opensearch.aws_security_group.this,aws_security_group,module.dependencies.module.catalog_opensearch,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.dependencies.module.catalog_rds.aws_cloudwatch_log_group.this,aws_cloudwatch_log_group,module.dependencies.module.catalog_rds,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.dependencies.module.catalog_rds.aws_iam_role.rds_enhanced_monitoring,aws_iam_role,module.dependencies.module.catalog_rds,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.dependencies.module.checkout_elasticache_redis.aws_cloudwatch_metric_alarm.cache_cpu,aws_cloudwatch_metric_alarm,module.dependencies.module.checkout_elasticache_redis,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.dependencies.module.checkout_elasticache_redis.aws_cloudwatch_metric_alarm.cache_memory,aws_cloudwatch_metric_alarm,module.dependencies.module.checkout_elasticache_redis,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.dependencies.module.checkout_elasticache_redis.module.aws_security_group.aws_security_group.default,aws_security_group,module.dependencies.module.checkout_elasticache_redis.module.aws_security_group,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.dependencies.module.checkout_elasticache_redis.module.dns.aws_route53_record.default,aws_route53_record,module.dependencies.module.checkout_elasticache_redis.module.dns,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled,aws_dynamodb_table,module.dependencies.module.dynamodb_carts,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled_gsi_ignore,aws_dynamodb_table,module.dependencies.module.dynamodb_carts,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.dependencies.module.orders_rds.aws_cloudwatch_log_group.this,aws_cloudwatch_log_group,module.dependencies.module.orders_rds,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.dependencies.module.orders_rds.aws_iam_role.rds_enhanced_monitoring,aws_iam_role,module.dependencies.module.orders_rds,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.retail_app_ecs.aws_cloudwatch_event_rule.ecs_events,aws_cloudwatch_event_rule,module.retail_app_ecs,CONDITIONAL,REDESIGN,MEDIUM,,UNASSIGNED,
+0,NOT_A_MEMBER,module.retail_app_ecs.aws_cloudwatch_log_group.ecs_container_insights,aws_cloudwatch_log_group,module.retail_app_ecs,CONDITIONAL,RECONFIGURE,MEDIUM,,UNASSIGNED,
+0,NOT_A_MEMBER,module.retail_app_ecs.aws_cloudwatch_log_resource_policy.eventbridge_ecs,aws_cloudwatch_log_resource_policy,module.retail_app_ecs,CONDITIONAL,RECONFIGURE,LOW,,UNASSIGNED,
+0,NOT_A_MEMBER,module.retail_app_ecs.module.alb.aws_lambda_permission.lb,aws_lambda_permission,module.retail_app_ecs.module.alb,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.retail_app_ecs.module.alb.aws_wafv2_web_acl_association.this,aws_wafv2_web_acl_association,module.retail_app_ecs.module.alb,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.retail_app_ecs.module.alb_sg.aws_security_group.this,aws_security_group,module.retail_app_ecs.module.alb_sg,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_cloudwatch_log_group.flow_log,aws_cloudwatch_log_group,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_default_vpc.this,aws_default_vpc,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_flow_log.this,aws_flow_log,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_iam_role.vpc_flow_log_cloudwatch,aws_iam_role,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_internet_gateway.this,aws_internet_gateway,module.vpc.module.vpc,CONDITIONAL,RECONFIGURE,MEDIUM,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_network_acl.database,aws_network_acl,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_network_acl.elasticache,aws_network_acl,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_network_acl.intra,aws_network_acl,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_network_acl.outpost,aws_network_acl,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_network_acl.private,aws_network_acl,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_network_acl.public,aws_network_acl,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_network_acl.redshift,aws_network_acl,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_route_table.database,aws_route_table,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_route_table.elasticache,aws_route_table,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_route_table.intra,aws_route_table,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_route_table.private,aws_route_table,module.vpc.module.vpc,CONDITIONAL,RECONFIGURE,LOW,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_route_table.public,aws_route_table,module.vpc.module.vpc,CONDITIONAL,RECONFIGURE,MEDIUM,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_route_table.redshift,aws_route_table,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_subnet.database,aws_subnet,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_subnet.elasticache,aws_subnet,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_subnet.intra,aws_subnet,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_subnet.outpost,aws_subnet,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_subnet.private,aws_subnet,module.vpc.module.vpc,CONDITIONAL,RECONFIGURE,MEDIUM,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_subnet.public,aws_subnet,module.vpc.module.vpc,CONDITIONAL,RECONFIGURE,MEDIUM,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_subnet.redshift,aws_subnet,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_vpc_block_public_access_exclusion.this,aws_vpc_block_public_access_exclusion,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_vpc_block_public_access_options.this,aws_vpc_block_public_access_options,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_vpc_dhcp_options.this,aws_vpc_dhcp_options,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_vpn_gateway.this,aws_vpn_gateway,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,
+0,NOT_A_MEMBER,module.vpc.module.vpc.aws_vpn_gateway_attachment.this,aws_vpn_gateway_attachment,module.vpc.module.vpc,KNOWN_ABSENT,,,,UNASSIGNED,

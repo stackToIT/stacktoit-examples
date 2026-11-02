@@ -1,0 +1,204 @@
+{
+  "schema_version": "1.0.0",
+  "id": "aws-retail-store",
+  "title": "AWS Retail Store Sample App",
+  "summary": "A five-service retail application on Amazon ECS: Aurora, DynamoDB, OpenSearch, ElastiCache and Amazon MQ behind an Application Load Balancer. StackToIT read the ECS Terraform estate and wrote a STACKIT migration package.",
+  "source": {
+    "cloud": "AWS",
+    "iac": "Terraform (OpenTofu-readable)",
+    "project_name": "retail-store-sample-app",
+    "maintainer": "AWS Containers (aws-containers)",
+    "repository_url": "https://github.com/aws-containers/retail-store-sample-app",
+    "commit": "d7a380b843e0759e58754f74188ea18252a51415",
+    "commit_url": "https://github.com/aws-containers/retail-store-sample-app/tree/d7a380b843e0759e58754f74188ea18252a51415",
+    "terraform_root": "terraform/ecs/default",
+    "terraform_root_url": "https://github.com/aws-containers/retail-store-sample-app/tree/d7a380b843e0759e58754f74188ea18252a51415/terraform/ecs/default",
+    "license": "MIT-0 (upstream LICENSE)",
+    "registry_modules": "13 registry modules resolved by OpenTofu on 2026-10-26 (terraform-aws-modules, cloudposse)",
+    "note": "The estate was assessed exactly as published upstream: nothing in it was edited. It ships no .terraform.lock.hcl, which is why the source provider is UNPINNED and the source validation did not run."
+  },
+  "target": {
+    "cloud": "STACKIT",
+    "provider": "stackitcloud/stackit 0.121.0"
+  },
+  "tool": {
+    "name": "StackToIT",
+    "version": "0.6.0-11557-ge42ad46ccc",
+    "commit": "e42ad46ccc",
+    "kb_version": "0.384.0",
+    "kb_sha256": "fc24dfbd7370bd23bbae090adf2960acf5d9b4ac749be7362ac50053ceddc6d9",
+    "assessment_schema": "0.24.0",
+    "manifest_version": "0.4.0",
+    "opentofu": "1.13.1"
+  },
+  "run": {
+    "run_id": "f576c5a4-ff5f-4981-8b67-054d7359483f",
+    "generated_at": "2026-11-02T11:24:38Z",
+    "date": "2026-11-02",
+    "mode": "online (default options; prices from the local price cache retrieved 2026-10-26)",
+    "command": "stacktoit assess terraform/ecs/default ./aws-retail-store",
+    "command_note": "Run from the vendored copy of the upstream repository; the output directory is this example's output/ folder, unchanged.",
+    "verify_command": "stacktoit verify ./aws-retail-store",
+    "verify_result": "VERIFIED — 143 files match manifest.json (size and SHA-256); 6 of 6 checks PASS",
+    "source_digest": "sha256:812c5ae3f6cc8530163abbf5b6fbe305ed3b363c4886ec6b87623db857ea0c70"
+  },
+  "metrics": {
+    "files_read": 105,
+    "resources": 282,
+    "units": 44,
+    "plan_time_units": 8,
+    "module_calls": 23,
+    "module_calls_external": 13,
+    "module_calls_local": 10,
+    "source_status": "RUNTIME_TOPOLOGY_PARTIAL",
+    "source_visibility": "Partial runtime topology — 8 units have a count/for_each decided only when OpenTofu plans",
+    "by_class": {
+      "DIRECT": 0,
+      "RECONFIGURE": 34,
+      "REPLATFORM": 9,
+      "CONTAINERIZE": 0,
+      "REDESIGN": 1,
+      "MANUAL_REVIEW": 0,
+      "BLOCKED": 0
+    },
+    "by_confidence": { "HIGH": 0, "MEDIUM": 35, "LOW": 9 },
+    "by_domain": { "network": 16, "identity": 15, "compute": 6, "data": 5, "observability": 1, "messaging": 1 },
+    "draft": {
+      "units_considered": 52,
+      "generated": 38,
+      "no_resource_needed": 11,
+      "manual": 3,
+      "variables": 60,
+      "terraform_only": 34,
+      "hybrid": 4
+    },
+    "execution": {
+      "package_state": "PARTIALLY_EXECUTABLE",
+      "package_state_words": "Partially executable migration package",
+      "plan_steps": 314,
+      "automated_steps": 57,
+      "automated_can_run_now": 48,
+      "automated_wait_manual_prerequisite": 1,
+      "automated_require_design_decision": 8,
+      "automated_on_unconfirmed_default": 9,
+      "automated_approved": 0,
+      "terraform_steps": 49,
+      "api_steps": 4,
+      "api_steps_waiting_opt_in": 4,
+      "manual_steps": 254,
+      "manual_can_start_now": 114,
+      "lifecycle_steps": 84,
+      "refused_steps": 3,
+      "steps_not_runnable_now": 147
+    },
+    "readiness": {
+      "migration_ready": "NO",
+      "approval": "NOT READY FOR APPROVAL",
+      "automation_eligible_units": 0,
+      "automation_eligible_after_open_items": 17,
+      "cannot_be_automated_in_this_build": 27,
+      "critical_settings_total": 319,
+      "critical_settings_resolved": 36,
+      "mapping_confidence_high": 0,
+      "live_verification": "Never applied to STACKIT — no plan was run against a live project"
+    },
+    "decisions": {
+      "records_open": 113,
+      "decisions_to_make": 16,
+      "defaults_to_confirm": 8,
+      "defaults_to_confirm_note": "8 unanswered decisions rest on a draft default (public endpoint 5, size derived from the source 3); the register groups them in 2 records",
+      "open_input_requests": 47,
+      "input_requests_blocking_draft": 14,
+      "first_required_action": "Allow the calls of STACKIT APIs that are not generally available (Secrets Manager v1) — Owner: Platform Architect"
+    },
+    "applications": {
+      "total": 5,
+      "ready": 0,
+      "blocked": 1,
+      "redesign": 2,
+      "not_ready": 2,
+      "list": [
+        { "name": "carts", "state": "REDESIGN", "why": "DynamoDB table is a REDESIGN (MongoDB Flex, data-model change)" },
+        { "name": "catalog", "state": "BLOCKED", "why": "OpenSearch engine downgrade 3.3 → 2 until tested or decided" },
+        { "name": "checkout", "state": "REDESIGN", "why": "shares the DynamoDB redesign; TLS-only Valkey endpoint for ElastiCache clients" },
+        { "name": "orders", "state": "NOT_READY", "why": "environment values required; workload identity undecided" },
+        { "name": "ui", "state": "NOT_READY", "why": "workload identity undecided; functional check not run" }
+      ]
+    },
+    "cost": {
+      "comparison": "NOT AVAILABLE",
+      "why": "Source region unknown (30 AWS lines wait for source.aws.region); 9 of 14 STACKIT lines have no price; 10 billable source resources are outside the model.",
+      "stackit_partial_eur": "878.34",
+      "stackit_lines_priced": "5 of 14",
+      "source_lines_priced": "0 of 30",
+      "price_source": "StackToIT price cache (STACKIT list prices retrieved 2026-10-26); AWS prices not fetched because the region is not stated in the source"
+    },
+    "validation": {
+      "source_opentofu": {
+        "state": "NOT_RUN",
+        "reason": "PROVIDER_NOT_IN_MIRROR — the source pins no provider version (no .terraform.lock.hcl) and hashicorp/aws, hashicorp/random were not in the provider mirror; nothing was downloaded. Neither a pass nor a failure."
+      },
+      "source_provider": {
+        "state": "UNPINNED",
+        "detail": "aws constraint ~> 5.0, tested against 5.100.0; confidence capped at MEDIUM, no automation eligibility until a lock file pins the version"
+      },
+      "draft_opentofu": {
+        "state": "PASSED",
+        "detail": "tofu init -backend=false and tofu validate accepted the draft (OpenTofu 1.13.1) — static validation against the pinned STACKIT provider schema, not target behaviour, not approval"
+      },
+      "draft_checks": { "state": "PASSED", "detail": "100 StackToIT draft checks, none found a violation" },
+      "global_invariants": { "state": "PASSED", "detail": "12 of 12 invariants PASS" },
+      "manifest": { "state": "VERIFIED", "detail": "143 files match manifest.json; schema, run id, basis, inputs digest and invalidation keys PASS" },
+      "not_established": [
+        { "id": "STACKIT_PLAN", "state": "NOT_RUN", "detail": "no OpenTofu plan was run against a live STACKIT project" },
+        { "id": "ARCHITECT_APPROVAL", "state": "NOT_PROVIDED", "detail": "the draft is a proposal; nobody has approved it" },
+        { "id": "SEMANTIC_EQUIVALENCE", "state": "NOT_ASSESSED", "detail": "equivalence of source and target behaviour is not asserted" },
+        { "id": "SAFE_TO_APPLY", "state": "NOT_ASSERTED", "detail": "nothing in the package says the draft is safe to apply" }
+      ]
+    }
+  },
+  "key_findings": [
+    {
+      "title": "Nothing is DIRECT",
+      "text": "All 44 present units need at least a reconfiguration: 34 RECONFIGURE, 9 REPLATFORM (Aurora → MariaDB/PostgreSQL Flex, OpenSearch, ElastiCache → Key Value Store, Amazon MQ → RabbitMQ, ECS → SKE), 1 REDESIGN (DynamoDB has no STACKIT counterpart; MongoDB Flex or PostgreSQL JSONB are the named options)."
+    },
+    {
+      "title": "The source provider is unpinned",
+      "text": "The upstream estate commits no .terraform.lock.hcl. StackToIT caps every unit at MEDIUM confidence, marks none automation-eligible, and names the two remedies (lock aws 5.100.0, or raise the constraint to ~> 6.0 and lock 6.67.0)."
+    },
+    {
+      "title": "Catalog is deployment-blocked",
+      "text": "The catalog service depends on OpenSearch 3.3; the STACKIT region offers version 2. The draft stays blocked until a test shows the application works on that version or an architecture decision is recorded."
+    },
+    {
+      "title": "Four STACKIT API steps wait for an opt-in",
+      "text": "Secrets Manager steps call a pre-release STACKIT API. The plan does not make the calls until the customer allows them in the decisions file; this is the first required action of the run."
+    },
+    {
+      "title": "No cost comparison is stated",
+      "text": "The source does not name its AWS region, so no AWS price was fetched. 5 of 14 STACKIT lines are priced (878.34 EUR partial, list prices); the report refuses to call a one-sided subtotal a saving."
+    }
+  ],
+  "report": {
+    "entry": "index.html",
+    "architecture_dir": "architecture",
+    "terraform_dir": "terraform",
+    "executive_brief": "executive/brief.md",
+    "decisions": "executive/decisions.md",
+    "execution_plan": "execution/README.md",
+    "manual_actions": "execution/manual/actions.md",
+    "roadmap": "migration/roadmap.md",
+    "data_movement": "migration/data-movement.md",
+    "manifest": "manifest.json",
+    "console": "console.txt"
+  },
+  "publication": {
+    "published_files": 147,
+    "manifest_files": 142,
+    "outside_manifest": ["manifest.json", "review/applications.yaml", "review/decisions.yaml", "review/inputs.yaml", "review/progress.yaml"],
+    "outside_manifest_note": "review/ is the customer's answer area the run writes beside its files; it is excluded from the manifest by design. manifest.json lists every other file.",
+    "excluded": [],
+    "modified": [],
+    "statement": "The output folder is published exactly as StackToIT wrote it. No file was removed, edited or redacted; stacktoit verify passes on the published copy."
+  }
+}

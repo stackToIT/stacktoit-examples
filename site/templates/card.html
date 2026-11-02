@@ -1,0 +1,40 @@
+<article class="sheet" aria-labelledby="sheet-$title">
+  <header class="sheet-head">
+    <span class="sheet-no" aria-hidden="true">■</span>
+    <h3 id="sheet-$title"><a href="$href">$title</a></h3>
+    <span class="route"><span>$source_cloud</span><span class="arrow" aria-hidden="true">→</span><span>$target_cloud</span></span>
+  </header>
+  <div class="sheet-body">
+    <div class="fields fields-4">
+      <div class="field"><span class="lab">Source repository</span><span class="val"><a href="$repo_url" rel="noopener">$repo_name</a></span></div>
+      <div class="field"><span class="lab">Pinned commit</span><span class="val mono"><a href="$commit_url" rel="noopener">$commit_short</a></span></div>
+      <div class="field"><span class="lab">Terraform root</span><span class="val mono">$tf_root</span></div>
+      <div class="field"><span class="lab">Assessed</span><span class="val mono">$date</span></div>
+    </div>
+    <p class="sheet-summary">$summary</p>
+    <div class="verdict">
+      <div class="stamp stamp-$migration_ready" role="img" aria-label="Migration ready: $migration_ready"><span>Migration ready</span><strong>$migration_ready</strong></div>
+      <div class="verdict-words"><span class="lab">Package state</span><span class="val">$package_state</span><span class="lab">Key finding</span><span class="val">$first_finding</span></div>
+    </div>
+    <div class="fields fields-5 figures">
+      <div class="field"><span class="lab">Resources read</span><span class="val num">$resources</span></div>
+      <div class="field"><span class="lab">Migration units</span><span class="val num">$units</span></div>
+      <div class="field"><span class="lab">Units drafted</span><span class="val num">$drafted <small>+ $no_resource need no resource</small></span></div>
+      <div class="field"><span class="lab">Automated steps runnable now</span><span class="val num">$can_run <small>of $automated</small></span></div>
+      <div class="field"><span class="lab">Automation-eligible units</span><span class="val num">$eligible <small>of $units</small></span></div>
+    </div>
+    $class_strip
+    <div class="fields fields-4 small">
+      <div class="field"><span class="lab">Decisions to make</span><span class="val">$decisions</span></div>
+      <div class="field"><span class="lab">Refused steps</span><span class="val">$refused</span></div>
+      <div class="field"><span class="lab">Source validation</span><span class="val"><span class="state st-not-run">$source_validation</span></span></div>
+      <div class="field"><span class="lab">Draft validation (OpenTofu)</span><span class="val"><span class="state st-passed">$draft_validation</span></span></div>
+    </div>
+  </div>
+  <footer class="sheet-actions">
+    <a class="btn btn-primary" href="${href}report/index.html">View assessment</a>
+    <a class="btn" href="${href}#architecture">View architecture</a>
+    <a class="btn" href="${href}#terraform">Browse Terraform output</a>
+    <a class="more" href="$href">Example page, provenance and validation →</a>
+  </footer>
+</article>

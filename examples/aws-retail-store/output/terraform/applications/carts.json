@@ -1,0 +1,198 @@
+{
+  "contract": "APPLICATION_COMPATIBILITY",
+  "unit": "module.retail_app_ecs.module.carts_service.aws_ecs_service.this",
+  "task_definition": "module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this",
+  "workload": "carts",
+  "manifest": "kubernetes/carts/manifests.yaml",
+  "file": "applications/carts.json",
+  "cluster": "stackit_ske_cluster.retail_app_ecs_cluster",
+  "readiness": "BLOCKED",
+  "readiness_reasons": [
+    "DATASTORE_PROTOCOL_CHANGE",
+    "DATASTORE_PROTOCOL_NOT_ASSESSED",
+    "IDENTITY_OPEN",
+    "FUNCTIONAL_CHECK_NOT_RUN"
+  ],
+  "readiness_words": "A data store this workload reaches changes protocol or has no assessed protocol, and its code migration decision is not answered: StackToIT keeps the workload blocked until the customer answers it in the decisions file.",
+  "checklist_sha256": "sha256:4ac4d30a793c5cac007abcd4adcf156d0a43b253131aaa38a0cfc8c0e8c766bd",
+  "templates": "applications/carts.templates.yaml",
+  "validation_scope": "A kubeconform check or a kubectl apply --dry-run of the manifest establishes YAML validity only, not behaviour: it accepts a REQUIRED_ token in a string field, an empty ConfigMap and a Secret that does not exist, and runs nothing; the checklist of the application compatibility contract and an application smoke test on the target are what show that the workload works.",
+  "containers": [
+    {
+      "name": "carts-service",
+      "image": "public.ecr.aws/aws-containers/retail-store-sample-cart:1.6.3",
+      "image_rebinding": "pulled from where the source pulls it (Amazon ECR image public.ecr.aws/aws-containers/retail-store-sample-cart:1.6.3): decide where the images live on STACKIT, that the cluster can reach the registry, and the pull secret",
+      "ports": [
+        "8080/TCP"
+      ],
+      "probes": [
+        "livenessProbe: exec curl -f http://localhost:8080/actuator/health (the ECS health check)",
+        "startupProbe: the same check over the start period"
+      ],
+      "env": []
+    }
+  ],
+  "endpoints": [
+    {
+      "kind": "SERVICE_CONNECT_ALIAS",
+      "source": "carts:80 (the Service Connect alias of port carts-service in the namespace not visible statically)",
+      "target": "carts:80 (the Kubernetes Service carts, port 80 → container port 8080, in the namespace the manifests are applied into)",
+      "work": "the Kubernetes Service keeps the name and port the clients call: check that they resolve it from their namespace; the Service Connect proxy (its retries, timeouts, TLS and metrics) is not carried"
+    }
+  ],
+  "identity": {
+    "task_role": "module.retail_app_ecs.module.carts_service.aws_iam_role.task_role",
+    "target": "open: the decision target.workload.identity (inputs.json) chooses federated_service_account (a Kubernetes ServiceAccount federated to the STACKIT service account of the role), service_account_key (a key of that service account mounted as a Secret) or no_workload_identity",
+    "work": "answer target.workload.identity for module.retail_app_ecs.module.carts_service.aws_ecs_service.this; until then the pods run with no identity and every call the application made with the task role module.retail_app_ecs.module.carts_service.aws_iam_role.task_role fails",
+    "service_account_template": "applications/carts.templates.yaml",
+    "manual_steps": [
+      "answer the input target.workload.identity for module.retail_app_ecs.module.carts_service.aws_ecs_service.this in inputs.json: with federated_service_account the draft writes the stackit_service_account of module.retail_app_ecs.module.carts_service.aws_iam_role.task_role, its federated identity provider for the SKE cluster's service-account issuer and the Kubernetes ServiceAccount carts in the manifest",
+      "until then, create a STACKIT service account named after the task role module.retail_app_ecs.module.carts_service.aws_iam_role.task_role and grant it the role assignments the policies of module.retail_app_ecs.module.carts_service.aws_iam_role.task_role give (identity.tf lists them as the architect's variable)",
+      "federate it to the SKE cluster's service-account issuer for the subject system:serviceaccount:<namespace>:carts, and apply the ServiceAccount of applications/carts.templates.yaml (its annotation holds the service account's e-mail) in the namespace of the workload",
+      "change the application from the AWS SDK credential chain to the STACKIT SDK, which picks up the projected token: every call the application made with module.retail_app_ecs.module.carts_service.aws_iam_role.task_role fails until it does"
+    ]
+  },
+  "datastores": [
+    {
+      "source": "module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled",
+      "source_kind": "DynamoDB",
+      "protocol": "PROTOCOL_NOT_ASSESSED",
+      "evidence": "module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this references module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled",
+      "work": "the data store module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled is not drafted: decide its target and check that the application's client library speaks its protocol",
+      "code_migration": {
+        "id": "application:carts:code-migration:module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled",
+        "question": "The protocol compatibility of DynamoDB and the target of module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled is not assessed: has the application's use of it been checked?",
+        "owner": "Application owner (development team)",
+        "blocks": "BLOCKED",
+        "options": [
+          {
+            "id": "compatibility-verified",
+            "title": "the calls the application makes were checked against the target store and found compatible",
+            "unblocks": true
+          },
+          {
+            "id": "different-target-store",
+            "title": "a target store that speaks the protocol of the source is wanted instead: the draft is regenerated with it, and the workload stays blocked until then",
+            "unblocks": false
+          }
+        ],
+        "sha256": "sha256:3a3532180fa98f2d9ed6e4008f984102c7dbc1cc657c4380ef955bfe03b89749",
+        "state": "OPEN"
+      }
+    },
+    {
+      "source": "module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled_gsi_ignore",
+      "source_kind": "DynamoDB",
+      "protocol": "PROTOCOL_NOT_ASSESSED",
+      "evidence": "module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this references module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled_gsi_ignore",
+      "work": "the data store module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled_gsi_ignore is not drafted: decide its target and check that the application's client library speaks its protocol",
+      "code_migration": {
+        "id": "application:carts:code-migration:module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled_gsi_ignore",
+        "question": "The protocol compatibility of DynamoDB and the target of module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled_gsi_ignore is not assessed: has the application's use of it been checked?",
+        "owner": "Application owner (development team)",
+        "blocks": "BLOCKED",
+        "options": [
+          {
+            "id": "compatibility-verified",
+            "title": "the calls the application makes were checked against the target store and found compatible",
+            "unblocks": true
+          },
+          {
+            "id": "different-target-store",
+            "title": "a target store that speaks the protocol of the source is wanted instead: the draft is regenerated with it, and the workload stays blocked until then",
+            "unblocks": false
+          }
+        ],
+        "sha256": "sha256:0af54169ba070dcc1f111588ed567956c5990aa825440f2e882493d0de204bde",
+        "state": "OPEN"
+      }
+    },
+    {
+      "source": "module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this",
+      "source_kind": "DynamoDB",
+      "target": "stackit_mongodbflex_instance.dynamodb_tables",
+      "target_kind": "MongoDB Flex",
+      "protocol": "DATASTORE_PROTOCOL_CHANGE",
+      "evidence": "module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this references module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this",
+      "work": "the application reads DynamoDB through its API and the target stackit_mongodbflex_instance.dynamodb_tables (MongoDB Flex) speaks another protocol: the data access code of the application is rewritten and a new image is built before the manifest is applied; a database engine swap is not an application migration",
+      "code_migration": {
+        "id": "application:carts:code-migration:module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this",
+        "question": "The target stackit_mongodbflex_instance.dynamodb_tables speaks another protocol than DynamoDB: what is done about the data access code of carts?",
+        "owner": "Application owner (development team)",
+        "blocks": "BLOCKED",
+        "options": [
+          {
+            "id": "rewrite-data-access-code",
+            "title": "the data access code of the application is rewritten to speak the protocol of the target store (the item DATASTORE_CODE_CHANGE is then done when the new image is built)",
+            "unblocks": true
+          },
+          {
+            "id": "different-target-store",
+            "title": "a target store that speaks the protocol of the source is wanted instead: the draft is regenerated with it, and the workload stays blocked until then",
+            "unblocks": false
+          }
+        ],
+        "sha256": "sha256:cf8ebb01fe1a077308775e1c4b2ec89f667e1ac098a627ac7e625fdd5351c6b5",
+        "state": "OPEN"
+      }
+    }
+  ],
+  "dns_dependencies": [
+    {
+      "kind": "SERVICE_CONNECT_ALIAS",
+      "name": "carts",
+      "source": "a Service Connect alias in the Cloud Map private DNS namespace retailstore.local (module.retail_app_ecs.aws_service_discovery_private_dns_namespace.this): the clients of the namespace resolve it through the Service Connect proxy of their tasks",
+      "consumers": [],
+      "provision": "CLUSTER_SERVICE",
+      "target": "carts.<namespace>.svc.cluster.local (the Kubernetes Service carts; carts from a pod of the same namespace)",
+      "verification": "resolve, from a pod of a client of carts, carts and carts.<namespace>.svc.cluster.local: expect the ClusterIP of the Kubernetes Service carts (kubectl get service carts)"
+    }
+  ],
+  "checklist": [
+    {
+      "id": "datastore_protocol_check:module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled",
+      "kind": "DATASTORE_PROTOCOL_CHECK",
+      "subject": "module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled",
+      "blocking": true,
+      "sha256": "sha256:452434a4541a3db21db09ea0d8d38c5df5b0acc9fa8314701f457a9616481161",
+      "state": "OPEN",
+      "work": "the data store module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled is not drafted: decide its target and check that the application's client library speaks its protocol"
+    },
+    {
+      "id": "datastore_protocol_check:module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled_gsi_ignore",
+      "kind": "DATASTORE_PROTOCOL_CHECK",
+      "subject": "module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled_gsi_ignore",
+      "blocking": true,
+      "sha256": "sha256:1a1c50dc7df3d51f58cabf9784cc227a7645ae0bf7353c7b6e1db8f0da6fffa8",
+      "state": "OPEN",
+      "work": "the data store module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled_gsi_ignore is not drafted: decide its target and check that the application's client library speaks its protocol"
+    },
+    {
+      "id": "datastore_code_change:module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this",
+      "kind": "DATASTORE_CODE_CHANGE",
+      "subject": "module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this",
+      "blocking": true,
+      "sha256": "sha256:aaadfdab94b93db541da5a6041c8afdd8f4258c5f84b5616c6ef55364781ff1a",
+      "state": "OPEN",
+      "work": "the application reads DynamoDB through its API and the target stackit_mongodbflex_instance.dynamodb_tables (MongoDB Flex) speaks another protocol: the data access code of the application is rewritten and a new image is built before the manifest is applied; a database engine swap is not an application migration"
+    },
+    {
+      "id": "identity:module.retail_app_ecs.module.carts_service.aws_iam_role.task_role",
+      "kind": "IDENTITY",
+      "subject": "module.retail_app_ecs.module.carts_service.aws_iam_role.task_role",
+      "blocking": true,
+      "sha256": "sha256:274e8e9ca7cf47e323b7f1766a4ad8813e7cb2656d5dee693825f58a93bb095a",
+      "state": "OPEN",
+      "work": "answer target.workload.identity for module.retail_app_ecs.module.carts_service.aws_ecs_service.this; until then the pods run with no identity and every call the application made with the task role module.retail_app_ecs.module.carts_service.aws_iam_role.task_role fails"
+    },
+    {
+      "id": "smoke_test:carts",
+      "kind": "SMOKE_TEST",
+      "subject": "carts",
+      "blocking": true,
+      "sha256": "sha256:fd73c018a38d3f67ec495c31257e928922819e44e30a49096000f9d2594a7116",
+      "state": "OPEN",
+      "work": "run an application smoke test on the target: the pods start, answer their clients through the Kubernetes Service carts, reach every dependency above and read and write their data; StackToIT runs nothing on the target"
+    }
+  ]
+}

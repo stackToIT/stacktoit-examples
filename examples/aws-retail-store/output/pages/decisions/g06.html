@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'self' file:; script-src 'sha256-CwASM6IjFFU0cbLjKYkJ0eTksrLAqSrzVwwNUyJ01Fs='; base-uri 'none'; form-action 'none'">
+<title>StackToIT Migration Intelligence Workspace - Decisions, group g06</title>
+<style>
+:root{color-scheme:light dark;--bg:#f2f5f4;--surface:#fff;--panel:#f7f9f8;--panel2:#e9eeec;--ink:#10201d;--ink2:#2c3b38;--muted:#4f5b58;--line:#d3dad8;--line2:#b9c4c1;--accent:#17603f;--accent2:#0f4a30;--accent-soft:#e2f0e7;--focus:#0b57d0;--crit:#a82218;--crit-soft:#fbe6e2;--warn:#7c5208;--warn-soft:#fbf0d4;--ok:#26683a;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+@media screen and (prefers-color-scheme:dark){:root{--bg:#0e1514;--surface:#151f1d;--panel:#1a2624;--panel2:#22302d;--ink:#e3ebe8;--ink2:#c8d3d0;--muted:#9eafab;--line:#2b3a37;--line2:#3d4f4b;--accent:#74d19c;--accent2:#9be3b9;--accent-soft:#183326;--focus:#8fb4ff;--crit:#ff958a;--crit-soft:#3a1c18;--warn:#ecc56f;--warn-soft:#33290f;--ok:#86d494}}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:1rem;line-height:1.5;color:var(--ink);background:var(--bg);margin:0 auto;padding:0 1.5rem 3rem;max-width:84rem;overflow-wrap:break-word;-webkit-text-size-adjust:100%}
+h1,h2,h3,h4,h5{color:var(--ink);line-height:1.25;text-wrap:balance}h1{font-size:1.3rem;margin:1.25rem 0 .4rem;letter-spacing:-.01em}h2{font-size:1.4rem;margin:1.5rem 0 .6rem;letter-spacing:-.01em}h3{font-size:1.15rem;margin:1.4rem 0 .5rem}h4{font-size:1rem;margin:1.2rem 0 .4rem}p,li{max-width:110ch}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:.18em}a:hover{color:var(--accent2);text-decoration-thickness:2px}
+code{font-family:var(--mono);font-size:.84em;background:var(--panel2);border-radius:4px;padding:.05em .3em}
+summary{cursor:pointer}summary:hover{color:var(--accent2)}
+header>p:first-of-type{display:inline-block;margin:0 0 .75rem;padding:.3rem .8rem;font-size:.875rem;color:var(--ink2);background:var(--warn-soft);border:1px solid color-mix(in srgb,var(--warn) 35%,transparent);border-radius:4px}
+header>p[role=status],header>details.technical{font-size:.875rem;color:var(--ink2);margin:.35rem 0}
+nav{display:flex;flex-wrap:wrap;align-items:center;column-gap:.75rem;row-gap:.25rem;margin:1rem 0 .5rem;padding:.35rem .5rem;background:var(--surface);border:1px solid var(--line);border-radius:4px;font-size:1.05rem}
+nav ol{display:flex;flex-wrap:wrap;gap:.15rem .2rem;list-style:none;margin:0;padding:0;font-size:.85em}
+nav ol a{display:block;padding:.3rem .6rem;border-radius:4px;color:var(--ink2);text-decoration:none}nav ol a:hover{background:var(--panel2);color:var(--ink)}nav [aria-current]{background:var(--accent-soft);color:var(--accent2);box-shadow:inset 0 -2px 0 var(--accent)}
+nav ol:first-child{font-weight:600}.navmore{font-size:.8em;color:var(--muted);padding-left:.75rem;border-left:1px solid var(--line2)}
+a:focus,summary:focus,button:focus,input:focus,[tabindex]:focus{outline:3px solid var(--focus);outline-offset:2px}
+input[type=search]{font:inherit;font-size:.9rem;width:22rem;max-width:100%;padding:.3rem .6rem;color:var(--ink);background:var(--surface);border:1px solid var(--line2);border-radius:4px}.filters label{min-width:0}
+[hidden]{display:none!important}
+.toolbar{display:flex;flex-wrap:wrap;gap:.5rem;padding:.5rem 0}
+.toolbar button,.filters button{font:inherit;font-size:.875rem;line-height:1.3;padding:.3rem .8rem;cursor:pointer;color:var(--ink);background:var(--surface);border:1px solid var(--line2);border-radius:4px}
+.toolbar button:hover,.filters button:hover{background:var(--panel2)}
+.toolbar button[aria-pressed="true"],.filters button[aria-pressed="true"]{font-weight:bold;color:var(--accent2);background:var(--accent-soft);border-color:var(--accent)}
+.skip{position:absolute;left:-999px}.skip:focus{position:static}
+table{border-collapse:collapse;margin:.5rem 0 1rem;font-size:.9rem;font-variant-numeric:tabular-nums;background:var(--surface)}
+th,td{border:1px solid var(--line);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:var(--panel2);font-size:.8rem;font-weight:600;color:var(--ink2);text-transform:uppercase;letter-spacing:.03em}tbody th{font-weight:600}tbody tr:nth-child(even)>*{background:color-mix(in srgb,var(--panel) 70%,transparent)}
+caption{font-weight:600;text-align:left;padding-bottom:.4rem;color:var(--ink)}
+.scroll{overflow-x:auto;content-visibility:auto;contain-intrinsic-size:auto 40rem}
+dl.topbar{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.6rem 1.5rem}
+dl.topbar dt{font-weight:600;font-size:.8rem;color:var(--muted)}dl.topbar dd{margin:0}
+
+.decisions-lead{font-size:1.1rem;font-weight:600}.centre-part{font-weight:bold;margin:1.25rem 0 .25rem}.centre-line{margin:.25rem 0}.centre-line p{margin:.25rem 0}.centre-more{margin:1.5rem 0}.centre-wp{margin:1rem 0}.centre-wp h4{margin:.5rem 0}.wp-counts,.action-word{font-weight:normal;font-size:.85em}.action-word{border:1px solid var(--line2);background:var(--panel);border-radius:4px;padding:0 .5rem;margin-left:.3rem}.centre-card{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:.6rem .9rem;margin:.5rem 0;overflow-wrap:anywhere}.centre-card h5{margin:0 0 .25rem;font-size:1em;display:inline}summary.decision-group-head{padding:.35rem 0}summary.decision-group-head>h4{display:inline;margin:0}.centre-meta{font-size:.85em;margin:.25rem 0;color:var(--muted)}.centre-lines{margin:.25rem 0}.centre-lines div{margin:.2rem 0}.centre-lines dt{font-weight:600;display:inline}.centre-lines dt::after{content:": "}.centre-lines dd{display:inline;margin:0}.centre-lines ol,.centre-lines ul{margin:.2rem 0;padding-left:1.25rem}details.root-cause>summary code{word-break:break-all}
+ul.actions{display:flex;flex-wrap:wrap;gap:.3rem .4rem;list-style:none;margin:.4rem 0;padding:0}
+ul.actions li{border:1px solid var(--line2);background:var(--panel);border-radius:999px;padding:.05rem .55rem;white-space:nowrap;font-size:.9rem}ul.actions .fig{font-weight:bold;font-variant-numeric:tabular-nums}ul.actions .zero{opacity:.6}ul.actions [data-action-state=BLOCKED]{background:var(--crit-soft);border-color:color-mix(in srgb,var(--crit) 40%,transparent)}
+.state{display:inline-block;padding:0 .45rem;font-size:.85em;line-height:1.5;white-space:nowrap;background:var(--panel);border:1px solid var(--line);border-radius:4px}
+[data-dim-state] strong{color:var(--warn)}[data-dim-state^=COMPLETE] strong,[data-dim-state^=PASSED] strong,[data-dim-state^=SETTINGS] strong{color:var(--ink)}[data-dim-state=EXECUTION_READY] strong{color:var(--ok)}[data-dim-state^=REJECTED] strong,[data-dim-state^=BLOCKED] strong{color:var(--crit)}[data-dim-state^=NOT] strong,[data-dim-state^=NONE] strong{color:var(--muted)}
+@media screen and (max-width:40rem){nav{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;padding:.3rem .4rem;background:linear-gradient(90deg,var(--surface) 40%,transparent) left/1.5rem 100% no-repeat local,linear-gradient(270deg,var(--surface) 40%,transparent) right/1.5rem 100% no-repeat local,linear-gradient(90deg,color-mix(in srgb,var(--ink) 22%,transparent),transparent) left/.6rem 100% no-repeat scroll,linear-gradient(270deg,color-mix(in srgb,var(--ink) 22%,transparent),transparent) right/.6rem 100% no-repeat scroll,var(--surface)}nav ol{flex-wrap:nowrap}nav ol a,.navmore{white-space:nowrap}nav [aria-current]{scroll-initial-target:nearest}}
+@media (max-width:40rem){body{padding:0 1rem 2rem}nav ol a{padding:.25rem .45rem;min-height:2.75rem;display:flex;align-items:center}summary{min-height:2.75rem;padding-top:.6rem;padding-bottom:.6rem;box-sizing:border-box}input[type=search],.toolbar button,.filters button{min-height:2.75rem}h2{font-size:1.25rem}}
+.lensnow{display:none}
+details.lensgroup{margin:.25rem 0}details.lensgroup>summary{font-size:.85em;color:var(--muted)}
+details.technical{margin:.5rem 0}details.technical[open]{padding:.25rem 1rem .75rem;background:var(--surface);border:1px solid var(--line);border-radius:4px}
+details.fold{margin:0;border-top:1px solid var(--line)}details.fold:last-of-type{border-bottom:1px solid var(--line)}details.fold>summary{font-weight:bold;padding:.65rem .25rem}details.fold>summary:hover{background:var(--panel)}details.fold>summary>h3{display:inline;margin:0;font-size:1.08em}details.fold[open]>summary{margin-bottom:.25rem}.foldcount{font-weight:normal;font-size:.85em;color:var(--muted);margin-left:.35rem}
+.na,small{color:var(--muted)}
+section{padding-top:1rem;border-top:1px solid var(--line)}
+main>section{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:.5rem 1.75rem 1.5rem;margin:1rem 0}main>section>h2:first-child{margin-top:.9rem}@media (max-width:40rem){main>section{padding:.25rem 1rem 1rem}}
+.lensnote{display:none;margin:.4rem 0;padding:.4rem .75rem;font-size:.9rem;background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);border-radius:4px}
+body[data-lens=executive] [data-lens]:not([data-lens~=executive]),body[data-lens=architect] [data-lens]:not([data-lens~=architect]),body[data-lens=platform] [data-lens]:not([data-lens~=platform]),body[data-lens=security] [data-lens]:not([data-lens~=security]),body[data-lens=application-owner] [data-lens]:not([data-lens~=application-owner]),body[data-lens=programme] [data-lens]:not([data-lens~=programme]),body[data-lens=finops] [data-lens]:not([data-lens~=finops]),body[data-lens=engineering] [data-lens]:not([data-lens~=engineering]){display:none}
+body[data-lens=all] .lensnow[data-for=all],body[data-lens=executive] .lensnow[data-for=executive],body[data-lens=executive] .lensnote[data-lens-note=executive],body[data-lens=architect] .lensnow[data-for=architect],body[data-lens=architect] .lensnote[data-lens-note=architect],body[data-lens=platform] .lensnow[data-for=platform],body[data-lens=platform] .lensnote[data-lens-note=platform],body[data-lens=security] .lensnow[data-for=security],body[data-lens=security] .lensnote[data-lens-note=security],body[data-lens=application-owner] .lensnow[data-for=application-owner],body[data-lens=application-owner] .lensnote[data-lens-note=application-owner],body[data-lens=programme] .lensnow[data-for=programme],body[data-lens=programme] .lensnote[data-lens-note=programme],body[data-lens=finops] .lensnow[data-for=finops],body[data-lens=finops] .lensnote[data-lens-note=finops],body[data-lens=engineering] .lensnow[data-for=engineering],body[data-lens=engineering] .lensnote[data-lens-note=engineering]{display:revert}
+.filters{margin:.5rem 0}.filters div{display:flex;flex-wrap:wrap;gap:.3rem .5rem;align-items:baseline;margin:.3rem 0}
+@media print{.skip,nav,.toolbar,details.lensgroup,.lensnote,.filters,[data-js-only]{display:none!important}section{break-inside:avoid-page}details::details-content,.scroll{content-visibility:visible}[data-lens],[data-item][hidden],[data-group][hidden]{display:revert!important}body{background:#fff;max-width:none;padding:0}section.hero,main>section,.centre-card,ul.glance li{break-inside:auto}main>section{border:0;padding:0}a{color:inherit}}
+</style>
+</head>
+<body data-lens="all" data-pages="../">
+<a class="skip" href="#main">Skip to the content</a>
+<noscript><p>Scripts are switched off. Nothing in this workspace needs them: every page is shown in full. A script would only add buttons: one that opens or closes every group of details, the lenses that put the navigation in another order, and the filters and sorts of the decision records and of the Target Fit rows.</p></noscript>
+<header>
+<h1>StackToIT Migration Intelligence Workspace</h1>
+<p>PROPOSAL — generated by StackToIT Assess. Architect review required before any decision.</p>
+<nav aria-label="Workspace pages">
+<ol>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="overview"><a href="../../index.html">Overview</a></li>
+<li data-lens="architect platform security application-owner programme engineering" data-nav="architecture"><a href="../architecture.html">Architecture</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="decisions"><a href="../decisions.html" aria-current="true">Decisions</a></li>
+<li data-lens="executive architect platform application-owner programme finops engineering" data-nav="migration"><a href="../migration.html">Migration Plan</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="work-board"><a href="../work-board.html">Work Board</a></li>
+<li data-lens="executive application-owner programme finops" data-nav="cost"><a href="../cost.html">Costs</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="security-assurance"><a href="../security-assurance.html">Security &amp; Resilience</a></li>
+<li data-lens="architect platform security engineering" data-nav="engineering"><a href="../engineering.html">Engineering Evidence</a></li>
+</ol>
+<span class="navmore" aria-hidden="true">More</span><ol aria-label="More pages">
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="applications"><a href="../applications.html">Applications</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="target-fit"><a href="../target-fit.html">Target Fit</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="sovereignty"><a href="../sovereignty.html">Sovereignty</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="operations"><a href="../operations.html">Operations</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="evidence"><a href="../evidence.html">Evidence</a></li>
+</ol>
+</nav>
+<p role="status"><strong>Partially executable migration package</strong> &middot; Proposal only &middot; Not approved.</p>
+<details class="technical">
+<summary>Technical details: run, versions, digest and evidence freshness</summary>
+<h2>Assessment</h2>
+<dl class="topbar">
+<div><dt>Assessment</dt><dd>default (assessment format 0.24.0)</dd></div>
+<div><dt>Assessment timestamp</dt><dd>Generated 2026-11-02 11:24 UTC by stacktoit 0.6.0-11557-ge42ad46ccc (e42ad46ccc)</dd></div>
+<div><dt>Run</dt><dd>f576c5a4-ff5f-4981-8b67-054d7359483f &middot; source digest sha256:812c5ae3f6cc8530163abbf5b6fbe305ed3b363c4886ec6b87623db857ea0c70</dd></div>
+<div><dt>Source snapshot</dt><dd>partly decided only at plan time &middot; aws not locked; random not locked</dd></div>
+<div><dt>STACKIT target profile</dt><dd>Stable network model: the experimental STACKIT VPC resources are not used (STACKIT_STABLE)</dd></div>
+<div><dt>STACKIT provider version</dt><dd>0.121.0</dd></div>
+<div><dt>Knowledge base version</dt><dd>0.384.0</dd></div>
+<div><dt>Evidence freshness</dt><dd><span class="state"><span aria-hidden="true">○</span> Not assessed</span> &mdash; Evidence freshness as one measure is not assessed in this build. Dated evidence is shown where it is used: each STACKIT support option and each assurance row states when it was verified (verified_at, and recheck_after for support), in support_suitability and assurance. The date beside a readiness dimension is the assessment date, not a retrieval date.</dd></div>
+</dl>
+<p role="status"><strong>Staleness:</strong> <span class="state"><span aria-hidden="true">○</span> Not assessed</span> &mdash; This build has no change detection, so there has been no re-check since the assessment was made (Generated 2026-11-02 11:24 UTC). The source may have changed since.</p>
+</details>
+<p role="status"><strong>Source checks:</strong> Built-in source checks passed — OpenTofu validation of the source did not run (PROVIDER_NOT_IN_MIRROR)</p>
+<p role="status"><strong>Run status:</strong> COMPLETE (report published). Source: partly decided only at plan time. Draft: GENERATED. The report was written whole; this is not a statement that the migration is ready.</p>
+
+</header>
+<div class="toolbar" role="group" aria-label="Page controls" data-js-only hidden>
+<button type="button" aria-pressed="false" data-act="details">Open all details</button>
+</div>
+<details class="lensgroup" data-js-only hidden><summary>Read this page as<span class="lensnow" data-for="all">: All</span><span class="lensnow" data-for="executive">: Executive</span><span class="lensnow" data-for="architect">: Architect</span><span class="lensnow" data-for="platform">: Platform</span><span class="lensnow" data-for="security">: Security</span><span class="lensnow" data-for="application-owner">: Application owner</span><span class="lensnow" data-for="programme">: Programme</span><span class="lensnow" data-for="finops">: FinOps</span><span class="lensnow" data-for="engineering">: Engineering</span></summary>
+<div class="toolbar" role="group" aria-label="Reader lens" data-js-only hidden>
+<button type="button" aria-pressed="true" data-lens-set="all" data-lens-order="overview architecture decisions migration work-board cost security-assurance engineering applications target-fit sovereignty operations evidence">All</button>
+<button type="button" aria-pressed="false" data-lens-set="executive" data-lens-order="overview decisions applications target-fit security-assurance sovereignty cost migration work-board operations evidence architecture engineering">Executive</button>
+<button type="button" aria-pressed="false" data-lens-set="architect" data-lens-order="overview architecture applications decisions target-fit migration work-board operations security-assurance sovereignty evidence cost engineering">Architect</button>
+<button type="button" aria-pressed="false" data-lens-set="platform" data-lens-order="overview architecture target-fit operations security-assurance decisions applications migration work-board evidence sovereignty cost engineering">Platform</button>
+<button type="button" aria-pressed="false" data-lens-set="security" data-lens-order="overview security-assurance decisions sovereignty target-fit architecture evidence applications operations migration work-board cost engineering">Security</button>
+<button type="button" aria-pressed="false" data-lens-set="application-owner" data-lens-order="overview applications decisions architecture target-fit operations migration work-board evidence security-assurance sovereignty cost engineering">Application owner</button>
+<button type="button" aria-pressed="false" data-lens-set="programme" data-lens-order="overview applications decisions migration work-board operations target-fit architecture evidence security-assurance sovereignty cost engineering">Programme</button>
+<button type="button" aria-pressed="false" data-lens-set="finops" data-lens-order="overview cost applications target-fit decisions operations security-assurance migration work-board sovereignty evidence architecture engineering">FinOps</button>
+<button type="button" aria-pressed="false" data-lens-set="engineering" data-lens-order="overview engineering architecture evidence decisions target-fit operations applications security-assurance migration work-board sovereignty cost">Engineering</button>
+</div></details>
+<p class="lensnote" role="status" data-lens-note="executive">Executive lens: the sections are in the order this reader usually wants, and Architecture and Engineering Evidence are put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="architect">Architect lens: the sections are in the order this reader usually wants, and Costs is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="platform">Platform lens: the sections are in the order this reader usually wants, and Costs is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="security">Security lens: the sections are in the order this reader usually wants, and Costs and Migration Plan are put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="application-owner">Application owner lens: the sections are in the order this reader usually wants, and Engineering Evidence is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="programme">Programme lens: the sections are in the order this reader usually wants, and Engineering Evidence is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="finops">FinOps lens: the sections are in the order this reader usually wants, and Architecture and Engineering Evidence are put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="engineering">Engineering lens: the sections are in the order this reader usually wants, and Costs is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<main id="main" tabindex="-1">
+<section id="decisions-g06" aria-labelledby="h-decisions-g06">
+<h2 id="h-decisions-g06">Decisions, group g06: Observability &amp; Audit</h2>
+<p>Group g06 of 8. Work package Observability &amp; Audit: the full cards of 1 record. <a href="../decisions.html">The Decisions page</a> holds the records and lists every group.</p>
+<p><a href="g05.html">Previous group (g05)</a> &middot; <a href="g07.html">Next group (g07)</a></p>
+<div data-list="decision-cards">
+<details class="centre-wp" data-group="wp-observability-audit" open>
+<summary class="decision-group-head"><h4>Observability &amp; Audit</h4> <span class="wp-counts">1 record: 1 manual work</span></summary>
+<div class="centre-kind" data-group="wp-observability-audit-1">
+<article class="centre-card" id="decision/DEC-OPS-MODULE-RETAIL-APP-ECS-AWS-CLOUDWATCH-LOG-GROUP-ECS-TASKS" data-item data-seq="0" data-state="Open" data-phase="not stated" data-owner="Platform Architect" data-sort-state="0" data-sort-phase="7" data-sort-owner="3" data-sort-units="1" data-action-state="MANUAL_IMPLEMENTATION" data-text="review the critical settings of a cloudwatch log group (platform architect) module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks">
+<details class="centre-body"><summary><h5>Review the critical settings of a CloudWatch log group (Platform Architect) <span class="action-word">manual work</span></h5></summary>
+<p class="centre-meta">1 unit: <code>module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks</code> · owner role Platform Architect · required by phase: not stated · <a href="../migration.html#migration-execution">1 step rests on it</a></p>
+<dl class="centre-lines">
+<div><dt>Options and trade-off</dt><dd>none listed: the knowledge base has no options for this kind of decision, so none is invented and a person states the answer in the decisions file</dd></div>
+<div><dt>Applications touched</dt><dd>none: no applications file was given and no suggested group is known to hold an affected unit<ul><li>module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks is SHARED: it is a member of no suggested group (reached by several groups); the groups that reach it: carts, catalog, checkout, orders, ui</li></ul></dd></div>
+<div><dt>Wave</dt><dd>wave 1 · steps in platform services</dd></div>
+<div><dt>Approval</dt><dd>not approved: no decisions file was given with this run</dd></div>
+</dl>
+<dl class="centre-lines">
+<div><dt>What the draft does</dt><dd>Confirm the name of the log group: The draft does not carry the setting on module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks; a manual step stands for it (<code>MAN/logs/label-convention:module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks</code>). In the estates checked when this entry was written, the draft does not carry these settings: what it writes instead (a variable, a &#34;not carried&#34; line in the Terraform comments, or nothing) is stated per unit in the generated Terraform. Where the critical-settings record of a run names a step that carries a setting (with the evidence of the value), a person confirms that value instead.</dd></div>
+<div><dt>Still open</dt><dd>Confirm the name of the log group: That the STACKIT target reproduces each setting, or that the difference is acceptable for the workload: nothing in the knowledge base proves either. Confirm the name of the log group: The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. aws_cloudwatch_log_group.name is the address a log producer writes to (awslogs-group, PutLogEvents logGroupName). The name is therefore not carried by anything the draft generates, and no producer is rewired: a person decides the label convention and reconfigures each producer - REVIEW (the plan holds it as a label convention manual action). Held CRITICAL: the workload, its clients or its neighbours rely on it (an address, a name, a protocol or an execution contract).</dd></div>
+<div><dt>Ways out</dt><dd><ol><li><strong>Confirm the name of the log group: Take the decision the knowledge base&#39;s note names and carry it out (alternatives: not stated in the knowledge base)</strong>; needs the knowledge base&#39;s note on each setting (cited in this entry) and the unit&#39;s open entry in the critical-settings record of the run; effect: A person takes the decision the closing condition names and carries it out; where it changes what the draft writes, the draft is regenerated or changed by hand.; regeneration: not stated — treated as required; risk: The knowledge base states no evidenced alternatives to choose from; a decision taken without the source context the note names can change what the workload reaches, stores or exposes.; the draft is generated again with it</li></ol></dd></div>
+<div><dt>What closes it</dt><dd>Confirm the name of the log group: A person decides the label convention under which the log group name survives in STACKIT Logs and reconfigures each producer to send it; the draft configures no shipper. Verification: Confirm the name of the log group: the decision or the manual work is done and recorded (who, when, what was configured and why).</dd></div>
+<div><dt>Next action</dt><dd>Confirm the name of the log group: Carry out the manual work the plan names for module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks outside the draft; the plan states no title for it.</dd></div>
+</dl>
+<details class="centre-tech"><summary>Technical details</summary>
+<p>Record <code>DEC-OPS-MODULE-RETAIL-APP-ECS-AWS-CLOUDWATCH-LOG-GROUP-ECS-TASKS</code> (open critical semantic) · action: work by hand outside the draft · <a href="../../decisions.json">decisions.json</a></p>
+<dl class="topbar">
+<div><dt>Decision</dt><dd>the critical settings of a unit, of the <code>aws.cloudwatch_log_group</code> contract</dd></div>
+<div><dt>Affected applications</dt><dd>None named.</dd></div>
+<div><dt>Affected units</dt><dd>1 <a href="../architecture.html#unit/module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks">module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks</a></dd></div>
+<div><dt>Open critical semantics (unit|semantic)</dt><dd>1 alias <code>module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks|tc-name</code></dd></div>
+<div><dt>Options</dt><dd>None listed.</dd></div>
+<div><dt>Settings</dt><dd>1 critical setting of the unit, each with its own reason, state and options:<ol>
+<li data-item-of="DEC-OPS-AWS-CLOUDWATCH-LOG-GROUP-TC-NAME"><strong>Confirm the name of the log group</strong> (<code>tc-name</code>): Open: no decision of the record has been taken. The knowledge base cannot decide &#34;the name of the CloudWatch log group&#34; of the aws.cloudwatch_log_group contract for 1 unit (left for a person to decide): a person chooses what the STACKIT target does for it, or accepts the difference. A review of this record is the architect&#39;s answer beside the engine&#39;s reading; it closes nothing. Next: Carry out the manual work the plan names for module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks outside the draft; the plan states no title for it.</li>
+</ol></dd></div>
+<div><dt>Recommended option</dt><dd>None.</dd></div>
+<div><dt>Evidence</dt><dd><a href="../engineering.html#evidence/module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks">module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks</a></dd></div>
+<div><dt>Status</dt><dd>Open: not decided yet.</dd></div>
+</dl>
+</details>
+</details>
+</article>
+</div>
+</details>
+</div>
+</section></main>
+<script>(function () {
+  'use strict';
+  var doc = document;
+  var win = window;
+  function all(selector, root) { return Array.prototype.slice.call((root || doc).querySelectorAll(selector)); }
+  function press(button, on) { button.setAttribute('aria-pressed', on ? 'true' : 'false'); }
+  function pressed(button) { return button.getAttribute('aria-pressed') === 'true'; }
+
+  all('[data-js-only]').forEach(function (e) { e.hidden = false; });
+
+  var detailsButton = doc.querySelector('[data-act="details"]');
+  if (detailsButton) {
+    detailsButton.addEventListener('click', function () {
+      var on = !pressed(detailsButton);
+      press(detailsButton, on);
+      all('details').forEach(function (d) { d.open = on; });
+    });
+  }
+
+  function listOf(scope) { return doc.querySelector('[data-list="' + scope + '"]'); }
+  function itemsOf(list) {
+    return all('[data-item]', list);
+  }
+  function chosen(scope) {
+    var by = {};
+    all('[data-controls="' + scope + '"] [data-filter]').forEach(function (b) {
+      if (!pressed(b)) { return; }
+      var group = b.getAttribute('data-filter');
+      (by[group] = by[group] || []).push(b.getAttribute('data-value'));
+    });
+    return by;
+  }
+  function passes(item, by, cells) {
+    if (cells) {
+      if (!by.dim && !by.state) { return true; }
+      return all('[data-state]', item).some(function (c) {
+        return (!by.dim || by.dim.indexOf(c.getAttribute('data-dim')) >= 0) && (!by.state || by.state.indexOf(c.getAttribute('data-state')) >= 0);
+      });
+    }
+    return Object.keys(by).every(function (group) { return by[group].indexOf(item.getAttribute('data-' + group)) >= 0; });
+  }
+  function refresh(scope) {
+    var list = listOf(scope);
+    if (!list) { return; }
+    var by = chosen(scope);
+    var cells = list.hasAttribute('data-cells');
+    var seen = false;
+    var search = doc.querySelector('[data-search="' + scope + '"]');
+    var words = search ? search.value.toLowerCase().split(' ').filter(Boolean) : [];
+    itemsOf(list).forEach(function (item) {
+      var text = (item.id + ' ' + (item.getAttribute('data-text') || '')).toLowerCase();
+      var ok = passes(item, by, cells) && words.every(function (w) { return text.indexOf(w) >= 0; });
+      item.hidden = !ok;
+      if (ok) { seen = true; }
+    });
+    all('[data-group]', list).forEach(function (g) {
+      g.hidden = !all('[data-item]', g).some(function (item) { return !item.hidden; });
+      if (words[0] && !g.hidden && g.tagName === 'DETAILS') { g.open = true; }
+    });
+    var none = doc.querySelector('[data-empty="' + scope + '"]');
+    if (none) { none.hidden = seen; }
+  }
+  function sortBy(scope, button) {
+    var list = listOf(scope);
+    if (!list) { return; }
+    var key = button.getAttribute('data-sort');
+    var attr = key === 'record' ? 'data-seq' : 'data-sort-' + key;
+    var desc = button.getAttribute('data-dir') === 'desc';
+    var items = itemsOf(list);
+    var parents = items.map(function (i) { return i.parentNode; }).filter(function (p, k, a) { return a.indexOf(p) === k; });
+    parents.forEach(function (parent) {
+      items.filter(function (i) { return i.parentNode === parent; }).sort(function (a, b) {
+        var x = Number(a.getAttribute(attr));
+        var y = Number(b.getAttribute(attr));
+        if (x !== y) { return desc ? y - x : x - y; }
+        return Number(a.getAttribute('data-seq')) - Number(b.getAttribute('data-seq'));
+      }).forEach(function (item) { parent.appendChild(item); });
+    });
+    all('[data-controls="' + scope + '"] [data-sort]').forEach(function (b) { press(b, b === button); });
+  }
+  all('[data-controls]').forEach(function (box) {
+    var scope = box.getAttribute('data-controls');
+    all('[data-filter]', box).forEach(function (b) {
+      b.addEventListener('click', function () { press(b, !pressed(b)); refresh(scope); });
+    });
+    all('[data-sort]', box).forEach(function (b) {
+      b.addEventListener('click', function () { sortBy(scope, b); });
+    });
+    var search = box.querySelector('[data-search]');
+    if (search) {
+      search.addEventListener('input', function () { refresh(scope); });
+    }
+    var clear = box.querySelector('[data-act="clear-filters"]');
+    if (clear) {
+      clear.addEventListener('click', function () {
+        all('[data-filter]', box).forEach(function (b) { press(b, false); });
+        if (search) { search.value = ''; }
+        refresh(scope);
+      });
+    }
+  });
+
+  var main = doc.getElementById('main');
+  var lensButtons = all('[data-lens-set]');
+  function setLens(lens) {
+    doc.body.setAttribute('data-lens', lens);
+    lensButtons.forEach(function (b) {
+      var on = b.getAttribute('data-lens-set') === lens;
+      press(b, on);
+      if (on) {
+        b.getAttribute('data-lens-order').split(' ').forEach(function (id) {
+          var section = doc.getElementById(id);
+          if (main && section && section.parentNode === main && (section.nextElementSibling || section.previousElementSibling)) { main.appendChild(section); }
+          var entry = doc.querySelector('nav [data-nav="' + id + '"]');
+          if (entry) { entry.parentNode.appendChild(entry); }
+        });
+      }
+    });
+  }
+  lensButtons.forEach(function (b) {
+    b.addEventListener('click', function () { setLens(b.getAttribute('data-lens-set')); });
+  });
+
+  function indicated() {
+    var hash = win.location.hash;
+    if (hash === '' || hash === '#') { return null; }
+    var id = hash.slice(1);
+    var found = doc.getElementById(id);
+    if (!found) {
+      try { found = doc.getElementById(decodeURIComponent(id)); } catch (e) { found = null; }
+    }
+    return found;
+  }
+  var kindPages = {'action': 'decisions', 'application': 'applications', 'capability': 'target-fit', 'check': 'evidence', 'claim': 'engineering', 'decision': 'decisions', 'evidence': 'engineering', 'field': 'engineering', 'findinggroup': 'evidence', 'intent': 'engineering', 'residual': 'engineering', 'target': 'evidence', 'unit': 'architecture'};
+  var sectionPages = ' applications architecture decisions target-fit migration security-assurance sovereignty operations cost evidence engineering work-board ';
+  function before(a, b) {
+    var x = Array.from(a);
+    var y = Array.from(b);
+    for (var i = 0; ; i++) {
+      if (x[i] === undefined) { return y[i] !== undefined; }
+      if (y[i] === undefined) { return false; }
+      if (x[i] !== y[i]) { return x[i].codePointAt(0) < y[i].codePointAt(0); }
+    }
+  }
+  function grouped(kind, key) {
+    var rows = all('[data-routes] [data-kind="' + kind + '"]');
+    if (!rows[0]) { return null; }
+    var at = rows[0];
+    rows.forEach(function (r) { if (!before(key, r.getAttribute('data-first'))) { at = r; } });
+    return at.getAttribute('data-page');
+  }
+  function routed(id) {
+    var slash = id.indexOf('/');
+    if (slash > 0) {
+      var kind = id.slice(0, slash);
+      var key = null;
+      try { key = decodeURIComponent(id.slice(slash + 1)); } catch (e) { key = null; }
+      var group = key === null ? null : grouped(kind, key);
+      if (group !== null) { return group; }
+      return kindPages.hasOwnProperty(kind) ? kindPages[kind] : null;
+    }
+    return sectionPages.indexOf(' ' + id + ' ') >= 0 ? id : null;
+  }
+  function route() {
+    var base = doc.body.getAttribute('data-pages');
+    var page = routed(win.location.hash.slice(1));
+    if (base === null || page === null || win.location.pathname.endsWith('/' + page + '.html')) { return; }
+    win.location.replace(base + page + '.html' + win.location.hash);
+  }
+  function reveal() {
+    var target = indicated();
+    if (!target) { route(); return; }
+    if (target.tagName === 'DETAILS') { target.open = true; }
+    for (var p = target.parentElement; p; p = p.parentElement) {
+      if (p.tagName === 'DETAILS') { p.open = true; }
+    }
+    var body = target.querySelector(':scope > details');
+    if (body) { body.open = true; }
+    if (!target.getClientRects()[0]) {
+      all('[data-controls] [data-filter]').forEach(function (b) { press(b, false); });
+      all('[data-search]').forEach(function (b) { b.value = ''; });
+      all('[data-controls]').forEach(function (box) { refresh(box.getAttribute('data-controls')); });
+      if (lensButtons[0]) { setLens('all'); }
+    }
+    target.scrollIntoView();
+  }
+  win.addEventListener('hashchange', reveal);
+  reveal();
+
+  var opened = [];
+  win.addEventListener('beforeprint', function () {
+    opened = all('details:not([open])');
+    opened.forEach(function (d) { d.open = true; });
+  });
+  win.addEventListener('afterprint', function () {
+    opened.forEach(function (d) { d.open = false; });
+    opened = [];
+  });
+})();
+</script>
+</body>
+</html>

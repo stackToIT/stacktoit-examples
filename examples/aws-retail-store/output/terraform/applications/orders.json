@@ -1,0 +1,173 @@
+{
+  "contract": "APPLICATION_COMPATIBILITY",
+  "unit": "module.retail_app_ecs.module.orders_service.aws_ecs_service.this",
+  "task_definition": "module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this",
+  "workload": "orders",
+  "manifest": "kubernetes/orders/manifests.yaml",
+  "file": "applications/orders.json",
+  "cluster": "stackit_ske_cluster.retail_app_ecs_cluster",
+  "readiness": "NOT_READY",
+  "readiness_reasons": [
+    "ENV_VALUES_REQUIRED",
+    "IDENTITY_OPEN",
+    "FUNCTIONAL_CHECK_NOT_RUN"
+  ],
+  "readiness_words": "Checklist items are open: StackToIT lists the work and counts an item done only when the customer marks it in the decisions file (application_checklists); StackToIT never deploys the application.",
+  "checklist_sha256": "sha256:84606ea46e27a1d77d1b805e0ec83551520af522648132df1d86a8be07584f45",
+  "templates": "applications/orders.templates.yaml",
+  "validation_scope": "A kubeconform check or a kubectl apply --dry-run of the manifest establishes YAML validity only, not behaviour: it accepts a REQUIRED_ token in a string field, an empty ConfigMap and a Secret that does not exist, and runs nothing; the checklist of the application compatibility contract and an application smoke test on the target are what show that the workload works.",
+  "containers": [
+    {
+      "name": "orders-service",
+      "image": "public.ecr.aws/aws-containers/retail-store-sample-orders:1.6.3",
+      "image_rebinding": "pulled from where the source pulls it (Amazon ECR image public.ecr.aws/aws-containers/retail-store-sample-orders:1.6.3): decide where the images live on STACKIT, that the cluster can reach the registry, and the pull secret",
+      "ports": [
+        "8080/TCP"
+      ],
+      "probes": [
+        "livenessProbe: exec curl -f http://localhost:8080/actuator/health (the ECS health check)",
+        "startupProbe: the same check over the start period"
+      ],
+      "env": [
+        {
+          "name": "RETAIL_ORDERS_MESSAGING_PROVIDER",
+          "class": "LITERAL",
+          "value_copied": false,
+          "work": "set the key in the ConfigMap to the value module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this states for container orders-service (not copied: an environment value can carry a secret under any name); if it names an AWS endpoint, a region or an ARN, give the STACKIT one"
+        },
+        {
+          "name": "RETAIL_ORDERS_PERSISTENCE_NAME",
+          "class": "LITERAL",
+          "value_copied": false,
+          "work": "set the key in the ConfigMap to the value module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this states for container orders-service (not copied: an environment value can carry a secret under any name); if it names an AWS endpoint, a region or an ARN, give the STACKIT one"
+        },
+        {
+          "name": "RETAIL_ORDERS_PERSISTENCE_PROVIDER",
+          "class": "LITERAL",
+          "value_copied": false,
+          "work": "set the key in the ConfigMap to the value module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this states for container orders-service (not copied: an environment value can carry a secret under any name); if it names an AWS endpoint, a region or an ARN, give the STACKIT one"
+        }
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "kind": "SERVICE_CONNECT_ALIAS",
+      "source": "orders:80 (the Service Connect alias of port orders-service in the namespace not visible statically)",
+      "target": "orders:80 (the Kubernetes Service orders, port 80 → container port 8080, in the namespace the manifests are applied into)",
+      "work": "the Kubernetes Service keeps the name and port the clients call: check that they resolve it from their namespace; the Service Connect proxy (its retries, timeouts, TLS and metrics) is not carried"
+    }
+  ],
+  "identity": {
+    "task_role": "module.retail_app_ecs.module.orders_service.aws_iam_role.task_role",
+    "target": "open: the decision target.workload.identity (inputs.json) chooses federated_service_account (a Kubernetes ServiceAccount federated to the STACKIT service account of the role), service_account_key (a key of that service account mounted as a Secret) or no_workload_identity",
+    "work": "answer target.workload.identity for module.retail_app_ecs.module.orders_service.aws_ecs_service.this; until then the pods run with no identity and every call the application made with the task role module.retail_app_ecs.module.orders_service.aws_iam_role.task_role fails",
+    "service_account_template": "applications/orders.templates.yaml",
+    "manual_steps": [
+      "answer the input target.workload.identity for module.retail_app_ecs.module.orders_service.aws_ecs_service.this in inputs.json: with federated_service_account the draft writes the stackit_service_account of module.retail_app_ecs.module.orders_service.aws_iam_role.task_role, its federated identity provider for the SKE cluster's service-account issuer and the Kubernetes ServiceAccount orders in the manifest",
+      "until then, create a STACKIT service account named after the task role module.retail_app_ecs.module.orders_service.aws_iam_role.task_role and grant it the role assignments the policies of module.retail_app_ecs.module.orders_service.aws_iam_role.task_role give (identity.tf lists them as the architect's variable)",
+      "federate it to the SKE cluster's service-account issuer for the subject system:serviceaccount:<namespace>:orders, and apply the ServiceAccount of applications/orders.templates.yaml (its annotation holds the service account's e-mail) in the namespace of the workload",
+      "change the application from the AWS SDK credential chain to the STACKIT SDK, which picks up the projected token: every call the application made with module.retail_app_ecs.module.orders_service.aws_iam_role.task_role fails until it does"
+    ]
+  },
+  "datastores": [
+    {
+      "source": "module.dependencies.aws_mq_broker.mq",
+      "source_kind": "Amazon MQ",
+      "target": "stackit_rabbitmq_instance.dependencies_mq",
+      "target_kind": "RabbitMQ",
+      "protocol": "SAME_PROTOCOL",
+      "evidence": "module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this reads the secret module.retail_app_ecs.aws_secretsmanager_secret_version.mq, which is built from module.dependencies.aws_mq_broker.mq",
+      "work": "the target stackit_rabbitmq_instance.dependencies_mq (STACKIT RabbitMQ) is RabbitMQ and speaks AMQP 0-9-1 like the Amazon MQ broker: point the application at the amqp URI of a credential of the instance; AMQP 1.0 (which Amazon MQ serves from RabbitMQ 4), MQTT and STOMP are not assessed (STACKIT's plugin list has the MQTT and STOMP plugins, its documentation does not state AMQP 1.0), nor whether the connection requires TLS (the source's clients use TLS on port 5671): check the scheme and the port the credential names, the plugins the broker uses and the definitions to import"
+    },
+    {
+      "source": "module.dependencies.module.orders_rds.aws_rds_cluster.this",
+      "source_kind": "Aurora",
+      "target": "stackit_postgresflex_instance.dependencies_orders_rds_this",
+      "target_kind": "PostgreSQL Flex",
+      "protocol": "SAME_PROTOCOL",
+      "evidence": "module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this reads the secret module.retail_app_ecs.aws_secretsmanager_secret_version.orders_db, which is built from module.dependencies.module.orders_rds.aws_rds_cluster.this",
+      "work": "the target stackit_postgresflex_instance.dependencies_orders_rds_this speaks the same protocol: point the application at its endpoint and credentials and check the engine version and the extensions it uses"
+    }
+  ],
+  "dns_dependencies": [
+    {
+      "kind": "MANAGED_ENDPOINT",
+      "name": "the endpoint host of module.dependencies.aws_mq_broker.mq (Amazon MQ)",
+      "source": "the endpoint host AWS assigns Amazon MQ module.dependencies.aws_mq_broker.mq when it is applied (not visible statically), answered by AWS DNS (inside a VPC the VPC resolver answers it with a private address)",
+      "consumers": [
+        "orders: module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this reads the secret module.retail_app_ecs.aws_secretsmanager_secret_version.mq, which is built from module.dependencies.aws_mq_broker.mq"
+      ],
+      "provision": "ENDPOINT_ATTRIBUTE",
+      "target": "the host name the STACKIT instance stackit_rabbitmq_instance.dependencies_mq (RabbitMQ) publishes, read from the instance and its credential after it is applied; the draft holds no value of it",
+      "verification": "resolve, from a pod of orders, the host of stackit_rabbitmq_instance.dependencies_mq and connect to its port: the draft does not state whether the name resolves to an address the cluster's network reaches, so record the address and that the connection opens"
+    },
+    {
+      "kind": "MANAGED_ENDPOINT",
+      "name": "the endpoint host of module.dependencies.module.orders_rds.aws_rds_cluster.this (Aurora)",
+      "source": "the endpoint host AWS assigns Aurora module.dependencies.module.orders_rds.aws_rds_cluster.this when it is applied (not visible statically), answered by AWS DNS (inside a VPC the VPC resolver answers it with a private address)",
+      "consumers": [
+        "orders: module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this reads the secret module.retail_app_ecs.aws_secretsmanager_secret_version.orders_db, which is built from module.dependencies.module.orders_rds.aws_rds_cluster.this"
+      ],
+      "provision": "ENDPOINT_ATTRIBUTE",
+      "target": "the host name the STACKIT instance stackit_postgresflex_instance.dependencies_orders_rds_this (PostgreSQL Flex) publishes, read from the instance and its credential after it is applied; the draft holds no value of it",
+      "verification": "resolve, from a pod of orders, the host of stackit_postgresflex_instance.dependencies_orders_rds_this and connect to its port: the draft does not state whether the name resolves to an address the cluster's network reaches, so record the address and that the connection opens"
+    },
+    {
+      "kind": "SERVICE_CONNECT_ALIAS",
+      "name": "orders",
+      "source": "a Service Connect alias in the Cloud Map private DNS namespace retailstore.local (module.retail_app_ecs.aws_service_discovery_private_dns_namespace.this): the clients of the namespace resolve it through the Service Connect proxy of their tasks",
+      "consumers": [],
+      "provision": "CLUSTER_SERVICE",
+      "target": "orders.<namespace>.svc.cluster.local (the Kubernetes Service orders; orders from a pod of the same namespace)",
+      "verification": "resolve, from a pod of a client of orders, orders and orders.<namespace>.svc.cluster.local: expect the ClusterIP of the Kubernetes Service orders (kubectl get service orders)"
+    }
+  ],
+  "checklist": [
+    {
+      "id": "env_value:orders-service/RETAIL_ORDERS_MESSAGING_PROVIDER",
+      "kind": "ENV_VALUE",
+      "subject": "orders-service/RETAIL_ORDERS_MESSAGING_PROVIDER",
+      "blocking": true,
+      "sha256": "sha256:d129bad0b42084609a1258577760beaef59dc3857057d30399ec88e78617ba12",
+      "state": "OPEN",
+      "work": "set the key in the ConfigMap to the value module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this states for container orders-service (not copied: an environment value can carry a secret under any name); if it names an AWS endpoint, a region or an ARN, give the STACKIT one"
+    },
+    {
+      "id": "env_value:orders-service/RETAIL_ORDERS_PERSISTENCE_NAME",
+      "kind": "ENV_VALUE",
+      "subject": "orders-service/RETAIL_ORDERS_PERSISTENCE_NAME",
+      "blocking": true,
+      "sha256": "sha256:42077f28d0241d4e33539948c6eba17b414a92cf587df59fd2f8f645f7f6308e",
+      "state": "OPEN",
+      "work": "set the key in the ConfigMap to the value module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this states for container orders-service (not copied: an environment value can carry a secret under any name); if it names an AWS endpoint, a region or an ARN, give the STACKIT one"
+    },
+    {
+      "id": "env_value:orders-service/RETAIL_ORDERS_PERSISTENCE_PROVIDER",
+      "kind": "ENV_VALUE",
+      "subject": "orders-service/RETAIL_ORDERS_PERSISTENCE_PROVIDER",
+      "blocking": true,
+      "sha256": "sha256:acfe30323f398a862af97c3ecb12b86ea824fc2f5f475e3e482d33485bb565dc",
+      "state": "OPEN",
+      "work": "set the key in the ConfigMap to the value module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this states for container orders-service (not copied: an environment value can carry a secret under any name); if it names an AWS endpoint, a region or an ARN, give the STACKIT one"
+    },
+    {
+      "id": "identity:module.retail_app_ecs.module.orders_service.aws_iam_role.task_role",
+      "kind": "IDENTITY",
+      "subject": "module.retail_app_ecs.module.orders_service.aws_iam_role.task_role",
+      "blocking": true,
+      "sha256": "sha256:2f7a3f506b0709db4578c3d47bd9b4c8e48669c22d561fa3a720bd7a9035e2b8",
+      "state": "OPEN",
+      "work": "answer target.workload.identity for module.retail_app_ecs.module.orders_service.aws_ecs_service.this; until then the pods run with no identity and every call the application made with the task role module.retail_app_ecs.module.orders_service.aws_iam_role.task_role fails"
+    },
+    {
+      "id": "smoke_test:orders",
+      "kind": "SMOKE_TEST",
+      "subject": "orders",
+      "blocking": true,
+      "sha256": "sha256:2d2c2134f7fcd58edfe984915a6bfcb8018d286f183ba0f961c57fe7ec355026",
+      "state": "OPEN",
+      "work": "run an application smoke test on the target: the pods start, answer their clients through the Kubernetes Service orders, reach every dependency above and read and write their data; StackToIT runs nothing on the target"
+    }
+  ]
+}

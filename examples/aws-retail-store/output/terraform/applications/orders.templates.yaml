@@ -1,0 +1,26 @@
+# TEMPLATE of the environment and secrets of orders (applications/orders.templates.yaml): NAMES ONLY.
+# Written from the application compatibility contract applications/orders.json, which says for every key where its value comes from and what to do.
+# No string value is copied from the source: an environment value can carry a secret under any name, so each key holds a REQUIRED_ placeholder that you
+# replace with the value the running service uses (a secret from your own secret store, never from this file or the repository).
+# StackToIT applies nothing: this is a list of what to create, bound to the manifest kubernetes/orders/manifests.yaml, which reads these keys.
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: orders-env
+data:
+  RETAIL_ORDERS_MESSAGING_PROVIDER: "REQUIRED_ORDERS_ENV_RETAIL_ORDERS_MESSAGING_PROVIDER" # LITERAL: set the value the running service uses (not copied from the source)
+  RETAIL_ORDERS_PERSISTENCE_NAME: "REQUIRED_ORDERS_ENV_RETAIL_ORDERS_PERSISTENCE_NAME" # LITERAL: set the value the running service uses (not copied from the source)
+  RETAIL_ORDERS_PERSISTENCE_PROVIDER: "REQUIRED_ORDERS_ENV_RETAIL_ORDERS_PERSISTENCE_PROVIDER" # LITERAL: set the value the running service uses (not copied from the source)
+---
+# TEMPLATE of the option federated_service_account of the task role module.retail_app_ecs.module.orders_service.aws_iam_role.task_role: apply it only after the decision target.workload.identity
+# is answered with that option (the draft then writes this ServiceAccount into the manifest itself). The annotation is the e-mail of the STACKIT
+# service account of the role; the namespace is the one the manifests are applied into, and the federated identity provider trusts exactly it.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: orders
+  labels:
+    app.kubernetes.io/name: orders
+  annotations:
+    workload-identity.stackit.cloud/service-account-email: REQUIRED_ORDERS_SERVICE_ACCOUNT_EMAIL

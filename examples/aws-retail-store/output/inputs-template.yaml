@@ -1,0 +1,703 @@
+# Answer template of run f576c5a4-ff5f-4981-8b67-054d7359483f (written by stacktoit; copy this file, fill the `value:` lines, pass it with --inputs).
+# Every request this run derives that this build can take an answer of (groups 1 and 2 below) is one stub. id, kind, topic, scope and recorded_with bind the answer to this source and this knowledge base:
+# do not edit them. Fill `value` (the options of the request are listed above it) and, if you like, `explanation`; set `answered_by` to
+# your role (it is a role, not a person) and `answered_at` to the day you answer. You may delete the stubs you do not answer.
+# A stub whose `value` you leave unfilled is no answer and no error: its request stays open, the run names it, and the answers you filled apply. A stub is never a default.
+# The shape of a value is the one of the answer file contract of this build: the outline of each stub shows it, and the run reports a value that does not fit.
+# This file ANSWERS questions of the run: an answer given with --inputs regenerates the draft with it (run again on the same --out; the earlier run is replaced).
+# A review of a decision is the other file, decisions-template.yaml (--decisions): it records the review and frees nothing until the draft is regenerated,
+# so an option that changes the draft is chosen here, in an answer, never in a review.
+# The requests are in three groups, in this order; only the first two are stubs to fill:
+#   GROUP 1 - APPLICABLE: a valid answer changes the draft when you run again.
+#   GROUP 2 - MANUAL: a person does the work outside StackToIT; the answer records that it was done and changes no draft.
+#   GROUP 3 - NOT APPLICABLE IN THIS BUILD: listed at the end as comments, with no stub, because this build records an answer and changes nothing;
+#     each says where the setting is made instead.
+schema_version: "0.1"
+answers:
+
+  # ===== GROUP 1 - APPLICABLE: a valid answer changes the draft when you run again =====
+
+  # answer this first: the requests marked (depends on the region) are derived from the eu01 catalogue until the region is answered and are re-derived then.
+  # An answer to such a request is recorded for eu01: if you choose another region it is STALE_CATALOG, it is not applied and the request is asked again, for the chosen region, in the template of the next run.
+  # target.region (TARGET_SELECTION, request state OPEN)
+  # needed: The STACKIT region the migrated estate is built in.
+  - id: INP-TSE-1eaf5b60fa62
+    kind: TARGET_SELECTION
+    topic: target.region
+    scope:
+      profile: default
+    # options: eu01 | eu02
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:94a1663bf63dd33750f12f962a5adedcc2bf291ebf4b101eee03238a48e95e54
+
+  # target.postgres.flavor (TARGET_SELECTION, request state OPEN)
+  # needed: The PostgreSQL Flex flavor of module.dependencies.module.orders_rds.aws_rds_cluster.this in region eu01 (depends on the region: derived from eu01 until target.region is answered).
+  - id: INP-TSE-aba6172c5b8e
+    kind: TARGET_SELECTION
+    topic: target.postgres.flavor
+    scope:
+      address: module.dependencies.module.orders_rds.aws_rds_cluster.this
+      region: eu01
+      profile: default
+    # options: 2.4 | 2.16 | 4.8 | 4.32 | 8.16 | 8.32 | 16.32 | 16.64 | 16.128
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:0a934b54b104e3c9ddc427526a5f773a0172caecaf2c6750d339c79404f8f8b7
+
+  # target.postgres.storage (TARGET_SELECTION, request state OPEN)
+  # needed: The PostgreSQL Flex storage of module.dependencies.module.orders_rds.aws_rds_cluster.this in region eu01 (depends on the region: derived from eu01 until target.region is answered).
+  - id: INP-TSE-19d43e80bdea
+    kind: TARGET_SELECTION
+    topic: target.postgres.storage
+    scope:
+      address: module.dependencies.module.orders_rds.aws_rds_cluster.this
+      region: eu01
+      profile: default
+    # options: premium-perf2-stackit | premium-perf4-stackit | premium-perf6-stackit | premium-perf8-stackit | premium-perf10-stackit | premium-perf12-stackit
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:09eff9c55806186f5175b05473a7040d027f31d6b4d6d80f4616671ee889f4ac
+
+  # source.dataset.downtime (SOURCE_DECLARATION, request state OPEN)
+  # needed: The downtime window a person accepts for the cutover of module.dependencies.module.catalog_rds.aws_rds_cluster.this: it is the window the transfer lower bound is held against: a lower bound above it makes the dump-and-restore method need a design.
+  - id: INP-SDE-18109096c354
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.downtime
+    scope:
+      address: module.dependencies.module.catalog_rds.aws_rds_cluster.this
+      profile: default
+    value: {}                # fill the details of your answer (the answer file contract of this build describes them)
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:725a0fe5e25e77291a99875cfeb29aed9b71a5ea3dd435c3b99608490182a7eb
+
+  # source.dataset.bandwidth (SOURCE_DECLARATION, request state OPEN)
+  # needed: The network bandwidth available for moving the data of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default: it sets the lower bound of the transfer time of the copy of the keys (the round trip of every key is not in it).
+  - id: INP-SDE-1bedaeef89e8
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.bandwidth
+    scope:
+      address: module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+      profile: default
+    value: {}                # fill the details of your answer (the answer file contract of this build describes them)
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:0c37d1616657fddefb00aab8c3ec882470c29187bff69098e6913a86a60d39e8
+
+  # source.dataset.rto (SOURCE_DECLARATION, request state OPEN)
+  # needed: The recovery time objective (the time a person accepts the asset to be unavailable after a failure) of module.dependencies.module.orders_rds.aws_rds_cluster.this: it is recorded next to the data asset and shown in the plan of its move; the plan does not compute with it yet.
+  - id: INP-SDE-46c9b52032dd
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.rto
+    scope:
+      address: module.dependencies.module.orders_rds.aws_rds_cluster.this
+      profile: default
+    value: {}                # fill the details of your answer (the answer file contract of this build describes them)
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:60faef9d823ebdd266bf26dc2f689b60a1d56cdce734c67fc45e28bf06b3137b
+
+  # source.dataset.size (SOURCE_DECLARATION, request state OPEN)
+  # needed: The size of the data of module.dependencies.module.catalog_rds.aws_rds_cluster.this: it sets the lower bound of the transfer time of the first copy (the size of the data, not the capacity the source provisions).
+  - id: INP-SDE-4a70d6a075c9
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.size
+    scope:
+      address: module.dependencies.module.catalog_rds.aws_rds_cluster.this
+      profile: default
+    value: {}                # fill the details of your answer (the answer file contract of this build describes them)
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:2cc2ac61754648bdd4429eb631ec44ba769b78c46007d39d8cc2ab5a1da88103
+
+  # source.dataset.downtime (SOURCE_DECLARATION, request state OPEN)
+  # needed: The downtime window a person accepts for the cutover of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default: it is the window the transfer lower bound is held against: a lower bound above it makes the dump-and-restore method need a design.
+  - id: INP-SDE-586a0c3c003b
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.downtime
+    scope:
+      address: module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+      profile: default
+    value: {}                # fill the details of your answer (the answer file contract of this build describes them)
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:e82c1e83b71339874f28d87795462a8edddbb095c46dca29fa90dafd08cb3672
+
+  # source.dataset.write_rate (SOURCE_DECLARATION, request state OPEN)
+  # needed: The rate at which the data is written of module.dependencies.module.catalog_rds.aws_rds_cluster.this: it is recorded next to the data asset and shown in the plan of its move; the one method the plan holds for it, a dump loaded inside the write freeze, runs with the writers stopped, so the plan computes nothing with it.
+  - id: INP-SDE-634dfb526f85
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.write_rate
+    scope:
+      address: module.dependencies.module.catalog_rds.aws_rds_cluster.this
+      profile: default
+    value: {}                # fill the details of your answer (the answer file contract of this build describes them)
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:5f31b92c93a9b44f5ff35e7a1856c5e0e88b997a77d584415b403d4bf127230f
+
+  # source.dataset.write_rate (SOURCE_DECLARATION, request state OPEN)
+  # needed: The rate at which the data is written of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default: it is recorded next to the data asset and shown in the plan of its move; the one method the plan holds for it, a copy of the keys by a client inside the write freeze, runs with the writers stopped, so the plan computes nothing with it.
+  - id: INP-SDE-6784fbaf6ad8
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.write_rate
+    scope:
+      address: module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+      profile: default
+    value: {}                # fill the details of your answer (the answer file contract of this build describes them)
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:cb79ba203f99b43ca8bed13ed64cc014304927731ee46f92fcd0625912bfd500
+
+  # source.dataset.rto (SOURCE_DECLARATION, request state OPEN)
+  # needed: The recovery time objective (the time a person accepts the asset to be unavailable after a failure) of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default: it is recorded next to the data asset and shown in the plan of its move; the plan does not compute with it yet.
+  - id: INP-SDE-737f2479467e
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.rto
+    scope:
+      address: module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+      profile: default
+    value: {}                # fill the details of your answer (the answer file contract of this build describes them)
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:38cc4a3a11b51fa0731ecce5857d90ea5f2b6a6e1f3b9115050254e7c2ba8bdc
+
+  # source.dataset.downtime (SOURCE_DECLARATION, request state OPEN)
+  # needed: The downtime window a person accepts for the cutover of module.dependencies.module.orders_rds.aws_rds_cluster.this: it is the window the transfer lower bound is held against: a lower bound above it makes the dump-and-restore method need a design.
+  - id: INP-SDE-7610dc2a5f43
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.downtime
+    scope:
+      address: module.dependencies.module.orders_rds.aws_rds_cluster.this
+      profile: default
+    value: {}                # fill the details of your answer (the answer file contract of this build describes them)
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:e54bc556906da0218fa7da5c51e61a5ac6fe97a937cb59d62498202e8cde3bc5
+
+  # source.dataset.rpo (SOURCE_DECLARATION, request state OPEN)
+  # needed: The recovery point objective (the data a person accepts to lose, as time) of module.dependencies.module.orders_rds.aws_rds_cluster.this: it is recorded next to the data asset and shown in the plan of its move; the plan does not compute with it yet.
+  - id: INP-SDE-8577d56b8b26
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.rpo
+    scope:
+      address: module.dependencies.module.orders_rds.aws_rds_cluster.this
+      profile: default
+    value: {}                # fill the details of your answer (the answer file contract of this build describes them)
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:a61df340650742329731105039538c1f06f0097f352bcad1b94167874ff2fe6d
+
+  # source.dataset.size (SOURCE_DECLARATION, request state OPEN)
+  # needed: The size of the data of module.dependencies.module.orders_rds.aws_rds_cluster.this: it sets the lower bound of the transfer time of the first copy (the size of the data, not the capacity the source provisions).
+  - id: INP-SDE-9c066a25cc5d
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.size
+    scope:
+      address: module.dependencies.module.orders_rds.aws_rds_cluster.this
+      profile: default
+    value: {}                # fill the details of your answer (the answer file contract of this build describes them)
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:d7f5f8f6d50899622ebe819b1e42bd76b9a56105d0494140a60594a032b6be2f
+
+  # source.dataset.bandwidth (SOURCE_DECLARATION, request state OPEN)
+  # needed: The network bandwidth available for moving the data of module.dependencies.module.orders_rds.aws_rds_cluster.this: it sets the lower bound of the transfer time and decides whether a replication can catch up with the writes.
+  - id: INP-SDE-a105f4fbc168
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.bandwidth
+    scope:
+      address: module.dependencies.module.orders_rds.aws_rds_cluster.this
+      profile: default
+    value: {}                # fill the details of your answer (the answer file contract of this build describes them)
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:5635f9a61f8498392872bd4c273ad82c2bb303b7ece7d8ec684c44b5a5a021fc
+
+  # source.dataset.write_rate (SOURCE_DECLARATION, request state OPEN)
+  # needed: The rate at which the data is written of module.dependencies.module.orders_rds.aws_rds_cluster.this: it decides whether a replication can catch up with the writes and how long the freeze waits for the lag to reach zero.
+  - id: INP-SDE-a84fd9da33b0
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.write_rate
+    scope:
+      address: module.dependencies.module.orders_rds.aws_rds_cluster.this
+      profile: default
+    value: {}                # fill the details of your answer (the answer file contract of this build describes them)
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:61545a44ae2001e58c916e5ae252d62e1b78d63f17c5e357fa28eace382fb41a
+
+  # source.dataset.bandwidth (SOURCE_DECLARATION, request state OPEN)
+  # needed: The network bandwidth available for moving the data of module.dependencies.module.catalog_rds.aws_rds_cluster.this: it sets the lower bound of the transfer time of the dump.
+  - id: INP-SDE-a888bdfa4975
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.bandwidth
+    scope:
+      address: module.dependencies.module.catalog_rds.aws_rds_cluster.this
+      profile: default
+    value: {}                # fill the details of your answer (the answer file contract of this build describes them)
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:f4fbad519a8f73e960f1cc69fc2e806507aca838476d5d47d01b78777060c08f
+
+  # source.dataset.rpo (SOURCE_DECLARATION, request state OPEN)
+  # needed: The recovery point objective (the data a person accepts to lose, as time) of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default: it is recorded next to the data asset and shown in the plan of its move; the plan does not compute with it yet.
+  - id: INP-SDE-dc45b9d1702d
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.rpo
+    scope:
+      address: module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+      profile: default
+    value: {}                # fill the details of your answer (the answer file contract of this build describes them)
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:603595baca3dc00ff899dfbc31d633e841fd22bac750751c23f78f53a8990764
+
+  # source.dataset.size (SOURCE_DECLARATION, request state OPEN)
+  # needed: The size of the data of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default: it sets the lower bound of the transfer time of the copy of the keys and decides whether any plan of the Key Value Store holds the dataset in the memory of one node (the size of the data, not the memory of the source's nodes).
+  - id: INP-SDE-ee1e4a40ef93
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.size
+    scope:
+      address: module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+      profile: default
+    value: {}                # fill the details of your answer (the answer file contract of this build describes them)
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:4f3202530e04d83f04b174f50657bb59e96a1f46ed0a5a76a5c854649e31eb5b
+
+  # source.dataset.rpo (SOURCE_DECLARATION, request state OPEN)
+  # needed: The recovery point objective (the data a person accepts to lose, as time) of module.dependencies.module.catalog_rds.aws_rds_cluster.this: it is recorded next to the data asset and shown in the plan of its move; the plan does not compute with it yet.
+  - id: INP-SDE-efa0a52aa908
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.rpo
+    scope:
+      address: module.dependencies.module.catalog_rds.aws_rds_cluster.this
+      profile: default
+    value: {}                # fill the details of your answer (the answer file contract of this build describes them)
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:6d5d26e0be20afef239e7c06fb9bfb736e1172312209b7d9b9507d5b5ef48bc7
+
+  # source.dataset.rto (SOURCE_DECLARATION, request state OPEN)
+  # needed: The recovery time objective (the time a person accepts the asset to be unavailable after a failure) of module.dependencies.module.catalog_rds.aws_rds_cluster.this: it is recorded next to the data asset and shown in the plan of its move; the plan does not compute with it yet.
+  - id: INP-SDE-f4594f8212ae
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.rto
+    scope:
+      address: module.dependencies.module.catalog_rds.aws_rds_cluster.this
+      profile: default
+    value: {}                # fill the details of your answer (the answer file contract of this build describes them)
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:52248141a3d113bd454ed5035a881096c4b1b82a0c9864be26ec89c826ced242
+
+  # source.variable (SOURCE_PARAMETER, request state OPEN)
+  # needed: The value the running environment gives the root variable opentelemetry_enabled, which the source sets only as a default that a variable file or the command line can override.
+  - id: INP-SPA-27200518706a
+    kind: SOURCE_PARAMETER
+    topic: source.variable
+    scope:
+      profile: default
+      subject: opentelemetry_enabled
+    value: ""                # fill one value
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:954525fafc0d6e87e6d9eeb6da80e8ba39a703af5695f01839f7fa28f00453b8
+
+  # source.variable (SOURCE_PARAMETER, request state OPEN)
+  # needed: The value the running environment gives the root variable lifecycle_events_enabled, which the source sets only as a default that a variable file or the command line can override.
+  - id: INP-SPA-2c8020986fc5
+    kind: SOURCE_PARAMETER
+    topic: source.variable
+    scope:
+      profile: default
+      subject: lifecycle_events_enabled
+    value: ""                # fill one value
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:0267f4114f892fbbf3e58167532f779aa0041d6b23e3a6366ef7dd5724fc8d11
+
+  # source.aws.region (SOURCE_PARAMETER, request state OPEN)
+  # needed: The AWS region the provider configuration aws runs in. The source states no region for the aws provider configuration aws (the environment or a profile decides it when the plan runs). Without it the AWS price list of the cost model cannot be chosen, and StackToIT picks no region.
+  - id: INP-SPA-637ee0b5d223
+    kind: SOURCE_PARAMETER
+    topic: source.aws.region
+    scope:
+      profile: default
+      subject: aws
+    value: ""                # fill one value
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: COST_OWNER   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:df16cb939930342f9cb5a5110ec3cfc06e8f66023103ce3fe571588cdb0e7d90
+
+  # source.variable (SOURCE_PARAMETER, request state OPEN)
+  # needed: The value the running environment gives the root variable container_insights_setting, which the source sets only as a default that a variable file or the command line can override.
+  - id: INP-SPA-83a722ca3bdc
+    kind: SOURCE_PARAMETER
+    topic: source.variable
+    scope:
+      profile: default
+      subject: container_insights_setting
+    value: ""                # fill one value
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:109f02d752a98ac6baff38ef564ef011d372eca070ea7a8d219c365cf527e718
+
+  # target.security_group.binding (TARGET_SELECTION, request state OPEN)
+  # needed: Who owns the STACKIT security group that replaces module.retail_app_ecs.module.carts_service.aws_security_group.this: the draft creates it (the DEFAULT), or an existing security group is read, adopted by an import block, bound by a person, or refused. The identifier of an existing security group is yours to give.
+  - id: INP-TSE-04efc79ec57d
+    kind: TARGET_SELECTION
+    topic: target.security_group.binding
+    scope:
+      address: module.retail_app_ecs.module.carts_service.aws_security_group.this
+      profile: default
+    # options: CREATE | REUSE_EXISTING:<security group id> | IMPORT_EXISTING:<security group id> | MANUAL_BIND | REFUSE
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:6e23e7d6257652a555d06720806377bb4271650b80e362eb07282ae2f7e55a9d
+
+  # target.database.client_acl (TARGET_SELECTION, request state OPEN)
+  # needed: The IPv4 CIDRs allowed to reach the PostgreSQL Flex instance that replaces module.dependencies.module.orders_rds.aws_rds_cluster.this.
+  - id: INP-TSE-2361ec44b021
+    kind: TARGET_SELECTION
+    topic: target.database.client_acl
+    scope:
+      address: module.dependencies.module.orders_rds.aws_rds_cluster.this
+      profile: default
+    value: []                # fill a list of values
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:6fb4864b0e432d33e54f0352c3628c0892fea0235923c0a570e2ffecf6341f82
+
+  # target.security_group.binding (TARGET_SELECTION, request state OPEN)
+  # needed: Who owns the STACKIT security group that replaces module.retail_app_ecs.module.ui_service.aws_security_group.this: the draft creates it (the DEFAULT), or an existing security group is read, adopted by an import block, bound by a person, or refused. The identifier of an existing security group is yours to give.
+  - id: INP-TSE-2405bc993028
+    kind: TARGET_SELECTION
+    topic: target.security_group.binding
+    scope:
+      address: module.retail_app_ecs.module.ui_service.aws_security_group.this
+      profile: default
+    # options: CREATE | REUSE_EXISTING:<security group id> | IMPORT_EXISTING:<security group id> | MANUAL_BIND | REFUSE
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:979df01c3d9bb75b36c4f5f7309d0f344620ef4fb2a2b70064cd1ce7c65deef7
+
+  # target.database.access_scope (TARGET_SELECTION, request state OPEN)
+  # needed: Whether the PostgreSQL Flex instance that replaces module.dependencies.module.orders_rds.aws_rds_cluster.this is reachable over the STACKIT network area only (SNA), or has a public endpoint limited by a client list (PUBLIC).
+  - id: INP-TSE-35ebecb0d83a
+    kind: TARGET_SELECTION
+    topic: target.database.access_scope
+    scope:
+      address: module.dependencies.module.orders_rds.aws_rds_cluster.this
+      profile: default
+    # options: SNA | PUBLIC
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:4f79dd419e7b68c13cc708d153eeb404d33ba7ba307cdd0587ec2815e722e4e6
+
+  # target.security_group.binding (TARGET_SELECTION, request state OPEN)
+  # needed: Who owns the STACKIT security group that replaces module.retail_app_ecs.module.alb.aws_security_group.this: the draft creates it (the DEFAULT), or an existing security group is read, adopted by an import block, bound by a person, or refused. The identifier of an existing security group is yours to give.
+  - id: INP-TSE-3f4717e81e53
+    kind: TARGET_SELECTION
+    topic: target.security_group.binding
+    scope:
+      address: module.retail_app_ecs.module.alb.aws_security_group.this
+      profile: default
+    # options: CREATE | REUSE_EXISTING:<security group id> | IMPORT_EXISTING:<security group id> | MANUAL_BIND | REFUSE
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:3275c219b0f2ba86158a6c8b97c213bf185ffb70a12a53b24106987b14cda1c3
+
+  # target.database.client_acl (TARGET_SELECTION, request state OPEN)
+  # needed: The IPv4 CIDRs allowed to reach the MariaDB instance that replaces module.dependencies.module.catalog_rds.aws_rds_cluster.this.
+  - id: INP-TSE-4e57c79f302b
+    kind: TARGET_SELECTION
+    topic: target.database.client_acl
+    scope:
+      address: module.dependencies.module.catalog_rds.aws_rds_cluster.this
+      profile: default
+    value: []                # fill a list of values
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:e32a4b156631e3ce4c601fb0d2c5e29c473dd54b0f4a554a57650c16e2faa821
+
+  # target.workload.identity (TARGET_SELECTION, request state OPEN)
+  # needed: Which identity the pods of module.retail_app_ecs.module.catalog_service.aws_ecs_service.this use on STACKIT. The source runs them as the IAM role module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role (task_role_arn); STACKIT has no IAM role, and there is no default model.
+  - id: INP-TSE-5621469e44c1
+    kind: TARGET_SELECTION
+    topic: target.workload.identity
+    scope:
+      address: module.retail_app_ecs.module.catalog_service.aws_ecs_service.this
+      profile: default
+    # options: federated_service_account | service_account_key | no_workload_identity
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:67f33800e6339a5e12131709597c8a9c148abc1cb45e93efb13d2da3b64882b4
+
+  # target.secret_store.binding (TARGET_SELECTION, request state OPEN)
+  # needed: Who owns the STACKIT Secrets Manager instance that replaces every migrated secret (4 source units): the draft creates it (the DEFAULT), or an existing secret store is read, bound by a person, or refused. The identifier of an existing secret store is yours to give.
+  - id: INP-TSE-7a8d984b0e4d
+    kind: TARGET_SELECTION
+    topic: target.secret_store.binding
+    scope:
+      profile: default
+    # options: CREATE | REUSE_EXISTING:<instance id> | MANUAL_BIND | REFUSE
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:fc0777d11df0a9e95d3dbe4cb563e3e497d952d38e2d13181aa6f3964279ff34
+
+  # target.security_group.binding (TARGET_SELECTION, request state OPEN)
+  # needed: Who owns the STACKIT security group that replaces module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix: the draft creates it (the DEFAULT), or an existing security group is read, adopted by an import block, bound by a person, or refused. The identifier of an existing security group is yours to give.
+  - id: INP-TSE-804ab94958d9
+    kind: TARGET_SELECTION
+    topic: target.security_group.binding
+    scope:
+      address: module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix
+      profile: default
+    # options: CREATE | REUSE_EXISTING:<security group id> | IMPORT_EXISTING:<security group id> | MANUAL_BIND | REFUSE
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:8ee2d31f63edcd018760117e62b075dc1b6026ad9ec169b169aca12c082220bc
+
+  # target.security_group.binding (TARGET_SELECTION, request state OPEN)
+  # needed: Who owns the STACKIT security group that replaces module.retail_app_ecs.module.catalog_service.aws_security_group.this: the draft creates it (the DEFAULT), or an existing security group is read, adopted by an import block, bound by a person, or refused. The identifier of an existing security group is yours to give.
+  - id: INP-TSE-81b2da982189
+    kind: TARGET_SELECTION
+    topic: target.security_group.binding
+    scope:
+      address: module.retail_app_ecs.module.catalog_service.aws_security_group.this
+      profile: default
+    # options: CREATE | REUSE_EXISTING:<security group id> | IMPORT_EXISTING:<security group id> | MANUAL_BIND | REFUSE
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:17de2dcda40ae0c0950f128269b5d87f9eb7d7dec524ceef66e3a5193d7e0cf4
+
+  # target.security_group.binding (TARGET_SELECTION, request state OPEN)
+  # needed: Who owns the STACKIT security group that replaces module.retail_app_ecs.module.checkout_service.aws_security_group.this: the draft creates it (the DEFAULT), or an existing security group is read, adopted by an import block, bound by a person, or refused. The identifier of an existing security group is yours to give.
+  - id: INP-TSE-8cb033f7ba1d
+    kind: TARGET_SELECTION
+    topic: target.security_group.binding
+    scope:
+      address: module.retail_app_ecs.module.checkout_service.aws_security_group.this
+      profile: default
+    # options: CREATE | REUSE_EXISTING:<security group id> | IMPORT_EXISTING:<security group id> | MANUAL_BIND | REFUSE
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:745d127d0e294cfa2b7be0dc39b7de2fa1fb595f4fb884a627dbffb76c1c0363
+
+  # ops.maintenance_window (TARGET_SELECTION, request state OPEN)
+  # needed: The maintenance window of the migration (ops.maintenance_window): when the cutover may happen, the days it may not and the longest downtime of one switch, which the switches, write freezes, final syncs and the GO or ROLLBACK of the plan state. Members, all optional but one: time_zone, start and end or weekdays, from and until, blackout_dates, max_downtime_minutes.
+  - id: INP-TSE-a975857c78e2
+    kind: TARGET_SELECTION
+    topic: ops.maintenance_window
+    scope:
+      profile: default
+    value: {}                # fill the details of your answer (the answer file contract of this build describes them)
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: OPERATIONS   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:c243579aedc0b33b4e901d364a3e4d63f0376b182fc676cff74369257162b8a4
+
+  # target.workload.identity (TARGET_SELECTION, request state OPEN)
+  # needed: Which identity the pods of module.retail_app_ecs.module.carts_service.aws_ecs_service.this use on STACKIT. The source runs them as the IAM role module.retail_app_ecs.module.carts_service.aws_iam_role.task_role (task_role_arn); STACKIT has no IAM role, and there is no default model.
+  - id: INP-TSE-b0925b4e1a77
+    kind: TARGET_SELECTION
+    topic: target.workload.identity
+    scope:
+      address: module.retail_app_ecs.module.carts_service.aws_ecs_service.this
+      profile: default
+    # options: federated_service_account | service_account_key | no_workload_identity
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:e277e3ab4098270ede3e75001185a904a7b1f441fcc7ffdcb5c4735d63b8f0eb
+
+  # target.workload.identity (TARGET_SELECTION, request state OPEN)
+  # needed: Which identity the pods of module.retail_app_ecs.module.orders_service.aws_ecs_service.this use on STACKIT. The source runs them as the IAM role module.retail_app_ecs.module.orders_service.aws_iam_role.task_role (task_role_arn); STACKIT has no IAM role, and there is no default model.
+  - id: INP-TSE-b3c91e6ceb33
+    kind: TARGET_SELECTION
+    topic: target.workload.identity
+    scope:
+      address: module.retail_app_ecs.module.orders_service.aws_ecs_service.this
+      profile: default
+    # options: federated_service_account | service_account_key | no_workload_identity
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:45fa85af86d70d62372acebb01c4f44e6100cebb364e8eb31caae953a542480a
+
+  # target.workload.identity (TARGET_SELECTION, request state OPEN)
+  # needed: Which identity the pods of module.retail_app_ecs.module.checkout_service.aws_ecs_service.this use on STACKIT. The source runs them as the IAM role module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role (task_role_arn); STACKIT has no IAM role, and there is no default model.
+  - id: INP-TSE-c8a1987470f9
+    kind: TARGET_SELECTION
+    topic: target.workload.identity
+    scope:
+      address: module.retail_app_ecs.module.checkout_service.aws_ecs_service.this
+      profile: default
+    # options: federated_service_account | service_account_key | no_workload_identity
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:de2d00f9f5d32a7466de1d2bdf07b2f71a96e844c0ffa606cbeab013e33fdb32
+
+  # target.workload.identity (TARGET_SELECTION, request state OPEN)
+  # needed: Which identity the pods of module.retail_app_ecs.module.ui_service.aws_ecs_service.this use on STACKIT. The source runs them as the IAM role module.retail_app_ecs.module.ui_service.aws_iam_role.task_role (task_role_arn); STACKIT has no IAM role, and there is no default model.
+  - id: INP-TSE-cb74e91a3025
+    kind: TARGET_SELECTION
+    topic: target.workload.identity
+    scope:
+      address: module.retail_app_ecs.module.ui_service.aws_ecs_service.this
+      profile: default
+    # options: federated_service_account | service_account_key | no_workload_identity
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:4bab08b59c664ec66accc8660131851e0746a5551db2d2f07c740f510e7800c3
+
+  # target.security_group.binding (TARGET_SELECTION, request state OPEN)
+  # needed: Who owns the STACKIT security group that replaces module.retail_app_ecs.module.orders_service.aws_security_group.this: the draft creates it (the DEFAULT), or an existing security group is read, adopted by an import block, bound by a person, or refused. The identifier of an existing security group is yours to give.
+  - id: INP-TSE-e79b2c8b06de
+    kind: TARGET_SELECTION
+    topic: target.security_group.binding
+    scope:
+      address: module.retail_app_ecs.module.orders_service.aws_security_group.this
+      profile: default
+    # options: CREATE | REUSE_EXISTING:<security group id> | IMPORT_EXISTING:<security group id> | MANUAL_BIND | REFUSE
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:4959eb36539725db94c2600c73d55f04429e4b088f4e2f1ad581336a18b089b0
+
+  # target.network.binding (TARGET_SELECTION, request state OPEN)
+  # needed: Who owns the STACKIT network that replaces module.vpc.module.vpc.aws_vpc.this (2 subnet(s)): the draft creates it (the DEFAULT), or an existing network is read, adopted by an import block, bound by a person, or refused. The identifier of an existing network is yours to give.
+  - id: INP-TSE-fd6863f3b863
+    kind: TARGET_SELECTION
+    topic: target.network.binding
+    scope:
+      address: module.vpc.module.vpc.aws_vpc.this
+      profile: default
+    # options: CREATE | REUSE_EXISTING:<network id> | IMPORT_EXISTING:<network id> | MANUAL_BIND | REFUSE
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-02"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:028f63fab88654de2cada478c3b0a6abd78b47244fb5ecd7e0f73f8265b8f2cc
+
+  # ===== GROUP 2 - MANUAL: a person does the work outside StackToIT; the answer records that it was done and changes no draft =====
+  # (none in this run)
+
+  # ===== GROUP 3 - NOT APPLICABLE IN THIS BUILD: no stub: an answer would be recorded and would change nothing =====
+
+  # target.project (request INP-TSE-3f99c0e1bfaf)
+  #   needed: The STACKIT project the migrated estate is built in.
+  #   This build records an answer to this request and does not change the draft; configure it in the target environment: set the variable project_id of the draft (terraform.tfvars, or TF_VAR_project_id for the scripts); a project.id in a target environment file is read and bound and is not written into the draft.
+
+  # target.observability (request INP-TSE-d16ba37f3e2f)
+  #   needed: Whether metrics and logs go to instances the draft creates, to existing instances, or nowhere.
+  #   This build records an answer to this request and does not change the draft; configure it in the target environment: keep or create the STACKIT Observability and Logs instances in the project yourself; this build applies no statement of it, and the observability section of the target environment file is read and bound only. Where the source has alarms, logs or metrics the draft creates its own instances, and reusing an existing one is an edit of the draft by hand.
+
+  # target.ingress.public (request INP-TSE-d73c02f8659b)
+  #   needed: Whether a server may have a public address, only a load balancer may be public, or nothing is public.
+  #   This build records an answer to this request and does not change the draft; configure it in the target environment: set ingress.public (ALLOW_PUBLIC_IP, LB_ONLY or NONE) in the target environment file given with --target-environment; the public addresses and load balancers the draft writes follow it (AWS sources, the target environment description in the product documentation, Network policy).
+
+  # target.egress (request INP-TSE-eac97a7eefd2)
+  #   needed: How outbound traffic leaves the migrated networks: the routed default, an address in a Network Area, or not at all.
+  #   This build records an answer to this request and does not change the draft; configure it in the target environment: set egress.mode (ROUTED_DEFAULT, VIA_AREA_NEXT_HOP or NONE) in the target environment file given with --target-environment; the networks, route tables and security groups the draft writes follow it (AWS sources, the target environment description in the product documentation, Network policy). Not target.network.egress, which is a separate request that this build applies.

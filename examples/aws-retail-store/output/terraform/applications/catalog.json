@@ -1,0 +1,191 @@
+{
+  "contract": "APPLICATION_COMPATIBILITY",
+  "unit": "module.retail_app_ecs.module.catalog_service.aws_ecs_service.this",
+  "task_definition": "module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this",
+  "workload": "catalog",
+  "manifest": "kubernetes/catalog/manifests.yaml",
+  "file": "applications/catalog.json",
+  "cluster": "stackit_ske_cluster.retail_app_ecs_cluster",
+  "readiness": "BLOCKED",
+  "readiness_reasons": [
+    "DATASTORE_PROTOCOL_NOT_ASSESSED",
+    "ENGINE_VERSION_DOWNGRADE",
+    "IDENTITY_OPEN",
+    "FUNCTIONAL_CHECK_NOT_RUN"
+  ],
+  "readiness_words": "A data store this workload reaches changes protocol or has no assessed protocol, and its code migration decision is not answered: StackToIT keeps the workload blocked until the customer answers it in the decisions file. StackToIT keeps the workload blocked: the database engine version 3.3 is not offered in the region; the application cannot be verified against a downgraded engine until the decision DEC-GEN-CONVERT-ENGINE-VERSION-DOWNGRADE is answered (the customer answers it in the decisions file).",
+  "checklist_sha256": "sha256:9911d17bdb9f71a561c331311f9caddcdbb2785089efffcb2c7d636007be8497",
+  "templates": "applications/catalog.templates.yaml",
+  "validation_scope": "A kubeconform check or a kubectl apply --dry-run of the manifest establishes YAML validity only, not behaviour: it accepts a REQUIRED_ token in a string field, an empty ConfigMap and a Secret that does not exist, and runs nothing; the checklist of the application compatibility contract and an application smoke test on the target are what show that the workload works.",
+  "containers": [
+    {
+      "name": "catalog-service",
+      "image": "public.ecr.aws/aws-containers/retail-store-sample-catalog:1.6.3",
+      "image_rebinding": "pulled from where the source pulls it (Amazon ECR image public.ecr.aws/aws-containers/retail-store-sample-catalog:1.6.3): decide where the images live on STACKIT, that the cluster can reach the registry, and the pull secret",
+      "ports": [
+        "8080/TCP"
+      ],
+      "probes": [
+        "livenessProbe: exec curl -f http://localhost:8080/health (the ECS health check)",
+        "startupProbe: the same check over the start period"
+      ],
+      "env": []
+    }
+  ],
+  "endpoints": [
+    {
+      "kind": "SERVICE_CONNECT_ALIAS",
+      "source": "catalog:80 (the Service Connect alias of port catalog-service in the namespace not visible statically)",
+      "target": "catalog:80 (the Kubernetes Service catalog, port 80 → container port 8080, in the namespace the manifests are applied into)",
+      "work": "the Kubernetes Service keeps the name and port the clients call: check that they resolve it from their namespace; the Service Connect proxy (its retries, timeouts, TLS and metrics) is not carried"
+    }
+  ],
+  "identity": {
+    "task_role": "module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role",
+    "target": "open: the decision target.workload.identity (inputs.json) chooses federated_service_account (a Kubernetes ServiceAccount federated to the STACKIT service account of the role), service_account_key (a key of that service account mounted as a Secret) or no_workload_identity",
+    "work": "answer target.workload.identity for module.retail_app_ecs.module.catalog_service.aws_ecs_service.this; until then the pods run with no identity and every call the application made with the task role module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role fails",
+    "service_account_template": "applications/catalog.templates.yaml",
+    "manual_steps": [
+      "answer the input target.workload.identity for module.retail_app_ecs.module.catalog_service.aws_ecs_service.this in inputs.json: with federated_service_account the draft writes the stackit_service_account of module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role, its federated identity provider for the SKE cluster's service-account issuer and the Kubernetes ServiceAccount catalog in the manifest",
+      "until then, create a STACKIT service account named after the task role module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role and grant it the role assignments the policies of module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role give (identity.tf lists them as the architect's variable)",
+      "federate it to the SKE cluster's service-account issuer for the subject system:serviceaccount:<namespace>:catalog, and apply the ServiceAccount of applications/catalog.templates.yaml (its annotation holds the service account's e-mail) in the namespace of the workload",
+      "change the application from the AWS SDK credential chain to the STACKIT SDK, which picks up the projected token: every call the application made with module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role fails until it does"
+    ]
+  },
+  "datastores": [
+    {
+      "source": "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
+      "source_kind": "OpenSearch",
+      "target": "stackit_opensearch_instance.dependencies_catalog_opensearch_this",
+      "target_kind": "OpenSearch",
+      "protocol": "PROTOCOL_NOT_ASSESSED",
+      "evidence": "module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this references module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
+      "work": "the protocol compatibility of OpenSearch and stackit_opensearch_instance.dependencies_catalog_opensearch_this (OpenSearch) is not assessed (the source runs 3.3 and the region offers 2, and the REST API, the clients and the plugins differ across major versions): check the calls the application makes against the target before the manifest is applied",
+      "code_migration": {
+        "id": "application:catalog:code-migration:module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
+        "question": "The protocol compatibility of OpenSearch and the target stackit_opensearch_instance.dependencies_catalog_opensearch_this is not assessed: has the application's use of it been checked?",
+        "owner": "Application owner (development team)",
+        "blocks": "BLOCKED",
+        "options": [
+          {
+            "id": "compatibility-verified",
+            "title": "the calls the application makes were checked against the target store and found compatible",
+            "unblocks": true
+          },
+          {
+            "id": "different-target-store",
+            "title": "a target store that speaks the protocol of the source is wanted instead: the draft is regenerated with it, and the workload stays blocked until then",
+            "unblocks": false
+          }
+        ],
+        "sha256": "sha256:3e2dadac228fe08cb770a5dadc471d1502b31b102b5668389783fc3d37623053",
+        "state": "OPEN"
+      },
+      "engine_downgrade": {
+        "decision": "convert:module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this:version:ENGINE_VERSION_DOWNGRADE",
+        "state": "OPEN",
+        "words": "the database engine version 3.3 is not offered in the region; the application cannot be verified against a downgraded engine until the decision DEC-GEN-CONVERT-ENGINE-VERSION-DOWNGRADE is answered"
+      }
+    },
+    {
+      "source": "module.dependencies.module.catalog_rds.aws_rds_cluster.this",
+      "source_kind": "Aurora",
+      "target": "stackit_mariadb_instance.dependencies_catalog_rds_this",
+      "target_kind": "MariaDB",
+      "protocol": "PROTOCOL_NOT_ASSESSED",
+      "evidence": "module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this reads the secret module.retail_app_ecs.aws_secretsmanager_secret_version.catalog_db, which is built from module.dependencies.module.catalog_rds.aws_rds_cluster.this",
+      "work": "the target stackit_mariadb_instance.dependencies_catalog_rds_this (MariaDB) speaks the MySQL wire protocol, so a setting that selects the MySQL driver stays; MariaDB 10.11 documents incompatibilities with MySQL 8.0 that the application can meet (the authentication plugin of its accounts, the JSON type and operators, the default collation and sql_mode: the findings of the data store), and which of them it uses is not assessed: run the schema and the queries of the application against a MariaDB instance before the manifest is applied",
+      "code_migration": {
+        "id": "application:catalog:code-migration:module.dependencies.module.catalog_rds.aws_rds_cluster.this",
+        "question": "The protocol compatibility of Aurora and the target stackit_mariadb_instance.dependencies_catalog_rds_this is not assessed: has the application's use of it been checked?",
+        "owner": "Application owner (development team)",
+        "blocks": "BLOCKED",
+        "options": [
+          {
+            "id": "compatibility-verified",
+            "title": "the calls the application makes were checked against the target store and found compatible",
+            "unblocks": true
+          },
+          {
+            "id": "different-target-store",
+            "title": "a target store that speaks the protocol of the source is wanted instead: the draft is regenerated with it, and the workload stays blocked until then",
+            "unblocks": false
+          }
+        ],
+        "sha256": "sha256:bdb5c39ce78117874f2a8e30f53120b54cf0b076481f246f4dcddb0a2a62cb4e",
+        "state": "OPEN"
+      }
+    }
+  ],
+  "dns_dependencies": [
+    {
+      "kind": "MANAGED_ENDPOINT",
+      "name": "the endpoint host of module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this (OpenSearch)",
+      "source": "the endpoint host AWS assigns OpenSearch module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this when it is applied (not visible statically), answered by AWS DNS (inside a VPC the VPC resolver answers it with a private address)",
+      "consumers": [
+        "catalog: module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this references module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this"
+      ],
+      "provision": "ENDPOINT_ATTRIBUTE",
+      "target": "the host name the STACKIT instance stackit_opensearch_instance.dependencies_catalog_opensearch_this (OpenSearch) publishes, read from the instance and its credential after it is applied; the draft holds no value of it",
+      "verification": "resolve, from a pod of catalog, the host of stackit_opensearch_instance.dependencies_catalog_opensearch_this and connect to its port: the draft does not state whether the name resolves to an address the cluster's network reaches, so record the address and that the connection opens"
+    },
+    {
+      "kind": "MANAGED_ENDPOINT",
+      "name": "the endpoint host of module.dependencies.module.catalog_rds.aws_rds_cluster.this (Aurora)",
+      "source": "the endpoint host AWS assigns Aurora module.dependencies.module.catalog_rds.aws_rds_cluster.this when it is applied (not visible statically), answered by AWS DNS (inside a VPC the VPC resolver answers it with a private address)",
+      "consumers": [
+        "catalog: module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this reads the secret module.retail_app_ecs.aws_secretsmanager_secret_version.catalog_db, which is built from module.dependencies.module.catalog_rds.aws_rds_cluster.this"
+      ],
+      "provision": "ENDPOINT_ATTRIBUTE",
+      "target": "the host name the STACKIT instance stackit_mariadb_instance.dependencies_catalog_rds_this (MariaDB) publishes, read from the instance and its credential after it is applied; the draft holds no value of it",
+      "verification": "resolve, from a pod of catalog, the host of stackit_mariadb_instance.dependencies_catalog_rds_this and connect to its port: the draft does not state whether the name resolves to an address the cluster's network reaches, so record the address and that the connection opens"
+    },
+    {
+      "kind": "SERVICE_CONNECT_ALIAS",
+      "name": "catalog",
+      "source": "a Service Connect alias in the Cloud Map private DNS namespace retailstore.local (module.retail_app_ecs.aws_service_discovery_private_dns_namespace.this): the clients of the namespace resolve it through the Service Connect proxy of their tasks",
+      "consumers": [],
+      "provision": "CLUSTER_SERVICE",
+      "target": "catalog.<namespace>.svc.cluster.local (the Kubernetes Service catalog; catalog from a pod of the same namespace)",
+      "verification": "resolve, from a pod of a client of catalog, catalog and catalog.<namespace>.svc.cluster.local: expect the ClusterIP of the Kubernetes Service catalog (kubectl get service catalog)"
+    }
+  ],
+  "checklist": [
+    {
+      "id": "datastore_protocol_check:module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
+      "kind": "DATASTORE_PROTOCOL_CHECK",
+      "subject": "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
+      "blocking": true,
+      "sha256": "sha256:0680823c09a91d27130e8ccf127fa4b5dc478ac04f9508e6b0be37c8bc6070f7",
+      "state": "OPEN",
+      "work": "the protocol compatibility of OpenSearch and stackit_opensearch_instance.dependencies_catalog_opensearch_this (OpenSearch) is not assessed (the source runs 3.3 and the region offers 2, and the REST API, the clients and the plugins differ across major versions): check the calls the application makes against the target before the manifest is applied"
+    },
+    {
+      "id": "datastore_protocol_check:module.dependencies.module.catalog_rds.aws_rds_cluster.this",
+      "kind": "DATASTORE_PROTOCOL_CHECK",
+      "subject": "module.dependencies.module.catalog_rds.aws_rds_cluster.this",
+      "blocking": true,
+      "sha256": "sha256:b55a2fd4266b13d853a322d08b2cf3f7972abb26e420dc51108b4ae8c1457459",
+      "state": "OPEN",
+      "work": "the target stackit_mariadb_instance.dependencies_catalog_rds_this (MariaDB) speaks the MySQL wire protocol, so a setting that selects the MySQL driver stays; MariaDB 10.11 documents incompatibilities with MySQL 8.0 that the application can meet (the authentication plugin of its accounts, the JSON type and operators, the default collation and sql_mode: the findings of the data store), and which of them it uses is not assessed: run the schema and the queries of the application against a MariaDB instance before the manifest is applied"
+    },
+    {
+      "id": "identity:module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role",
+      "kind": "IDENTITY",
+      "subject": "module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role",
+      "blocking": true,
+      "sha256": "sha256:7ad5d41f0abdbd255bd24a03b571836ab3550636a04da904568dbf13033258f2",
+      "state": "OPEN",
+      "work": "answer target.workload.identity for module.retail_app_ecs.module.catalog_service.aws_ecs_service.this; until then the pods run with no identity and every call the application made with the task role module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role fails"
+    },
+    {
+      "id": "smoke_test:catalog",
+      "kind": "SMOKE_TEST",
+      "subject": "catalog",
+      "blocking": true,
+      "sha256": "sha256:c4708d64953c81add11e3f3c7a0f54ecf8233d45bae04d9ffb3631c08f84d106",
+      "state": "OPEN",
+      "work": "run an application smoke test on the target: the pods start, answer their clients through the Kubernetes Service catalog, reach every dependency above and read and write their data; StackToIT runs nothing on the target"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+# TEMPLATE of the environment and secrets of catalog (applications/catalog.templates.yaml): NAMES ONLY.
+# Written from the application compatibility contract applications/catalog.json, which says for every key where its value comes from and what to do.
+# No string value is copied from the source: an environment value can carry a secret under any name, so each key holds a REQUIRED_ placeholder that you
+# replace with the value the running service uses (a secret from your own secret store, never from this file or the repository).
+# StackToIT applies nothing: this is a list of what to create, bound to the manifest kubernetes/catalog/manifests.yaml, which reads these keys.
+---
+# TEMPLATE of the option federated_service_account of the task role module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role: apply it only after the decision target.workload.identity
+# is answered with that option (the draft then writes this ServiceAccount into the manifest itself). The annotation is the e-mail of the STACKIT
+# service account of the role; the namespace is the one the manifests are applied into, and the federated identity provider trusts exactly it.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: catalog
+  labels:
+    app.kubernetes.io/name: catalog
+  annotations:
+    workload-identity.stackit.cloud/service-account-email: REQUIRED_CATALOG_SERVICE_ACCOUNT_EMAIL

@@ -1,0 +1,389 @@
+{
+  "run_id": "f576c5a4-ff5f-4981-8b67-054d7359483f",
+  "source_digest": "sha256:812c5ae3f6cc8530163abbf5b6fbe305ed3b363c4886ec6b87623db857ea0c70",
+  "data_movement": {
+    "state": "DECISION_REQUIRED",
+    "statement": "StackToIT never moves data. 6 stateful source units are listed here: a person must choose a data-movement mechanism for each, and none is chosen (the mechanism is UNKNOWN).",
+    "units": [
+      {
+        "source_unit": "module.dependencies.aws_mq_broker.mq",
+        "source_type": "aws_mq_broker",
+        "target_service": "STACKIT RabbitMQ",
+        "state": "DECISION_REQUIRED",
+        "mechanism": "UNKNOWN",
+        "reason": "No mechanism is chosen: a broker holds no dataset the source states, but its definitions (users, exchanges, queues, bindings, policies) and the messages in flight are state that has to move, and what moves them depends on the downtime the business tolerates and on the queue depths, which the source does not state. Candidate method, not chosen and not tried on a STACKIT instance: export the definitions of the Amazon MQ broker (the RabbitMQ definitions export, which lists users, vhosts, queues, exchanges, bindings and runtime parameters, not messages) and import the topology into the STACKIT RabbitMQ instance, stop the producers and drain the queues before the cutover, and point the clients at the new endpoint with new credentials: the draft copies no broker user and writes one stackit_rabbitmq_credential for the instance (a user whose username and password STACKIT generates).",
+        "data_class": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "rpo": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "downtime_tolerance": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "facets": [
+          {
+            "id": "consistency_requirements",
+            "state": "NOT_ASSESSED",
+            "detail": "No consistency requirement is stated by the source or by this build; whether the application tolerates a copy that lags the original is a decision for a person."
+          },
+          {
+            "id": "validation_requirement",
+            "state": "NOT_ASSESSED",
+            "detail": "This build does not state how the moved data is validated."
+          },
+          {
+            "id": "cutover_dependency",
+            "state": "OBSERVED",
+            "detail": "The unit is in wave 4 of the dependency order. It depends on: module.dependencies.aws_security_group.mq, module.vpc.module.vpc.aws_subnet.private.",
+            "derived_from": [
+              "workspace.json#/units/0/wave",
+              "assessment.json#/units/30/depends_on"
+            ]
+          },
+          {
+            "id": "rollback_consideration",
+            "state": "NOT_ASSESSED",
+            "detail": "No rollback consideration is stated by the source or by this build."
+          },
+          {
+            "id": "encryption_requirement",
+            "state": "NOT_ASSESSED",
+            "detail": "No in-transit encryption requirement is stated for this unit by the source or by this build."
+          }
+        ],
+        "unknowns": [
+          "The size of the data is not in the source.",
+          "The rate at which the data changes is not in the source.",
+          "The queues, their depths and the messages in flight at the cutover are not in the source.",
+          "The downtime the business tolerates is not provided.",
+          "The recovery point the business requires is not provided.",
+          "The classification of the data is not provided."
+        ],
+        "derived_from": [
+          "assessment.json#/units/30",
+          "workspace.json#/units/0"
+        ]
+      },
+      {
+        "source_unit": "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
+        "source_type": "aws_opensearch_domain",
+        "target_service": "STACKIT OpenSearch",
+        "state": "DECISION_REQUIRED",
+        "mechanism": "UNKNOWN",
+        "reason": "No mechanism is chosen: it depends on the size of the data, the downtime the business tolerates and the consistency the application needs, and the source states none of them.",
+        "data_class": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "rpo": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "downtime_tolerance": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "provisioned_capacity": [
+          {
+            "path": "ebs_options.volume_size",
+            "value": "50",
+            "label": "provisioned capacity, not data size"
+          }
+        ],
+        "facets": [
+          {
+            "id": "consistency_requirements",
+            "state": "NOT_ASSESSED",
+            "detail": "No consistency requirement is stated by the source or by this build; whether the application tolerates a copy that lags the original is a decision for a person."
+          },
+          {
+            "id": "validation_requirement",
+            "state": "NOT_ASSESSED",
+            "detail": "This build does not state how the moved data is validated."
+          },
+          {
+            "id": "cutover_dependency",
+            "state": "OBSERVED",
+            "detail": "The unit is in wave 4 of the dependency order. It depends on: module.dependencies.aws_security_group.catalog_opensearch_sg, module.vpc.module.vpc.aws_subnet.private.",
+            "derived_from": [
+              "workspace.json#/units/5/wave",
+              "assessment.json#/units/31/depends_on"
+            ]
+          },
+          {
+            "id": "rollback_consideration",
+            "state": "NOT_ASSESSED",
+            "detail": "No rollback consideration is stated by the source or by this build."
+          },
+          {
+            "id": "encryption_requirement",
+            "state": "NOT_ASSESSED",
+            "detail": "No in-transit encryption requirement is stated for this unit by the source or by this build."
+          }
+        ],
+        "unknowns": [
+          "The size of the data is not in the source.",
+          "The rate at which the data changes is not in the source.",
+          "The downtime the business tolerates is not provided.",
+          "The recovery point the business requires is not provided.",
+          "The classification of the data is not provided."
+        ],
+        "derived_from": [
+          "assessment.json#/units/31",
+          "workspace.json#/units/5"
+        ]
+      },
+      {
+        "source_unit": "module.dependencies.module.catalog_rds.aws_rds_cluster.this",
+        "source_type": "aws_rds_cluster",
+        "target_service": "STACKIT MariaDB",
+        "state": "DECISION_REQUIRED",
+        "mechanism": "UNKNOWN",
+        "reason": "No mechanism is chosen: it depends on the size of the data, the downtime the business tolerates and the consistency the application needs, and the source states none of them.",
+        "data_class": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "rpo": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "downtime_tolerance": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "facets": [
+          {
+            "id": "consistency_requirements",
+            "state": "NOT_ASSESSED",
+            "detail": "No consistency requirement is stated by the source or by this build; whether the application tolerates a copy that lags the original is a decision for a person."
+          },
+          {
+            "id": "validation_requirement",
+            "state": "NOT_ASSESSED",
+            "detail": "This build does not state how the moved data is validated."
+          },
+          {
+            "id": "cutover_dependency",
+            "state": "OBSERVED",
+            "detail": "The unit is in wave 4 of the dependency order. It depends on: module.dependencies.module.catalog_rds.aws_security_group.this, module.vpc.module.vpc.aws_subnet.private.",
+            "derived_from": [
+              "workspace.json#/units/9/wave",
+              "assessment.json#/units/32/depends_on"
+            ]
+          },
+          {
+            "id": "rollback_consideration",
+            "state": "NOT_ASSESSED",
+            "detail": "No rollback consideration is stated by the source or by this build."
+          },
+          {
+            "id": "encryption_requirement",
+            "state": "NOT_ASSESSED",
+            "detail": "The source does not state tls-enforcement; an absent setting is not read as a requirement.",
+            "derived_from": [
+              "assessment.json#/units/32/result/semantics/items/14"
+            ],
+            "items": [
+              "claim:module.dependencies.module.catalog_rds.aws_rds_cluster.this#tls-enforcement"
+            ]
+          }
+        ],
+        "unknowns": [
+          "The size of the data is not in the source.",
+          "The rate at which the data changes is not in the source.",
+          "The downtime the business tolerates is not provided.",
+          "The recovery point the business requires is not provided.",
+          "The classification of the data is not provided."
+        ],
+        "derived_from": [
+          "assessment.json#/units/32",
+          "workspace.json#/units/9"
+        ]
+      },
+      {
+        "source_unit": "module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default",
+        "source_type": "aws_elasticache_replication_group",
+        "target_service": "STACKIT Key Value Store (Valkey)",
+        "state": "DECISION_REQUIRED",
+        "mechanism": "UNKNOWN",
+        "reason": "No mechanism is chosen: it depends on the size of the data, the downtime the business tolerates and the consistency the application needs, and the source states none of them.",
+        "data_class": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "rpo": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "downtime_tolerance": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "facets": [
+          {
+            "id": "consistency_requirements",
+            "state": "NOT_ASSESSED",
+            "detail": "No consistency requirement is stated by the source or by this build; whether the application tolerates a copy that lags the original is a decision for a person."
+          },
+          {
+            "id": "validation_requirement",
+            "state": "NOT_ASSESSED",
+            "detail": "This build does not state how the moved data is validated."
+          },
+          {
+            "id": "cutover_dependency",
+            "state": "OBSERVED",
+            "detail": "The unit is in wave 4 of the dependency order. It depends on: module.dependencies.module.checkout_elasticache_redis.module.aws_security_group.aws_security_group.cbd, module.vpc.module.vpc.aws_subnet.private.",
+            "derived_from": [
+              "workspace.json#/units/13/wave",
+              "assessment.json#/units/33/depends_on"
+            ]
+          },
+          {
+            "id": "rollback_consideration",
+            "state": "NOT_ASSESSED",
+            "detail": "No rollback consideration is stated by the source or by this build."
+          },
+          {
+            "id": "encryption_requirement",
+            "state": "OBSERVED",
+            "detail": "The source states that clients connect without TLS (transit_encryption_enabled = false; finding redis-transit-encryption-off). The STACKIT Key Value Store accepts TLS only: every client changes the scheme (redis:// becomes rediss://), switches its TLS option on and trusts the CA certificate of the instance before the cutover."
+          }
+        ],
+        "unknowns": [
+          "The size of the data is not in the source.",
+          "The rate at which the data changes is not in the source.",
+          "The downtime the business tolerates is not provided.",
+          "The recovery point the business requires is not provided.",
+          "The classification of the data is not provided."
+        ],
+        "derived_from": [
+          "assessment.json#/units/33",
+          "workspace.json#/units/13"
+        ]
+      },
+      {
+        "source_unit": "module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this",
+        "source_type": "aws_dynamodb_table",
+        "target_service": "STACKIT MongoDB Flex (alternative — data-model redesign; PostgreSQL Flex JSONB is the other option)",
+        "state": "DECISION_REQUIRED",
+        "mechanism": "UNKNOWN",
+        "reason": "No mechanism is chosen: it depends on the size of the data, the downtime the business tolerates and the consistency the application needs, and the source states none of them.",
+        "data_class": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "rpo": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "downtime_tolerance": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "facets": [
+          {
+            "id": "consistency_requirements",
+            "state": "NOT_ASSESSED",
+            "detail": "No consistency requirement is stated by the source or by this build; whether the application tolerates a copy that lags the original is a decision for a person."
+          },
+          {
+            "id": "validation_requirement",
+            "state": "NOT_ASSESSED",
+            "detail": "This build does not state how the moved data is validated."
+          },
+          {
+            "id": "cutover_dependency",
+            "state": "OBSERVED",
+            "detail": "The unit is in wave 1 of the dependency order. It depends on no other unit.",
+            "derived_from": [
+              "workspace.json#/units/19/wave"
+            ]
+          },
+          {
+            "id": "rollback_consideration",
+            "state": "NOT_ASSESSED",
+            "detail": "No rollback consideration is stated by the source or by this build."
+          },
+          {
+            "id": "encryption_requirement",
+            "state": "NOT_ASSESSED",
+            "detail": "No in-transit encryption requirement is stated for this unit by the source or by this build."
+          }
+        ],
+        "unknowns": [
+          "The size of the data is not in the source.",
+          "The rate at which the data changes is not in the source.",
+          "The downtime the business tolerates is not provided.",
+          "The recovery point the business requires is not provided.",
+          "The classification of the data is not provided."
+        ],
+        "derived_from": [
+          "assessment.json#/units/0",
+          "workspace.json#/units/19"
+        ]
+      },
+      {
+        "source_unit": "module.dependencies.module.orders_rds.aws_rds_cluster.this",
+        "source_type": "aws_rds_cluster",
+        "target_service": "STACKIT PostgreSQL Flex",
+        "state": "DECISION_REQUIRED",
+        "mechanism": "UNKNOWN",
+        "reason": "No mechanism is chosen: it depends on the size of the data, the downtime the business tolerates and the consistency the application needs, and the source states none of them.",
+        "data_class": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "rpo": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "downtime_tolerance": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "facets": [
+          {
+            "id": "consistency_requirements",
+            "state": "NOT_ASSESSED",
+            "detail": "No consistency requirement is stated by the source or by this build; whether the application tolerates a copy that lags the original is a decision for a person."
+          },
+          {
+            "id": "validation_requirement",
+            "state": "NOT_ASSESSED",
+            "detail": "This build does not state how the moved data is validated."
+          },
+          {
+            "id": "cutover_dependency",
+            "state": "OBSERVED",
+            "detail": "The unit is in wave 4 of the dependency order. It depends on: module.dependencies.module.orders_rds.aws_security_group.this, module.vpc.module.vpc.aws_subnet.private.",
+            "derived_from": [
+              "workspace.json#/units/22/wave",
+              "assessment.json#/units/34/depends_on"
+            ]
+          },
+          {
+            "id": "rollback_consideration",
+            "state": "NOT_ASSESSED",
+            "detail": "No rollback consideration is stated by the source or by this build."
+          },
+          {
+            "id": "encryption_requirement",
+            "state": "NOT_ASSESSED",
+            "detail": "The source does not state tls-enforcement; an absent setting is not read as a requirement.",
+            "derived_from": [
+              "assessment.json#/units/34/result/semantics/items/14"
+            ],
+            "items": [
+              "claim:module.dependencies.module.orders_rds.aws_rds_cluster.this#tls-enforcement"
+            ]
+          }
+        ],
+        "unknowns": [
+          "The size of the data is not in the source.",
+          "The rate at which the data changes is not in the source.",
+          "The downtime the business tolerates is not provided.",
+          "The recovery point the business requires is not provided.",
+          "The classification of the data is not provided."
+        ],
+        "derived_from": [
+          "assessment.json#/units/34",
+          "workspace.json#/units/22"
+        ]
+      }
+    ],
+    "limits": [
+      "The size of the data, its change rate, the duration of a transfer, the transfer rate and the downtime are never stated: the source does not state them and this build has no way to measure them. A provisioned capacity quoted beside a unit is the size of what was provisioned, not the size of the data.",
+      "No mechanism is chosen and nothing is executed: StackToIT is out of scope for actual data movement, and a mechanism class is a recommendation a person makes from the size, the downtime tolerated and the consistency the application needs.",
+      "A unit is listed when its catalogue kind holds data of its own (a database, a cache, a search domain, a warehouse, a block volume, a file share, an object store). A queue or topic service, and a system installed on a server's disk, are not read as stateful and are not listed. An Amazon MQ broker is listed, because its definitions (users, exchanges, queues, bindings, policies) and the messages in flight are state that moves with the cutover; the method named beside it is a candidate a person chooses, never a method this build chose or ran. A repository of an AWS ECR registry is listed as well, because its images are data that moves to the target registry; a pull-through cache, a registry of another cloud and a registry-level feature are not.",
+      "The data class, RPO and downtime tolerance are the customer's, from the applications file, word for word; without one, or for a unit outside an application, they are NOT_PROVIDED and no default is assumed."
+    ]
+  }
+}

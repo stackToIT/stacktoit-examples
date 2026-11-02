@@ -1,0 +1,46 @@
+# Generated migration draft by StackToIT — architect review required. Not for apply without review.
+
+# from module.retail_app_ecs.aws_ecs_cluster.cluster (../../lib/ecs/cluster.tf:1) — REPLATFORM / MEDIUM
+# TODO: the name of module.retail_app_ecs.aws_ecs_cluster.cluster is "retail-store-ecs-cluster": an SKE cluster name has 1 to 11 characters (lowercase letters, digits and hyphens) and is distinct in the draft (stackit-api-specifications ske/v2), so the draft names the cluster "reta-7b7ce2" — set the name you want.
+# TODO: the node pool's machine type, minimum and maximum replace the capacity of module.retail_app_ecs.aws_ecs_cluster.cluster (Fargate has no nodes): they are variables because the source does not state a node size — size them from the requests in kubernetes/<service>/manifests.yaml. An SKE node pool's maximum must be at least the number of its zones: 3 zones are selected by default (var.availability_zones).
+# the services of this cluster ask for 5 vCPU / 10 GiB at the ceilings and 5 vCPU / 10 GiB at the floors of their scalable targets … Size the pool's maximum for the ceilings plus the system pods and the rolling-update surge.
+# NOT CARRIED (module.retail_app_ecs.aws_ecs_cluster.cluster): setting — an ECS cluster setting (container insights, execute-command logging, Service Connect defaults, tags) has no stackit_ske_cluster attribute (pinned provider): observability and the Service Connect namespace are decided on the Kubernetes side.
+# WARNING source-provider-unpinned: No lock file entry pins aws (>= 3.0, >= 3.29, >= 4.18, >= 4.30, >= 4.59, >= 5.64, >= 5.79, ~> 5.0): the version the plan would use is not proven (stated once for the whole estate)
+# module.retail_app_ecs.module.carts_service.aws_ecs_service.this: WARNING ecs-service-discovery: Services find each other through Cloud Map / Service Connect; on SKE this becomes Kubernetes Services and DNS.
+# module.retail_app_ecs.module.carts_service.aws_ecs_service.this: WARNING source-provider-unpinned: No lock file entry pins aws (>= 3.0, >= 3.29, >= 4.18, >= 4.30, >= 4.59, >= 5.64, >= 5.79, ~> 5.0): the version the plan would use is not proven (stated once for the whole estate)
+# module.retail_app_ecs.module.carts_service.aws_ecs_service.this: WARNING linked-dependency-unread: This unit names module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this (aws_dynamodb_table) … so what the reference becomes is not assessed.
+# from module.retail_app_ecs.module.carts_service.aws_ecs_service.this: its Kubernetes manifests are kubernetes/carts/manifests.yaml (the required inputs, secrets to create and NOT CARRIED lines are in its header).
+# module.retail_app_ecs.module.catalog_service.aws_ecs_service.this: WARNING ecs-service-discovery: Services find each other through Cloud Map / Service Connect; on SKE this becomes Kubernetes Services and DNS.
+# module.retail_app_ecs.module.catalog_service.aws_ecs_service.this: WARNING source-provider-unpinned: No lock file entry pins aws (>= 3.0, >= 3.29, >= 4.18, >= 4.30, >= 4.59, >= 5.64, >= 5.79, ~> 5.0): the version the plan would use is not proven (stated once for the whole estate)
+# module.retail_app_ecs.module.catalog_service.aws_ecs_service.this: WARNING linked-dependency-unread: This unit names module.retail_app_ecs.aws_secretsmanager_secret_version.catalog_db (aws_secretsmanager_secret_version) … so what the reference becomes is not assessed.
+# module.retail_app_ecs.module.catalog_service.aws_ecs_service.this: WARNING linked-dependency-unread: This unit names module.retail_app_ecs.aws_secretsmanager_secret_version.catalog_opensearch (aws_secretsmanager_secret_version) … so what the reference becomes is not assessed.
+# from module.retail_app_ecs.module.catalog_service.aws_ecs_service.this: its Kubernetes manifests are kubernetes/catalog/manifests.yaml (the required inputs, secrets to create and NOT CARRIED lines are in its header).
+# module.retail_app_ecs.module.checkout_service.aws_ecs_service.this: WARNING ecs-service-discovery: Services find each other through Cloud Map / Service Connect; on SKE this becomes Kubernetes Services and DNS.
+# module.retail_app_ecs.module.checkout_service.aws_ecs_service.this: WARNING source-provider-unpinned: No lock file entry pins aws (>= 3.0, >= 3.29, >= 4.18, >= 4.30, >= 4.59, >= 5.64, >= 5.79, ~> 5.0): the version the plan would use is not proven (stated once for the whole estate)
+# from module.retail_app_ecs.module.checkout_service.aws_ecs_service.this: its Kubernetes manifests are kubernetes/checkout/manifests.yaml (the required inputs, secrets to create and NOT CARRIED lines are in its header).
+# module.retail_app_ecs.module.orders_service.aws_ecs_service.this: WARNING ecs-service-discovery: Services find each other through Cloud Map / Service Connect; on SKE this becomes Kubernetes Services and DNS.
+# module.retail_app_ecs.module.orders_service.aws_ecs_service.this: WARNING source-provider-unpinned: No lock file entry pins aws (>= 3.0, >= 3.29, >= 4.18, >= 4.30, >= 4.59, >= 5.64, >= 5.79, ~> 5.0): the version the plan would use is not proven (stated once for the whole estate)
+# module.retail_app_ecs.module.orders_service.aws_ecs_service.this: WARNING linked-dependency-unread: This unit names module.retail_app_ecs.aws_secretsmanager_secret_version.mq (aws_secretsmanager_secret_version) … so what the reference becomes is not assessed.
+# module.retail_app_ecs.module.orders_service.aws_ecs_service.this: WARNING linked-dependency-unread: This unit names module.retail_app_ecs.aws_secretsmanager_secret_version.orders_db (aws_secretsmanager_secret_version) … so what the reference becomes is not assessed.
+# from module.retail_app_ecs.module.orders_service.aws_ecs_service.this: its Kubernetes manifests are kubernetes/orders/manifests.yaml (the required inputs, secrets to create and NOT CARRIED lines are in its header).
+# module.retail_app_ecs.module.ui_service.aws_ecs_service.this: WARNING ecs-service-discovery: Services find each other through Cloud Map / Service Connect; on SKE this becomes Kubernetes Services and DNS.
+# module.retail_app_ecs.module.ui_service.aws_ecs_service.this: WARNING source-provider-unpinned: No lock file entry pins aws (>= 3.0, >= 3.29, >= 4.18, >= 4.30, >= 4.59, >= 5.64, >= 5.79, ~> 5.0): the version the plan would use is not proven (stated once for the whole estate)
+# from module.retail_app_ecs.module.ui_service.aws_ecs_service.this: its Kubernetes manifests are kubernetes/ui/manifests.yaml (the required inputs, secrets to create and NOT CARRIED lines are in its header).
+# REVIEW: this cluster sets no network.id, so it is not placed in stackit_network.vpc_vpc_private (the drafted network of module.vpc.module.vpc.aws_subnet.private, where the source ran module.dependencies.aws_mq_broker.mq, module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this, module.dependencies.module.catalog_rds.aws_rds_cluster.this and 7 more): decide it with the decision DEC-GEN-CONVERT-WORKLOAD-PLACEMENT (alias `convert:module.vpc.module.vpc.aws_subnet.private:network:WORKLOAD_PLACEMENT`).
+# No network.id is bound by default: the routing step of this draft asks for a target project outside a Network Area, the case in which SKE creates its own network (the project's type is not stated; a target environment with project.placement NETWORK_AREA makes the binding the default).
+# A stackit_ske_cluster is deployed into one network and its node pools state none; the target project decides which. In a project outside a Network Area "SKE clusters in a public project automatically create their infrastructure, including a network, subnet, security groups, router and public IP" (docs.stackit.cloud, Kubernetes Engine, Networking, last updated Oct 14, 2026): decide whether that is acceptable.
+# In a project in a Network Area "During setup, an SNA network must be selected, which will become the network for the cluster" — that is network.id: check the project's type before setting it; the drafted networks of that VPC are stackit_network.vpc_vpc_private and stackit_network.vpc_vpc_public.
+# The pods leave through the cluster's egress_address_ranges (a computed attribute): decide the access lists of the managed services with those addresses.
+# replaces: module.retail_app_ecs.module.carts_service.aws_ecs_service.this, module.retail_app_ecs.module.catalog_service.aws_ecs_service.this, module.retail_app_ecs.module.checkout_service.aws_ecs_service.this, module.retail_app_ecs.module.orders_service.aws_ecs_service.this, module.retail_app_ecs.module.ui_service.aws_ecs_service.this
+# trace: TR-364b2c550bbd (engineering/trace/kubernetes.md#TR-364b2c550bbd)
+resource "stackit_ske_cluster" "retail_app_ecs_cluster" {
+  project_id = var.project_id
+  name       = "reta-7b7ce2"
+  node_pools = [{
+    name               = "workloads"
+    machine_type       = var.retail_app_ecs_cluster_machine_type
+    minimum            = var.retail_app_ecs_cluster_nodes_min
+    maximum            = var.retail_app_ecs_cluster_nodes_max
+    availability_zones = var.availability_zones
+  }]
+}

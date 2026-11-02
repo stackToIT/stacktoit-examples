@@ -1,0 +1,1627 @@
+{
+  "run_id": "f576c5a4-ff5f-4981-8b67-054d7359483f",
+  "source_digest": "sha256:812c5ae3f6cc8530163abbf5b6fbe305ed3b363c4886ec6b87623db857ea0c70",
+  "sovereignty": {
+    "requirement": {
+      "state": "NOT_PROVIDED",
+      "statement": "No sovereignty requirement was provided: no applications file gives a tier or constraints. It is not inferred from the location of the company or of the provider.",
+      "applications": []
+    },
+    "dimensions": [
+      {
+        "id": "DATA_LOCATION",
+        "name": "Data location",
+        "state": "EVIDENCE_REQUIRED",
+        "requirement": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "observed_source_state": {
+          "state": "NOT_ASSESSED",
+          "text": "The location of the source resources is not read: this build computes no region or zone placement for the source."
+        },
+        "proposed_target_state": {
+          "state": "STATED",
+          "text": "Name resolution: stackit_network.vpc_vpc_private, stackit_network.vpc_vpc_public take the shared variable default_ipv4_nameservers, which defaults to the addresses of the STACKIT DNS Resolver (beta) in eu01 (192.214.161.53, 213.17.17.17, 188.34.111.111), so those name queries go to the resolver STACKIT operates and not to the public resolvers 1.1.1.1, 8.8.8.8 and 9.9.9.9 that STACKIT sets in a public project when none are given. The resolver is a beta product documented for workloads inside STACKIT (docs.stackit.cloud, DNS Resolver, Concepts); no check that it answers from these networks is made here, and who operates it and under which jurisdiction is not assessed here. The capability catalogue lists the STACKIT services of the draft as available in: eu01, eu02. That a service is available in a region is a fact about the service. Region assumed for pricing: eu01 (default; no input chose a region). The catalogue lists the service of 13 units there, but no input or profile has chosen the region, so no resource is tied to it."
+        },
+        "delta": {
+          "state": "NOT_ASSESSED",
+          "text": "No source location is established, so no change of location is stated."
+        },
+        "evidence": [
+          "workspace.json#/assurance/evidence/4"
+        ],
+        "unknowns": [
+          "The provider's own statement on data location is a statement of the provider with control shared: STACKIT states that the development of its cloud takes place in Germany, that its servers and data centers are located in Germany and Austria, and that its cloud operates in accordance with European data protection standards. It names no region id, so it does not tie any resource of the draft to a region.",
+          "Where backups, logs and replicas are stored is the subject of the backup chain and the telemetry chain."
+        ],
+        "actions": []
+      },
+      {
+        "id": "JURISDICTION",
+        "name": "Jurisdiction chain",
+        "state": "NOT_ASSESSED",
+        "requirement": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "observed_source_state": {
+          "state": "NOT_ASSESSED",
+          "text": "The jurisdiction chain (the legal seat of the provider, of its owners and of its operators, and the legal reach over them) is not assessed. It is not a fact of the Terraform source or of the draft, and legal conclusions stay external."
+        },
+        "proposed_target_state": {
+          "state": "NOT_ASSESSED",
+          "text": "No target state is stated: the source state is not established."
+        },
+        "delta": {
+          "state": "NOT_ASSESSED",
+          "text": "No change is stated."
+        },
+        "evidence": [],
+        "unknowns": [
+          "Which legal order applies to the provider, to its parent organisations and to its operators is a question for counsel, not for this build."
+        ],
+        "actions": []
+      },
+      {
+        "id": "OPERATOR_ACCESS",
+        "name": "Operator access",
+        "state": "NOT_ASSESSED",
+        "requirement": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "observed_source_state": {
+          "state": "NOT_ASSESSED",
+          "text": "Who at the provider or at an operator can reach the resources and the data, and under which conditions, is not assessed. It is not a fact of the Terraform source or of the draft."
+        },
+        "proposed_target_state": {
+          "state": "NOT_ASSESSED",
+          "text": "No target state is stated: the source state is not established."
+        },
+        "delta": {
+          "state": "NOT_ASSESSED",
+          "text": "No change is stated."
+        },
+        "evidence": [],
+        "unknowns": [
+          "The access model of the provider's staff and subcontractors is not a fact of the Terraform source."
+        ],
+        "actions": []
+      },
+      {
+        "id": "KEY_CONTROL",
+        "name": "Key control",
+        "state": "EVIDENCE_REQUIRED",
+        "requirement": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "observed_source_state": {
+          "state": "STATED",
+          "text": "A customer-managed key may be stated, but its value is not visible statically, on: module.retail_app_ecs.aws_secretsmanager_secret.catalog_db, module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch."
+        },
+        "proposed_target_state": {
+          "state": "STATED",
+          "text": "A customer-managed key is a separate setting that exists only where the source names a key: no platform encryption stands in for it, and whether the key management of the source is equivalent to the STACKIT key service is not established. Which target services of the draft can use a key of the customer is not established here."
+        },
+        "delta": {
+          "state": "NOT_ASSESSED",
+          "text": "Whether key ownership changes is not established: the key of the source and the key of the target are not compared."
+        },
+        "evidence": [
+          "assessment.json#/units/35/result/semantics/items/6",
+          "assessment.json#/units/9/result/semantics/items/6"
+        ],
+        "unknowns": [
+          "Who holds the key material and who can use it on the target is not established."
+        ],
+        "actions": []
+      },
+      {
+        "id": "IDENTITY_CHAIN",
+        "name": "Identity chain",
+        "state": "DECISION_REQUIRED",
+        "requirement": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "observed_source_state": {
+          "state": "STATED",
+          "text": "The source names identities for its workloads or states them as units: module.retail_app_ecs.module.carts_service.aws_ecs_service.this, module.retail_app_ecs.module.catalog_service.aws_ecs_service.this, module.retail_app_ecs.module.checkout_service.aws_ecs_service.this, module.retail_app_ecs.module.orders_service.aws_ecs_service.this, module.retail_app_ecs.module.ui_service.aws_ecs_service.this."
+        },
+        "proposed_target_state": {
+          "state": "STATED",
+          "text": "The draft attaches a STACKIT service account to a server only where the identity plan attaches it exactly; every other attachment is stated as open. Where the draft writes a project role assignment (for an AWS role, machine user or IAM group it turns into service accounts or members), the role it grants is a variable the architect chooses, because an AWS action is not translated into a STACKIT role: the draft derives no role from the source."
+        },
+        "delta": {
+          "state": "NOT_ASSESSED",
+          "text": "Whether the identity dependency changes is not established: the privilege delta and the external identity provider are not assessed."
+        },
+        "evidence": [
+          "workspace.json#/identity_transition/workloads/0",
+          "workspace.json#/identity_transition/workloads/1",
+          "workspace.json#/identity_transition/workloads/2",
+          "workspace.json#/identity_transition/workloads/3",
+          "workspace.json#/identity_transition/workloads/4"
+        ],
+        "unknowns": [
+          "Whether an external identity provider is a dependency of the sign-in of people is not assessed.",
+          "The privilege delta between the source identities and the target roles is not assessed."
+        ],
+        "actions": [
+          "action:stackitsa:facts:module.retail_app_ecs.module.carts_service.aws_ecs_service.this:module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this#execution_role_arn",
+          "action:stackitsa:facts:module.retail_app_ecs.module.carts_service.aws_ecs_service.this:module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this#task_role_arn",
+          "action:stackitsa:facts:module.retail_app_ecs.module.catalog_service.aws_ecs_service.this:module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this#execution_role_arn",
+          "action:stackitsa:facts:module.retail_app_ecs.module.catalog_service.aws_ecs_service.this:module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this#task_role_arn",
+          "action:stackitsa:facts:module.retail_app_ecs.module.checkout_service.aws_ecs_service.this:module.retail_app_ecs.module.checkout_service.aws_ecs_task_definition.this#execution_role_arn",
+          "action:stackitsa:facts:module.retail_app_ecs.module.checkout_service.aws_ecs_service.this:module.retail_app_ecs.module.checkout_service.aws_ecs_task_definition.this#task_role_arn",
+          "action:stackitsa:facts:module.retail_app_ecs.module.orders_service.aws_ecs_service.this:module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this#execution_role_arn",
+          "action:stackitsa:facts:module.retail_app_ecs.module.orders_service.aws_ecs_service.this:module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this#task_role_arn",
+          "action:stackitsa:facts:module.retail_app_ecs.module.ui_service.aws_ecs_service.this:module.retail_app_ecs.module.ui_service.aws_ecs_task_definition.this#execution_role_arn",
+          "action:stackitsa:facts:module.retail_app_ecs.module.ui_service.aws_ecs_service.this:module.retail_app_ecs.module.ui_service.aws_ecs_task_definition.this#task_role_arn"
+        ]
+      },
+      {
+        "id": "TELEMETRY_CHAIN",
+        "name": "Telemetry chain",
+        "state": "NOT_ASSESSED",
+        "requirement": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "observed_source_state": {
+          "state": "NOT_ASSESSED",
+          "text": "No log sink of the source is read in this run. That is not a finding that no telemetry leaves the estate."
+        },
+        "proposed_target_state": {
+          "state": "STATED",
+          "text": "The draft writes log sources as STACKIT Logs instances. Where an export of the source goes is stated in the plan of the log source, not here."
+        },
+        "delta": {
+          "state": "NOT_ASSESSED",
+          "text": "Whether the destination of the telemetry changes is not established."
+        },
+        "evidence": [
+          "capability:observability.logs"
+        ],
+        "unknowns": [
+          "Where metrics, traces and agent telemetry go is not read by this build."
+        ],
+        "actions": []
+      },
+      {
+        "id": "BACKUP_CHAIN",
+        "name": "Backup chain",
+        "state": "EVIDENCE_REQUIRED",
+        "requirement": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "observed_source_state": {
+          "state": "STATED",
+          "text": "The contracts of the source observe a backup, retention or geo-replication setting on: module.dependencies.module.catalog_rds.aws_rds_cluster.this, module.dependencies.module.orders_rds.aws_rds_cluster.this."
+        },
+        "proposed_target_state": {
+          "state": "NOT_ASSESSED",
+          "text": "Where the backups of the target are stored and who operates the destination is not stated by the draft or by this build."
+        },
+        "delta": {
+          "state": "NOT_ASSESSED",
+          "text": "Whether the destination of the backups changes is not established."
+        },
+        "evidence": [
+          "assessment.json#/units/32/result/semantics/items/4",
+          "assessment.json#/units/34/result/semantics/items/4"
+        ],
+        "unknowns": [
+          "The destination of the backups and replicas, and the jurisdiction of that destination, are not assessed."
+        ],
+        "actions": []
+      },
+      {
+        "id": "SUPPLY_CHAIN",
+        "name": "Supply chain",
+        "state": "OBSERVED",
+        "requirement": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "observed_source_state": {
+          "state": "STATED",
+          "text": "The source records these Terraform providers, required by its configuration or locked in its lock file: aws, random."
+        },
+        "proposed_target_state": {
+          "state": "STATED",
+          "text": "The draft is written for the STACKIT provider 0.121.0."
+        },
+        "delta": {
+          "state": "NOT_ASSESSED",
+          "text": "Whether the supply chain of the estate changes is not established."
+        },
+        "evidence": [
+          "workspace.json#/header/source_snapshot/providers/0",
+          "workspace.json#/header/source_snapshot/providers/1"
+        ],
+        "unknowns": [
+          "The registries and the build chain of the providers, and the provenance of the modules the source calls, are not assessed."
+        ],
+        "actions": []
+      },
+      {
+        "id": "THIRD_PARTY_PROCESSING",
+        "name": "Third-party processing",
+        "state": "EVIDENCE_REQUIRED",
+        "requirement": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "observed_source_state": {
+          "state": "STATED",
+          "text": "The source depends on providers or resource types the knowledge base holds no schema of: provider random."
+        },
+        "proposed_target_state": {
+          "state": "NOT_ASSESSED",
+          "text": "The draft names no STACKIT counterpart for these dependencies."
+        },
+        "delta": {
+          "state": "NOT_ASSESSED",
+          "text": "Whether a third party processes the data after the move is not established."
+        },
+        "evidence": [
+          "workspace.json#/header/source_snapshot/providers/1"
+        ],
+        "unknowns": [
+          "What data a third-party provider or service handles is not read from the Terraform source."
+        ],
+        "actions": []
+      },
+      {
+        "id": "OPEN_INTERFACES",
+        "name": "Open interfaces",
+        "state": "NOT_ASSESSED",
+        "requirement": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "observed_source_state": {
+          "state": "NOT_ASSESSED",
+          "text": "Whether the interfaces the source depends on are open standards and whether the target keeps them is not assessed."
+        },
+        "proposed_target_state": {
+          "state": "NOT_ASSESSED",
+          "text": "No target state is stated: the source state is not established."
+        },
+        "delta": {
+          "state": "NOT_ASSESSED",
+          "text": "No change is stated."
+        },
+        "evidence": [],
+        "unknowns": [
+          "Which of the interfaces the source uses are proprietary is not read."
+        ],
+        "actions": []
+      },
+      {
+        "id": "DATA_PORTABILITY",
+        "name": "Data portability",
+        "state": "NOT_ASSESSED",
+        "requirement": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "observed_source_state": {
+          "state": "NOT_ASSESSED",
+          "text": "Whether the data can be exported in a documented format, and by which path, is not assessed."
+        },
+        "proposed_target_state": {
+          "state": "NOT_ASSESSED",
+          "text": "No target state is stated: the source state is not established."
+        },
+        "delta": {
+          "state": "NOT_ASSESSED",
+          "text": "No change is stated."
+        },
+        "evidence": [],
+        "unknowns": [
+          "How the data of each stateful unit leaves its service is not read."
+        ],
+        "actions": []
+      },
+      {
+        "id": "APPLICATION_COUPLING",
+        "name": "Application coupling",
+        "state": "NOT_ASSESSED",
+        "requirement": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "observed_source_state": {
+          "state": "NOT_ASSESSED",
+          "text": "The coupling of application code to the interfaces of the source (SDKs, proprietary protocols) is not assessed: the application code is not scanned."
+        },
+        "proposed_target_state": {
+          "state": "NOT_ASSESSED",
+          "text": "No target state is stated: the source state is not established."
+        },
+        "delta": {
+          "state": "NOT_ASSESSED",
+          "text": "No change is stated."
+        },
+        "evidence": [],
+        "unknowns": [
+          "Which SDKs and protocols the application code uses is not read."
+        ],
+        "actions": []
+      },
+      {
+        "id": "EXITABILITY",
+        "name": "Exitability",
+        "state": "OBSERVED",
+        "requirement": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "observed_source_state": {
+          "state": "NOT_ASSESSED",
+          "text": "The interface, data format, code coupling, replacement complexity, extraction path and alternatives of the source's dependencies are not assessed."
+        },
+        "proposed_target_state": {
+          "state": "STATED",
+          "text": "The draft is provider-specific Terraform for the STACKIT provider; that is the only exit fact stated, and it is listed per dependency in the exitability entries."
+        },
+        "delta": {
+          "state": "NOT_ASSESSED",
+          "text": "No change of exit cost is stated: no cost, no duration and no complexity is estimated."
+        },
+        "evidence": [],
+        "unknowns": [
+          "Every field of the exitability model but the Terraform coupling is not assessed, so no exit path is proven and none is ruled out."
+        ],
+        "actions": []
+      }
+    ],
+    "dependencies": [
+      {
+        "id": "provider:random",
+        "source_unit": "provider:random",
+        "source_type": "source provider",
+        "change": "RETAINED",
+        "dimensions": [
+          "SUPPLY_CHAIN",
+          "THIRD_PARTY_PROCESSING"
+        ],
+        "evidence": [
+          "workspace.json#/header/source_snapshot/providers/1"
+        ],
+        "detail": "The knowledge base holds no source schema of this provider and the draft names no STACKIT counterpart for it. What the provider processes is not established."
+      },
+      {
+        "id": "unit:module.dependencies.aws_mq_broker.mq",
+        "source_unit": "module.dependencies.aws_mq_broker.mq",
+        "source_type": "aws_mq_broker",
+        "target_service": "STACKIT RabbitMQ",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.dependencies.aws_mq_broker.mq"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
+        "source_unit": "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
+        "source_type": "aws_opensearch_domain",
+        "target_service": "STACKIT OpenSearch",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.dependencies.module.catalog_rds.aws_rds_cluster.this",
+        "source_unit": "module.dependencies.module.catalog_rds.aws_rds_cluster.this",
+        "source_type": "aws_rds_cluster",
+        "target_service": "STACKIT MariaDB",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "BACKUP_CHAIN",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.dependencies.module.catalog_rds.aws_rds_cluster.this"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default",
+        "source_unit": "module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default",
+        "source_type": "aws_elasticache_replication_group",
+        "target_service": "STACKIT Key Value Store (Valkey)",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this",
+        "source_unit": "module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this",
+        "source_type": "aws_dynamodb_table",
+        "target_service": "STACKIT MongoDB Flex (alternative — data-model redesign; PostgreSQL Flex JSONB is the other option)",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.dependencies.module.orders_rds.aws_rds_cluster.this",
+        "source_unit": "module.dependencies.module.orders_rds.aws_rds_cluster.this",
+        "source_type": "aws_rds_cluster",
+        "target_service": "STACKIT PostgreSQL Flex",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "BACKUP_CHAIN",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.dependencies.module.orders_rds.aws_rds_cluster.this"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks",
+        "source_unit": "module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks",
+        "source_type": "aws_cloudwatch_log_group",
+        "target_service": "STACKIT Logs",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.aws_ecs_cluster.cluster",
+        "source_unit": "module.retail_app_ecs.aws_ecs_cluster.cluster",
+        "source_type": "aws_ecs_cluster",
+        "target_service": "STACKIT Kubernetes Engine (SKE)",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.aws_ecs_cluster.cluster"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.aws_kms_key.cmk",
+        "source_unit": "module.retail_app_ecs.aws_kms_key.cmk",
+        "source_type": "aws_kms_key",
+        "target_service": "STACKIT KMS",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.aws_kms_key.cmk"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.aws_secretsmanager_secret.catalog_db",
+        "source_unit": "module.retail_app_ecs.aws_secretsmanager_secret.catalog_db",
+        "source_type": "aws_secretsmanager_secret",
+        "target_service": "STACKIT Secrets Manager",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "KEY_CONTROL",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.aws_secretsmanager_secret.catalog_db"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch",
+        "source_unit": "module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch",
+        "source_type": "aws_secretsmanager_secret",
+        "target_service": "STACKIT Secrets Manager",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "KEY_CONTROL",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.aws_secretsmanager_secret.mq",
+        "source_unit": "module.retail_app_ecs.aws_secretsmanager_secret.mq",
+        "source_type": "aws_secretsmanager_secret",
+        "target_service": "STACKIT Secrets Manager",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.aws_secretsmanager_secret.mq"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.aws_secretsmanager_secret.orders_db",
+        "source_unit": "module.retail_app_ecs.aws_secretsmanager_secret.orders_db",
+        "source_type": "aws_secretsmanager_secret",
+        "target_service": "STACKIT Secrets Manager",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.aws_secretsmanager_secret.orders_db"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.module.alb.aws_lb.this",
+        "source_unit": "module.retail_app_ecs.module.alb.aws_lb.this",
+        "source_type": "aws_lb",
+        "target_service": "STACKIT Application Load Balancer",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.module.alb.aws_lb.this"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.module.alb.aws_security_group.this",
+        "source_unit": "module.retail_app_ecs.module.alb.aws_security_group.this",
+        "source_type": "aws_security_group",
+        "target_service": "STACKIT security group",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.module.alb.aws_security_group.this"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix",
+        "source_unit": "module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix",
+        "source_type": "aws_security_group",
+        "target_service": "STACKIT security group",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.module.carts_service.aws_ecs_service.this",
+        "source_unit": "module.retail_app_ecs.module.carts_service.aws_ecs_service.this",
+        "source_type": "aws_ecs_service",
+        "target_service": "STACKIT Kubernetes Engine (SKE)",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "IDENTITY_CHAIN",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.module.carts_service.aws_ecs_service.this"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role",
+        "source_unit": "module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role",
+        "source_type": "aws_iam_role",
+        "target_service": "STACKIT service account for the workload",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.module.carts_service.aws_iam_role.task_role",
+        "source_unit": "module.retail_app_ecs.module.carts_service.aws_iam_role.task_role",
+        "source_type": "aws_iam_role",
+        "target_service": "STACKIT service account for the workload",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.module.carts_service.aws_iam_role.task_role"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.module.carts_service.aws_security_group.this",
+        "source_unit": "module.retail_app_ecs.module.carts_service.aws_security_group.this",
+        "source_type": "aws_security_group",
+        "target_service": "STACKIT security group",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.module.carts_service.aws_security_group.this"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.module.catalog_service.aws_ecs_service.this",
+        "source_unit": "module.retail_app_ecs.module.catalog_service.aws_ecs_service.this",
+        "source_type": "aws_ecs_service",
+        "target_service": "STACKIT Kubernetes Engine (SKE)",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "IDENTITY_CHAIN",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.module.catalog_service.aws_ecs_service.this"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role",
+        "source_unit": "module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role",
+        "source_type": "aws_iam_role",
+        "target_service": "STACKIT service account for the workload",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role",
+        "source_unit": "module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role",
+        "source_type": "aws_iam_role",
+        "target_service": "STACKIT service account for the workload",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.module.catalog_service.aws_security_group.this",
+        "source_unit": "module.retail_app_ecs.module.catalog_service.aws_security_group.this",
+        "source_type": "aws_security_group",
+        "target_service": "STACKIT security group",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.module.catalog_service.aws_security_group.this"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.module.checkout_service.aws_ecs_service.this",
+        "source_unit": "module.retail_app_ecs.module.checkout_service.aws_ecs_service.this",
+        "source_type": "aws_ecs_service",
+        "target_service": "STACKIT Kubernetes Engine (SKE)",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "IDENTITY_CHAIN",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.module.checkout_service.aws_ecs_service.this"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role",
+        "source_unit": "module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role",
+        "source_type": "aws_iam_role",
+        "target_service": "STACKIT service account for the workload",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role",
+        "source_unit": "module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role",
+        "source_type": "aws_iam_role",
+        "target_service": "STACKIT service account for the workload",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.module.checkout_service.aws_security_group.this",
+        "source_unit": "module.retail_app_ecs.module.checkout_service.aws_security_group.this",
+        "source_type": "aws_security_group",
+        "target_service": "STACKIT security group",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.module.checkout_service.aws_security_group.this"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.module.orders_service.aws_ecs_service.this",
+        "source_unit": "module.retail_app_ecs.module.orders_service.aws_ecs_service.this",
+        "source_type": "aws_ecs_service",
+        "target_service": "STACKIT Kubernetes Engine (SKE)",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "IDENTITY_CHAIN",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.module.orders_service.aws_ecs_service.this"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role",
+        "source_unit": "module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role",
+        "source_type": "aws_iam_role",
+        "target_service": "STACKIT service account for the workload",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.module.orders_service.aws_iam_role.task_role",
+        "source_unit": "module.retail_app_ecs.module.orders_service.aws_iam_role.task_role",
+        "source_type": "aws_iam_role",
+        "target_service": "STACKIT service account for the workload",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.module.orders_service.aws_iam_role.task_role"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.module.orders_service.aws_security_group.this",
+        "source_unit": "module.retail_app_ecs.module.orders_service.aws_security_group.this",
+        "source_type": "aws_security_group",
+        "target_service": "STACKIT security group",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.module.orders_service.aws_security_group.this"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.module.ui_service.aws_ecs_service.this",
+        "source_unit": "module.retail_app_ecs.module.ui_service.aws_ecs_service.this",
+        "source_type": "aws_ecs_service",
+        "target_service": "STACKIT Kubernetes Engine (SKE)",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "IDENTITY_CHAIN",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.module.ui_service.aws_ecs_service.this"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role",
+        "source_unit": "module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role",
+        "source_type": "aws_iam_role",
+        "target_service": "STACKIT service account for the workload",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.module.ui_service.aws_iam_role.task_role",
+        "source_unit": "module.retail_app_ecs.module.ui_service.aws_iam_role.task_role",
+        "source_type": "aws_iam_role",
+        "target_service": "STACKIT service account for the workload",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.module.ui_service.aws_iam_role.task_role"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.retail_app_ecs.module.ui_service.aws_security_group.this",
+        "source_unit": "module.retail_app_ecs.module.ui_service.aws_security_group.this",
+        "source_type": "aws_security_group",
+        "target_service": "STACKIT security group",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.retail_app_ecs.module.ui_service.aws_security_group.this"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      },
+      {
+        "id": "unit:module.vpc.module.vpc.aws_vpc.this",
+        "source_unit": "module.vpc.module.vpc.aws_vpc.this",
+        "source_type": "aws_vpc",
+        "target_service": "STACKIT project networking / Network Area (SNA)",
+        "change": "REPLACED",
+        "dimensions": [
+          "DATA_LOCATION",
+          "EXITABILITY"
+        ],
+        "evidence": [
+          "unit:module.vpc.module.vpc.aws_vpc.this"
+        ],
+        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
+      }
+    ],
+    "exitability": [
+      {
+        "dependency": "unit:module.dependencies.aws_mq_broker.mq",
+        "source_unit": "module.dependencies.aws_mq_broker.mq",
+        "target_service": "STACKIT RabbitMQ",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.dependencies.aws_mq_broker.mq"
+        ]
+      },
+      {
+        "dependency": "unit:module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
+        "source_unit": "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
+        "target_service": "STACKIT OpenSearch",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this"
+        ]
+      },
+      {
+        "dependency": "unit:module.dependencies.module.catalog_rds.aws_rds_cluster.this",
+        "source_unit": "module.dependencies.module.catalog_rds.aws_rds_cluster.this",
+        "target_service": "STACKIT MariaDB",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.dependencies.module.catalog_rds.aws_rds_cluster.this"
+        ]
+      },
+      {
+        "dependency": "unit:module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default",
+        "source_unit": "module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default",
+        "target_service": "STACKIT Key Value Store (Valkey)",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default"
+        ]
+      },
+      {
+        "dependency": "unit:module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this",
+        "source_unit": "module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this",
+        "target_service": "STACKIT MongoDB Flex (alternative — data-model redesign; PostgreSQL Flex JSONB is the other option)",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this"
+        ]
+      },
+      {
+        "dependency": "unit:module.dependencies.module.orders_rds.aws_rds_cluster.this",
+        "source_unit": "module.dependencies.module.orders_rds.aws_rds_cluster.this",
+        "target_service": "STACKIT PostgreSQL Flex",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.dependencies.module.orders_rds.aws_rds_cluster.this"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks",
+        "source_unit": "module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks",
+        "target_service": "STACKIT Logs",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.aws_ecs_cluster.cluster",
+        "source_unit": "module.retail_app_ecs.aws_ecs_cluster.cluster",
+        "target_service": "STACKIT Kubernetes Engine (SKE)",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.aws_ecs_cluster.cluster"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.aws_kms_key.cmk",
+        "source_unit": "module.retail_app_ecs.aws_kms_key.cmk",
+        "target_service": "STACKIT KMS",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.aws_kms_key.cmk"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.aws_secretsmanager_secret.catalog_db",
+        "source_unit": "module.retail_app_ecs.aws_secretsmanager_secret.catalog_db",
+        "target_service": "STACKIT Secrets Manager",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.aws_secretsmanager_secret.catalog_db"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch",
+        "source_unit": "module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch",
+        "target_service": "STACKIT Secrets Manager",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.aws_secretsmanager_secret.mq",
+        "source_unit": "module.retail_app_ecs.aws_secretsmanager_secret.mq",
+        "target_service": "STACKIT Secrets Manager",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.aws_secretsmanager_secret.mq"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.aws_secretsmanager_secret.orders_db",
+        "source_unit": "module.retail_app_ecs.aws_secretsmanager_secret.orders_db",
+        "target_service": "STACKIT Secrets Manager",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.aws_secretsmanager_secret.orders_db"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.module.alb.aws_lb.this",
+        "source_unit": "module.retail_app_ecs.module.alb.aws_lb.this",
+        "target_service": "STACKIT Application Load Balancer",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.module.alb.aws_lb.this"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.module.alb.aws_security_group.this",
+        "source_unit": "module.retail_app_ecs.module.alb.aws_security_group.this",
+        "target_service": "STACKIT security group",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.module.alb.aws_security_group.this"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix",
+        "source_unit": "module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix",
+        "target_service": "STACKIT security group",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.module.carts_service.aws_ecs_service.this",
+        "source_unit": "module.retail_app_ecs.module.carts_service.aws_ecs_service.this",
+        "target_service": "STACKIT Kubernetes Engine (SKE)",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.module.carts_service.aws_ecs_service.this"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role",
+        "source_unit": "module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role",
+        "target_service": "STACKIT service account for the workload",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.module.carts_service.aws_iam_role.task_role",
+        "source_unit": "module.retail_app_ecs.module.carts_service.aws_iam_role.task_role",
+        "target_service": "STACKIT service account for the workload",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.module.carts_service.aws_iam_role.task_role"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.module.carts_service.aws_security_group.this",
+        "source_unit": "module.retail_app_ecs.module.carts_service.aws_security_group.this",
+        "target_service": "STACKIT security group",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.module.carts_service.aws_security_group.this"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.module.catalog_service.aws_ecs_service.this",
+        "source_unit": "module.retail_app_ecs.module.catalog_service.aws_ecs_service.this",
+        "target_service": "STACKIT Kubernetes Engine (SKE)",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.module.catalog_service.aws_ecs_service.this"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role",
+        "source_unit": "module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role",
+        "target_service": "STACKIT service account for the workload",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role",
+        "source_unit": "module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role",
+        "target_service": "STACKIT service account for the workload",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.module.catalog_service.aws_security_group.this",
+        "source_unit": "module.retail_app_ecs.module.catalog_service.aws_security_group.this",
+        "target_service": "STACKIT security group",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.module.catalog_service.aws_security_group.this"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.module.checkout_service.aws_ecs_service.this",
+        "source_unit": "module.retail_app_ecs.module.checkout_service.aws_ecs_service.this",
+        "target_service": "STACKIT Kubernetes Engine (SKE)",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.module.checkout_service.aws_ecs_service.this"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role",
+        "source_unit": "module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role",
+        "target_service": "STACKIT service account for the workload",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role",
+        "source_unit": "module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role",
+        "target_service": "STACKIT service account for the workload",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.module.checkout_service.aws_security_group.this",
+        "source_unit": "module.retail_app_ecs.module.checkout_service.aws_security_group.this",
+        "target_service": "STACKIT security group",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.module.checkout_service.aws_security_group.this"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.module.orders_service.aws_ecs_service.this",
+        "source_unit": "module.retail_app_ecs.module.orders_service.aws_ecs_service.this",
+        "target_service": "STACKIT Kubernetes Engine (SKE)",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.module.orders_service.aws_ecs_service.this"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role",
+        "source_unit": "module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role",
+        "target_service": "STACKIT service account for the workload",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.module.orders_service.aws_iam_role.task_role",
+        "source_unit": "module.retail_app_ecs.module.orders_service.aws_iam_role.task_role",
+        "target_service": "STACKIT service account for the workload",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.module.orders_service.aws_iam_role.task_role"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.module.orders_service.aws_security_group.this",
+        "source_unit": "module.retail_app_ecs.module.orders_service.aws_security_group.this",
+        "target_service": "STACKIT security group",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.module.orders_service.aws_security_group.this"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.module.ui_service.aws_ecs_service.this",
+        "source_unit": "module.retail_app_ecs.module.ui_service.aws_ecs_service.this",
+        "target_service": "STACKIT Kubernetes Engine (SKE)",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.module.ui_service.aws_ecs_service.this"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role",
+        "source_unit": "module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role",
+        "target_service": "STACKIT service account for the workload",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.module.ui_service.aws_iam_role.task_role",
+        "source_unit": "module.retail_app_ecs.module.ui_service.aws_iam_role.task_role",
+        "target_service": "STACKIT service account for the workload",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.module.ui_service.aws_iam_role.task_role"
+        ]
+      },
+      {
+        "dependency": "unit:module.retail_app_ecs.module.ui_service.aws_security_group.this",
+        "source_unit": "module.retail_app_ecs.module.ui_service.aws_security_group.this",
+        "target_service": "STACKIT security group",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.retail_app_ecs.module.ui_service.aws_security_group.this"
+        ]
+      },
+      {
+        "dependency": "unit:module.vpc.module.vpc.aws_vpc.this",
+        "source_unit": "module.vpc.module.vpc.aws_vpc.this",
+        "target_service": "STACKIT project networking / Network Area (SNA)",
+        "state": "PROVIDER_SPECIFIC",
+        "interface": "NOT_ASSESSED",
+        "data_format": "NOT_ASSESSED",
+        "provider_specific_code": "NOT_ASSESSED",
+        "iac_coupling": "PROVIDER_SPECIFIC",
+        "replacement_complexity": "NOT_ASSESSED",
+        "data_extraction_path": "NOT_ASSESSED",
+        "alternative_implementation": "NOT_ASSESSED",
+        "exit_evidence": "NOT_ASSESSED",
+        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
+        "evidence": [
+          "unit:module.vpc.module.vpc.aws_vpc.this"
+        ]
+      }
+    ],
+    "limits": [
+      "Legal conclusions remain external. The block provides technical evidence and gaps and does not certify legal compliance.",
+      "Sovereignty is not residency: a region of a service is a fact about the service, never a statement about the sovereignty of a workload.",
+      "There is no score, no percentage and no count in this block, and no dimension is compared with a requirement in this build.",
+      "Jurisdiction, operator access, open interfaces, data portability and application coupling are not assessed, and every field of the exitability model but the Terraform coupling is not assessed.",
+      "Dependencies are the units the knowledge base maps to a STACKIT service, the source providers the knowledge base holds no schema of and the source types it does not know. A dependency the draft introduces without a source unit is not listed, and a unit with no STACKIT resource is not listed as removed."
+    ]
+  }
+}

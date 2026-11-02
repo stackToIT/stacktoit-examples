@@ -1,0 +1,2023 @@
+{
+  "schema_version": "0.1.0",
+  "run_id": "f576c5a4-ff5f-4981-8b67-054d7359483f",
+  "source_digest": "sha256:812c5ae3f6cc8530163abbf5b6fbe305ed3b363c4886ec6b87623db857ea0c70",
+  "statement": "This file plans how the data of the stateful units the draft moves is carried to STACKIT, for the families of data stores that have a planner (families). It moves no data and opens no connection: every step is for a person. A number in it is the customer's own statement (origin CUSTOMER_INPUT, with the answer it came from) or it is UNKNOWN; a quantity nobody stated is never zero. A duration is a lower bound of the transfer alone and a comparison with the accepted downtime says only whether that bound exceeds it, never that the window fits. Stateful units of other families have no plan here.",
+  "families": [
+    "rds-postgresql-to-postgresflex",
+    "s3-to-objectstorage",
+    "rds-mysql-to-mariadb",
+    "ebs-to-block-storage",
+    "efs-to-file-storage",
+    "fsx-openzfs-to-file-storage",
+    "rds-sqlserver-to-sqlserverflex",
+    "ecr-to-harbor",
+    "elasticache-to-keyvalue",
+    "dsql-to-postgresflex"
+  ],
+  "assets": [
+    {
+      "unit": "module.dependencies.module.catalog_rds.aws_rds_cluster.this",
+      "source_type": "aws_rds_cluster",
+      "family": "rds-mysql-to-mariadb",
+      "source": {
+        "engine": "aurora-mysql",
+        "engine_version": {
+          "state": "OBSERVED",
+          "value": "8.0",
+          "from": "assessment:units/module.dependencies.module.catalog_rds.aws_rds_cluster.this#engine_version"
+        },
+        "major": {
+          "state": "OBSERVED",
+          "value": "8.0",
+          "from": "assessment:units/module.dependencies.module.catalog_rds.aws_rds_cluster.this#engine_version"
+        },
+        "provisioned_capacity": {
+          "state": "NOT_PROVIDED"
+        }
+      },
+      "target": {
+        "instance": "stackit_mariadb_instance.dependencies_catalog_rds_this",
+        "version": {
+          "state": "NOT_STATIC",
+          "value": "the draft writes the variable var.dependencies_catalog_rds_this_version"
+        },
+        "offered_majors": [
+          "10.11"
+        ]
+      },
+      "quantities": {
+        "size": {
+          "topic": "source.dataset.size",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "write_rate": {
+          "topic": "source.dataset.write_rate",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "bandwidth": {
+          "topic": "source.dataset.bandwidth",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "rpo": {
+          "topic": "source.dataset.rpo",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "rto": {
+          "topic": "source.dataset.rto",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "downtime": {
+          "topic": "source.dataset.downtime",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        }
+      },
+      "selection": "OPEN",
+      "decision": "convert:module.dependencies.module.catalog_rds.aws_rds_cluster.this:data:DATA_MOVEMENT",
+      "methods": [
+        {
+          "id": "dump-restore",
+          "decision_option": "export-and-import-with-the-engine-clients",
+          "state": "CANDIDATE",
+          "chosen": false,
+          "duration": {
+            "state": "UNKNOWN",
+            "formula": "copy lower bound = size.min / bandwidth.max",
+            "inputs": [
+              "source.dataset.size",
+              "source.dataset.bandwidth"
+            ],
+            "text": "unknown: source.dataset.size, source.dataset.bandwidth must be stated by the customer (a value from the source or an application file is not used)",
+            "missing": [
+              "source.dataset.size",
+              "source.dataset.bandwidth"
+            ]
+          },
+          "freeze_window": {
+            "basis": "the dump and the restore run inside the freeze, but their lower bound cannot be computed: source.dataset.size, source.dataset.bandwidth must be stated by the customer (a value from the source or an application file is not used)",
+            "missing": [
+              "source.dataset.size",
+              "source.dataset.bandwidth"
+            ],
+            "stated_downtime": {
+              "topic": "source.dataset.downtime",
+              "origin": "UNKNOWN",
+              "reason": "NOT_PROVIDED"
+            },
+            "comparison": "UNKNOWN",
+            "detail": "no lower bound of the window can be computed: the dump and the restore run inside the freeze, but their lower bound cannot be computed: source.dataset.size, source.dataset.bandwidth must be stated by the customer (a value from the source or an application file is not used)"
+          },
+          "objectives": {
+            "rpo": {
+              "stated": {
+                "topic": "source.dataset.rpo",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "Designed to lose no write that was committed before the freeze: the writers are stopped before the dump starts and the source is neither stopped nor changed, so the dump is the final state of the source. Writes after the freeze wait until the applications are switched. Not measured.",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            },
+            "rto": {
+              "stated": {
+                "topic": "source.dataset.rto",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "The applications are unavailable for the whole write freeze: the dump, the load, the reconcile and the switch of the applications. The lower bound of the first part is the freeze window; the rest is measured in the rehearsal.",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            }
+          },
+          "prerequisites": [
+            "version-gap: UNKNOWN (closed by: preflight on the source and the target: SELECT VERSION(); and the application's own test suite against a MariaDB instance of the offered series (the rehearsal))",
+            "charset-collation: UNKNOWN (closed by: preflight on the source: SELECT table_schema, table_collation, COUNT(*) FROM information_schema.tables GROUP BY 1, 2; SELECT character_set_name, collation_name, COUNT(*) FROM information_schema.columns GROUP BY 1, 2; on the target: SHOW COLLATION WHERE Collation LIKE 'utf8mb4%0900%'; SHOW VARIABLES LIKE 'character_set%'; SHOW VARIABLES LIKE 'collation%')",
+            "stored-programs: UNKNOWN (closed by: preflight on the source: SELECT routine_schema, routine_type, COUNT(*) FROM information_schema.routines GROUP BY 1, 2; SELECT trigger_schema, COUNT(*) FROM information_schema.triggers GROUP BY 1; SELECT event_schema, COUNT(*) FROM information_schema.events GROUP BY 1; SELECT table_schema, COUNT(*) FROM information_schema.views GROUP BY 1)",
+            "definer-accounts: UNKNOWN (closed by: preflight on the source: SELECT DISTINCT definer FROM information_schema.routines UNION SELECT DISTINCT definer FROM information_schema.views UNION SELECT DISTINCT definer FROM information_schema.events, and the definer of every trigger (SHOW TRIGGERS, or mysql.proc where it is readable); on the target: SHOW GRANTS; for the user of the service key)",
+            "users-and-grants: UNKNOWN (closed by: preflight on the source (names and the authentication plugin, never the authentication string): SELECT user, host, plugin FROM mysql.user ORDER BY 1, 2; then SHOW GRANTS FOR '<user>'@'<host>'; for each; on the target: SHOW GRANTS; for the user of the service key)",
+            "sql-mode: UNKNOWN (closed by: preflight on both sides: SELECT @@GLOBAL.sql_mode; and, on the source, SELECT DISTINCT sql_mode FROM information_schema.routines (the mode each routine was defined with))",
+            "time-zone: UNKNOWN (closed by: preflight on both sides: SELECT @@GLOBAL.time_zone, @@SESSION.time_zone, @@system_time_zone, NOW(), UTC_TIMESTAMP(); on the target also SELECT CONVERT_TZ('2026-01-01 12:00:00', 'UTC', '<zone>');)",
+            "gtid-in-dump: UNKNOWN (closed by: preflight on the source: SELECT @@GLOBAL.gtid_mode;)",
+            "table-engines-and-keys: UNKNOWN (closed by: preflight on the source: SELECT table_schema, engine, COUNT(*) FROM information_schema.tables WHERE table_type = 'BASE TABLE' AND table_schema NOT IN ('mysql', 'information_schema', 'performance_schema', 'sys') GROUP BY 1, 2; and the tables without a primary key: SELECT t.table_schema, t.table_name FROM information_schema.tables t LEFT JOIN information_schema.table_constraints c ON c.table_schema = t.table_schema AND c.table_name = t.table_name AND c.constraint_type = 'PRIMARY KEY' WHERE t.table_type = 'BASE TABLE' AND c.constraint_name IS NULL AND t.table_schema NOT IN ('mysql', 'information_schema', 'performance_schema', 'sys'))",
+            "target-databases: UNKNOWN (closed by: preflight on the source: SHOW DATABASES; the names against the default database of the target instance (the name in the connection string of its service key); the customer decides, for each other database, between declaring it in the custom parameter `databases` of the instance (Portal) and moving its tables into the default database (an application change))",
+            "network-acl: UNKNOWN (closed by: preflight from the move host: mysql --host=<source-host> --port=<source-port> to the source and mysql --host=<target-host> --port=<target-port> to the target (host and port from the connection string of the service key), and the move host's address in the access list for the time of the move)"
+          ],
+          "risks": [
+            "the dump, its load and the verification run inside the write freeze: the freeze lasts as long as all three",
+            "the dump holds the data: keep it readable only by the person who moves it and delete it at cleanup",
+            "the load into the target does not stop at the first error unless the client is told to: read every error of the load log and settle it",
+            "the how-to of the service needs the target instance to be empty before the load: a second attempt starts from an empty instance",
+            "the connection of a session that sits idle for 60 minutes is dropped by the service"
+          ],
+          "steps": [
+            {
+              "kind": "preflight",
+              "id": "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/preflight",
+              "in_plan": true
+            },
+            {
+              "kind": "rehearsal",
+              "id": "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/rehearsal",
+              "in_plan": true
+            },
+            {
+              "kind": "write-freeze",
+              "id": "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/write-freeze/dump-restore",
+              "in_plan": true
+            },
+            {
+              "kind": "final-sync",
+              "id": "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/final-sync/dump-restore",
+              "in_plan": true
+            },
+            {
+              "kind": "reconcile",
+              "id": "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/reconcile/dump-restore",
+              "in_plan": true
+            },
+            {
+              "kind": "cleanup",
+              "id": "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/cleanup/dump-restore",
+              "in_plan": true
+            }
+          ],
+          "verification": [
+            {
+              "id": "table-counts",
+              "kind": "COUNT_COMPARISON",
+              "mode": "COMMAND",
+              "what": "Print one count statement for every base table of the source and of the target, run what it prints on each side, with the writers stopped (the table_rows of information_schema are estimates, not counts).",
+              "expected": "the same tables with the same number of rows on both sides",
+              "command": "SELECT CONCAT('SELECT ''', table_schema, '.', table_name, ''' AS tbl, COUNT(*) FROM `', table_schema, '`.`', table_name, '`;') FROM information_schema.tables WHERE table_type = 'BASE TABLE' AND table_schema NOT IN ('mysql', 'information_schema', 'performance_schema', 'sys');"
+            },
+            {
+              "id": "content-aggregates",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "For each table that matters, take an aggregate of its content on both sides.",
+              "expected": "the count, the lowest and highest key and the sum are equal on both sides for every table checked",
+              "command": "SELECT COUNT(*), MIN(<key>), MAX(<key>), SUM(<numeric-column>) FROM <schema>.<table>;",
+              "not_provided": [
+                "the key and the numeric column of each table (<key>, <numeric-column>)",
+                "the tables that matter"
+              ]
+            },
+            {
+              "id": "objects-and-settings",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "Compare the routines, triggers, events and views on both sides (their number and their definitions) and the settings that change how they behave: the SQL mode and the time zone; read a TIMESTAMP column and a DATETIME column of one row in the same session time zone.",
+              "expected": "the objects and their definitions are the same, and the SQL mode and the time zone are equal where they are meant to be",
+              "command": "SELECT @@GLOBAL.sql_mode, @@GLOBAL.time_zone;\nSHOW CREATE <type> <name>;",
+              "not_provided": [
+                "the routines, triggers, events and views to compare (<type> <name>)"
+              ]
+            },
+            {
+              "id": "application-check",
+              "kind": "APPLICATION_SMOKE",
+              "mode": "MANUAL",
+              "what": "Run one read the application itself makes on its most important data against the target database and compare its answer with the answer the application gets from the source; then, from a test copy of the application, make one write against the target database and read it back.",
+              "expected": "the two answers are equal, the write succeeds and the read returns it",
+              "manual_reason": "the read and the write are the application's, and the source states neither the query nor the answer",
+              "not_provided": [
+                "the read the application makes on its most important data and its expected answer",
+                "the write the test copy of the application makes"
+              ]
+            },
+            {
+              "id": "rollback-limit",
+              "kind": "ROLLBACK_LIMIT",
+              "mode": "MANUAL",
+              "what": "Record the point after which a rollback loses data. Until the first of the writes that the target database accepts after the switch, a rollback is only the connection settings put back: the source database was not changed after the freeze and is current to it. From that write on, what the target database holds exists only there: it is copied back to the source database with a method rehearsed before the window, or accepted as lost. Once the source database is retired (its retirement step, after the GO and the retention the owner decides) there is nothing to go back to.",
+              "expected": "before the window the owner records the date until which the source database is kept, the method that copies the writes of the target database back or the decision that they are lost, and who calls the rollback",
+              "manual_reason": "how long the source is kept and whether the writes made on the target are copied back or lost are decisions of the owner of the application: the source states neither, so the plan names the limit and no date",
+              "not_provided": [
+                "the date until which the source database is kept",
+                "the method that copies the writes of the target database back, or the decision that they are lost"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "binlog-replication",
+          "decision_option": "replicate-with-the-engine-replication",
+          "state": "UNSUPPORTED",
+          "why": "no STACKIT page read documents a way to attach a STACKIT MariaDB instance to an external source as a replica: the instance pages (introduction, architecture, cluster setup, backup and restore, credentials) describe replication only between the nodes of the instance itself (a Galera cluster) and a restore of the instance's own backups, the credential is a service key whose privileges the page does not state (a replica needs a privileged account for CHANGE MASTER), and the MariaDB documentation states \"MariaDB's GTID is not compatible with MySQL's\" and that Galera replicates InnoDB only; the knowledge base records the same absence for every service other than PostgreSQL Flex",
+          "chosen": false,
+          "duration": {
+            "state": "UNKNOWN",
+            "inputs": [],
+            "text": "unknown: the plan refuses this method, so it states nothing of it",
+            "reason": "the plan refuses this method, so it states nothing of it"
+          },
+          "freeze_window": {
+            "basis": "the plan refuses this method, so it states nothing of it",
+            "stated_downtime": {
+              "topic": "source.dataset.downtime",
+              "origin": "UNKNOWN",
+              "reason": "NOT_PROVIDED"
+            },
+            "comparison": "UNKNOWN",
+            "detail": "no lower bound of the window can be computed: the plan refuses this method, so it states nothing of it"
+          },
+          "objectives": {
+            "rpo": {
+              "stated": {
+                "topic": "source.dataset.rpo",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "unknown: the plan refuses this method, so it states nothing of it",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            },
+            "rto": {
+              "stated": {
+                "topic": "source.dataset.rto",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "unknown: the plan refuses this method, so it states nothing of it",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            }
+          },
+          "prerequisites": [
+            "binlog-format: UNKNOWN (closed by: preflight on the source: SHOW VARIABLES LIKE 'log_bin'; SHOW VARIABLES LIKE 'binlog_format'; the owner of the source changes the parameter group, and on Aurora MySQL the cluster parameter group (the parameter is static there, so a reboot))",
+            "gtid-in-dump: UNKNOWN (closed by: preflight on the source: SELECT @@GLOBAL.gtid_mode;)"
+          ],
+          "risks": [],
+          "steps": [],
+          "verification": []
+        },
+        {
+          "id": "own-tool",
+          "decision_option": "migrate-with-a-tool-of-my-own",
+          "state": "CUSTOMER_OWNED",
+          "why": "the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point",
+          "chosen": false,
+          "duration": {
+            "state": "UNKNOWN",
+            "inputs": [],
+            "text": "unknown: the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point",
+            "reason": "a tool of the customer's own"
+          },
+          "freeze_window": {
+            "basis": "the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point",
+            "stated_downtime": {
+              "topic": "source.dataset.downtime",
+              "origin": "UNKNOWN",
+              "reason": "NOT_PROVIDED"
+            },
+            "comparison": "UNKNOWN",
+            "detail": "no lower bound of the window can be computed: the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point"
+          },
+          "objectives": {
+            "rpo": {
+              "stated": {
+                "topic": "source.dataset.rpo",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "unknown: the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            },
+            "rto": {
+              "stated": {
+                "topic": "source.dataset.rto",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "unknown: the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            }
+          },
+          "prerequisites": [],
+          "risks": [],
+          "steps": [
+            {
+              "kind": "write-freeze",
+              "id": "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/write-freeze/own-tool",
+              "in_plan": true
+            },
+            {
+              "kind": "final-sync",
+              "id": "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/final-sync/own-tool",
+              "in_plan": true
+            },
+            {
+              "kind": "reconcile",
+              "id": "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/reconcile/own-tool",
+              "in_plan": true
+            }
+          ],
+          "verification": [
+            {
+              "id": "table-counts",
+              "kind": "COUNT_COMPARISON",
+              "mode": "COMMAND",
+              "what": "Print one count statement for every base table of the source and of the target, run what it prints on each side, with the writers stopped (the table_rows of information_schema are estimates, not counts).",
+              "expected": "the same tables with the same number of rows on both sides",
+              "command": "SELECT CONCAT('SELECT ''', table_schema, '.', table_name, ''' AS tbl, COUNT(*) FROM `', table_schema, '`.`', table_name, '`;') FROM information_schema.tables WHERE table_type = 'BASE TABLE' AND table_schema NOT IN ('mysql', 'information_schema', 'performance_schema', 'sys');"
+            },
+            {
+              "id": "content-aggregates",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "For each table that matters, take an aggregate of its content on both sides.",
+              "expected": "the count, the lowest and highest key and the sum are equal on both sides for every table checked",
+              "command": "SELECT COUNT(*), MIN(<key>), MAX(<key>), SUM(<numeric-column>) FROM <schema>.<table>;",
+              "not_provided": [
+                "the key and the numeric column of each table (<key>, <numeric-column>)",
+                "the tables that matter"
+              ]
+            },
+            {
+              "id": "objects-and-settings",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "Compare the routines, triggers, events and views on both sides (their number and their definitions) and the settings that change how they behave: the SQL mode and the time zone; read a TIMESTAMP column and a DATETIME column of one row in the same session time zone.",
+              "expected": "the objects and their definitions are the same, and the SQL mode and the time zone are equal where they are meant to be",
+              "command": "SELECT @@GLOBAL.sql_mode, @@GLOBAL.time_zone;\nSHOW CREATE <type> <name>;",
+              "not_provided": [
+                "the routines, triggers, events and views to compare (<type> <name>)"
+              ]
+            },
+            {
+              "id": "application-check",
+              "kind": "APPLICATION_SMOKE",
+              "mode": "MANUAL",
+              "what": "Run one read the application itself makes on its most important data against the target database and compare its answer with the answer the application gets from the source; then, from a test copy of the application, make one write against the target database and read it back.",
+              "expected": "the two answers are equal, the write succeeds and the read returns it",
+              "manual_reason": "the read and the write are the application's, and the source states neither the query nor the answer",
+              "not_provided": [
+                "the read the application makes on its most important data and its expected answer",
+                "the write the test copy of the application makes"
+              ]
+            },
+            {
+              "id": "rollback-limit",
+              "kind": "ROLLBACK_LIMIT",
+              "mode": "MANUAL",
+              "what": "Record the point after which a rollback loses data. Until the first of the writes that the target database accepts after the switch, a rollback is only the connection settings put back: the source database was not changed after the freeze and is current to it. From that write on, what the target database holds exists only there: it is copied back to the source database with a method rehearsed before the window, or accepted as lost. Once the source database is retired (its retirement step, after the GO and the retention the owner decides) there is nothing to go back to.",
+              "expected": "before the window the owner records the date until which the source database is kept, the method that copies the writes of the target database back or the decision that they are lost, and who calls the rollback",
+              "manual_reason": "how long the source is kept and whether the writes made on the target are copied back or lost are decisions of the owner of the application: the source states neither, so the plan names the limit and no date",
+              "not_provided": [
+                "the date until which the source database is kept",
+                "the method that copies the writes of the target database back, or the decision that they are lost"
+              ]
+            }
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "version-gap",
+          "state": "UNKNOWN",
+          "detail": "the source is MySQL line 8.0 and STACKIT has no managed MySQL: the target is a different engine (MariaDB 10.11), not a version of the same one. For MySQL 8.0 the MariaDB documentation lists what differs: the JSON data type of MariaDB is an alias for LONGTEXT (the -> and ->> operators are not supported), GTIDs are not compatible, roles cannot authenticate, a user created with MySQL's SHA256 password algorithm cannot be used, and CREATE TABLESPACE is not supported.",
+          "evidence": "STACKIT MariaDB, Lifecycle (https://docs.stackit.cloud/products/databases/mariadb/reference/lifecycle/, last updated Jul 21, 2026): the versions are 10.11 (released December 2024) and 10.6 (end of life 01.07.2027); MariaDB documentation, Incompatibilities and Feature Differences Between MariaDB 10.11 and MySQL 8.0 (https://mariadb.com/docs/release-notes/community-server/about/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-10-11-and-mysql-8): \"MariaDB's JSON data type is an alias for LONGTEXT\"; \"does not support MySQL's JSON operators (-> and ->>)\"; \"MariaDB never allows authentication via roles, while MySQL permits this\"; \"MariaDB's GTID is not compatible with MySQL's\"; \"does not support CREATE TABLESPACE for InnoDB\"; \"Users created with MySQL's SHA256 password algorithm cannot be used in\" MariaDB; MariaDB documentation, MariaDB versus MySQL - Compatibility (https://mariadb.com/kb/en/mariadb-vs-mysql-compatibility/): MariaDB 10.2, 10.3 and 10.4 \"function as limited drop-in replacements for MySQL 5.7, as far as InnoDB is concerned. However, the implementation differences continue to grow in each new MariaDB version\"; AWS Aurora User Guide, Checking Aurora MySQL version numbers (https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Updates.Versions.html): the engine version has the form {mysql-major-version}.mysql_aurora.{aurora-mysql-version}, \"The {mysql-major-version} portion is 5.7 or 8.0\" (\"Aurora MySQL version 2 and 3 ... compatible with MySQL 5.7 or 8.0\")",
+          "closed_by": "preflight on the source and the target: SELECT VERSION(); and the application's own test suite against a MariaDB instance of the offered series (the rehearsal)"
+        },
+        {
+          "id": "charset-collation",
+          "state": "UNKNOWN",
+          "detail": "module.dependencies.module.catalog_rds.aws_db_parameter_group.this does not state character_set_server (the default is not assumed); module.dependencies.module.catalog_rds.aws_rds_cluster_parameter_group.this does not state character_set_server (the default is not assumed); module.dependencies.module.catalog_rds.aws_db_parameter_group.this does not state collation_server (the default is not assumed); module.dependencies.module.catalog_rds.aws_rds_cluster_parameter_group.this does not state collation_server (the default is not assumed). The default of MySQL 8.0 is utf8mb4 with utf8mb4_0900_ai_ci, which is the collation of every table created without one: if the tables use it, the same applies (the MariaDB list that holds it is the one \"from MariaDB 11.4.5\"; offered series 10.11).",
+          "evidence": "MySQL 8.0 Reference Manual, Server Character Set and Collation (https://dev.mysql.com/doc/refman/8.0/en/charset-server.html): \"By default, these are utf8mb4 and utf8mb4_0900_ai_ci\"; Unicode Character Sets (charset-unicode-sets.html): \"utf8mb4_0900_ai_ci is based on UCA 9.0.0 weight keys\"; MariaDB documentation, Supported Character Sets and Collations (https://mariadb.com/docs/server/reference/data-types/string-data-types/character-sets/supported-character-sets-and-collations): the collations are listed \"from MariaDB 11.4.5\", where utf8mb4_0900_ai_ci is \"Alias for utf8mb4_uca1400_nopad_ai_ci\" (\"MariaDB 11.4.5 added UCA-9.0.0 collations\"); the default collation of utf8mb4 is utf8mb4_general_ci up to MariaDB 11.4; MariaDB documentation, Incompatibilities and Feature Differences Between MariaDB 10.11 and MySQL 8.0: \"MariaDB indicates collation pad status as part of the name\"; STACKIT MariaDB, Lifecycle (https://docs.stackit.cloud/products/databases/mariadb/reference/lifecycle/, last updated Jul 21, 2026): the versions are 10.11 (released December 2024) and 10.6 (end of life 01.07.2027)",
+          "closed_by": "preflight on the source: SELECT table_schema, table_collation, COUNT(*) FROM information_schema.tables GROUP BY 1, 2; SELECT character_set_name, collation_name, COUNT(*) FROM information_schema.columns GROUP BY 1, 2; on the target: SHOW COLLATION WHERE Collation LIKE 'utf8mb4%0900%'; SHOW VARIABLES LIKE 'character_set%'; SHOW VARIABLES LIKE 'collation%'"
+        },
+        {
+          "id": "stored-programs",
+          "state": "UNKNOWN",
+          "detail": "the Terraform shows no stored procedure, function, trigger, event or view of the source database: whether the dump has to carry them, and how many, is not known. The dump below names --routines, --triggers and --events, which the manual lists as separate options, and a user who dumps needs the privileges the manual lists (SELECT, SHOW VIEW, TRIGGER, and LOCK TABLES unless --single-transaction is used)",
+          "evidence": "MySQL 8.0 Reference Manual, mysqldump (https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html): --routines \"Dump stored routines (procedures and functions) from dumped databases\", --triggers \"Dump triggers for each dumped table\", --events \"Dump events from dumped databases\"; the privileges mysqldump needs: SELECT, SHOW VIEW, TRIGGER, LOCK TABLES without --single-transaction, PROCESS without --no-tablespaces; AWS RDS User Guide, Exporting data from a MySQL DB instance by using replication (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Exporting.NonRDSRepl.html): its example dumps with --single-transaction --routines --triggers --databases; MySQL 8.0 Reference Manual, Stored Object Access Control (https://dev.mysql.com/doc/refman/8.0/en/stored-objects-security.html): \"If you have the SET_USER_ID privilege (or the deprecated SUPER privilege), you can specify any account as the DEFINER attribute\"; \"Otherwise, the only permitted account is your own\"; \"Creating a stored object with a nonexistent DEFINER account creates an orphan object\": a routine \"an error occurs at routine execution time\", a view \"when the view is referenced\", an event \"at event execution time\", and for a trigger \"the behavior with respect to privilege checking is undefined\"; \"Triggers and events ... always execute in definer context\"; MariaDB documentation, Stored Routine Privileges: \"If the account creating the routine has the SUPER privilege, another account can be specified as the DEFINER\"; CREATE PROCEDURE: the DEFINER clause \"Requires the SET USER privilege\"",
+          "closed_by": "preflight on the source: SELECT routine_schema, routine_type, COUNT(*) FROM information_schema.routines GROUP BY 1, 2; SELECT trigger_schema, COUNT(*) FROM information_schema.triggers GROUP BY 1; SELECT event_schema, COUNT(*) FROM information_schema.events GROUP BY 1; SELECT table_schema, COUNT(*) FROM information_schema.views GROUP BY 1"
+        },
+        {
+          "id": "definer-accounts",
+          "state": "UNKNOWN",
+          "detail": "a dump keeps the DEFINER clause of every routine, view, trigger and event, and the plan does not know the accounts they name. An object whose definer account does not exist on the target is an orphan: a routine and an event fail when they run, a view when it is referenced, a trigger has undefined privilege checking. Naming another account as definer needs a privilege (SET_USER_ID or SUPER on MySQL, SET USER or SUPER on MariaDB), and STACKIT states no privilege of the service key's user, so whether the load can even create the objects with the source's definers is not known",
+          "evidence": "MySQL 8.0 Reference Manual, Stored Object Access Control (https://dev.mysql.com/doc/refman/8.0/en/stored-objects-security.html): \"If you have the SET_USER_ID privilege (or the deprecated SUPER privilege), you can specify any account as the DEFINER attribute\"; \"Otherwise, the only permitted account is your own\"; \"Creating a stored object with a nonexistent DEFINER account creates an orphan object\": a routine \"an error occurs at routine execution time\", a view \"when the view is referenced\", an event \"at event execution time\", and for a trigger \"the behavior with respect to privilege checking is undefined\"; \"Triggers and events ... always execute in definer context\"; MariaDB documentation, Stored Routine Privileges: \"If the account creating the routine has the SUPER privilege, another account can be specified as the DEFINER\"; CREATE PROCEDURE: the DEFINER clause \"Requires the SET USER privilege\"; STACKIT MariaDB, Create and manage credentials (https://docs.stackit.cloud/products/databases/mariadb/how-tos/create-and-manage-credentials/, last updated Mar 27, 2026): \"A service key is the only available form of credential that you can create for now. With a service key, you can fully authenticate yourself against your instance\"; the page states no privilege of the key's user; the provider's stackit_mariadb_credential (0.119.0) generates the username and the password; AWS RDS User Guide, Master user account privileges (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.MasterAccounts.html): the table of the privileges of the master user of RDS for MySQL lists no SUPER privilege; from 8.0.36 it lists SET_USER_ID, CREATE USER, CREATE ROLE, EVENT, TRIGGER, CREATE ROUTINE and ALTER ROUTINE",
+          "closed_by": "preflight on the source: SELECT DISTINCT definer FROM information_schema.routines UNION SELECT DISTINCT definer FROM information_schema.views UNION SELECT DISTINCT definer FROM information_schema.events, and the definer of every trigger (SHOW TRIGGERS, or mysql.proc where it is readable); on the target: SHOW GRANTS; for the user of the service key"
+        },
+        {
+          "id": "users-and-grants",
+          "state": "UNKNOWN",
+          "detail": "the dump of the databases carries no account and no grant, and the Terraform states only the master user of the source. STACKIT documents one form of credential, a service key whose username and password it generates (the draft writes 1 of them; their names are generated by STACKIT and not literals the plan reads: stackit_mariadb_credential.dependencies_catalog_rds_this), and states no privilege of its user: whether the accounts the applications use (one per application, with its own grants) can be created and given their grants on the target is not known. A MySQL line account that authenticates with caching_sha2_password or MySQL's SHA256 algorithm cannot be used on MariaDB, and a role cannot authenticate",
+          "evidence": "STACKIT MariaDB, Create and manage credentials (https://docs.stackit.cloud/products/databases/mariadb/how-tos/create-and-manage-credentials/, last updated Mar 27, 2026): \"A service key is the only available form of credential that you can create for now. With a service key, you can fully authenticate yourself against your instance\"; the page states no privilege of the key's user; the provider's stackit_mariadb_credential (0.119.0) generates the username and the password; MariaDB documentation, Incompatibilities and Feature Differences Between MariaDB 10.11 and MySQL 8.0 (https://mariadb.com/docs/release-notes/community-server/about/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-10-11-and-mysql-8): \"MariaDB's JSON data type is an alias for LONGTEXT\"; \"does not support MySQL's JSON operators (-> and ->>)\"; \"MariaDB never allows authentication via roles, while MySQL permits this\"; \"MariaDB's GTID is not compatible with MySQL's\"; \"does not support CREATE TABLESPACE for InnoDB\"; \"Users created with MySQL's SHA256 password algorithm cannot be used in\" MariaDB; AWS RDS User Guide, Master user account privileges (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.MasterAccounts.html): the table of the privileges of the master user of RDS for MySQL lists no SUPER privilege; from 8.0.36 it lists SET_USER_ID, CREATE USER, CREATE ROLE, EVENT, TRIGGER, CREATE ROUTINE and ALTER ROUTINE",
+          "closed_by": "preflight on the source (names and the authentication plugin, never the authentication string): SELECT user, host, plugin FROM mysql.user ORDER BY 1, 2; then SHOW GRANTS FOR '<user>'@'<host>'; for each; on the target: SHOW GRANTS; for the user of the service key"
+        },
+        {
+          "id": "sql-mode",
+          "state": "UNKNOWN",
+          "detail": "module.dependencies.module.catalog_rds.aws_db_parameter_group.this does not state sql_mode (the default is not assumed); module.dependencies.module.catalog_rds.aws_rds_cluster_parameter_group.this does not state sql_mode (the default is not assumed). STACKIT states no sql_mode of its instances, so the mode of the target is not known to the plan; a routine keeps the mode it was defined with, and a data row accepted under one mode (a zero date, an unqualified GROUP BY) may be refused under another; on Aurora MySQL sql_mode is an instance-level parameter, so it is a DB parameter group of a member of the cluster, not of the cluster parameter group",
+          "evidence": "MySQL 8.0 Reference Manual, Server SQL Modes (https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html): \"The default SQL mode in MySQL 8.0 includes these modes: ONLY_FULL_GROUP_BY, STRICT_TRANS_TABLES, NO_ZERO_IN_DATE, NO_ZERO_DATE, ERROR_FOR_DIVISION_BY_ZERO, and NO_ENGINE_SUBSTITUTION\"; \"Within stored programs, individual statements of the types just listed execute in strict SQL mode if the program was defined while strict mode was in effect\"; MariaDB documentation, SQL_MODE (https://mariadb.com/kb/en/sql-mode/), section SQL_MODE and Stored Programs; AWS Aurora User Guide, Aurora MySQL configuration parameters (https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Reference.ParameterGroups.html): sql_mode is an instance-level parameter of Aurora MySQL",
+          "closed_by": "preflight on both sides: SELECT @@GLOBAL.sql_mode; and, on the source, SELECT DISTINCT sql_mode FROM information_schema.routines (the mode each routine was defined with)"
+        },
+        {
+          "id": "time-zone",
+          "state": "UNKNOWN",
+          "detail": "module.dependencies.module.catalog_rds.aws_db_parameter_group.this does not state time_zone (the default is not assumed); module.dependencies.module.catalog_rds.aws_rds_cluster_parameter_group.this does not state time_zone (the default is not assumed). A TIMESTAMP column is stored in UTC and shown in the session time zone, a DATETIME column is stored as written, so a load into a server with another time zone keeps the TIMESTAMP instants and reads the DATETIME values as the same wall clock; a named zone needs the time zone tables on the server, which STACKIT does not state for its instances",
+          "evidence": "MySQL 8.0 Reference Manual, MySQL Server Time Zone Support (https://dev.mysql.com/doc/refman/8.0/en/time-zone-support.html): \"Values for TIMESTAMP columns are converted from the session time zone to UTC for storage, and from UTC to the session time zone for retrieval\"; \"Nor are values in those data types [DATE, TIME, DATETIME] stored in UTC\"; \"Named time zones can be used only if the time zone information tables in the mysql database have been created and populated\"; AWS Aurora User Guide, Aurora MySQL configuration parameters: time_zone is a cluster-level parameter, \"By default, the time zone for an Aurora DB cluster is Universal Time Coordinated (UTC)\"",
+          "closed_by": "preflight on both sides: SELECT @@GLOBAL.time_zone, @@SESSION.time_zone, @@system_time_zone, NOW(), UTC_TIMESTAMP(); on the target also SELECT CONVERT_TZ('2026-01-01 12:00:00', 'UTC', '<zone>');"
+        },
+        {
+          "id": "binlog-format",
+          "state": "UNKNOWN",
+          "detail": "module.dependencies.module.catalog_rds.aws_db_parameter_group.this does not state binlog_format (the default is not assumed); module.dependencies.module.catalog_rds.aws_rds_cluster_parameter_group.this does not state binlog_format (the default is not assumed). backup_retention_period is 7. Whether the source writes a binary log, and in which format, is therefore not known",
+          "evidence": "AWS RDS User Guide, Configuring RDS for MySQL binary logging (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.MySQL.BinaryFormat.html): \"The automated backups feature determines whether binary logging is turned on or off for MySQL\" (a backup retention period of zero turns it off); \"MySQL on Amazon RDS supports the row-based, statement-based, and mixed binary logging formats\"; \"we recommend using row-based logging for new MySQL replication setups\"; \"Statement-based replication can cause inconsistencies between the source DB instance and a read replica\"; binlog_format \"is dynamic in RDS for MySQL ... in Aurora MySQL, this parameter is static\"; Aurora User Guide, Aurora MySQL configuration parameters: binlog_format is a cluster-level parameter",
+          "closed_by": "preflight on the source: SHOW VARIABLES LIKE 'log_bin'; SHOW VARIABLES LIKE 'binlog_format'; the owner of the source changes the parameter group, and on Aurora MySQL the cluster parameter group (the parameter is static there, so a reboot)"
+        },
+        {
+          "id": "gtid-in-dump",
+          "state": "UNKNOWN",
+          "detail": "whether GTIDs are enabled on the source is not in the Terraform; with them, a dump taken without --set-gtid-purged=OFF carries a SET @@GLOBAL.gtid_purged statement, and a MariaDB target does not take a MySQL GTID set (\"MariaDB's GTID is not compatible with MySQL's\"): the dump below sets it to OFF, which leaves the GTID statements out",
+          "evidence": "MySQL 8.0 Reference Manual, mysqldump --set-gtid-purged: \"If you do not set the --set-gtid-purged option, the default is that a SET @@GLOBAL.gtid_purged statement is included in the dump output if GTIDs are enabled on the server you are backing up\"; OFF: \"SET @@GLOBAL.gtid_purged is not added to the output\"; MariaDB 10.11 vs MySQL 8.0 page: \"MariaDB's GTID is not compatible with MySQL's\"",
+          "closed_by": "preflight on the source: SELECT @@GLOBAL.gtid_mode;"
+        },
+        {
+          "id": "table-engines-and-keys",
+          "state": "UNKNOWN",
+          "detail": "the Terraform shows neither the storage engine nor the primary key of any table (the plan the draft writes is not static (the draft writes var.dependencies_catalog_rds_this_plan_name, not a literal)). A replica plan of STACKIT MariaDB is a Galera cluster, which replicates InnoDB only (MyISAM is experimental), wants a primary key on every table, does not support LOCK TABLES and does not replicate a DELETE on a table without one; and a dump taken with --single-transaction is consistent only for InnoDB tables, which is why the writers are stopped before it",
+          "evidence": "MariaDB documentation, Galera Cluster Known Limitations (https://mariadb.com/kb/en/mariadb-galera-cluster-known-limitations/): \"Replication works only with the InnoDB storage engine\" (MyISAM support is experimental); \"All tables should have a primary key\", \"DELETE operations are unsupported on tables without a primary key\"; LOCK TABLES is unsupported; STACKIT MariaDB, Architecture (https://docs.stackit.cloud/products/databases/mariadb/basics/architecture/, last updated Aug 13, 2026): a replica set \"consists of 3 nodes ... implemented as a Galera Cluster\"; MySQL 8.0 Reference Manual, mysqldump --single-transaction: \"It is useful only with transactional tables such as InnoDB\"; \"only InnoDB tables are dumped in a consistent state. For example, any MyISAM or MEMORY tables dumped while using this option may still change state\"; no other connection should use ALTER TABLE, CREATE TABLE, DROP TABLE, RENAME TABLE or TRUNCATE TABLE during the dump",
+          "closed_by": "preflight on the source: SELECT table_schema, engine, COUNT(*) FROM information_schema.tables WHERE table_type = 'BASE TABLE' AND table_schema NOT IN ('mysql', 'information_schema', 'performance_schema', 'sys') GROUP BY 1, 2; and the tables without a primary key: SELECT t.table_schema, t.table_name FROM information_schema.tables t LEFT JOIN information_schema.table_constraints c ON c.table_schema = t.table_schema AND c.table_name = t.table_name AND c.constraint_type = 'PRIMARY KEY' WHERE t.table_type = 'BASE TABLE' AND c.constraint_name IS NULL AND t.table_schema NOT IN ('mysql', 'information_schema', 'performance_schema', 'sys')"
+        },
+        {
+          "id": "target-databases",
+          "state": "UNKNOWN",
+          "detail": "the draft writes the instance and no database (the MariaDB provider resources have none): the instance has one default database named like the instance, and a further database is declared by a custom parameter of the Portal that neither the provider nor the API's instance parameters carry. The names of the databases of the source are not in the Terraform, so whether the dump's CREATE DATABASE statements can run on the target, and whether the names match, is not known; the target instance must be empty before the load",
+          "evidence": "STACKIT MariaDB, Create and manage databases (https://docs.stackit.cloud/products/databases/mariadb/how-tos/create-and-manage-databases/, last updated Jul 6, 2026): \"there is always a default database. It has the same name as the instances deployment name\"; further databases are defined by the custom parameter `databases` in the Portal; terraform-provider-stackit 0.119.0 stackit_mariadb_instance parameters and the MariaDB API v2 InstanceParameters have no such attribute (enable_monitoring, graphite, max_disk_threshold, metrics_frequency, metrics_prefix, monitoring_instance_id, sgw_acl, syslog); STACKIT MariaDB, Backup and restore (https://docs.stackit.cloud/products/databases/mariadb/how-tos/backup-and-restore/, last updated Mar 27, 2026): the manual restore \"Your target instance needs to be empty\" and is loaded with `mysql --host --port --user --database < file.sql`",
+          "closed_by": "preflight on the source: SHOW DATABASES; the names against the default database of the target instance (the name in the connection string of its service key); the customer decides, for each other database, between declaring it in the custom parameter `databases` of the instance (Portal) and moving its tables into the default database (an application change)"
+        },
+        {
+          "id": "network-acl",
+          "state": "UNKNOWN",
+          "detail": "the move host must be in the access list (parameters.sgw_acl) of the instance, reach the source (a private RDS endpoint needs a host in or peered with that VPC) and use the custom port of the instance's service key; the default list holds the STACKIT ranges only. The idle connection timeout of the exposed STACKIT data services is 60 minutes, so a session that sits idle between two steps of the move is dropped",
+          "evidence": "STACKIT MariaDB, FAQ (https://docs.stackit.cloud/products/databases/mariadb/faq/, last updated Feb 26, 2026): the default ACL holds the STACKIT IP ranges and \"It is highly recommended that you review your ACL after creating an instance and narrow the allowed IPs down\"; Connect to MariaDB (how-tos/connect/, last updated Jul 6, 2026): \"Please ensure to use the custom port of your instance\", and a failed handshake means \"double-check your ACL settings\"; the provider's sgw_acl is \"Comma separated list of IP networks in CIDR notation which are allowed to access this instance\"; STACKIT MariaDB, Release notes (Jul 28, 2025): the idle connection timeout of the exposed data services is \"now reduced to 60 minutes\"",
+          "closed_by": "preflight from the move host: mysql --host=<source-host> --port=<source-port> to the source and mysql --host=<target-host> --port=<target-port> to the target (host and port from the connection string of the service key), and the move host's address in the access list for the time of the move"
+        }
+      ],
+      "runbook": "terraform/handover/database-dependencies_catalog_rds_this/data-move.md",
+      "applications": {
+        "confirmed_state": "NONE_CONFIRMED",
+        "confirmed": [],
+        "reason": "no application of the customer's applications file confirms this store: no file was given, no application claims it, or several claim it",
+        "proposed": {
+          "state": "NOT_LINKED",
+          "reason": "the suggested groups that reach this store are several (catalog, orders), so it is a member of none: a unit that more than one group reaches is shared"
+        }
+      },
+      "connected_units": [
+        "module.retail_app_ecs.module.catalog_service.aws_ecs_service.this"
+      ],
+      "connections": [
+        {
+          "unit": "module.retail_app_ecs.module.catalog_service.aws_ecs_service.this",
+          "via": "SECRET_REFERENCE",
+          "detail": "the unit names a secret and the secret names the store: the application reaches the data through the secret; what the unit reads from the secret when it runs is not visible in the Terraform, so this is a connection the source shows, not one that was observed",
+          "evidence": [
+            "module.retail_app_ecs.module.catalog_service.aws_ecs_service.this -> module.retail_app_ecs.aws_secretsmanager_secret.catalog_db",
+            "module.retail_app_ecs.aws_secretsmanager_secret.catalog_db -> module.dependencies.module.catalog_rds.aws_rds_cluster.this"
+          ]
+        }
+      ],
+      "open": [
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.size",
+          "what": "source.dataset.size of module.dependencies.module.catalog_rds.aws_rds_cluster.this is not stated",
+          "closed_by": "the customer answers the request for source.dataset.size in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.write_rate",
+          "what": "source.dataset.write_rate of module.dependencies.module.catalog_rds.aws_rds_cluster.this is not stated",
+          "closed_by": "the customer answers the request for source.dataset.write_rate in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.bandwidth",
+          "what": "source.dataset.bandwidth of module.dependencies.module.catalog_rds.aws_rds_cluster.this is not stated",
+          "closed_by": "the customer answers the request for source.dataset.bandwidth in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.rpo",
+          "what": "source.dataset.rpo of module.dependencies.module.catalog_rds.aws_rds_cluster.this is not stated",
+          "closed_by": "the customer answers the request for source.dataset.rpo in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.rto",
+          "what": "source.dataset.rto of module.dependencies.module.catalog_rds.aws_rds_cluster.this is not stated",
+          "closed_by": "the customer answers the request for source.dataset.rto in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.downtime",
+          "what": "source.dataset.downtime of module.dependencies.module.catalog_rds.aws_rds_cluster.this is not stated",
+          "closed_by": "the customer answers the request for source.dataset.downtime in the inputs file"
+        },
+        {
+          "kind": "CHECK",
+          "id": "version-gap",
+          "what": "the source is MySQL line 8.0 and STACKIT has no managed MySQL: the target is a different engine (MariaDB 10.11), not a version of the same one. For MySQL 8.0 the MariaDB documentation lists what differs: the JSON data type of MariaDB is an alias for LONGTEXT (the -> and ->> operators are not supported), GTIDs are not compatible, roles cannot authenticate, a user created with MySQL's SHA256 password algorithm cannot be used, and CREATE TABLESPACE is not supported.",
+          "closed_by": "preflight on the source and the target: SELECT VERSION(); and the application's own test suite against a MariaDB instance of the offered series (the rehearsal)"
+        },
+        {
+          "kind": "CHECK",
+          "id": "charset-collation",
+          "what": "module.dependencies.module.catalog_rds.aws_db_parameter_group.this does not state character_set_server (the default is not assumed); module.dependencies.module.catalog_rds.aws_rds_cluster_parameter_group.this does not state character_set_server (the default is not assumed); module.dependencies.module.catalog_rds.aws_db_parameter_group.this does not state collation_server (the default is not assumed); module.dependencies.module.catalog_rds.aws_rds_cluster_parameter_group.this does not state collation_server (the default is not assumed). The default of MySQL 8.0 is utf8mb4 with utf8mb4_0900_ai_ci, which is the collation of every table created without one: if the tables use it, the same applies (the MariaDB list that holds it is the one \"from MariaDB 11.4.5\"; offered series 10.11).",
+          "closed_by": "preflight on the source: SELECT table_schema, table_collation, COUNT(*) FROM information_schema.tables GROUP BY 1, 2; SELECT character_set_name, collation_name, COUNT(*) FROM information_schema.columns GROUP BY 1, 2; on the target: SHOW COLLATION WHERE Collation LIKE 'utf8mb4%0900%'; SHOW VARIABLES LIKE 'character_set%'; SHOW VARIABLES LIKE 'collation%'"
+        },
+        {
+          "kind": "CHECK",
+          "id": "stored-programs",
+          "what": "the Terraform shows no stored procedure, function, trigger, event or view of the source database: whether the dump has to carry them, and how many, is not known. The dump below names --routines, --triggers and --events, which the manual lists as separate options, and a user who dumps needs the privileges the manual lists (SELECT, SHOW VIEW, TRIGGER, and LOCK TABLES unless --single-transaction is used)",
+          "closed_by": "preflight on the source: SELECT routine_schema, routine_type, COUNT(*) FROM information_schema.routines GROUP BY 1, 2; SELECT trigger_schema, COUNT(*) FROM information_schema.triggers GROUP BY 1; SELECT event_schema, COUNT(*) FROM information_schema.events GROUP BY 1; SELECT table_schema, COUNT(*) FROM information_schema.views GROUP BY 1"
+        },
+        {
+          "kind": "CHECK",
+          "id": "definer-accounts",
+          "what": "a dump keeps the DEFINER clause of every routine, view, trigger and event, and the plan does not know the accounts they name. An object whose definer account does not exist on the target is an orphan: a routine and an event fail when they run, a view when it is referenced, a trigger has undefined privilege checking. Naming another account as definer needs a privilege (SET_USER_ID or SUPER on MySQL, SET USER or SUPER on MariaDB), and STACKIT states no privilege of the service key's user, so whether the load can even create the objects with the source's definers is not known",
+          "closed_by": "preflight on the source: SELECT DISTINCT definer FROM information_schema.routines UNION SELECT DISTINCT definer FROM information_schema.views UNION SELECT DISTINCT definer FROM information_schema.events, and the definer of every trigger (SHOW TRIGGERS, or mysql.proc where it is readable); on the target: SHOW GRANTS; for the user of the service key"
+        },
+        {
+          "kind": "CHECK",
+          "id": "users-and-grants",
+          "what": "the dump of the databases carries no account and no grant, and the Terraform states only the master user of the source. STACKIT documents one form of credential, a service key whose username and password it generates (the draft writes 1 of them; their names are generated by STACKIT and not literals the plan reads: stackit_mariadb_credential.dependencies_catalog_rds_this), and states no privilege of its user: whether the accounts the applications use (one per application, with its own grants) can be created and given their grants on the target is not known. A MySQL line account that authenticates with caching_sha2_password or MySQL's SHA256 algorithm cannot be used on MariaDB, and a role cannot authenticate",
+          "closed_by": "preflight on the source (names and the authentication plugin, never the authentication string): SELECT user, host, plugin FROM mysql.user ORDER BY 1, 2; then SHOW GRANTS FOR '<user>'@'<host>'; for each; on the target: SHOW GRANTS; for the user of the service key"
+        },
+        {
+          "kind": "CHECK",
+          "id": "sql-mode",
+          "what": "module.dependencies.module.catalog_rds.aws_db_parameter_group.this does not state sql_mode (the default is not assumed); module.dependencies.module.catalog_rds.aws_rds_cluster_parameter_group.this does not state sql_mode (the default is not assumed). STACKIT states no sql_mode of its instances, so the mode of the target is not known to the plan; a routine keeps the mode it was defined with, and a data row accepted under one mode (a zero date, an unqualified GROUP BY) may be refused under another; on Aurora MySQL sql_mode is an instance-level parameter, so it is a DB parameter group of a member of the cluster, not of the cluster parameter group",
+          "closed_by": "preflight on both sides: SELECT @@GLOBAL.sql_mode; and, on the source, SELECT DISTINCT sql_mode FROM information_schema.routines (the mode each routine was defined with)"
+        },
+        {
+          "kind": "CHECK",
+          "id": "time-zone",
+          "what": "module.dependencies.module.catalog_rds.aws_db_parameter_group.this does not state time_zone (the default is not assumed); module.dependencies.module.catalog_rds.aws_rds_cluster_parameter_group.this does not state time_zone (the default is not assumed). A TIMESTAMP column is stored in UTC and shown in the session time zone, a DATETIME column is stored as written, so a load into a server with another time zone keeps the TIMESTAMP instants and reads the DATETIME values as the same wall clock; a named zone needs the time zone tables on the server, which STACKIT does not state for its instances",
+          "closed_by": "preflight on both sides: SELECT @@GLOBAL.time_zone, @@SESSION.time_zone, @@system_time_zone, NOW(), UTC_TIMESTAMP(); on the target also SELECT CONVERT_TZ('2026-01-01 12:00:00', 'UTC', '<zone>');"
+        },
+        {
+          "kind": "CHECK",
+          "id": "binlog-format",
+          "what": "module.dependencies.module.catalog_rds.aws_db_parameter_group.this does not state binlog_format (the default is not assumed); module.dependencies.module.catalog_rds.aws_rds_cluster_parameter_group.this does not state binlog_format (the default is not assumed). backup_retention_period is 7. Whether the source writes a binary log, and in which format, is therefore not known",
+          "closed_by": "preflight on the source: SHOW VARIABLES LIKE 'log_bin'; SHOW VARIABLES LIKE 'binlog_format'; the owner of the source changes the parameter group, and on Aurora MySQL the cluster parameter group (the parameter is static there, so a reboot)"
+        },
+        {
+          "kind": "CHECK",
+          "id": "gtid-in-dump",
+          "what": "whether GTIDs are enabled on the source is not in the Terraform; with them, a dump taken without --set-gtid-purged=OFF carries a SET @@GLOBAL.gtid_purged statement, and a MariaDB target does not take a MySQL GTID set (\"MariaDB's GTID is not compatible with MySQL's\"): the dump below sets it to OFF, which leaves the GTID statements out",
+          "closed_by": "preflight on the source: SELECT @@GLOBAL.gtid_mode;"
+        },
+        {
+          "kind": "CHECK",
+          "id": "table-engines-and-keys",
+          "what": "the Terraform shows neither the storage engine nor the primary key of any table (the plan the draft writes is not static (the draft writes var.dependencies_catalog_rds_this_plan_name, not a literal)). A replica plan of STACKIT MariaDB is a Galera cluster, which replicates InnoDB only (MyISAM is experimental), wants a primary key on every table, does not support LOCK TABLES and does not replicate a DELETE on a table without one; and a dump taken with --single-transaction is consistent only for InnoDB tables, which is why the writers are stopped before it",
+          "closed_by": "preflight on the source: SELECT table_schema, engine, COUNT(*) FROM information_schema.tables WHERE table_type = 'BASE TABLE' AND table_schema NOT IN ('mysql', 'information_schema', 'performance_schema', 'sys') GROUP BY 1, 2; and the tables without a primary key: SELECT t.table_schema, t.table_name FROM information_schema.tables t LEFT JOIN information_schema.table_constraints c ON c.table_schema = t.table_schema AND c.table_name = t.table_name AND c.constraint_type = 'PRIMARY KEY' WHERE t.table_type = 'BASE TABLE' AND c.constraint_name IS NULL AND t.table_schema NOT IN ('mysql', 'information_schema', 'performance_schema', 'sys')"
+        },
+        {
+          "kind": "CHECK",
+          "id": "target-databases",
+          "what": "the draft writes the instance and no database (the MariaDB provider resources have none): the instance has one default database named like the instance, and a further database is declared by a custom parameter of the Portal that neither the provider nor the API's instance parameters carry. The names of the databases of the source are not in the Terraform, so whether the dump's CREATE DATABASE statements can run on the target, and whether the names match, is not known; the target instance must be empty before the load",
+          "closed_by": "preflight on the source: SHOW DATABASES; the names against the default database of the target instance (the name in the connection string of its service key); the customer decides, for each other database, between declaring it in the custom parameter `databases` of the instance (Portal) and moving its tables into the default database (an application change)"
+        },
+        {
+          "kind": "CHECK",
+          "id": "network-acl",
+          "what": "the move host must be in the access list (parameters.sgw_acl) of the instance, reach the source (a private RDS endpoint needs a host in or peered with that VPC) and use the custom port of the instance's service key; the default list holds the STACKIT ranges only. The idle connection timeout of the exposed STACKIT data services is 60 minutes, so a session that sits idle between two steps of the move is dropped",
+          "closed_by": "preflight from the move host: mysql --host=<source-host> --port=<source-port> to the source and mysql --host=<target-host> --port=<target-port> to the target (host and port from the connection string of the service key), and the move host's address in the access list for the time of the move"
+        },
+        {
+          "kind": "VALUE",
+          "id": "target.version",
+          "what": "target.version of module.dependencies.module.catalog_rds.aws_rds_cluster.this is NOT_STATIC: the draft writes the variable var.dependencies_catalog_rds_this_version",
+          "closed_by": "the version is stated as a literal in the Terraform, or the customer states it in the inputs file"
+        },
+        {
+          "kind": "DECISION",
+          "id": "convert:module.dependencies.module.catalog_rds.aws_rds_cluster.this:data:DATA_MOVEMENT",
+          "what": "the method that moves the data of module.dependencies.module.catalog_rds.aws_rds_cluster.this is not chosen",
+          "closed_by": "the architect answers the decision; the steps of the methods the answer does not take are not taken"
+        }
+      ],
+      "rollback": "Before the connection strings are switched nothing is switched: the source was neither stopped nor made read-only nor changed after the freeze, so it is current to the freeze; stop the writers, put the recorded connection settings of the source back and start the writers on it. After the switch, what was written to the target is not on the source: the point of no return is the first write to the target. The way back is a dump in the other direction (a separate rehearsal, and the differences of the two engines apply the other way round) or accepting the loss; take that decision before the window. This plan defines no reverse replication. Keep the target until the cause is known and do not delete the source in the same hour.",
+      "limits": [
+        "StackToIT moves no data and opens no connection: every step is defined for a person to run; none is applied or verified by this plan",
+        "allocated_storage is the capacity provisioned, not the size of the data: the size is the customer's input (source.dataset.size)",
+        "the databases, tables, collations, routines, triggers, events, accounts and grants of the source are not in the Terraform: the checks are UNKNOWN until the preflight closes them, and what a linked parameter group does not state is not assumed",
+        "the STACKIT MariaDB pages and the commands are read as documentation, not run: no dump was loaded into a STACKIT MariaDB instance by this build, and the settings of the target (collations, sql_mode, time zone, the privileges of the service key's user) are not stated by STACKIT",
+        "the replication of a binary log into the target is refused: no STACKIT page read documents a way to attach a STACKIT MariaDB instance to an external source as a replica: the instance pages (introduction, architecture, cluster setup, backup and restore, credentials) describe replication only between the nodes of the instance itself (a Galera cluster) and a restore of the instance's own backups, the credential is a service key whose privileges the page does not state (a replica needs a privileged account for CHANGE MASTER), and the MariaDB documentation states \"MariaDB's GTID is not compatible with MySQL's\" and that Galera replicates InnoDB only; the knowledge base records the same absence for every service other than PostgreSQL Flex",
+        "the source is a MySQL line engine and the target is MariaDB: the comparison the plan has read is MariaDB 10.11 against MySQL 8.0; how far the application works against MariaDB is a test of the application, not a statement of this plan",
+        "Aurora MySQL: the cluster parameter group holds character_set_server, collation_server, time_zone, lower_case_table_names and binlog_format, and sql_mode is a parameter of the DB parameter group of each member; the plan reads the groups the Terraform links and no group of a member it cannot see"
+      ]
+    },
+    {
+      "unit": "module.dependencies.module.orders_rds.aws_rds_cluster.this",
+      "source_type": "aws_rds_cluster",
+      "family": "rds-postgresql-to-postgresflex",
+      "source": {
+        "engine": "aurora-postgresql",
+        "engine_version": {
+          "state": "OBSERVED",
+          "value": "15.10",
+          "from": "assessment:units/module.dependencies.module.orders_rds.aws_rds_cluster.this#engine_version"
+        },
+        "major": {
+          "state": "OBSERVED",
+          "value": "15",
+          "from": "assessment:units/module.dependencies.module.orders_rds.aws_rds_cluster.this#engine_version"
+        },
+        "provisioned_capacity": {
+          "state": "NOT_PROVIDED"
+        }
+      },
+      "target": {
+        "instance": "stackit_postgresflex_instance.dependencies_orders_rds_this",
+        "version": {
+          "state": "OBSERVED",
+          "value": "15",
+          "from": "draft:stackit_postgresflex_instance.dependencies_orders_rds_this#version"
+        },
+        "offered_majors": [
+          "14",
+          "15",
+          "16",
+          "17",
+          "18"
+        ]
+      },
+      "quantities": {
+        "size": {
+          "topic": "source.dataset.size",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "write_rate": {
+          "topic": "source.dataset.write_rate",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "bandwidth": {
+          "topic": "source.dataset.bandwidth",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "rpo": {
+          "topic": "source.dataset.rpo",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "rto": {
+          "topic": "source.dataset.rto",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "downtime": {
+          "topic": "source.dataset.downtime",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        }
+      },
+      "selection": "OPEN",
+      "decision": "convert:module.dependencies.module.orders_rds.aws_rds_cluster.this:data:DATA_MOVEMENT",
+      "methods": [
+        {
+          "id": "dump-restore",
+          "decision_option": "export-and-import-with-the-engine-clients",
+          "state": "CANDIDATE",
+          "chosen": false,
+          "duration": {
+            "state": "UNKNOWN",
+            "formula": "copy lower bound = size.min / bandwidth.max",
+            "inputs": [
+              "source.dataset.size",
+              "source.dataset.bandwidth"
+            ],
+            "text": "unknown: source.dataset.size, source.dataset.bandwidth must be stated by the customer (a value from the source or an application file is not used)",
+            "missing": [
+              "source.dataset.size",
+              "source.dataset.bandwidth"
+            ]
+          },
+          "freeze_window": {
+            "basis": "the dump and the restore run inside the freeze, but their lower bound cannot be computed: source.dataset.size, source.dataset.bandwidth must be stated by the customer (a value from the source or an application file is not used)",
+            "missing": [
+              "source.dataset.size",
+              "source.dataset.bandwidth"
+            ],
+            "stated_downtime": {
+              "topic": "source.dataset.downtime",
+              "origin": "UNKNOWN",
+              "reason": "NOT_PROVIDED"
+            },
+            "comparison": "UNKNOWN",
+            "detail": "no lower bound of the window can be computed: the dump and the restore run inside the freeze, but their lower bound cannot be computed: source.dataset.size, source.dataset.bandwidth must be stated by the customer (a value from the source or an application file is not used)"
+          },
+          "objectives": {
+            "rpo": {
+              "stated": {
+                "topic": "source.dataset.rpo",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "Designed to lose no write that was committed before the freeze: the writers are stopped before the dump starts and the source is neither stopped nor changed, so the dump is the final state of the source. Writes after the freeze wait until the applications are switched. Not measured.",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            },
+            "rto": {
+              "stated": {
+                "topic": "source.dataset.rto",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "The applications are unavailable for the whole write freeze: the dump, the restore, the reconcile and the switch of the applications. The lower bound of the first part is the freeze window; the rest is measured in the rehearsal.",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            }
+          },
+          "prerequisites": [
+            "extensions: UNKNOWN (closed by: preflight: on the source SELECT extname, extversion FROM pg_extension ORDER BY 1; on the target SHOW extwlist.extensions; and trust the target)",
+            "roles: UNKNOWN (closed by: preflight on the source: \\du and \\dp list the roles and grants the application uses; they are created as stackit_postgresflex_user resources and the grants are issued again)",
+            "network-tls: UNKNOWN (closed by: preflight from the move host: psql to the source and to the target with PGSSLMODE=require)"
+          ],
+          "risks": [
+            "the dump, the restore and the verification run inside the write freeze: the freeze lasts as long as all three",
+            "the dump holds the data: keep it readable only by the person who moves it and delete it at cleanup",
+            "pg_restore does not stop at an error: every line of restore.log is settled by a person",
+            "a schema of the source named metric_helpers or user_management collides with the platform-owned schemas of every PostgreSQL Flex instance"
+          ],
+          "steps": [
+            {
+              "kind": "preflight",
+              "id": "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/preflight",
+              "in_plan": true
+            },
+            {
+              "kind": "rehearsal",
+              "id": "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/rehearsal",
+              "in_plan": true
+            },
+            {
+              "kind": "write-freeze",
+              "id": "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/write-freeze/dump-restore",
+              "in_plan": true
+            },
+            {
+              "kind": "final-sync",
+              "id": "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/final-sync/dump-restore",
+              "in_plan": true
+            },
+            {
+              "kind": "reconcile",
+              "id": "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/reconcile/dump-restore",
+              "in_plan": true
+            },
+            {
+              "kind": "cleanup",
+              "id": "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/cleanup/dump-restore",
+              "in_plan": true
+            }
+          ],
+          "verification": [
+            {
+              "id": "row-counts",
+              "kind": "COUNT_COMPARISON",
+              "mode": "COMMAND",
+              "what": "Count the rows of every table on both sides, with the writers stopped (an exact count of each table; the estimates of pg_stat_user_tables are not counts).",
+              "expected": "the same tables with the same number of rows on both sides",
+              "command": "SELECT format('SELECT %L AS tbl, count(*) FROM %I.%I;', schemaname || '.' || tablename, schemaname, tablename) FROM pg_tables WHERE schemaname NOT IN ('pg_catalog', 'information_schema') \\gexec"
+            },
+            {
+              "id": "table-checksums",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "Take the md5 of the rows of every keyed table that matters on both sides, ordered by its key (a key range for a large table; DateStyle, TimeZone and extra_float_digits equal in both sessions).",
+              "expected": "the row count and the md5 are equal on both sides for every table checked",
+              "command": "SELECT count(*), md5(string_agg(t::text, ',' ORDER BY t.<key-column>)) FROM <schema>.<table> t;",
+              "not_provided": [
+                "the key column of each table (<key-column>)",
+                "the tables that matter"
+              ]
+            },
+            {
+              "id": "sequences",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "Compare the position of every sequence on both sides, so that the first insert on the target does not repeat a key.",
+              "expected": "the positions are equal, or the target's is higher",
+              "command": "SELECT sequencename, last_value FROM pg_sequences ORDER BY 1;"
+            },
+            {
+              "id": "application-check",
+              "kind": "APPLICATION_SMOKE",
+              "mode": "MANUAL",
+              "what": "Run one read the application itself makes on its most important data against the target database and compare its answer with the answer the application gets from the source; then, from a test copy of the application, make one write against the target database and read it back.",
+              "expected": "the two answers are equal, the write succeeds and the read returns it",
+              "manual_reason": "the read and the write are the application's, and the source states neither the query nor the answer",
+              "not_provided": [
+                "the read the application makes on its most important data and its expected answer",
+                "the write the test copy of the application makes"
+              ]
+            },
+            {
+              "id": "rollback-limit",
+              "kind": "ROLLBACK_LIMIT",
+              "mode": "MANUAL",
+              "what": "Record the point after which a rollback loses data. Until the first of the writes that the target database accepts after the switch, a rollback is only the connection settings put back: the source database was not changed after the freeze and is current to it. From that write on, what the target database holds exists only there: it is copied back to the source database with a method rehearsed before the window, or accepted as lost. Once the source database is retired (its retirement step, after the GO and the retention the owner decides) there is nothing to go back to.",
+              "expected": "before the window the owner records the date until which the source database is kept, the method that copies the writes of the target database back or the decision that they are lost, and who calls the rollback",
+              "manual_reason": "how long the source is kept and whether the writes made on the target are copied back or lost are decisions of the owner of the application: the source states neither, so the plan names the limit and no date",
+              "not_provided": [
+                "the date until which the source database is kept",
+                "the method that copies the writes of the target database back, or the decision that they are lost"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "logical-replication",
+          "decision_option": "replicate-with-the-engine-replication",
+          "state": "CANDIDATE",
+          "chosen": false,
+          "duration": {
+            "state": "UNKNOWN",
+            "formula": "min = size.min / bandwidth.max; max = size.max / (bandwidth.min - write_rate.max)",
+            "inputs": [
+              "source.dataset.size",
+              "source.dataset.bandwidth",
+              "source.dataset.write_rate"
+            ],
+            "text": "unknown: source.dataset.size, source.dataset.bandwidth, source.dataset.write_rate must be stated by the customer (a value from the source or an application file is not used)",
+            "missing": [
+              "source.dataset.size",
+              "source.dataset.bandwidth",
+              "source.dataset.write_rate"
+            ]
+          },
+          "freeze_window": {
+            "basis": "the freeze lasts until the lag of the replication is drained, the sequences are copied, the reconcile is done and the applications are switched; the lag at the freeze depends on the throughput the rehearsal measures, so the plan has no formula for the window",
+            "stated_downtime": {
+              "topic": "source.dataset.downtime",
+              "origin": "UNKNOWN",
+              "reason": "NOT_PROVIDED"
+            },
+            "comparison": "UNKNOWN",
+            "detail": "no lower bound of the window can be computed: the freeze lasts until the lag of the replication is drained, the sequences are copied, the reconcile is done and the applications are switched; the lag at the freeze depends on the throughput the rehearsal measures, so the plan has no formula for the window"
+          },
+          "objectives": {
+            "rpo": {
+              "stated": {
+                "topic": "source.dataset.rpo",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "Designed to lose no write that was committed before the freeze: the replication follows the changes until the freeze, and the final copy waits until the lag is 0 with the writers stopped. Not measured.",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            },
+            "rto": {
+              "stated": {
+                "topic": "source.dataset.rto",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "The applications are unavailable from the write freeze until they are switched: the lag drain, the sequences, the reconcile and the switch. The plan has no formula for it; the rehearsal measures it.",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            }
+          },
+          "prerequisites": [
+            "extensions: UNKNOWN (closed by: preflight: on the source SELECT extname, extversion FROM pg_extension ORDER BY 1; on the target SHOW extwlist.extensions; and trust the target)",
+            "roles: UNKNOWN (closed by: preflight on the source: \\du and \\dp list the roles and grants the application uses; they are created as stackit_postgresflex_user resources and the grants are issued again)",
+            "network-tls: UNKNOWN (closed by: preflight from the move host: psql to the source and to the target with PGSSLMODE=require)",
+            "lr-enabled: UNKNOWN (closed by: preflight on the source: SHOW rds.logical_replication; (the owner of the source changes it in the parameter group and reboots it))",
+            "lr-replica-identity: UNKNOWN (closed by: preflight on the source: list the tables without a primary key (pg_class / pg_index, relkind 'r', outside pg_catalog and information_schema))",
+            "lr-subscription-privilege: UNKNOWN (closed by: preflight on the empty target: CREATE SUBSCRIPTION stacktoit_probe CONNECTION 'host=localhost dbname=x' PUBLICATION p WITH (connect = false); then ALTER SUBSCRIPTION stacktoit_probe SET (slot_name = NONE); DROP SUBSCRIPTION stacktoit_probe; if the first is refused, dump/restore is the only defined method)",
+            "lr-target-reaches-source: UNKNOWN (closed by: the rehearsal: a subscription from a scratch database of the target to a copy of the source)",
+            "replication-cannot-catch-up: UNKNOWN (closed by: the customer states source.dataset.size, source.dataset.bandwidth and source.dataset.write_rate; the rehearsal measures the real throughput)"
+          ],
+          "risks": [
+            "a change and a reboot of the source to turn rds.logical_replication on, and a second one to turn it off",
+            "the schema, later DDL, sequences and large objects are not replicated: the schema is copied first, the sequences at the freeze, a large object has no replication path",
+            "a replication slot nobody reads fills the storage of the source",
+            "parameters that raise WAL generation are set only for the move"
+          ],
+          "steps": [
+            {
+              "kind": "preflight",
+              "id": "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/preflight",
+              "in_plan": true
+            },
+            {
+              "kind": "rehearsal",
+              "id": "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/rehearsal",
+              "in_plan": true
+            },
+            {
+              "kind": "initial-copy",
+              "id": "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/initial-copy/logical-replication",
+              "in_plan": true
+            },
+            {
+              "kind": "delta-sync",
+              "id": "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/delta-sync/logical-replication",
+              "in_plan": true
+            },
+            {
+              "kind": "write-freeze",
+              "id": "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/write-freeze/logical-replication",
+              "in_plan": true
+            },
+            {
+              "kind": "final-sync",
+              "id": "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/final-sync/logical-replication",
+              "in_plan": true
+            },
+            {
+              "kind": "reconcile",
+              "id": "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/reconcile/logical-replication",
+              "in_plan": true
+            },
+            {
+              "kind": "cleanup",
+              "id": "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/cleanup/logical-replication",
+              "in_plan": true
+            }
+          ],
+          "verification": [
+            {
+              "id": "replication-lag",
+              "kind": "REPLICATION_LAG",
+              "mode": "COMMAND",
+              "what": "On the source, inside the freeze and before the final sync, read how far the subscription is behind the source: the lag of the replication slot in bytes.",
+              "expected": "the lag is 0 bytes with the writers stopped; the final sync (the sequences, then disabling the subscription) waits for it",
+              "command": "SELECT slot_name, active, pg_wal_lsn_diff(pg_current_wal_lsn(), confirmed_flush_lsn) AS lag_bytes FROM pg_replication_slots;"
+            },
+            {
+              "id": "last-sync-time",
+              "kind": "LAST_SYNC_TIME",
+              "mode": "COMMAND",
+              "what": "On the target, read the time of the last change the subscription applied, and record it with the time the writers stopped.",
+              "expected": "the time of the last sync is not earlier than the time the writers stopped, and no change arrives after it",
+              "command": "SELECT subname, latest_end_lsn, latest_end_time FROM pg_stat_subscription;",
+              "not_provided": [
+                "the time the writers stopped (recorded by the freeze step)"
+              ]
+            },
+            {
+              "id": "row-counts",
+              "kind": "COUNT_COMPARISON",
+              "mode": "COMMAND",
+              "what": "Count the rows of every table on both sides, with the writers stopped (an exact count of each table; the estimates of pg_stat_user_tables are not counts).",
+              "expected": "the same tables with the same number of rows on both sides",
+              "command": "SELECT format('SELECT %L AS tbl, count(*) FROM %I.%I;', schemaname || '.' || tablename, schemaname, tablename) FROM pg_tables WHERE schemaname NOT IN ('pg_catalog', 'information_schema') \\gexec"
+            },
+            {
+              "id": "table-checksums",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "Take the md5 of the rows of every keyed table that matters on both sides, ordered by its key (a key range for a large table; DateStyle, TimeZone and extra_float_digits equal in both sessions).",
+              "expected": "the row count and the md5 are equal on both sides for every table checked",
+              "command": "SELECT count(*), md5(string_agg(t::text, ',' ORDER BY t.<key-column>)) FROM <schema>.<table> t;",
+              "not_provided": [
+                "the key column of each table (<key-column>)",
+                "the tables that matter"
+              ]
+            },
+            {
+              "id": "sequences",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "Compare the position of every sequence on both sides, so that the first insert on the target does not repeat a key.",
+              "expected": "the positions are equal, or the target's is higher",
+              "command": "SELECT sequencename, last_value FROM pg_sequences ORDER BY 1;"
+            },
+            {
+              "id": "application-check",
+              "kind": "APPLICATION_SMOKE",
+              "mode": "MANUAL",
+              "what": "Run one read the application itself makes on its most important data against the target database and compare its answer with the answer the application gets from the source; then, from a test copy of the application, make one write against the target database and read it back.",
+              "expected": "the two answers are equal, the write succeeds and the read returns it",
+              "manual_reason": "the read and the write are the application's, and the source states neither the query nor the answer",
+              "not_provided": [
+                "the read the application makes on its most important data and its expected answer",
+                "the write the test copy of the application makes"
+              ]
+            },
+            {
+              "id": "rollback-limit",
+              "kind": "ROLLBACK_LIMIT",
+              "mode": "MANUAL",
+              "what": "Record the point after which a rollback loses data. Until the first of the writes that the target database accepts after the switch, a rollback is only the connection settings put back: the source database was not changed after the freeze and is current to it. From that write on, what the target database holds exists only there: it is copied back to the source database with a method rehearsed before the window, or accepted as lost. Once the source database is retired (its retirement step, after the GO and the retention the owner decides) there is nothing to go back to.",
+              "expected": "before the window the owner records the date until which the source database is kept, the method that copies the writes of the target database back or the decision that they are lost, and who calls the rollback",
+              "manual_reason": "how long the source is kept and whether the writes made on the target are copied back or lost are decisions of the owner of the application: the source states neither, so the plan names the limit and no date",
+              "not_provided": [
+                "the date until which the source database is kept",
+                "the method that copies the writes of the target database back, or the decision that they are lost"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "own-tool",
+          "decision_option": "migrate-with-a-tool-of-my-own",
+          "state": "CUSTOMER_OWNED",
+          "why": "the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point",
+          "chosen": false,
+          "duration": {
+            "state": "UNKNOWN",
+            "inputs": [],
+            "text": "unknown: the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point",
+            "reason": "a tool of the customer's own"
+          },
+          "freeze_window": {
+            "basis": "the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point",
+            "stated_downtime": {
+              "topic": "source.dataset.downtime",
+              "origin": "UNKNOWN",
+              "reason": "NOT_PROVIDED"
+            },
+            "comparison": "UNKNOWN",
+            "detail": "no lower bound of the window can be computed: the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point"
+          },
+          "objectives": {
+            "rpo": {
+              "stated": {
+                "topic": "source.dataset.rpo",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "unknown: the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            },
+            "rto": {
+              "stated": {
+                "topic": "source.dataset.rto",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "unknown: the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            }
+          },
+          "prerequisites": [],
+          "risks": [],
+          "steps": [
+            {
+              "kind": "write-freeze",
+              "id": "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/write-freeze/own-tool",
+              "in_plan": true
+            },
+            {
+              "kind": "final-sync",
+              "id": "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/final-sync/own-tool",
+              "in_plan": true
+            },
+            {
+              "kind": "reconcile",
+              "id": "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/reconcile/own-tool",
+              "in_plan": true
+            }
+          ],
+          "verification": [
+            {
+              "id": "row-counts",
+              "kind": "COUNT_COMPARISON",
+              "mode": "COMMAND",
+              "what": "Count the rows of every table on both sides, with the writers stopped (an exact count of each table; the estimates of pg_stat_user_tables are not counts).",
+              "expected": "the same tables with the same number of rows on both sides",
+              "command": "SELECT format('SELECT %L AS tbl, count(*) FROM %I.%I;', schemaname || '.' || tablename, schemaname, tablename) FROM pg_tables WHERE schemaname NOT IN ('pg_catalog', 'information_schema') \\gexec"
+            },
+            {
+              "id": "table-checksums",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "Take the md5 of the rows of every keyed table that matters on both sides, ordered by its key (a key range for a large table; DateStyle, TimeZone and extra_float_digits equal in both sessions).",
+              "expected": "the row count and the md5 are equal on both sides for every table checked",
+              "command": "SELECT count(*), md5(string_agg(t::text, ',' ORDER BY t.<key-column>)) FROM <schema>.<table> t;",
+              "not_provided": [
+                "the key column of each table (<key-column>)",
+                "the tables that matter"
+              ]
+            },
+            {
+              "id": "sequences",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "Compare the position of every sequence on both sides, so that the first insert on the target does not repeat a key.",
+              "expected": "the positions are equal, or the target's is higher",
+              "command": "SELECT sequencename, last_value FROM pg_sequences ORDER BY 1;"
+            },
+            {
+              "id": "application-check",
+              "kind": "APPLICATION_SMOKE",
+              "mode": "MANUAL",
+              "what": "Run one read the application itself makes on its most important data against the target database and compare its answer with the answer the application gets from the source; then, from a test copy of the application, make one write against the target database and read it back.",
+              "expected": "the two answers are equal, the write succeeds and the read returns it",
+              "manual_reason": "the read and the write are the application's, and the source states neither the query nor the answer",
+              "not_provided": [
+                "the read the application makes on its most important data and its expected answer",
+                "the write the test copy of the application makes"
+              ]
+            },
+            {
+              "id": "rollback-limit",
+              "kind": "ROLLBACK_LIMIT",
+              "mode": "MANUAL",
+              "what": "Record the point after which a rollback loses data. Until the first of the writes that the target database accepts after the switch, a rollback is only the connection settings put back: the source database was not changed after the freeze and is current to it. From that write on, what the target database holds exists only there: it is copied back to the source database with a method rehearsed before the window, or accepted as lost. Once the source database is retired (its retirement step, after the GO and the retention the owner decides) there is nothing to go back to.",
+              "expected": "before the window the owner records the date until which the source database is kept, the method that copies the writes of the target database back or the decision that they are lost, and who calls the rollback",
+              "manual_reason": "how long the source is kept and whether the writes made on the target are copied back or lost are decisions of the owner of the application: the source states neither, so the plan names the limit and no date",
+              "not_provided": [
+                "the date until which the source database is kept",
+                "the method that copies the writes of the target database back, or the decision that they are lost"
+              ]
+            }
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "version-offered",
+          "state": "HOLDS",
+          "detail": "source major 15 is offered by PostgreSQL Flex (14, 15, 16, 17, 18)",
+          "evidence": "PostgreSQL Flex versions: the versions the service offers in the region (the list of versions of the PostgreSQL Flex API), else the documented range 14 to 18 (supported-extensions page)",
+          "closed_by": "preflight on the source: SHOW server_version;"
+        },
+        {
+          "id": "version-target",
+          "state": "HOLDS",
+          "detail": "target major 15 equals the source's: no upgrade",
+          "evidence": "PostgreSQL pg_dump documentation: pg_dump dumps older servers and refuses a newer one; --quote-all-identifiers is recommended for a dump loaded into another major",
+          "closed_by": "the customer chooses the target major (answer target.postgres.version); preflight on the source: SHOW server_version;"
+        },
+        {
+          "id": "version-deprecated",
+          "state": "HOLDS",
+          "detail": "target major 15 is not deprecated in the list given",
+          "evidence": "STACKIT release notes, entry of 2026-05-20 (https://docs.stackit.cloud/stackit/en/release-notes-23101442.html): PostgreSQL 14 reaches its end of support on 12 November 2026",
+          "closed_by": "the customer chooses a newer major (answer target.postgres.version)"
+        },
+        {
+          "id": "extensions",
+          "state": "UNKNOWN",
+          "detail": "libraries not read from: module.dependencies.module.orders_rds.aws_rds_cluster_parameter_group.this (not stated)",
+          "evidence": "STACKIT PostgreSQL Flex supported-extensions page (https://docs.stackit.cloud/products/databases/postgresql-flex/reference/supported-extensions/, read 2026-10-18): the list below, `show extwlist.extensions;` as the authority on an instance, \"Your database owner has all the required permissions to create extensions\"",
+          "closed_by": "preflight: on the source SELECT extname, extversion FROM pg_extension ORDER BY 1; on the target SHOW extwlist.extensions; and trust the target"
+        },
+        {
+          "id": "roles",
+          "state": "UNKNOWN",
+          "detail": "pg_dump of one database carries no role; STACKIT documents no superuser for a customer, so restore with --no-owner --no-acl (RDS roles such as rds_superuser do not exist on STACKIT) and issue the grants again; the roles the application uses beyond the master user are not in the scan",
+          "evidence": "stackit-api-specifications services/postgres-flex/v3/postgres-flex.json (user.role, ListRolesResponse: \"valid roles depend on the Postgres version\"); the users admin and postgres are reserved (409 ALREADY_EXISTS, observed on a STACKIT sandbox target on 2026-10-15)",
+          "closed_by": "preflight on the source: \\du and \\dp list the roles and grants the application uses; they are created as stackit_postgresflex_user resources and the grants are issued again"
+        },
+        {
+          "id": "network-tls",
+          "state": "UNKNOWN",
+          "detail": "the host that runs the move must be in network.acl of the instance (remove it afterwards), reach the source (a private RDS endpoint needs a host in or peered with that VPC), use the fixed port connection_info.write.port, and speak TLS 1.3 (PGSSLMODE=require)",
+          "evidence": "STACKIT PostgreSQL Flex FAQ (https://docs.stackit.cloud/products/databases/postgresql-flex/faq/, read 2026-10-18): \"Currently you can't change the PostgreSQL port\"; \"Connections to your database are always encrypted using TLS 1.3 and signed certificates\"; documentation of the stackit_postgresflex_instance resource of the STACKIT Terraform provider 0.119.0: the host and port are connection_info.write.host and .port",
+          "closed_by": "preflight from the move host: psql to the source and to the target with PGSSLMODE=require"
+        },
+        {
+          "id": "lr-enabled",
+          "state": "UNKNOWN",
+          "detail": "Aurora PostgreSQL: the cluster parameter group, the name of the parameter that turns logical replication on is not verified in this build",
+          "evidence": "PostgreSQL docs, logical-replication-restrictions (no schema, sequences or large objects) and sql-createsubscription (needs the pg_create_subscription role and CREATE on the database); AWS RDS User Guide, PostgreSQL.Concepts.General.FeatureSupport.LogicalReplication (static parameter rds.logical_replication and a reboot; a slot nobody reads fills the storage of the source)",
+          "closed_by": "preflight on the source: SHOW rds.logical_replication; (the owner of the source changes it in the parameter group and reboots it)"
+        },
+        {
+          "id": "lr-replica-identity",
+          "state": "UNKNOWN",
+          "detail": "every table needs a primary key or a replica identity for UPDATE and DELETE to replicate; the scan does not show the tables of the database",
+          "evidence": "PostgreSQL docs, logical-replication-restrictions (no schema, sequences or large objects) and sql-createsubscription (needs the pg_create_subscription role and CREATE on the database); AWS RDS User Guide, PostgreSQL.Concepts.General.FeatureSupport.LogicalReplication (static parameter rds.logical_replication and a reboot; a slot nobody reads fills the storage of the source)",
+          "closed_by": "preflight on the source: list the tables without a primary key (pg_class / pg_index, relkind 'r', outside pg_catalog and information_schema)"
+        },
+        {
+          "id": "lr-subscription-privilege",
+          "state": "UNKNOWN",
+          "detail": "a subscription needs the pg_create_subscription role and CREATE on the database; STACKIT does not document that the master user of an instance has them",
+          "evidence": "PostgreSQL docs, logical-replication-restrictions (no schema, sequences or large objects) and sql-createsubscription (needs the pg_create_subscription role and CREATE on the database); AWS RDS User Guide, PostgreSQL.Concepts.General.FeatureSupport.LogicalReplication (static parameter rds.logical_replication and a reboot; a slot nobody reads fills the storage of the source)",
+          "closed_by": "preflight on the empty target: CREATE SUBSCRIPTION stacktoit_probe CONNECTION 'host=localhost dbname=x' PUBLICATION p WITH (connect = false); then ALTER SUBSCRIPTION stacktoit_probe SET (slot_name = NONE); DROP SUBSCRIPTION stacktoit_probe; if the first is refused, dump/restore is the only defined method"
+        },
+        {
+          "id": "lr-target-reaches-source",
+          "state": "UNKNOWN",
+          "detail": "the target instance must reach the source (security group of the source, an address it can be reached from); the address a PostgreSQL Flex instance connects from is not documented",
+          "evidence": "not documented: STACKIT PostgreSQL Flex FAQ (https://docs.stackit.cloud/products/databases/postgresql-flex/faq/, read 2026-10-18): \"Currently you can't change the PostgreSQL port\"; \"Connections to your database are always encrypted using TLS 1.3 and signed certificates\"",
+          "closed_by": "the rehearsal: a subscription from a scratch database of the target to a copy of the source"
+        },
+        {
+          "id": "replication-cannot-catch-up",
+          "state": "UNKNOWN",
+          "detail": "not computable: source.dataset.size, source.dataset.bandwidth, source.dataset.write_rate must be stated by the customer (a value from the source or an application file is not used)",
+          "evidence": "arithmetic on the customer's inputs: a copy that follows the changes catches up only if the bandwidth exceeds the write rate",
+          "closed_by": "the customer states source.dataset.size, source.dataset.bandwidth and source.dataset.write_rate; the rehearsal measures the real throughput"
+        }
+      ],
+      "runbook": "terraform/handover/database-dependencies_orders_rds_this/data-move.md",
+      "applications": {
+        "confirmed_state": "NONE_CONFIRMED",
+        "confirmed": [],
+        "reason": "no application of the customer's applications file confirms this store: no file was given, no application claims it, or several claim it",
+        "proposed": {
+          "state": "PROPOSED",
+          "authority": "NOT_CUSTOMER_CONFIRMED",
+          "reason": "suggested by StackToIT from names, tags and references in the Terraform (workspace.json, applications.proposed); the customer has not confirmed them, and a suggested group is a reading of the source, never the application of the store: only the applications file confirms one (confirmed)",
+          "groups": [
+            {
+              "id": "orders",
+              "name": "orders",
+              "basis": "ECS_SERVICE",
+              "anchor": "module.retail_app_ecs.module.orders_service.aws_ecs_service.this",
+              "confidence": "MEDIUM",
+              "members_sha256": "8529308f0b3d03c6ed25ce7d38b7f589f55ad8279c67b11ed55e0ffb37471bca",
+              "role": "DATASTORE",
+              "via": "REFERENCED_BY_A_MEMBER"
+            }
+          ]
+        }
+      },
+      "connected_units": [
+        "module.retail_app_ecs.module.orders_service.aws_ecs_service.this"
+      ],
+      "connections": [
+        {
+          "unit": "module.retail_app_ecs.module.orders_service.aws_ecs_service.this",
+          "via": "SECRET_REFERENCE",
+          "detail": "the unit names a secret and the secret names the store: the application reaches the data through the secret; what the unit reads from the secret when it runs is not visible in the Terraform, so this is a connection the source shows, not one that was observed",
+          "evidence": [
+            "module.retail_app_ecs.module.orders_service.aws_ecs_service.this -> module.retail_app_ecs.aws_secretsmanager_secret.orders_db",
+            "module.retail_app_ecs.aws_secretsmanager_secret.orders_db -> module.dependencies.module.orders_rds.aws_rds_cluster.this"
+          ]
+        }
+      ],
+      "open": [
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.size",
+          "what": "source.dataset.size of module.dependencies.module.orders_rds.aws_rds_cluster.this is not stated",
+          "closed_by": "the customer answers the request for source.dataset.size in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.write_rate",
+          "what": "source.dataset.write_rate of module.dependencies.module.orders_rds.aws_rds_cluster.this is not stated",
+          "closed_by": "the customer answers the request for source.dataset.write_rate in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.bandwidth",
+          "what": "source.dataset.bandwidth of module.dependencies.module.orders_rds.aws_rds_cluster.this is not stated",
+          "closed_by": "the customer answers the request for source.dataset.bandwidth in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.rpo",
+          "what": "source.dataset.rpo of module.dependencies.module.orders_rds.aws_rds_cluster.this is not stated",
+          "closed_by": "the customer answers the request for source.dataset.rpo in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.rto",
+          "what": "source.dataset.rto of module.dependencies.module.orders_rds.aws_rds_cluster.this is not stated",
+          "closed_by": "the customer answers the request for source.dataset.rto in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.downtime",
+          "what": "source.dataset.downtime of module.dependencies.module.orders_rds.aws_rds_cluster.this is not stated",
+          "closed_by": "the customer answers the request for source.dataset.downtime in the inputs file"
+        },
+        {
+          "kind": "CHECK",
+          "id": "extensions",
+          "what": "libraries not read from: module.dependencies.module.orders_rds.aws_rds_cluster_parameter_group.this (not stated)",
+          "closed_by": "preflight: on the source SELECT extname, extversion FROM pg_extension ORDER BY 1; on the target SHOW extwlist.extensions; and trust the target"
+        },
+        {
+          "kind": "CHECK",
+          "id": "roles",
+          "what": "pg_dump of one database carries no role; STACKIT documents no superuser for a customer, so restore with --no-owner --no-acl (RDS roles such as rds_superuser do not exist on STACKIT) and issue the grants again; the roles the application uses beyond the master user are not in the scan",
+          "closed_by": "preflight on the source: \\du and \\dp list the roles and grants the application uses; they are created as stackit_postgresflex_user resources and the grants are issued again"
+        },
+        {
+          "kind": "CHECK",
+          "id": "network-tls",
+          "what": "the host that runs the move must be in network.acl of the instance (remove it afterwards), reach the source (a private RDS endpoint needs a host in or peered with that VPC), use the fixed port connection_info.write.port, and speak TLS 1.3 (PGSSLMODE=require)",
+          "closed_by": "preflight from the move host: psql to the source and to the target with PGSSLMODE=require"
+        },
+        {
+          "kind": "CHECK",
+          "id": "lr-enabled",
+          "what": "Aurora PostgreSQL: the cluster parameter group, the name of the parameter that turns logical replication on is not verified in this build",
+          "closed_by": "preflight on the source: SHOW rds.logical_replication; (the owner of the source changes it in the parameter group and reboots it)"
+        },
+        {
+          "kind": "CHECK",
+          "id": "lr-replica-identity",
+          "what": "every table needs a primary key or a replica identity for UPDATE and DELETE to replicate; the scan does not show the tables of the database",
+          "closed_by": "preflight on the source: list the tables without a primary key (pg_class / pg_index, relkind 'r', outside pg_catalog and information_schema)"
+        },
+        {
+          "kind": "CHECK",
+          "id": "lr-subscription-privilege",
+          "what": "a subscription needs the pg_create_subscription role and CREATE on the database; STACKIT does not document that the master user of an instance has them",
+          "closed_by": "preflight on the empty target: CREATE SUBSCRIPTION stacktoit_probe CONNECTION 'host=localhost dbname=x' PUBLICATION p WITH (connect = false); then ALTER SUBSCRIPTION stacktoit_probe SET (slot_name = NONE); DROP SUBSCRIPTION stacktoit_probe; if the first is refused, dump/restore is the only defined method"
+        },
+        {
+          "kind": "CHECK",
+          "id": "lr-target-reaches-source",
+          "what": "the target instance must reach the source (security group of the source, an address it can be reached from); the address a PostgreSQL Flex instance connects from is not documented",
+          "closed_by": "the rehearsal: a subscription from a scratch database of the target to a copy of the source"
+        },
+        {
+          "kind": "CHECK",
+          "id": "replication-cannot-catch-up",
+          "what": "not computable: source.dataset.size, source.dataset.bandwidth, source.dataset.write_rate must be stated by the customer (a value from the source or an application file is not used)",
+          "closed_by": "the customer states source.dataset.size, source.dataset.bandwidth and source.dataset.write_rate; the rehearsal measures the real throughput"
+        },
+        {
+          "kind": "DECISION",
+          "id": "convert:module.dependencies.module.orders_rds.aws_rds_cluster.this:data:DATA_MOVEMENT",
+          "what": "the method that moves the data of module.dependencies.module.orders_rds.aws_rds_cluster.this is not chosen",
+          "closed_by": "the architect answers the decision; the steps of the methods the answer does not take are not taken"
+        }
+      ],
+      "rollback": "Before the connection strings are switched nothing is switched: the source was neither stopped nor made read-only nor changed after the freeze, so it is current to the freeze; stop the writers, put the recorded connection settings of the source back and start the writers on it. After the switch, what was written to the target is not on the source: the point of no return is the first write to the target. The way back is a copy in the other direction (the same method, a separate rehearsal) or accepting the loss; take that decision before the window. There is no reverse replication defined on STACKIT. Keep the target until the cause is known and do not delete the source in the same hour.",
+      "limits": [
+        "StackToIT moves no data and opens no connection: every step is defined for a person to run; none is applied or verified by this plan",
+        "allocated_storage is the capacity provisioned, not the size of the data: the size is the customer's input (source.dataset.size)",
+        "the extension list is the one STACKIT documented when read (2026-10-18); an instance is the authority (`SHOW extwlist.extensions;`)",
+        "not verified on STACKIT: that the master user of an instance can create a subscription (not documented), that a PostgreSQL Flex instance can reach a source for logical replication and from which address, which errors pg_restore reports on a PostgreSQL Flex target, the throughput of either method, and that a client that does not speak TLS 1.3 is refused",
+        "the privileges the roles of the target's role list carry are not verified",
+        "Aurora: the name of the parameter that turns logical replication on is not verified in this build"
+      ]
+    },
+    {
+      "unit": "module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default",
+      "source_type": "aws_elasticache_replication_group",
+      "family": "elasticache-to-keyvalue",
+      "source": {
+        "engine": "redis",
+        "engine_version": {
+          "state": "OBSERVED",
+          "value": "4.0.10",
+          "from": "assessment:units/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default#engine_version"
+        },
+        "major": {
+          "state": "OBSERVED",
+          "value": "4",
+          "from": "assessment:units/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default#engine_version"
+        },
+        "provisioned_capacity": {
+          "state": "NOT_PROVIDED"
+        }
+      },
+      "target": {
+        "instance": "stackit_valkey_instance.dependencies_checkout_elasticache_redis_default",
+        "version": {
+          "state": "NOT_STATIC",
+          "value": "the draft writes the variable var.dependencies_checkout_elasticache_redis_default_version"
+        },
+        "offered_majors": [
+          "8"
+        ]
+      },
+      "quantities": {
+        "size": {
+          "topic": "source.dataset.size",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "write_rate": {
+          "topic": "source.dataset.write_rate",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "bandwidth": {
+          "topic": "source.dataset.bandwidth",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "rpo": {
+          "topic": "source.dataset.rpo",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "rto": {
+          "topic": "source.dataset.rto",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "downtime": {
+          "topic": "source.dataset.downtime",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        }
+      },
+      "selection": "OPEN",
+      "decision": "convert:module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default:data:DATA_MOVEMENT",
+      "methods": [
+        {
+          "id": "client-import",
+          "decision_option": "export-and-import-with-the-engine-clients",
+          "state": "CANDIDATE",
+          "chosen": false,
+          "duration": {
+            "state": "UNKNOWN",
+            "formula": "copy lower bound = size.min / bandwidth.max (the round trip of every key is not in it)",
+            "inputs": [
+              "source.dataset.size",
+              "source.dataset.bandwidth"
+            ],
+            "text": "unknown: source.dataset.size, source.dataset.bandwidth must be stated by the customer (a value from the source or an application file is not used)",
+            "missing": [
+              "source.dataset.size",
+              "source.dataset.bandwidth"
+            ]
+          },
+          "freeze_window": {
+            "basis": "the copy and the comparison run inside the freeze, but the lower bound of the copy cannot be computed: source.dataset.size, source.dataset.bandwidth must be stated by the customer (a value from the source or an application file is not used)",
+            "missing": [
+              "source.dataset.size",
+              "source.dataset.bandwidth"
+            ],
+            "stated_downtime": {
+              "topic": "source.dataset.downtime",
+              "origin": "UNKNOWN",
+              "reason": "NOT_PROVIDED"
+            },
+            "comparison": "UNKNOWN",
+            "detail": "no lower bound of the window can be computed: the copy and the comparison run inside the freeze, but the lower bound of the copy cannot be computed: source.dataset.size, source.dataset.bandwidth must be stated by the customer (a value from the source or an application file is not used)"
+          },
+          "objectives": {
+            "rpo": {
+              "stated": {
+                "topic": "source.dataset.rpo",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "Designed to lose no write that was committed before the freeze: the writers are stopped before the copy starts and the source cache is neither stopped nor changed, so the copy is the final state of the source. Writes after the freeze wait until the clients are switched. Not measured.",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            },
+            "rto": {
+              "stated": {
+                "topic": "source.dataset.rto",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "The applications that write are unavailable for the whole write freeze: the copy, the comparison and the switch of the clients. The lower bound of the first part is the freeze window; the rest is measured in the rehearsal.",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            }
+          },
+          "prerequisites": [
+            "target-memory: UNKNOWN (closed by: preflight on the source: INFO memory (used_memory, maxmemory) on every primary and the customer's statement of source.dataset.size; the plan_name the customer chooses must offer more RAM per node than the dataset needs, with the headroom the engine's own overhead and the replication buffers take)",
+            "source-commands: UNKNOWN (closed by: preflight on the source: run SCAN 0 COUNT 10, DUMP and PTTL of one key and DBSIZE with the credential the copy uses; on the target RESTORE of that key with a TTL, then DEL)",
+            "source-access: UNKNOWN (closed by: preflight from the move host: valkey-cli to the source endpoint (with --tls where the source has TLS) and PING, then INFO server)",
+            "client-tls: FAILS (closed by: list the clients of the cache (the application owners) and, for each, whether its driver is configured for TLS (rediss:// or a TLS option) and trusts the certificate authority the instance's connection details name)",
+            "credentials: UNKNOWN (closed by: the application owners state which user and which commands each client needs; the credential stackit_valkey_credential.dependencies_checkout_elasticache_redis_default is written by the draft, its password is read from the sensitive output after the apply and handed to the clients by the way the customer's secrets are managed)",
+            "state-or-rebuildable: UNKNOWN (closed by: the owner of the applications that use the cache states, for each key family, whether it can be lost; a cache that can start empty needs no copy and the decision of the move is answered with the customer's own tool)",
+            "target-access: UNKNOWN (closed by: preflight from the move host after the instance exists: valkey-cli --tls to the target with a service key: INFO server, DBSIZE (0), INFO memory (maxmemory), and the move host's address in the access list for the time of the move)"
+          ],
+          "risks": [
+            "the copy runs inside the write freeze: the freeze lasts as long as the copy and the comparison of the two key spaces",
+            "the keys are copied by a client with SCAN, DUMP, PTTL and RESTORE, which the plan has not run against a Key Value Store; that the service accepts RESTORE is inferred from the tutorial's MIGRATE ... COPY",
+            "the copy holds the data: keep the host that runs it and any file it writes readable only by the person who moves it, and delete them at cleanup",
+            "the connection of a session that sits idle for 60 minutes is dropped by the exposed data services of STACKIT"
+          ],
+          "steps": [
+            {
+              "kind": "preflight",
+              "id": "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/preflight",
+              "in_plan": true
+            },
+            {
+              "kind": "rehearsal",
+              "id": "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/rehearsal",
+              "in_plan": true
+            },
+            {
+              "kind": "write-freeze",
+              "id": "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/write-freeze/client-import",
+              "in_plan": true
+            },
+            {
+              "kind": "final-sync",
+              "id": "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/final-sync/client-import",
+              "in_plan": true
+            },
+            {
+              "kind": "reconcile",
+              "id": "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/reconcile/client-import",
+              "in_plan": true
+            },
+            {
+              "kind": "cleanup",
+              "id": "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/cleanup/client-import",
+              "in_plan": true
+            }
+          ],
+          "verification": [
+            {
+              "id": "key-counts",
+              "kind": "COUNT_COMPARISON",
+              "mode": "COMMAND",
+              "what": "Count the keys and the keys with an expiry on both sides, with the writers stopped (on every primary of the source when it runs in cluster mode).",
+              "expected": "the number of keys and the expires value are equal on both sides",
+              "command": "valkey-cli -h <source-host> -p <source-port> --tls DBSIZE\nvalkey-cli -h <source-host> -p <source-port> --tls INFO keyspace\nvalkey-cli -u rediss://<target-user>@<target-host>:<target-port> --tls --sni <target-host> DBSIZE\nvalkey-cli -u rediss://<target-user>@<target-host>:<target-port> --tls --sni <target-host> INFO keyspace"
+            },
+            {
+              "id": "key-lists",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "List the names of the keys of both sides with SCAN (never KEYS), sort each list and compare them; this proves the same keys exist and not that their values are equal.",
+              "expected": "the difference of the two lists is empty",
+              "command": "valkey-cli -h <source-host> -p <source-port> --tls --scan | sort > source-keys.txt\nvalkey-cli -u rediss://<target-user>@<target-host>:<target-port> --tls --sni <target-host> --scan | sort > target-keys.txt\ndiff source-keys.txt target-keys.txt"
+            },
+            {
+              "id": "application-check",
+              "kind": "APPLICATION_SMOKE",
+              "mode": "MANUAL",
+              "what": "Run one read the application itself makes on its most important data against the Key Value Store and compare its answer with the answer the application gets from the source cache; then, from a test copy of the application, make one write against the Key Value Store and read it back.",
+              "expected": "the two answers are equal, the write succeeds and the read returns it",
+              "manual_reason": "the read and the write are the application's, and the source states neither the query nor the answer",
+              "not_provided": [
+                "the read the application makes on its most important data and its expected answer",
+                "the write the test copy of the application makes"
+              ]
+            },
+            {
+              "id": "rollback-limit",
+              "kind": "ROLLBACK_LIMIT",
+              "mode": "MANUAL",
+              "what": "Record the point after which a rollback loses data. Until the first of the writes that the Key Value Store accepts after the switch, a rollback is only the connection settings put back: the source cache was not changed after the freeze and is current to it. From that write on, what the Key Value Store holds exists only there: it is copied back to the source cache with a method rehearsed before the window, or accepted as lost. Once the source cache is retired (its retirement step, after the GO and the retention the owner decides) there is nothing to go back to.",
+              "expected": "before the window the owner records the date until which the source cache is kept, the method that copies the writes of the Key Value Store back or the decision that they are lost, and who calls the rollback",
+              "manual_reason": "how long the source is kept and whether the writes made on the target are copied back or lost are decisions of the owner of the application: the source states neither, so the plan names the limit and no date",
+              "not_provided": [
+                "the date until which the source cache is kept",
+                "the method that copies the writes of the Key Value Store back, or the decision that they are lost"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "snapshot-restore",
+          "decision_option": "",
+          "state": "UNSUPPORTED",
+          "why": "ElastiCache can export a backup of a node-based Valkey or Redis OSS cluster to an Amazon S3 bucket of its region as .rdb file(s) (AWS, Exporting a backup, read 2026-10-31; not for a cluster with data tiering), but no STACKIT page or API read documents loading such a file into a Key Value Store instance: the backup how-to restores a backup \"to the same instance\" and \"to a separate instance\" only by downloading the backup \"and restore it manually\", a way it describes for the service's own encrypted backups and not for a file from another service (last updated Oct 19, 2026); the API (version 2.1) has operations to create, list, download and restore the instance's own backups and none that uploads one; the provider's stackit_valkey_instance (0.119.0) has no restore attribute. A Valkey server you run yourself reads the RDB file of a Redis OSS 7.2 or earlier (valkey.io, Migration), and copying its keys from there with the client copy of this plan is a variant that adds a server the draft does not provision: the plan does not write it as steps",
+          "chosen": false,
+          "duration": {
+            "state": "UNKNOWN",
+            "inputs": [],
+            "text": "unknown: the plan refuses this method, so it states nothing of it",
+            "reason": "the plan refuses this method, so it states nothing of it"
+          },
+          "freeze_window": {
+            "basis": "the plan refuses this method, so it states nothing of it",
+            "stated_downtime": {
+              "topic": "source.dataset.downtime",
+              "origin": "UNKNOWN",
+              "reason": "NOT_PROVIDED"
+            },
+            "comparison": "UNKNOWN",
+            "detail": "no lower bound of the window can be computed: the plan refuses this method, so it states nothing of it"
+          },
+          "objectives": {
+            "rpo": {
+              "stated": {
+                "topic": "source.dataset.rpo",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "unknown: the plan refuses this method, so it states nothing of it",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            },
+            "rto": {
+              "stated": {
+                "topic": "source.dataset.rto",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "unknown: the plan refuses this method, so it states nothing of it",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            }
+          },
+          "prerequisites": [],
+          "risks": [],
+          "steps": [],
+          "verification": []
+        },
+        {
+          "id": "online-replication",
+          "decision_option": "replicate-with-the-engine-replication",
+          "state": "UNSUPPORTED",
+          "why": "no STACKIT page or API read documents attaching a Key Value Store instance as a replica of an external primary: the instance parameters of the API (version 2.1) and of the provider (0.119.0) hold no replica-of, sync or import setting, and the replication the pages describe is between the nodes of the instance itself. The source side does not offer it either: ElastiCache lists replicaof, sync, psync, bgsave and save among the commands unavailable for caches running Redis OSS (AWS, read 2026-10-31) and states that restriction for no Valkey cache. The Valkey Migration page describes REPLICAOF between servers you operate yourself",
+          "chosen": false,
+          "duration": {
+            "state": "UNKNOWN",
+            "inputs": [],
+            "text": "unknown: the plan refuses this method, so it states nothing of it",
+            "reason": "the plan refuses this method, so it states nothing of it"
+          },
+          "freeze_window": {
+            "basis": "the plan refuses this method, so it states nothing of it",
+            "stated_downtime": {
+              "topic": "source.dataset.downtime",
+              "origin": "UNKNOWN",
+              "reason": "NOT_PROVIDED"
+            },
+            "comparison": "UNKNOWN",
+            "detail": "no lower bound of the window can be computed: the plan refuses this method, so it states nothing of it"
+          },
+          "objectives": {
+            "rpo": {
+              "stated": {
+                "topic": "source.dataset.rpo",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "unknown: the plan refuses this method, so it states nothing of it",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            },
+            "rto": {
+              "stated": {
+                "topic": "source.dataset.rto",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "unknown: the plan refuses this method, so it states nothing of it",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            }
+          },
+          "prerequisites": [],
+          "risks": [],
+          "steps": [],
+          "verification": []
+        },
+        {
+          "id": "own-tool",
+          "decision_option": "migrate-with-a-tool-of-my-own",
+          "state": "CUSTOMER_OWNED",
+          "why": "the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point",
+          "chosen": false,
+          "duration": {
+            "state": "UNKNOWN",
+            "inputs": [],
+            "text": "unknown: the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point",
+            "reason": "a tool of the customer's own"
+          },
+          "freeze_window": {
+            "basis": "the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point",
+            "stated_downtime": {
+              "topic": "source.dataset.downtime",
+              "origin": "UNKNOWN",
+              "reason": "NOT_PROVIDED"
+            },
+            "comparison": "UNKNOWN",
+            "detail": "no lower bound of the window can be computed: the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point"
+          },
+          "objectives": {
+            "rpo": {
+              "stated": {
+                "topic": "source.dataset.rpo",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "unknown: the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            },
+            "rto": {
+              "stated": {
+                "topic": "source.dataset.rto",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "unknown: the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            }
+          },
+          "prerequisites": [],
+          "risks": [],
+          "steps": [
+            {
+              "kind": "write-freeze",
+              "id": "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/write-freeze/own-tool",
+              "in_plan": true
+            },
+            {
+              "kind": "final-sync",
+              "id": "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/final-sync/own-tool",
+              "in_plan": true
+            },
+            {
+              "kind": "reconcile",
+              "id": "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/reconcile/own-tool",
+              "in_plan": true
+            }
+          ],
+          "verification": [
+            {
+              "id": "key-counts",
+              "kind": "COUNT_COMPARISON",
+              "mode": "COMMAND",
+              "what": "Count the keys and the keys with an expiry on both sides, with the writers stopped (on every primary of the source when it runs in cluster mode).",
+              "expected": "the number of keys and the expires value are equal on both sides",
+              "command": "valkey-cli -h <source-host> -p <source-port> --tls DBSIZE\nvalkey-cli -h <source-host> -p <source-port> --tls INFO keyspace\nvalkey-cli -u rediss://<target-user>@<target-host>:<target-port> --tls --sni <target-host> DBSIZE\nvalkey-cli -u rediss://<target-user>@<target-host>:<target-port> --tls --sni <target-host> INFO keyspace"
+            },
+            {
+              "id": "key-lists",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "List the names of the keys of both sides with SCAN (never KEYS), sort each list and compare them; this proves the same keys exist and not that their values are equal.",
+              "expected": "the difference of the two lists is empty",
+              "command": "valkey-cli -h <source-host> -p <source-port> --tls --scan | sort > source-keys.txt\nvalkey-cli -u rediss://<target-user>@<target-host>:<target-port> --tls --sni <target-host> --scan | sort > target-keys.txt\ndiff source-keys.txt target-keys.txt"
+            },
+            {
+              "id": "application-check",
+              "kind": "APPLICATION_SMOKE",
+              "mode": "MANUAL",
+              "what": "Run one read the application itself makes on its most important data against the Key Value Store and compare its answer with the answer the application gets from the source cache; then, from a test copy of the application, make one write against the Key Value Store and read it back.",
+              "expected": "the two answers are equal, the write succeeds and the read returns it",
+              "manual_reason": "the read and the write are the application's, and the source states neither the query nor the answer",
+              "not_provided": [
+                "the read the application makes on its most important data and its expected answer",
+                "the write the test copy of the application makes"
+              ]
+            },
+            {
+              "id": "rollback-limit",
+              "kind": "ROLLBACK_LIMIT",
+              "mode": "MANUAL",
+              "what": "Record the point after which a rollback loses data. Until the first of the writes that the Key Value Store accepts after the switch, a rollback is only the connection settings put back: the source cache was not changed after the freeze and is current to it. From that write on, what the Key Value Store holds exists only there: it is copied back to the source cache with a method rehearsed before the window, or accepted as lost. Once the source cache is retired (its retirement step, after the GO and the retention the owner decides) there is nothing to go back to.",
+              "expected": "before the window the owner records the date until which the source cache is kept, the method that copies the writes of the Key Value Store back or the decision that they are lost, and who calls the rollback",
+              "manual_reason": "how long the source is kept and whether the writes made on the target are copied back or lost are decisions of the owner of the application: the source states neither, so the plan names the limit and no date",
+              "not_provided": [
+                "the date until which the source cache is kept",
+                "the method that copies the writes of the Key Value Store back, or the decision that they are lost"
+              ]
+            }
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "engine-and-version",
+          "state": "HOLDS",
+          "detail": "the source runs Redis OSS 4.0.10, not newer than 7.2, the newest Redis OSS version Valkey states it is compatible with; the target is Valkey 8, so the move is an engine change and an upgrade: whether the clients work against it is a test of the application, not a statement of this plan",
+          "evidence": "Valkey, Migration (https://valkey.io/topics/migration/, read 2026-10-31): \"Valkey is compatible with Redis OSS 7.2 and all earlier open-source Redis versions\"; \"Redis Community Edition (CE) version 7.4 and later produce data files that are not compatible with Valkey\"; the page describes REPLICAOF and an RDB file for a Valkey you operate yourself; STACKIT Key Value Store, Life cycle (https://docs.stackit.cloud/products/databases/key-value-store/reference/lifecycle/, last updated Aug 5, 2026): the one version listed is major 8, released August 2026, end of life \"To be announced\"; Valkey command pages (valkey.io/commands/dump, restore, pttl, scan, read 2026-10-31): DUMP returns a serialized value that holds an RDB version and a checksum and no expire time; RESTORE fails when the version or the checksum does not match and refuses a key that exists unless REPLACE is given; PTTL answers -1 for a key without expire and -2 for a key that is gone; SCAN may return a key more than once; terraform-provider-aws 6.66.0, the documentation of aws_elasticache_replication_group: engine \"Valid values are redis or valkey. Default is redis\"; num_cache_clusters conflicts with num_node_groups; transit_encryption_enabled, at_rest_encryption_enabled, snapshot_retention_limit, auth_token and data_tiering_enabled are optional",
+          "closed_by": "preflight on the source: INFO server (redis_version or valkey_version) and on the target INFO server; the application's own test suite against a Key Value Store instance (the rehearsal)"
+        },
+        {
+          "id": "shards",
+          "state": "HOLDS",
+          "detail": "the source shows one shard (OBSERVED 1 (assessment:units/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default#num_cache_clusters)), the shape of a Key Value Store plan",
+          "evidence": "AWS ElastiCache User Guide, Replication: Valkey and Redis OSS Cluster Mode Disabled vs. Enabled (https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/Replication.Redis-RedisCluster.html, read 2026-10-30): a cluster mode disabled cluster always has a single shard; cluster mode enabled partitions the data across up to 500 shards; STACKIT Key Value Store, Service plans (https://docs.stackit.cloud/products/databases/key-value-store/reference/service-plans/, last updated Jul 29, 2026): the plans are single-node (1 node) or replica (3 nodes, clustered replica sets across availability zones) with 2 to 32 GB of RAM per node; the page states no sharding; terraform-provider-aws 6.66.0, the documentation of aws_elasticache_replication_group: engine \"Valid values are redis or valkey. Default is redis\"; num_cache_clusters conflicts with num_node_groups; transit_encryption_enabled, at_rest_encryption_enabled, snapshot_retention_limit, auth_token and data_tiering_enabled are optional",
+          "closed_by": "preflight on the source: CLUSTER NODES (or CLUSTER SLOTS) on any node: the primaries and their slots; INFO keyspace on every primary: the keys of each shard added up must fit one primary of the target"
+        },
+        {
+          "id": "target-memory",
+          "state": "UNKNOWN",
+          "detail": "the source's node type cache.t3.micro has 0.5 GiB (a node's capacity, not the size of the data). The plan the draft writes is not static (the draft writes var.dependencies_checkout_elasticache_redis_default_plan_name, not a literal) and the plans offer 2 to 32 GB of RAM per node; a Key Value Store holds its keys in the memory of the primary, so the dataset must fit the plan the customer chooses. The size is not provided; the provisioned capacity of the source is not the size of the data",
+          "evidence": "STACKIT Key Value Store, Service plans (https://docs.stackit.cloud/products/databases/key-value-store/reference/service-plans/, last updated Jul 29, 2026): the plans are single-node (1 node) or replica (3 nodes, clustered replica sets across availability zones) with 2 to 32 GB of RAM per node; the page states no sharding",
+          "closed_by": "preflight on the source: INFO memory (used_memory, maxmemory) on every primary and the customer's statement of source.dataset.size; the plan_name the customer chooses must offer more RAM per node than the dataset needs, with the headroom the engine's own overhead and the replication buffers take"
+        },
+        {
+          "id": "source-commands",
+          "state": "UNKNOWN",
+          "detail": "the copy runs SCAN, DUMP, PTTL, TYPE and DBSIZE on the source and RESTORE on the target. The ElastiCache page names none of them in a restricted list and lists them as supported only for serverless caches; it lists migrate, sync, psync, replicaof, bgsave and save among the commands unavailable for caches running Redis OSS and states that for no Valkey cache, so the plan takes MIGRATE as available for no ElastiCache engine and a snapshot taken from inside the engine as available on none. Whether the ACL user the client signs in with may run these commands on all keys is not in the Terraform",
+          "evidence": "AWS ElastiCache User Guide, Supported and restricted Valkey, Memcached, and Redis OSS commands (https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/SupportedCommands.html, read 2026-10-31): for caches running Redis OSS the commands unavailable include bgsave, config, migrate, psync, replicaof, save, slaveof and sync; the page states that restriction for no Valkey cache; DUMP, RESTORE, SCAN, PTTL, INFO and DBSIZE are listed as supported by serverless caches and are named in no restricted list; Valkey command pages (valkey.io/commands/dump, restore, pttl, scan, read 2026-10-31): DUMP returns a serialized value that holds an RDB version and a checksum and no expire time; RESTORE fails when the version or the checksum does not match and refuses a key that exists unless REPLACE is given; PTTL answers -1 for a key without expire and -2 for a key that is gone; SCAN may return a key more than once",
+          "closed_by": "preflight on the source: run SCAN 0 COUNT 10, DUMP and PTTL of one key and DBSIZE with the credential the copy uses; on the target RESTORE of that key with a TTL, then DEL"
+        },
+        {
+          "id": "source-access",
+          "state": "UNKNOWN",
+          "detail": "the source is reached on a private endpoint of its VPC, so the move host must run in that VPC or one peered or connected to it, and the security group of the cache must admit it (the Terraform shows the groups it names, not the address of a host that does not exist yet); it states transit_encryption_enabled = false, so the client connects to the source without TLS and to the target with TLS; it sets no auth_token. The plan reads no network and no credential",
+          "evidence": "AWS ElastiCache User Guide, Supported and restricted Valkey, Memcached, and Redis OSS commands (https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/SupportedCommands.html, read 2026-10-31): for caches running Redis OSS the commands unavailable include bgsave, config, migrate, psync, replicaof, save, slaveof and sync; the page states that restriction for no Valkey cache; DUMP, RESTORE, SCAN, PTTL, INFO and DBSIZE are listed as supported by serverless caches and are named in no restricted list; terraform-provider-aws 6.66.0, the documentation of aws_elasticache_replication_group: engine \"Valid values are redis or valkey. Default is redis\"; num_cache_clusters conflicts with num_node_groups; transit_encryption_enabled, at_rest_encryption_enabled, snapshot_retention_limit, auth_token and data_tiering_enabled are optional",
+          "closed_by": "preflight from the move host: valkey-cli to the source endpoint (with --tls where the source has TLS) and PING, then INFO server"
+        },
+        {
+          "id": "client-tls",
+          "state": "FAILS",
+          "detail": "the source states transit_encryption_enabled = false: its clients connect without TLS, and the Key Value Store closes a plaintext connection (a test on 2026-09-24) and accepts TLS only, so every client switches to TLS (rediss://, the driver's TLS option, the instance's certificate authority) before the cutover; the switch is a change of the applications, which this plan cannot make",
+          "evidence": "STACKIT Key Value Store, Connect to your instance (https://docs.stackit.cloud/products/databases/key-value-store/how-tos/connect-to-your-instance/, last updated Oct 19, 2026): the connection string is rediss://<Username>:<Password>@<Endpoint>:<Port> and valkey-cli connects with --tls --sni <Endpoint>; a test on a STACKIT project on 2026-09-24 (Valkey 8, single plan, eu01) found a plaintext connection closed by the server and TLS 1.2 and 1.3 accepted; terraform-provider-aws 6.66.0, the documentation of aws_elasticache_replication_group: engine \"Valid values are redis or valkey. Default is redis\"; num_cache_clusters conflicts with num_node_groups; transit_encryption_enabled, at_rest_encryption_enabled, snapshot_retention_limit, auth_token and data_tiering_enabled are optional",
+          "closed_by": "list the clients of the cache (the application owners) and, for each, whether its driver is configured for TLS (rediss:// or a TLS option) and trusts the certificate authority the instance's connection details name"
+        },
+        {
+          "id": "credentials",
+          "state": "UNKNOWN",
+          "detail": "the Key Value Store documents one form of credential, a service key whose user authenticates fully against the instance, and a probe found the key denied CONFIG, ACL and MODULE; the AUTH token, the user groups and the ACL rules of the source (OBSERVED not set (assessment:units/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default#auth_token); OBSERVED not set (assessment:units/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default#user_group_ids)) are not carried, so a client that relies on a restricted user is given the service key and its limits move to the access list of the instance (parameters.sgw_acl) and to separate instances per trust level. The draft writes stackit_valkey_credential.dependencies_checkout_elasticache_redis_default with the instance, so the service key exists after the apply; its password is the sensitive output of the draft and its host and port are attributes of the credential",
+          "evidence": "STACKIT Key Value Store, Create and manage credentials (https://docs.stackit.cloud/products/databases/key-value-store/how-tos/create-and-manage-credentials/): \"A service key is the only available form of credential\"; the same test of 2026-09-24 found the service key denied CONFIG, ACL and MODULE",
+          "closed_by": "the application owners state which user and which commands each client needs; the credential stackit_valkey_credential.dependencies_checkout_elasticache_redis_default is written by the draft, its password is read from the sensitive output after the apply and handed to the clients by the way the customer's secrets are managed"
+        },
+        {
+          "id": "state-or-rebuildable",
+          "state": "UNKNOWN",
+          "detail": "the source does not say whether this cache holds only what the application rebuilds or also data that exists nowhere else (sessions, locks, counters, queues), so the plan keeps the copy rather than assuming the cache can start empty; it states snapshot_retention_limit = 0, so its snapshots are off, which says nothing of whether the content matters",
+          "evidence": "STACKIT Key Value Store, Tutorial: Migrate data from Redis to a Key Value Store instance (https://docs.stackit.cloud/products/databases/key-value-store/tutorials/migrate-data-to-a-new-instance/, last updated Sep 24, 2026): the source is \"an existing STACKIT Redis instance\"; \"It is highly recommended to isolate the source Redis instance\"; \"We strongly recommend triggering a manual backup of your source database\"; \"Do not insert any data into the target instance until the migration and consistency checks are fully completed\"; the main strategy is the MIGRATE command, the alternative a script; the check is INFO KEYSPACE (\"The keys and expires values must be equal\") and a comparison of the key lists",
+          "closed_by": "the owner of the applications that use the cache states, for each key family, whether it can be lost; a cache that can start empty needs no copy and the decision of the move is answered with the customer's own tool"
+        },
+        {
+          "id": "target-access",
+          "state": "UNKNOWN",
+          "detail": "the move host must be in the access list of the instance (parameters.sgw_acl, which the draft writes from a variable without a default), reach the host and port of a service key of the instance with TLS, and the instance must be empty before the copy (\"Do not insert any data into the target instance until the migration and consistency checks are fully completed\"). The plan the draft writes (not static (the draft writes var.dependencies_checkout_elasticache_redis_default_plan_name, not a literal)) decides the memory and whether the target has replicas",
+          "evidence": "STACKIT Key Value Store, Tutorial: Migrate data from Redis to a Key Value Store instance (https://docs.stackit.cloud/products/databases/key-value-store/tutorials/migrate-data-to-a-new-instance/, last updated Sep 24, 2026): the source is \"an existing STACKIT Redis instance\"; \"It is highly recommended to isolate the source Redis instance\"; \"We strongly recommend triggering a manual backup of your source database\"; \"Do not insert any data into the target instance until the migration and consistency checks are fully completed\"; the main strategy is the MIGRATE command, the alternative a script; the check is INFO KEYSPACE (\"The keys and expires values must be equal\") and a comparison of the key lists; STACKIT Key Value Store, Connect to your instance (https://docs.stackit.cloud/products/databases/key-value-store/how-tos/connect-to-your-instance/, last updated Oct 19, 2026): the connection string is rediss://<Username>:<Password>@<Endpoint>:<Port> and valkey-cli connects with --tls --sni <Endpoint>; a test on a STACKIT project on 2026-09-24 (Valkey 8, single plan, eu01) found a plaintext connection closed by the server and TLS 1.2 and 1.3 accepted; STACKIT Key Value Store, Service plans (https://docs.stackit.cloud/products/databases/key-value-store/reference/service-plans/, last updated Jul 29, 2026): the plans are single-node (1 node) or replica (3 nodes, clustered replica sets across availability zones) with 2 to 32 GB of RAM per node; the page states no sharding",
+          "closed_by": "preflight from the move host after the instance exists: valkey-cli --tls to the target with a service key: INFO server, DBSIZE (0), INFO memory (maxmemory), and the move host's address in the access list for the time of the move"
+        }
+      ],
+      "runbook": "terraform/handover/cache-dependencies_checkout_elasticache_redis_default/data-move.md",
+      "applications": {
+        "confirmed_state": "NONE_CONFIRMED",
+        "confirmed": [],
+        "reason": "no application of the customer's applications file confirms this store: no file was given, no application claims it, or several claim it",
+        "proposed": {
+          "state": "PROPOSED",
+          "authority": "NOT_CUSTOMER_CONFIRMED",
+          "reason": "suggested by StackToIT from names, tags and references in the Terraform (workspace.json, applications.proposed); the customer has not confirmed them, and a suggested group is a reading of the source, never the application of the store: only the applications file confirms one (confirmed)",
+          "groups": [
+            {
+              "id": "checkout",
+              "name": "checkout",
+              "basis": "ECS_SERVICE",
+              "anchor": "module.retail_app_ecs.module.checkout_service.aws_ecs_service.this",
+              "confidence": "MEDIUM",
+              "members_sha256": "cdb909a243ba354d196a29bb4caa9857972152a634359224b33b343fee8c597e",
+              "role": "DATASTORE",
+              "via": "REFERENCED_BY_THE_WORKLOAD"
+            }
+          ]
+        }
+      },
+      "connected_units": [
+        "module.retail_app_ecs.module.checkout_service.aws_ecs_service.this"
+      ],
+      "connections": [
+        {
+          "unit": "module.retail_app_ecs.module.checkout_service.aws_ecs_service.this",
+          "via": "REFERENCE",
+          "detail": "the unit depends on the store in the Terraform: it names the store or a value of it",
+          "evidence": [
+            "module.retail_app_ecs.module.checkout_service.aws_ecs_service.this depends on module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default"
+          ]
+        }
+      ],
+      "open": [
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.size",
+          "what": "source.dataset.size of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default is not stated",
+          "closed_by": "the customer answers the request for source.dataset.size in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.write_rate",
+          "what": "source.dataset.write_rate of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default is not stated",
+          "closed_by": "the customer answers the request for source.dataset.write_rate in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.bandwidth",
+          "what": "source.dataset.bandwidth of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default is not stated",
+          "closed_by": "the customer answers the request for source.dataset.bandwidth in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.rpo",
+          "what": "source.dataset.rpo of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default is not stated",
+          "closed_by": "the customer answers the request for source.dataset.rpo in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.rto",
+          "what": "source.dataset.rto of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default is not stated",
+          "closed_by": "the customer answers the request for source.dataset.rto in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.downtime",
+          "what": "source.dataset.downtime of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default is not stated",
+          "closed_by": "the customer answers the request for source.dataset.downtime in the inputs file"
+        },
+        {
+          "kind": "CHECK",
+          "id": "target-memory",
+          "what": "the source's node type cache.t3.micro has 0.5 GiB (a node's capacity, not the size of the data). The plan the draft writes is not static (the draft writes var.dependencies_checkout_elasticache_redis_default_plan_name, not a literal) and the plans offer 2 to 32 GB of RAM per node; a Key Value Store holds its keys in the memory of the primary, so the dataset must fit the plan the customer chooses. The size is not provided; the provisioned capacity of the source is not the size of the data",
+          "closed_by": "preflight on the source: INFO memory (used_memory, maxmemory) on every primary and the customer's statement of source.dataset.size; the plan_name the customer chooses must offer more RAM per node than the dataset needs, with the headroom the engine's own overhead and the replication buffers take"
+        },
+        {
+          "kind": "CHECK",
+          "id": "source-commands",
+          "what": "the copy runs SCAN, DUMP, PTTL, TYPE and DBSIZE on the source and RESTORE on the target. The ElastiCache page names none of them in a restricted list and lists them as supported only for serverless caches; it lists migrate, sync, psync, replicaof, bgsave and save among the commands unavailable for caches running Redis OSS and states that for no Valkey cache, so the plan takes MIGRATE as available for no ElastiCache engine and a snapshot taken from inside the engine as available on none. Whether the ACL user the client signs in with may run these commands on all keys is not in the Terraform",
+          "closed_by": "preflight on the source: run SCAN 0 COUNT 10, DUMP and PTTL of one key and DBSIZE with the credential the copy uses; on the target RESTORE of that key with a TTL, then DEL"
+        },
+        {
+          "kind": "CHECK",
+          "id": "source-access",
+          "what": "the source is reached on a private endpoint of its VPC, so the move host must run in that VPC or one peered or connected to it, and the security group of the cache must admit it (the Terraform shows the groups it names, not the address of a host that does not exist yet); it states transit_encryption_enabled = false, so the client connects to the source without TLS and to the target with TLS; it sets no auth_token. The plan reads no network and no credential",
+          "closed_by": "preflight from the move host: valkey-cli to the source endpoint (with --tls where the source has TLS) and PING, then INFO server"
+        },
+        {
+          "kind": "CHECK",
+          "id": "credentials",
+          "what": "the Key Value Store documents one form of credential, a service key whose user authenticates fully against the instance, and a probe found the key denied CONFIG, ACL and MODULE; the AUTH token, the user groups and the ACL rules of the source (OBSERVED not set (assessment:units/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default#auth_token); OBSERVED not set (assessment:units/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default#user_group_ids)) are not carried, so a client that relies on a restricted user is given the service key and its limits move to the access list of the instance (parameters.sgw_acl) and to separate instances per trust level. The draft writes stackit_valkey_credential.dependencies_checkout_elasticache_redis_default with the instance, so the service key exists after the apply; its password is the sensitive output of the draft and its host and port are attributes of the credential",
+          "closed_by": "the application owners state which user and which commands each client needs; the credential stackit_valkey_credential.dependencies_checkout_elasticache_redis_default is written by the draft, its password is read from the sensitive output after the apply and handed to the clients by the way the customer's secrets are managed"
+        },
+        {
+          "kind": "CHECK",
+          "id": "state-or-rebuildable",
+          "what": "the source does not say whether this cache holds only what the application rebuilds or also data that exists nowhere else (sessions, locks, counters, queues), so the plan keeps the copy rather than assuming the cache can start empty; it states snapshot_retention_limit = 0, so its snapshots are off, which says nothing of whether the content matters",
+          "closed_by": "the owner of the applications that use the cache states, for each key family, whether it can be lost; a cache that can start empty needs no copy and the decision of the move is answered with the customer's own tool"
+        },
+        {
+          "kind": "CHECK",
+          "id": "target-access",
+          "what": "the move host must be in the access list of the instance (parameters.sgw_acl, which the draft writes from a variable without a default), reach the host and port of a service key of the instance with TLS, and the instance must be empty before the copy (\"Do not insert any data into the target instance until the migration and consistency checks are fully completed\"). The plan the draft writes (not static (the draft writes var.dependencies_checkout_elasticache_redis_default_plan_name, not a literal)) decides the memory and whether the target has replicas",
+          "closed_by": "preflight from the move host after the instance exists: valkey-cli --tls to the target with a service key: INFO server, DBSIZE (0), INFO memory (maxmemory), and the move host's address in the access list for the time of the move"
+        },
+        {
+          "kind": "VALUE",
+          "id": "target.version",
+          "what": "target.version of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default is NOT_STATIC: the draft writes the variable var.dependencies_checkout_elasticache_redis_default_version",
+          "closed_by": "the version is stated as a literal in the Terraform, or the customer states it in the inputs file"
+        },
+        {
+          "kind": "DECISION",
+          "id": "convert:module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default:data:DATA_MOVEMENT",
+          "what": "the method that moves the data of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default is not chosen",
+          "closed_by": "the architect answers the decision; the steps of the methods the answer does not take are not taken"
+        }
+      ],
+      "rollback": "Before the clients are switched nothing is switched: the source cache was neither stopped nor changed after the freeze, so it is current to the freeze; stop the writers, put the recorded connection settings of the source back and start the writers on it. After the switch, what was written to the target is not on the source: the point of no return is the first write to the target. The way back is a copy in the other direction (a separate rehearsal) or accepting the loss; take that decision before the window. This plan defines no reverse replication. Keep the source cache until the cause is known and do not delete it in the same hour; the STACKIT backups of the target (every 4 hours, 14 days) restore into the same instance only.",
+      "limits": [
+        "StackToIT moves no data and opens no connection: every step is defined for a person to run; none is applied or verified by this plan",
+        "the node memory and the provisioned capacity of the source are not the size of the data: the size is the customer's input (source.dataset.size)",
+        "the keys, their types, their sizes and their expiry are not in the Terraform: the checks are UNKNOWN until the preflight closes them; a key of a type the client of the copy has no branch for is found by the preflight, not by this plan",
+        "the commands and the pages are read as documentation, not run: no key was copied into a STACKIT Key Value Store instance by this build, and that the service accepts RESTORE is inferred from the tutorial's MIGRATE ... COPY",
+        "loading an exported snapshot is refused: ElastiCache can export a backup of a node-based Valkey or Redis OSS cluster to an Amazon S3 bucket of its region as .rdb file(s) (AWS, Exporting a backup, read 2026-10-31; not for a cluster with data tiering), but no STACKIT page or API read documents loading such a file into a Key Value Store instance: the backup how-to restores a backup \"to the same instance\" and \"to a separate instance\" only by downloading the backup \"and restore it manually\", a way it describes for the service's own encrypted backups and not for a file from another service (last updated Oct 19, 2026); the API (version 2.1) has operations to create, list, download and restore the instance's own backups and none that uploads one; the provider's stackit_valkey_instance (0.119.0) has no restore attribute. A Valkey server you run yourself reads the RDB file of a Redis OSS 7.2 or earlier (valkey.io, Migration), and copying its keys from there with the client copy of this plan is a variant that adds a server the draft does not provision: the plan does not write it as steps",
+        "following the source as a replica is refused: no STACKIT page or API read documents attaching a Key Value Store instance as a replica of an external primary: the instance parameters of the API (version 2.1) and of the provider (0.119.0) hold no replica-of, sync or import setting, and the replication the pages describe is between the nodes of the instance itself. The source side does not offer it either: ElastiCache lists replicaof, sync, psync, bgsave and save among the commands unavailable for caches running Redis OSS (AWS, read 2026-10-31) and states that restriction for no Valkey cache. The Valkey Migration page describes REPLICAOF between servers you operate yourself",
+        "a memcached cache is not a member of this family: it keeps nothing to export (its step holds the confirmation that it may start empty)",
+        "the source states no engine: the AWS provider documents redis as the default of an ElastiCache replication group, and the plan takes that"
+      ]
+    }
+  ],
+  "not_planned": []
+}

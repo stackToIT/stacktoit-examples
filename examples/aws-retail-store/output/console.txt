@@ -1,0 +1,126 @@
+stacktoit 0.6.0-11557-ge42ad46ccc (commit e42ad46ccc, built 2026-11-02T11:09:18Z) · knowledge base 0.384.0 · AWS → STACKIT
+
+source validation: NOT_RUN (PROVIDER_NOT_IN_MIRROR): a provider is not available from the mirror (Failed to query available provider packages): hashicorp/aws, hashicorp/random; nothing is downloaded. No validation result exists; this is neither a pass nor a failure of the source.
+  Prepare a provider mirror once: mkdir -p DIR && (cd testdata/fixtures/aws-retail-store-ecs/terraform/ecs/default && tofu providers mirror -platform=darwin_arm64 DIR), with DIR a directory of your choice written as an absolute path
+  Then run again with --provider-mirror DIR. The preparation step downloads the providers once; StackToIT's own validation stays offline and downloads nothing.
+  Engine:     OpenTofu 1.13.1 (darwin_arm64), sandbox-exec
+  Snapshot:   keyed-sha256:6fbf64b366bf487c45d07ce43eb59f4b9bc1fddda66782e2e359060f38bc1934 (423 files, 1853565 bytes; module directories beside the root: lib/dependencies, lib/ecs, lib/images, lib/tags, lib/vpc)
+  Module:     dependencies.catalog_opensearch from registry.opentofu.org/terraform-aws-modules/opensearch/aws 1.5.0
+  Module:     dependencies.catalog_rds from registry.opentofu.org/terraform-aws-modules/rds-aurora/aws 7.7.1
+  Module:     dependencies.checkout_elasticache_redis from registry.opentofu.org/cloudposse/elasticache-redis/aws 0.53.0
+  Module:     dependencies.checkout_elasticache_redis.aws_security_group from registry.opentofu.org/cloudposse/security-group/aws 1.0.1
+  Module:     dependencies.checkout_elasticache_redis.aws_security_group.this from registry.opentofu.org/cloudposse/label/null 0.25.0
+  Module:     dependencies.checkout_elasticache_redis.dns from registry.opentofu.org/cloudposse/route53-cluster-hostname/aws 0.12.2
+  Module:     dependencies.checkout_elasticache_redis.dns.this from registry.opentofu.org/cloudposse/label/null 0.25.0
+  Module:     dependencies.checkout_elasticache_redis.this from registry.opentofu.org/cloudposse/label/null 0.25.0
+  Module:     dependencies.dynamodb_carts from registry.opentofu.org/terraform-aws-modules/dynamodb-table/aws 3.3.0
+  Module:     dependencies.orders_rds from registry.opentofu.org/terraform-aws-modules/rds-aurora/aws 7.7.1
+  Module:     retail_app_ecs.alb from registry.opentofu.org/terraform-aws-modules/alb/aws 8.7.0
+  Module:     retail_app_ecs.alb_sg from registry.opentofu.org/terraform-aws-modules/security-group/aws 4.17.2
+  Module:     vpc.vpc from registry.opentofu.org/terraform-aws-modules/vpc/aws 5.21.0
+  Note:       offline: no network access, and no provider or module is downloaded by the validation
+  Note:       the engine ran with a private home directory and a controlled CLI configuration; the operator's environment variables (credentials, TF_VAR_*, proxies) were not passed on
+  Note:       validation checks syntax and internal consistency against the locked providers; it does not establish that the source is complete or what its values are at plan time
+Migration assessment and execution package · Proposal only · Not approved
+Readiness     Partially executable migration package: 48 of the 57 automated steps (OpenTofu or a script) can run now (1 waits for a manual prerequisite, 8 require a design decision) · 9 of those 48 rest on a default you have not confirmed (public endpoint, size derived from the source) · stages of 57 automated steps: 57 can be generated, 48 can run now, 39 rest on no default left to confirm, 0 are approved (every decision and default confirmed in the decisions file)
+First blocker Allow the calls of STACKIT APIs that are not generally available: open input (first because 4 automated steps wait for it).
+Next action   Allow the calls of STACKIT APIs that are not generally available — Owner: Platform Architect · details: index.html
+
+Source        44 migration units · 8 decided when OpenTofu plans (3 off on defaults, 5 plan-time data) · 23 module calls (13 external, 10 local) · visibility: Partial runtime topology
+Target        34 Terraform-only · 4 hybrid · 0 API-only · 3 manual · 11 no resource (of 52 units the draft considered: 44 known-present, 8 decided only when OpenTofu plans)
+Execution     Partially executable · 49 Terraform (1 after a manual prerequisite) · 4 API (4 wait for the opt-in) · 4 design inputs · 154 manual migration work (272 settings in 69 review steps) (counting the longest method of each open data-movement choice; 16 steps of the other methods not counted) · 84 lifecycle (cutover/verify/retire) · 3 refused (of 314 plan steps)
+Decisions     16 decisions to make (9 plan decisions, 5 manual actions, 2 plan statements, 2 of them with the draft's DEFAULT to confirm or change) · 2 defaults to confirm (other records, no step waits for them) · 48 units to review (308 critical settings: 307 to decide (25 of them are conditional), 1 confirm only) · 9 of the 16 decisions to make hold plan steps · 14 settings have no STACKIT counterpart · Inputs: 4 design inputs wait · 47 open requests (14 block the draft, 4 are preferences this build cannot apply — inputs-template.yaml, NOT APPLICABLE IN THIS BUILD, says where to set each)
+Defaults      the default of 8 decisions nobody has answered: public endpoint (5), size derived from the source (3); confirm or change each in decisions.yaml; confirming one accepts what the draft does as it stands: the steps that rest on it then count among those that rest on no default left to confirm, and as approved once every decision they rest on is answered in the decisions file; decisions are counted one by one here, while the register's decisions to make and defaults to confirm count the records that group them
+Checks        12/12 invariants passed · Static validation: passed · Published (manifest.json lists every file)
+Prices        from the price cache (stackit; retrieved 2026-10-26)
+Open   this folder/index.html
+
+StackToIT Assess
+────────────────────────────────────────────
+Source:                 default
+Source files:           105
+Resources scanned:      282  (0 in the root module · 282 inside 23 module calls)
+  support resources:    34  (+12 Terraform helpers, out of scope; 34 + 12 = the 46 support nodes of summary.support.nodes in assessment.json)
+Migration units:        44 known-present (44 instances) · 8 conditional  (+41 switched off — see Not in a wave)
+Unit dependencies:      109
+Modules:                23 module calls (13 external, 10 local): 23 loaded, 0 not downloaded, 0 invalid
+  module.dependencies    ../../lib/dependencies  11 units (RECONFIGURE 7 · REPLATFORM 3 · REDESIGN 1) · 13 switched off · 77 resources (+10 nested calls)
+  module.retail_app_ecs  ../../lib/ecs           30 known-present units (RECONFIGURE 24 · REPLATFORM 6) · 3 conditional · 3 switched off · 126 resources (+8 nested calls)
+  module.tags            ../../lib/tags          0 units · 0 resources
+  module.vpc             ../../lib/vpc           3 known-present units (RECONFIGURE 3) · 5 conditional · 25 switched off · 79 resources (+1 nested call)
+Source checks:          Built-in source checks passed — OpenTofu validation of the source did not run (PROVIDER_NOT_IN_MIRROR)
+Source completeness:    RUNTIME_TOPOLOGY_PARTIAL — 8 unit(s) have a count/for_each that is not known statically; whether and how often they exist is decided at plan time
+
+STACKIT mapping
+────────────────────────────────────────────
+DIRECT              0  
+RECONFIGURE        34  ███████████████████████ 77%
+REPLATFORM          9  ██████ 20%
+CONTAINERIZE        0  
+REDESIGN            1  █ 2%
+MANUAL_REVIEW       0  
+BLOCKED             0    (the mapping class BLOCKED, not the execution blockers, which Migration readiness counts)
+
+Confidence  HIGH 0 · MEDIUM 35 · LOW 9
+
+Critical findings
+────────────────────────────────────────────
+• 1× Engine version DOWNGRADE: the source runs OpenSearch 3.3 (engine_version); STACKIT OpenSearch in eu01 offers 2 (service catalogue of eu01, read 2026-10-18), older than the source. (module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this)
+
+Property accounting (draft)
+────────────────────────────────────────────
+404 source properties checked across 38 generated units: 195 carried or explained, 209 NOT CARRIED, 0 unaccounted — see engineering/architect-report.md.
+38 generated units set 489 properties (85 not semantic): contract 175 · named NOT CARRIED 209 · consumed by the draft 20 · reference 0 · placement 0 · UNACCOUNTED 0
+Critical-property gate: 341 property entries need attention; 44 of 44 units are not automation-eligible (a critical property, or an open critical semantic that reads no property of the unit) — see engineering/architect-report.md.
+
+Outputs (this folder)
+────────────────────────────────────────────
+assessment.json · engineering/architect-report.md · engineering/analysis-details.md · architecture/dependencies.mmd · migration/technical-sequencing.md · engineering/review.csv · engineering/review-edges.csv · workspace.json · index.html · decisions.json · migration/decisions.csv · executive/decisions.md · execution/README.md · migration/roadmap.md · manifest.json
+Run f576c5a4-ff5f-4981-8b67-054d7359483f — COMPLETE (report published, manifest.json)
+
+PROPOSAL — generated by StackToIT Assess. Architect review required before any decision.
+
+Inputs of this run (given on the command line, discovered beside the source, or not found; every flag given wins over discovery):
+  source: terraform (Terraform/OpenTofu configuration files (*.tf, *.tf.json, *.tofu, *.tofu.json) in the folder)
+  project: none (no stacktoit.yaml in the source folder or its parents up to the git root)
+
+STACKIT draft (this folder/terraform): 38 units generated · 11 need no resource · 3 left for the architect · 60 variables
+Global verification: 12 of 12 invariants PASS
+Architecture change: generated networks that hold no interface — stackit_network.vpc_vpc_private for module.vpc.module.vpc.aws_subnet.private: drafted, consumers not placed: decision DEC-GEN-CONVERT-WORKLOAD-PLACEMENT — nothing in the draft is placed in it, although the source places module.dependencies.aws_mq_broker.mq, module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this, module.dependencies.module.catalog_rds.aws_rds_cluster.this and 7 more in module.vpc.module.vpc.aws_subnet.private; the drafted Kubernetes cluster stackit_ske_cluster.retail_app_ecs_cluster of these consumers sets no network.id. Decide whether the address range of each is still needed (security-group rules, routes or workloads of the source may name it); to drop one, regenerate the draft rather than edit it
+Architecture change: private DNS parity not established: the source resolves internal EC2 host names (module.vpc.module.vpc.aws_vpc.this enable_dns_hostnames = true) through the VPC resolver; the drafted stackit_network.vpc_vpc_private and stackit_network.vpc_vpc_public use var.default_ipv4_nameservers (public names only), and STACKIT documents no private DNS zone or internal name resolution (STACKIT DNS serves public zones only; the DNS Resolver product is in beta): names only the VPC resolver answers need a DNS server of your own
+
+Validation matrix (what has been established; nothing here approves the draft)
+  Source completeness: PARTIAL (source status RUNTIME_TOPOLOGY_PARTIAL)
+  Draft generation: GENERATED (the draft is in terraform/)
+  StackToIT draft checks: PASSED (100 checks, none found a violation)
+  Global invariants: PASSED (12 of 12 invariants PASS)
+  OpenTofu validation: PASSED (tofu init -backend=false and tofu validate accepted the draft; tofu 1.13.1)
+  Output schema validation: PASSED (verified at publish: every JSON file that has a schema is validated against it (see run_verification in manifest.json))
+  STACKIT plan: NOT RUN (this build runs no plan against a STACKIT project)
+  Architect approval: NOT PROVIDED (no review decision is recorded for this run)
+  Semantic equivalence: NOT ASSESSED (this build has no measure for it)
+  Safe to apply: NOT ASSERTED (StackToIT never asserts it)
+tofu validate: STATIC_TERRAFORM_VALIDATION_PASSED — deployment readiness and live target behaviour not verified
+
+Run summary
+────────────────────────────────────────────
+Package state             Partially executable migration package
+Plan steps                49 generated automatically · 4 generated with decisions · 238 manual carry-over · 3 unsupported · 3 units left to the architect for redesign  (manual carry-over here includes the cutover, verification and retirement steps; STACKIT API steps, and Terraform steps that no decision can free, are in none of these counts, which the Execution line below states; manual carry-over counts the longest method of each open data-movement choice)
+Source unit fate          34 Terraform-only · 4 hybrid · 0 API-only · 3 manual · 11 no resource (of 52 units the draft considered: 44 known-present, 8 decided only when OpenTofu plans)  (what becomes of each unit the draft considered; the five add up to the units considered, and Terraform-only and hybrid together are the units generated)
+Execution                 48 of the 57 automated steps (OpenTofu or a script) can run now (1 waits for a manual prerequisite, 8 require a design decision) · 9 of those 48 rest on a default you have not confirmed (public endpoint, size derived from the source) · stages of 57 automated steps: 57 can be generated, 48 can run now, 39 rest on no default left to confirm, 0 are approved (every decision and default confirmed in the decisions file) · 49 Terraform (1 after a manual prerequisite) · 4 API (4 wait for the opt-in) · 4 design inputs · 154 manual migration work (272 settings in 69 review steps) (counting the longest method of each open data-movement choice; 16 steps of the other methods not counted) · 84 lifecycle (cutover/verify/retire) · 3 refused (of 314 plan steps)  (what each step of the plan is; the categories add up to the plan's steps)
+Defaults                  the default of 8 decisions nobody has answered: public endpoint (5), size derived from the source (3); confirm or change each in decisions.yaml; confirming one accepts what the draft does as it stands: the steps that rest on it then count among those that rest on no default left to confirm, and as approved once every decision they rest on is answered in the decisions file; decisions are counted one by one here, while the register's decisions to make and defaults to confirm count the records that group them  (the steps that can run now may stand on them; the decision register lists each decision)
+Inputs                    4 design inputs wait · 47 open requests (14 block the draft, 4 are preferences this build cannot apply — inputs-template.yaml, NOT APPLICABLE IN THIS BUILD, says where to set each)  (design inputs are steps of the plan; requests are what the run asks the customer, listed one by one when the run is given an inputs file or a project)
+Source units              44  (known-present migration units; 8 more decided only when OpenTofu plans: 3 off with the defaults of their variables (a variable can switch them on), 5 decided by data OpenTofu reads when it plans, 41 switched off)
+Critical open settings    283  (282 to decide, 1 confirm only; 36 resolved of the 319 the units state; 25 more are open on 5 units decided when OpenTofu plans, not counted here but listed in the decision register (marked: applies only if))
+Decisions to review       16 decisions to make (9 plan decisions, 5 manual actions, 2 plan statements, 2 of them with the draft's DEFAULT to confirm or change) · 2 defaults to confirm (other records, no step waits for them) · 48 units to review (308 critical settings: 307 to decide (25 of them are conditional), 1 confirm only)  (a decision to make is a record of an open plan decision, manual action or plan statement; a default to confirm is such a record whose default option the draft carries out (no step waits for it: a person confirms it or changes it); a unit to review is the review record of the critical settings of one unit that the knowledge base cannot decide (one record for each owner role, each setting an item of it); conditional settings are on units decided only when OpenTofu plans (decisions.json))
+Draft coverage            38 of 52 units with a generated resource  (11 need no resource · 3 left for the architect · 60 variables · the 52 are the 44 source units and 8 conditional units)
+Global draft invariants   12/12 PASS  (consistency checks over the draft; not target behaviour)
+tofu validate             PASSED  (static validation; not target behaviour)
+Architect approval        NOT PROVIDED
+Safe to apply             NOT ASSERTED
+
+NEXT
+  1. Review the 307 open critical settings: a person decides each (index.html, Decisions page; assurance/critical-semantics.json, critical_semantic_resolution.open). 25 of them belong to units that exist only if a plan-time input holds (critical_semantic_resolution.conditional_open). 1 more is carried by the draft already: confirm only.
+  2. Review the 9 open plan decisions and 5 manual actions of the draft (index.html, Architecture, Deployment prerequisites). Confirm the 2 defaults the draft carries out (index.html, Decisions page): no step waits for the answer, a person confirms each or changes it.
+  3. Review the draft in terraform/: it is a proposal, and an architect has to review it before any use.
+  4. Open index.html in a browser for the unit-by-unit view (offline, nothing is loaded).
