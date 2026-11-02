@@ -1,9 +1,3 @@
-# build output (GitHub Actions builds it)
-/_site/
-/_cf/
-/node_modules/
-/.wrangler/
-
 # OS and editor files
 .DS_Store
 Thumbs.db

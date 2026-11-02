@@ -1,9 +1,0 @@
-{
-  "repository_url": "https://github.com/stackToIT/stacktoit-examples",
-  "repository_branch": "main",
-  "pages_url": "https://stacktoit.github.io/stacktoit-examples/",
-  "canonical_base": "https://stacktoit.com/examples/",
-  "register": {
-    "lede": "Each example is one StackToIT run on a public infrastructure-as-code project, published complete: the assessment, the generated STACKIT infrastructure, the architecture diagrams and the migration plan."
-  }
-}

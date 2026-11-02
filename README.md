@@ -45,9 +45,7 @@ A StackToIT package is a **proposal for an architect**. *Execution-ready* means 
 examples/<id>/example.json   metadata contract (schema/example.schema.json); every figure is cross-checked against output/
 examples/<id>/README.md      provenance of the example
 examples/<id>/output/        the run, byte for byte
-site/                        templates and assets of the static site (self-hosted fonts, no third-party requests)
-scripts/build-site.py        builds _site/ (standard library only)
-scripts/validate.py          schema, manifest integrity, metadata-vs-output cross-checks, broken-link check of _site/
+scripts/validate.py          schema, manifest integrity, metadata-vs-output cross-checks
 ```
 
 Adding an example means adding `examples/<id>/` with `example.json`, `README.md` and `output/`; the site, its routes and navigation follow from that.
@@ -58,11 +56,8 @@ All rights reserved — see [LICENSE.md](LICENSE.md). The source estate of each 
 
 ## Publishing
 
-The site is served at `https://stacktoit.com/examples/` by a Cloudflare Worker with static assets, built from this repository:
+The site at `https://stacktoit.com/examples/` is built from this repository. To check an example, run:
 
 ```bash
-npm ci
-npm run deploy
+python3 scripts/validate.py
 ```
-
-GitHub Pages keeps serving the same content from `main` for existing links. Its generated pages name the `stacktoit.com` URL as canonical.

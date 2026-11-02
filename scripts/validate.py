@@ -1,22 +1,17 @@
 #!/usr/bin/env python3
-"""Validate the examples and, optionally, a built site.
+"""Validate the examples.
 
     python3 scripts/validate.py            # metadata schema, manifest integrity, metadata-vs-output cross-checks
-    python3 scripts/validate.py --site _site   # the same, plus a broken-link check over the built site
 
 Standard library only. Exit code 1 on any failure; every failure is printed.
 """
 from __future__ import annotations
 
-import argparse
 import hashlib
-import html.parser
 import json
-import os
 import re
 import sys
 from pathlib import Path
-from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parent.parent
 EXAMPLES = ROOT / "examples"
@@ -193,131 +188,8 @@ def check_examples() -> list[dict]:
     return metas
 
 
-# ---------------------------------------------------------------- built site link check
-
-class LinkParser(html.parser.HTMLParser):
-    def __init__(self) -> None:
-        super().__init__()
-        self.refs: list[str] = []
-        self.ids: set[str] = set()
-
-    def handle_starttag(self, tag, attrs):
-        d = dict(attrs)
-        for key in ("href", "src", "data", "poster"):
-            if d.get(key):
-                self.refs.append(d[key])
-        if d.get("srcset"):
-            for part in d["srcset"].split(","):
-                self.refs.append(part.strip().split(" ")[0])
-        if d.get("id"):
-            self.ids.add(d["id"])
-        if tag == "a" and d.get("name"):
-            self.ids.add(d["name"])
-
-
-PLACEHOLDER = re.compile(r"\$\{?[a-z][a-z0-9_]*\}?")
-SECRET_SHAPES = [
-    (re.compile(r"AKIA[0-9A-Z]{16}"), "AWS access key id"),
-    (re.compile(r"\bASIA[0-9A-Z]{16}\b"), "AWS session key id"),
-    (re.compile(r"\bgh[pousr]_[A-Za-z0-9]{20,}\b"), "GitHub token"),
-    (re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----"), "private key"),
-    (re.compile(r"\beyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{10,}\."), "JWT"),
-    (re.compile(r"(?i)\b(secret|token|password|passwd|api[_-]?key)\s*[:=]\s*['\"][^'\"\s]{8,}['\"]"), "credential assignment"),
-    (re.compile(r"(?<![\w/])/(?:Users|home)/[A-Za-z0-9._-]+/"), "absolute user path"),
-]
-EMAIL = re.compile(r"[A-Za-z0-9._%+-]+@(?!stacktoit\.com\b)[A-Za-z0-9.-]+\.[a-z]{2,}")
-
-
-def check_public_content(site: Path) -> None:
-    """Generic leak classes over everything the site publishes, authored pages and the copied report alike:
-    secret shapes, absolute user paths, e-mail addresses other than the project's, unresolved template placeholders
-    and HTML comments in the authored pages (the report keeps its own markup)."""
-    hits = 0
-    for p in sorted(site.rglob("*")):
-        if not p.is_file() or p.suffix in {".woff2", ".png", ".webp", ".svg"}:
-            continue
-        rel = p.relative_to(site).as_posix()
-        text = p.read_text(errors="replace")
-        for rx, what in SECRET_SHAPES:
-            if rx.search(text):
-                fail(f"public content: {what} in {rel}"); hits += 1
-        for m_ in EMAIL.finditer(text):
-            addr = m_.group(0)
-            if "@module." in addr or addr.endswith((".tf", ".this", ".aws", ".catalog", ".checkout", ".orders")):
-                continue  # plan step ids of the form name@module.x.y are not addresses
-            fail(f"public content: e-mail address {addr} in {rel}"); hits += 1; break
-        authored = p.suffix == ".html" and "/report/" not in f"/{rel}"
-        if authored:
-            if "/files/" in f"/{rel}":  # a viewer page embeds a file of the run; only the chrome around it is authored
-                text = re.sub(r'<div class="wrap viewer-body">.*?</main>', "", text, flags=re.S)
-            if PLACEHOLDER.search(text):
-                fail(f"public content: unresolved template placeholder {PLACEHOLDER.search(text).group(0)} in {rel}"); hits += 1
-            if "<!--" in text:
-                fail(f"public content: HTML comment in authored page {rel}"); hits += 1
-    if not hits:
-        ok("public content: no secret shapes, user paths, foreign e-mail addresses, placeholders or authored HTML comments")
-
-
-def check_site(site: Path, clean_urls: bool = False) -> None:
-    if not site.is_dir():
-        fail(f"site folder {site} does not exist"); return
-    check_public_content(site)
-    if not (site / ".nojekyll").exists():
-        fail("site is missing .nojekyll (GitHub Pages would hide folders starting with _ and run Jekyll)")
-    pages = sorted(site.rglob("*.html"))
-    # only the site's own pages are checked for anchors; the report pages are checked for file targets
-    checked = broken = 0
-    ids_cache: dict[Path, set[str]] = {}
-
-    def ids_of(p: Path) -> set[str]:
-        if p not in ids_cache:
-            lp = LinkParser(); lp.feed(p.read_text(errors="replace")); ids_cache[p] = lp.ids
-        return ids_cache[p]
-
-    for page in pages:
-        lp = LinkParser()
-        lp.feed(page.read_text(errors="replace"))
-        ids_cache[page] = lp.ids
-        for ref in lp.refs:
-            u = urlsplit(ref)
-            if u.scheme in ("http", "https", "mailto", "data", "javascript", "tel") or ref.startswith("//"):
-                continue
-            if ref.startswith("/") and page.name == "404.html" and page.parent == site:
-                continue  # the 404 page is served at any depth and must use the project base path
-            if ref.startswith("/"):
-                fail(f"{page.relative_to(site)}: root-relative link {ref!r} breaks under the project base path"); broken += 1; continue
-            target_path = unquote(u.path)
-            target = page if not target_path else (page.parent / target_path).resolve()
-            if target.is_dir():
-                target = target / "index.html"
-            elif clean_urls and not target.exists() and target.with_name(target.name + ".html").exists():
-                target = target.with_name(target.name + ".html")
-            checked += 1
-            if not target.exists():
-                fail(f"{page.relative_to(site)}: broken link {ref!r}"); broken += 1; continue
-            if u.fragment and target.suffix == ".html" and site in target.parents and "report" not in target.relative_to(site).parts:
-                if u.fragment not in ids_of(target):
-                    fail(f"{page.relative_to(site)}: anchor #{u.fragment} not found in {target.relative_to(site)}"); broken += 1
-    if not broken:
-        ok(f"site: {checked} internal references in {len(pages)} pages resolve")
-    # every published report file must be present in the site copy, byte for byte
-    for ex_dir in sorted(p for p in EXAMPLES.iterdir() if p.is_dir()):
-        src = ex_dir / "output"; dst = site / ("" if clean_urls else "examples") / ex_dir.name / "report"
-        mism = [str(p.relative_to(src)) for p in src.rglob("*") if p.is_file() and (not (dst / p.relative_to(src)).exists() or sha256(dst / p.relative_to(src)) != sha256(p))]
-        if mism:
-            fail(f"site: {len(mism)} report files differ from examples/{ex_dir.name}/output (e.g. {mism[0]})")
-        else:
-            ok(f"site: examples/{ex_dir.name}/report is a byte-for-byte copy of the output")
-
-
 def main() -> int:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--site", type=Path, help="built site folder to link-check")
-    ap.add_argument("--clean-urls", action="store_true", help="the site is built for Cloudflare, where foo serves foo.html")
-    args = ap.parse_args()
     check_examples()
-    if args.site:
-        check_site(args.site.resolve(), args.clean_urls)
     print()
     if failures:
         print(f"{len(failures)} failure(s)")
