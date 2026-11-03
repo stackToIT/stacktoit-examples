@@ -1,32 +1,52 @@
 # Generated migration draft by StackToIT — architect review required. Not for apply without review.
 # AWS ECS service module.retail_app_ecs.module.catalog_service.aws_ecs_service.this (../../lib/ecs/service/ecs.tf:136) as Kubernetes manifests for STACKIT SKE — a draft, not Terraform.
-# rule aws.ecs/ecs-to-ske · REPLATFORM / LOW · task definition module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this · KB 0.384.0
+# rule aws.ecs/ecs-to-ske · REPLATFORM / LOW · task definition module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this · KB 0.385.0
 # Target cluster: the SKE cluster stackit_ske_cluster.retail_app_ecs_cluster (kubernetes.tf) the ECS cluster module.retail_app_ecs.aws_ecs_cluster.cluster becomes. Apply with the cluster's kubeconfig into the namespace you choose: kubectl apply -n <namespace> -f manifests.yaml
 # Kind: Deployment (scheduling_strategy REPLICA).
 # APPLICATION COMPATIBILITY: applications/catalog.json lists every environment value, secret, rebinding, data store change and placeholder this manifest needs, as a blocking checklist; the workload is not ready before every item is done. A kubeconform check or a kubectl apply --dry-run of the manifest establishes YAML validity only, not behaviour: it accepts a REQUIRED_ token in a string field, an empty ConfigMap and a Secret that does not exist, and runs nothing; the checklist of the application compatibility contract and an application smoke test on the target are what show that the workload works.
 #
+# SECRETS TO CREATE (references only — names and ARNs, never values; create catalog-secrets with these keys, e.g. from a STACKIT Secrets Manager instance, the pinned provider has no resource for its entries):
+#   RETAIL_CATALOG_PERSISTENCE_ENDPOINT ← not visible statically
+#   RETAIL_CATALOG_PERSISTENCE_PASSWORD ← not visible statically
+#   RETAIL_CATALOG_PERSISTENCE_USER ← not visible statically
+#   RETAIL_CATALOG_SEARCH_OS_PASSWORD ← not visible statically
+#   RETAIL_CATALOG_SEARCH_OS_USERNAME ← not visible statically
+#
+# ENVIRONMENT VALUES COPIED into the ConfigMap catalog-env (a number under a name that says a quantity — a port, a timeout, a count — or true or false; a string value and any other number is never copied): RETAIL_CATALOG_SEARCH_ENABLED=true
+#
+# ENVIRONMENT KEYS TO FILL in the ConfigMap catalog-env (names only; the values are not copied from the task definition): RETAIL_CATALOG_PERSISTENCE_DB_NAME, RETAIL_CATALOG_PERSISTENCE_PROVIDER, RETAIL_CATALOG_SEARCH_OS_ENDPOINT, RETAIL_CATALOG_SEARCH_OS_INDEX
+#
 # IMAGES: Amazon ECR image public.ecr.aws/aws-containers/retail-store-sample-catalog:1.6.3 — decide where the images live on STACKIT and the pull secret of the cluster
 #
 # CUTOVER AND ROLLBACK (the customer performs it; nothing here is executed):
-#   1. Fill in the inputs above, apply the manifests to the new cluster and leave module.retail_app_ecs.module.catalog_service.aws_ecs_service.this running in ECS as it is.
-#   2. Wait for `kubectl rollout status deployment/catalog` to succeed and for the Service to answer from another pod of the cluster.
-#   3. Move what reached the ECS service (a load balancer target, a DNS record, a service discovery name) to the Service, and keep the old route in place.
-#   4. ROLLBACK: return the traffic to module.retail_app_ecs.module.catalog_service.aws_ecs_service.this, which was left running; the pods can stay applied. Scale ECS down only after the pods have carried production for the period you choose, and delete the ECS service last.
+#   1. BEFORE THE DATA MOVE (the apply step of the plan): fill in the inputs above and apply the manifests to the new cluster held back, with replicas: 0 in the file, so that no pod runs and none connects to a store of the target before its data is loaded (the file holds the pods back itself: there is no moment between the apply and a scale in which a pod runs); leave module.retail_app_ecs.module.catalog_service.aws_ecs_service.this running in ECS as it is.
+#   2. AFTER THE FINAL COPY OF THE DATA AND THE SWITCH OF THE CONNECTIONS OF THE DATA STORES (the start step of the plan): scale to 1 pod, the number the source states (`kubectl scale deployment/catalog --replicas=1`) and write that number into the file as well (applying the file again with `replicas: 0` would hold the pods back again), wait for `kubectl rollout status deployment/catalog` to succeed and for the Service to answer from another pod of the cluster, and run the application smoke test of the checklist (applications/catalog.json).
+#   3. AT THE CUTOVER, once the pods answer (the traffic step of the plan): move what reached the ECS service (a load balancer target, a DNS record, a service discovery name) to the Service, and keep the old route in place.
+#   4. ROLLBACK: return the traffic to module.retail_app_ecs.module.catalog_service.aws_ecs_service.this, which was left running; the pods can stay applied (hold them back again if they would write to a store that is not current). Scale ECS down only after the pods have carried production for the period you choose, and delete the ECS service last.
 #
 # TODO: the identity model of the application of module.retail_app_ecs.module.catalog_service.aws_ecs_service.this is an open decision: the task role module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role becomes a service account in identity.tf that the pods cannot use — answer the input target.workload.identity (inputs.json; federated_service_account, service_account_key or no_workload_identity); until then no ServiceAccount, key or federation is drafted.
 # TODO: the container definitions of module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this are built by an expression over values that are not known statically (jsonencode or templatefile over a variable or a resource attribute): the manifest holds what the source states; every value that is not known is a REQUIRED_ token or is listed below as not visible — the pods do not start until you fill them.
-# TODO: the key environment of container catalog-service is not visible statically or not in the form the ECS API documents: no environment variable is wired — the pods start without them — fill it in from the AWS task definition.
-# TODO: the key secrets of container catalog-service is not visible statically or not in the form the ECS API documents: no secret reference is wired — the pods do not get the secrets until you add them — fill it in from the AWS task definition.
 # health check of container catalog-service: a livenessProbe that is an exec probe of the same local check (curl -f http://localhost:8080/health), rebuilt from the recognised tokens and run inside the container as ECS ran it — not an httpGet or tcpSocket probe, which would call the Pod IP instead of the container's loopback and judge the status code differently; the image must contain curl, as it must for ECS. interval, timeout and retries become periodSeconds, timeoutSeconds and failureThreshold: the value the task definition states, else the ECS default (30 seconds, 5 seconds, 3 retries; Kubernetes would use 10 seconds, 1 second and 3). startPeriod becomes a startupProbe of the same check (periodSeconds 10, failureThreshold 9 = ceil(startPeriod / interval) + retries, with the ECS defaults of 30 seconds and 3 retries where the task definition states none): Kubernetes runs no livenessProbe or readinessProbe until it succeeds and kills the container after failureThreshold failures in a row — an approximation of the ECS rule, not an equivalence (ECS ignores failed checks during the period and marks the container healthy at the first success, then replaces the task after the retries; the container restart of Kubernetes is not a task replacement). The target group's health check, which decides routing, is a readinessProbe only where the line about it says so.
 # logConfiguration (driver awslogs) of container catalog-service is not carried: the container writes to stdout and stderr and the cluster's log collection takes it — decide where the logs go (STACKIT Logs).
 # settings of container catalog-service not carried (key names only; their values are not read): networkMode, readonlyRootFilesystem, volumesFrom — set what the workload needs (working directory, user, ulimits, Linux parameters, extra hosts, links) from the AWS task definition.
-# rolling update: deployment_minimum_healthy_percent is not set (ECS default 100%), deployment_maximum_percent is not set (ECS default 200%) become maxUnavailable and maxSurge of the Deployment as integers for the 1 replicas: maxUnavailable = 1 - ceil(1 x minimum / 100), maxSurge = floor(1 x maximum / 100) - 1 (ECS rounds the healthy minimum up and the maximum down; Kubernetes rounds maxUnavailable down and maxSurge up — AWS DeploymentConfiguration API reference and the Kubernetes Deployment documentation).
+# rolling update: deployment_minimum_healthy_percent is not set (ECS default 100%), deployment_maximum_percent is not set (ECS default 200%) become maxUnavailable and maxSurge of the Deployment as integers for the 1 replicas the source states, which the start step sets (the file holds the pods at 0 until then): maxUnavailable = 1 - ceil(1 x minimum / 100), maxSurge = floor(1 x maximum / 100) - 1 (ECS rounds the healthy minimum up and the maximum down; Kubernetes rounds maxUnavailable down and maxSurge up — AWS DeploymentConfiguration API reference and the Kubernetes Deployment documentation).
 # NOT CARRIED (module.retail_app_ecs.module.catalog_service.aws_ecs_service.this): launch_type = FARGATE — the ECS launch type and the Fargate platform version are AWS placement and runtime choices; the pods run on the SKE node pool (no per-task isolation boundary, no platform version, no Fargate sizing steps).
 # NOT CARRIED (module.retail_app_ecs.module.catalog_service.aws_ecs_service.this): network_configuration — the tasks have their own network interface in the subnets and security groups of this block (awsvpc); pods use the cluster network and the security group rules are not translated into network policies — decide the network policy of the pods.
 # NOT CARRIED (module.retail_app_ecs.module.catalog_service.aws_ecs_service.this): service_connect_configuration — Cloud Map service discovery and the Service Connect proxy (its retries, timeouts, TLS and metrics) are not carried; other workloads reach this service through the Kubernetes Services below, in the namespace the manifests are applied into: catalog:80 → container port 8080 (the Service Connect alias catalog:80 of port catalog-service).
 # NOT CARRIED (module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this): network_mode = awsvpc, requires_compatibilities — Fargate platform specifics and awsvpc network interface semantics have no Kubernetes counterpart: the pods run on the SKE node pool network and the platform's task sizing steps do not exist.
 # The roles execution_role_arn (pull images, inject secrets) and task_role_arn (the application's identity) are not carried into the pods: no ServiceAccount and no workload identity is drafted — see the identity decisions of the draft (identity.tf).
 # NOT CARRIED (module.retail_app_ecs.module.catalog_service.aws_ecs_service.this): enable_execute_command = true, tags, wait_for_steady_state = true — a service setting with no counterpart in the draft manifests: Kubernetes has its own rollout (maxSurge, maxUnavailable), health, scheduling and exec behaviour, and tags are not labels here.
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: catalog-env
+  labels:
+    app.kubernetes.io/name: catalog
+# One key per environment entry of the task definition (the list is in the header). String values are not copied: a value can be a secret under any name; references and numbers are (a number only under a name that says a quantity, such as a port, a timeout or a count; true and false count as numbers). A name two containers state differently has a key per container, <container>.<NAME>.
+# A pod that references a key missing here does not start. This is the one definition of the ConfigMap: put the keys of applications/catalog.templates.yaml (a list under another name, never applied) into data below, or into the live object after it is applied; two files that define one ConfigMap delete each other's keys at the next kubectl apply.
+data:
+  RETAIL_CATALOG_SEARCH_ENABLED: "true"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -35,7 +55,7 @@ metadata:
   labels:
     app.kubernetes.io/name: catalog
 spec:
-  replicas: 1
+  replicas: 0 # held back until the start step of the plan scales to the number the header names
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -55,6 +75,57 @@ spec:
         ports:
         - containerPort: 8080
           protocol: TCP
+        env:
+        - name: RETAIL_CATALOG_PERSISTENCE_DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: catalog-env
+              key: RETAIL_CATALOG_PERSISTENCE_DB_NAME
+        - name: RETAIL_CATALOG_PERSISTENCE_PROVIDER
+          valueFrom:
+            configMapKeyRef:
+              name: catalog-env
+              key: RETAIL_CATALOG_PERSISTENCE_PROVIDER
+        - name: RETAIL_CATALOG_SEARCH_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              name: catalog-env
+              key: RETAIL_CATALOG_SEARCH_ENABLED
+        - name: RETAIL_CATALOG_SEARCH_OS_ENDPOINT
+          valueFrom:
+            configMapKeyRef:
+              name: catalog-env
+              key: RETAIL_CATALOG_SEARCH_OS_ENDPOINT
+        - name: RETAIL_CATALOG_SEARCH_OS_INDEX
+          valueFrom:
+            configMapKeyRef:
+              name: catalog-env
+              key: RETAIL_CATALOG_SEARCH_OS_INDEX
+        - name: RETAIL_CATALOG_PERSISTENCE_ENDPOINT
+          valueFrom:
+            secretKeyRef:
+              name: catalog-secrets
+              key: RETAIL_CATALOG_PERSISTENCE_ENDPOINT
+        - name: RETAIL_CATALOG_PERSISTENCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: catalog-secrets
+              key: RETAIL_CATALOG_PERSISTENCE_PASSWORD
+        - name: RETAIL_CATALOG_PERSISTENCE_USER
+          valueFrom:
+            secretKeyRef:
+              name: catalog-secrets
+              key: RETAIL_CATALOG_PERSISTENCE_USER
+        - name: RETAIL_CATALOG_SEARCH_OS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: catalog-secrets
+              key: RETAIL_CATALOG_SEARCH_OS_PASSWORD
+        - name: RETAIL_CATALOG_SEARCH_OS_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: catalog-secrets
+              key: RETAIL_CATALOG_SEARCH_OS_USERNAME
         resources:
           requests:
             cpu: "1000m"

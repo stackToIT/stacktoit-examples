@@ -49,7 +49,7 @@ if [ -z "${STACKIT_INPUT_INSTANCEID:-}" ] && command -v tofu >/dev/null 2>&1; th
   fi
 fi
 in_0="${STACKIT_INPUT_INSTANCEID:?set STACKIT_INPUT_INSTANCEID to the output TF/stackit_secretsmanager_instance.migrated_secrets#instance_id, or apply the draft in terraform/ so that tofu output -raw stackit_secretsmanager_instance_migrated_secrets_instance_id answers}"
-in_1="${STACKIT_INPUT_SECRET_NAME_RETAIL_APP_ECS_ORDERS_DB:?set STACKIT_INPUT_SECRET_NAME_RETAIL_APP_ECS_ORDERS_DB to the path of the secret in the Secrets Manager instance (the source does not state it as a literal)}"
+in_1="${STACKIT_INPUT_SECRET_NAME_ORDERS_DB:?set STACKIT_INPUT_SECRET_NAME_ORDERS_DB to the path of the secret in the Secrets Manager instance (the source does not state it as a literal)}"
 if [ -z "${STACKIT_INPUT_USERNAME:-}" ] && command -v tofu >/dev/null 2>&1; then
   tofu_out="$(tofu -chdir="$here/../../../terraform" output -no-color -raw stackit_secretsmanager_user_migration_username 2>/dev/null)" || tofu_out=''
   case "$tofu_out" in ''|*[!A-Za-z0-9._~:@/+=-]*) tofu_out='';; esac
@@ -68,7 +68,7 @@ if [ -z "${STACKIT_INPUT_PASSWORD:-}" ] && command -v tofu >/dev/null 2>&1; then
   fi
 fi
 in_3="${STACKIT_INPUT_PASSWORD:?set STACKIT_INPUT_PASSWORD to the output TF/stackit_secretsmanager_user.migration#password, or apply the draft in terraform/ so that tofu output -json stackit_secretsmanager_user_migration_password answers}"
-in_4="${STACKIT_INPUT_SECRET_DOCUMENT_RETAIL_APP_ECS_ORDERS_DB:?set STACKIT_INPUT_SECRET_DOCUMENT_RETAIL_APP_ECS_ORDERS_DB to the file that holds the JSON object of key/value pairs this step writes as the secret (the risks of the step say what it is)}"
+in_4="${STACKIT_INPUT_SECRET_DOCUMENT_ORDERS_DB:?set STACKIT_INPUT_SECRET_DOCUMENT_ORDERS_DB to the file that holds the JSON object of key/value pairs this step writes as the secret (the risks of the step say what it is)}"
 case "$in_0" in ''|*[!A-Za-z0-9._~-]*)
   printf '%s\n' 'The input instanceId is empty or holds a character a segment of the path cannot (only letters, digits and . _ ~ -). Nothing was called.' >&2
   exit 5;;
@@ -81,11 +81,11 @@ tmp="$(mktemp -d)"
 trap 'rm -rf -- "$tmp"' EXIT
 doc="$in_4"
 if [ ! -f "$doc" ] || [ ! -r "$doc" ]; then
-  printf '%s\n' 'Step API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.orders_db: STACKIT_INPUT_SECRET_DOCUMENT_RETAIL_APP_ECS_ORDERS_DB must name a readable file that holds the document of key/value pairs of the secret. Nothing was called.' >&2
+  printf '%s\n' 'Step API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.orders_db: STACKIT_INPUT_SECRET_DOCUMENT_ORDERS_DB must name a readable file that holds the document of key/value pairs of the secret. Nothing was called.' >&2
   exit 5
 fi
 if ! jq -e 'type == "object" and length > 0' "$doc" >/dev/null 2>&1; then
-  printf '%s\n' 'Step API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.orders_db: the file named by STACKIT_INPUT_SECRET_DOCUMENT_RETAIL_APP_ECS_ORDERS_DB is not a JSON object with at least one key. The document is the key/value pairs of the secret, for example {"username": "<the user name>", "password": "<the password>"}. Nothing was called.' >&2
+  printf '%s\n' 'Step API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.orders_db: the file named by STACKIT_INPUT_SECRET_DOCUMENT_ORDERS_DB is not a JSON object with at least one key. The document is the key/value pairs of the secret, for example {"username": "<the user name>", "password": "<the password>"}. Nothing was called.' >&2
   exit 5
 fi
 url="${base%/}/v1/${in_0}/data/${in_1}"

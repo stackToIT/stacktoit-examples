@@ -3,9 +3,9 @@
 # from module.dependencies.module.catalog_rds.aws_rds_cluster.this (.terraform/modules/dependencies.catalog_rds/main.tf:61) — REPLATFORM / LOW
 # STACKIT has no MySQL; test the application against MariaDB before cutover.
 # REVIEW: the source is not proven publicly accessible, so the connectivity of the STACKIT instance is a decision: stackit_mariadb_instance has no private-network option in the pinned provider … — an accepted change in exposure, not a preserved property.
-# DEFAULT: reachable on STACKIT from the egress addresses of stackit_ske_cluster.retail_app_ecs_cluster (its pods), the clients of this service, and from no other address; change the list with var.dependencies_catalog_rds_this_allowed_cidrs or answer the decision DEC-GEN-CONVERT-EXPOSURE-WIDENED (alias `convert:module.dependencies.module.catalog_rds.aws_rds_cluster.this:exposure:EXPOSURE_WIDENED`) in decisions.yaml — check that these are all its clients.
+# DEFAULT: reachable on STACKIT from the egress addresses of stackit_ske_cluster.retail_app_ecs_cluster (its pods), the clients of this service, and from no other address; change the list with var.catalog_rds_allowed_cidrs or answer the decision DEC-GEN-CONVERT-EXPOSURE-WIDENED (alias `convert:module.dependencies.module.catalog_rds.aws_rds_cluster.this:exposure:EXPOSURE_WIDENED`) in decisions.yaml — check that these are all its clients.
 # The clients are module.retail_app_ecs.module.catalog_service.aws_ecs_service.this, the members of module.retail_app_ecs.module.catalog_service.aws_security_group.this (named by module.dependencies.module.catalog_rds.aws_security_group_rule.default_ingress[0]), the only clients the source admitted; the egress addresses are those of every pod of stackit_ske_cluster.retail_app_ecs_cluster … — check that is acceptable; the rule names its group through a module input or a list the scan does not pin to one element, so check that no client is missing.
-# NOT CARRIED (module.dependencies.module.catalog_rds.aws_security_group_rule.default_ingress): source_security_group_id — the members of a security group the scan cannot name reach the source listener (port 3306) through this rule … the DEFAULT of var.dependencies_catalog_rds_this_allowed_cidrs carries them as the egress addresses of stackit_ske_cluster.retail_app_ecs_cluster (its pods). (shortened: the whole reason is in the trace of this block)
+# NOT CARRIED (module.dependencies.module.catalog_rds.aws_security_group_rule.default_ingress): source_security_group_id — the members of a security group the scan cannot name reach the source listener (port 3306) through this rule … the DEFAULT of var.catalog_rds_allowed_cidrs carries them as the egress addresses of stackit_ske_cluster.retail_app_ecs_cluster (its pods). (shortened: the whole reason is in the trace of this block)
 # NOT CARRIED (module.dependencies.module.catalog_rds.aws_rds_cluster.this): db_subnet_group_name — stackit_mariadb_instance has no subnet, availability-zone or IP-family attribute (pinned provider): clients reach the instance at the endpoint STACKIT assigns.
 # NOT CARRIED (module.dependencies.module.catalog_rds.aws_rds_cluster.this): port = 3306 — stackit_mariadb_instance has no port setting (pinned provider): clients use the port of the STACKIT endpoint.
 # NOT CARRIED (module.dependencies.module.catalog_rds.aws_rds_cluster.this): master_username = root — stackit_mariadb_credential takes no username: the username and the password are computed by STACKIT (pinned provider) — clients get new credentials.
@@ -23,22 +23,26 @@
 # WARNING aurora-storage-encrypted-mariadb: Storage is encrypted at rest with an AWS-managed key.
 # WARNING aurora-mysql-mariadb-auth: The source engine is MySQL 8 and its accounts do not move.
 # WARNING aurora-mysql-mariadb-json: MariaDB stores JSON as text, not in a binary format as MySQL: its JSON data type is an alias for LONGTEXT, so the JSON columns of the source become text columns and JSON values are compared as strings, where MySQL compares them as JSON values.
-# WARNING aurora-mysql-mariadb-collation: The defaults of the character set and the collation differ: MySQL 8.0 uses utf8mb4 and utf8mb4_0900_ai_ci, MariaDB 10.11 uses latin1 or utf8 and latin1_swedish_ci or utf8_general_ci …
-# WARNING aurora-mysql-mariadb-sql-mode: The default sql_mode differs: MySQL 8.0 sets ONLY_FULL_GROUP_BY, STRICT_TRANS_TABLES, NO_ZERO_IN_DATE, NO_ZERO_DATE, ERROR_FOR_DIVISION_BY_ZERO and NO_ENGINE_SUBSTITUTION; MariaDB 10.11 sets STRICT_TRANS_TABLES, ERROR_FOR_DIVISION_BY_ZERO …
+# WARNING aurora-mysql-mariadb-collation: The defaults of the character set and the collation differ: MySQL 8.0 uses utf8mb4 and utf8mb4_0900_ai_ci, MariaDB 10.11 uses latin1 or utf8 and latin1_swedish_ci or utf8_general_ci, and MariaDB names utf8mb4_uca1400_ai_ci as the counterpart default only from 11.4.
+# WARNING aurora-mysql-mariadb-sql-mode: The default sql_mode differs: MySQL 8.0 sets ONLY_FULL_GROUP_BY, STRICT_TRANS_TABLES, NO_ZERO_IN_DATE, NO_ZERO_DATE, ERROR_FOR_DIVISION_BY_ZERO and NO_ENGINE_SUBSTITUTION; MariaDB 10.11 sets STRICT_TRANS_TABLES, ERROR_FOR_DIVISION_BY_ZERO, NO_AUTO_CREATE_USER and NO_ENGINE_SUBSTITUTION.
 # WARNING source-provider-unpinned: No lock file entry pins aws (>= 3.0, >= 3.29, >= 4.18, >= 4.30, >= 4.59, >= 5.64, >= 5.79, ~> 5.0): the version the plan would use is not proven (stated once for the whole estate)
+# recovery window: the source restores to any point within 7 days (Aurora uploads log records to S3 continuously).
+# STACKIT MariaDB takes a backup every 4 hours and holds it 14 days (a specific backup restores to the instance; the instance has no setting for either, docs.stackit.cloud, MariaDB: Backup and restore, last updated Mar 27, 2026, read 2026-11-02).
+# The page documents no point-in-time restore, so no point between two backups is shown to be restorable and the window is not shown to be equal: check a restore at the latest point the application needs before relying on it.
 # LEDGER backup retention: 7 days → service-managed backups, retention not set in this draft — REVIEW
 # Lifecycle of module.dependencies.module.catalog_rds.aws_rds_cluster.this not written to this block: ignore_changes = [replication_source_identifier …
-# SECURITY_OBSERVATION Final snapshot skipped of module.dependencies.module.catalog_rds.aws_rds_cluster.this, skip_final_snapshot (non-blocking): The source aws_rds_cluster module.dependencies.module.catalog_rds.aws_rds_cluster.this is deleted without a final snapshot (skip_final_snapshot = true): when it is destroyed, its data is gone unless it was exported or backed up separately. Source: .terraform/modules/dependencies.catalog_rds/main.tf:61. In the draft (NOT_CARRIED): the draft carries no final-snapshot setting …
+# SECURITY_OBSERVATION Final snapshot skipped of module.dependencies.module.catalog_rds.aws_rds_cluster.this, skip_final_snapshot (non-blocking): The source aws_rds_cluster module.dependencies.module.catalog_rds.aws_rds_cluster.this is deleted without a final snapshot (skip_final_snapshot = true): when it is destroyed, its data is gone unless it was exported or backed up separately. Source: .terraform/modules/dependencies.catalog_rds/main.tf:61.
+#   … Hardening, if wanted (a note, not a change; owner Security Architect): export the data (or take a backup you keep) before the instance is destroyed, and do not rely on the draft's destroy to keep it.
 # SECURITY_OBSERVATION Single-node data store of module.dependencies.module.catalog_rds.aws_rds_cluster.this, aws_rds_cluster_instance (non-blocking): The source cluster module.dependencies.module.catalog_rds.aws_rds_cluster.this has one instance (module.dependencies.module.catalog_rds.aws_rds_cluster_instance.this): no reader in a second zone to take over, a failure or a maintenance of that instance interrupts the database. Source: .terraform/modules/dependencies.catalog_rds/main.tf:175.
 #   In the draft (NOT_VERIFIED): the redundancy of the drafted stackit_mariadb_instance is its flavor and plan, which the draft states where it can (see the ledger row high availability when the source states standby); this build does not compare it with the source's single instance. Hardening, if wanted (a note, not a change; owner Security Architect): choose a target flavor with a replica, or accept the single instance knowingly.
 # trace: TR-c392beafd341 (engineering/trace/data.md#TR-c392beafd341)
 resource "stackit_mariadb_instance" "dependencies_catalog_rds_this" {
   project_id = var.project_id
   name       = "retail-store-ecs-catalog"
-  version    = var.dependencies_catalog_rds_this_version
-  plan_name  = var.dependencies_catalog_rds_this_plan_name
+  version    = var.catalog_rds_version
+  plan_name  = var.catalog_rds_plan_name
   parameters = {
-    sgw_acl = join(",", coalescelist(var.dependencies_catalog_rds_this_allowed_cidrs, stackit_ske_cluster.retail_app_ecs_cluster.egress_address_ranges))
+    sgw_acl = join(",", coalescelist(var.catalog_rds_allowed_cidrs, stackit_ske_cluster.retail_app_ecs_cluster.egress_address_ranges))
   }
 }
 
@@ -60,9 +64,9 @@ output "dependencies_catalog_rds_this_admin_password" {
 
 # from module.dependencies.module.orders_rds.aws_rds_cluster.this (.terraform/modules/dependencies.orders_rds/main.tf:61) — REPLATFORM / MEDIUM
 # flavor_id 2.4 = 2 vCPU / 4 GiB, single-node (eu01 catalogue 2026-10-18).
-# NOT CARRIED (module.dependencies.module.orders_rds.aws_security_group_rule.default_ingress): source_security_group_id — the members of a security group the scan cannot name reach the source listener (port 5432) through this rule … the DEFAULT of var.dependencies_orders_rds_this_allowed_cidrs carries them as the egress addresses of stackit_ske_cluster.retail_app_ecs_cluster (its pods). (shortened: the whole reason is in the trace of this block)
+# NOT CARRIED (module.dependencies.module.orders_rds.aws_security_group_rule.default_ingress): source_security_group_id — the members of a security group the scan cannot name reach the source listener (port 5432) through this rule … the DEFAULT of var.orders_rds_allowed_cidrs carries them as the egress addresses of stackit_ske_cluster.retail_app_ecs_cluster (its pods). (shortened: the whole reason is in the trace of this block)
 # REVIEW: the source is not proven publicly accessible, so the connectivity of the STACKIT instance is a decision: its endpoint is public and limited by the list you give — an accepted change in exposure, not a preserved property.
-# DEFAULT: reachable on STACKIT from the egress addresses of stackit_ske_cluster.retail_app_ecs_cluster (its pods), the clients of this service, and from no other address; change the list with var.dependencies_orders_rds_this_allowed_cidrs or answer the decision DEC-GEN-CONVERT-EXPOSURE-WIDENED (alias `convert:module.dependencies.module.orders_rds.aws_rds_cluster.this:exposure:EXPOSURE_WIDENED`) in decisions.yaml — check that these are all its clients.
+# DEFAULT: reachable on STACKIT from the egress addresses of stackit_ske_cluster.retail_app_ecs_cluster (its pods), the clients of this service, and from no other address; change the list with var.orders_rds_allowed_cidrs or answer the decision DEC-GEN-CONVERT-EXPOSURE-WIDENED (alias `convert:module.dependencies.module.orders_rds.aws_rds_cluster.this:exposure:EXPOSURE_WIDENED`) in decisions.yaml — check that these are all its clients.
 # The clients are module.retail_app_ecs.module.orders_service.aws_ecs_service.this, the members of module.retail_app_ecs.module.orders_service.aws_security_group.this (named by module.dependencies.module.orders_rds.aws_security_group_rule.default_ingress[0]), the only clients the source admitted; the egress addresses are those of every pod of stackit_ske_cluster.retail_app_ecs_cluster … — check that is acceptable; the rule names its group through a module input or a list the scan does not pin to one element, so check that no client is missing.
 # PITR on PostgreSQL Flex restores into a new cloned instance; backups are kept 32–90 days.
 # NOT CARRIED (module.dependencies.module.orders_rds.aws_rds_cluster.this): db_subnet_group_name — stackit_postgresflex_instance has no subnet, availability-zone or IP-family attribute (pinned provider): clients reach the instance at the endpoint STACKIT assigns.
@@ -76,13 +80,16 @@ output "dependencies_catalog_rds_this_admin_password" {
 # module.dependencies.module.orders_rds.aws_appautoscaling_target.this: switched off in the source (count = 0); nothing of it is migrated unless it is switched on
 # module.dependencies.module.orders_rds.aws_rds_cluster_endpoint.this: switched off in the source (for_each = 0); nothing of it is migrated unless it is switched on
 # module.dependencies.module.orders_rds.aws_rds_cluster_role_association.this: switched off in the source (for_each = 0); nothing of it is migrated unless it is switched on
-# DEFAULT: flavor_id = 2.4, the flavor derived from the source (module.dependencies.module.orders_rds.aws_rds_cluster.this (source class db.t3.medium) has 2 vCPU and 4 GiB (AWS price list); 2.4 is the smallest single-node PostgreSQL Flex flavor of the … A proposal the customer confirms or changes.
-# The decision DEC-GEN-CONVERT-SIZE-FROM-SOURCE (alias `convert:module.dependencies.module.orders_rds.aws_rds_cluster.this:dependencies_orders_rds_this_flavor_id:SIZE_FROM_SOURCE`) stays open: check it, and answer choose-the-size in decisions.yaml if the flavor is wrong; the next run then writes flavor_id as var.dependencies_orders_rds_this_flavor_id without a default.
+# DEFAULT: flavor_id = 2.4, the flavor derived from the source (module.dependencies.module.orders_rds.aws_rds_cluster.this (source class db.t3.medium) has 2 vCPU and 4 GiB (AWS price list); 2.4 is the smallest single-node PostgreSQL Flex flavor of the eu01 catalogue (2026-10-18) that covers it: 2 vCPU / 4 GiB). …
+# The decision DEC-GEN-CONVERT-SIZE-FROM-SOURCE (alias `convert:module.dependencies.module.orders_rds.aws_rds_cluster.this:orders_rds_flavor_id:SIZE_FROM_SOURCE`) stays open: check it, and answer choose-the-size in decisions.yaml if the flavor is wrong; the next run then writes flavor_id as var.orders_rds_flavor_id without a default.
 # WARNING aurora-storage-encrypted: Storage is encrypted at rest with an AWS-managed key; the PostgreSQL Flex encryption block covers customer keys only (the pinned STACKIT provider) and STACKIT does not state the default without it: no STACKIT fact is documented, so at-rest encryption is UNKNOWN until the PostgreSQL Flex product pages or a test on a STACKIT project state it.
 # WARNING source-provider-unpinned: No lock file entry pins aws (>= 3.0, >= 3.29, >= 4.18, >= 4.30, >= 4.59, >= 5.64, >= 5.79, ~> 5.0): the version the plan would use is not proven (stated once for the whole estate)
+# recovery window: the source restores to any point within 7 days (Aurora uploads log records to S3 continuously).
+# NOTE: 2 more notes are in the trace.
+# The pages and the API state no granularity and not how close to the present the last restorable point is (the API says it is calculated between the first and the last backup), so the window is not shown to be equal: check a restore at the latest point the application needs before relying on it.
 # LEDGER backup retention: 7 days → retention_days = 32 — TRANSFORMED
-# Lifecycle of module.dependencies.module.orders_rds.aws_rds_cluster.this not written to this block: ignore_changes = [replication_source_identifier …
-# SECURITY_OBSERVATION Final snapshot skipped of module.dependencies.module.orders_rds.aws_rds_cluster.this, skip_final_snapshot (non-blocking): The source aws_rds_cluster module.dependencies.module.orders_rds.aws_rds_cluster.this is deleted without a final snapshot (skip_final_snapshot = true): when it is destroyed, its data is gone unless it was exported or backed up separately. Source: .terraform/modules/dependencies.orders_rds/main.tf:61. In the draft (NOT_CARRIED): the draft carries no final-snapshot setting …
+# SECURITY_OBSERVATION Final snapshot skipped of module.dependencies.module.orders_rds.aws_rds_cluster.this, skip_final_snapshot (non-blocking): The source aws_rds_cluster module.dependencies.module.orders_rds.aws_rds_cluster.this is deleted without a final snapshot (skip_final_snapshot = true): when it is destroyed, its data is gone unless it was exported or backed up separately. Source: .terraform/modules/dependencies.orders_rds/main.tf:61.
+#   … Hardening, if wanted (a note, not a change; owner Security Architect): export the data (or take a backup you keep) before the instance is destroyed, and do not rely on the draft's destroy to keep it.
 # SECURITY_OBSERVATION Single-node data store of module.dependencies.module.orders_rds.aws_rds_cluster.this, aws_rds_cluster_instance (non-blocking): The source cluster module.dependencies.module.orders_rds.aws_rds_cluster.this has one instance (module.dependencies.module.orders_rds.aws_rds_cluster_instance.this): no reader in a second zone to take over, a failure or a maintenance of that instance interrupts the database. Source: .terraform/modules/dependencies.orders_rds/main.tf:175.
 #   In the draft (NOT_VERIFIED): the redundancy of the drafted stackit_postgresflex_instance is its flavor and plan, which the draft states where it can (see the ledger row high availability when the source states standby); this build does not compare it with the source's single instance. Hardening, if wanted (a note, not a change; owner Security Architect): choose a target flavor with a replica, or accept the single instance knowingly.
 # trace: TR-8ede34dda579 (engineering/trace/data.md#TR-8ede34dda579)
@@ -93,25 +100,25 @@ resource "stackit_postgresflex_instance" "dependencies_orders_rds_this" {
   flavor_id  = "2.4"
   storage = {
     class = var.postgresflex_storage_class
-    size  = var.dependencies_orders_rds_this_storage_size
+    size  = var.orders_rds_storage_size
   }
   backup_schedule = "0 2 * * *"
   network = {
-    acl          = coalescelist(var.dependencies_orders_rds_this_allowed_cidrs, stackit_ske_cluster.retail_app_ecs_cluster.egress_address_ranges)
-    access_scope = var.dependencies_orders_rds_this_access_scope == "SNA" ? "SNA" : null
+    acl          = coalescelist(var.orders_rds_allowed_cidrs, stackit_ske_cluster.retail_app_ecs_cluster.egress_address_ranges)
+    access_scope = var.orders_rds_access_scope == "SNA" ? "SNA" : null
   }
   retention_days = 32
 }
 
 # from module.dependencies.module.orders_rds.aws_rds_cluster.this.
 # DEFAULT: STACKIT generates the password of this user (stackit_postgresflex_user.password is computed and sensitive, pinned provider; no STACKIT user takes a password) and the sensitive output dependencies_orders_rds_this_admin_password exposes it; the source password and its Secrets Manager management are not copied. Read it after the apply and give it to every client before the cutover (the state holds it in plain text); storing it in STACKIT Secrets Manager is the alternative of the record admin-password, the draft creates no secret.
-# roles: var.dependencies_orders_rds_this_admin_roles (default ["login"], the least privilege) — the RDS master user is a privileged role; no PostgreSQL Flex role is documented as its equivalent, so decide createdb / createrole.
+# roles: var.orders_rds_admin_roles (default ["login"], the least privilege) — the RDS master user is a privileged role; no PostgreSQL Flex role is documented as its equivalent, so decide createdb / createrole.
 # trace: TR-e7d38d4bcda5 (engineering/trace/data.md#TR-e7d38d4bcda5)
 resource "stackit_postgresflex_user" "dependencies_orders_rds_this" {
   project_id  = var.project_id
   instance_id = stackit_postgresflex_instance.dependencies_orders_rds_this.instance_id
   username    = "root"
-  roles       = var.dependencies_orders_rds_this_admin_roles
+  roles       = var.orders_rds_admin_roles
 }
 
 # from module.dependencies.module.orders_rds.aws_rds_cluster.this.
@@ -140,28 +147,28 @@ resource "stackit_postgresflex_database" "dependencies_orders_rds_this_orders" {
 # NOT CARRIED (module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default): snapshot_arns — the instance is created empty: seeding it from an ElastiCache snapshot is not generated — migrate the data (e.g. RDB export and import, or replication).
 # NOT CARRIED (module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default): parameter_group_name — the parameter group is not translated: stackit_valkey_instance takes selected settings under parameters … — map the ones the application needs. (shortened: the whole reason is in the trace of this block)
 # NOT CARRIED (module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default): num_cache_clusters = 1 — the plan (plan_name) defines the nodes and replicas of a STACKIT Valkey instance (pinned provider).
-# DEFAULT plan_name: var.dependencies_checkout_elasticache_redis_default_plan_name defaults to stackit-keyvalue-1.4.10-single … so the smallest disk of that size is taken and the disk is open). A proposal the customer confirms or changes; it does not close the sizing decision.
-# The decision DEC-GEN-CONVERT-SIZE-FROM-SOURCE (alias `convert:module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default:dependencies_checkout_elasticache_redis_default_plan_name:SIZE_FROM_SOURCE`) stays open: check it, and answer choose-the-size in decisions.yaml if the plan is wrong; the next run then writes no default.
-# TODO: parameters.sgw_acl is set from var.dependencies_checkout_elasticache_redis_default_allowed_cidrs, which has no default: without a list STACKIT applies its default ACL, every STACKIT customer's addresses. List the clients' CIDRs before planning.
+# DEFAULT plan_name: var.elasticache_redis_plan_name defaults to stackit-keyvalue-1.4.10-single … so the smallest disk of that size is taken and the disk is open). A proposal the customer confirms or changes; it does not close the sizing decision.
+# The decision DEC-GEN-CONVERT-SIZE-FROM-SOURCE (alias `convert:module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default:elasticache_redis_plan_name:SIZE_FROM_SOURCE`) stays open: check it, and answer choose-the-size in decisions.yaml if the plan is wrong; the next run then writes no default.
+# TODO: parameters.sgw_acl is set from var.elasticache_redis_allowed_cidrs, which has no default: without a list STACKIT applies its default ACL, every STACKIT customer's addresses. List the clients' CIDRs before planning.
 # WARNING redis-transit-encryption-off: The source cache runs without TLS (transit_encryption_enabled = false).
 # WARNING source-provider-unpinned: No lock file entry pins aws (>= 3.0, >= 3.29, >= 4.18, >= 4.30, >= 4.59, >= 5.64, >= 5.79, ~> 5.0): the version the plan would use is not proven (stated once for the whole estate)
-# WARNING engine-version-upgrade: Engine version UPGRADE: the source runs Valkey 4.0.10 (engine_version); STACKIT Valkey in eu01 offers 8 (service catalogue of eu01, read 2026-10-18), none of them the source's version.
-# REVIEW: reachable on STACKIT from the addresses of var.dependencies_checkout_elasticache_redis_default_allowed_cidrs instead of only from the private subnets (module.vpc.module.vpc.aws_subnet.private) — an accepted change in exposure, not a preserved property: decide it with the decision DEC-GEN-CONVERT-EXPOSURE-WIDENED (alias `convert:module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default:exposure:EXPOSURE_WIDENED`).
+# WARNING engine-version-upgrade: Engine version UPGRADE: the source runs Redis OSS 4.0.10 (engine_version); STACKIT Valkey in eu01 offers 8 (service catalogue of eu01, read 2026-10-18), none of them the source's version.
+# REVIEW: reachable on STACKIT from the addresses of var.elasticache_redis_allowed_cidrs instead of only from the private subnets (module.vpc.module.vpc.aws_subnet.private) — an accepted change in exposure, not a preserved property: decide it with the decision DEC-GEN-CONVERT-EXPOSURE-WIDENED (alias `convert:module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default:exposure:EXPOSURE_WIDENED`).
 # stackit_valkey_instance has no network attribute (pinned provider; parameters.sgw_acl is its only access control), so any placement in a drafted network is not carried; the Valkey instance is on its own endpoint outside the project network …
 # REVIEW: The draft writes no default list of the clients' addresses: the rule module.dependencies.module.checkout_elasticache_redis.module.aws_security_group.aws_security_group_rule.keyed["in#in#sg#0"] is no plain allow of a complete list of clients. Name the networks the clients connect from.
-# DEFAULT: the draft carries out accept-the-public-endpoint for this Valkey instance: the endpoint is public, and only the CIDRs of var.dependencies_checkout_elasticache_redis_default_allowed_cidrs may connect - list the networks of the clients, the variable has no default and is required.
+# DEFAULT: the draft carries out accept-the-public-endpoint for this Valkey instance: the endpoint is public, and only the CIDRs of var.elasticache_redis_allowed_cidrs may connect - list the networks of the clients, the variable has no default and is required.
 # The decision DEC-GEN-CONVERT-EXPOSURE-WIDENED (alias `convert:module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default:exposure:EXPOSURE_WIDENED`) stays open: check it, and answer redesign-the-endpoint in decisions.yaml if the clients must not reach the instance from outside; the next run then writes no default.
-# SECURITY_OBSERVATION Transit encryption off of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default …
+# SECURITY_OBSERVATION Transit encryption off of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default … Source: .terraform/modules/dependencies.checkout_elasticache_redis/main.tf:115. In the draft (NOT_CARRIED): the draft does not carry the plaintext transport: STACKIT Key Value Store enforces TLS (a test on a STACKIT project, Valkey 8, eu01, 2026-09-24, found a plaintext connection closed by the server; knowledge base rule aws.elasticache_replication_group), so the clients that connect without TLS must switch to rediss://. …
 # SECURITY_OBSERVATION Single-node data store of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default, num_cache_clusters (non-blocking): The source replication group module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default runs on one node (num_cache_clusters states it): a failure or a maintenance of that node takes the cache down. Source: .terraform/modules/dependencies.checkout_elasticache_redis/main.tf:115.
 #   In the draft (NOT_VERIFIED): the redundancy of the drafted stackit_valkey_instance is the plan the draft leaves to a person (a variable), and this build does not compare it with the source's single node. Hardening, if wanted (a note, not a change; owner Security Architect): choose a target plan with more than one node, or accept the single node knowingly.
 # trace: TR-31aa12c1dfa8 (engineering/trace/data.md#TR-31aa12c1dfa8)
 resource "stackit_valkey_instance" "dependencies_checkout_elasticache_redis_default" {
   project_id = var.project_id
   name       = "retail-store-ecs-checkout"
-  plan_name  = var.dependencies_checkout_elasticache_redis_default_plan_name
-  version    = var.dependencies_checkout_elasticache_redis_default_version
+  plan_name  = var.elasticache_redis_plan_name
+  version    = var.elasticache_redis_version
   parameters = {
-    sgw_acl = join(",", var.dependencies_checkout_elasticache_redis_default_allowed_cidrs)
+    sgw_acl = join(",", var.elasticache_redis_allowed_cidrs)
   }
 }
 
@@ -194,7 +201,7 @@ output "dependencies_checkout_elasticache_redis_default_valkey_credential_passwo
 # module.dependencies.module.catalog_opensearch.aws_opensearch_vpc_endpoint.this: switched off in the source (for_each = 0); nothing of it is migrated unless it is switched on
 # WARNING source-provider-unpinned: No lock file entry pins aws (>= 3.0, >= 3.29, >= 4.18, >= 4.30, >= 4.59, >= 5.64, >= 5.79, ~> 5.0): the version the plan would use is not proven (stated once for the whole estate)
 # CRITICAL engine-version-downgrade: Engine version DOWNGRADE: the source runs OpenSearch 3.3 (engine_version); STACKIT OpenSearch in eu01 offers 2 (service catalogue of eu01, read 2026-10-18), older than the source.
-# DEFAULT: reachable on STACKIT from the egress addresses of stackit_ske_cluster.retail_app_ecs_cluster (its pods), the clients of this service, and from no other address; change the list with var.dependencies_catalog_opensearch_this_allowed_cidrs or answer the decision DEC-GEN-CONVERT-EXPOSURE-WIDENED (alias `convert:module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this:exposure:EXPOSURE_WIDENED`) in decisions.yaml — check that these are all its clients.
+# DEFAULT: reachable on STACKIT from the egress addresses of stackit_ske_cluster.retail_app_ecs_cluster (its pods), the clients of this service, and from no other address; change the list with var.catalog_opensearch_allowed_cidrs or answer the decision DEC-GEN-CONVERT-EXPOSURE-WIDENED (alias `convert:module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this:exposure:EXPOSURE_WIDENED`) in decisions.yaml — check that these are all its clients.
 # The clients are module.retail_app_ecs.module.catalog_service.aws_ecs_service.this, the members of module.retail_app_ecs.module.catalog_service.aws_security_group.this (named by module.dependencies.aws_security_group_rule.allow_https_from_client), the only clients the source admitted; the egress addresses are those of every pod of stackit_ske_cluster.retail_app_ecs_cluster … — check that is acceptable; the rule names its group through a module input or a list the scan does not pin to one element, so check that no client is missing.
 # stackit_opensearch_instance has no network attribute (pinned provider; parameters.sgw_acl is its only access control), so any placement in a drafted network is not carried; the OpenSearch instance is on its own endpoint outside the project network …
 # SECURITY_OBSERVATION Single-node data store of module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this, cluster_config.instance_count (non-blocking): The source domain module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this runs on one data node (cluster_config.instance_count = 1): a failure or a maintenance of that node takes the domain down. Source: .terraform/modules/dependencies.catalog_opensearch/main.tf:29.
@@ -204,10 +211,10 @@ output "dependencies_checkout_elasticache_redis_default_valkey_credential_passwo
 resource "stackit_opensearch_instance" "dependencies_catalog_opensearch_this" {
   project_id = var.project_id
   name       = "retail-store-ecs-catalog"
-  plan_name  = var.dependencies_catalog_opensearch_this_plan_name
-  version    = var.dependencies_catalog_opensearch_this_version
+  plan_name  = var.catalog_opensearch_plan_name
+  version    = var.catalog_opensearch_version
   parameters = {
-    sgw_acl = join(",", coalescelist(var.dependencies_catalog_opensearch_this_allowed_cidrs, stackit_ske_cluster.retail_app_ecs_cluster.egress_address_ranges))
+    sgw_acl = join(",", coalescelist(var.catalog_opensearch_allowed_cidrs, stackit_ske_cluster.retail_app_ecs_cluster.egress_address_ranges))
   }
 }
 
@@ -230,12 +237,12 @@ output "dependencies_catalog_opensearch_this_opensearch_credential_password" {
   sensitive   = true
 }
 
-# ALTERNATIVE, NOT AN EQUIVALENT: DynamoDB (1 table(s)) → one MongoDB Flex instance, each table a collection — rule aws.dynamodb_table/dynamodb · REDESIGN / MEDIUM · KB 0.384.0 · review required.
+# ALTERNATIVE, NOT AN EQUIVALENT: DynamoDB (1 table(s)) → one MongoDB Flex instance, each table a collection — rule aws.dynamodb_table/dynamodb · REDESIGN / MEDIUM · KB 0.385.0 · review required.
 # The data access layer is rewritten against the MongoDB API; move the data with an export (DynamoDB export to S3 → mongoimport) — nothing replicates it.
 # replicas = 3 / Replica: DynamoDB replicates every table across several availability zones of its region; a 3-member replica set keeps redundancy within the STACKIT region.
 # backup_schedule is a default (02:00 daily): DynamoDB on-demand backups and AWS Backup plans do not map one to one.
-# NOT CARRIED: capacity modes (provisioned/on-demand, auto scaling — size the flavor instead), DynamoDB Streams (use change streams or an outbox) … — tables with replicas are left for the architect), the PITR window (a variable), and customer-managed KMS keys (MongoDB Flex has no key attribute).
-# TABLE module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this (.terraform/modules/dependencies.dynamodb_carts/main.tf:1) → collection "retail-store-ecs-carts": key id → _id (or a unique index on id) …
+# NOT CARRIED: capacity modes (provisioned/on-demand, auto scaling — size the flavor instead), DynamoDB Streams (use change streams or an outbox), transaction semantics (TransactWriteItems limits; MongoDB multi-document transactions behave differently), conditional-write expressions, PartiQL …
+# TABLE module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this (.terraform/modules/dependencies.dynamodb_carts/main.tf:1) → collection "retail-store-ecs-carts": key id → _id (or a unique index on id); GSI idx_global_customerId {customerId: 1} → secondary index (strongly consistent in MongoDB; the projection is not needed); GSI projections and capacities → NOT CARRIED (a MongoDB index finds whole documents; capacity is flavor sizing); billing mode PAY_PER_REQUEST → NOT CARRIED (flavor sizing).
 # module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this: WARNING source-provider-unpinned: No lock file entry pins aws (>= 3.0, >= 3.29, >= 4.18, >= 4.30, >= 4.59, >= 5.64, >= 5.79, ~> 5.0): the version the plan would use is not proven (stated once for the whole estate)
 # replaces: module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this
 # trace: TR-a2c77bb1d7ef (engineering/trace/data.md#TR-a2c77bb1d7ef)

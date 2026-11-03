@@ -124,7 +124,9 @@ def check_cross(ex_dir: Path, meta: dict, manifest: dict) -> None:
         ("metrics.execution.package_state", meta["metrics"]["execution"]["package_state"], w["run_summary"]["package_state"]),
         ("metrics.execution.plan_steps", meta["metrics"]["execution"]["plan_steps"], w["run_summary"]["package_kpi"]["steps"]),
         ("metrics.execution.automated_steps", meta["metrics"]["execution"]["automated_steps"], w["run_summary"]["package_kpi"]["runnable"]["automated_steps"]),
-        ("metrics.execution.automated_can_run_now", meta["metrics"]["execution"]["automated_can_run_now"], w["run_summary"]["package_kpi"]["runnable"]["can_run_now"]),
+        ("metrics.execution.automated_free_of_decisions", meta["metrics"]["execution"]["automated_free_of_decisions"], w["run_summary"]["package_kpi"]["runnable"]["free_of_decisions_and_prerequisites"]),
+        ("metrics.execution.automated_runs_as_written", meta["metrics"]["execution"]["automated_runs_as_written"], w["run_summary"]["package_kpi"]["runnable"]["runs_as_written"]),
+        ("metrics.execution.automated_waiting_for_value", meta["metrics"]["execution"]["automated_waiting_for_value"], w["run_summary"]["package_kpi"]["runnable"]["need_values"]),
         ("metrics.execution.refused_steps", meta["metrics"]["execution"]["refused_steps"], w["run_summary"]["package_kpi"]["refused_steps"]),
         ("metrics.validation.draft_opentofu.state", meta["metrics"]["validation"]["draft_opentofu"]["state"], manifest["validation"]["tofu_validate"]["state"]),
     ]

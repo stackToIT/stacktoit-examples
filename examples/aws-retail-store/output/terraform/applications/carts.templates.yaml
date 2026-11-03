@@ -4,6 +4,16 @@
 # replace with the value the running service uses (a secret from your own secret store, never from this file or the repository).
 # StackToIT applies nothing: this is a list of what to create, bound to the manifest kubernetes/carts/manifests.yaml, which reads these keys.
 ---
+# This is a LIST of keys, not the ConfigMap the pods read: the pods read carts-env, which kubernetes/carts/manifests.yaml defines (its data holds the keys it copies). Put each key below,
+# with its value, into the data of that ConfigMap. It carries another name so that no file but the manifest owns carts-env: two files that define one ConfigMap delete each other's keys at the next kubectl apply.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: carts-env-keys
+data:
+  RETAIL_CART_PERSISTENCE_DYNAMODB_TABLE_NAME: "REQUIRED_CARTS_ENV_RETAIL_CART_PERSISTENCE_DYNAMODB_TABLE_NAME" # NOT_VISIBLE: the source value is not visible statically; set the value the running service uses
+  RETAIL_CART_PERSISTENCE_PROVIDER: "REQUIRED_CARTS_ENV_RETAIL_CART_PERSISTENCE_PROVIDER" # LITERAL: set the value the running service uses (not copied from the source)
+---
 # TEMPLATE of the option federated_service_account of the task role module.retail_app_ecs.module.carts_service.aws_iam_role.task_role: apply it only after the decision target.workload.identity
 # is answered with that option (the draft then writes this ServiceAccount into the manifest itself). The annotation is the e-mail of the STACKIT
 # service account of the role; the namespace is the one the manifests are applied into, and the federated identity provider trusts exactly it.

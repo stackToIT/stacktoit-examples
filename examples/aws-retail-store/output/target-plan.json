@@ -1,8 +1,8 @@
 {
   "schema_version": "0.1.0",
   "tool": "stacktoit",
-  "run_id": "f6267c3f-2848-4aa5-89df-5fee8b15b3b9",
-  "source_digest": "sha256:812c5ae3f6cc8530163abbf5b6fbe305ed3b363c4886ec6b87623db857ea0c70",
+  "run_id": "80199dc3-8108-42fe-a0b9-030ac0f7777b",
+  "source_digest": "sha256:5ce8b8f8868f3b3214b2dddebe87e3f04291bf5ceac46dc0d95624215d020000",
   "plans": [
     {
       "family": "identity",
@@ -257,7 +257,7 @@
           }
         ],
         "provenance": {
-          "kb_version": "0.384.0",
+          "kb_version": "0.385.0",
           "rules": [
             "stackitsa.account",
             "stackitsa.attach"
@@ -599,7 +599,7 @@
           }
         ],
         "provenance": {
-          "kb_version": "0.384.0",
+          "kb_version": "0.385.0",
           "rules": [
             "stackitlogs.instance"
           ]
@@ -746,7 +746,7 @@
           }
         ],
         "provenance": {
-          "kb_version": "0.384.0",
+          "kb_version": "0.385.0",
           "rules": [
             "stackitroute.route",
             "stackitroute.table"
@@ -984,7 +984,7 @@
               {
                 "path": "labels",
                 "state": "VARIABLE_REQUIRED",
-                "variable": "sg_retail_app_ecs_alb_sg_this_name_prefix_labels",
+                "variable": "sg_alb_sg_labels",
                 "reason": "the source reads a variable for its tags; the labels are a variable of the draft with the scan's reading as default",
                 "evidence": [
                   "cap:network.security-group/group-labels-format",
@@ -1174,10 +1174,11 @@
               },
               {
                 "path": "vpc_id",
-                "state": "UNSUPPORTED",
-                "reason": "a STACKIT security group belongs to a project, not to a network: the resource has no network attribute, so the source's VPC membership is not carried",
+                "state": "SAFE_OMISSION",
+                "reason": "carried by the project the draft is created in: the estate has exactly one VPC and this group names it by one whole reference, so the project is that VPC's boundary and a STACKIT group, which belongs to a project and not to a network, needs no vpc_id",
                 "evidence": [
-                  "cap:network.security-group/group-is-project-scoped"
+                  "cap:network.security-group/group-is-project-scoped",
+                  "the estate has exactly one VPC, so the project the draft is created in is its boundary"
                 ],
                 "cites": [
                   {
@@ -1300,7 +1301,7 @@
               {
                 "path": "labels",
                 "state": "VARIABLE_REQUIRED",
-                "variable": "sg_retail_app_ecs_alb_this_labels",
+                "variable": "sg_alb_labels",
                 "reason": "the source reads a variable for its tags; the labels are a variable of the draft with the scan's reading as default",
                 "evidence": [
                   "cap:network.security-group/group-labels-format",
@@ -1490,10 +1491,11 @@
               },
               {
                 "path": "vpc_id",
-                "state": "UNSUPPORTED",
-                "reason": "a STACKIT security group belongs to a project, not to a network: the resource has no network attribute, so the source's VPC membership is not carried",
+                "state": "SAFE_OMISSION",
+                "reason": "carried by the project the draft is created in: the estate has exactly one VPC and this group names it by one whole reference, so the project is that VPC's boundary and a STACKIT group, which belongs to a project and not to a network, needs no vpc_id",
                 "evidence": [
-                  "cap:network.security-group/group-is-project-scoped"
+                  "cap:network.security-group/group-is-project-scoped",
+                  "the estate has exactly one VPC, so the project the draft is created in is its boundary"
                 ],
                 "cites": [
                   {
@@ -1656,7 +1658,7 @@
               {
                 "path": "name",
                 "state": "VARIABLE_REQUIRED",
-                "variable": "sg_retail_app_ecs_carts_service_this_name",
+                "variable": "sg_carts_service_name",
                 "reason": "the source value comes from an overridable root variable (var.environment_name)",
                 "evidence": [
                   "cap:network.security-group/group-name-validator"
@@ -1816,10 +1818,11 @@
               },
               {
                 "path": "vpc_id",
-                "state": "UNSUPPORTED",
-                "reason": "a STACKIT security group belongs to a project, not to a network: the resource has no network attribute, so the source's VPC membership is not carried",
+                "state": "SAFE_OMISSION",
+                "reason": "carried by the project the draft is created in: the estate has exactly one VPC and this group names it by one whole reference, so the project is that VPC's boundary and a STACKIT group, which belongs to a project and not to a network, needs no vpc_id",
                 "evidence": [
-                  "cap:network.security-group/group-is-project-scoped"
+                  "cap:network.security-group/group-is-project-scoped",
+                  "the estate has exactly one VPC, so the project the draft is created in is its boundary"
                 ],
                 "cites": [
                   {
@@ -1982,7 +1985,7 @@
               {
                 "path": "name",
                 "state": "VARIABLE_REQUIRED",
-                "variable": "sg_retail_app_ecs_catalog_service_this_name",
+                "variable": "sg_catalog_service_name",
                 "reason": "the source value comes from an overridable root variable (var.environment_name)",
                 "evidence": [
                   "cap:network.security-group/group-name-validator"
@@ -2142,10 +2145,11 @@
               },
               {
                 "path": "vpc_id",
-                "state": "UNSUPPORTED",
-                "reason": "a STACKIT security group belongs to a project, not to a network: the resource has no network attribute, so the source's VPC membership is not carried",
+                "state": "SAFE_OMISSION",
+                "reason": "carried by the project the draft is created in: the estate has exactly one VPC and this group names it by one whole reference, so the project is that VPC's boundary and a STACKIT group, which belongs to a project and not to a network, needs no vpc_id",
                 "evidence": [
-                  "cap:network.security-group/group-is-project-scoped"
+                  "cap:network.security-group/group-is-project-scoped",
+                  "the estate has exactly one VPC, so the project the draft is created in is its boundary"
                 ],
                 "cites": [
                   {
@@ -2308,7 +2312,7 @@
               {
                 "path": "name",
                 "state": "VARIABLE_REQUIRED",
-                "variable": "sg_retail_app_ecs_checkout_service_this_name",
+                "variable": "sg_checkout_service_name",
                 "reason": "the source value comes from an overridable root variable (var.environment_name)",
                 "evidence": [
                   "cap:network.security-group/group-name-validator"
@@ -2468,10 +2472,11 @@
               },
               {
                 "path": "vpc_id",
-                "state": "UNSUPPORTED",
-                "reason": "a STACKIT security group belongs to a project, not to a network: the resource has no network attribute, so the source's VPC membership is not carried",
+                "state": "SAFE_OMISSION",
+                "reason": "carried by the project the draft is created in: the estate has exactly one VPC and this group names it by one whole reference, so the project is that VPC's boundary and a STACKIT group, which belongs to a project and not to a network, needs no vpc_id",
                 "evidence": [
-                  "cap:network.security-group/group-is-project-scoped"
+                  "cap:network.security-group/group-is-project-scoped",
+                  "the estate has exactly one VPC, so the project the draft is created in is its boundary"
                 ],
                 "cites": [
                   {
@@ -2634,7 +2639,7 @@
               {
                 "path": "name",
                 "state": "VARIABLE_REQUIRED",
-                "variable": "sg_retail_app_ecs_orders_service_this_name",
+                "variable": "sg_orders_service_name",
                 "reason": "the source value comes from an overridable root variable (var.environment_name)",
                 "evidence": [
                   "cap:network.security-group/group-name-validator"
@@ -2794,10 +2799,11 @@
               },
               {
                 "path": "vpc_id",
-                "state": "UNSUPPORTED",
-                "reason": "a STACKIT security group belongs to a project, not to a network: the resource has no network attribute, so the source's VPC membership is not carried",
+                "state": "SAFE_OMISSION",
+                "reason": "carried by the project the draft is created in: the estate has exactly one VPC and this group names it by one whole reference, so the project is that VPC's boundary and a STACKIT group, which belongs to a project and not to a network, needs no vpc_id",
                 "evidence": [
-                  "cap:network.security-group/group-is-project-scoped"
+                  "cap:network.security-group/group-is-project-scoped",
+                  "the estate has exactly one VPC, so the project the draft is created in is its boundary"
                 ],
                 "cites": [
                   {
@@ -2960,7 +2966,7 @@
               {
                 "path": "name",
                 "state": "VARIABLE_REQUIRED",
-                "variable": "sg_retail_app_ecs_ui_service_this_name",
+                "variable": "sg_ui_service_name",
                 "reason": "the source value comes from an overridable root variable (var.environment_name)",
                 "evidence": [
                   "cap:network.security-group/group-name-validator"
@@ -3120,10 +3126,11 @@
               },
               {
                 "path": "vpc_id",
-                "state": "UNSUPPORTED",
-                "reason": "a STACKIT security group belongs to a project, not to a network: the resource has no network attribute, so the source's VPC membership is not carried",
+                "state": "SAFE_OMISSION",
+                "reason": "carried by the project the draft is created in: the estate has exactly one VPC and this group names it by one whole reference, so the project is that VPC's boundary and a STACKIT group, which belongs to a project and not to a network, needs no vpc_id",
                 "evidence": [
-                  "cap:network.security-group/group-is-project-scoped"
+                  "cap:network.security-group/group-is-project-scoped",
+                  "the estate has exactly one VPC, so the project the draft is created in is its boundary"
                 ],
                 "cites": [
                   {
@@ -4464,16 +4471,7 @@
             "reason": "the STACKIT project the draft is created in; security groups and their rules belong to a project, not to a network"
           },
           {
-            "name": "sg_retail_app_ecs_alb_sg_this_name_prefix_labels",
-            "type": "map(string)",
-            "sensitive": false,
-            "default": {
-              "Name": "retail-store-ecs-ui"
-            },
-            "reason": "the labels of stackit_security_group.retail_app_ecs_alb_sg_this_name_prefix, from the tags of module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix: the source reads a variable for its tags (or its provider's default_tags), so the values here are the scan's reading of the variable's default, not proven: set the labels you want"
-          },
-          {
-            "name": "sg_retail_app_ecs_alb_this_labels",
+            "name": "sg_alb_labels",
             "type": "map(string)",
             "sensitive": false,
             "default": {
@@ -4482,31 +4480,40 @@
             "reason": "the labels of stackit_security_group.retail_app_ecs_alb_this, from the tags of module.retail_app_ecs.module.alb.aws_security_group.this: the source reads a variable for its tags (or its provider's default_tags), so the values here are the scan's reading of the variable's default, not proven: set the labels you want"
           },
           {
-            "name": "sg_retail_app_ecs_carts_service_this_name",
+            "name": "sg_alb_sg_labels",
+            "type": "map(string)",
+            "sensitive": false,
+            "default": {
+              "Name": "retail-store-ecs-ui"
+            },
+            "reason": "the labels of stackit_security_group.retail_app_ecs_alb_sg_this_name_prefix, from the tags of module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix: the source reads a variable for its tags (or its provider's default_tags), so the values here are the scan's reading of the variable's default, not proven: set the labels you want"
+          },
+          {
+            "name": "sg_carts_service_name",
             "type": "string",
             "sensitive": false,
             "reason": "the name of module.retail_app_ecs.module.carts_service.aws_security_group.this comes from a root variable that a tfvars or -var can override: its default is not a fact of the source (1 to 63 characters, alphanumeric runs joined by one separator)"
           },
           {
-            "name": "sg_retail_app_ecs_catalog_service_this_name",
+            "name": "sg_catalog_service_name",
             "type": "string",
             "sensitive": false,
             "reason": "the name of module.retail_app_ecs.module.catalog_service.aws_security_group.this comes from a root variable that a tfvars or -var can override: its default is not a fact of the source (1 to 63 characters, alphanumeric runs joined by one separator)"
           },
           {
-            "name": "sg_retail_app_ecs_checkout_service_this_name",
+            "name": "sg_checkout_service_name",
             "type": "string",
             "sensitive": false,
             "reason": "the name of module.retail_app_ecs.module.checkout_service.aws_security_group.this comes from a root variable that a tfvars or -var can override: its default is not a fact of the source (1 to 63 characters, alphanumeric runs joined by one separator)"
           },
           {
-            "name": "sg_retail_app_ecs_orders_service_this_name",
+            "name": "sg_orders_service_name",
             "type": "string",
             "sensitive": false,
             "reason": "the name of module.retail_app_ecs.module.orders_service.aws_security_group.this comes from a root variable that a tfvars or -var can override: its default is not a fact of the source (1 to 63 characters, alphanumeric runs joined by one separator)"
           },
           {
-            "name": "sg_retail_app_ecs_ui_service_this_name",
+            "name": "sg_ui_service_name",
             "type": "string",
             "sensitive": false,
             "reason": "the name of module.retail_app_ecs.module.ui_service.aws_security_group.this comes from a root variable that a tfvars or -var can override: its default is not a fact of the source (1 to 63 characters, alphanumeric runs joined by one separator)"
@@ -4705,18 +4712,6 @@
             "accepted": false
           },
           {
-            "subject": "stackit_security_group.retail_app_ecs_alb_sg_this_name_prefix vpc_id",
-            "kind": "PROJECT_SCOPED",
-            "on": {
-              "unit": "module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix",
-              "address": "stackit_security_group.retail_app_ecs_alb_sg_this_name_prefix",
-              "field": "vpc_id"
-            },
-            "source": "the group belongs to one VPC and can be attached only to resources in it",
-            "target": "the group is project-scoped and can be attached to network interfaces of any network of the project",
-            "accepted": false
-          },
-          {
             "subject": "stackit_security_group.retail_app_ecs_alb_this ingress",
             "kind": "INTRA_GROUP_IPV6",
             "on": {
@@ -4740,18 +4735,6 @@
             "accepted": false
           },
           {
-            "subject": "stackit_security_group.retail_app_ecs_alb_this vpc_id",
-            "kind": "PROJECT_SCOPED",
-            "on": {
-              "unit": "module.retail_app_ecs.module.alb.aws_security_group.this",
-              "address": "stackit_security_group.retail_app_ecs_alb_this",
-              "field": "vpc_id"
-            },
-            "source": "the group belongs to one VPC and can be attached only to resources in it",
-            "target": "the group is project-scoped and can be attached to network interfaces of any network of the project",
-            "accepted": false
-          },
-          {
             "subject": "stackit_security_group.retail_app_ecs_carts_service_this ingress",
             "kind": "INTRA_GROUP_IPV6",
             "on": {
@@ -4760,18 +4743,6 @@
             },
             "source": "the members of the group reach each other only where a rule of the group allows it",
             "target": "IPv6 intra-group behaviour was not observed: an IPv6 network could not be created in the STACKIT project tested on 2026-10-08 (capability ipv6-network-creation-not-implemented); IPv4 needs an explicit rule and has one wherever the source has a self rule",
-            "accepted": false
-          },
-          {
-            "subject": "stackit_security_group.retail_app_ecs_carts_service_this vpc_id",
-            "kind": "PROJECT_SCOPED",
-            "on": {
-              "unit": "module.retail_app_ecs.module.carts_service.aws_security_group.this",
-              "address": "stackit_security_group.retail_app_ecs_carts_service_this",
-              "field": "vpc_id"
-            },
-            "source": "the group belongs to one VPC and can be attached only to resources in it",
-            "target": "the group is project-scoped and can be attached to network interfaces of any network of the project",
             "accepted": false
           },
           {
@@ -4786,18 +4757,6 @@
             "accepted": false
           },
           {
-            "subject": "stackit_security_group.retail_app_ecs_catalog_service_this vpc_id",
-            "kind": "PROJECT_SCOPED",
-            "on": {
-              "unit": "module.retail_app_ecs.module.catalog_service.aws_security_group.this",
-              "address": "stackit_security_group.retail_app_ecs_catalog_service_this",
-              "field": "vpc_id"
-            },
-            "source": "the group belongs to one VPC and can be attached only to resources in it",
-            "target": "the group is project-scoped and can be attached to network interfaces of any network of the project",
-            "accepted": false
-          },
-          {
             "subject": "stackit_security_group.retail_app_ecs_checkout_service_this ingress",
             "kind": "INTRA_GROUP_IPV6",
             "on": {
@@ -4806,18 +4765,6 @@
             },
             "source": "the members of the group reach each other only where a rule of the group allows it",
             "target": "IPv6 intra-group behaviour was not observed: an IPv6 network could not be created in the STACKIT project tested on 2026-10-08 (capability ipv6-network-creation-not-implemented); IPv4 needs an explicit rule and has one wherever the source has a self rule",
-            "accepted": false
-          },
-          {
-            "subject": "stackit_security_group.retail_app_ecs_checkout_service_this vpc_id",
-            "kind": "PROJECT_SCOPED",
-            "on": {
-              "unit": "module.retail_app_ecs.module.checkout_service.aws_security_group.this",
-              "address": "stackit_security_group.retail_app_ecs_checkout_service_this",
-              "field": "vpc_id"
-            },
-            "source": "the group belongs to one VPC and can be attached only to resources in it",
-            "target": "the group is project-scoped and can be attached to network interfaces of any network of the project",
             "accepted": false
           },
           {
@@ -4832,18 +4779,6 @@
             "accepted": false
           },
           {
-            "subject": "stackit_security_group.retail_app_ecs_orders_service_this vpc_id",
-            "kind": "PROJECT_SCOPED",
-            "on": {
-              "unit": "module.retail_app_ecs.module.orders_service.aws_security_group.this",
-              "address": "stackit_security_group.retail_app_ecs_orders_service_this",
-              "field": "vpc_id"
-            },
-            "source": "the group belongs to one VPC and can be attached only to resources in it",
-            "target": "the group is project-scoped and can be attached to network interfaces of any network of the project",
-            "accepted": false
-          },
-          {
             "subject": "stackit_security_group.retail_app_ecs_ui_service_this ingress",
             "kind": "INTRA_GROUP_IPV6",
             "on": {
@@ -4852,18 +4787,6 @@
             },
             "source": "the members of the group reach each other only where a rule of the group allows it",
             "target": "IPv6 intra-group behaviour was not observed: an IPv6 network could not be created in the STACKIT project tested on 2026-10-08 (capability ipv6-network-creation-not-implemented); IPv4 needs an explicit rule and has one wherever the source has a self rule",
-            "accepted": false
-          },
-          {
-            "subject": "stackit_security_group.retail_app_ecs_ui_service_this vpc_id",
-            "kind": "PROJECT_SCOPED",
-            "on": {
-              "unit": "module.retail_app_ecs.module.ui_service.aws_security_group.this",
-              "address": "stackit_security_group.retail_app_ecs_ui_service_this",
-              "field": "vpc_id"
-            },
-            "source": "the group belongs to one VPC and can be attached only to resources in it",
-            "target": "the group is project-scoped and can be attached to network interfaces of any network of the project",
             "accepted": false
           }
         ],
@@ -5114,7 +5037,7 @@
           }
         ],
         "provenance": {
-          "kb_version": "0.384.0",
+          "kb_version": "0.385.0",
           "rules": [
             "awssg.group",
             "awssg.rule"

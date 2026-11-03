@@ -284,7 +284,9 @@
             "package_state",
             "plan_steps",
             "automated_steps",
-            "automated_can_run_now",
+            "automated_free_of_decisions",
+            "automated_runs_as_written",
+            "automated_waiting_for_value",
             "refused_steps"
           ]
         },

@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1.0",
-  "run_id": "f6267c3f-2848-4aa5-89df-5fee8b15b3b9",
-  "source_digest": "sha256:812c5ae3f6cc8530163abbf5b6fbe305ed3b363c4886ec6b87623db857ea0c70",
+  "run_id": "80199dc3-8108-42fe-a0b9-030ac0f7777b",
+  "source_digest": "sha256:5ce8b8f8868f3b3214b2dddebe87e3f04291bf5ceac46dc0d95624215d020000",
   "statement": "This file plans how the data of the stateful units the draft moves is carried to STACKIT, for the families of data stores that have a planner (families). It moves no data and opens no connection: every step is for a person. A number in it is the customer's own statement (origin CUSTOMER_INPUT, with the answer it came from) or it is UNKNOWN; a quantity nobody stated is never zero. A duration is a lower bound of the transfer alone and a comparison with the accepted downtime says only whether that bound exceeds it, never that the window fits. Stateful units of other families have no plan here.",
   "families": [
     "rds-postgresql-to-postgresflex",
@@ -13,7 +13,8 @@
     "rds-sqlserver-to-sqlserverflex",
     "ecr-to-harbor",
     "elasticache-to-keyvalue",
-    "dsql-to-postgresflex"
+    "dsql-to-postgresflex",
+    "amazonmq-to-rabbitmq"
   ],
   "assets": [
     {
@@ -40,7 +41,7 @@
         "instance": "stackit_mariadb_instance.dependencies_catalog_rds_this",
         "version": {
           "state": "NOT_STATIC",
-          "value": "the draft writes the variable var.dependencies_catalog_rds_this_version"
+          "value": "the draft writes the variable var.catalog_rds_version"
         },
         "offered_majors": [
           "10.11"
@@ -486,7 +487,7 @@
         {
           "id": "table-engines-and-keys",
           "state": "UNKNOWN",
-          "detail": "the Terraform shows neither the storage engine nor the primary key of any table (the plan the draft writes is not static (the draft writes var.dependencies_catalog_rds_this_plan_name, not a literal)). A replica plan of STACKIT MariaDB is a Galera cluster, which replicates InnoDB only (MyISAM is experimental), wants a primary key on every table, does not support LOCK TABLES and does not replicate a DELETE on a table without one; and a dump taken with --single-transaction is consistent only for InnoDB tables, which is why the writers are stopped before it",
+          "detail": "the Terraform shows neither the storage engine nor the primary key of any table (the plan the draft writes is not static (the draft writes var.catalog_rds_plan_name, not a literal)). A replica plan of STACKIT MariaDB is a Galera cluster, which replicates InnoDB only (MyISAM is experimental), wants a primary key on every table, does not support LOCK TABLES and does not replicate a DELETE on a table without one; and a dump taken with --single-transaction is consistent only for InnoDB tables, which is why the writers are stopped before it",
           "evidence": "MariaDB documentation, Galera Cluster Known Limitations (https://mariadb.com/kb/en/mariadb-galera-cluster-known-limitations/): \"Replication works only with the InnoDB storage engine\" (MyISAM support is experimental); \"All tables should have a primary key\", \"DELETE operations are unsupported on tables without a primary key\"; LOCK TABLES is unsupported; STACKIT MariaDB, Architecture (https://docs.stackit.cloud/products/databases/mariadb/basics/architecture/, last updated Aug 13, 2026): a replica set \"consists of 3 nodes ... implemented as a Galera Cluster\"; MySQL 8.0 Reference Manual, mysqldump --single-transaction: \"It is useful only with transactional tables such as InnoDB\"; \"only InnoDB tables are dumped in a consistent state. For example, any MyISAM or MEMORY tables dumped while using this option may still change state\"; no other connection should use ALTER TABLE, CREATE TABLE, DROP TABLE, RENAME TABLE or TRUNCATE TABLE during the dump",
           "closed_by": "preflight on the source: SELECT table_schema, engine, COUNT(*) FROM information_schema.tables WHERE table_type = 'BASE TABLE' AND table_schema NOT IN ('mysql', 'information_schema', 'performance_schema', 'sys') GROUP BY 1, 2; and the tables without a primary key: SELECT t.table_schema, t.table_name FROM information_schema.tables t LEFT JOIN information_schema.table_constraints c ON c.table_schema = t.table_schema AND c.table_name = t.table_name AND c.constraint_type = 'PRIMARY KEY' WHERE t.table_type = 'BASE TABLE' AND c.constraint_name IS NULL AND t.table_schema NOT IN ('mysql', 'information_schema', 'performance_schema', 'sys')"
         },
@@ -511,8 +512,21 @@
         "confirmed": [],
         "reason": "no application of the customer's applications file confirms this store: no file was given, no application claims it, or several claim it",
         "proposed": {
-          "state": "NOT_LINKED",
-          "reason": "the suggested groups that reach this store are several (catalog, orders), so it is a member of none: a unit that more than one group reaches is shared"
+          "state": "PROPOSED",
+          "authority": "NOT_CUSTOMER_CONFIRMED",
+          "reason": "suggested by StackToIT from names, tags and references in the Terraform (workspace.json, applications.proposed); the customer has not confirmed them, and a suggested group is a reading of the source, never the application of the store: only the applications file confirms one (confirmed)",
+          "groups": [
+            {
+              "id": "catalog",
+              "name": "catalog",
+              "basis": "ECS_SERVICE",
+              "anchor": "module.retail_app_ecs.module.catalog_service.aws_ecs_service.this",
+              "confidence": "MEDIUM",
+              "members_sha256": "8bb26f60857baf55d304bfb2afd952c33ef551e07a4984fff9d01654e0e1d999",
+              "role": "DATASTORE",
+              "via": "REFERENCED_BY_A_MEMBER"
+            }
+          ]
         }
       },
       "connected_units": [
@@ -623,7 +637,7 @@
         {
           "kind": "CHECK",
           "id": "table-engines-and-keys",
-          "what": "the Terraform shows neither the storage engine nor the primary key of any table (the plan the draft writes is not static (the draft writes var.dependencies_catalog_rds_this_plan_name, not a literal)). A replica plan of STACKIT MariaDB is a Galera cluster, which replicates InnoDB only (MyISAM is experimental), wants a primary key on every table, does not support LOCK TABLES and does not replicate a DELETE on a table without one; and a dump taken with --single-transaction is consistent only for InnoDB tables, which is why the writers are stopped before it",
+          "what": "the Terraform shows neither the storage engine nor the primary key of any table (the plan the draft writes is not static (the draft writes var.catalog_rds_plan_name, not a literal)). A replica plan of STACKIT MariaDB is a Galera cluster, which replicates InnoDB only (MyISAM is experimental), wants a primary key on every table, does not support LOCK TABLES and does not replicate a DELETE on a table without one; and a dump taken with --single-transaction is consistent only for InnoDB tables, which is why the writers are stopped before it",
           "closed_by": "preflight on the source: SELECT table_schema, engine, COUNT(*) FROM information_schema.tables WHERE table_type = 'BASE TABLE' AND table_schema NOT IN ('mysql', 'information_schema', 'performance_schema', 'sys') GROUP BY 1, 2; and the tables without a primary key: SELECT t.table_schema, t.table_name FROM information_schema.tables t LEFT JOIN information_schema.table_constraints c ON c.table_schema = t.table_schema AND c.table_name = t.table_name AND c.constraint_type = 'PRIMARY KEY' WHERE t.table_type = 'BASE TABLE' AND c.constraint_name IS NULL AND t.table_schema NOT IN ('mysql', 'information_schema', 'performance_schema', 'sys')"
         },
         {
@@ -641,7 +655,7 @@
         {
           "kind": "VALUE",
           "id": "target.version",
-          "what": "target.version of module.dependencies.module.catalog_rds.aws_rds_cluster.this is NOT_STATIC: the draft writes the variable var.dependencies_catalog_rds_this_version",
+          "what": "target.version of module.dependencies.module.catalog_rds.aws_rds_cluster.this is NOT_STATIC: the draft writes the variable var.catalog_rds_version",
           "closed_by": "the version is stated as a literal in the Terraform, or the customer states it in the inputs file"
         },
         {
@@ -788,7 +802,7 @@
           },
           "prerequisites": [
             "extensions: UNKNOWN (closed by: preflight: on the source SELECT extname, extversion FROM pg_extension ORDER BY 1; on the target SHOW extwlist.extensions; and trust the target)",
-            "roles: UNKNOWN (closed by: preflight on the source: \\du and \\dp list the roles and grants the application uses; they are created as stackit_postgresflex_user resources and the grants are issued again)",
+            "roles: UNKNOWN (closed by: preflight on the source, the roles: `SELECT rolname, rolsuper, rolcanlogin, rolcreatedb, rolcreaterole, rolreplication, rolconnlimit FROM pg_roles WHERE rolname !~ '^(pg_|rds)' ORDER BY 1;` (psql: `\\du`); the memberships: `SELECT r.rolname AS role, m.rolname AS member, a.admin_option FROM pg_auth_members a JOIN pg_roles r ON r.oid = a.roleid JOIN pg_roles m ON m.oid = a.member ORDER BY 1, 2;`; and in every database to move: `\\dp` (privileges on tables, views and sequences), `\\ddp` (default privileges), `\\dn+` (schemas), `\\l` (owners and privileges of the databases) and `\\drds` (settings of a role or a database); each role the application uses is created as a stackit_postgresflex_user resource and its grants are issued again)",
             "network-tls: UNKNOWN (closed by: preflight from the move host: psql to the source and to the target with PGSSLMODE=require)"
           ],
           "risks": [
@@ -938,7 +952,7 @@
           },
           "prerequisites": [
             "extensions: UNKNOWN (closed by: preflight: on the source SELECT extname, extversion FROM pg_extension ORDER BY 1; on the target SHOW extwlist.extensions; and trust the target)",
-            "roles: UNKNOWN (closed by: preflight on the source: \\du and \\dp list the roles and grants the application uses; they are created as stackit_postgresflex_user resources and the grants are issued again)",
+            "roles: UNKNOWN (closed by: preflight on the source, the roles: `SELECT rolname, rolsuper, rolcanlogin, rolcreatedb, rolcreaterole, rolreplication, rolconnlimit FROM pg_roles WHERE rolname !~ '^(pg_|rds)' ORDER BY 1;` (psql: `\\du`); the memberships: `SELECT r.rolname AS role, m.rolname AS member, a.admin_option FROM pg_auth_members a JOIN pg_roles r ON r.oid = a.roleid JOIN pg_roles m ON m.oid = a.member ORDER BY 1, 2;`; and in every database to move: `\\dp` (privileges on tables, views and sequences), `\\ddp` (default privileges), `\\dn+` (schemas), `\\l` (owners and privileges of the databases) and `\\drds` (settings of a role or a database); each role the application uses is created as a stackit_postgresflex_user resource and its grants are issued again)",
             "network-tls: UNKNOWN (closed by: preflight from the move host: psql to the source and to the target with PGSSLMODE=require)",
             "lr-enabled: UNKNOWN (closed by: preflight on the source: SHOW rds.logical_replication; (the owner of the source changes it in the parameter group and reboots it))",
             "lr-replica-identity: UNKNOWN (closed by: preflight on the source: list the tables without a primary key (pg_class / pg_index, relkind 'r', outside pg_catalog and information_schema))",
@@ -1219,9 +1233,9 @@
         {
           "id": "roles",
           "state": "UNKNOWN",
-          "detail": "pg_dump of one database carries no role; STACKIT documents no superuser for a customer, so restore with --no-owner --no-acl (RDS roles such as rds_superuser do not exist on STACKIT) and issue the grants again; the roles the application uses beyond the master user are not in the scan",
-          "evidence": "stackit-api-specifications services/postgres-flex/v3/postgres-flex.json (user.role, ListRolesResponse: \"valid roles depend on the Postgres version\"); the users admin and postgres are reserved (409 ALREADY_EXISTS, observed on a STACKIT sandbox target on 2026-10-15)",
-          "closed_by": "preflight on the source: \\du and \\dp list the roles and grants the application uses; they are created as stackit_postgresflex_user resources and the grants are issued again"
+          "detail": "pg_dump of one database carries no role; STACKIT documents no superuser for a customer, so restore with --no-owner --no-acl (RDS roles such as rds_superuser do not exist on STACKIT) and issue the grants again; the roles the application uses beyond the master user, their memberships and their grants are NOT_PROVIDED: the Terraform of the source does not state them (a role is created by SQL, a migration script or a resource of another provider, not by an argument of the instance), so the plan lists none and invents none, and the listing that shows them is in closed_by",
+          "evidence": "stackit-api-specifications services/postgres-flex/v3/postgres-flex.json (user.role, ListRolesResponse: \"valid roles depend on the Postgres version\"); the users admin and postgres are reserved (409 ALREADY_EXISTS, observed on a STACKIT sandbox target on 2026-10-15); PostgreSQL 18 documentation (postgresql.org, read 2026-11-02): the view pg_roles (rolname, rolsuper, rolcanlogin, rolcreatedb, rolcreaterole, rolreplication, rolconnlimit), the catalog pg_auth_members (roleid, member, grantor, admin_option) and the psql commands \\du (user-created roles), \\dp (tables, views and sequences with their access privileges), \\ddp (default access privileges), \\dn+ (schemas with their permissions), \\l (databases with owners and access privileges) and \\drds (role-specific and database-specific settings)",
+          "closed_by": "preflight on the source, the roles: `SELECT rolname, rolsuper, rolcanlogin, rolcreatedb, rolcreaterole, rolreplication, rolconnlimit FROM pg_roles WHERE rolname !~ '^(pg_|rds)' ORDER BY 1;` (psql: `\\du`); the memberships: `SELECT r.rolname AS role, m.rolname AS member, a.admin_option FROM pg_auth_members a JOIN pg_roles r ON r.oid = a.roleid JOIN pg_roles m ON m.oid = a.member ORDER BY 1, 2;`; and in every database to move: `\\dp` (privileges on tables, views and sequences), `\\ddp` (default privileges), `\\dn+` (schemas), `\\l` (owners and privileges of the databases) and `\\drds` (settings of a role or a database); each role the application uses is created as a stackit_postgresflex_user resource and its grants are issued again"
         },
         {
           "id": "network-tls",
@@ -1349,8 +1363,8 @@
         {
           "kind": "CHECK",
           "id": "roles",
-          "what": "pg_dump of one database carries no role; STACKIT documents no superuser for a customer, so restore with --no-owner --no-acl (RDS roles such as rds_superuser do not exist on STACKIT) and issue the grants again; the roles the application uses beyond the master user are not in the scan",
-          "closed_by": "preflight on the source: \\du and \\dp list the roles and grants the application uses; they are created as stackit_postgresflex_user resources and the grants are issued again"
+          "what": "pg_dump of one database carries no role; STACKIT documents no superuser for a customer, so restore with --no-owner --no-acl (RDS roles such as rds_superuser do not exist on STACKIT) and issue the grants again; the roles the application uses beyond the master user, their memberships and their grants are NOT_PROVIDED: the Terraform of the source does not state them (a role is created by SQL, a migration script or a resource of another provider, not by an argument of the instance), so the plan lists none and invents none, and the listing that shows them is in closed_by",
+          "closed_by": "preflight on the source, the roles: `SELECT rolname, rolsuper, rolcanlogin, rolcreatedb, rolcreaterole, rolreplication, rolconnlimit FROM pg_roles WHERE rolname !~ '^(pg_|rds)' ORDER BY 1;` (psql: `\\du`); the memberships: `SELECT r.rolname AS role, m.rolname AS member, a.admin_option FROM pg_auth_members a JOIN pg_roles r ON r.oid = a.roleid JOIN pg_roles m ON m.oid = a.member ORDER BY 1, 2;`; and in every database to move: `\\dp` (privileges on tables, views and sequences), `\\ddp` (default privileges), `\\dn+` (schemas), `\\l` (owners and privileges of the databases) and `\\drds` (settings of a role or a database); each role the application uses is created as a stackit_postgresflex_user resource and its grants are issued again"
         },
         {
           "kind": "CHECK",
@@ -1429,7 +1443,7 @@
         "instance": "stackit_valkey_instance.dependencies_checkout_elasticache_redis_default",
         "version": {
           "state": "NOT_STATIC",
-          "value": "the draft writes the variable var.dependencies_checkout_elasticache_redis_default_version"
+          "value": "the draft writes the variable var.elasticache_redis_version"
         },
         "offered_majors": [
           "8"
@@ -1576,9 +1590,9 @@
               "id": "key-counts",
               "kind": "COUNT_COMPARISON",
               "mode": "COMMAND",
-              "what": "Count the keys and the keys with an expiry on both sides, with the writers stopped (on every primary of the source when it runs in cluster mode).",
+              "what": "Count the keys and the keys with an expiry on both sides, with the writers stopped (on every primary of the source when it runs in cluster mode). A client with --askpass asks for its password at the prompt, so none is on the command line.",
               "expected": "the number of keys and the expires value are equal on both sides",
-              "command": "valkey-cli -h <source-host> -p <source-port> --tls DBSIZE\nvalkey-cli -h <source-host> -p <source-port> --tls INFO keyspace\nvalkey-cli -u rediss://<target-user>@<target-host>:<target-port> --tls --sni <target-host> DBSIZE\nvalkey-cli -u rediss://<target-user>@<target-host>:<target-port> --tls --sni <target-host> INFO keyspace"
+              "command": "valkey-cli -h <source-host> -p <source-port> DBSIZE\nvalkey-cli -h <source-host> -p <source-port> INFO keyspace\nvalkey-cli -h <target-host> -p <target-port> --tls --sni <target-host> --user <target-user> --askpass DBSIZE\nvalkey-cli -h <target-host> -p <target-port> --tls --sni <target-host> --user <target-user> --askpass INFO keyspace"
             },
             {
               "id": "key-lists",
@@ -1586,7 +1600,7 @@
               "mode": "COMMAND",
               "what": "List the names of the keys of both sides with SCAN (never KEYS), sort each list and compare them; this proves the same keys exist and not that their values are equal.",
               "expected": "the difference of the two lists is empty",
-              "command": "valkey-cli -h <source-host> -p <source-port> --tls --scan | sort > source-keys.txt\nvalkey-cli -u rediss://<target-user>@<target-host>:<target-port> --tls --sni <target-host> --scan | sort > target-keys.txt\ndiff source-keys.txt target-keys.txt"
+              "command": "valkey-cli -h <source-host> -p <source-port> --scan | sort > source-keys.txt\nvalkey-cli -h <target-host> -p <target-port> --tls --sni <target-host> --user <target-user> --askpass --scan | sort > target-keys.txt\ndiff source-keys.txt target-keys.txt"
             },
             {
               "id": "application-check",
@@ -1780,9 +1794,9 @@
               "id": "key-counts",
               "kind": "COUNT_COMPARISON",
               "mode": "COMMAND",
-              "what": "Count the keys and the keys with an expiry on both sides, with the writers stopped (on every primary of the source when it runs in cluster mode).",
+              "what": "Count the keys and the keys with an expiry on both sides, with the writers stopped (on every primary of the source when it runs in cluster mode). A client with --askpass asks for its password at the prompt, so none is on the command line.",
               "expected": "the number of keys and the expires value are equal on both sides",
-              "command": "valkey-cli -h <source-host> -p <source-port> --tls DBSIZE\nvalkey-cli -h <source-host> -p <source-port> --tls INFO keyspace\nvalkey-cli -u rediss://<target-user>@<target-host>:<target-port> --tls --sni <target-host> DBSIZE\nvalkey-cli -u rediss://<target-user>@<target-host>:<target-port> --tls --sni <target-host> INFO keyspace"
+              "command": "valkey-cli -h <source-host> -p <source-port> DBSIZE\nvalkey-cli -h <source-host> -p <source-port> INFO keyspace\nvalkey-cli -h <target-host> -p <target-port> --tls --sni <target-host> --user <target-user> --askpass DBSIZE\nvalkey-cli -h <target-host> -p <target-port> --tls --sni <target-host> --user <target-user> --askpass INFO keyspace"
             },
             {
               "id": "key-lists",
@@ -1790,7 +1804,7 @@
               "mode": "COMMAND",
               "what": "List the names of the keys of both sides with SCAN (never KEYS), sort each list and compare them; this proves the same keys exist and not that their values are equal.",
               "expected": "the difference of the two lists is empty",
-              "command": "valkey-cli -h <source-host> -p <source-port> --tls --scan | sort > source-keys.txt\nvalkey-cli -u rediss://<target-user>@<target-host>:<target-port> --tls --sni <target-host> --scan | sort > target-keys.txt\ndiff source-keys.txt target-keys.txt"
+              "command": "valkey-cli -h <source-host> -p <source-port> --scan | sort > source-keys.txt\nvalkey-cli -h <target-host> -p <target-port> --tls --sni <target-host> --user <target-user> --askpass --scan | sort > target-keys.txt\ndiff source-keys.txt target-keys.txt"
             },
             {
               "id": "application-check",
@@ -1837,7 +1851,7 @@
         {
           "id": "target-memory",
           "state": "UNKNOWN",
-          "detail": "the source's node type cache.t3.micro has 0.5 GiB (a node's capacity, not the size of the data). The plan the draft writes is not static (the draft writes var.dependencies_checkout_elasticache_redis_default_plan_name, not a literal) and the plans offer 2 to 32 GB of RAM per node; a Key Value Store holds its keys in the memory of the primary, so the dataset must fit the plan the customer chooses. The size is not provided; the provisioned capacity of the source is not the size of the data",
+          "detail": "the source's node type cache.t3.micro has 0.5 GiB (a node's capacity, not the size of the data). The plan the draft writes is not static (the draft writes var.elasticache_redis_plan_name, not a literal) and the plans offer 2 to 32 GB of RAM per node; a Key Value Store holds its keys in the memory of the primary, so the dataset must fit the plan the customer chooses. The size is not provided; the provisioned capacity of the source is not the size of the data",
           "evidence": "STACKIT Key Value Store, Service plans (https://docs.stackit.cloud/products/databases/key-value-store/reference/service-plans/, last updated Jul 29, 2026): the plans are single-node (1 node) or replica (3 nodes, clustered replica sets across availability zones) with 2 to 32 GB of RAM per node; the page states no sharding",
           "closed_by": "preflight on the source: INFO memory (used_memory, maxmemory) on every primary and the customer's statement of source.dataset.size; the plan_name the customer chooses must offer more RAM per node than the dataset needs, with the headroom the engine's own overhead and the replication buffers take"
         },
@@ -1879,9 +1893,16 @@
         {
           "id": "target-access",
           "state": "UNKNOWN",
-          "detail": "the move host must be in the access list of the instance (parameters.sgw_acl, which the draft writes from a variable without a default), reach the host and port of a service key of the instance with TLS, and the instance must be empty before the copy (\"Do not insert any data into the target instance until the migration and consistency checks are fully completed\"). The plan the draft writes (not static (the draft writes var.dependencies_checkout_elasticache_redis_default_plan_name, not a literal)) decides the memory and whether the target has replicas",
+          "detail": "the move host must be in the access list of the instance (parameters.sgw_acl, which the draft writes from a variable without a default), reach the host and port of a service key of the instance with TLS, and the instance must be empty before the copy (\"Do not insert any data into the target instance until the migration and consistency checks are fully completed\"). The plan the draft writes (not static (the draft writes var.elasticache_redis_plan_name, not a literal)) decides the memory and whether the target has replicas",
           "evidence": "STACKIT Key Value Store, Tutorial: Migrate data from Redis to a Key Value Store instance (https://docs.stackit.cloud/products/databases/key-value-store/tutorials/migrate-data-to-a-new-instance/, last updated Sep 24, 2026): the source is \"an existing STACKIT Redis instance\"; \"It is highly recommended to isolate the source Redis instance\"; \"We strongly recommend triggering a manual backup of your source database\"; \"Do not insert any data into the target instance until the migration and consistency checks are fully completed\"; the main strategy is the MIGRATE command, the alternative a script; the check is INFO KEYSPACE (\"The keys and expires values must be equal\") and a comparison of the key lists; STACKIT Key Value Store, Connect to your instance (https://docs.stackit.cloud/products/databases/key-value-store/how-tos/connect-to-your-instance/, last updated Oct 19, 2026): the connection string is rediss://<Username>:<Password>@<Endpoint>:<Port> and valkey-cli connects with --tls --sni <Endpoint>; a test on a STACKIT project on 2026-09-24 (Valkey 8, single plan, eu01) found a plaintext connection closed by the server and TLS 1.2 and 1.3 accepted; STACKIT Key Value Store, Service plans (https://docs.stackit.cloud/products/databases/key-value-store/reference/service-plans/, last updated Jul 29, 2026): the plans are single-node (1 node) or replica (3 nodes, clustered replica sets across availability zones) with 2 to 32 GB of RAM per node; the page states no sharding",
           "closed_by": "preflight from the move host after the instance exists: valkey-cli --tls to the target with a service key: INFO server, DBSIZE (0), INFO memory (maxmemory), and the move host's address in the access list for the time of the move"
+        },
+        {
+          "id": "availability",
+          "state": "HOLDS",
+          "detail": "the source is a single node (OBSERVED single node (assessment:units/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default#num_cache_clusters)) and the plan the draft proposes is a single plan (OBSERVED single (draft:variable var.elasticache_redis_plan_name#default))",
+          "evidence": "terraform-provider-aws 6.66.0, the documentation of aws_elasticache_replication_group: automatic_failover_enabled \"Specifies whether a read-only replica will be automatically promoted to read/write primary if the existing primary fails. If enabled, `num_cache_clusters` must be greater than 1 ... Defaults to `false`\"; num_cache_clusters \"Number of cache clusters (primary and replicas) this replication group will have\"; replicas_per_node_group \"Number of replica nodes in each node group\"; STACKIT Key Value Store, Service plans (last updated Jul 29, 2026): \"Cluster service plans provide fault tolerance. The replica sets are hosted across multiple Availability Zones within the region ... Automatic recovery is managed for you\"; \"Single-node service plans do not provide this grade of high availability. Therefore, we strongly advise against using them in production environments\"; \"Upgrading to a higher service plan or performing platform update operations results in downtime\"; STACKIT Key Value Store, Service plans (https://docs.stackit.cloud/products/databases/key-value-store/reference/service-plans/, last updated Jul 29, 2026): the plans are single-node (1 node) or replica (3 nodes, clustered replica sets across availability zones) with 2 to 32 GB of RAM per node; the page states no sharding",
+          "closed_by": "the customer: whether the cache must keep serving when a node or a zone fails (the source's replicas and failover, read with INFO replication on the primary and the replication group's description) and the plan_name that gives it: a plan whose name ends in -replica keeps it, one ending in -single has one node and no failover"
         }
       ],
       "runbook": "terraform/handover/cache-dependencies_checkout_elasticache_redis_default/data-move.md",
@@ -1960,7 +1981,7 @@
         {
           "kind": "CHECK",
           "id": "target-memory",
-          "what": "the source's node type cache.t3.micro has 0.5 GiB (a node's capacity, not the size of the data). The plan the draft writes is not static (the draft writes var.dependencies_checkout_elasticache_redis_default_plan_name, not a literal) and the plans offer 2 to 32 GB of RAM per node; a Key Value Store holds its keys in the memory of the primary, so the dataset must fit the plan the customer chooses. The size is not provided; the provisioned capacity of the source is not the size of the data",
+          "what": "the source's node type cache.t3.micro has 0.5 GiB (a node's capacity, not the size of the data). The plan the draft writes is not static (the draft writes var.elasticache_redis_plan_name, not a literal) and the plans offer 2 to 32 GB of RAM per node; a Key Value Store holds its keys in the memory of the primary, so the dataset must fit the plan the customer chooses. The size is not provided; the provisioned capacity of the source is not the size of the data",
           "closed_by": "preflight on the source: INFO memory (used_memory, maxmemory) on every primary and the customer's statement of source.dataset.size; the plan_name the customer chooses must offer more RAM per node than the dataset needs, with the headroom the engine's own overhead and the replication buffers take"
         },
         {
@@ -1990,13 +2011,13 @@
         {
           "kind": "CHECK",
           "id": "target-access",
-          "what": "the move host must be in the access list of the instance (parameters.sgw_acl, which the draft writes from a variable without a default), reach the host and port of a service key of the instance with TLS, and the instance must be empty before the copy (\"Do not insert any data into the target instance until the migration and consistency checks are fully completed\"). The plan the draft writes (not static (the draft writes var.dependencies_checkout_elasticache_redis_default_plan_name, not a literal)) decides the memory and whether the target has replicas",
+          "what": "the move host must be in the access list of the instance (parameters.sgw_acl, which the draft writes from a variable without a default), reach the host and port of a service key of the instance with TLS, and the instance must be empty before the copy (\"Do not insert any data into the target instance until the migration and consistency checks are fully completed\"). The plan the draft writes (not static (the draft writes var.elasticache_redis_plan_name, not a literal)) decides the memory and whether the target has replicas",
           "closed_by": "preflight from the move host after the instance exists: valkey-cli --tls to the target with a service key: INFO server, DBSIZE (0), INFO memory (maxmemory), and the move host's address in the access list for the time of the move"
         },
         {
           "kind": "VALUE",
           "id": "target.version",
-          "what": "target.version of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default is NOT_STATIC: the draft writes the variable var.dependencies_checkout_elasticache_redis_default_version",
+          "what": "target.version of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default is NOT_STATIC: the draft writes the variable var.elasticache_redis_version",
           "closed_by": "the version is stated as a literal in the Terraform, or the customer states it in the inputs file"
         },
         {
@@ -2017,7 +2038,394 @@
         "a memcached cache is not a member of this family: it keeps nothing to export (its step holds the confirmation that it may start empty)",
         "the source states no engine: the AWS provider documents redis as the default of an ElastiCache replication group, and the plan takes that"
       ]
+    },
+    {
+      "unit": "module.dependencies.aws_mq_broker.mq",
+      "source_type": "aws_mq_broker",
+      "family": "amazonmq-to-rabbitmq",
+      "source": {
+        "engine": "amazon-mq-rabbitmq",
+        "engine_version": {
+          "state": "OBSERVED",
+          "value": "3.13",
+          "from": "assessment:units/module.dependencies.aws_mq_broker.mq#engine_version"
+        },
+        "major": {
+          "state": "OBSERVED",
+          "value": "3",
+          "from": "assessment:units/module.dependencies.aws_mq_broker.mq#engine_version"
+        },
+        "provisioned_capacity": {
+          "state": "NOT_PROVIDED"
+        }
+      },
+      "target": {
+        "instance": "stackit_rabbitmq_instance.dependencies_mq",
+        "version": {
+          "state": "NOT_STATIC",
+          "value": "the draft writes the variable var.mq_version"
+        },
+        "offered_majors": [
+          "4.1"
+        ]
+      },
+      "quantities": {
+        "size": {
+          "topic": "source.dataset.size",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "write_rate": {
+          "topic": "source.dataset.write_rate",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "bandwidth": {
+          "topic": "source.dataset.bandwidth",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "rpo": {
+          "topic": "source.dataset.rpo",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "rto": {
+          "topic": "source.dataset.rto",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "downtime": {
+          "topic": "source.dataset.downtime",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        }
+      },
+      "selection": "ONLY_OPEN_METHOD",
+      "chosen_method": "definitions-and-drain",
+      "methods": [
+        {
+          "id": "definitions-and-drain",
+          "decision_option": "",
+          "state": "CANDIDATE",
+          "chosen": true,
+          "duration": {
+            "state": "UNKNOWN",
+            "inputs": [],
+            "text": "unknown: the messages are drained, not copied: the drain depends on the depth of the queues and the rate of their consumers, which the source does not state, and the producers are switched before it",
+            "reason": "the messages are drained, not copied: the drain depends on the depth of the queues and the rate of their consumers, which the source does not state, and the producers are switched before it"
+          },
+          "freeze_window": {
+            "basis": "the messages are drained, not copied: the drain depends on the depth of the queues and the rate of their consumers, which the source does not state, and the producers are switched before it",
+            "stated_downtime": {
+              "topic": "source.dataset.downtime",
+              "origin": "UNKNOWN",
+              "reason": "NOT_PROVIDED"
+            },
+            "comparison": "UNKNOWN",
+            "detail": "no lower bound of the window can be computed: the messages are drained, not copied: the drain depends on the depth of the queues and the rate of their consumers, which the source does not state, and the producers are switched before it"
+          },
+          "objectives": {
+            "rpo": {
+              "stated": {
+                "topic": "source.dataset.rpo",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "Designed to lose no message that was published to the source broker: the producers move first, the consumers read the source broker empty, and the source broker is kept until the GO. A message published after the producers moved is on the instance and not on the source. Not measured.",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            },
+            "rto": {
+              "stated": {
+                "topic": "source.dataset.rto",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "Messages are not unavailable for a window: producers and consumers are switched one after the other. Between the switch of the producers and the end of the drain the consumers read the source broker while the producers write the instance, and a consumer that needs both reads from both. Not measured.",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            }
+          },
+          "prerequisites": [
+            "engine-and-version: UNKNOWN (closed by: preflight on the source: GET /api/overview on the management API (the RabbitMQ version) and on the target the version of the instance; the application's own tests against the rehearsal virtual host)",
+            "definitions: UNKNOWN (closed by: preflight on the source: `GET <broker-endpoint>/api/definitions` with a broker user that has the administrator tag (the broker endpoint is the RabbitMQ web console URL of the broker; the export holds password hashes and is kept as sensitive); the list of virtual hosts, queues with their types, exchanges, bindings and policies in it)",
+            "messages-in-flight: UNKNOWN (closed by: preflight on the source: `GET <broker-endpoint>/api/queues` (messages_ready and messages_unacknowledged of each queue); the drain step of the cutover is closed when every queue reports none with no producer sending to it)",
+            "clients-and-protocols: UNKNOWN (closed by: the owners of the applications list every producer and consumer, the protocol and the client library each uses, and where it configures the endpoint and the credentials)",
+            "users-and-permissions: UNKNOWN (closed by: preflight on the source: the users, tags and permissions in the definitions export; on the target: the tags and permissions of the credential the draft writes, tried with the import of the definitions on the scratch virtual host)",
+            "management-access: UNKNOWN (closed by: preflight from the move host: `curl -u <user>:<password> <source-broker-endpoint>/api/overview` and the same against the management URL of the target with the credential; the move host's address in the access list for the time of the move)"
+          ],
+          "risks": [
+            "the messages in the queues are not copied: they are drained, and the producers move first so that nothing new reaches the old broker; a message nobody reads is lost with the broker",
+            "the definitions export holds password hashes: keep the file readable only by the person who moves it and delete it at cleanup",
+            "the import is not documented by any STACKIT page for definitions exported from another broker: it is proven on a scratch virtual host first, and the plan has not run it against a STACKIT RabbitMQ instance",
+            "the credential of the instance is a user of the whole instance and its permissions are not stated: whether it can create virtual hosts and policies is found in the rehearsal"
+          ],
+          "steps": [
+            {
+              "kind": "preflight",
+              "id": "MAN/data/module.dependencies.aws_mq_broker.mq/preflight",
+              "in_plan": true
+            },
+            {
+              "kind": "rehearsal",
+              "id": "MAN/data/module.dependencies.aws_mq_broker.mq/rehearsal",
+              "in_plan": true
+            },
+            {
+              "kind": "initial-copy",
+              "id": "MAN/data/module.dependencies.aws_mq_broker.mq/initial-copy/definitions-and-drain",
+              "in_plan": true
+            },
+            {
+              "kind": "reconcile",
+              "id": "MAN/data/module.dependencies.aws_mq_broker.mq/reconcile/definitions-and-drain",
+              "in_plan": true
+            },
+            {
+              "kind": "cleanup",
+              "id": "MAN/data/module.dependencies.aws_mq_broker.mq/cleanup/definitions-and-drain",
+              "in_plan": true
+            }
+          ],
+          "verification": [
+            {
+              "id": "definitions-equal",
+              "kind": "COUNT_COMPARISON",
+              "mode": "COMMAND",
+              "what": "Before the producers move, count the queues of the two sides and compare them, with the changes the rehearsal settled (the users, the permissions and the mirroring keys are not carried); the exchanges and the bindings are compared the same way.",
+              "expected": "the counts of the queues, exchanges and bindings of each virtual host are equal, and every difference is one the rehearsal recorded",
+              "command": "curl -s -u \"<source-user>:$SOURCE_PASSWORD\" \"<source-broker-endpoint>/api/queues\" | jq length; curl -s -u \"<target-user>:$TARGET_PASSWORD\" \"<target-management-url>/api/queues\" | jq length; the same with /api/exchanges and /api/bindings",
+              "not_provided": [
+                "the virtual hosts and the changes the rehearsal settled"
+              ]
+            },
+            {
+              "id": "message-flow",
+              "kind": "CONTENT_CHECK",
+              "mode": "MANUAL",
+              "what": "Publish one message to an exchange of the instance as a producer does and read it from its queue as the consumer does.",
+              "expected": "the message arrives in the queue the binding routes it to and the consumer processes it",
+              "manual_reason": "the exchange, the routing key, the message and the consumer are the application's, and the source states none of them",
+              "not_provided": [
+                "the exchange and the routing key the producer uses",
+                "the message the consumer can process"
+              ]
+            },
+            {
+              "id": "application-check",
+              "kind": "APPLICATION_SMOKE",
+              "mode": "MANUAL",
+              "what": "Run one read the application itself makes on its most important data against the instance and compare its answer with the answer the application gets with its producers and consumers on the source broker; then, from a test copy of the application, make one write against the instance and read it back.",
+              "expected": "the two answers are equal, the write succeeds and the read returns it",
+              "manual_reason": "the read and the write are the application's, and the source states neither the query nor the answer",
+              "not_provided": [
+                "the read the application makes on its most important data and its expected answer",
+                "the write the test copy of the application makes"
+              ]
+            },
+            {
+              "id": "rollback-limit",
+              "kind": "ROLLBACK_LIMIT",
+              "mode": "MANUAL",
+              "what": "Record the point after which a rollback loses messages. Until the first message the instance accepts after the producers are switched, a rollback is only the connection settings put back: the source broker was not changed by the move. From then on the messages the producers send are on the instance and not on the source broker, whose consumers empty it (the drain), so when the drain has finished the source holds nothing the instance does not: the messages sent to the instance in between are replayed to the source broker with a method rehearsed before the window, or accepted as lost. Once the source broker is retired (its retirement step, after the GO and the retention the owner decides) there is nothing to go back to.",
+              "expected": "before the window the owner records the date until which the source broker is kept, the method that replays the messages sent to the instance back to it or the decision that they are lost, and who calls the rollback",
+              "manual_reason": "how long the source is kept and whether the messages sent to the instance are replayed or lost are decisions of the owner of the application: the source states neither, so the plan names the limit and no date",
+              "not_provided": [
+                "the date until which the source broker is kept",
+                "the method that replays the messages sent to the instance back, or the decision that they are lost"
+              ]
+            }
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "engine-and-version",
+          "state": "UNKNOWN",
+          "detail": "the source runs RabbitMQ 3.13 and STACKIT offers 4.1: a major upgrade. The policies of a 3.x broker carry classic queue mirroring keys (ha-mode, ha-sync-mode), which AWS says \"are not supported in RabbitMQ 4\", so the import drops them (rabbitmqadmin's strip_cmq_keys_from_policies does) and the queues that relied on mirroring are declared as quorum queues by the design that replaces them; whether the clients work against the newer server is a test of the application",
+          "evidence": "terraform-provider-aws 6.66.0, aws_mq_broker: engine_type (ActiveMQ or RabbitMQ), engine_version, host_instance_type, deployment_mode (SINGLE_INSTANCE, ACTIVE_STANDBY_MULTI_AZ, CLUSTER_MULTI_AZ), publicly_accessible, and the user blocks (username and password, with groups for ActiveMQ); AWS Amazon MQ Developer Guide, Managing Amazon MQ for RabbitMQ engine versions and RabbitMQ 4 (read 2026-11-02): Amazon MQ supports RabbitMQ 4.3 and 4.2 (on mq.m7g only) and 3.13; \"Amazon MQ does not support streams. Creating a stream will result in data loss\"; on RabbitMQ 4 \"Amazon MQ will not vend RabbitMQ queue metrics ... through AWS CloudWatch ... You can query queue metrics using the RabbitMQ management API\"; AWS Amazon MQ Developer Guide, Applying policies to Amazon MQ for RabbitMQ (read 2026-11-02): on versions 3.13 and below the default operator policy sets {\"ha-mode\":\"all\",\"ha-sync-mode\":\"automatic\",\"queue-version\":2}, on 4.0 and above {\"queue-version\":2}, \"This change is required because classic queue mirroring and HA policy settings are not supported in RabbitMQ 4\"; the broker's \"RabbitMQ web console URL ... is the broker endpoint that you use in an HTTP request\", for example `curl -u <user>:<password> <broker-endpoint>/api/policies`; the calls need a broker user with the administrator tag; RabbitMQ documentation, Definitions (rabbitmq.com, read 2026-11-02): \"Users, vhosts, queues, exchanges, bindings, runtime parameters all fall into this category\"; `GET /api/definitions` exports the definitions of the whole cluster (it needs the management plugin) and `POST /api/definitions` imports them, `rabbitmqctl export_definitions` and `import_definitions` do the same without the plugin; the exported users carry \"password hashes as well as password hashing function information\" and \"user records should be considered sensitive information\"; rabbitmqadmin v2 has the transformations strip_cmq_keys_from_policies and drop_empty_policies, which remove classic queue mirroring keys such as ha-mode from definitions that originate from 3.13.x nodes; the page describes definitions as schema and metadata and says nothing of messages; RabbitMQ management HTTP API reference (rabbitmq-server 4.1.0, read 2026-11-02): `GET, POST /api/definitions` \"The server definitions: exchanges, queues, bindings, users, virtual hosts, permissions, topic permissions, and parameters\", `GET, POST /api/definitions/<vhost>` \"The server definitions for a given virtual host: exchanges, queues, bindings and policies\", `PUT, DELETE /api/vhosts/<name>` \"An individual virtual host\" (a PUT needs no body), `GET /api/queues` \"A list of all queues across all virtual hosts\", `GET /api/overview`",
+          "closed_by": "preflight on the source: GET /api/overview on the management API (the RabbitMQ version) and on the target the version of the instance; the application's own tests against the rehearsal virtual host"
+        },
+        {
+          "id": "definitions",
+          "state": "UNKNOWN",
+          "detail": "NOT_PROVIDED: the virtual hosts, queues, exchanges, bindings, policies and permissions of the broker are not in the Terraform, which states the broker and its users; the plan lists none and invents none. They are exported from the broker and imported into the instance, and the draft creates the instance with one credential and no queue (\"the vhosts, queues and exchanges of the broker are created in the instance outside Terraform\"). The STACKIT migration page moves queue definitions between two STACKIT instances through a backup and names no import of definitions from another broker, so the import of an export is a method of RabbitMQ's own and is proven on a scratch virtual host before it is used; the policies Amazon MQ created (ha-mode and ha-sync-mode on 3.x clusters, queue-mode, overflow, max-length) and the vhost limits are in the export and are reviewed one by one, not imported blind",
+          "evidence": "RabbitMQ documentation, Definitions (rabbitmq.com, read 2026-11-02): \"Users, vhosts, queues, exchanges, bindings, runtime parameters all fall into this category\"; `GET /api/definitions` exports the definitions of the whole cluster (it needs the management plugin) and `POST /api/definitions` imports them, `rabbitmqctl export_definitions` and `import_definitions` do the same without the plugin; the exported users carry \"password hashes as well as password hashing function information\" and \"user records should be considered sensitive information\"; rabbitmqadmin v2 has the transformations strip_cmq_keys_from_policies and drop_empty_policies, which remove classic queue mirroring keys such as ha-mode from definitions that originate from 3.13.x nodes; the page describes definitions as schema and metadata and says nothing of messages; RabbitMQ management HTTP API reference (rabbitmq-server 4.1.0, read 2026-11-02): `GET, POST /api/definitions` \"The server definitions: exchanges, queues, bindings, users, virtual hosts, permissions, topic permissions, and parameters\", `GET, POST /api/definitions/<vhost>` \"The server definitions for a given virtual host: exchanges, queues, bindings and policies\", `PUT, DELETE /api/vhosts/<name>` \"An individual virtual host\" (a PUT needs no body), `GET /api/queues` \"A list of all queues across all virtual hosts\", `GET /api/overview`; STACKIT RabbitMQ, Migrate data to a new service instance (docs.stackit.cloud, last updated Mar 27, 2026): the page migrates \"queue definitions\" from an existing STACKIT RabbitMQ instance (the source it assumes) to a new one with a STACKIT backup, restore_queues.js and rabbitmqadmin taken from the management dashboard of an instance (\"/cli\"), signing in to the target with its host, port, username and password; it names no message migration, no Shovel and no import of definitions exported from another broker; AWS Amazon MQ Developer Guide, Applying policies to Amazon MQ for RabbitMQ (read 2026-11-02): on versions 3.13 and below the default operator policy sets {\"ha-mode\":\"all\",\"ha-sync-mode\":\"automatic\",\"queue-version\":2}, on 4.0 and above {\"queue-version\":2}, \"This change is required because classic queue mirroring and HA policy settings are not supported in RabbitMQ 4\"; the broker's \"RabbitMQ web console URL ... is the broker endpoint that you use in an HTTP request\", for example `curl -u <user>:<password> <broker-endpoint>/api/policies`; the calls need a broker user with the administrator tag",
+          "closed_by": "preflight on the source: `GET <broker-endpoint>/api/definitions` with a broker user that has the administrator tag (the broker endpoint is the RabbitMQ web console URL of the broker; the export holds password hashes and is kept as sensitive); the list of virtual hosts, queues with their types, exchanges, bindings and policies in it"
+        },
+        {
+          "id": "messages-in-flight",
+          "state": "UNKNOWN",
+          "detail": "the messages in the queues are not in the Terraform and are not copied: the definitions are exported and imported, the messages are drained by the consumers that read them with no producer sending to the broker, and a message nobody reads is lost with the broker. The depth of the queues and the time the drain takes depend on their consumers' rate, which the source does not state. AWS does not publish per-queue metrics for RabbitMQ 4 brokers in CloudWatch; the management API lists them",
+          "evidence": "AWS Amazon MQ Developer Guide, Managing Amazon MQ for RabbitMQ engine versions and RabbitMQ 4 (read 2026-11-02): Amazon MQ supports RabbitMQ 4.3 and 4.2 (on mq.m7g only) and 3.13; \"Amazon MQ does not support streams. Creating a stream will result in data loss\"; on RabbitMQ 4 \"Amazon MQ will not vend RabbitMQ queue metrics ... through AWS CloudWatch ... You can query queue metrics using the RabbitMQ management API\"; RabbitMQ documentation, Definitions (rabbitmq.com, read 2026-11-02): \"Users, vhosts, queues, exchanges, bindings, runtime parameters all fall into this category\"; `GET /api/definitions` exports the definitions of the whole cluster (it needs the management plugin) and `POST /api/definitions` imports them, `rabbitmqctl export_definitions` and `import_definitions` do the same without the plugin; the exported users carry \"password hashes as well as password hashing function information\" and \"user records should be considered sensitive information\"; rabbitmqadmin v2 has the transformations strip_cmq_keys_from_policies and drop_empty_policies, which remove classic queue mirroring keys such as ha-mode from definitions that originate from 3.13.x nodes; the page describes definitions as schema and metadata and says nothing of messages; RabbitMQ management HTTP API reference (rabbitmq-server 4.1.0, read 2026-11-02): `GET, POST /api/definitions` \"The server definitions: exchanges, queues, bindings, users, virtual hosts, permissions, topic permissions, and parameters\", `GET, POST /api/definitions/<vhost>` \"The server definitions for a given virtual host: exchanges, queues, bindings and policies\", `PUT, DELETE /api/vhosts/<name>` \"An individual virtual host\" (a PUT needs no body), `GET /api/queues` \"A list of all queues across all virtual hosts\", `GET /api/overview`",
+          "closed_by": "preflight on the source: `GET <broker-endpoint>/api/queues` (messages_ready and messages_unacknowledged of each queue); the drain step of the cutover is closed when every queue reports none with no producer sending to it"
+        },
+        {
+          "id": "clients-and-protocols",
+          "state": "UNKNOWN",
+          "detail": "the broker is reached with AMQP 0-9-1 over TLS and the instance takes TLS connections (\"up-to-date TLS v1.3\"); the instance has new credentials and a new host, and each client changes its endpoint, its user and its password, and reconnects on its own when a node of the cluster is replaced. the source references no unit that connects to the broker: the applications are outside the source, and their owner lists them",
+          "evidence": "AWS Amazon MQ Developer Guide, Deployment options for Amazon MQ for RabbitMQ brokers (read 2026-11-02): a single-instance broker is \"one broker in one Availability Zone behind a Network Load Balancer\"; a cluster deployment is \"a logical grouping of three RabbitMQ broker nodes behind a Network Load Balancer, each sharing users, queues, and a distributed state across multiple Availability Zones\"; the broker is reached with AMQP (0-9-1) over TLS; STACKIT RabbitMQ, Architecture (docs.stackit.cloud, last updated Aug 13, 2026): a cluster \"Consists of 3 nodes distributed across multiple availability zones\" with \"Automatic recovery in the event of equipment or data center failures\"; a single node \"Runs on a single VM\" and is \"Not recommended for production use\"; \"All connections support SSL/TLS encryption with up-to-date TLS v1.3\"; STACKIT RabbitMQ, Concepts (docs.stackit.cloud, last updated Oct 22, 2026): \"It is possible to activate the following plugins:\" rabbitmq_consistent_hash_exchange, rabbitmq_event_exchange, rabbitmq_federation, rabbitmq_federation_management, rabbitmq_mqtt, rabbitmq_sharding, rabbitmq_shovel, rabbitmq_shovel_management, rabbitmq_stomp, rabbitmq_web_stomp and rabbitmq_web_mqtt (no OpenWire plugin is listed); \"Service Dashboard is the GUI for management of RabbitMQ services\"; backups \"every 4 hours\" kept \"for the last 14 days\"; \"the service is reachable over the Internet after the deployment\", restricted by ACLs",
+          "closed_by": "the owners of the applications list every producer and consumer, the protocol and the client library each uses, and where it configures the endpoint and the credentials"
+        },
+        {
+          "id": "users-and-permissions",
+          "state": "UNKNOWN",
+          "detail": "the source states OBSERVED 1 user (assessment:units/module.dependencies.aws_mq_broker.mq#user) (the names and passwords are not carried): the draft writes one stackit_rabbitmq_credential for the instance, a user whose name and password STACKIT generates, so every client gets new credentials. The permissions (configure, write and read patterns per virtual host) and the tags of the users of the broker are not in the Terraform, and the STACKIT pages state neither the permissions nor the tags of a credential: a client that relied on a narrower user, or a person who needs the administrator tag to import definitions, is not decided here",
+          "evidence": "STACKIT RabbitMQ, Create and manage credentials and Access a service (docs.stackit.cloud, last updated Mar 27, 2026): credentials \"are required to register with the Service\" and the management dashboard opens from the Management URL with them; the pages state no permissions, tags or number of credentials; terraform-provider-stackit 0.119.0, stackit_rabbitmq_credential: host, hosts, port, username, password, uri, uris, management, http_api_uri and http_api_uris are computed (password and uri sensitive), and the instance has parameters.sgw_acl as its access control; terraform-provider-aws 6.66.0, aws_mq_broker: engine_type (ActiveMQ or RabbitMQ), engine_version, host_instance_type, deployment_mode (SINGLE_INSTANCE, ACTIVE_STANDBY_MULTI_AZ, CLUSTER_MULTI_AZ), publicly_accessible, and the user blocks (username and password, with groups for ActiveMQ)",
+          "closed_by": "preflight on the source: the users, tags and permissions in the definitions export; on the target: the tags and permissions of the credential the draft writes, tried with the import of the definitions on the scratch virtual host"
+        },
+        {
+          "id": "management-access",
+          "state": "UNKNOWN",
+          "detail": "the source broker is publicly accessible: OBSERVED false (assessment:units/module.dependencies.aws_mq_broker.mq#publicly_accessible). The move host reads the management API of the broker (the RabbitMQ web console URL, an HTTPS endpoint) with a broker user, so it must reach it from where it runs (inside the VPC for a broker that is not public); and it writes the instance, so its address must be in parameters.sgw_acl of the instance, which the draft writes from a variable without a default (remove it afterwards). The instance is reachable over the Internet once deployed and restricted by that access list",
+          "evidence": "AWS Amazon MQ Developer Guide, Applying policies to Amazon MQ for RabbitMQ (read 2026-11-02): on versions 3.13 and below the default operator policy sets {\"ha-mode\":\"all\",\"ha-sync-mode\":\"automatic\",\"queue-version\":2}, on 4.0 and above {\"queue-version\":2}, \"This change is required because classic queue mirroring and HA policy settings are not supported in RabbitMQ 4\"; the broker's \"RabbitMQ web console URL ... is the broker endpoint that you use in an HTTP request\", for example `curl -u <user>:<password> <broker-endpoint>/api/policies`; the calls need a broker user with the administrator tag; STACKIT RabbitMQ, Concepts (docs.stackit.cloud, last updated Oct 22, 2026): \"It is possible to activate the following plugins:\" rabbitmq_consistent_hash_exchange, rabbitmq_event_exchange, rabbitmq_federation, rabbitmq_federation_management, rabbitmq_mqtt, rabbitmq_sharding, rabbitmq_shovel, rabbitmq_shovel_management, rabbitmq_stomp, rabbitmq_web_stomp and rabbitmq_web_mqtt (no OpenWire plugin is listed); \"Service Dashboard is the GUI for management of RabbitMQ services\"; backups \"every 4 hours\" kept \"for the last 14 days\"; \"the service is reachable over the Internet after the deployment\", restricted by ACLs; STACKIT RabbitMQ, Create and manage credentials and Access a service (docs.stackit.cloud, last updated Mar 27, 2026): credentials \"are required to register with the Service\" and the management dashboard opens from the Management URL with them; the pages state no permissions, tags or number of credentials; terraform-provider-stackit 0.119.0, stackit_rabbitmq_credential: host, hosts, port, username, password, uri, uris, management, http_api_uri and http_api_uris are computed (password and uri sensitive), and the instance has parameters.sgw_acl as its access control",
+          "closed_by": "preflight from the move host: `curl -u <user>:<password> <source-broker-endpoint>/api/overview` and the same against the management URL of the target with the credential; the move host's address in the access list for the time of the move"
+        },
+        {
+          "id": "availability",
+          "state": "HOLDS",
+          "detail": "the source is a single instance (OBSERVED single node (assessment:units/module.dependencies.aws_mq_broker.mq#deployment_mode)) and the plan the draft proposes is a replica plan (OBSERVED replica (draft:variable var.mq_plan_name#default)): the plan is larger than the source asked for, not equal to it: the target adds nodes the source does not have, and their price. The customer confirms the larger plan or chooses a single-node plan",
+          "evidence": "AWS Amazon MQ Developer Guide, Deployment options for Amazon MQ for RabbitMQ brokers (read 2026-11-02): a single-instance broker is \"one broker in one Availability Zone behind a Network Load Balancer\"; a cluster deployment is \"a logical grouping of three RabbitMQ broker nodes behind a Network Load Balancer, each sharing users, queues, and a distributed state across multiple Availability Zones\"; the broker is reached with AMQP (0-9-1) over TLS; AWS Amazon MQ Developer Guide, Amazon MQ for ActiveMQ brokers (read 2026-11-02): the wire-level protocols are AMQP, MQTT, MQTT over WebSocket, OpenWire, STOMP and STOMP over WebSocket, each with TLS enabled explicitly; a single-instance broker is one broker in one Availability Zone and an active/standby broker \"two brokers in two different Availability Zones, configured in a redundant pair\"; a user is \"a person or an application that can access the queues and topics\" and a group a semantic label for permissions; STACKIT RabbitMQ, Architecture (docs.stackit.cloud, last updated Aug 13, 2026): a cluster \"Consists of 3 nodes distributed across multiple availability zones\" with \"Automatic recovery in the event of equipment or data center failures\"; a single node \"Runs on a single VM\" and is \"Not recommended for production use\"; \"All connections support SSL/TLS encryption with up-to-date TLS v1.3\"; STACKIT RabbitMQ, Service plans (docs.stackit.cloud, last updated Feb 6, 2026): the plans are single-node or replica (three nodes), the catalogue names them with the suffix -single or -replica",
+          "closed_by": "the customer: whether the messaging must keep serving when a node or a zone fails and the plan_name that gives it: a plan whose name ends in -replica keeps it, one ending in -single has one node and no failover"
+        }
+      ],
+      "runbook": "terraform/handover/broker-dependencies_mq/data-move.md",
+      "applications": {
+        "confirmed_state": "NONE_CONFIRMED",
+        "confirmed": [],
+        "reason": "no application of the customer's applications file confirms this store: no file was given, no application claims it, or several claim it",
+        "proposed": {
+          "state": "PROPOSED",
+          "authority": "NOT_CUSTOMER_CONFIRMED",
+          "reason": "suggested by StackToIT from names, tags and references in the Terraform (workspace.json, applications.proposed); the customer has not confirmed them, and a suggested group is a reading of the source, never the application of the store: only the applications file confirms one (confirmed)",
+          "groups": [
+            {
+              "id": "orders",
+              "name": "orders",
+              "basis": "ECS_SERVICE",
+              "anchor": "module.retail_app_ecs.module.orders_service.aws_ecs_service.this",
+              "confidence": "MEDIUM",
+              "members_sha256": "8529308f0b3d03c6ed25ce7d38b7f589f55ad8279c67b11ed55e0ffb37471bca",
+              "role": "DATASTORE",
+              "via": "REFERENCED_BY_A_MEMBER"
+            }
+          ]
+        }
+      },
+      "connected_units": [
+        "module.retail_app_ecs.module.orders_service.aws_ecs_service.this"
+      ],
+      "connections": [
+        {
+          "unit": "module.retail_app_ecs.module.orders_service.aws_ecs_service.this",
+          "via": "SECRET_REFERENCE",
+          "detail": "the unit names a secret and the secret names the store: the application reaches the data through the secret; what the unit reads from the secret when it runs is not visible in the Terraform, so this is a connection the source shows, not one that was observed",
+          "evidence": [
+            "module.retail_app_ecs.module.orders_service.aws_ecs_service.this -> module.retail_app_ecs.aws_secretsmanager_secret.mq",
+            "module.retail_app_ecs.aws_secretsmanager_secret.mq -> module.dependencies.aws_mq_broker.mq"
+          ]
+        }
+      ],
+      "open": [
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.size",
+          "what": "source.dataset.size of module.dependencies.aws_mq_broker.mq is not stated",
+          "closed_by": "the customer answers the request for source.dataset.size in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.write_rate",
+          "what": "source.dataset.write_rate of module.dependencies.aws_mq_broker.mq is not stated",
+          "closed_by": "the customer answers the request for source.dataset.write_rate in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.bandwidth",
+          "what": "source.dataset.bandwidth of module.dependencies.aws_mq_broker.mq is not stated",
+          "closed_by": "the customer answers the request for source.dataset.bandwidth in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.rpo",
+          "what": "source.dataset.rpo of module.dependencies.aws_mq_broker.mq is not stated",
+          "closed_by": "the customer answers the request for source.dataset.rpo in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.rto",
+          "what": "source.dataset.rto of module.dependencies.aws_mq_broker.mq is not stated",
+          "closed_by": "the customer answers the request for source.dataset.rto in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.downtime",
+          "what": "source.dataset.downtime of module.dependencies.aws_mq_broker.mq is not stated",
+          "closed_by": "the customer answers the request for source.dataset.downtime in the inputs file"
+        },
+        {
+          "kind": "CHECK",
+          "id": "engine-and-version",
+          "what": "the source runs RabbitMQ 3.13 and STACKIT offers 4.1: a major upgrade. The policies of a 3.x broker carry classic queue mirroring keys (ha-mode, ha-sync-mode), which AWS says \"are not supported in RabbitMQ 4\", so the import drops them (rabbitmqadmin's strip_cmq_keys_from_policies does) and the queues that relied on mirroring are declared as quorum queues by the design that replaces them; whether the clients work against the newer server is a test of the application",
+          "closed_by": "preflight on the source: GET /api/overview on the management API (the RabbitMQ version) and on the target the version of the instance; the application's own tests against the rehearsal virtual host"
+        },
+        {
+          "kind": "CHECK",
+          "id": "definitions",
+          "what": "NOT_PROVIDED: the virtual hosts, queues, exchanges, bindings, policies and permissions of the broker are not in the Terraform, which states the broker and its users; the plan lists none and invents none. They are exported from the broker and imported into the instance, and the draft creates the instance with one credential and no queue (\"the vhosts, queues and exchanges of the broker are created in the instance outside Terraform\"). The STACKIT migration page moves queue definitions between two STACKIT instances through a backup and names no import of definitions from another broker, so the import of an export is a method of RabbitMQ's own and is proven on a scratch virtual host before it is used; the policies Amazon MQ created (ha-mode and ha-sync-mode on 3.x clusters, queue-mode, overflow, max-length) and the vhost limits are in the export and are reviewed one by one, not imported blind",
+          "closed_by": "preflight on the source: `GET <broker-endpoint>/api/definitions` with a broker user that has the administrator tag (the broker endpoint is the RabbitMQ web console URL of the broker; the export holds password hashes and is kept as sensitive); the list of virtual hosts, queues with their types, exchanges, bindings and policies in it"
+        },
+        {
+          "kind": "CHECK",
+          "id": "messages-in-flight",
+          "what": "the messages in the queues are not in the Terraform and are not copied: the definitions are exported and imported, the messages are drained by the consumers that read them with no producer sending to the broker, and a message nobody reads is lost with the broker. The depth of the queues and the time the drain takes depend on their consumers' rate, which the source does not state. AWS does not publish per-queue metrics for RabbitMQ 4 brokers in CloudWatch; the management API lists them",
+          "closed_by": "preflight on the source: `GET <broker-endpoint>/api/queues` (messages_ready and messages_unacknowledged of each queue); the drain step of the cutover is closed when every queue reports none with no producer sending to it"
+        },
+        {
+          "kind": "CHECK",
+          "id": "clients-and-protocols",
+          "what": "the broker is reached with AMQP 0-9-1 over TLS and the instance takes TLS connections (\"up-to-date TLS v1.3\"); the instance has new credentials and a new host, and each client changes its endpoint, its user and its password, and reconnects on its own when a node of the cluster is replaced. the source references no unit that connects to the broker: the applications are outside the source, and their owner lists them",
+          "closed_by": "the owners of the applications list every producer and consumer, the protocol and the client library each uses, and where it configures the endpoint and the credentials"
+        },
+        {
+          "kind": "CHECK",
+          "id": "users-and-permissions",
+          "what": "the source states OBSERVED 1 user (assessment:units/module.dependencies.aws_mq_broker.mq#user) (the names and passwords are not carried): the draft writes one stackit_rabbitmq_credential for the instance, a user whose name and password STACKIT generates, so every client gets new credentials. The permissions (configure, write and read patterns per virtual host) and the tags of the users of the broker are not in the Terraform, and the STACKIT pages state neither the permissions nor the tags of a credential: a client that relied on a narrower user, or a person who needs the administrator tag to import definitions, is not decided here",
+          "closed_by": "preflight on the source: the users, tags and permissions in the definitions export; on the target: the tags and permissions of the credential the draft writes, tried with the import of the definitions on the scratch virtual host"
+        },
+        {
+          "kind": "CHECK",
+          "id": "management-access",
+          "what": "the source broker is publicly accessible: OBSERVED false (assessment:units/module.dependencies.aws_mq_broker.mq#publicly_accessible). The move host reads the management API of the broker (the RabbitMQ web console URL, an HTTPS endpoint) with a broker user, so it must reach it from where it runs (inside the VPC for a broker that is not public); and it writes the instance, so its address must be in parameters.sgw_acl of the instance, which the draft writes from a variable without a default (remove it afterwards). The instance is reachable over the Internet once deployed and restricted by that access list",
+          "closed_by": "preflight from the move host: `curl -u <user>:<password> <source-broker-endpoint>/api/overview` and the same against the management URL of the target with the credential; the move host's address in the access list for the time of the move"
+        },
+        {
+          "kind": "VALUE",
+          "id": "target.version",
+          "what": "target.version of module.dependencies.aws_mq_broker.mq is NOT_STATIC: the draft writes the variable var.mq_version",
+          "closed_by": "the version is stated as a literal in the Terraform, or the customer states it in the inputs file"
+        }
+      ],
+      "rollback": "Before the producers are switched nothing is switched: the source broker was neither stopped nor changed, and the instance only received definitions; delete what the import created on the instance and carry on with the source. After the producers moved, what they sent to the instance is not on the source broker: the point of no return is the first message the instance accepts. The way back is to point the producers at the source broker again (the switch of the producers says how) and to replay or accept the loss of what the instance received in between; take that decision before the window. The consumers stay on the source broker until its queues are drained, and the source broker is kept until the GO.",
+      "limits": [
+        "StackToIT moves no data and opens no connection: every step is defined for a person to run; none is applied or verified by this plan",
+        "the definitions, the depth of the queues, the clients and the permissions of the users are not in the Terraform: the checks are UNKNOWN until the preflight closes them",
+        "the messages are drained, never copied: the drain and the switch of the producers and of the consumers are the steps of the cutover, and the plan states no duration for the drain, which depends on the depth of the queues and the rate of their consumers",
+        "the pages are read as documentation, not run: no definition was imported into a STACKIT RabbitMQ instance by this build, and the permissions of the credential of the instance are not stated by any page read",
+        "moving the messages with the Shovel or the federation plugin is a method of your own: the STACKIT page lists both plugins as ones that can be activated, and the plan writes no step for it and does not state that it works between an Amazon MQ broker and the instance",
+        "the broker users are not carried: the instance has one credential that STACKIT generates"
+      ]
     }
   ],
-  "not_planned": []
+  "not_planned": [
+    {
+      "unit": "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
+      "reason": "the draft records no data asset for this aws_opensearch_domain, so no family of data stores plans its move in this file and it states no quantity, method or duration for it; execution-plan.json holds the data steps of the move (6 steps) and they are the plan of the move"
+    },
+    {
+      "unit": "module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this",
+      "reason": "the draft records no data asset for this aws_dynamodb_table, so no family of data stores plans its move in this file and it states no quantity, method or duration for it; execution-plan.json holds the data steps of the move (5 steps) and they are the plan of the move"
+    }
+  ]
 }

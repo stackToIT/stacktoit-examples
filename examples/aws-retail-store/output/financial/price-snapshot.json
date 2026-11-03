@@ -1,8 +1,8 @@
 {
-  "run_id": "f6267c3f-2848-4aa5-89df-5fee8b15b3b9",
-  "source_digest": "sha256:812c5ae3f6cc8530163abbf5b6fbe305ed3b363c4886ec6b87623db857ea0c70",
+  "run_id": "80199dc3-8108-42fe-a0b9-030ac0f7777b",
+  "source_digest": "sha256:5ce8b8f8868f3b3214b2dddebe87e3f04291bf5ceac46dc0d95624215d020000",
   "price_snapshot": {
-    "statement": "These are list prices only: no quantity is read and no total is built from them here; the quantities, amounts and totals of the priced families are in financial/cost-model.json, and no usage and no egress is computed anywhere. This block names the snapshot of the public STACKIT price list the run cites and, for each drafted resource of a kind the price rules list, the list price of the one SKU a tested rule joins it to, or why it has none.",
+    "statement": "These are list prices only: no quantity is read and no total is built from them here; the quantities, amounts and totals of the priced families are in financial/cost-model.json, which computes a usage or an egress only where the assumption file states it. This block names the snapshot of the public STACKIT price list the run cites and, for each drafted resource of a kind the price rules list, the list price of the one SKU a tested rule joins it to, or why it has none.",
     "source_url": "https://pim.api.stackit.cloud/v2/skus?pageSize=100\u0026language=en",
     "retrieved_at": "2026-10-26T18:27:45Z",
     "sha256": "94244fec5b573614dcff15f79238ce4a0e60cf197768be287e45092d7e1e61ca",

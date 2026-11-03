@@ -1,28 +1,28 @@
 {
   "manifest_version": "0.4.0",
-  "run_id": "f6267c3f-2848-4aa5-89df-5fee8b15b3b9",
-  "generated_at": "2026-11-02T12:08:24Z",
+  "run_id": "80199dc3-8108-42fe-a0b9-030ac0f7777b",
+  "generated_at": "2026-11-03T19:59:06Z",
   "status": "COMPLETE",
-  "source": "default",
+  "source": "terraform/ecs/default",
   "source_status": "RUNTIME_TOPOLOGY_PARTIAL",
-  "source_digest": "sha256:812c5ae3f6cc8530163abbf5b6fbe305ed3b363c4886ec6b87623db857ea0c70",
+  "source_digest": "sha256:5ce8b8f8868f3b3214b2dddebe87e3f04291bf5ceac46dc0d95624215d020000",
   "producer": {
     "tool": "stacktoit",
-    "version": "0.6.0-11562-g1966ddf116",
-    "commit": "1966ddf116"
+    "version": "0.6.0-11994-g560ca88251",
+    "commit": "560ca88251"
   },
-  "kb_version": "0.384.0",
-  "kb_sha256": "fc24dfbd7370bd23bbae090adf2960acf5d9b4ac749be7362ac50053ceddc6d9",
+  "kb_version": "0.385.0",
+  "kb_sha256": "f65894def83d867061199e09d4bcdffd1f3772ada7c4d474180544275af4dd1b",
   "schema_versions": {
     "assessment": "0.24.0",
     "cost-model": "0.2.1",
     "data-movement-plan": "0.1.0",
-    "decisions": "0.4.0",
-    "execution-plan": "1.3.0",
+    "decisions": "0.5.0",
+    "execution-plan": "1.4.0",
     "manifest": "0.4.0",
     "review_csv": "1.3.0",
     "target-plan-file": "0.1.0",
-    "workspace": "0.15.0"
+    "workspace": "0.16.0"
   },
   "stackit_provider": "0.121.0",
   "draft": {
@@ -31,10 +31,10 @@
   },
   "invalidation": {
     "target_lock_sha256": "3c875f223de75122ebe3f733f1605217974e6839bfdb9a0e32349733adfa57e9",
-    "kb_sha256": "fc24dfbd7370bd23bbae090adf2960acf5d9b4ac749be7362ac50053ceddc6d9",
-    "source_digest": "sha256:812c5ae3f6cc8530163abbf5b6fbe305ed3b363c4886ec6b87623db857ea0c70",
-    "target_capability_catalog_sha256": "b2d8640fc320b29dce102fcbe66db68b20fc2e2b5f97ecdd2015bccc2f5e7139",
-    "target_evidence_sha256": "1bf814907d989fb24c1a959eb9a0c23f876dde7939e898a9d8f580c5d7fd7a18",
+    "kb_sha256": "f65894def83d867061199e09d4bcdffd1f3772ada7c4d474180544275af4dd1b",
+    "source_digest": "sha256:5ce8b8f8868f3b3214b2dddebe87e3f04291bf5ceac46dc0d95624215d020000",
+    "target_capability_catalog_sha256": "0f19f991fc707c10f1658628b9b59f26435d25ccc8533d003e47363930d3f79f",
+    "target_evidence_sha256": "0db98358567bf40ff32fa755de6a42fe399ffad3a25e889aa8cd612616baa266",
     "target_evidence_covers": [
       "the STACKIT framework assurance evidence",
       "the STACKIT service certificate evidence",
@@ -44,7 +44,7 @@
       "the STACKIT Terraform provider operability notices",
       "the STACKIT support options"
     ],
-    "target_plan_sha256": "f0fa25e0822d61004e053d5d175a00eebdf5fec40ef439a0f6bac7b2a3adb737",
+    "target_plan_sha256": "8bfbf8f6e9c5f3b4919a655873011ffe74e5ff487ef4d19266a7db699b7e6104",
     "inputs": {
       "price_snapshot_sha256": "94244fec5b573614dcff15f79238ce4a0e60cf197768be287e45092d7e1e61ca",
       "price_snapshots": [
@@ -52,13 +52,13 @@
       ],
       "convert": true
     },
-    "assessment_inputs_digest": "58afdb0d3bf037aaaeae240b1d04f8e541691433ebab44c548a9151592601970"
+    "assessment_inputs_digest": "cffa620f22d45434dcf8277f741dd9eaf1ba4989e1bcbb2a7b370b014c710ae5"
   },
   "verification": [
     {
       "id": "GLOBAL_RESOURCE_UNIQUENESS",
       "status": "PASS",
-      "checked": 134
+      "checked": 137
     },
     {
       "id": "NO_UNPLANNED_RESOURCE",
@@ -68,7 +68,7 @@
     {
       "id": "NO_UNPLANNED_REFERENCE",
       "status": "PASS",
-      "checked": 37
+      "checked": 40
     },
     {
       "id": "NO_UNRESOLVED_REQUIRED_FIELD",
@@ -163,7 +163,7 @@
         "state": "PASS"
       }
     ],
-    "at": "2026-11-02T12:08:32.982569Z"
+    "at": "2026-11-03T19:59:12.303888Z"
   },
   "native_validation": {
     "mode": "AUTO",
@@ -171,14 +171,9 @@
   },
   "source_snapshot": {
     "format": "1",
-    "digest": "sha256:8440d0cf7bf8a619bbde45b1cf761e9abf84091e6574cec40720f1ec558e27b0",
+    "digest": "sha256:e4dc9b9bf0e08bd2c251734eccf2a1aad8c007689ffda9ecdde151a3222761c4",
     "root": {
-      "git": {
-        "commit": "1966ddf1167735ce391d5a56f1d6a5cf1bf62869",
-        "tree": "e66ddb97b9e13454e34c1fbdc844365913ae1886",
-        "path_in_repo": "testdata/fixtures/aws-retail-store-ecs/terraform/ecs/default",
-        "dirty": false
-      }
+      "git_note": "the source is not in a git checkout, or git does not trust its directory"
     },
     "providers": [
       {
@@ -448,7 +443,7 @@
   },
   "action_id_lists": [
     {
-      "id": "AL-a29c3994c968",
+      "id": "AL-db33b924041c",
       "action_ids": [
         "DEC/routing/stackitroute:module.vpc.module.vpc.aws_route_table.private:NAT_FIXED_EGRESS_ADDRESS_LOST",
         "MAN/identity/facts:module.retail_app_ecs.module.carts_service.aws_ecs_service.this:module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this.execution_role_arn-586451",
@@ -466,7 +461,6 @@
         "MAN/security/aws/unplaced:module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix:module.retail_app_ecs.module.alb_sg.aws_security_group_rule.egress_rules.0-217968",
         "MAN/security/aws/unplaced:module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix:module.retail_app_ecs.module.alb_sg.aws_security_group_rule.ingress_rules.0-f26028",
         "MAN/semantic/module.vpc.module.vpc.aws_eip.nat/public-address",
-        "MAN/semantic/module.vpc.module.vpc.aws_internet_gateway.this/network-topology-boundary",
         "MAN/semantic/module.vpc.module.vpc.aws_nat_gateway.this/open-settings",
         "MAN/semantic/module.vpc.module.vpc.aws_route_table.private/open-settings",
         "MAN/semantic/module.vpc.module.vpc.aws_route_table.public/open-settings",
@@ -520,15 +514,12 @@
         "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role/open-settings",
         "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_iam_role.task_role/open-settings",
         "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_security_group.this/open-settings",
-        "REF/root/security-group-membership-parity",
         "TF/stackit_kms_keyring.migrated",
         "TF/stackit_kms_key.retail_app_ecs_cmk",
         "TF/stackit_secretsmanager_instance.migrated_secrets",
         "TF/stackit_secretsmanager_user.migration",
-        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db",
         "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch",
         "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.mq",
-        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.orders_db",
         "TF/stackit_security_group.retail_app_ecs_alb_sg_this_name_prefix",
         "MAN/security/aws/incomplete:module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix:group-module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix.0.:rules:module.retail_app_ecs.module.alb_sg.aws_security_group_rule.egress_rules-b506f3",
         "MAN/security/aws/incomplete:module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix:group-module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix.0.:rules:module.retail_app_ecs.module.alb_sg.aws_security_group_rule.ingress_rules-a538f6",
@@ -629,12 +620,16 @@
         "MAN/draft/handover/cluster-access/kubeconfig-md",
         "TF/stackit_mariadb_instance.dependencies_catalog_rds_this",
         "TF/stackit_mariadb_credential.dependencies_catalog_rds_this",
+        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db",
         "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/preflight",
         "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/rehearsal",
         "TF/stackit_opensearch_instance.dependencies_catalog_opensearch_this",
         "TF/stackit_opensearch_credential.dependencies_catalog_opensearch_this",
         "TF/stackit_postgresflex_instance.dependencies_orders_rds_this",
         "TF/stackit_postgresflex_user.dependencies_orders_rds_this",
+        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.orders_db",
+        "MAN/path/secrets-migration/read-back",
+        "MAN/path/secrets-migration/retire-user",
         "TF/stackit_postgresflex_database.dependencies_orders_rds_this_orders",
         "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/preflight",
         "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/rehearsal",
@@ -642,11 +637,16 @@
         "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/delta-sync/logical-replication",
         "TF/stackit_rabbitmq_instance.dependencies_mq",
         "TF/stackit_rabbitmq_credential.dependencies_mq",
+        "MAN/data/module.dependencies.aws_mq_broker.mq/preflight",
+        "MAN/data/module.dependencies.aws_mq_broker.mq/rehearsal",
+        "MAN/data/module.dependencies.aws_mq_broker.mq/initial-copy/definitions-and-drain",
+        "MAN/data/module.dependencies.aws_mq_broker.mq/reconcile/definitions-and-drain",
         "MAN/draft/kubernetes/carts/manifests-yaml",
         "MAN/draft/kubernetes/catalog/manifests-yaml",
         "MAN/draft/kubernetes/checkout/manifests-yaml",
         "MAN/draft/kubernetes/orders/manifests-yaml",
         "MAN/draft/kubernetes/ui/manifests-yaml",
+        "MAN/path/module.retail_app_ecs.module.alb.aws_lb.this/target-network/routing-and-security-groups",
         "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/write-freeze/client-import",
         "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/final-sync/client-import",
         "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/reconcile/client-import",
@@ -659,20 +659,17 @@
         "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/write-freeze/own-tool",
         "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/final-sync/own-tool",
         "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/reconcile/own-tool",
-        "MAN/cutover/connection/module.dependencies.module.catalog_rds.aws_rds_cluster.this",
         "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/write-freeze/client-import",
         "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/final-sync/client-import",
         "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/reconcile/client-import",
         "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/write-freeze/own-tool",
         "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/final-sync/own-tool",
         "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/reconcile/own-tool",
-        "MAN/cutover/connection/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default",
         "MAN/data/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/write-freeze/own-tool",
         "MAN/data/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/export/own-tool",
         "MAN/data/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/transform/own-tool",
         "MAN/data/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/final-sync/own-tool",
         "MAN/data/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/reconcile/own-tool",
-        "MAN/cutover/connection/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this",
         "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/write-freeze/dump-restore",
         "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/final-sync/dump-restore",
         "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/reconcile/dump-restore",
@@ -682,8 +679,11 @@
         "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/write-freeze/own-tool",
         "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/final-sync/own-tool",
         "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/reconcile/own-tool",
-        "MAN/cutover/connection/module.dependencies.module.orders_rds.aws_rds_cluster.this",
         "MAN/cutover/readiness",
+        "MAN/cutover/connection/module.dependencies.module.catalog_rds.aws_rds_cluster.this",
+        "MAN/cutover/connection/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default",
+        "MAN/cutover/connection/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this",
+        "MAN/cutover/connection/module.dependencies.module.orders_rds.aws_rds_cluster.this",
         "MAN/cutover/connection/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db",
         "MAN/cutover/connection/module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch",
         "MAN/cutover/connection/module.retail_app_ecs.aws_secretsmanager_secret.mq",
@@ -692,6 +692,16 @@
         "MAN/cutover/messaging-drain/module.dependencies.aws_mq_broker.mq",
         "MAN/cutover/messaging-consumers/module.dependencies.aws_mq_broker.mq",
         "MAN/cutover/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
+        "MAN/cutover/start/kubernetes/carts/manifests-yaml",
+        "MAN/cutover/service/kubernetes/carts/manifests-yaml",
+        "MAN/cutover/start/kubernetes/catalog/manifests-yaml",
+        "MAN/cutover/service/kubernetes/catalog/manifests-yaml",
+        "MAN/cutover/start/kubernetes/checkout/manifests-yaml",
+        "MAN/cutover/service/kubernetes/checkout/manifests-yaml",
+        "MAN/cutover/start/kubernetes/orders/manifests-yaml",
+        "MAN/cutover/service/kubernetes/orders/manifests-yaml",
+        "MAN/cutover/start/kubernetes/ui/manifests-yaml",
+        "MAN/cutover/service/kubernetes/ui/manifests-yaml",
         "MAN/cutover/module.retail_app_ecs.module.alb.aws_lb.this",
         "MAN/cutover/complete",
         "MAN/verify/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
@@ -707,7 +717,9 @@
         "MAN/verify/endpoint/module.dependencies.aws_mq_broker.mq",
         "MAN/verify/endpoint/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
         "MAN/verify/endpoint/module.retail_app_ecs.module.alb.aws_lb.this",
+        "MAN/verify/restore/module.dependencies.module.orders_rds.aws_rds_cluster.this",
         "MAN/verify/rollback-decision",
+        "MAN/data/module.dependencies.aws_mq_broker.mq/cleanup/definitions-and-drain",
         "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/cleanup/dump-restore",
         "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/cleanup/client-import",
         "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/cleanup/dump-restore",
@@ -770,86 +782,92 @@
   "files": [
     {
       "path": "applications-template.yaml",
-      "sha256": "9a68d3a4827e8965b8ac851a3c9aafaf76418a8b917e66edfee02d60e87303ad",
-      "bytes": 6866,
+      "sha256": "98bb34493b3f00de965f850cb780c1ba0faae8e63a12174fcecde819d0ec3440",
+      "bytes": 6588,
       "run_bound": true
     },
     {
       "path": "architecture/current.mmd",
-      "sha256": "c3662915f2dbe82dde0dda8b93604854641a9e7f447628565c5ba14aca3265d6",
+      "sha256": "c02b5b9a273929df757c0213cf9c9ebbc3c7be348002925d0faa0828a6e38595",
       "bytes": 7411,
       "run_bound": true
     },
     {
       "path": "architecture/current.svg",
-      "sha256": "7ebd093e26faf5ba8a522d66f54f93d51f1a161bf957986a902da0c1c5a09c9c",
-      "bytes": 42789,
+      "sha256": "d3a5a670fc9569a615b3d80ea58e9427fd4987b1c2975eb7f4763ba74e209b6d",
+      "bytes": 42589,
       "run_bound": true
     },
     {
       "path": "architecture/data-flows.mmd",
-      "sha256": "d4ab1e179e75073af9af6bdb3c2dbeb0acaa2f41bbf0603c61187e3b6a9d04b4",
-      "bytes": 3650,
+      "sha256": "239ce622bae9ccdffbc27197a9162ff8d1b50492ca8f56a2ea5dca06ea374e06",
+      "bytes": 6676,
       "run_bound": true
     },
     {
       "path": "architecture/data-flows.svg",
-      "sha256": "24456dca2033d197d52ace2ff09f9c72840845770cc45ddcc3282330ea01b3e1",
-      "bytes": 5532,
+      "sha256": "6abb089ee523e79f459d2ef03ddd72be21d1fb62a73300e8e00fb13496f7bc27",
+      "bytes": 13325,
       "run_bound": true
     },
     {
       "path": "architecture/delta.mmd",
-      "sha256": "4e749f2a0c0704f235d07b987b9a2adfd1dbd2601db1e44b54f93ad22d5a0af1",
+      "sha256": "07ef12865e36399a3ce2c6e6072bf63877d7d0e7ec8c56f88f52f264d164879c",
       "bytes": 9022,
       "run_bound": true
     },
     {
       "path": "architecture/delta.svg",
-      "sha256": "cea0c58dbe8904816e34664dac46008fdbd3a0c80ee926c7093b74b0906da5ff",
-      "bytes": 42696,
+      "sha256": "6bbd2efe6d17d731cfd3413f52650b900bf349332e1792ad22fdc6e24a07669d",
+      "bytes": 42502,
       "run_bound": true
     },
     {
       "path": "architecture/dependencies.mmd",
-      "sha256": "b5b99cd87bbd92a83d7d45ad0049890c63ea3efadd8d51b68b6c2039e4ad9e14",
+      "sha256": "ed7da208beed45595207a29d24af99ded2926800c7dbfc7ef8a3cfad757320a6",
       "bytes": 15682,
       "run_bound": true
     },
     {
       "path": "architecture/identity.mmd",
-      "sha256": "02b0f948cee27509430e460c2bf1b9b459515a485a9a7769e152206434b9d951",
-      "bytes": 23524,
+      "sha256": "3c2551dbb6f4839bed51f5db40eacd87b75a550ad335622710d4b94a05c31b11",
+      "bytes": 27001,
       "run_bound": true
     },
     {
       "path": "architecture/network-security.mmd",
-      "sha256": "bd46021a323aa4716a8988e9f89b000b204b50f0108c4ad169f7790cf5966cd9",
-      "bytes": 15101,
+      "sha256": "96cc87fcb807a7adaa04648a588dbcf50ccf1affd8d6b8785f2dc8200840c45e",
+      "bytes": 18842,
       "run_bound": true
     },
     {
       "path": "architecture/network-security.svg",
-      "sha256": "aa2a655f2e6516cd583080d83850968a1ccc8df05dc081edf5e85c23658e547c",
-      "bytes": 36562,
+      "sha256": "0bfd894f274d684fe28d312d8ba48c3ce26124153b0733aabfd184dfac1a99b6",
+      "bytes": 47120,
       "run_bound": true
     },
     {
       "path": "architecture/target.mmd",
-      "sha256": "8bffb773573ba0f4f84a180f77a8bf2766e9de8164699c55582e76c38ca5ac92",
+      "sha256": "8d85e17516545ccef6324d82cccd5b5f6cd2f0cdc4b405e775f407672215133a",
       "bytes": 7496,
       "run_bound": true
     },
     {
       "path": "architecture/target.svg",
-      "sha256": "e83d63fd6e2a826e6f5e3203d28119d03b02f36e1142bf5b7229c746ae7aa85d",
-      "bytes": 44634,
+      "sha256": "18a1c80faffa8b993dd95c87025a7dcb70ef5347b8e91b240c3f72ef66a1c63c",
+      "bytes": 44434,
       "run_bound": true
     },
     {
       "path": "assessment.json",
-      "sha256": "eb1c3bfa099c4a9b0d0fac9fe6ee9c1acd2ba57b8691aaffb242aea0c5cf5837",
-      "bytes": 1847121,
+      "sha256": "f8414f23e79bcee99c4449971fafede35dfa5229498b579530e44850d43b89f0",
+      "bytes": 1819809,
+      "run_bound": true
+    },
+    {
+      "path": "assumptions-template.yaml",
+      "sha256": "6638cd988f2448bd9dfc65e692e47dcdcec0ef831e5d5235ff0d55948c2e4014",
+      "bytes": 6621,
       "run_bound": true
     },
     {
@@ -860,134 +878,134 @@
     },
     {
       "path": "assurance/compliance-evidence.md",
-      "sha256": "11d6d314e129fd28e15edb52b59d31d4a3b5bd030c1b6b9276d6d0dde56be973",
+      "sha256": "7adf3124b074b9970a657d33017f196b377f44892c840c551287e3995600e159",
       "bytes": 44169,
       "run_bound": true
     },
     {
       "path": "assurance/critical-semantics.json",
-      "sha256": "a76f71af2849a1610c3e54c2e1a7e8102e0f1be98e22299d092d07136602a8b2",
-      "bytes": 329337,
+      "sha256": "22eb5d466c3eca01d04e3d0201bc1b3087d736e967fe9086a6c51a0221d7d489",
+      "bytes": 307040,
       "run_bound": true
     },
     {
       "path": "assurance/equivalence-ledger.csv",
-      "sha256": "ecca5777b37a4049d3ce68eb2ccb1d40118481f707eb1f7fcac89fa9564bc1a3",
-      "bytes": 883020,
+      "sha256": "8b96a7946664d7bcc4a7fbbf306fa44afc286dd9578d11030f4b583810cda5e1",
+      "bytes": 878397,
       "run_bound": false
     },
     {
       "path": "assurance/evidence-ledger.csv",
-      "sha256": "02412d913e1e55f006054fdf4cb39fd067827fae4663f451c0a8a6f3e77e77d5",
-      "bytes": 344683,
+      "sha256": "b2531cea962cfbd82444b0544d54ef754376e86ad20aca8813840331d3ef2835",
+      "bytes": 335206,
       "run_bound": false
     },
     {
       "path": "assurance/identity-transition.md",
-      "sha256": "cd54c1e2cc062ec9431ab1c1da7775e34476424f42d641f028319ffeaef27f5e",
+      "sha256": "e553d00d1480381f9ae3ee2db127b4d75c4f9238d97829d6047d2d274940196f",
       "bytes": 8210,
       "run_bound": true
     },
     {
       "path": "assurance/operational-readiness.md",
-      "sha256": "3b210e0dbaea2546c1c703c6513411bd29c4878fbdeaf4ac1f4c418caeb6d605",
+      "sha256": "0d42fb43af6cfb0b9fda7f92847037e4baead43e14711fb27b66f021ccfe66c1",
       "bytes": 8879,
       "run_bound": true
     },
     {
       "path": "assurance/resilience.json",
-      "sha256": "d5c894dc30bb1d901f2e6c0794f10a23b4af9aa16594a7d8e3e9966888c3ec69",
+      "sha256": "59cbee08ccda93dd99fe34d9fd8e180840ecd194512da0e82b1e1c78d3308394",
       "bytes": 8097,
       "run_bound": true
     },
     {
       "path": "assurance/resilience.md",
-      "sha256": "cb9188946f7f228f65510551a47269e78197e47ee3564eca284a1141a3e44075",
+      "sha256": "7cee0839e4345685f49a4ed73a14d2c6b55ebf472eb3669114e1fa7927d355c5",
       "bytes": 6090,
       "run_bound": true
     },
     {
       "path": "assurance/safety.md",
-      "sha256": "eaf6dfca5e5606c64cef1f96524d6c7c446cbcd2c5ea1d4acc832dda248f0d16",
+      "sha256": "eb2610cc3a65e7b5c05f5f6d7f15861d233bcda1b291f03c829081e27330627b",
       "bytes": 22817,
       "run_bound": true
     },
     {
       "path": "assurance/source-compatibility.md",
-      "sha256": "3dbba5da7fa71fdda7ec45363f45c2f092227c50fbb20d516942404d9ab86679",
+      "sha256": "7ab63e3aee9aeb734f7cfbb88b2854b0147a1cea6785b3130b403e2f3718199e",
       "bytes": 1454,
       "run_bound": true
     },
     {
       "path": "assurance/sovereignty.json",
-      "sha256": "9d166fa4dacef8193b6273b5c027a5062b07af6830af48a74b4950b795a380d2",
+      "sha256": "2243e753008b4cdb5cd7149ef6bf0025d8789336f55ae01f2ce8a1846f9e03be",
       "bytes": 80256,
       "run_bound": true
     },
     {
       "path": "assurance/sovereignty.md",
-      "sha256": "4ffa1a7ef1e22dde07c362f8209d16cb4bd1eddc37bcdd38423fef443d353034",
+      "sha256": "d367fbd9a21ba5232f24dbb8eba9fa4a22828d280f1c8f959fbe107393f57805",
       "bytes": 27849,
       "run_bound": true
     },
     {
       "path": "assurance/target-readiness.md",
-      "sha256": "82c65649788bc028148a05b82df0f7f36c18a15f44a0ef3c69aa4e7a9960de8c",
+      "sha256": "7af7732d0e5c43c40e38bc6f7fad2d55be3b3d86e20b4d37d2eab89005f127a4",
       "bytes": 22841,
       "run_bound": true
     },
     {
       "path": "console.txt",
-      "sha256": "2c3edd35c1415317dc53a9868af8ac0ace40c9d366fe274435770066fad69325",
-      "bytes": 17808,
+      "sha256": "02b05d9cb1da6058637288f25eff9234b9ae7b440d838e95b7ae6aadcc9f7792",
+      "bytes": 19193,
       "run_bound": true
     },
     {
       "path": "decisions-template.yaml",
-      "sha256": "e8fbc3ea7531c0200e7fb306a00efe021070a5318f69e75108f05d10a3cc4698",
-      "bytes": 174030,
+      "sha256": "034f0d8e7a4afc5901197140982de54c9c6eb68cf1f0e3f423e8e9d27ebca80d",
+      "bytes": 159496,
       "run_bound": true
     },
     {
       "path": "decisions.json",
-      "sha256": "e2a59ba9174be8f289579e5932c433a762bc281ea1067777fc7ee9d93fbeb2ff",
-      "bytes": 2097505,
+      "sha256": "a105a85be4c792b4e39c171998c8dffdebc664d9bd77e07e4b92da90f64f203e",
+      "bytes": 2007271,
       "run_bound": true
     },
     {
       "path": "engineering/analysis-details.md",
-      "sha256": "5d7b5a4bf961353e6cf71010fb2c76fcf1511f2a078cf2b21d171854b0ffc86a",
-      "bytes": 382026,
+      "sha256": "30687dd9cdc88fb5c2cae6b1fbeb96a5c8f9cbfa130f27586b71ef5e9c12a951",
+      "bytes": 359919,
       "run_bound": true
     },
     {
       "path": "engineering/architect-report.md",
-      "sha256": "d4539e07bea9adc5378f6e581b16eab0d38d81cd5c4a63d63ddf2fae8f788d52",
-      "bytes": 579909,
+      "sha256": "3017a4a7161c3f90745ba942cd071e410d1ea0ba363cf3d300e6295ca1ef30e4",
+      "bytes": 556833,
       "run_bound": true
     },
     {
       "path": "engineering/evidence-index.json",
-      "sha256": "4e10b7ace77cc94ef6c699b581a7542b20ddc34ca6e2746a1d92289be3b6f63c",
-      "bytes": 43314,
+      "sha256": "d4f45c1038d9578f5549995d8a7e3a6ff496e1b308adce409a99a239058ce59f",
+      "bytes": 43313,
       "run_bound": true
     },
     {
       "path": "engineering/explain-index.json",
-      "sha256": "06fcebffc7930d4c0349e43756bdaa1fccc058677a432e1957234a9076d791cf",
-      "bytes": 61204,
+      "sha256": "90ed5918180278a4ea065481d7b203278d48b87e167121cf551a13e42fef4d14",
+      "bytes": 60890,
       "run_bound": true
     },
     {
       "path": "engineering/not-carried-summary.csv",
-      "sha256": "ae8c1e72950ae136dfcc609803bff6ebbc64c6d02107da854b4d1516c2d2a06f",
-      "bytes": 4782,
+      "sha256": "c44fcfba911bdd5e821254fb25f07cfa73dc36fde5845aea95e6309560f74a63",
+      "bytes": 4681,
       "run_bound": false
     },
     {
       "path": "engineering/not-carried.csv",
-      "sha256": "de408dd70098c937e1a8a5c7da1a6de1c88f79f1d139f82e085d43375c09312e",
-      "bytes": 136331,
+      "sha256": "1235f094a03f1bbe496546f0e53a95dfd6c0bf8b237331057bda5254a630649c",
+      "bytes": 129856,
       "run_bound": false
     },
     {
@@ -998,94 +1016,134 @@
     },
     {
       "path": "engineering/review.csv",
-      "sha256": "3e829abc4a2e5b809841472f9b3bdcd91567684b1e2f3a6f950d74bde20d4113",
-      "bytes": 64169,
+      "sha256": "6008eb1bc73cd65ab9d8435d0b50d5f7cfd38028f350cbef059a4864f4512eb6",
+      "bytes": 63343,
       "run_bound": false
     },
     {
       "path": "engineering/trace-index.csv",
-      "sha256": "b68c07affce4f09b20561df373dc415774dffcc31fd98e21fd187928a1258b1a",
-      "bytes": 11125,
+      "sha256": "3b458b63c4918ff02a14eb0f14939c5aabfe4c155d10cea679b7a4363bbcc40c",
+      "bytes": 11129,
       "run_bound": false
     },
     {
       "path": "engineering/trace/data.md",
-      "sha256": "f535c5a996e1dc11d90250fde5e57074281e8ed84cbb2351f1a0d2d661b85aad",
-      "bytes": 45289,
+      "sha256": "95d64cebfe8a0258a4e083b134a9629389bee6516c16da61c512e19df6578987",
+      "bytes": 46478,
       "run_bound": true
     },
     {
       "path": "engineering/trace/identity.md",
-      "sha256": "9e5b68f3b667776f176375d7576c8e2e88a58d202bdaf888015debc72e675f07",
-      "bytes": 36048,
+      "sha256": "88d38b1bd8cd2c1bf8a8d4ec8a90c174cfb989a21cb0f04cb550a829c01a49bf",
+      "bytes": 40547,
       "run_bound": true
     },
     {
       "path": "engineering/trace/kubernetes.md",
-      "sha256": "dbad1860f698cb38ad7b7f781f93829b55380e02f1e0b45599803ce669aca9ad",
-      "bytes": 12198,
+      "sha256": "47ecae306811d0bf11f8eb6bcd55347ef1cc387ac0e651231d1f4127b2847ccb",
+      "bytes": 13989,
       "run_bound": true
     },
     {
       "path": "engineering/trace/loadbalancing.md",
-      "sha256": "4b53795afc63022029949423772fe2f63c11eebb9e1a0da9e78ce0c19a23e1f6",
-      "bytes": 11375,
+      "sha256": "49fde9045aab4839660824a4d4aa488204b56e32ef015253a11441432ea0677f",
+      "bytes": 13042,
       "run_bound": true
     },
     {
       "path": "engineering/trace/messaging.md",
-      "sha256": "711b6cd12261e098018aaa84745396b62f7c63599ee0e77c5440c9a15decccf0",
-      "bytes": 8661,
+      "sha256": "dcd611e80fe0a969a1f5b55d482d1ec220f7b5e9be2fc19aeafe3666a4ebda5f",
+      "bytes": 8812,
       "run_bound": true
     },
     {
       "path": "engineering/trace/network.md",
-      "sha256": "aff5774ea210bc8e55d439290ec819826d9a21e93260c606c607e88545c2a6b8",
-      "bytes": 10299,
+      "sha256": "2db4bc3731f3720a78968e0c4694e40a408bb2a94b1aa393cde606f804a4a2f4",
+      "bytes": 8596,
       "run_bound": true
     },
     {
       "path": "engineering/trace/observability.md",
-      "sha256": "ba4697dde521fdacf7e5bb3ecb42ddb53eeefbfb172d3af5aa7c199771f9cea0",
+      "sha256": "7923fe1d72a226d9aa40994aeec358b67f6b89c7b11101de6109a63c31a33c82",
       "bytes": 6249,
       "run_bound": true
     },
     {
       "path": "engineering/trace/security.md",
-      "sha256": "555b59d3b7bbc69d4fa7ee5e9dfd65c43252e62c38ae1529ce7f4744235fde3a",
-      "bytes": 81490,
+      "sha256": "202a740958feb30b831bcdca3ecb339afb0de5e874ed68ce4e14f849876f4932",
+      "bytes": 77783,
       "run_bound": true
     },
     {
       "path": "execution-plan.json",
-      "sha256": "04fd4c0b247e170e0a6fb9be2b90013a00f5cd2e6bcbb8e3fa76e8a0849d0c9e",
-      "bytes": 1726203,
+      "sha256": "7f43b567012a85b8feaec590b8859e0a3dd8c0bcaa6e7789558f41816e5cc6f6",
+      "bytes": 1833944,
       "run_bound": false,
       "kind": "execution-plan",
-      "action_ids_list": "AL-a29c3994c968"
+      "action_ids_list": "AL-db33b924041c"
     },
     {
       "path": "execution/README.md",
-      "sha256": "b218570d4284bfe6b163d3abbb9a23b11bc30a7beed10bbc5de3e73fc186a096",
-      "bytes": 404042,
+      "sha256": "4e133b79a31d2526d5083f9522f9659cb45a64330786695408f868e36b5510b3",
+      "bytes": 450456,
       "run_bound": false,
       "kind": "execution-readme",
-      "action_ids_list": "AL-a29c3994c968"
+      "action_ids_list": "AL-db33b924041c"
     },
     {
       "path": "execution/api/secrets-manager-vault/001-writesecret.json",
-      "sha256": "608b87ab2e0906b2e9648275c1f52bcbe3f40bb018c1e82b638552f1a30a158d",
-      "bytes": 4973,
+      "sha256": "355192ebedb8e58232b88a70ee2c99c36480f72156d851564dcfc0da5611fab3",
+      "bytes": 4981,
       "run_bound": false,
       "kind": "api-request",
       "action_ids": [
-        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db"
+        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch"
       ]
     },
     {
       "path": "execution/api/secrets-manager-vault/001-writesecret.sh",
-      "sha256": "14a3e0c911cef87282eaf3528280ca27bb332827eee279496542af3017324249",
-      "bytes": 12759,
+      "sha256": "f61e53237703b75836416f1ee8ba661ce6036e37ecb76627c383924e64abc6a3",
+      "bytes": 12821,
+      "run_bound": false,
+      "kind": "api-script",
+      "action_ids": [
+        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch"
+      ]
+    },
+    {
+      "path": "execution/api/secrets-manager-vault/002-writesecret.json",
+      "sha256": "645b5b61356995e5c4683016a830b07ca39b4cbeb9bbdba7e00d5e5aa1a2c68e",
+      "bytes": 4885,
+      "run_bound": false,
+      "kind": "api-request",
+      "action_ids": [
+        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.mq"
+      ]
+    },
+    {
+      "path": "execution/api/secrets-manager-vault/002-writesecret.sh",
+      "sha256": "1defdc105d8a5a2ecc58711334b93967fded7cceda926e36d7797f8dfd2bf41c",
+      "bytes": 12517,
+      "run_bound": false,
+      "kind": "api-script",
+      "action_ids": [
+        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.mq"
+      ]
+    },
+    {
+      "path": "execution/api/secrets-manager-vault/003-writesecret.json",
+      "sha256": "a1afb2e6c4380b8d4212c1c8ba45205b04951ea9cf087bae53db4c0e1c7a22b9",
+      "bytes": 5152,
+      "run_bound": false,
+      "kind": "api-request",
+      "action_ids": [
+        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db"
+      ]
+    },
+    {
+      "path": "execution/api/secrets-manager-vault/003-writesecret.sh",
+      "sha256": "369e839e3a07a2eefe9bc1139d0e7b6ed94338302cfec75e8426ea41193c1b7a",
+      "bytes": 12669,
       "run_bound": false,
       "kind": "api-script",
       "action_ids": [
@@ -1093,49 +1151,9 @@
       ]
     },
     {
-      "path": "execution/api/secrets-manager-vault/002-writesecret.json",
-      "sha256": "877199d52f865fadb52758f1a2007b5a8ad814ca16bf702c95a7f70956e3c493",
-      "bytes": 5021,
-      "run_bound": false,
-      "kind": "api-request",
-      "action_ids": [
-        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch"
-      ]
-    },
-    {
-      "path": "execution/api/secrets-manager-vault/002-writesecret.sh",
-      "sha256": "a4d009a38e05e2a3f7dccfc603277ad86807cd201b6b3c5026e5a2a19bffd52c",
-      "bytes": 12911,
-      "run_bound": false,
-      "kind": "api-script",
-      "action_ids": [
-        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch"
-      ]
-    },
-    {
-      "path": "execution/api/secrets-manager-vault/003-writesecret.json",
-      "sha256": "629bb07ec300cf99a383ba400f35cee741c6cd20e35154b6214f1c45066cbd53",
-      "bytes": 4925,
-      "run_bound": false,
-      "kind": "api-request",
-      "action_ids": [
-        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.mq"
-      ]
-    },
-    {
-      "path": "execution/api/secrets-manager-vault/003-writesecret.sh",
-      "sha256": "b2820781e72bab2466e3e18c056b024b9656b8408a4381c3456180e62cf602c0",
-      "bytes": 12607,
-      "run_bound": false,
-      "kind": "api-script",
-      "action_ids": [
-        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.mq"
-      ]
-    },
-    {
       "path": "execution/api/secrets-manager-vault/004-writesecret.json",
-      "sha256": "f9b04e5a319151535d27ef786c6ea48752d51a53e11700ccbae0c7fe452245c2",
-      "bytes": 4967,
+      "sha256": "bab77d45e6c8ed56c59d13010c37bd37a7cb7d6a7dd7be0fcc90815b110ada7c",
+      "bytes": 5142,
       "run_bound": false,
       "kind": "api-request",
       "action_ids": [
@@ -1144,8 +1162,8 @@
     },
     {
       "path": "execution/api/secrets-manager-vault/004-writesecret.sh",
-      "sha256": "512fd3926ef02b49a19cbabe330fd72c5eb714316c5a4a5f0eebc95990d9e00d",
-      "bytes": 12740,
+      "sha256": "92433c8bb1be17764fe4bb186ea8c303653703c6b3fdf42dccbdeac35e9cf99b",
+      "bytes": 12650,
       "run_bound": false,
       "kind": "api-script",
       "action_ids": [
@@ -1154,11 +1172,11 @@
     },
     {
       "path": "execution/manual/actions.md",
-      "sha256": "efe211c20b039644c76223fecad763a54d20181b4440104de8f9dc5c47ad7f2d",
-      "bytes": 921281,
+      "sha256": "407192eaa974b23007bc0d4a2f878bbbb08d19de3a47f88ddc8459417d8a6f14",
+      "bytes": 1005357,
       "run_bound": false,
       "kind": "manual-actions",
-      "action_ids_list": "AL-a29c3994c968",
+      "action_ids_list": "AL-db33b924041c",
       "action_ids_except": [
         "TF/stackit_network.vpc_vpc_private",
         "TF/stackit_network.vpc_vpc_public",
@@ -1166,10 +1184,8 @@
         "TF/stackit_kms_key.retail_app_ecs_cmk",
         "TF/stackit_secretsmanager_instance.migrated_secrets",
         "TF/stackit_secretsmanager_user.migration",
-        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db",
         "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch",
         "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.mq",
-        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.orders_db",
         "TF/stackit_security_group.retail_app_ecs_alb_sg_this_name_prefix",
         "TF/stackit_security_group.retail_app_ecs_alb_this",
         "TF/stackit_security_group.retail_app_ecs_carts_service_this",
@@ -1210,10 +1226,12 @@
         "TF/stackit_ske_cluster.retail_app_ecs_cluster",
         "TF/stackit_mariadb_instance.dependencies_catalog_rds_this",
         "TF/stackit_mariadb_credential.dependencies_catalog_rds_this",
+        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db",
         "TF/stackit_opensearch_instance.dependencies_catalog_opensearch_this",
         "TF/stackit_opensearch_credential.dependencies_catalog_opensearch_this",
         "TF/stackit_postgresflex_instance.dependencies_orders_rds_this",
         "TF/stackit_postgresflex_user.dependencies_orders_rds_this",
+        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.orders_db",
         "TF/stackit_postgresflex_database.dependencies_orders_rds_this_orders",
         "TF/stackit_rabbitmq_instance.dependencies_mq",
         "TF/stackit_rabbitmq_credential.dependencies_mq"
@@ -1221,8 +1239,8 @@
     },
     {
       "path": "execution/terraform/apply.md",
-      "sha256": "6653c87eb7ef7692219e9c0985099ff293b80f4b0f53cfa4b2a2a4330725041e",
-      "bytes": 81958,
+      "sha256": "7f096d579ed0a7a2262553b368e380098711aeb056045ddd8ec34d5138cc6298",
+      "bytes": 78053,
       "run_bound": false,
       "kind": "terraform-guide",
       "action_ids": [
@@ -1283,11 +1301,11 @@
     },
     {
       "path": "execution/verify/checks.md",
-      "sha256": "f56fc12cdd2c9c81a42f27aa783ee483a10a276ddea8050819aee3f3875bc8ad",
-      "bytes": 85982,
+      "sha256": "847087b7f13e3c53dac059b79a5d5be4364741af59e56f7108a2eef1a1c8ccd3",
+      "bytes": 89921,
       "run_bound": false,
       "kind": "verify-checks",
-      "action_ids_list": "AL-a29c3994c968",
+      "action_ids_list": "AL-db33b924041c",
       "action_ids_except": [
         "MAN/identity/facts:module.retail_app_ecs.module.carts_service.aws_ecs_service.this:module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this.execution_role_arn-586451",
         "MAN/identity/facts:module.retail_app_ecs.module.carts_service.aws_ecs_service.this:module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this.task_role_arn-686488",
@@ -1304,7 +1322,6 @@
         "MAN/security/aws/unplaced:module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix:module.retail_app_ecs.module.alb_sg.aws_security_group_rule.egress_rules.0-217968",
         "MAN/security/aws/unplaced:module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix:module.retail_app_ecs.module.alb_sg.aws_security_group_rule.ingress_rules.0-f26028",
         "MAN/semantic/module.vpc.module.vpc.aws_eip.nat/public-address",
-        "MAN/semantic/module.vpc.module.vpc.aws_internet_gateway.this/network-topology-boundary",
         "MAN/semantic/module.vpc.module.vpc.aws_nat_gateway.this/open-settings",
         "MAN/semantic/module.vpc.module.vpc.aws_route_table.private/open-settings",
         "MAN/semantic/module.vpc.module.vpc.aws_route_table.public/open-settings",
@@ -1351,7 +1368,6 @@
         "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role/open-settings",
         "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_iam_role.task_role/open-settings",
         "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_security_group.this/open-settings",
-        "REF/root/security-group-membership-parity",
         "MAN/security/aws/incomplete:module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix:group-module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix.0.:rules:module.retail_app_ecs.module.alb_sg.aws_security_group_rule.egress_rules-b506f3",
         "MAN/security/aws/incomplete:module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix:group-module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix.0.:rules:module.retail_app_ecs.module.alb_sg.aws_security_group_rule.ingress_rules-a538f6",
         "MAN/semantic/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/encryption-at-rest",
@@ -1414,11 +1430,11 @@
         "MAN/draft/kubernetes/checkout/manifests-yaml",
         "MAN/draft/kubernetes/orders/manifests-yaml",
         "MAN/draft/kubernetes/ui/manifests-yaml",
+        "MAN/cutover/readiness",
         "MAN/cutover/connection/module.dependencies.module.catalog_rds.aws_rds_cluster.this",
         "MAN/cutover/connection/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default",
         "MAN/cutover/connection/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this",
         "MAN/cutover/connection/module.dependencies.module.orders_rds.aws_rds_cluster.this",
-        "MAN/cutover/readiness",
         "MAN/cutover/connection/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db",
         "MAN/cutover/connection/module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch",
         "MAN/cutover/connection/module.retail_app_ecs.aws_secretsmanager_secret.mq",
@@ -1427,6 +1443,16 @@
         "MAN/cutover/messaging-drain/module.dependencies.aws_mq_broker.mq",
         "MAN/cutover/messaging-consumers/module.dependencies.aws_mq_broker.mq",
         "MAN/cutover/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
+        "MAN/cutover/start/kubernetes/carts/manifests-yaml",
+        "MAN/cutover/service/kubernetes/carts/manifests-yaml",
+        "MAN/cutover/start/kubernetes/catalog/manifests-yaml",
+        "MAN/cutover/service/kubernetes/catalog/manifests-yaml",
+        "MAN/cutover/start/kubernetes/checkout/manifests-yaml",
+        "MAN/cutover/service/kubernetes/checkout/manifests-yaml",
+        "MAN/cutover/start/kubernetes/orders/manifests-yaml",
+        "MAN/cutover/service/kubernetes/orders/manifests-yaml",
+        "MAN/cutover/start/kubernetes/ui/manifests-yaml",
+        "MAN/cutover/service/kubernetes/ui/manifests-yaml",
         "MAN/cutover/module.retail_app_ecs.module.alb.aws_lb.this",
         "MAN/cutover/complete",
         "MAN/verify/dns/module.retail_app_ecs.module.carts_service.aws_ecs_service.this",
@@ -1435,180 +1461,178 @@
         "MAN/verify/dns/module.retail_app_ecs.module.orders_service.aws_ecs_service.this",
         "MAN/verify/dns/module.retail_app_ecs.module.ui_service.aws_ecs_service.this",
         "MAN/verify/endpoint/module.dependencies.aws_mq_broker.mq",
-        "MAN/verify/endpoint/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this"
+        "MAN/verify/endpoint/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
+        "MAN/verify/restore/module.dependencies.module.orders_rds.aws_rds_cluster.this"
       ]
     },
     {
       "path": "executive/brief.md",
-      "sha256": "b19a3382e595df8f47e1e157b82350ed7ef1c4afd129ab1ed4f66741940e058e",
-      "bytes": 31695,
+      "sha256": "bce855e2d8975bf23ad99a59764feb2cb32cdcc00593b7fe0b32f8abf9e54ea0",
+      "bytes": 36101,
       "run_bound": true
     },
     {
       "path": "executive/decisions.md",
-      "sha256": "a7788918f29b95866cce4095d26b0de4259a0ce0ff6e79b6ebf8dc1fdc00973a",
-      "bytes": 508144,
+      "sha256": "6ea4ab6cfbb1a71bcc8bebbb2d5238a21e1c30c14726153aac945b0332ff9115",
+      "bytes": 457230,
       "run_bound": true
     },
     {
       "path": "financial/cost-coverage.md",
-      "sha256": "e429a73f736fe2272814b37198c6ac26a318d8bb243152f9b6b390dcb341cfb4",
-      "bytes": 84934,
+      "sha256": "1b1f3c2fd455d50f9a1c7ce08948ae57e4b8904dc3ce479621eadd6dba277d80",
+      "bytes": 95145,
       "run_bound": true
     },
     {
       "path": "financial/cost-model.json",
-      "sha256": "a0d00d6ae10e1dca7e04c1bef384beb3118163ee8906dacd17727b12992b4f02",
-      "bytes": 173113,
+      "sha256": "84d462c7320d8c075f92dcf9ef05919c45a220a8cdbe7fc198e7eade1815b81b",
+      "bytes": 186224,
       "run_bound": true
     },
     {
       "path": "financial/mapping.csv",
-      "sha256": "32ef28864a0c769695683753a051ff40304cfa71e9597169f3835ff83dfeeb46",
-      "bytes": 16402,
+      "sha256": "8923d7b0aa0c17e5f2a5c7e088a5a3112d55b51c9e80d1772dae14d4871ff2c8",
+      "bytes": 16523,
       "run_bound": false
     },
     {
       "path": "financial/price-snapshot.json",
-      "sha256": "4efb67381ba307e6e4296155f8a8bd54a6b4e42f8ef9fa65d6c849a76ae41a92",
-      "bytes": 2412,
+      "sha256": "908362fac52b424d0162ea10694b69f9bb10a13cd5801c6cd93e549b65eb755c",
+      "bytes": 2441,
       "run_bound": true
     },
     {
       "path": "financial/priced-resources.csv",
-      "sha256": "29a746f4844c4fb23e980f766211aec92cde49a523e32ffe6b0a829cceece837",
-      "bytes": 32396,
+      "sha256": "24a74122c89d54f5d0246b3ce808480c2039cee7827e5a5f720f0fe1652a9814",
+      "bytes": 34948,
       "run_bound": false
     },
     {
       "path": "index.html",
-      "sha256": "ef4dd7d6b33ccf1bc1966c2c596b72ae3381a93c19f5bf1aa20dcea9aa4c029b",
-      "bytes": 107379,
+      "sha256": "c23b3826866016511b042c754a689735a0b4372741b20e74de6c4bf9aaf95975",
+      "bytes": 115430,
       "run_bound": true
     },
     {
       "path": "inputs-template.yaml",
-      "sha256": "e0e4f6933953c6b0fb4a25a9b4825ef8efcb694873f2c816402865f65426e3c8",
-      "bytes": 45858,
+      "sha256": "36364d632beb0c7df22b73582714f1c1b86a71b35fa57043d7bf2ed5f19b947a",
+      "bytes": 51701,
       "run_bound": true
     },
     {
       "path": "migration/actions.csv",
-      "sha256": "f6960bdb547adad1675562c8702db7115cf66b0e569ac6f9999f112f3357e092",
-      "bytes": 423200,
+      "sha256": "6368f64df9dbf9d551593c9fe3fbc38d29c663308efff9626167b666d51ef6d9",
+      "bytes": 398137,
       "run_bound": false
     },
     {
       "path": "migration/application-chain.csv",
-      "sha256": "839d3ad4bf147a3c2ea5459b074827b90781b1a950b7f330867fb3a98ff6c6fb",
-      "bytes": 37423,
+      "sha256": "5bc5b317891228e622ac3a4910918cbc60836d4094de6da0ca526a0bc8433db8",
+      "bytes": 45809,
       "run_bound": false
     },
     {
       "path": "migration/applications.csv",
-      "sha256": "06a45f135d658bbbcea931c3ff35d9b77c4549abfe302e39fe6d374369ee73f6",
-      "bytes": 15728,
+      "sha256": "45b79e3a67b155d64bd1df5c7112dda21affe76a2bb4b8a0029fd69889df21b3",
+      "bytes": 16027,
       "run_bound": false
     },
     {
       "path": "migration/data-movement-plan.json",
-      "sha256": "12b4d36daa8dc304834fdf92a156102c031746db1aff2ef1bdf7152791024151",
-      "bytes": 177077,
+      "sha256": "fb47e739c78b3a1c8159de7072b946ded9121374b71736b13f9deb47598d56b4",
+      "bytes": 227994,
       "run_bound": true
     },
     {
       "path": "migration/data-movement.csv",
-      "sha256": "5e7844e0f4ad0986add374f4b15e76c1eb027acdac581db4a8481aea1cf7e3b9",
-      "bytes": 2798,
+      "sha256": "9d89dc686413a148d8720245721c31deba825c7481e32a5e646ff4d05ab42284",
+      "bytes": 2893,
       "run_bound": false
     },
     {
       "path": "migration/data-movement.json",
-      "sha256": "4328a494b7941a42100bdf2977609a8981faeda7f18870bac8576afcdba5bd60",
-      "bytes": 18842,
+      "sha256": "05b434b60050aed6eac0ec342fc5831853468e7b646d822334fbb79a0f9b09ed",
+      "bytes": 23548,
       "run_bound": true
     },
     {
       "path": "migration/data-movement.md",
-      "sha256": "8601e94d7c518d646f725591daf63fe45ebfa6c7e108d93171d8745e3c27d3fe",
-      "bytes": 12765,
+      "sha256": "e793377b51dfcf294dffec3d86bfe01a0cb870e8b20e21c4ecf9851768613e0b",
+      "bytes": 17249,
       "run_bound": true
     },
     {
       "path": "migration/decisions.csv",
-      "sha256": "45fb86c3c04ea3afd51f0d6bafd296990f43efc9db27137a642329b8180b7bac",
-      "bytes": 155991,
+      "sha256": "743999c23620463024b2e312f345d9a42e5dd296ce1ba00d68418d88f05dca25",
+      "bytes": 153293,
       "run_bound": false
     },
     {
       "path": "migration/execution-actions.csv",
-      "sha256": "68334787a599c9f3e0c8b25a13917cfa79615d9ec2f3f07e5a6d383b981fa270",
-      "bytes": 431097,
+      "sha256": "d5d902a71689bd4d132e8f30c73ad574722db4c41357a00e93a757a421c2cf2e",
+      "bytes": 468593,
       "run_bound": false,
       "kind": "actions-csv",
-      "action_ids_list": "AL-a29c3994c968"
+      "action_ids_list": "AL-db33b924041c"
     },
     {
       "path": "migration/landing-zone-requirements.md",
-      "sha256": "f2ee38aec23e07926830c8117ada1ada54dd58cf1a0e69452f999a90deff40bd",
-      "bytes": 59969,
+      "sha256": "5820c161bcfeb638cfd5311c69bde4b1b14c917b0cd6ae39a561e3af7025cc7d",
+      "bytes": 55403,
       "run_bound": true
     },
     {
       "path": "migration/prerequisites.md",
-      "sha256": "ca17bb9328b415b94e6f830c6a9b45a0ae846a6b884d74978c1d24db3ca965bb",
-      "bytes": 43240,
+      "sha256": "a58e4c6a51be5a1430dfa1d545c0eee01253df90cd81e5a3ce3bc52e476939a1",
+      "bytes": 43570,
       "run_bound": true
     },
     {
       "path": "migration/roadmap.md",
-      "sha256": "33d6b9cbec28a4f8fd2cdd559fe78964307887211e80f2ae14b753ef06707edc",
-      "bytes": 334575,
+      "sha256": "dc6d21d47976ae92749a4f5a6531e0c0185c09cafb9aa42b33577e9007d59f32",
+      "bytes": 379652,
       "run_bound": true
     },
     {
       "path": "migration/source-target.csv",
-      "sha256": "17680fbc076ecff65760ae9b67f709ca6e0cbf31fbde9be8487d67c0471b60f6",
-      "bytes": 18901,
+      "sha256": "68e50a5b2a0f0f98cc27d9062f1d4dd9fb32c17405185a8294314fb7c9408349",
+      "bytes": 20667,
       "run_bound": false
     },
     {
       "path": "migration/technical-sequencing.md",
-      "sha256": "bf1163069e335c2913e6c655fcd32a877303836cedfd94c03c7b4d445f324e95",
-      "bytes": 16511,
+      "sha256": "aae35a9862bf6d7ad018e78be6346178c02726aad8fa1b7781971afaaf5beb36",
+      "bytes": 16525,
       "run_bound": true
     },
     {
       "path": "migration/waves.csv",
-      "sha256": "1253aeaa3b910bd91aa7e8c72bcf2caf4f49248469107b32a62d2e960a661a91",
-      "bytes": 15359,
+      "sha256": "f19a252af4f8400b6e3e0d0445cdab28025b9d2837819b7b44a20881f2c72011",
+      "bytes": 15329,
       "run_bound": false
     },
     {
       "path": "migration/work-board.csv",
-      "sha256": "5473a7807a78917a6f0c019c261a396db8f9e6ee3717f328d72f3ec0b854b720",
-      "bytes": 302429,
+      "sha256": "fc5e0e96aedb98b0abf5f03da6226e5530dd189b71f27982723d348449c52597",
+      "bytes": 428655,
       "run_bound": false
     },
     {
       "path": "migration/work-packages.csv",
-      "sha256": "ae5b6f27823e268e32f75aafd8c2d66ecc1c4068d9d10e97a196a4290a8d855d",
-      "bytes": 96440,
+      "sha256": "0f8d99422b37fa44375e8479686a4a5d33d74a32f3d28414613b10d6d86f0754",
+      "bytes": 106137,
       "run_bound": false,
       "kind": "work-packages-csv",
-      "action_ids_list": "AL-a29c3994c968",
+      "action_ids_list": "AL-db33b924041c",
       "action_ids_except": [
         "TF/stackit_network.vpc_vpc_private",
         "TF/stackit_network.vpc_vpc_public",
-        "REF/root/security-group-membership-parity",
         "TF/stackit_kms_keyring.migrated",
         "TF/stackit_kms_key.retail_app_ecs_cmk",
         "TF/stackit_secretsmanager_instance.migrated_secrets",
         "TF/stackit_secretsmanager_user.migration",
-        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db",
         "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch",
         "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.mq",
-        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.orders_db",
         "TF/stackit_security_group.retail_app_ecs_alb_sg_this_name_prefix",
         "TF/stackit_security_group.retail_app_ecs_alb_this",
         "TF/stackit_security_group.retail_app_ecs_carts_service_this",
@@ -1651,10 +1675,12 @@
         "TF/stackit_ske_cluster.retail_app_ecs_cluster",
         "TF/stackit_mariadb_instance.dependencies_catalog_rds_this",
         "TF/stackit_mariadb_credential.dependencies_catalog_rds_this",
+        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db",
         "TF/stackit_opensearch_instance.dependencies_catalog_opensearch_this",
         "TF/stackit_opensearch_credential.dependencies_catalog_opensearch_this",
         "TF/stackit_postgresflex_instance.dependencies_orders_rds_this",
         "TF/stackit_postgresflex_user.dependencies_orders_rds_this",
+        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.orders_db",
         "TF/stackit_postgresflex_database.dependencies_orders_rds_this_orders",
         "TF/stackit_rabbitmq_instance.dependencies_mq",
         "TF/stackit_rabbitmq_credential.dependencies_mq"
@@ -1662,218 +1688,224 @@
     },
     {
       "path": "pages/applications.html",
-      "sha256": "ac981095b916b78ca89b6501a102ca50139aa8029e2f376e55311de05f08f592",
-      "bytes": 124276,
+      "sha256": "353d0340c11ac14cfaf5e74556356ff5d10d467f17404891610f0ba9b62776bc",
+      "bytes": 138377,
       "run_bound": true
     },
     {
       "path": "pages/architecture.html",
-      "sha256": "c60a5bcefbe48340704ac0f28570597084192f9c5fb49ed63f3f51349c772826",
-      "bytes": 615007,
+      "sha256": "b85b8d31f7cb6beedbfc4599f311873905b42fdffa28c9c6e0b4fb826b770d23",
+      "bytes": 751907,
       "run_bound": true
     },
     {
       "path": "pages/cost.html",
-      "sha256": "d9477802492f63c41be19139296a2a986841bd6dddaeb05b14625de0c22d8761",
-      "bytes": 179954,
+      "sha256": "06c8c22a00e65f6d7cdcbf2ebee56aacc3004d217667e36d8d05ef8e84fbb94e",
+      "bytes": 193249,
       "run_bound": true
     },
     {
       "path": "pages/decisions.html",
-      "sha256": "ec1026428429c929668ff203344ae1688d768352b5efb2acc9701be157d0766f",
-      "bytes": 1044038,
+      "sha256": "7e3b5365273a18cf4204704276c15f698764109a92ea16f6c742f8f5de0e7201",
+      "bytes": 1034940,
       "run_bound": true
     },
     {
       "path": "pages/decisions/g01.html",
-      "sha256": "e2aba02ae011ecb46f251ec9dff60d0e87b6e0bc25040783d9d8f35283371ce7",
-      "bytes": 304619,
+      "sha256": "a72df7952a889305c1860b5445264afbc0b1005623dafa844698e5b2da7769ed",
+      "bytes": 376188,
       "run_bound": true
     },
     {
       "path": "pages/decisions/g02.html",
-      "sha256": "5439fc1bf9102c23e145b3eda979aa1efe92e7594baf843e742c4e23963ae104",
-      "bytes": 90090,
+      "sha256": "c435427c04ba627df4ceda4e347eb02cc7804aff8eb393575c88858bba5f8ebe",
+      "bytes": 84035,
       "run_bound": true
     },
     {
       "path": "pages/decisions/g03.html",
-      "sha256": "ba61523bd948cf39143b8eec484395e0146e1e3640bdae2c5ff87e14abdf8124",
-      "bytes": 69577,
+      "sha256": "e374fc6f043e7da20f545bfc1eb1ed734e857c3fb5dca6359d03c00ccb2a4e03",
+      "bytes": 58806,
       "run_bound": true
     },
     {
       "path": "pages/decisions/g04.html",
-      "sha256": "2f5e1a7c2b8e03efd85fd0aebf1619f11d028c9ddc296e903a14f11c39303307",
-      "bytes": 162020,
+      "sha256": "5ebd8ce53889a2f227e43ffa806d7b26c751b658e59ef0e7fbfd1f881677a17c",
+      "bytes": 50361,
       "run_bound": true
     },
     {
       "path": "pages/decisions/g05.html",
-      "sha256": "d8085905ebdd707e251765f43ce8635095bca7f48df0012a3d50a792dcc08a67",
-      "bytes": 50422,
+      "sha256": "f4213a94b32ec8fac0bd25a96b702d2349a62336146a59fdf15349ec3bec92de",
+      "bytes": 38442,
       "run_bound": true
     },
     {
       "path": "pages/decisions/g06.html",
-      "sha256": "9fcf6776746df2b9898f71de39ccaced939edfb99eee9eb9d6859e668c1ad632",
-      "bytes": 38424,
+      "sha256": "4b23a616ca653dd8c7e23528eebb3d86461b1be9d7738974069184e77c61769e",
+      "bytes": 69033,
       "run_bound": true
     },
     {
       "path": "pages/decisions/g07.html",
-      "sha256": "bda0fdb9bac0f6c4b06241b9477e8ff594706b0cd64ef7072f9fc7f11f05e7a9",
-      "bytes": 68975,
+      "sha256": "66cadc6fb659c1233b740654de982bfcbdae297ec537d99da4d8ae58324f8f7b",
+      "bytes": 138858,
       "run_bound": true
     },
     {
       "path": "pages/decisions/g08.html",
-      "sha256": "d665f7fec8ed35f8555fdfb3ed52191b13c58aa53cebe14b956d087b8356652d",
-      "bytes": 141303,
+      "sha256": "9af6772f089a0d734799acb2d5aa491907adc1de3255e940fd1b46118090cda8",
+      "bytes": 46277,
       "run_bound": true
     },
     {
       "path": "pages/engineering.html",
-      "sha256": "b42a90ecafed7349247dfad15b6579c3c7b0d3ce92f2eb9b15a7e2a8947f123a",
-      "bytes": 643734,
+      "sha256": "4c1796f9c66e63386edf6df81383c8a9514931c4b63f562321903bce0ea13c51",
+      "bytes": 640495,
       "run_bound": true
     },
     {
       "path": "pages/evidence.html",
-      "sha256": "4342e0fd2953d146c1eb9a2820d1bc13a6fd057faef2a44402c71248776b1433",
-      "bytes": 112848,
+      "sha256": "dc5f490baab4ce21dabf86ac8f09b39d0e18d439f0b5f67b2d0a6c2e2eb1a796",
+      "bytes": 103218,
       "run_bound": true
     },
     {
       "path": "pages/migration.html",
-      "sha256": "baf7995b2c94fa2fcb6378431c3dc4c6fb9be0e9d8c63584f328f2e600079b88",
-      "bytes": 104627,
+      "sha256": "7a81a5a663208f7e39cc7d06ab546cac535ed091aab8059c9ef8ba132d0cbd5a",
+      "bytes": 119576,
       "run_bound": true
     },
     {
       "path": "pages/operations.html",
-      "sha256": "c73d2ccb0e5f248027f08e89a8b4296fe581bf0933ac353332b1872ef5bc1178",
-      "bytes": 65445,
+      "sha256": "721b9dfd2622e89c489bc46ab5840096c2c687ab3d5888178a68a683751917b4",
+      "bytes": 69937,
       "run_bound": true
     },
     {
       "path": "pages/security-assurance.html",
-      "sha256": "e030e845ab810c78080ff22f053ba1d867830d21c132724afd4b71124beb00af",
-      "bytes": 135164,
+      "sha256": "52c52718f3a84e62580f3fbf3945d5a35a8d5e69e5130f021b89ac09171c225b",
+      "bytes": 135172,
       "run_bound": true
     },
     {
       "path": "pages/sovereignty.html",
-      "sha256": "f5260b86d77a84bdfa86bb888e66ea03f6eab9c362e3c592a1744260d3f001a8",
-      "bytes": 78820,
+      "sha256": "a6b63d93352e1f65069f75c5b0f33fd62e99d9ed69431e05dfa82840cca9ef50",
+      "bytes": 78828,
       "run_bound": true
     },
     {
       "path": "pages/target-fit.html",
-      "sha256": "6668284aa84381112180f48258c14cedb6f20c26a7ec05116376da296ae074fc",
-      "bytes": 208462,
+      "sha256": "290fe16319013f1bf6fe57dc03f325488d078e119c92497492377e0bb2a97926",
+      "bytes": 212753,
       "run_bound": true
     },
     {
       "path": "pages/work-board.html",
-      "sha256": "47e78845f4245074c6280f91cc8dad2182f47076fc21ec150156e8c237c5fbf5",
-      "bytes": 684107,
+      "sha256": "ac8dcb86c2291a2b47e729e31fe1a05a078bb84233f61d06cdf3f993bd0d24e3",
+      "bytes": 858045,
       "run_bound": true
     },
     {
       "path": "progress-template.yaml",
-      "sha256": "aea15fd4b7e6c3672048f48a600df1ea15738a41ea529b5a9be764db5560ae07",
-      "bytes": 108048,
+      "sha256": "ba8bca84219fb2be067eed2df2ab7e03ebcd82d13700e3c7a8c315ad667e8c60",
+      "bytes": 113746,
       "run_bound": true
     },
     {
       "path": "target-plan.json",
-      "sha256": "e66804b9b172c209aed66c3e3bdbaa0d7c1e95a7a06aefc3370c3800c1baffd4",
-      "bytes": 295853,
+      "sha256": "29cde1ab3c243d1cd28f30eed2800974a7715a687c24596cf22b51ba72b6efc4",
+      "bytes": 292482,
       "run_bound": true
     },
     {
       "path": "terraform/README.md",
-      "sha256": "b80fa258808b5464662fa01bf92dbdf9944a53398493d8504f9dfebf97e5666e",
-      "bytes": 45081,
+      "sha256": "2f4c71a61f02436c14fee3301bf2d371fe2e3c409619e082217e102e2d2cc8fb",
+      "bytes": 45260,
       "run_bound": true
     },
     {
       "path": "terraform/applications/carts.json",
-      "sha256": "6ce243fe459b340fa70274b3bed83e019ed747d6bca5282ffa876bcbaa28d877",
-      "bytes": 13666,
+      "sha256": "5ff6766d146c67e08c6be144b503ca2af70a60226d1270493a43e18f22d62c43",
+      "bytes": 10792,
       "run_bound": false
     },
     {
       "path": "terraform/applications/carts.templates.yaml",
-      "sha256": "11daae3eb0c7c5dce7d8fab6ca75a934396f9c2d462896961e50b41c7e1988fc",
-      "bytes": 1370,
+      "sha256": "3b75036d84126a1d3bcc6d1891e8e70ad9b07a0042a4c4cc76bb3e6cc52bd68d",
+      "bytes": 2222,
       "run_bound": false
     },
     {
       "path": "terraform/applications/catalog.json",
-      "sha256": "f02725a1c5f317aabc870f7c2123986187d7d6379ae9a521eaee30ae5a6b7d02",
-      "bytes": 15487,
+      "sha256": "cbe8b753328cd757ac0f78b1973ae29c39c6123db47bb6459f3eebe20ceecde9",
+      "bytes": 26170,
       "run_bound": false
     },
     {
       "path": "terraform/applications/catalog.templates.yaml",
-      "sha256": "340e43740c8dfd1b5471594e8e3955982aa96a5803d0dcd1750826ebb2c64987",
-      "bytes": 1386,
+      "sha256": "bcd29cd3ea30feb41572767f8b8e61d06b609902bf56c13d3ca7a6d0f1e80b0f",
+      "bytes": 4188,
       "run_bound": false
     },
     {
       "path": "terraform/applications/checkout.json",
-      "sha256": "f8d0ec19a4b55b235d6b85dd9bd889948df1812c6dccece767c7c935bad0dd74",
-      "bytes": 11130,
+      "sha256": "e76b9c53e058a27029360b5ef99e4d7b8cbfd10d52f10f4b411b102389360b01",
+      "bytes": 13810,
       "run_bound": false
     },
     {
       "path": "terraform/applications/checkout.templates.yaml",
-      "sha256": "a1db8bc7f9643368968030edb4559ee9dbf086d41dbb12789f55f54bc3cb5151",
-      "bytes": 1394,
+      "sha256": "91052ba8b1bf52693422b34f43a35a3a0dff2d21f12a73a5a61c0ef14edec30e",
+      "bytes": 2451,
       "run_bound": false
     },
     {
       "path": "terraform/applications/orders.json",
-      "sha256": "b4d99dfabfe60aa94b3b6bf24c6c695758f4f4a5d61c023dc0c1b5148e8caef9",
-      "bytes": 13896,
+      "sha256": "5e9930f6869992d657ce1b2a9cd2e6dff2650ae8724a95232263861780ba7a66",
+      "bytes": 20593,
       "run_bound": false
     },
     {
       "path": "terraform/applications/orders.templates.yaml",
-      "sha256": "f4022acff0d0db94780ad4ffc03530395bfc95c4fb8997418cf3295d9c74bf92",
-      "bytes": 1958,
+      "sha256": "00660341f995d79838d021bad63838a660a1ff71ddeb96c9dfd1e6017ad2893d",
+      "bytes": 4075,
       "run_bound": false
     },
     {
       "path": "terraform/applications/ui.json",
-      "sha256": "6bbd805b374db891107e79f46a4b194f5a7a56b22fab321782e8405959f4cd11",
-      "bytes": 6912,
+      "sha256": "ea0e4d2cfd54265a1906ce7642e6c757c37394919f8bed0c568c42f6a076b866",
+      "bytes": 11101,
       "run_bound": false
     },
     {
       "path": "terraform/applications/ui.templates.yaml",
-      "sha256": "603c5dc3aeb34f07cdefed3cb7c9070d118dc636127aab62efb9d0a5960baf4b",
-      "bytes": 1346,
+      "sha256": "794695851af87cec7710f08dde42f245bcc3e8e92590d29d390b6d8a212ae7fc",
+      "bytes": 2716,
       "run_bound": false
     },
     {
       "path": "terraform/data.tf",
-      "sha256": "a872ebc85d5d6611a7e9ba7c5403ff977fd344d22b0a4b0102aca19bff5e3046",
-      "bytes": 40322,
+      "sha256": "140b567f0208f2b2bec26cebe2a71aae32515e908b9200a2ec8c08072489c555",
+      "bytes": 41779,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/handover/broker-dependencies_mq/data-move.md",
+      "sha256": "50dd002f692498f241b6d4490d576b53705bc28b735b09b3046e97fa2f7e12b5",
+      "bytes": 15511,
       "run_bound": false
     },
     {
       "path": "terraform/handover/cache-dependencies_checkout_elasticache_redis_default/data-move.md",
-      "sha256": "61711dca3780bb9dd7d3943a19dc4f64a3cf214a6d2d0211c33d8192369a36b3",
-      "bytes": 30132,
+      "sha256": "2d5b9aa78fce9987afa474025be503a16759317dc32e9c7bb63b70326d3e46c4",
+      "bytes": 30372,
       "run_bound": false
     },
     {
       "path": "terraform/handover/cluster-access/kubeconfig.md",
-      "sha256": "9f9faa3428d460d1ae1db4a48cb5f748f49465cee6918ce80fa294d1a205e89c",
-      "bytes": 5269,
+      "sha256": "c32f5732fe18fa6b1a3ad84c12bf38a87754a35335de66fa2f3ff7d7018bf51d",
+      "bytes": 5344,
       "run_bound": false
     },
     {
@@ -1884,8 +1916,8 @@
     },
     {
       "path": "terraform/handover/database-dependencies_orders_rds_this/data-move.md",
-      "sha256": "cfe05eb026634b6ea4460aa61ea27b07331a232955156c15500c37be31e3f113",
-      "bytes": 23836,
+      "sha256": "2eb08b9f7bec3d7c58fb91eab62918e050d3dd6a4d4fef9539e66930dd26b841",
+      "bytes": 24529,
       "run_bound": false
     },
     {
@@ -1902,74 +1934,74 @@
     },
     {
       "path": "terraform/identity.tf",
-      "sha256": "ab034186f1694e5315b1dd0e56d3a823ef9dd2abe2a27e6097564b664ac3f9da",
-      "bytes": 35863,
+      "sha256": "8accc8e3f1f8d387764c8bdf2ce01dc11a628bce9d3089be1e07bf6fa785c371",
+      "bytes": 41626,
       "run_bound": false
     },
     {
       "path": "terraform/kubernetes.tf",
-      "sha256": "b92c7555ed40e26f2c2501622fd0bc7bae242b61e2ded6ed6765a49aaa980d50",
-      "bytes": 9091,
+      "sha256": "aafaf9a9fd902fd0e91e8e1045fb50dc043f8cdc9c3728d66e4656daa7ff086d",
+      "bytes": 12696,
       "run_bound": false
     },
     {
       "path": "terraform/kubernetes/carts/manifests.yaml",
-      "sha256": "87124f05aafe794cd717dcf67b61c1f24a54d04d72ab9fd1f0e796553f0f2717",
-      "bytes": 9388,
+      "sha256": "a43a91c4b6936943be229cd8100b666c51e83d5efdc8b9eba4a61cadc434fa0c",
+      "bytes": 11840,
       "run_bound": false
     },
     {
       "path": "terraform/kubernetes/catalog/manifests.yaml",
-      "sha256": "5ef5434d388a57e094014804bdb46438b761b7121589f672ff3f72b5cd2c4f5d",
-      "bytes": 9675,
+      "sha256": "860ffccf0bb2337e1cdc9ed94eccd9f26fd751c375980fab49d17ede6b84ad4d",
+      "bytes": 14013,
       "run_bound": false
     },
     {
       "path": "terraform/kubernetes/checkout/manifests.yaml",
-      "sha256": "a56240826897a599354b9fa923f2dc41ff450d79931bfabbe5e273a6f97f495d",
-      "bytes": 9459,
+      "sha256": "6454af89e8899b3fedff87d965d351c242160162054e4acaf36983ab898c75b4",
+      "bytes": 12147,
       "run_bound": false
     },
     {
       "path": "terraform/kubernetes/orders/manifests.yaml",
-      "sha256": "0f2b5d42b00077fab54e18a3c33325c5059e59da14fa9c72baa1efa7b88d450d",
-      "bytes": 10784,
+      "sha256": "6eece4670d6f899b1c39f503edb873bcf7c8de523908d85ad9aaafab13fb9eee",
+      "bytes": 13860,
       "run_bound": false
     },
     {
       "path": "terraform/kubernetes/ui/manifests.yaml",
-      "sha256": "94d30b25736ec749964535b4b51ae44dcb5b2bb54b18e62f0216439c5bf9024b",
-      "bytes": 10834,
+      "sha256": "87eea4cc000296df2724ae474a9c5965aa652c34fa844b3c97111655f41ef44f",
+      "bytes": 14606,
       "run_bound": false
     },
     {
       "path": "terraform/loadbalancing.tf",
-      "sha256": "906e8d108890047852570fa801739d50321d76761fb0c8cc2e88298a689b07a2",
-      "bytes": 6549,
+      "sha256": "4332e4e4335372f049d09395af4928811692a1dd6ad5bba5e27c7ef5d9d6bd07",
+      "bytes": 8847,
       "run_bound": false
     },
     {
       "path": "terraform/messaging.tf",
-      "sha256": "10ea1033fc4193517e972906e772bc405d792f1bb31ea3a0894c20b9b4c28f84",
-      "bytes": 6499,
+      "sha256": "0c1a6feb6a6efbfb3abfbd42d474752566efc04e2e3d9bf9474851f94fba4fe3",
+      "bytes": 7900,
       "run_bound": false
     },
     {
       "path": "terraform/network.tf",
-      "sha256": "940cc5447b88d6f709ceb3aae16265bf371c71ef4bfdf58914608c1d32889ba0",
-      "bytes": 12996,
+      "sha256": "413caed5a371063dbf54220fb566d53d983f9f6b67d31f507feff39840dac044",
+      "bytes": 11576,
       "run_bound": false
     },
     {
       "path": "terraform/observability.tf",
-      "sha256": "f7a8556e9602dfbaabc2755b7b8999bb363c59a764abaf90936c8d941bf45a78",
+      "sha256": "9aa63ca3f2213679df70487bfc34b25892d77cc25dc06f4f8fbfe1ebcd852e3d",
       "bytes": 5182,
       "run_bound": false
     },
     {
       "path": "terraform/security.tf",
-      "sha256": "9f11a5d350721cdeedb383f3ec524fe2ceeca42918269df6e8bb612d9f6af176",
-      "bytes": 50469,
+      "sha256": "273c41065fe41182ae6debaec73c875d772fdc6b9e1b1b5794977815da64ddc7",
+      "bytes": 44735,
       "run_bound": false
     },
     {
@@ -1980,14 +2012,14 @@
     },
     {
       "path": "terraform/variables.tf",
-      "sha256": "6e0a471083c0a961ecaa56afdf5db9e0c0ebe5b601f3ffd5365606698c812dd4",
-      "bytes": 39928,
+      "sha256": "7c84d633758fab58cf329b2fb64a238be9d28c422db7ec9a0dfb19abb7ec2091",
+      "bytes": 39900,
       "run_bound": false
     },
     {
       "path": "workspace.json",
-      "sha256": "d5a4655c05c7e4af9e9088f830e49a33c2bc0bc69691a1282f77c0c896e42c27",
-      "bytes": 2803311,
+      "sha256": "9c8c9f6cad3863f9d23af5ce2e85ed42514cc01adf528f28bf4e99434765c34e",
+      "bytes": 2817808,
       "run_bound": true
     }
   ]

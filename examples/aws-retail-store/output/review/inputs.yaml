@@ -1,4 +1,4 @@
-# Answer template of run f6267c3f-2848-4aa5-89df-5fee8b15b3b9 (written by stacktoit; copy this file, fill the `value:` lines, pass it with --inputs).
+# Answer template of run 80199dc3-8108-42fe-a0b9-030ac0f7777b (written by stacktoit; copy this file, fill the `value:` lines, pass it with --inputs).
 # Every request this run derives that this build can take an answer of (groups 1 and 2 below) is one stub. id, kind, topic, scope and recorded_with bind the answer to this source and this knowledge base:
 # do not edit them. Fill `value` (the options of the request are listed above it) and, if you like, `explanation`; set `answered_by` to
 # your role (it is a role, not a person) and `answered_at` to the day you answer. You may delete the stubs you do not answer.
@@ -6,12 +6,13 @@
 # The shape of a value is the one of the answer file contract of this build: the outline of each stub shows it, and the run reports a value that does not fit.
 # This file ANSWERS questions of the run: an answer given with --inputs regenerates the draft with it (run again on the same --out; the earlier run is replaced).
 # A review of a decision is the other file, decisions-template.yaml (--decisions): it records the review and frees nothing until the draft is regenerated,
-# so an option that changes the draft is chosen here, in an answer, never in a review.
+# so an option that changes the draft is chosen here, in an answer, where the line of the option in decisions-template.yaml names a topic of this file; a decision with no topic here is changed in the source.
 # The requests are in three groups, in this order; only the first two are stubs to fill:
 #   GROUP 1 - APPLICABLE: a valid answer changes the draft when you run again.
 #   GROUP 2 - MANUAL: a person does the work outside StackToIT; the answer records that it was done and changes no draft.
 #   GROUP 3 - NOT APPLICABLE IN THIS BUILD: listed at the end as comments, with no stub, because this build records an answer and changes nothing;
 #     each says where the setting is made instead.
+# Requests that block the draft (16, the count of the run; each is marked BLOCKS THE DRAFT below): target.region; target.postgres.flavor (module.dependencies.module.orders_rds.aws_rds_cluster.this); target.postgres.storage (module.dependencies.module.orders_rds.aws_rds_cluster.this); target.valkey.plan (module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default); target.rabbitmq.plan (module.dependencies.aws_mq_broker.mq); source.variable (opentelemetry_enabled); source.variable (lifecycle_events_enabled); source.variable (container_insights_setting); target.database.client_acl (module.dependencies.module.orders_rds.aws_rds_cluster.this); target.database.access_scope (module.dependencies.module.orders_rds.aws_rds_cluster.this); target.database.client_acl (module.dependencies.module.catalog_rds.aws_rds_cluster.this); target.workload.identity (module.retail_app_ecs.module.catalog_service.aws_ecs_service.this); and 4 more, each marked below
 schema_version: "0.1"
 answers:
 
@@ -19,6 +20,7 @@ answers:
 
   # answer this first: the requests marked (depends on the region) are derived from the eu01 catalogue until the region is answered and are re-derived then.
   # An answer to such a request is recorded for eu01: if you choose another region it is STALE_CATALOG, it is not applied and the request is asked again, for the chosen region, in the template of the next run.
+  # BLOCKS THE DRAFT: answer this before the draft can be made (the run counts it among the requests that block the draft)
   # target.region (TARGET_SELECTION, request state OPEN)
   # needed: The STACKIT region the migrated estate is built in.
   - id: INP-TSE-1eaf5b60fa62
@@ -30,10 +32,11 @@ answers:
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:94a1663bf63dd33750f12f962a5adedcc2bf291ebf4b101eee03238a48e95e54
 
+  # BLOCKS THE DRAFT: answer this before the draft can be made (the run counts it among the requests that block the draft)
   # target.postgres.flavor (TARGET_SELECTION, request state OPEN)
   # needed: The PostgreSQL Flex flavor of module.dependencies.module.orders_rds.aws_rds_cluster.this in region eu01 (depends on the region: derived from eu01 until target.region is answered).
   - id: INP-TSE-aba6172c5b8e
@@ -47,10 +50,11 @@ answers:
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:0a934b54b104e3c9ddc427526a5f773a0172caecaf2c6750d339c79404f8f8b7
 
+  # BLOCKS THE DRAFT: answer this before the draft can be made (the run counts it among the requests that block the draft)
   # target.postgres.storage (TARGET_SELECTION, request state OPEN)
   # needed: The PostgreSQL Flex storage of module.dependencies.module.orders_rds.aws_rds_cluster.this in region eu01 (depends on the region: derived from eu01 until target.region is answered).
   - id: INP-TSE-19d43e80bdea
@@ -64,9 +68,45 @@ answers:
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:09eff9c55806186f5175b05473a7040d027f31d6b4d6d80f4616671ee889f4ac
+
+  # BLOCKS THE DRAFT: answer this before the draft can be made (the run counts it among the requests that block the draft)
+  # target.valkey.plan (TARGET_SELECTION, request state OPEN)
+  # needed: The STACKIT Key Value Store plan module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default runs on in region eu01, holding what the source needs (depends on the region: derived from eu01 until target.region is answered).
+  - id: INP-TSE-26689d08a855
+    kind: TARGET_SELECTION
+    topic: target.valkey.plan
+    scope:
+      address: module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
+      region: eu01
+      profile: default
+    # options: stackit-keyvalue-1.2.10-replica | stackit-keyvalue-1.4.10-single | stackit-keyvalue-1.4.10-replica | stackit-keyvalue-1.4.50-replica | stackit-keyvalue-2.8.10-replica | stackit-keyvalue-2.8.50-single | stackit-keyvalue-2.8.50-replica | stackit-keyvalue-2.8.100-replica | stackit-keyvalue-2.8.250-replica | stackit-keyvalue-2.8.250-replica-HiPerf | stackit-keyvalue-4.16.50-replica | stackit-keyvalue-4.16.100-replica | stackit-keyvalue-4.16.250-replica | stackit-keyvalue-4.16.250-replica-HiPerf | stackit-keyvalue-8.32.100-replica | stackit-keyvalue-8.32.250-replica | stackit-keyvalue-8.32.250-replica-HiPerf
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-03"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:850488819a2df9157c911a00eaf4a8fd3228ad24d20202fc548dc67864cfb426
+
+  # BLOCKS THE DRAFT: answer this before the draft can be made (the run counts it among the requests that block the draft)
+  # target.rabbitmq.plan (TARGET_SELECTION, request state OPEN)
+  # needed: The STACKIT RabbitMQ plan module.dependencies.aws_mq_broker.mq runs on in region eu01, holding what the source needs (depends on the region: derived from eu01 until target.region is answered).
+  - id: INP-TSE-72fe8564cb47
+    kind: TARGET_SELECTION
+    topic: target.rabbitmq.plan
+    scope:
+      address: module.dependencies.aws_mq_broker.mq
+      region: eu01
+      profile: default
+    # options: stackit-rabbitmq-8.16.50-replica | stackit-rabbitmq-8.16.100-replica | stackit-rabbitmq-8.16.100-replica-HiPerf | stackit-rabbitmq-16.32.100-replica | stackit-rabbitmq-16.32.100-replica-HiPerf | stackit-rabbitmq-4.8.10-replica | stackit-rabbitmq-4.8.50-single | stackit-rabbitmq-4.8.50-replica | stackit-rabbitmq-4.8.100-replica | stackit-rabbitmq-4.8.100-replica-HiPerf
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-03"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:b06c165cc1a95471d3cd9575953a988446c51faa373a556a1ab9dbba46a4f396
 
   # source.dataset.downtime (SOURCE_DECLARATION, request state OPEN)
   # needed: The downtime window a person accepts for the cutover of module.dependencies.module.catalog_rds.aws_rds_cluster.this: it is the window the transfer lower bound is held against: a lower bound above it makes the dump-and-restore method need a design.
@@ -79,7 +119,7 @@ answers:
     value: {}                # fill the details of your answer (the answer file contract of this build describes them)
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:725a0fe5e25e77291a99875cfeb29aed9b71a5ea3dd435c3b99608490182a7eb
 
@@ -94,7 +134,7 @@ answers:
     value: {}                # fill the details of your answer (the answer file contract of this build describes them)
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:0c37d1616657fddefb00aab8c3ec882470c29187bff69098e6913a86a60d39e8
 
@@ -109,7 +149,7 @@ answers:
     value: {}                # fill the details of your answer (the answer file contract of this build describes them)
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:60faef9d823ebdd266bf26dc2f689b60a1d56cdce734c67fc45e28bf06b3137b
 
@@ -124,7 +164,7 @@ answers:
     value: {}                # fill the details of your answer (the answer file contract of this build describes them)
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:2cc2ac61754648bdd4429eb631ec44ba769b78c46007d39d8cc2ab5a1da88103
 
@@ -139,7 +179,7 @@ answers:
     value: {}                # fill the details of your answer (the answer file contract of this build describes them)
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:e82c1e83b71339874f28d87795462a8edddbb095c46dca29fa90dafd08cb3672
 
@@ -154,7 +194,7 @@ answers:
     value: {}                # fill the details of your answer (the answer file contract of this build describes them)
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:5f31b92c93a9b44f5ff35e7a1856c5e0e88b997a77d584415b403d4bf127230f
 
@@ -169,7 +209,7 @@ answers:
     value: {}                # fill the details of your answer (the answer file contract of this build describes them)
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:cb79ba203f99b43ca8bed13ed64cc014304927731ee46f92fcd0625912bfd500
 
@@ -184,7 +224,7 @@ answers:
     value: {}                # fill the details of your answer (the answer file contract of this build describes them)
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:38cc4a3a11b51fa0731ecce5857d90ea5f2b6a6e1f3b9115050254e7c2ba8bdc
 
@@ -199,7 +239,7 @@ answers:
     value: {}                # fill the details of your answer (the answer file contract of this build describes them)
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:e54bc556906da0218fa7da5c51e61a5ac6fe97a937cb59d62498202e8cde3bc5
 
@@ -214,7 +254,7 @@ answers:
     value: {}                # fill the details of your answer (the answer file contract of this build describes them)
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:a61df340650742329731105039538c1f06f0097f352bcad1b94167874ff2fe6d
 
@@ -229,7 +269,7 @@ answers:
     value: {}                # fill the details of your answer (the answer file contract of this build describes them)
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:d7f5f8f6d50899622ebe819b1e42bd76b9a56105d0494140a60594a032b6be2f
 
@@ -244,7 +284,7 @@ answers:
     value: {}                # fill the details of your answer (the answer file contract of this build describes them)
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:5635f9a61f8498392872bd4c273ad82c2bb303b7ece7d8ec684c44b5a5a021fc
 
@@ -259,7 +299,7 @@ answers:
     value: {}                # fill the details of your answer (the answer file contract of this build describes them)
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:61545a44ae2001e58c916e5ae252d62e1b78d63f17c5e357fa28eace382fb41a
 
@@ -274,7 +314,7 @@ answers:
     value: {}                # fill the details of your answer (the answer file contract of this build describes them)
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:f4fbad519a8f73e960f1cc69fc2e806507aca838476d5d47d01b78777060c08f
 
@@ -289,7 +329,7 @@ answers:
     value: {}                # fill the details of your answer (the answer file contract of this build describes them)
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:603595baca3dc00ff899dfbc31d633e841fd22bac750751c23f78f53a8990764
 
@@ -304,7 +344,7 @@ answers:
     value: {}                # fill the details of your answer (the answer file contract of this build describes them)
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:4f3202530e04d83f04b174f50657bb59e96a1f46ed0a5a76a5c854649e31eb5b
 
@@ -319,7 +359,7 @@ answers:
     value: {}                # fill the details of your answer (the answer file contract of this build describes them)
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:6d5d26e0be20afef239e7c06fb9bfb736e1172312209b7d9b9507d5b5ef48bc7
 
@@ -334,10 +374,11 @@ answers:
     value: {}                # fill the details of your answer (the answer file contract of this build describes them)
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:52248141a3d113bd454ed5035a881096c4b1b82a0c9864be26ec89c826ced242
 
+  # BLOCKS THE DRAFT: answer this before the draft can be made (the run counts it among the requests that block the draft)
   # source.variable (SOURCE_PARAMETER, request state OPEN)
   # needed: The value the running environment gives the root variable opentelemetry_enabled, which the source sets only as a default that a variable file or the command line can override.
   - id: INP-SPA-27200518706a
@@ -349,10 +390,11 @@ answers:
     value: ""                # fill one value
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:954525fafc0d6e87e6d9eeb6da80e8ba39a703af5695f01839f7fa28f00453b8
 
+  # BLOCKS THE DRAFT: answer this before the draft can be made (the run counts it among the requests that block the draft)
   # source.variable (SOURCE_PARAMETER, request state OPEN)
   # needed: The value the running environment gives the root variable lifecycle_events_enabled, which the source sets only as a default that a variable file or the command line can override.
   - id: INP-SPA-2c8020986fc5
@@ -364,7 +406,7 @@ answers:
     value: ""                # fill one value
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:0267f4114f892fbbf3e58167532f779aa0041d6b23e3a6366ef7dd5724fc8d11
 
@@ -379,10 +421,11 @@ answers:
     value: ""                # fill one value
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: COST_OWNER   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:df16cb939930342f9cb5a5110ec3cfc06e8f66023103ce3fe571588cdb0e7d90
 
+  # BLOCKS THE DRAFT: answer this before the draft can be made (the run counts it among the requests that block the draft)
   # source.variable (SOURCE_PARAMETER, request state OPEN)
   # needed: The value the running environment gives the root variable container_insights_setting, which the source sets only as a default that a variable file or the command line can override.
   - id: INP-SPA-83a722ca3bdc
@@ -394,7 +437,7 @@ answers:
     value: ""                # fill one value
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:109f02d752a98ac6baff38ef564ef011d372eca070ea7a8d219c365cf527e718
 
@@ -410,10 +453,11 @@ answers:
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:6e23e7d6257652a555d06720806377bb4271650b80e362eb07282ae2f7e55a9d
 
+  # BLOCKS THE DRAFT: answer this before the draft can be made (the run counts it among the requests that block the draft)
   # target.database.client_acl (TARGET_SELECTION, request state OPEN)
   # needed: The IPv4 CIDRs allowed to reach the PostgreSQL Flex instance that replaces module.dependencies.module.orders_rds.aws_rds_cluster.this.
   - id: INP-TSE-2361ec44b021
@@ -425,7 +469,7 @@ answers:
     value: []                # fill a list of values
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:6fb4864b0e432d33e54f0352c3628c0892fea0235923c0a570e2ffecf6341f82
 
@@ -441,10 +485,11 @@ answers:
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:979df01c3d9bb75b36c4f5f7309d0f344620ef4fb2a2b70064cd1ce7c65deef7
 
+  # BLOCKS THE DRAFT: answer this before the draft can be made (the run counts it among the requests that block the draft)
   # target.database.access_scope (TARGET_SELECTION, request state OPEN)
   # needed: Whether the PostgreSQL Flex instance that replaces module.dependencies.module.orders_rds.aws_rds_cluster.this is reachable over the STACKIT network area only (SNA), or has a public endpoint limited by a client list (PUBLIC).
   - id: INP-TSE-35ebecb0d83a
@@ -457,7 +502,7 @@ answers:
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:4f79dd419e7b68c13cc708d153eeb404d33ba7ba307cdd0587ec2815e722e4e6
 
@@ -473,10 +518,11 @@ answers:
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:3275c219b0f2ba86158a6c8b97c213bf185ffb70a12a53b24106987b14cda1c3
 
+  # BLOCKS THE DRAFT: answer this before the draft can be made (the run counts it among the requests that block the draft)
   # target.database.client_acl (TARGET_SELECTION, request state OPEN)
   # needed: The IPv4 CIDRs allowed to reach the MariaDB instance that replaces module.dependencies.module.catalog_rds.aws_rds_cluster.this.
   - id: INP-TSE-4e57c79f302b
@@ -488,10 +534,11 @@ answers:
     value: []                # fill a list of values
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:e32a4b156631e3ce4c601fb0d2c5e29c473dd54b0f4a554a57650c16e2faa821
 
+  # BLOCKS THE DRAFT: answer this before the draft can be made (the run counts it among the requests that block the draft)
   # target.workload.identity (TARGET_SELECTION, request state OPEN)
   # needed: Which identity the pods of module.retail_app_ecs.module.catalog_service.aws_ecs_service.this use on STACKIT. The source runs them as the IAM role module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role (task_role_arn); STACKIT has no IAM role, and there is no default model.
   - id: INP-TSE-5621469e44c1
@@ -504,7 +551,7 @@ answers:
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:67f33800e6339a5e12131709597c8a9c148abc1cb45e93efb13d2da3b64882b4
 
@@ -519,7 +566,7 @@ answers:
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:fc0777d11df0a9e95d3dbe4cb563e3e497d952d38e2d13181aa6f3964279ff34
 
@@ -535,7 +582,7 @@ answers:
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:8ee2d31f63edcd018760117e62b075dc1b6026ad9ec169b169aca12c082220bc
 
@@ -551,7 +598,7 @@ answers:
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:17de2dcda40ae0c0950f128269b5d87f9eb7d7dec524ceef66e3a5193d7e0cf4
 
@@ -567,7 +614,7 @@ answers:
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:745d127d0e294cfa2b7be0dc39b7de2fa1fb595f4fb884a627dbffb76c1c0363
 
@@ -581,10 +628,11 @@ answers:
     value: {}                # fill the details of your answer (the answer file contract of this build describes them)
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: OPERATIONS   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:c243579aedc0b33b4e901d364a3e4d63f0376b182fc676cff74369257162b8a4
 
+  # BLOCKS THE DRAFT: answer this before the draft can be made (the run counts it among the requests that block the draft)
   # target.workload.identity (TARGET_SELECTION, request state OPEN)
   # needed: Which identity the pods of module.retail_app_ecs.module.carts_service.aws_ecs_service.this use on STACKIT. The source runs them as the IAM role module.retail_app_ecs.module.carts_service.aws_iam_role.task_role (task_role_arn); STACKIT has no IAM role, and there is no default model.
   - id: INP-TSE-b0925b4e1a77
@@ -597,10 +645,11 @@ answers:
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:e277e3ab4098270ede3e75001185a904a7b1f441fcc7ffdcb5c4735d63b8f0eb
 
+  # BLOCKS THE DRAFT: answer this before the draft can be made (the run counts it among the requests that block the draft)
   # target.workload.identity (TARGET_SELECTION, request state OPEN)
   # needed: Which identity the pods of module.retail_app_ecs.module.orders_service.aws_ecs_service.this use on STACKIT. The source runs them as the IAM role module.retail_app_ecs.module.orders_service.aws_iam_role.task_role (task_role_arn); STACKIT has no IAM role, and there is no default model.
   - id: INP-TSE-b3c91e6ceb33
@@ -613,10 +662,11 @@ answers:
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:45fa85af86d70d62372acebb01c4f44e6100cebb364e8eb31caae953a542480a
 
+  # BLOCKS THE DRAFT: answer this before the draft can be made (the run counts it among the requests that block the draft)
   # target.workload.identity (TARGET_SELECTION, request state OPEN)
   # needed: Which identity the pods of module.retail_app_ecs.module.checkout_service.aws_ecs_service.this use on STACKIT. The source runs them as the IAM role module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role (task_role_arn); STACKIT has no IAM role, and there is no default model.
   - id: INP-TSE-c8a1987470f9
@@ -629,10 +679,11 @@ answers:
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:de2d00f9f5d32a7466de1d2bdf07b2f71a96e844c0ffa606cbeab013e33fdb32
 
+  # BLOCKS THE DRAFT: answer this before the draft can be made (the run counts it among the requests that block the draft)
   # target.workload.identity (TARGET_SELECTION, request state OPEN)
   # needed: Which identity the pods of module.retail_app_ecs.module.ui_service.aws_ecs_service.this use on STACKIT. The source runs them as the IAM role module.retail_app_ecs.module.ui_service.aws_iam_role.task_role (task_role_arn); STACKIT has no IAM role, and there is no default model.
   - id: INP-TSE-cb74e91a3025
@@ -645,7 +696,7 @@ answers:
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:4bab08b59c664ec66accc8660131851e0746a5551db2d2f07c740f510e7800c3
 
@@ -661,7 +712,7 @@ answers:
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:4959eb36539725db94c2600c73d55f04429e4b088f4e2f1ad581336a18b089b0
 
@@ -677,7 +728,7 @@ answers:
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-02"   # YYYY-MM-DD
+    answered_at: "2026-11-03"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:028f63fab88654de2cada478c3b0a6abd78b47244fb5ecd7e0f73f8265b8f2cc
 

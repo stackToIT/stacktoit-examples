@@ -1,0 +1,118 @@
+# Assumptions the cost model of the run waits for (written by stacktoit). Run 80199dc3-8108-42fe-a0b9-030ac0f7777b · source digest sha256:5ce8b8f8868f3b3214b2dddebe87e3f04291bf5ceac46dc0d95624215d020000
+# Each stub below is one value the cost model needs and no source states: a choice the draft leaves open (target_choice) or the use of one month of a service
+# that is billed by use. As written this file holds no entry and assigns nothing. To price a line on your value: remove the leading "# " of its stub, put your value
+# in `value` (or `min` and `max` for a range), write why in `explanation`, and pass the file with --assumptions FILE. The line is then priced on your value,
+# and says "priced on your assumption"; a line the file does not mention stays unpriced. Nothing here is a default or a recommendation.
+schema_version: "1.0"
+assumptions:
+
+  # SOURCE module.vpc.module.vpc.aws_internet_gateway.this.egress (1 line waits for it, PRICE_NOT_FOUND)
+  # - id: data-transfer-module.vpc.module.vpc.aws-internet-gateway.this.eg
+  #   scenario: STANDARD_730H
+  #   subject: module.vpc.module.vpc.aws_internet_gateway.this.egress
+  #   variable: data_transfer
+  #   value: ""  # the use of one month, in GB
+  #   unit: GB
+  #   explanation: ""         # why you chose it
+
+  # SOURCE module.vpc.module.vpc.aws_nat_gateway.this.data (1 line waits for it, PRICE_NOT_FOUND)
+  # - id: data-transfer-module.vpc.module.vpc.aws-nat-gateway.this.data
+  #   scenario: STANDARD_730H
+  #   subject: module.vpc.module.vpc.aws_nat_gateway.this.data
+  #   variable: data_transfer
+  #   value: ""  # the use of one month, in GB
+  #   unit: GB
+  #   explanation: ""         # why you chose it
+
+  # TARGET stackit_logs_instance.logs_retention_180d (1 line waits for it, QUANTITY_UNKNOWN)
+  # - id: log-ingestion-stackit-logs-instance.logs-retention-180d
+  #   scenario: STANDARD_730H
+  #   subject: stackit_logs_instance.logs_retention_180d
+  #   variable: log_ingestion
+  #   value: ""  # the gigabytes of log data one instance takes in during the scenario's period, in GB
+  #   unit: GB
+  #   explanation: ""         # why you chose it
+
+  # TARGET stackit_kms_key.retail_app_ecs_cmk (1 line waits for it, TARGET_NOT_CHOSEN)
+  # - id: target-choice-stackit-kms-key.retail-app-ecs-cmk
+  #   scenario: STANDARD_730H
+  #   subject: stackit_kms_key.retail_app_ecs_cmk
+  #   variable: target_choice
+  #   value: ""  # "software" (the only key protection with a public SKU; "hsm" has none)
+  #   explanation: ""         # why you chose it
+
+  # TARGET stackit_mariadb_instance.dependencies_catalog_rds_this (1 line waits for it, TARGET_NOT_CHOSEN)
+  # - id: target-choice-stackit-mariadb-instance.dependencies-catalog-rds
+  #   scenario: STANDARD_730H
+  #   subject: stackit_mariadb_instance.dependencies_catalog_rds_this
+  #   variable: target_choice
+  #   value: ""  # a plan of the catalogue such as "stackit-mariadb-1.4.10-single"
+  #   explanation: ""         # why you chose it
+
+  # TARGET stackit_mongodbflex_instance.dynamodb_tables (1 line waits for it, TARGET_NOT_CHOSEN)
+  # - id: target-choice-stackit-mongodbflex-instance.dynamodb-tables
+  #   scenario: STANDARD_730H
+  #   subject: stackit_mongodbflex_instance.dynamodb_tables
+  #   variable: target_choice
+  #   value: ""  # "<cpu>.<ram>-<Single|Replica|Sharded>" such as "2.4-Single"
+  #   explanation: ""         # why you chose it
+
+  # TARGET stackit_opensearch_instance.dependencies_catalog_opensearch_this (1 line waits for it, TARGET_NOT_CHOSEN)
+  # - id: target-choice-stackit-opensearch-instance.dependencies-catalog-o
+  #   scenario: STANDARD_730H
+  #   subject: stackit_opensearch_instance.dependencies_catalog_opensearch_this
+  #   variable: target_choice
+  #   value: ""  # a plan of the catalogue such as "stackit-opensearch-1.4.10-single"
+  #   explanation: ""         # why you chose it
+
+  # TARGET stackit_postgresflex_instance.dependencies_orders_rds_this.storage_class (2 lines wait for it, TARGET_NOT_CHOSEN)
+  # - id: target-choice-stackit-postgresflex-instance.dependencies-orders
+  #   scenario: STANDARD_730H
+  #   subject: stackit_postgresflex_instance.dependencies_orders_rds_this.storage_class
+  #   variable: target_choice
+  #   value: ""  # a storage class such as "premium-perf6-stackit"
+  #   explanation: ""         # why you chose it
+
+  # TARGET stackit_ske_cluster.retail_app_ecs_cluster.node_pool.workloads (1 line waits for it, TARGET_NOT_CHOSEN)
+  # - id: target-choice-stackit-ske-cluster.retail-app-ecs-cluster.node-po
+  #   scenario: STANDARD_730H
+  #   subject: stackit_ske_cluster.retail_app_ecs_cluster.node_pool.workloads
+  #   variable: target_choice
+  #   value: ""  # a server flavor such as "g2i.4"
+  #   explanation: ""         # why you chose it
+
+  # SOURCE module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this.read_requests (1 line waits for it, PRICE_NOT_FOUND)
+  # - id: usage-quantity-module.dependencies.module.dynamodb-carts.aws-dyn
+  #   scenario: STANDARD_730H
+  #   subject: module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this.read_requests
+  #   variable: usage_quantity
+  #   value: ""  # the use of one month, in request unit
+  #   unit: request unit
+  #   explanation: ""         # why you chose it
+
+  # SOURCE module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this.write_requests (1 line waits for it, PRICE_NOT_FOUND)
+  # - id: usage-quantity-module.dependencies.module.dynamodb-carts.aws-dyn
+  #   scenario: STANDARD_730H
+  #   subject: module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this.write_requests
+  #   variable: usage_quantity
+  #   value: ""  # the use of one month, in request unit
+  #   unit: request unit
+  #   explanation: ""         # why you chose it
+
+  # SOURCE module.retail_app_ecs.module.alb.aws_lb.this.capacity (1 line waits for it, PRICE_NOT_FOUND)
+  # - id: usage-quantity-module.retail-app-ecs.module.alb.aws-lb.this.capa
+  #   scenario: STANDARD_730H
+  #   subject: module.retail_app_ecs.module.alb.aws_lb.this.capacity
+  #   variable: usage_quantity
+  #   value: ""  # the use of one month, in LCU-hour
+  #   unit: LCU-hour
+  #   explanation: ""         # why you chose it
+
+  # SOURCE module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this.storage (1 line waits for it, PRICE_NOT_FOUND)
+  # - id: volume-size-module.dependencies.module.dynamodb-carts.aws-dynamo
+  #   scenario: STANDARD_730H
+  #   subject: module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this.storage
+  #   variable: volume_size
+  #   value: ""  # the use of one month, in GB
+  #   unit: GB
+  #   explanation: ""         # why you chose it

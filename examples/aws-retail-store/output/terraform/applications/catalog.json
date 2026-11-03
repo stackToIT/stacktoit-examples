@@ -10,11 +10,13 @@
   "readiness_reasons": [
     "DATASTORE_PROTOCOL_NOT_ASSESSED",
     "ENGINE_VERSION_DOWNGRADE",
+    "ENV_VALUES_REQUIRED",
+    "SECRETS_REQUIRED",
     "IDENTITY_OPEN",
     "FUNCTIONAL_CHECK_NOT_RUN"
   ],
   "readiness_words": "A data store this workload reaches changes protocol or has no assessed protocol, and its code migration decision is not answered: StackToIT keeps the workload blocked until the customer answers it in the decisions file. StackToIT keeps the workload blocked: the database engine version 3.3 is not offered in the region; the application cannot be verified against a downgraded engine until the decision DEC-GEN-CONVERT-ENGINE-VERSION-DOWNGRADE is answered (the customer answers it in the decisions file).",
-  "checklist_sha256": "sha256:9911d17bdb9f71a561c331311f9caddcdbb2785089efffcb2c7d636007be8497",
+  "checklist_sha256": "sha256:e8aee6971266a7432828891832acac70585309912690b581acd5019d1e77ec6d",
   "templates": "applications/catalog.templates.yaml",
   "validation_scope": "A kubeconform check or a kubectl apply --dry-run of the manifest establishes YAML validity only, not behaviour: it accepts a REQUIRED_ token in a string field, an empty ConfigMap and a Secret that does not exist, and runs nothing; the checklist of the application compatibility contract and an application smoke test on the target are what show that the workload works.",
   "containers": [
@@ -29,13 +31,84 @@
         "livenessProbe: exec curl -f http://localhost:8080/health (the ECS health check)",
         "startupProbe: the same check over the start period"
       ],
-      "env": []
+      "env": [
+        {
+          "name": "RETAIL_CATALOG_PERSISTENCE_DB_NAME",
+          "class": "LITERAL",
+          "value_copied": false,
+          "work": "set the key in the ConfigMap to the value module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this states for container catalog-service (not copied: an environment value can carry a secret under any name); if it names an AWS endpoint, a region or an ARN, give the STACKIT one"
+        },
+        {
+          "name": "RETAIL_CATALOG_PERSISTENCE_PROVIDER",
+          "class": "LITERAL",
+          "value_copied": false,
+          "work": "set the key in the ConfigMap to the value module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this states for container catalog-service (not copied: an environment value can carry a secret under any name); if it names an AWS endpoint, a region or an ARN, give the STACKIT one"
+        },
+        {
+          "name": "RETAIL_CATALOG_SEARCH_ENABLED",
+          "class": "LITERAL",
+          "value_copied": true,
+          "work": "the ConfigMap of the manifest already holds the value module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this states for container catalog-service (a number under a name that says a quantity, or true/false, which the converter copies): nothing to set; check that it is still what the application needs on STACKIT"
+        },
+        {
+          "name": "RETAIL_CATALOG_SEARCH_OS_ENDPOINT",
+          "class": "NOT_VISIBLE",
+          "value_copied": false,
+          "work": "the value is not visible statically (a variable or an expression): set the key in the ConfigMap to the value the running service uses"
+        },
+        {
+          "name": "RETAIL_CATALOG_SEARCH_OS_INDEX",
+          "class": "LITERAL",
+          "value_copied": false,
+          "work": "set the key in the ConfigMap to the value module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this states for container catalog-service (not copied: an environment value can carry a secret under any name); if it names an AWS endpoint, a region or an ARN, give the STACKIT one"
+        },
+        {
+          "name": "RETAIL_CATALOG_PERSISTENCE_ENDPOINT",
+          "class": "SECRET",
+          "value_copied": false,
+          "source": "not visible statically",
+          "target": "catalog-secrets key RETAIL_CATALOG_PERSISTENCE_ENDPOINT",
+          "work": "create the key RETAIL_CATALOG_PERSISTENCE_ENDPOINT of the Kubernetes Secret catalog-secrets from not visible statically (copy the secret into a STACKIT Secrets Manager instance or create the Secret from it; the value is never in the draft)"
+        },
+        {
+          "name": "RETAIL_CATALOG_PERSISTENCE_PASSWORD",
+          "class": "SECRET",
+          "value_copied": false,
+          "source": "not visible statically",
+          "target": "catalog-secrets key RETAIL_CATALOG_PERSISTENCE_PASSWORD",
+          "work": "create the key RETAIL_CATALOG_PERSISTENCE_PASSWORD of the Kubernetes Secret catalog-secrets from not visible statically (copy the secret into a STACKIT Secrets Manager instance or create the Secret from it; the value is never in the draft)"
+        },
+        {
+          "name": "RETAIL_CATALOG_PERSISTENCE_USER",
+          "class": "SECRET",
+          "value_copied": false,
+          "source": "not visible statically",
+          "target": "catalog-secrets key RETAIL_CATALOG_PERSISTENCE_USER",
+          "work": "create the key RETAIL_CATALOG_PERSISTENCE_USER of the Kubernetes Secret catalog-secrets from not visible statically (copy the secret into a STACKIT Secrets Manager instance or create the Secret from it; the value is never in the draft)"
+        },
+        {
+          "name": "RETAIL_CATALOG_SEARCH_OS_PASSWORD",
+          "class": "SECRET",
+          "value_copied": false,
+          "source": "not visible statically",
+          "target": "catalog-secrets key RETAIL_CATALOG_SEARCH_OS_PASSWORD",
+          "work": "create the key RETAIL_CATALOG_SEARCH_OS_PASSWORD of the Kubernetes Secret catalog-secrets from not visible statically (copy the secret into a STACKIT Secrets Manager instance or create the Secret from it; the value is never in the draft)"
+        },
+        {
+          "name": "RETAIL_CATALOG_SEARCH_OS_USERNAME",
+          "class": "SECRET",
+          "value_copied": false,
+          "source": "not visible statically",
+          "target": "catalog-secrets key RETAIL_CATALOG_SEARCH_OS_USERNAME",
+          "work": "create the key RETAIL_CATALOG_SEARCH_OS_USERNAME of the Kubernetes Secret catalog-secrets from not visible statically (copy the secret into a STACKIT Secrets Manager instance or create the Secret from it; the value is never in the draft)"
+        }
+      ]
     }
   ],
   "endpoints": [
     {
       "kind": "SERVICE_CONNECT_ALIAS",
-      "source": "catalog:80 (the Service Connect alias of port catalog-service in the namespace not visible statically)",
+      "source": "catalog:80 (the Service Connect alias of port catalog-service in the namespace retailstore.local)",
       "target": "catalog:80 (the Kubernetes Service catalog, port 80 → container port 8080, in the namespace the manifests are applied into)",
       "work": "the Kubernetes Service keeps the name and port the clients call: check that they resolve it from their namespace; the Service Connect proxy (its retries, timeouts, TLS and metrics) is not carried"
     }
@@ -151,6 +224,96 @@
     }
   ],
   "checklist": [
+    {
+      "id": "env_value:catalog-service/RETAIL_CATALOG_PERSISTENCE_DB_NAME",
+      "kind": "ENV_VALUE",
+      "subject": "catalog-service/RETAIL_CATALOG_PERSISTENCE_DB_NAME",
+      "blocking": true,
+      "sha256": "sha256:f78810edf1840e75602654356b76aefb2699866898a52c6a87e88f1fa4d459d0",
+      "state": "OPEN",
+      "work": "set the key in the ConfigMap to the value module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this states for container catalog-service (not copied: an environment value can carry a secret under any name); if it names an AWS endpoint, a region or an ARN, give the STACKIT one"
+    },
+    {
+      "id": "env_value:catalog-service/RETAIL_CATALOG_PERSISTENCE_PROVIDER",
+      "kind": "ENV_VALUE",
+      "subject": "catalog-service/RETAIL_CATALOG_PERSISTENCE_PROVIDER",
+      "blocking": true,
+      "sha256": "sha256:c80fc1cc15cf08327094e1a3707dcd33b6b03e607c72988076909382fa63b5fd",
+      "state": "OPEN",
+      "work": "set the key in the ConfigMap to the value module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this states for container catalog-service (not copied: an environment value can carry a secret under any name); if it names an AWS endpoint, a region or an ARN, give the STACKIT one"
+    },
+    {
+      "id": "env_value:catalog-service/RETAIL_CATALOG_SEARCH_ENABLED",
+      "kind": "ENV_VALUE",
+      "subject": "catalog-service/RETAIL_CATALOG_SEARCH_ENABLED",
+      "blocking": true,
+      "sha256": "sha256:1d63d8262ad3521637dbcb00257817244b91da19227ec95a3712624af666eafc",
+      "state": "OPEN",
+      "work": "the ConfigMap of the manifest already holds the value module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this states for container catalog-service (a number under a name that says a quantity, or true/false, which the converter copies): nothing to set; check that it is still what the application needs on STACKIT"
+    },
+    {
+      "id": "env_value:catalog-service/RETAIL_CATALOG_SEARCH_OS_ENDPOINT",
+      "kind": "ENV_VALUE",
+      "subject": "catalog-service/RETAIL_CATALOG_SEARCH_OS_ENDPOINT",
+      "blocking": true,
+      "sha256": "sha256:078d86130a2ec1920407095788348239c41419d82f62e1438bff981bda4af217",
+      "state": "OPEN",
+      "work": "the value is not visible statically (a variable or an expression): set the key in the ConfigMap to the value the running service uses"
+    },
+    {
+      "id": "env_value:catalog-service/RETAIL_CATALOG_SEARCH_OS_INDEX",
+      "kind": "ENV_VALUE",
+      "subject": "catalog-service/RETAIL_CATALOG_SEARCH_OS_INDEX",
+      "blocking": true,
+      "sha256": "sha256:d6f2e4837bcfe55deb6c3e2ac3607787f364cfd72d32ff8bd3a6c3aa8a6c5ed1",
+      "state": "OPEN",
+      "work": "set the key in the ConfigMap to the value module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this states for container catalog-service (not copied: an environment value can carry a secret under any name); if it names an AWS endpoint, a region or an ARN, give the STACKIT one"
+    },
+    {
+      "id": "secret:catalog-service/RETAIL_CATALOG_PERSISTENCE_ENDPOINT",
+      "kind": "SECRET",
+      "subject": "catalog-service/RETAIL_CATALOG_PERSISTENCE_ENDPOINT",
+      "blocking": true,
+      "sha256": "sha256:f943b6035c31c20835eb3bde76dfaf185336de04a2ae5559a76c6fab9b1016cc",
+      "state": "OPEN",
+      "work": "create the key RETAIL_CATALOG_PERSISTENCE_ENDPOINT of the Kubernetes Secret catalog-secrets from not visible statically (copy the secret into a STACKIT Secrets Manager instance or create the Secret from it; the value is never in the draft)"
+    },
+    {
+      "id": "secret:catalog-service/RETAIL_CATALOG_PERSISTENCE_PASSWORD",
+      "kind": "SECRET",
+      "subject": "catalog-service/RETAIL_CATALOG_PERSISTENCE_PASSWORD",
+      "blocking": true,
+      "sha256": "sha256:e42f85f03a8c894b43b5db0f7a93487db43dcc96d0735a9f9ae184d644a96ce4",
+      "state": "OPEN",
+      "work": "create the key RETAIL_CATALOG_PERSISTENCE_PASSWORD of the Kubernetes Secret catalog-secrets from not visible statically (copy the secret into a STACKIT Secrets Manager instance or create the Secret from it; the value is never in the draft)"
+    },
+    {
+      "id": "secret:catalog-service/RETAIL_CATALOG_PERSISTENCE_USER",
+      "kind": "SECRET",
+      "subject": "catalog-service/RETAIL_CATALOG_PERSISTENCE_USER",
+      "blocking": true,
+      "sha256": "sha256:b83dd25115c04eb2b3fab40ba623ab5f1f71a05129082a018c093aa0355dde20",
+      "state": "OPEN",
+      "work": "create the key RETAIL_CATALOG_PERSISTENCE_USER of the Kubernetes Secret catalog-secrets from not visible statically (copy the secret into a STACKIT Secrets Manager instance or create the Secret from it; the value is never in the draft)"
+    },
+    {
+      "id": "secret:catalog-service/RETAIL_CATALOG_SEARCH_OS_PASSWORD",
+      "kind": "SECRET",
+      "subject": "catalog-service/RETAIL_CATALOG_SEARCH_OS_PASSWORD",
+      "blocking": true,
+      "sha256": "sha256:34b625fdde1b74d3a1fe65ee2373868ac6493343b95b6da8d09708ea756ee0f7",
+      "state": "OPEN",
+      "work": "create the key RETAIL_CATALOG_SEARCH_OS_PASSWORD of the Kubernetes Secret catalog-secrets from not visible statically (copy the secret into a STACKIT Secrets Manager instance or create the Secret from it; the value is never in the draft)"
+    },
+    {
+      "id": "secret:catalog-service/RETAIL_CATALOG_SEARCH_OS_USERNAME",
+      "kind": "SECRET",
+      "subject": "catalog-service/RETAIL_CATALOG_SEARCH_OS_USERNAME",
+      "blocking": true,
+      "sha256": "sha256:b8d28505f25d458d6f4e5b0e15f7c289a8e8b55836b519b2448f97bb482f9a2c",
+      "state": "OPEN",
+      "work": "create the key RETAIL_CATALOG_SEARCH_OS_USERNAME of the Kubernetes Secret catalog-secrets from not visible statically (copy the secret into a STACKIT Secrets Manager instance or create the Secret from it; the value is never in the draft)"
+    },
     {
       "id": "datastore_protocol_check:module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
       "kind": "DATASTORE_PROTOCOL_CHECK",

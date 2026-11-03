@@ -23,7 +23,7 @@ Source: `module.dependencies.module.checkout_elasticache_redis.aws_elasticache_r
 
 **Step** `MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/preflight` (data preflight, phase DATA); owner: Data Architect.
 
-**What.** Close what the plan lists as UNKNOWN, from the move host, with read-only commands; no password goes on a command line or into the history of the shell. Source (`valkey-cli -h <source-host> -p <source-port> --tls`, without --tls where the source has none): `INFO server` (the engine and its version), `INFO keyspace` and `DBSIZE` (the keys and the keys with an expiry; on every primary when cluster mode is on, listed with `CLUSTER NODES`), `INFO memory` (used_memory and maxmemory), `SCAN 0 COUNT 100` with `TYPE`, `DUMP` and `PTTL` of a few keys of each family (the commands of the copy; the types the copy has no branch for show here), and the credential the copy signs in with. Target (after the draft is applied and the instance and a service key exist; `valkey-cli -u rediss://<target-user>@<target-host>:<target-port> --tls --sni <target-host>`): `INFO server` (Valkey 8), `DBSIZE` (0) and `INFO memory`; do not expect `CONFIG`, `ACL` or `MODULE`, which a probe found denied to the service key. Check that the move host is in `parameters.sgw_acl` of the instance (remove it afterwards), reaches both ends, and that the clients of the cache are listed with the TLS and the credential each uses.
+**What.** Close what the plan lists as UNKNOWN, from the move host, with read-only commands; no password goes on a command line or into the history of the shell. Source (`valkey-cli -h <source-host> -p <source-port>`): `INFO server` (the engine and its version), `INFO keyspace` and `DBSIZE` (the keys and the keys with an expiry; on every primary when cluster mode is on, listed with `CLUSTER NODES`), `INFO memory` (used_memory and maxmemory), `SCAN 0 COUNT 100` with `TYPE`, `DUMP` and `PTTL` of a few keys of each family (the commands of the copy; the types the copy has no branch for show here), and the credential the copy signs in with. Target (after the draft is applied and the instance and a service key exist; `valkey-cli -h <target-host> -p <target-port> --tls --sni <target-host> --user <target-user> --askpass`, where `--askpass` makes the client ask for the password of the service key at its prompt): `INFO server` (Valkey 8), `DBSIZE` (0) and `INFO memory`; do not expect `CONFIG`, `ACL` or `MODULE`, which a probe found denied to the service key. Check that the move host is in `parameters.sgw_acl` of the instance (remove it afterwards), reaches both ends, and that the clients of the cache are listed with the TLS and the credential each uses.
 
 **Why.** the checks of the plan that are UNKNOWN are closed by these commands before any key moves
 
@@ -79,7 +79,7 @@ Source: `module.dependencies.module.checkout_elasticache_redis.aws_elasticache_r
 
 **Why.** the draft creates the instance empty; the tutorial "Migrate data to a new instance" of the service migrates a STACKIT Redis instance by the MIGRATE command or by a script, and the plan holds a copy by a client that rests on commands the source's service lists as supported (below); the plan does not know the number of keys, their names or types, or the network between the source and the target
 
-**Needs.** the number of keys, the network path from the host that runs the client to the source and to the target, and the downtime the business accepts; Precondition, checked by a person before the copy (the plan reads no network of the source and the target, so reachability is not claimed): the host that runs the client must reach the source and the host and port of stackit_valkey_instance.dependencies_checkout_elasticache_redis_default that its service key states (the tutorial says to use the exact host of the credentials for the source and the target; it names the backend host only for MIGRATE, whose connection is made by the source, and states nothing more for a client, so confirm the target host with a first connection); the access list the draft writes for stackit_valkey_instance.dependencies_checkout_elasticache_redis_default (parameters.sgw_acl, from var.dependencies_checkout_elasticache_redis_default_allowed_cidrs, which has no default) must admit the address the client connects from, and the tutorial does not say how that list applies to the backend route, so confirm it with a first connection from that address; and stackit_valkey_instance.dependencies_checkout_elasticache_redis_default must be empty (the tutorial: "Do not insert any data into the target instance until the migration and consistency checks are fully completed")
+**Needs.** the number of keys, the network path from the host that runs the client to the source and to the target, and the downtime the business accepts; Precondition, checked by a person before the copy (the plan reads no network of the source and the target, so reachability is not claimed): the host that runs the client must reach the source and the host and port of stackit_valkey_instance.dependencies_checkout_elasticache_redis_default that its service key states (the tutorial says to use the exact host of the credentials for the source and the target; it names the backend host only for MIGRATE, whose connection is made by the source, and states nothing more for a client, so confirm the target host with a first connection); the access list the draft writes for stackit_valkey_instance.dependencies_checkout_elasticache_redis_default (parameters.sgw_acl, from var.elasticache_redis_allowed_cidrs, which has no default) must admit the address the client connects from, and the tutorial does not say how that list applies to the backend route, so confirm it with a first connection from that address; and stackit_valkey_instance.dependencies_checkout_elasticache_redis_default must be empty (the tutorial: "Do not insert any data into the target instance until the migration and consistency checks are fully completed")
 
 **Done when.** every key of module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default is in stackit_valkey_instance.dependencies_checkout_elasticache_redis_default: the client reported no error and the comparison of the two key spaces ends in GO
 
@@ -117,20 +117,20 @@ Source: `module.dependencies.module.checkout_elasticache_redis.aws_elasticache_r
 
 These are the checks the owner makes with the writers stopped before recording GO; the reconcile step in the execution plan states the same checks, with the same ids. A check with no command says why: the plan states no command it cannot back.
 
-- **Count on both sides** (`key-counts`, command): Count the keys and the keys with an expiry on both sides, with the writers stopped (on every primary of the source when it runs in cluster mode). Expected: the number of keys and the expires value are equal on both sides.
+- **Count on both sides** (`key-counts`, command): Count the keys and the keys with an expiry on both sides, with the writers stopped (on every primary of the source when it runs in cluster mode). A client with --askpass asks for its password at the prompt, so none is on the command line. Expected: the number of keys and the expires value are equal on both sides.
 
   ~~~text
-  valkey-cli -h <source-host> -p <source-port> --tls DBSIZE
-  valkey-cli -h <source-host> -p <source-port> --tls INFO keyspace
-  valkey-cli -u rediss://<target-user>@<target-host>:<target-port> --tls --sni <target-host> DBSIZE
-  valkey-cli -u rediss://<target-user>@<target-host>:<target-port> --tls --sni <target-host> INFO keyspace
+  valkey-cli -h <source-host> -p <source-port> DBSIZE
+  valkey-cli -h <source-host> -p <source-port> INFO keyspace
+  valkey-cli -h <target-host> -p <target-port> --tls --sni <target-host> --user <target-user> --askpass DBSIZE
+  valkey-cli -h <target-host> -p <target-port> --tls --sni <target-host> --user <target-user> --askpass INFO keyspace
   ~~~
 
 - **Content on both sides** (`key-lists`, command): List the names of the keys of both sides with SCAN (never KEYS), sort each list and compare them; this proves the same keys exist and not that their values are equal. Expected: the difference of the two lists is empty.
 
   ~~~text
-  valkey-cli -h <source-host> -p <source-port> --tls --scan | sort > source-keys.txt
-  valkey-cli -u rediss://<target-user>@<target-host>:<target-port> --tls --sni <target-host> --scan | sort > target-keys.txt
+  valkey-cli -h <source-host> -p <source-port> --scan | sort > source-keys.txt
+  valkey-cli -h <target-host> -p <target-port> --tls --sni <target-host> --user <target-user> --askpass --scan | sort > target-keys.txt
   diff source-keys.txt target-keys.txt
   ~~~
 
@@ -209,20 +209,20 @@ These are the checks the owner makes with the writers stopped before recording G
 
 These are the checks the owner makes with the writers stopped before recording GO; the reconcile step in the execution plan states the same checks, with the same ids. A check with no command says why: the plan states no command it cannot back.
 
-- **Count on both sides** (`key-counts`, command): Count the keys and the keys with an expiry on both sides, with the writers stopped (on every primary of the source when it runs in cluster mode). Expected: the number of keys and the expires value are equal on both sides.
+- **Count on both sides** (`key-counts`, command): Count the keys and the keys with an expiry on both sides, with the writers stopped (on every primary of the source when it runs in cluster mode). A client with --askpass asks for its password at the prompt, so none is on the command line. Expected: the number of keys and the expires value are equal on both sides.
 
   ~~~text
-  valkey-cli -h <source-host> -p <source-port> --tls DBSIZE
-  valkey-cli -h <source-host> -p <source-port> --tls INFO keyspace
-  valkey-cli -u rediss://<target-user>@<target-host>:<target-port> --tls --sni <target-host> DBSIZE
-  valkey-cli -u rediss://<target-user>@<target-host>:<target-port> --tls --sni <target-host> INFO keyspace
+  valkey-cli -h <source-host> -p <source-port> DBSIZE
+  valkey-cli -h <source-host> -p <source-port> INFO keyspace
+  valkey-cli -h <target-host> -p <target-port> --tls --sni <target-host> --user <target-user> --askpass DBSIZE
+  valkey-cli -h <target-host> -p <target-port> --tls --sni <target-host> --user <target-user> --askpass INFO keyspace
   ~~~
 
 - **Content on both sides** (`key-lists`, command): List the names of the keys of both sides with SCAN (never KEYS), sort each list and compare them; this proves the same keys exist and not that their values are equal. Expected: the difference of the two lists is empty.
 
   ~~~text
-  valkey-cli -h <source-host> -p <source-port> --tls --scan | sort > source-keys.txt
-  valkey-cli -u rediss://<target-user>@<target-host>:<target-port> --tls --sni <target-host> --scan | sort > target-keys.txt
+  valkey-cli -h <source-host> -p <source-port> --scan | sort > source-keys.txt
+  valkey-cli -h <target-host> -p <target-port> --tls --sni <target-host> --user <target-user> --askpass --scan | sort > target-keys.txt
   diff source-keys.txt target-keys.txt
   ~~~
 

@@ -2,7 +2,20 @@
 # Written from the application compatibility contract applications/ui.json, which says for every key where its value comes from and what to do.
 # No string value is copied from the source: an environment value can carry a secret under any name, so each key holds a REQUIRED_ placeholder that you
 # replace with the value the running service uses (a secret from your own secret store, never from this file or the repository).
+# Not listed below: RETAIL_UI_SEARCH_ENABLED — a number under a quantity name or true/false, which the ConfigMap ui-env of the manifest already copies from the source; those keys are in the ConfigMap, not here.
 # StackToIT applies nothing: this is a list of what to create, bound to the manifest kubernetes/ui/manifests.yaml, which reads these keys.
+---
+# This is a LIST of keys, not the ConfigMap the pods read: the pods read ui-env, which kubernetes/ui/manifests.yaml defines (its data holds the keys it copies). Put each key below,
+# with its value, into the data of that ConfigMap. It carries another name so that no file but the manifest owns ui-env: two files that define one ConfigMap delete each other's keys at the next kubectl apply.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ui-env-keys
+data:
+  RETAIL_UI_ENDPOINTS_CARTS: "REQUIRED_UI_ENV_RETAIL_UI_ENDPOINTS_CARTS" # NOT_VISIBLE: the source value is not visible statically; set the value the running service uses
+  RETAIL_UI_ENDPOINTS_CATALOG: "REQUIRED_UI_ENV_RETAIL_UI_ENDPOINTS_CATALOG" # NOT_VISIBLE: the source value is not visible statically; set the value the running service uses
+  RETAIL_UI_ENDPOINTS_CHECKOUT: "REQUIRED_UI_ENV_RETAIL_UI_ENDPOINTS_CHECKOUT" # NOT_VISIBLE: the source value is not visible statically; set the value the running service uses
+  RETAIL_UI_ENDPOINTS_ORDERS: "REQUIRED_UI_ENV_RETAIL_UI_ENDPOINTS_ORDERS" # NOT_VISIBLE: the source value is not visible statically; set the value the running service uses
 ---
 # TEMPLATE of the option federated_service_account of the task role module.retail_app_ecs.module.ui_service.aws_iam_role.task_role: apply it only after the decision target.workload.identity
 # is answered with that option (the draft then writes this ServiceAccount into the manifest itself). The annotation is the e-mail of the STACKIT

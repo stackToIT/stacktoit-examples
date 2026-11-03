@@ -73,6 +73,10 @@ def main() -> int:
 
     # draft line of the console: "Migration     38 drafted · 11 need no resource · 3 manual (of 52 units ..."
     md = re.search(r"Migration\s+(\d+) drafted · (\d+) need no resource · (\d+) manual \(of (\d+) units", console)
+    if not md:
+        dl = re.search(r"STACKIT draft \([^)]*\): (\d+) units generated · (\d+) need no resource · (\d+) left for the architect", console)
+        ul = re.search(r"\(of (\d+) units the draft considered\)", console)
+        md = re.match(r"(\d+) (\d+) (\d+) (\d+)", f"{dl.group(1)} {dl.group(2)} {dl.group(3)} {ul.group(1)}") if dl and ul else None
     sf = re.search(r"(\d+) Terraform-only · (\d+) hybrid", (out / "executive" / "brief.md").read_text())
     nvars = re.search(r"(\d+) variables", console)
     draft = mx.setdefault("draft", {})
@@ -87,10 +91,10 @@ def main() -> int:
     figs = {f.get("state"): f["n"] for f in kpi.get("figures", []) if f.get("state")}
     on_default = next((f["n"] for f in kpi.get("figures", []) if "rest on a default" in f["words"]), 0)
     manual_now = re.search(r"a person can start (\d+) of the (\d+) manual steps now", me["steps_now"])
-    not_runnable = re.search(r"(\d+) steps cannot be carried out now", me["migration_ready"])
+    not_runnable = re.search(r"(\d+) steps(?: of the plan)? cannot be carried out now", me["migration_ready"])
     mx["execution"] = {
         "package_state": w["run_summary"]["package_state"], "package_state_words": me["verdict_words"],
-        "plan_steps": kpi["steps"], "automated_steps": rn["automated_steps"], "automated_can_run_now": rn["can_run_now"],
+        "plan_steps": kpi["steps"], "automated_steps": rn["automated_steps"], "automated_free_of_decisions": rn["free_of_decisions_and_prerequisites"], "automated_runs_as_written": rn["runs_as_written"], "automated_waiting_for_value": rn["need_values"],
         "automated_wait_manual_prerequisite": figs.get("MANUAL_PREREQUISITE", 0), "automated_require_design_decision": figs.get("REQUIRES_DESIGN_DECISION", 0),
         "automated_on_unconfirmed_default": on_default, "automated_approved": next((f["n"] for f in kpi.get("figures", []) if f["words"] == "are approved"), 0),
         "terraform_steps": kpi["terraform_steps"], "api_steps": kpi["api_steps"], "api_steps_waiting_opt_in": kpi["api_steps_waiting"],
@@ -112,9 +116,9 @@ def main() -> int:
                "critical_settings_resolved": int(crit.group(1)) if crit else rd.get("critical_settings_resolved"),
                "mapping_confidence_high": mx["by_confidence"].get("HIGH", 0)})
 
-    att = re.search(r"Attention\s+(\d+) decisions to make.*?(\d+) open requests \((\d+) block the draft\)", console)
-    dflt = re.search(r"the default of (\d+) decisions nobody has answered", console)
-    nxt = re.search(r"^Next: (.+?) · details", console, re.M)
+    att = re.search(r"(?:Attention|Decisions)\s+(\d+) decisions to make.*?(\d+) open requests \((\d+) blocks? the draft", console)
+    dflt = re.search(r"the default of (\d+) (?:decisions|records) nobody has answered", console)
+    nxt = re.search(r"^Next(?: action)?:?\s+(.+?) · details", console, re.M)
     dc = mx.setdefault("decisions", {})
     dc.update({"records_open": w["decision_register"]["counts"]["records"],
                "decisions_to_make": int(att.group(1)) if att else dc.get("decisions_to_make"),
@@ -123,17 +127,17 @@ def main() -> int:
                "input_requests_blocking_draft": int(att.group(3)) if att else dc.get("input_requests_blocking_draft"),
                "first_required_action": nxt.group(1) if nxt else dc.get("first_required_action")})
 
-    apps_line = re.search(r"^(\d+) applications: (\d+) ready · (\d+) blocked · (\d+) redesign · (\d+) not ready", brief, re.M)
+    apps_line = re.search(r"^(\d+) applications?: (\d+) ready · (\d+) blocked · (\d+) redesign · (\d+) not ready", brief, re.M)
     apm = mx.setdefault("applications", {})
     if apps_line:
         apm.update({"total": int(apps_line.group(1)), "ready": int(apps_line.group(2)), "blocked": int(apps_line.group(3)),
                     "redesign": int(apps_line.group(4)), "not_ready": int(apps_line.group(5))})
-        states = {n: st for n, st in re.findall(r"^- \*\*(\w+)\*\* — ([A-Z ]+?) · PROPOSED", brief, re.M)}
+        states = {n: st for n, st in re.findall(r"^- \*\*([\w-]+)\*\* — ([A-Z ]+?) · PROPOSED", brief, re.M)}
         for row in apm.get("list", []):
             if row["name"] in states:
                 row["state"] = states[row["name"]].strip().replace(" ", "_")
 
-    cost_line = re.search(r"^Cost\s+(.+)$", console, re.M)
+    cost_line = re.search(r"^Cost\s+(.+)$", console, re.M) or re.search(r"^- Cost: (.+)$", brief, re.M)
     cm = mx.setdefault("cost", {})
     tot = next((t for t in w["cost_model"]["totals"] if t.get("scope") == "estate" and t.get("side") == "TARGET"), None)
     src = next((t for t in w["cost_model"]["totals"] if t.get("scope") == "estate" and t.get("side") == "SOURCE"), None)
@@ -150,7 +154,8 @@ def main() -> int:
     v = mx.setdefault("validation", {})
     sv = re.search(r"^source validation: (\w+)(?: \((\w+)\))?: (.+)$", console, re.M)
     v["source_completeness"] = {"state": vm["SOURCE_COMPLETENESS"]["state"], "detail": vm["SOURCE_COMPLETENESS"]["detail"] + (f": {m['source_snapshot'].get('reason', '')}" if False else "")}
-    v["source_completeness"]["detail"] = f"source status {s['source_status']}: " + next((p for p in [w["header"]["source_snapshot"].get("reason", "")] if p), "")
+    reason = w["header"]["source_snapshot"].get("reason", "")
+    v["source_completeness"]["detail"] = f"source status {s['source_status']}" + (f": {reason}" if reason else "")
     prov = next((p for p in w["header"]["source_snapshot"]["providers"] if p["name"] == "aws"), w["header"]["source_snapshot"]["providers"][0])
     v["source_provider"] = {"state": prov["status"], "detail": f"{prov['name']} constraints {', '.join(prov['constraints'][-1:])}, tested against {prov['tested_against'] or 'n/a'}; {prov['note']}"}
     if sv:

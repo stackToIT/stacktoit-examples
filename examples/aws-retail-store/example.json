@@ -14,7 +14,7 @@
     "terraform_root": "terraform/ecs/default",
     "terraform_root_url": "https://github.com/aws-containers/retail-store-sample-app/tree/d7a380b843e0759e58754f74188ea18252a51415/terraform/ecs/default",
     "license": "MIT-0 (upstream LICENSE)",
-    "registry_modules": "13 registry modules resolved by OpenTofu on 2026-10-26 (terraform-aws-modules, cloudposse)",
+    "registry_modules": "13 registry modules resolved by OpenTofu (terraform-aws-modules, cloudposse)",
     "note": "The estate was assessed exactly as published upstream: nothing in it was edited. It ships no .terraform.lock.hcl. Because of that the source provider is UNPINNED and the OpenTofu validation of the source did not run, even with a provider mirror prepared beforehand: StackToIT validates a source only against the provider versions its lock file records, and will not pick one for it.",
     "description": "The retail-store-sample-app by AWS Containers is a sample retail application: five services (ui, catalog, carts, checkout, orders) on Amazon ECS behind an Application Load Balancer, with Aurora (catalog, orders), DynamoDB (carts), OpenSearch (catalog), ElastiCache (checkout) and Amazon MQ as managed dependencies in one VPC. The estate assessed is its terraform/ecs/default root module and the local terraform/lib modules it calls.",
     "attribution": "The source estate is the retail-store-sample-app published by AWS under MIT-0."
@@ -25,24 +25,24 @@
   },
   "tool": {
     "name": "StackToIT",
-    "version": "0.6.0-11562-g1966ddf116",
-    "commit": "1966ddf116",
-    "kb_version": "0.384.0",
-    "kb_sha256": "fc24dfbd7370bd23bbae090adf2960acf5d9b4ac749be7362ac50053ceddc6d9",
+    "version": "0.6.0-11994-g560ca88251",
+    "commit": "560ca88251",
+    "kb_version": "0.385.0",
+    "kb_sha256": "f65894def83d867061199e09d4bcdffd1f3772ada7c4d474180544275af4dd1b",
     "assessment_schema": "0.24.0",
     "manifest_version": "0.4.0",
     "opentofu": "1.13.1"
   },
   "run": {
-    "run_id": "f6267c3f-2848-4aa5-89df-5fee8b15b3b9",
-    "generated_at": "2026-11-02T12:08:24Z",
-    "date": "2026-11-02",
+    "run_id": "80199dc3-8108-42fe-a0b9-030ac0f7777b",
+    "generated_at": "2026-11-03T19:59:06Z",
+    "date": "2026-11-03",
     "mode": "online (default options; a local OpenTofu provider mirror with hashicorp/aws 5.100.0 was prepared beforehand as the console suggests; prices from the local price cache retrieved 2026-10-26)",
     "command": "stacktoit assess terraform/ecs/default ./aws-retail-store --provider-mirror /path/to/mirror",
     "command_note": "Run from the vendored copy of the upstream repository. A local OpenTofu provider mirror (hashicorp/aws 5.100.0, the version the constraints resolve to) was prepared first with `tofu providers mirror`, as the first run's console suggested; the source validation still did not run because the source has no lock file. The output directory is this example's output/ folder, unchanged.",
     "verify_command": "stacktoit verify ./aws-retail-store",
-    "verify_result": "VERIFIED — 143 files match manifest.json (size and SHA-256); 7 of 7 checks PASS",
-    "source_digest": "sha256:812c5ae3f6cc8530163abbf5b6fbe305ed3b363c4886ec6b87623db857ea0c70"
+    "verify_result": "VERIFIED — 145 files match manifest.json (size and SHA-256); 7 of 7 checks PASS",
+    "source_digest": "sha256:5ce8b8f8868f3b3214b2dddebe87e3f04291bf5ceac46dc0d95624215d020000"
   },
   "metrics": {
     "files_read": 105,
@@ -88,9 +88,11 @@
     "execution": {
       "package_state": "PARTIALLY_EXECUTABLE",
       "package_state_words": "Partially executable migration package",
-      "plan_steps": 314,
+      "plan_steps": 331,
       "automated_steps": 57,
-      "automated_can_run_now": 48,
+      "automated_free_of_decisions": 48,
+      "automated_runs_as_written": 0,
+      "automated_waiting_for_value": 48,
       "automated_wait_manual_prerequisite": 1,
       "automated_require_design_decision": 8,
       "automated_on_unconfirmed_default": 9,
@@ -98,31 +100,31 @@
       "terraform_steps": 49,
       "api_steps": 4,
       "api_steps_waiting_opt_in": 4,
-      "manual_steps": 254,
-      "manual_can_start_now": 114,
-      "lifecycle_steps": 84,
-      "refused_steps": 3,
-      "steps_not_runnable_now": 147
+      "manual_steps": 272,
+      "manual_can_start_now": 115,
+      "lifecycle_steps": 96,
+      "refused_steps": 2,
+      "steps_not_runnable_now": 160
     },
     "readiness": {
       "migration_ready": "NO",
       "approval": "NOT READY FOR APPROVAL",
       "automation_eligible_units": 0,
-      "automation_eligible_after_open_items": 17,
-      "cannot_be_automated_in_this_build": 27,
-      "critical_settings_total": 319,
+      "automation_eligible_after_open_items": 29,
+      "cannot_be_automated_in_this_build": 15,
+      "critical_settings_total": 305,
       "critical_settings_resolved": 36,
       "mapping_confidence_high": 0,
       "live_verification": "Never applied to STACKIT — no plan was run against a live project"
     },
     "decisions": {
-      "records_open": 113,
+      "records_open": 112,
       "decisions_to_make": 16,
-      "defaults_to_confirm": 8,
-      "defaults_to_confirm_note": "8 unanswered decisions rest on a draft default (public endpoint 5, size derived from the source 3); the register groups them in 2 records",
-      "open_input_requests": 47,
-      "input_requests_blocking_draft": 14,
-      "first_required_action": "Allow the calls of STACKIT APIs that are not generally available (Secrets Manager v1) — Owner: Platform Architect"
+      "defaults_to_confirm": 2,
+      "defaults_to_confirm_note": "4 records nobody has answered rest on a draft default: 2 of the decisions to make, and 2 more records to confirm (public endpoint, size derived from the source)",
+      "open_input_requests": 49,
+      "input_requests_blocking_draft": 16,
+      "first_required_action": "Allow the calls of STACKIT APIs that are not generally available — Owner: Platform Architect"
     },
     "applications": {
       "total": 5,
@@ -160,7 +162,7 @@
     },
     "cost": {
       "comparison": "NOT AVAILABLE",
-      "why": "Source region unknown (30 AWS lines wait for source.aws.region); 9 of 14 STACKIT lines have no price; 10 billable source resources are outside the model.",
+      "why": "Source region unknown (30 AWS lines wait for source.aws.region); 9 of 14 STACKIT lines have no price; 10 source resources are outside the model and can carry a charge.",
       "stackit_partial_eur": "878.34",
       "stackit_lines_priced": "5 of 14",
       "source_lines_priced": "0 of 30",
@@ -177,7 +179,7 @@
       },
       "source_opentofu": {
         "state": "NOT_RUN",
-        "reason": "LOCK_FILE — the source has no dependency lock file (.terraform.lock.hcl), so provider identity and integrity cannot be verified; the validation never updates it (Provider dependency changes detected). No validation result exists; this is neither a pass nor a failure of the source."
+        "reason": "LOCK_FILE — the source has no dependency lock file (.terraform.lock.hcl), so provider identity and integrity cannot be verified; commit the lock file (tofu init writes it) and run again; the validation never updates it (Provider dependency changes detected). No validation result exists; this is neither a pass nor a failure of the source."
       },
       "draft_generation": {
         "state": "GENERATED",
@@ -197,7 +199,7 @@
       },
       "manifest": {
         "state": "VERIFIED",
-        "detail": "143 files match manifest.json; EVIDENCE, SCHEMA, RUN_ID, BASIS, INPUTS_DIGEST, INVALIDATION_KEYS, EXECUTION_PLAN PASS"
+        "detail": "145 files match manifest.json; EVIDENCE, SCHEMA, RUN_ID, BASIS, INPUTS_DIGEST, INVALIDATION_KEYS, EXECUTION_PLAN PASS"
       },
       "not_established": [
         {
@@ -239,7 +241,7 @@
     },
     {
       "title": "Four STACKIT API steps wait for an opt-in",
-      "text": "Secrets Manager steps call a pre-release STACKIT API. The plan does not make the calls until the customer allows them in the decisions file; this is the first required action of the run."
+      "text": "Secrets Manager steps call a STACKIT API whose release status is not established. The plan does not make the calls until the customer allows them in the decisions file; this is the first required action of the run."
     },
     {
       "title": "No cost comparison is stated",
@@ -260,8 +262,8 @@
     "console": "console.txt"
   },
   "publication": {
-    "published_files": 147,
-    "manifest_files": 142,
+    "published_files": 149,
+    "manifest_files": 144,
     "outside_manifest": [
       "manifest.json",
       "review/applications.yaml",

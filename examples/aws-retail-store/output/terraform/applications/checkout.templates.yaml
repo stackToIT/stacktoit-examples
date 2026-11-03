@@ -4,6 +4,17 @@
 # replace with the value the running service uses (a secret from your own secret store, never from this file or the repository).
 # StackToIT applies nothing: this is a list of what to create, bound to the manifest kubernetes/checkout/manifests.yaml, which reads these keys.
 ---
+# This is a LIST of keys, not the ConfigMap the pods read: the pods read checkout-env, which kubernetes/checkout/manifests.yaml defines (its data holds the keys it copies). Put each key below,
+# with its value, into the data of that ConfigMap. It carries another name so that no file but the manifest owns checkout-env: two files that define one ConfigMap delete each other's keys at the next kubectl apply.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: checkout-env-keys
+data:
+  RETAIL_CHECKOUT_ENDPOINTS_ORDERS: "REQUIRED_CHECKOUT_ENV_RETAIL_CHECKOUT_ENDPOINTS_ORDERS" # NOT_VISIBLE: the source value is not visible statically; set the value the running service uses
+  RETAIL_CHECKOUT_PERSISTENCE_PROVIDER: "REQUIRED_CHECKOUT_ENV_RETAIL_CHECKOUT_PERSISTENCE_PROVIDER" # LITERAL: set the value the running service uses (not copied from the source)
+  RETAIL_CHECKOUT_PERSISTENCE_REDIS_URL: "REQUIRED_CHECKOUT_ENV_RETAIL_CHECKOUT_PERSISTENCE_REDIS_URL" # NOT_VISIBLE: the source value is not visible statically; set the value the running service uses
+---
 # TEMPLATE of the option federated_service_account of the task role module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role: apply it only after the decision target.workload.identity
 # is answered with that option (the draft then writes this ServiceAccount into the manifest itself). The annotation is the e-mail of the STACKIT
 # service account of the role; the namespace is the one the manifests are applied into, and the federated identity provider trusts exactly it.

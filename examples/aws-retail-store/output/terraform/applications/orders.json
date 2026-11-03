@@ -9,11 +9,12 @@
   "readiness": "NOT_READY",
   "readiness_reasons": [
     "ENV_VALUES_REQUIRED",
+    "SECRETS_REQUIRED",
     "IDENTITY_OPEN",
     "FUNCTIONAL_CHECK_NOT_RUN"
   ],
   "readiness_words": "Checklist items are open: StackToIT lists the work and counts an item done only when the customer marks it in the decisions file (application_checklists); StackToIT never deploys the application.",
-  "checklist_sha256": "sha256:84606ea46e27a1d77d1b805e0ec83551520af522648132df1d86a8be07584f45",
+  "checklist_sha256": "sha256:424861683635f198509cb45ff471a06e14f47f713f65b9c0fc8c212ad7df3bf0",
   "templates": "applications/orders.templates.yaml",
   "validation_scope": "A kubeconform check or a kubectl apply --dry-run of the manifest establishes YAML validity only, not behaviour: it accepts a REQUIRED_ token in a string field, an empty ConfigMap and a Secret that does not exist, and runs nothing; the checklist of the application compatibility contract and an application smoke test on the target are what show that the workload works.",
   "containers": [
@@ -46,6 +47,54 @@
           "class": "LITERAL",
           "value_copied": false,
           "work": "set the key in the ConfigMap to the value module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this states for container orders-service (not copied: an environment value can carry a secret under any name); if it names an AWS endpoint, a region or an ARN, give the STACKIT one"
+        },
+        {
+          "name": "RETAIL_ORDERS_MESSAGING_RABBITMQ_ADDRESSES",
+          "class": "SECRET",
+          "value_copied": false,
+          "source": "not visible statically",
+          "target": "orders-secrets key RETAIL_ORDERS_MESSAGING_RABBITMQ_ADDRESSES",
+          "work": "create the key RETAIL_ORDERS_MESSAGING_RABBITMQ_ADDRESSES of the Kubernetes Secret orders-secrets from not visible statically (copy the secret into a STACKIT Secrets Manager instance or create the Secret from it; the value is never in the draft)"
+        },
+        {
+          "name": "RETAIL_ORDERS_MESSAGING_RABBITMQ_PASSWORD",
+          "class": "SECRET",
+          "value_copied": false,
+          "source": "not visible statically",
+          "target": "orders-secrets key RETAIL_ORDERS_MESSAGING_RABBITMQ_PASSWORD",
+          "work": "create the key RETAIL_ORDERS_MESSAGING_RABBITMQ_PASSWORD of the Kubernetes Secret orders-secrets from not visible statically (copy the secret into a STACKIT Secrets Manager instance or create the Secret from it; the value is never in the draft)"
+        },
+        {
+          "name": "RETAIL_ORDERS_MESSAGING_RABBITMQ_USERNAME",
+          "class": "SECRET",
+          "value_copied": false,
+          "source": "not visible statically",
+          "target": "orders-secrets key RETAIL_ORDERS_MESSAGING_RABBITMQ_USERNAME",
+          "work": "create the key RETAIL_ORDERS_MESSAGING_RABBITMQ_USERNAME of the Kubernetes Secret orders-secrets from not visible statically (copy the secret into a STACKIT Secrets Manager instance or create the Secret from it; the value is never in the draft)"
+        },
+        {
+          "name": "RETAIL_ORDERS_PERSISTENCE_ENDPOINT",
+          "class": "SECRET",
+          "value_copied": false,
+          "source": "not visible statically",
+          "target": "orders-secrets key RETAIL_ORDERS_PERSISTENCE_ENDPOINT",
+          "work": "create the key RETAIL_ORDERS_PERSISTENCE_ENDPOINT of the Kubernetes Secret orders-secrets from not visible statically (copy the secret into a STACKIT Secrets Manager instance or create the Secret from it; the value is never in the draft)"
+        },
+        {
+          "name": "RETAIL_ORDERS_PERSISTENCE_PASSWORD",
+          "class": "SECRET",
+          "value_copied": false,
+          "source": "not visible statically",
+          "target": "orders-secrets key RETAIL_ORDERS_PERSISTENCE_PASSWORD",
+          "work": "create the key RETAIL_ORDERS_PERSISTENCE_PASSWORD of the Kubernetes Secret orders-secrets from not visible statically (copy the secret into a STACKIT Secrets Manager instance or create the Secret from it; the value is never in the draft)"
+        },
+        {
+          "name": "RETAIL_ORDERS_PERSISTENCE_USERNAME",
+          "class": "SECRET",
+          "value_copied": false,
+          "source": "not visible statically",
+          "target": "orders-secrets key RETAIL_ORDERS_PERSISTENCE_USERNAME",
+          "work": "create the key RETAIL_ORDERS_PERSISTENCE_USERNAME of the Kubernetes Secret orders-secrets from not visible statically (copy the secret into a STACKIT Secrets Manager instance or create the Secret from it; the value is never in the draft)"
         }
       ]
     }
@@ -53,7 +102,7 @@
   "endpoints": [
     {
       "kind": "SERVICE_CONNECT_ALIAS",
-      "source": "orders:80 (the Service Connect alias of port orders-service in the namespace not visible statically)",
+      "source": "orders:80 (the Service Connect alias of port orders-service in the namespace retailstore.local)",
       "target": "orders:80 (the Kubernetes Service orders, port 80 → container port 8080, in the namespace the manifests are applied into)",
       "work": "the Kubernetes Service keeps the name and port the clients call: check that they resolve it from their namespace; the Service Connect proxy (its retries, timeouts, TLS and metrics) is not carried"
     }
@@ -150,6 +199,60 @@
       "sha256": "sha256:acfe30323f398a862af97c3ecb12b86ea824fc2f5f475e3e482d33485bb565dc",
       "state": "OPEN",
       "work": "set the key in the ConfigMap to the value module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this states for container orders-service (not copied: an environment value can carry a secret under any name); if it names an AWS endpoint, a region or an ARN, give the STACKIT one"
+    },
+    {
+      "id": "secret:orders-service/RETAIL_ORDERS_MESSAGING_RABBITMQ_ADDRESSES",
+      "kind": "SECRET",
+      "subject": "orders-service/RETAIL_ORDERS_MESSAGING_RABBITMQ_ADDRESSES",
+      "blocking": true,
+      "sha256": "sha256:a6214e64e389e6143096c0923f51c49fc4556fdec63153acfb24208c69b16209",
+      "state": "OPEN",
+      "work": "create the key RETAIL_ORDERS_MESSAGING_RABBITMQ_ADDRESSES of the Kubernetes Secret orders-secrets from not visible statically (copy the secret into a STACKIT Secrets Manager instance or create the Secret from it; the value is never in the draft)"
+    },
+    {
+      "id": "secret:orders-service/RETAIL_ORDERS_MESSAGING_RABBITMQ_PASSWORD",
+      "kind": "SECRET",
+      "subject": "orders-service/RETAIL_ORDERS_MESSAGING_RABBITMQ_PASSWORD",
+      "blocking": true,
+      "sha256": "sha256:1ab3b5494cf4ba4ce3df95a993912fcbd57454065654cbf09d2a5ab8dd31a98f",
+      "state": "OPEN",
+      "work": "create the key RETAIL_ORDERS_MESSAGING_RABBITMQ_PASSWORD of the Kubernetes Secret orders-secrets from not visible statically (copy the secret into a STACKIT Secrets Manager instance or create the Secret from it; the value is never in the draft)"
+    },
+    {
+      "id": "secret:orders-service/RETAIL_ORDERS_MESSAGING_RABBITMQ_USERNAME",
+      "kind": "SECRET",
+      "subject": "orders-service/RETAIL_ORDERS_MESSAGING_RABBITMQ_USERNAME",
+      "blocking": true,
+      "sha256": "sha256:073e6c01ff8a74bc8124c64169fcb8572c2c192f6198239fa05921183a899472",
+      "state": "OPEN",
+      "work": "create the key RETAIL_ORDERS_MESSAGING_RABBITMQ_USERNAME of the Kubernetes Secret orders-secrets from not visible statically (copy the secret into a STACKIT Secrets Manager instance or create the Secret from it; the value is never in the draft)"
+    },
+    {
+      "id": "secret:orders-service/RETAIL_ORDERS_PERSISTENCE_ENDPOINT",
+      "kind": "SECRET",
+      "subject": "orders-service/RETAIL_ORDERS_PERSISTENCE_ENDPOINT",
+      "blocking": true,
+      "sha256": "sha256:d2ea7ad80b654317f27e36e405ab00a728f64a57f56f54c81bbed549d411b040",
+      "state": "OPEN",
+      "work": "create the key RETAIL_ORDERS_PERSISTENCE_ENDPOINT of the Kubernetes Secret orders-secrets from not visible statically (copy the secret into a STACKIT Secrets Manager instance or create the Secret from it; the value is never in the draft)"
+    },
+    {
+      "id": "secret:orders-service/RETAIL_ORDERS_PERSISTENCE_PASSWORD",
+      "kind": "SECRET",
+      "subject": "orders-service/RETAIL_ORDERS_PERSISTENCE_PASSWORD",
+      "blocking": true,
+      "sha256": "sha256:f87e5b04163e8b1adfc225843f18d6158743adf6635fc9aa2d962d472fc5078a",
+      "state": "OPEN",
+      "work": "create the key RETAIL_ORDERS_PERSISTENCE_PASSWORD of the Kubernetes Secret orders-secrets from not visible statically (copy the secret into a STACKIT Secrets Manager instance or create the Secret from it; the value is never in the draft)"
+    },
+    {
+      "id": "secret:orders-service/RETAIL_ORDERS_PERSISTENCE_USERNAME",
+      "kind": "SECRET",
+      "subject": "orders-service/RETAIL_ORDERS_PERSISTENCE_USERNAME",
+      "blocking": true,
+      "sha256": "sha256:d19c9a3fb665e6c603299f49a181aa4002b1da716b446c8cbd2a3f988b35f95e",
+      "state": "OPEN",
+      "work": "create the key RETAIL_ORDERS_PERSISTENCE_USERNAME of the Kubernetes Secret orders-secrets from not visible statically (copy the secret into a STACKIT Secrets Manager instance or create the Secret from it; the value is never in the draft)"
     },
     {
       "id": "identity:module.retail_app_ecs.module.orders_service.aws_iam_role.task_role",

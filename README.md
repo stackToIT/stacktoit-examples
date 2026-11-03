@@ -10,7 +10,7 @@ StackToIT reads a Terraform estate and writes a migration package for STACKIT: t
 
 | Example | Source | Assessed | Result |
 |---|---|---|---|
-| [AWS Retail Store Sample App](examples/aws-retail-store/) | [aws-containers/retail-store-sample-app](https://github.com/aws-containers/retail-store-sample-app) @ `d7a380b8`, `terraform/ecs/default` | 2026-11-02 | 282 resources, 44 units · 34 RECONFIGURE / 9 REPLATFORM / 1 REDESIGN · 38 units drafted · migration ready: **NO** · [full assessment](https://stacktoit.com/examples/examples/aws-retail-store/report/) |
+| [AWS Retail Store Sample App](examples/aws-retail-store/) | [aws-containers/retail-store-sample-app](https://github.com/aws-containers/retail-store-sample-app) @ `d7a380b8`, `terraform/ecs/default` | 2026-11-03 | 282 resources, 44 units · 34 RECONFIGURE / 9 REPLATFORM / 1 REDESIGN · 38 units drafted · migration ready: **NO** · [full assessment](https://stacktoit.com/examples/aws-retail-store/report/) |
 
 ## What a run produces
 

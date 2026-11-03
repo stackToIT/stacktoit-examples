@@ -9,12 +9,12 @@
   "readiness": "BLOCKED",
   "readiness_reasons": [
     "DATASTORE_PROTOCOL_CHANGE",
-    "DATASTORE_PROTOCOL_NOT_ASSESSED",
+    "ENV_VALUES_REQUIRED",
     "IDENTITY_OPEN",
     "FUNCTIONAL_CHECK_NOT_RUN"
   ],
   "readiness_words": "A data store this workload reaches changes protocol or has no assessed protocol, and its code migration decision is not answered: StackToIT keeps the workload blocked until the customer answers it in the decisions file.",
-  "checklist_sha256": "sha256:4ac4d30a793c5cac007abcd4adcf156d0a43b253131aaa38a0cfc8c0e8c766bd",
+  "checklist_sha256": "sha256:230a0784c971c055b381ef0358f00bc1109547183c2dc9854bf64d8b34a6c40c",
   "templates": "applications/carts.templates.yaml",
   "validation_scope": "A kubeconform check or a kubectl apply --dry-run of the manifest establishes YAML validity only, not behaviour: it accepts a REQUIRED_ token in a string field, an empty ConfigMap and a Secret that does not exist, and runs nothing; the checklist of the application compatibility contract and an application smoke test on the target are what show that the workload works.",
   "containers": [
@@ -29,13 +29,26 @@
         "livenessProbe: exec curl -f http://localhost:8080/actuator/health (the ECS health check)",
         "startupProbe: the same check over the start period"
       ],
-      "env": []
+      "env": [
+        {
+          "name": "RETAIL_CART_PERSISTENCE_DYNAMODB_TABLE_NAME",
+          "class": "NOT_VISIBLE",
+          "value_copied": false,
+          "work": "the value is not visible statically (a variable or an expression): set the key in the ConfigMap to the value the running service uses"
+        },
+        {
+          "name": "RETAIL_CART_PERSISTENCE_PROVIDER",
+          "class": "LITERAL",
+          "value_copied": false,
+          "work": "the literal value selects DynamoDB: the rewritten application selects the provider of its target data store instead (see the data store below); set the key in the ConfigMap to what that code reads (the value is not copied)"
+        }
+      ]
     }
   ],
   "endpoints": [
     {
       "kind": "SERVICE_CONNECT_ALIAS",
-      "source": "carts:80 (the Service Connect alias of port carts-service in the namespace not visible statically)",
+      "source": "carts:80 (the Service Connect alias of port carts-service in the namespace retailstore.local)",
       "target": "carts:80 (the Kubernetes Service carts, port 80 → container port 8080, in the namespace the manifests are applied into)",
       "work": "the Kubernetes Service keeps the name and port the clients call: check that they resolve it from their namespace; the Service Connect proxy (its retries, timeouts, TLS and metrics) is not carried"
     }
@@ -53,60 +66,6 @@
     ]
   },
   "datastores": [
-    {
-      "source": "module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled",
-      "source_kind": "DynamoDB",
-      "protocol": "PROTOCOL_NOT_ASSESSED",
-      "evidence": "module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this references module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled",
-      "work": "the data store module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled is not drafted: decide its target and check that the application's client library speaks its protocol",
-      "code_migration": {
-        "id": "application:carts:code-migration:module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled",
-        "question": "The protocol compatibility of DynamoDB and the target of module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled is not assessed: has the application's use of it been checked?",
-        "owner": "Application owner (development team)",
-        "blocks": "BLOCKED",
-        "options": [
-          {
-            "id": "compatibility-verified",
-            "title": "the calls the application makes were checked against the target store and found compatible",
-            "unblocks": true
-          },
-          {
-            "id": "different-target-store",
-            "title": "a target store that speaks the protocol of the source is wanted instead: the draft is regenerated with it, and the workload stays blocked until then",
-            "unblocks": false
-          }
-        ],
-        "sha256": "sha256:3a3532180fa98f2d9ed6e4008f984102c7dbc1cc657c4380ef955bfe03b89749",
-        "state": "OPEN"
-      }
-    },
-    {
-      "source": "module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled_gsi_ignore",
-      "source_kind": "DynamoDB",
-      "protocol": "PROTOCOL_NOT_ASSESSED",
-      "evidence": "module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this references module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled_gsi_ignore",
-      "work": "the data store module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled_gsi_ignore is not drafted: decide its target and check that the application's client library speaks its protocol",
-      "code_migration": {
-        "id": "application:carts:code-migration:module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled_gsi_ignore",
-        "question": "The protocol compatibility of DynamoDB and the target of module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled_gsi_ignore is not assessed: has the application's use of it been checked?",
-        "owner": "Application owner (development team)",
-        "blocks": "BLOCKED",
-        "options": [
-          {
-            "id": "compatibility-verified",
-            "title": "the calls the application makes were checked against the target store and found compatible",
-            "unblocks": true
-          },
-          {
-            "id": "different-target-store",
-            "title": "a target store that speaks the protocol of the source is wanted instead: the draft is regenerated with it, and the workload stays blocked until then",
-            "unblocks": false
-          }
-        ],
-        "sha256": "sha256:0af54169ba070dcc1f111588ed567956c5990aa825440f2e882493d0de204bde",
-        "state": "OPEN"
-      }
-    },
     {
       "source": "module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this",
       "source_kind": "DynamoDB",
@@ -150,22 +109,22 @@
   ],
   "checklist": [
     {
-      "id": "datastore_protocol_check:module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled",
-      "kind": "DATASTORE_PROTOCOL_CHECK",
-      "subject": "module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled",
+      "id": "env_value:carts-service/RETAIL_CART_PERSISTENCE_DYNAMODB_TABLE_NAME",
+      "kind": "ENV_VALUE",
+      "subject": "carts-service/RETAIL_CART_PERSISTENCE_DYNAMODB_TABLE_NAME",
       "blocking": true,
-      "sha256": "sha256:452434a4541a3db21db09ea0d8d38c5df5b0acc9fa8314701f457a9616481161",
+      "sha256": "sha256:067e8db72386eb2ea9a76da035451483f074e1bc8ee8305cc70ac36dc89ad29e",
       "state": "OPEN",
-      "work": "the data store module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled is not drafted: decide its target and check that the application's client library speaks its protocol"
+      "work": "the value is not visible statically (a variable or an expression): set the key in the ConfigMap to the value the running service uses"
     },
     {
-      "id": "datastore_protocol_check:module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled_gsi_ignore",
-      "kind": "DATASTORE_PROTOCOL_CHECK",
-      "subject": "module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled_gsi_ignore",
+      "id": "env_value:carts-service/RETAIL_CART_PERSISTENCE_PROVIDER",
+      "kind": "ENV_VALUE",
+      "subject": "carts-service/RETAIL_CART_PERSISTENCE_PROVIDER",
       "blocking": true,
-      "sha256": "sha256:1a1c50dc7df3d51f58cabf9784cc227a7645ae0bf7353c7b6e1db8f0da6fffa8",
+      "sha256": "sha256:3b103d4d2106e1e639bf72344ab95a925769f688f3e883504dff39a3155015c9",
       "state": "OPEN",
-      "work": "the data store module.dependencies.module.dynamodb_carts.aws_dynamodb_table.autoscaled_gsi_ignore is not drafted: decide its target and check that the application's client library speaks its protocol"
+      "work": "the literal value selects DynamoDB: the rewritten application selects the provider of its target data store instead (see the data store below); set the key in the ConfigMap to what that code reads (the value is not copied)"
     },
     {
       "id": "datastore_code_change:module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this",

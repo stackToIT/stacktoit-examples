@@ -1,9 +1,9 @@
 {
-  "run_id": "f6267c3f-2848-4aa5-89df-5fee8b15b3b9",
-  "source_digest": "sha256:812c5ae3f6cc8530163abbf5b6fbe305ed3b363c4886ec6b87623db857ea0c70",
+  "run_id": "80199dc3-8108-42fe-a0b9-030ac0f7777b",
+  "source_digest": "sha256:5ce8b8f8868f3b3214b2dddebe87e3f04291bf5ceac46dc0d95624215d020000",
   "critical_semantic_resolution": {
     "resolved": 36,
-    "total": 319,
+    "total": 305,
     "units_without_contract": 0,
     "open": [
       {
@@ -80,19 +80,11 @@
       },
       {
         "unit": "module.dependencies.aws_security_group.catalog_opensearch_sg",
-        "semantic": "network-topology-boundary",
-        "disposition": "REVIEW",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). Several VPCs, a VPC count that is not visible, or a unit of the estate that names a VPC, or is placed in a subnet, the scan cannot prove is the estate's, leave the architecture to the architect for every unit of the topology, this security group included: STACKIT has no VPC container in its stable model, the project is the boundary of its networks, so the draft cannot keep several VPCs apart in one project.",
-        "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded."
-      },
-      {
-        "unit": "module.dependencies.aws_security_group.catalog_opensearch_sg",
         "semantic": "security-group-vpc-membership",
-        "disposition": "UNSUPPORTED",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "This draft writes no stackit_security_group, stackit_security_group_rule for this unit: every unit that names the group is a managed data service of STACKIT, which has no security group and takes its clients from an access list of its own, so the group is listed by no resource and what it admitted reaches those access lists as addresses only. What follows states the knowledge base's candidate target, not a block of this draft: A check of the knowledge base (topology vpc unproven) found a setting the target has no counterpart for (a finding of this unit describes it). UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
-        "closes_when": "A person confirms which VPC each network resource of the estate is in and whether the networks of another VPC belong in this project or in a project of their own joined through a Network Area; the group is then attached only to the interfaces of the networks that replace its VPC."
+        "disposition": "REVIEW",
+        "reason": "unenforced:security group rules",
+        "why_open": "This draft writes no stackit_security_group, stackit_security_group_rule for this unit: every unit that names the group is a managed data service of STACKIT, which has no security group and takes its clients from an access list of its own, so the group is listed by no resource and what it admitted reaches those access lists as addresses only. What follows states the knowledge base's candidate target, not a block of this draft: UNENFORCED: the security group is attached to no block of the target (it is written in the draft and listed by no resource, or, where the access lists of its members carry it, not written), so its rules (\"security group rules\") restrict nothing on the target until an attachment is designed; this setting is not carried as an enforced control. UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
+        "closes_when": "A person designs how the target enforces what the group allowed (attaches the group, or its replacement, to the target resources that take its place), or accepts the difference."
       },
       {
         "unit": "module.dependencies.aws_security_group.catalog_opensearch_sg",
@@ -128,19 +120,11 @@
       },
       {
         "unit": "module.dependencies.aws_security_group.mq",
-        "semantic": "network-topology-boundary",
-        "disposition": "REVIEW",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). Several VPCs, a VPC count that is not visible, or a unit of the estate that names a VPC, or is placed in a subnet, the scan cannot prove is the estate's, leave the architecture to the architect for every unit of the topology, this security group included: STACKIT has no VPC container in its stable model, the project is the boundary of its networks, so the draft cannot keep several VPCs apart in one project.",
-        "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded."
-      },
-      {
-        "unit": "module.dependencies.aws_security_group.mq",
         "semantic": "security-group-vpc-membership",
-        "disposition": "UNSUPPORTED",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "This draft writes no stackit_security_group, stackit_security_group_rule for this unit: every unit that names the group is a managed data service of STACKIT, which has no security group and takes its clients from an access list of its own, so the group is listed by no resource and what it admitted reaches those access lists as addresses only. What follows states the knowledge base's candidate target, not a block of this draft: A check of the knowledge base (topology vpc unproven) found a setting the target has no counterpart for (a finding of this unit describes it). UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
-        "closes_when": "A person confirms which VPC each network resource of the estate is in and whether the networks of another VPC belong in this project or in a project of their own joined through a Network Area; the group is then attached only to the interfaces of the networks that replace its VPC."
+        "disposition": "REVIEW",
+        "reason": "unenforced:security group rules",
+        "why_open": "This draft writes no stackit_security_group, stackit_security_group_rule for this unit: every unit that names the group is a managed data service of STACKIT, which has no security group and takes its clients from an access list of its own, so the group is listed by no resource and what it admitted reaches those access lists as addresses only. What follows states the knowledge base's candidate target, not a block of this draft: UNENFORCED: the security group is attached to no block of the target (it is written in the draft and listed by no resource, or, where the access lists of its members carry it, not written), so its rules (\"security group rules\") restrict nothing on the target until an attachment is designed; this setting is not carried as an enforced control. UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
+        "closes_when": "A person designs how the target enforces what the group allowed (attaches the group, or its replacement, to the target resources that take its place), or accepts the difference."
       },
       {
         "unit": "module.dependencies.aws_security_group.mq",
@@ -392,14 +376,6 @@
       },
       {
         "unit": "module.dependencies.module.catalog_rds.aws_security_group.this",
-        "semantic": "network-topology-boundary",
-        "disposition": "REVIEW",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). Several VPCs, a VPC count that is not visible, or a unit of the estate that names a VPC, or is placed in a subnet, the scan cannot prove is the estate's, leave the architecture to the architect for every unit of the topology, this security group included: STACKIT has no VPC container in its stable model, the project is the boundary of its networks, so the draft cannot keep several VPCs apart in one project.",
-        "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded."
-      },
-      {
-        "unit": "module.dependencies.module.catalog_rds.aws_security_group.this",
         "semantic": "rule-ports",
         "disposition": "REVIEW",
         "reason": "check:sg-rule-not-rendered",
@@ -409,10 +385,10 @@
       {
         "unit": "module.dependencies.module.catalog_rds.aws_security_group.this",
         "semantic": "security-group-vpc-membership",
-        "disposition": "UNSUPPORTED",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "This draft writes no stackit_security_group, stackit_security_group_rule for this unit: every unit that names the group is a managed data service of STACKIT, which has no security group and takes its clients from an access list of its own, so the group is listed by no resource and what it admitted reaches those access lists as addresses only. What follows states the knowledge base's candidate target, not a block of this draft: A check of the knowledge base (topology vpc unproven) found a setting the target has no counterpart for (a finding of this unit describes it). UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
-        "closes_when": "A person confirms which VPC each network resource of the estate is in and whether the networks of another VPC belong in this project or in a project of their own joined through a Network Area; the group is then attached only to the interfaces of the networks that replace its VPC."
+        "disposition": "REVIEW",
+        "reason": "unenforced:security group rules",
+        "why_open": "This draft writes no stackit_security_group, stackit_security_group_rule for this unit: every unit that names the group is a managed data service of STACKIT, which has no security group and takes its clients from an access list of its own, so the group is listed by no resource and what it admitted reaches those access lists as addresses only. What follows states the knowledge base's candidate target, not a block of this draft: UNENFORCED: the security group is attached to no block of the target (it is written in the draft and listed by no resource, or, where the access lists of its members carry it, not written), so its rules (\"security group rules\") restrict nothing on the target until an attachment is designed; this setting is not carried as an enforced control. UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
+        "closes_when": "A person designs how the target enforces what the group allowed (attaches the group, or its replacement, to the target resources that take its place), or accepts the difference."
       },
       {
         "unit": "module.dependencies.module.catalog_rds.aws_security_group.this",
@@ -504,14 +480,6 @@
       },
       {
         "unit": "module.dependencies.module.checkout_elasticache_redis.module.aws_security_group.aws_security_group.cbd",
-        "semantic": "network-topology-boundary",
-        "disposition": "REVIEW",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). Several VPCs, a VPC count that is not visible, or a unit of the estate that names a VPC, or is placed in a subnet, the scan cannot prove is the estate's, leave the architecture to the architect for every unit of the topology, this security group included: STACKIT has no VPC container in its stable model, the project is the boundary of its networks, so the draft cannot keep several VPCs apart in one project.",
-        "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded."
-      },
-      {
-        "unit": "module.dependencies.module.checkout_elasticache_redis.module.aws_security_group.aws_security_group.cbd",
         "semantic": "rule-ports",
         "disposition": "REVIEW",
         "reason": "check:sg-rule-not-rendered",
@@ -521,10 +489,10 @@
       {
         "unit": "module.dependencies.module.checkout_elasticache_redis.module.aws_security_group.aws_security_group.cbd",
         "semantic": "security-group-vpc-membership",
-        "disposition": "UNSUPPORTED",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "This draft writes no stackit_security_group, stackit_security_group_rule for this unit: every unit that names the group is a managed data service of STACKIT, which has no security group and takes its clients from an access list of its own, so the group is listed by no resource and what it admitted reaches those access lists as addresses only. What follows states the knowledge base's candidate target, not a block of this draft: A check of the knowledge base (topology vpc unproven) found a setting the target has no counterpart for (a finding of this unit describes it). UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
-        "closes_when": "A person confirms which VPC each network resource of the estate is in and whether the networks of another VPC belong in this project or in a project of their own joined through a Network Area; the group is then attached only to the interfaces of the networks that replace its VPC."
+        "disposition": "REVIEW",
+        "reason": "unenforced:security group rules",
+        "why_open": "This draft writes no stackit_security_group, stackit_security_group_rule for this unit: every unit that names the group is a managed data service of STACKIT, which has no security group and takes its clients from an access list of its own, so the group is listed by no resource and what it admitted reaches those access lists as addresses only. What follows states the knowledge base's candidate target, not a block of this draft: UNENFORCED: the security group is attached to no block of the target (it is written in the draft and listed by no resource, or, where the access lists of its members carry it, not written), so its rules (\"security group rules\") restrict nothing on the target until an attachment is designed; this setting is not carried as an enforced control. UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
+        "closes_when": "A person designs how the target enforces what the group allowed (attaches the group, or its replacement, to the target resources that take its place), or accepts the difference."
       },
       {
         "unit": "module.dependencies.module.checkout_elasticache_redis.module.aws_security_group.aws_security_group.cbd",
@@ -587,8 +555,8 @@
         "semantic": "point-in-time-recovery",
         "disposition": "REVIEW",
         "reason": "case:dynamodb",
-        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. MongoDB Flex has a point-in-time window in hours (options.point_in_time_window_hours); its maximum is not documented in the provider schema. The draft carries no value for it.",
-        "closes_when": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting."
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. DynamoDB restores a table to any point in time within its recovery period (1 to 35 days; 35 when the table states none). A recovery that is off, one day (24 hours) or not known stays REVIEW: the draft is an alternative, not an equivalent, and a person compares the recovery the application needs.",
+        "closes_when": "A person accepts the 30-hour window in writing, or designs protection of their own for the older hours (work the draft does not generate) and checks a restore against it."
       },
       {
         "unit": "module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this",
@@ -701,14 +669,6 @@
       },
       {
         "unit": "module.dependencies.module.orders_rds.aws_security_group.this",
-        "semantic": "network-topology-boundary",
-        "disposition": "REVIEW",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). Several VPCs, a VPC count that is not visible, or a unit of the estate that names a VPC, or is placed in a subnet, the scan cannot prove is the estate's, leave the architecture to the architect for every unit of the topology, this security group included: STACKIT has no VPC container in its stable model, the project is the boundary of its networks, so the draft cannot keep several VPCs apart in one project.",
-        "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded."
-      },
-      {
-        "unit": "module.dependencies.module.orders_rds.aws_security_group.this",
         "semantic": "rule-ports",
         "disposition": "REVIEW",
         "reason": "check:sg-rule-not-rendered",
@@ -718,10 +678,10 @@
       {
         "unit": "module.dependencies.module.orders_rds.aws_security_group.this",
         "semantic": "security-group-vpc-membership",
-        "disposition": "UNSUPPORTED",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "This draft writes no stackit_security_group, stackit_security_group_rule for this unit: every unit that names the group is a managed data service of STACKIT, which has no security group and takes its clients from an access list of its own, so the group is listed by no resource and what it admitted reaches those access lists as addresses only. What follows states the knowledge base's candidate target, not a block of this draft: A check of the knowledge base (topology vpc unproven) found a setting the target has no counterpart for (a finding of this unit describes it). UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
-        "closes_when": "A person confirms which VPC each network resource of the estate is in and whether the networks of another VPC belong in this project or in a project of their own joined through a Network Area; the group is then attached only to the interfaces of the networks that replace its VPC."
+        "disposition": "REVIEW",
+        "reason": "unenforced:security group rules",
+        "why_open": "This draft writes no stackit_security_group, stackit_security_group_rule for this unit: every unit that names the group is a managed data service of STACKIT, which has no security group and takes its clients from an access list of its own, so the group is listed by no resource and what it admitted reaches those access lists as addresses only. What follows states the knowledge base's candidate target, not a block of this draft: UNENFORCED: the security group is attached to no block of the target (it is written in the draft and listed by no resource, or, where the access lists of its members carry it, not written), so its rules (\"security group rules\") restrict nothing on the target until an attachment is designed; this setting is not carried as an enforced control. UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
+        "closes_when": "A person designs how the target enforces what the group allowed (attaches the group, or its replacement, to the target resources that take its place), or accepts the difference."
       },
       {
         "unit": "module.dependencies.module.orders_rds.aws_security_group.this",
@@ -909,19 +869,11 @@
       },
       {
         "unit": "module.retail_app_ecs.module.alb.aws_security_group.this",
-        "semantic": "network-topology-boundary",
-        "disposition": "REVIEW",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). Several VPCs, a VPC count that is not visible, or a unit of the estate that names a VPC, or is placed in a subnet, the scan cannot prove is the estate's, leave the architecture to the architect for every unit of the topology, this security group included: STACKIT has no VPC container in its stable model, the project is the boundary of its networks, so the draft cannot keep several VPCs apart in one project.",
-        "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded."
-      },
-      {
-        "unit": "module.retail_app_ecs.module.alb.aws_security_group.this",
         "semantic": "security-group-vpc-membership",
-        "disposition": "UNSUPPORTED",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) found a setting the target has no counterpart for (a finding of this unit describes it). UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
-        "closes_when": "A person confirms which VPC each network resource of the estate is in and whether the networks of another VPC belong in this project or in a project of their own joined through a Network Area; the group is then attached only to the interfaces of the networks that replace its VPC."
+        "disposition": "REVIEW",
+        "reason": "unenforced:security group rules",
+        "why_open": "UNENFORCED: the security group is attached to no block of the target (it is written in the draft and listed by no resource, or, where the access lists of its members carry it, not written), so its rules (\"security group rules\") restrict nothing on the target until an attachment is designed; this setting is not carried as an enforced control. UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
+        "closes_when": "A person designs how the target enforces what the group allowed (attaches the group, or its replacement, to the target resources that take its place), or accepts the difference."
       },
       {
         "unit": "module.retail_app_ecs.module.alb.aws_security_group.this",
@@ -930,14 +882,6 @@
         "reason": "unenforced:security group rules",
         "why_open": "UNENFORCED: the security group is attached to no block of the target (it is written in the draft and listed by no resource, or, where the access lists of its members carry it, not written), so its rules (\"security group rules\") restrict nothing on the target until an attachment is designed; this setting is not carried as an enforced control. STACKIT security groups are stateful by default (tested on a STACKIT project on 2026-09-24: stateful=true).",
         "closes_when": "A person designs how the target enforces what the group allowed (attaches the group, or its replacement, to the target resources that take its place), or accepts the difference."
-      },
-      {
-        "unit": "module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix",
-        "semantic": "network-topology-boundary",
-        "disposition": "REVIEW",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). Several VPCs, a VPC count that is not visible, or a unit of the estate that names a VPC, or is placed in a subnet, the scan cannot prove is the estate's, leave the architecture to the architect for every unit of the topology, this security group included: STACKIT has no VPC container in its stable model, the project is the boundary of its networks, so the draft cannot keep several VPCs apart in one project.",
-        "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded."
       },
       {
         "unit": "module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix",
@@ -950,10 +894,10 @@
       {
         "unit": "module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix",
         "semantic": "security-group-vpc-membership",
-        "disposition": "UNSUPPORTED",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) found a setting the target has no counterpart for (a finding of this unit describes it). UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
-        "closes_when": "A person confirms which VPC each network resource of the estate is in and whether the networks of another VPC belong in this project or in a project of their own joined through a Network Area; the group is then attached only to the interfaces of the networks that replace its VPC."
+        "disposition": "REVIEW",
+        "reason": "unenforced:security group rules",
+        "why_open": "UNENFORCED: the security group is attached to no block of the target (it is written in the draft and listed by no resource, or, where the access lists of its members carry it, not written), so its rules (\"security group rules\") restrict nothing on the target until an attachment is designed; this setting is not carried as an enforced control. UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
+        "closes_when": "A person designs how the target enforces what the group allowed (attaches the group, or its replacement, to the target resources that take its place), or accepts the difference."
       },
       {
         "unit": "module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix",
@@ -1197,14 +1141,6 @@
       },
       {
         "unit": "module.retail_app_ecs.module.carts_service.aws_security_group.this",
-        "semantic": "network-topology-boundary",
-        "disposition": "REVIEW",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). Several VPCs, a VPC count that is not visible, or a unit of the estate that names a VPC, or is placed in a subnet, the scan cannot prove is the estate's, leave the architecture to the architect for every unit of the topology, this security group included: STACKIT has no VPC container in its stable model, the project is the boundary of its networks, so the draft cannot keep several VPCs apart in one project.",
-        "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded."
-      },
-      {
-        "unit": "module.retail_app_ecs.module.carts_service.aws_security_group.this",
         "semantic": "rule-ports",
         "disposition": "LEDGER",
         "reason": "ledger:security group rules",
@@ -1214,10 +1150,10 @@
       {
         "unit": "module.retail_app_ecs.module.carts_service.aws_security_group.this",
         "semantic": "security-group-vpc-membership",
-        "disposition": "UNSUPPORTED",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) found a setting the target has no counterpart for (a finding of this unit describes it). UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
-        "closes_when": "A person confirms which VPC each network resource of the estate is in and whether the networks of another VPC belong in this project or in a project of their own joined through a Network Area; the group is then attached only to the interfaces of the networks that replace its VPC."
+        "disposition": "REVIEW",
+        "reason": "unenforced:security group rules",
+        "why_open": "UNENFORCED: the security group is attached to no block of the target (it is written in the draft and listed by no resource, or, where the access lists of its members carry it, not written), so its rules (\"security group rules\") restrict nothing on the target until an attachment is designed; this setting is not carried as an enforced control. UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
+        "closes_when": "A person designs how the target enforces what the group allowed (attaches the group, or its replacement, to the target resources that take its place), or accepts the difference."
       },
       {
         "unit": "module.retail_app_ecs.module.carts_service.aws_security_group.this",
@@ -1437,14 +1373,6 @@
       },
       {
         "unit": "module.retail_app_ecs.module.catalog_service.aws_security_group.this",
-        "semantic": "network-topology-boundary",
-        "disposition": "REVIEW",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). Several VPCs, a VPC count that is not visible, or a unit of the estate that names a VPC, or is placed in a subnet, the scan cannot prove is the estate's, leave the architecture to the architect for every unit of the topology, this security group included: STACKIT has no VPC container in its stable model, the project is the boundary of its networks, so the draft cannot keep several VPCs apart in one project.",
-        "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded."
-      },
-      {
-        "unit": "module.retail_app_ecs.module.catalog_service.aws_security_group.this",
         "semantic": "rule-ports",
         "disposition": "LEDGER",
         "reason": "ledger:security group rules",
@@ -1454,10 +1382,10 @@
       {
         "unit": "module.retail_app_ecs.module.catalog_service.aws_security_group.this",
         "semantic": "security-group-vpc-membership",
-        "disposition": "UNSUPPORTED",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) found a setting the target has no counterpart for (a finding of this unit describes it). UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
-        "closes_when": "A person confirms which VPC each network resource of the estate is in and whether the networks of another VPC belong in this project or in a project of their own joined through a Network Area; the group is then attached only to the interfaces of the networks that replace its VPC."
+        "disposition": "REVIEW",
+        "reason": "unenforced:security group rules",
+        "why_open": "UNENFORCED: the security group is attached to no block of the target (it is written in the draft and listed by no resource, or, where the access lists of its members carry it, not written), so its rules (\"security group rules\") restrict nothing on the target until an attachment is designed; this setting is not carried as an enforced control. UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
+        "closes_when": "A person designs how the target enforces what the group allowed (attaches the group, or its replacement, to the target resources that take its place), or accepts the difference."
       },
       {
         "unit": "module.retail_app_ecs.module.catalog_service.aws_security_group.this",
@@ -1677,14 +1605,6 @@
       },
       {
         "unit": "module.retail_app_ecs.module.checkout_service.aws_security_group.this",
-        "semantic": "network-topology-boundary",
-        "disposition": "REVIEW",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). Several VPCs, a VPC count that is not visible, or a unit of the estate that names a VPC, or is placed in a subnet, the scan cannot prove is the estate's, leave the architecture to the architect for every unit of the topology, this security group included: STACKIT has no VPC container in its stable model, the project is the boundary of its networks, so the draft cannot keep several VPCs apart in one project.",
-        "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded."
-      },
-      {
-        "unit": "module.retail_app_ecs.module.checkout_service.aws_security_group.this",
         "semantic": "rule-ports",
         "disposition": "LEDGER",
         "reason": "ledger:security group rules",
@@ -1694,10 +1614,10 @@
       {
         "unit": "module.retail_app_ecs.module.checkout_service.aws_security_group.this",
         "semantic": "security-group-vpc-membership",
-        "disposition": "UNSUPPORTED",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) found a setting the target has no counterpart for (a finding of this unit describes it). UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
-        "closes_when": "A person confirms which VPC each network resource of the estate is in and whether the networks of another VPC belong in this project or in a project of their own joined through a Network Area; the group is then attached only to the interfaces of the networks that replace its VPC."
+        "disposition": "REVIEW",
+        "reason": "unenforced:security group rules",
+        "why_open": "UNENFORCED: the security group is attached to no block of the target (it is written in the draft and listed by no resource, or, where the access lists of its members carry it, not written), so its rules (\"security group rules\") restrict nothing on the target until an attachment is designed; this setting is not carried as an enforced control. UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
+        "closes_when": "A person designs how the target enforces what the group allowed (attaches the group, or its replacement, to the target resources that take its place), or accepts the difference."
       },
       {
         "unit": "module.retail_app_ecs.module.checkout_service.aws_security_group.this",
@@ -1917,14 +1837,6 @@
       },
       {
         "unit": "module.retail_app_ecs.module.orders_service.aws_security_group.this",
-        "semantic": "network-topology-boundary",
-        "disposition": "REVIEW",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). Several VPCs, a VPC count that is not visible, or a unit of the estate that names a VPC, or is placed in a subnet, the scan cannot prove is the estate's, leave the architecture to the architect for every unit of the topology, this security group included: STACKIT has no VPC container in its stable model, the project is the boundary of its networks, so the draft cannot keep several VPCs apart in one project.",
-        "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded."
-      },
-      {
-        "unit": "module.retail_app_ecs.module.orders_service.aws_security_group.this",
         "semantic": "rule-ports",
         "disposition": "LEDGER",
         "reason": "ledger:security group rules",
@@ -1934,10 +1846,10 @@
       {
         "unit": "module.retail_app_ecs.module.orders_service.aws_security_group.this",
         "semantic": "security-group-vpc-membership",
-        "disposition": "UNSUPPORTED",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) found a setting the target has no counterpart for (a finding of this unit describes it). UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
-        "closes_when": "A person confirms which VPC each network resource of the estate is in and whether the networks of another VPC belong in this project or in a project of their own joined through a Network Area; the group is then attached only to the interfaces of the networks that replace its VPC."
+        "disposition": "REVIEW",
+        "reason": "unenforced:security group rules",
+        "why_open": "UNENFORCED: the security group is attached to no block of the target (it is written in the draft and listed by no resource, or, where the access lists of its members carry it, not written), so its rules (\"security group rules\") restrict nothing on the target until an attachment is designed; this setting is not carried as an enforced control. UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
+        "closes_when": "A person designs how the target enforces what the group allowed (attaches the group, or its replacement, to the target resources that take its place), or accepts the difference."
       },
       {
         "unit": "module.retail_app_ecs.module.orders_service.aws_security_group.this",
@@ -2165,14 +2077,6 @@
       },
       {
         "unit": "module.retail_app_ecs.module.ui_service.aws_security_group.this",
-        "semantic": "network-topology-boundary",
-        "disposition": "REVIEW",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). Several VPCs, a VPC count that is not visible, or a unit of the estate that names a VPC, or is placed in a subnet, the scan cannot prove is the estate's, leave the architecture to the architect for every unit of the topology, this security group included: STACKIT has no VPC container in its stable model, the project is the boundary of its networks, so the draft cannot keep several VPCs apart in one project.",
-        "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded."
-      },
-      {
-        "unit": "module.retail_app_ecs.module.ui_service.aws_security_group.this",
         "semantic": "rule-ports",
         "disposition": "LEDGER",
         "reason": "ledger:security group rules",
@@ -2182,10 +2086,10 @@
       {
         "unit": "module.retail_app_ecs.module.ui_service.aws_security_group.this",
         "semantic": "security-group-vpc-membership",
-        "disposition": "UNSUPPORTED",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) found a setting the target has no counterpart for (a finding of this unit describes it). UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
-        "closes_when": "A person confirms which VPC each network resource of the estate is in and whether the networks of another VPC belong in this project or in a project of their own joined through a Network Area; the group is then attached only to the interfaces of the networks that replace its VPC."
+        "disposition": "REVIEW",
+        "reason": "unenforced:security group rules",
+        "why_open": "UNENFORCED: the security group is attached to no block of the target (it is written in the draft and listed by no resource, or, where the access lists of its members carry it, not written), so its rules (\"security group rules\") restrict nothing on the target until an attachment is designed; this setting is not carried as an enforced control. UNSUPPORTED, by name: a STACKIT security group has no network (VPC) scope. stackit_security_group takes project_id, name, description, labels, stateful and region only (pinned provider), and the IaaS API object SecurityGroup has no network field either (stackit-api-specifications services/iaas/v2); the group is project-wide and can be attached to the network interfaces of every network of the project.",
+        "closes_when": "A person designs how the target enforces what the group allowed (attaches the group, or its replacement, to the target resources that take its place), or accepts the difference."
       },
       {
         "unit": "module.retail_app_ecs.module.ui_service.aws_security_group.this",
@@ -2218,14 +2122,6 @@
         "reason": "case:nat",
         "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. A zonal NAT gateway (subnet_id) is placed in one AZ; a regional one lists its per-AZ egress in availability_zone_address(es).availability_zone. STACKIT has no NAT gateway resource, and its documentation does not state whether the implicit outbound path is zone-scoped: REVIEW.",
         "closes_when": "A person decides whether the egress path must stay in one zone or per zone, because the STACKIT documentation does not state whether the implicit outbound path is scoped to a zone."
-      },
-      {
-        "unit": "module.vpc.module.vpc.aws_nat_gateway.this",
-        "semantic": "network-topology-boundary",
-        "disposition": "REVIEW",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). Several VPCs, a VPC count that is not visible, or a unit of the estate that names a VPC, or is placed in a subnet, the scan cannot prove is the estate's, leave the architecture to the architect for every unit of the topology, this NAT gateway included: STACKIT has no VPC container in its stable model, the project is the boundary of its networks, so the draft cannot keep several VPCs apart in one project.",
-        "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded."
       },
       {
         "unit": "module.vpc.module.vpc.aws_vpc.this",
@@ -2266,30 +2162,9 @@
         "reason": "check:vpc-main-table-undecided",
         "why_open": "A check of the knowledge base (vpc main table undecided) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). The setting names the route table that is the main route table of the VPC, when the configuration sets it or the scan cannot tell. STACKIT has no main route table.",
         "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded."
-      },
-      {
-        "unit": "module.vpc.module.vpc.aws_vpc.this",
-        "semantic": "network-topology-boundary",
-        "disposition": "REVIEW",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). STACKIT has no VPC container in its stable model: the project is the boundary of its networks and its virtual router routes between all networks of one project (docs.stackit.cloud core-networking architecture, updated Aug 20, 2026: \"Routing between multiple Virtual Networks in the same project\"; SNA \"extends the networking architecture to enable cross-project connectivity\"). Several VPCs, or a count the scan cannot see: the draft puts every network in the one var.project_id and cannot keep them apart — REVIEW, the choice is the architect's. A unit that names a VPC, or is placed in a subnet (subnet_id, subnets, vpc_config.subnet_ids, ...), without one whole reference to the VPC or to a subnet of the estate may stand in a VPC the estate does not create: the architect decides it the same way (REVIEW).",
-        "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded."
       }
     ],
     "conditional_open": [
-      {
-        "unit": "module.vpc.module.vpc.aws_internet_gateway.this",
-        "semantic": "network-topology-boundary",
-        "disposition": "REVIEW",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). Several VPCs, a VPC count that is not visible, or a unit of the estate that names a VPC, or is placed in a subnet, the scan cannot prove is the estate's, leave the architecture to the architect for every unit of the topology, this gateway included: STACKIT has no VPC container in its stable model, the project is the boundary of its networks, so the draft cannot keep several VPCs apart in one project.",
-        "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
-        "instances_not_broken_down": {
-          "reason": "unknown_count"
-        },
-        "applies_only_if": "applies only if its count (local.create_public_subnets \u0026\u0026 var.create_igw ? 1 : 0) holds when OpenTofu plans — decided by data OpenTofu reads when it plans (module.vpc.data.aws_availability_zones.available); not known from the source",
-        "conditional_state": "RUNTIME_DATA_UNKNOWN"
-      },
       {
         "unit": "module.vpc.module.vpc.aws_route_table.private",
         "semantic": "egress-restriction",
@@ -2310,19 +2185,6 @@
         "reason": "case:rt-default-only-nat",
         "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. NOT CARRIED, an observed loss (the test of 2026-10-10): the NAT gateway's fixed egress address.",
         "closes_when": "A person accepts the project's shared egress address, which can change and cannot be set, or gives each server a STACKIT public IP when a third party allow-lists the old address.",
-        "instances_not_broken_down": {
-          "reason": "unknown_count"
-        },
-        "applies_only_if": "applies only if its count (local.create_private_subnets \u0026\u0026 local.max_subnet_length \u003e 0 ? local.nat_gateway_count : 0) holds when OpenTofu plans — decided by data OpenTofu reads when it plans (module.vpc.data.aws_availability_zones.available); not known from the source",
-        "conditional_state": "RUNTIME_DATA_UNKNOWN"
-      },
-      {
-        "unit": "module.vpc.module.vpc.aws_route_table.private",
-        "semantic": "network-topology-boundary",
-        "disposition": "REVIEW",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). Several VPCs, a VPC count that is not visible, or a unit of the estate that names a VPC, or is placed in a subnet, the scan cannot prove is the estate's, leave the architecture to the architect for every unit of the topology, this route table included: STACKIT has no VPC container in its stable model, the project is the boundary of its networks, so the draft cannot keep several VPCs apart in one project.",
-        "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
         "instances_not_broken_down": {
           "reason": "unknown_count"
         },
@@ -2385,26 +2247,13 @@
         "unit": "module.vpc.module.vpc.aws_route_table.private",
         "semantic": "tcr-route-table-vpc-id",
         "disposition": "REVIEW",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). aws_route_table.vpc_id: The VPC whose subnets this route table's rules apply to; a route table's entries only make sense, and only affect reachability, within this one VPC, so losing or mismapping it silently changes which network the routing rules govern. A custom table is REVIEW whatever the estate: the draft's stackit_routing_table is organisation and Network Area scoped (organization_id, network_area_id, pinned provider), not a resource of the project that is the VPC's boundary (the experimental stackit_vpc_routing_table, pinned provider: project_id, vpc_id, is a VPC-scoped table that the draft does not write and that nothing establishes as the counterpart of an AWS route table), so which networks the table governs is decided by the Network Area the person puts the project in and the routing_table_id each network is given. A table the draft does not make (count or for_each) and one left to the architect are REVIEW. Several VPCs, a VPC count that is not visible, or a vpc_id (this table's or another unit's) that is a literal, a variable, a data source or an expression the scan cannot reduce to the estate's VPC: which routing domain the table belongs to is the architect's decision — REVIEW. Held CRITICAL: it decides which networks, clients or endpoints reach the resource or what it reaches.",
+        "reason": "check:topology-route-table-not-drafted",
+        "why_open": "A check of the knowledge base (topology route table not drafted) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). aws_route_table.vpc_id: The VPC whose subnets this route table's rules apply to; a route table's entries only make sense, and only affect reachability, within this one VPC, so losing or mismapping it silently changes which network the routing rules govern. A custom table is REVIEW whatever the estate: the draft's stackit_routing_table is organisation and Network Area scoped (organization_id, network_area_id, pinned provider), not a resource of the project that is the VPC's boundary (the experimental stackit_vpc_routing_table, pinned provider: project_id, vpc_id, is a VPC-scoped table that the draft does not write and that nothing establishes as the counterpart of an AWS route table), so which networks the table governs is decided by the Network Area the person puts the project in and the routing_table_id each network is given. A table the draft does not make (count or for_each) and one left to the architect are REVIEW. Several VPCs, a VPC count that is not visible, or a vpc_id (this table's or another unit's) that is a literal, a variable, a data source or an expression the scan cannot reduce to the estate's VPC: which routing domain the table belongs to is the architect's decision — REVIEW. Held CRITICAL: it decides which networks, clients or endpoints reach the resource or what it reaches.",
         "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded. A person decides which STACKIT networks the routing table governs: the draft's custom table is organisation and Network Area scoped, so the Network Area the project joins and the routing table each network is given decide it.",
         "instances_not_broken_down": {
           "reason": "unknown_count"
         },
         "applies_only_if": "applies only if its count (local.create_private_subnets \u0026\u0026 local.max_subnet_length \u003e 0 ? local.nat_gateway_count : 0) holds when OpenTofu plans — decided by data OpenTofu reads when it plans (module.vpc.data.aws_availability_zones.available); not known from the source",
-        "conditional_state": "RUNTIME_DATA_UNKNOWN"
-      },
-      {
-        "unit": "module.vpc.module.vpc.aws_route_table.public",
-        "semantic": "network-topology-boundary",
-        "disposition": "REVIEW",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). Several VPCs, a VPC count that is not visible, or a unit of the estate that names a VPC, or is placed in a subnet, the scan cannot prove is the estate's, leave the architecture to the architect for every unit of the topology, this route table included: STACKIT has no VPC container in its stable model, the project is the boundary of its networks, so the draft cannot keep several VPCs apart in one project.",
-        "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
-        "instances_not_broken_down": {
-          "reason": "unknown_count"
-        },
-        "applies_only_if": "applies only if its count (local.create_public_subnets ? local.num_public_route_tables : 0) holds when OpenTofu plans — decided by data OpenTofu reads when it plans (module.vpc.data.aws_availability_zones.available); not known from the source",
         "conditional_state": "RUNTIME_DATA_UNKNOWN"
       },
       {
@@ -2450,8 +2299,8 @@
         "unit": "module.vpc.module.vpc.aws_route_table.public",
         "semantic": "tcr-route-table-vpc-id",
         "disposition": "REVIEW",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). aws_route_table.vpc_id: The VPC whose subnets this route table's rules apply to; a route table's entries only make sense, and only affect reachability, within this one VPC, so losing or mismapping it silently changes which network the routing rules govern. A custom table is REVIEW whatever the estate: the draft's stackit_routing_table is organisation and Network Area scoped (organization_id, network_area_id, pinned provider), not a resource of the project that is the VPC's boundary (the experimental stackit_vpc_routing_table, pinned provider: project_id, vpc_id, is a VPC-scoped table that the draft does not write and that nothing establishes as the counterpart of an AWS route table), so which networks the table governs is decided by the Network Area the person puts the project in and the routing_table_id each network is given. A table the draft does not make (count or for_each) and one left to the architect are REVIEW. Several VPCs, a VPC count that is not visible, or a vpc_id (this table's or another unit's) that is a literal, a variable, a data source or an expression the scan cannot reduce to the estate's VPC: which routing domain the table belongs to is the architect's decision — REVIEW. Held CRITICAL: it decides which networks, clients or endpoints reach the resource or what it reaches.",
+        "reason": "check:topology-route-table-not-drafted",
+        "why_open": "A check of the knowledge base (topology route table not drafted) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). aws_route_table.vpc_id: The VPC whose subnets this route table's rules apply to; a route table's entries only make sense, and only affect reachability, within this one VPC, so losing or mismapping it silently changes which network the routing rules govern. A custom table is REVIEW whatever the estate: the draft's stackit_routing_table is organisation and Network Area scoped (organization_id, network_area_id, pinned provider), not a resource of the project that is the VPC's boundary (the experimental stackit_vpc_routing_table, pinned provider: project_id, vpc_id, is a VPC-scoped table that the draft does not write and that nothing establishes as the counterpart of an AWS route table), so which networks the table governs is decided by the Network Area the person puts the project in and the routing_table_id each network is given. A table the draft does not make (count or for_each) and one left to the architect are REVIEW. Several VPCs, a VPC count that is not visible, or a vpc_id (this table's or another unit's) that is a literal, a variable, a data source or an expression the scan cannot reduce to the estate's VPC: which routing domain the table belongs to is the architect's decision — REVIEW. Held CRITICAL: it decides which networks, clients or endpoints reach the resource or what it reaches.",
         "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded. A person decides which STACKIT networks the routing table governs: the draft's custom table is organisation and Network Area scoped, so the Network Area the project joins and the routing table each network is given decide it.",
         "instances_not_broken_down": {
           "reason": "unknown_count"
@@ -2466,19 +2315,6 @@
         "reason": "case:subnet",
         "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. The availability zone of the subnet. STACKIT networks are regional (stackit_network has no zone field, pinned provider); the zone is chosen per server and volume, and AWS zone names do not map to STACKIT zones.",
         "closes_when": "A person decides, per source zone, which STACKIT zone (eu01-1, eu01-2 or eu01-3) takes the servers and volumes that sat in it, so that the source's spread and its failure domains are kept.",
-        "instances_not_broken_down": {
-          "reason": "unknown_count"
-        },
-        "applies_only_if": "applies only if its count (local.create_private_subnets ? local.len_private_subnets : 0) holds when OpenTofu plans — decided by data OpenTofu reads when it plans (module.vpc.data.aws_availability_zones.available); not known from the source",
-        "conditional_state": "RUNTIME_DATA_UNKNOWN"
-      },
-      {
-        "unit": "module.vpc.module.vpc.aws_subnet.private",
-        "semantic": "network-topology-boundary",
-        "disposition": "REVIEW",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). Several VPCs, a VPC count that is not visible, or a unit of the estate that names a VPC, or is placed in a subnet, the scan cannot prove is the estate's, leave the architecture to the architect for every unit of the topology, this subnet included: STACKIT has no VPC container in its stable model, the project is the boundary of its networks, so the draft cannot keep several VPCs apart in one project.",
-        "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
         "instances_not_broken_down": {
           "reason": "unknown_count"
         },
@@ -2504,19 +2340,6 @@
         "disposition": "REVIEW",
         "reason": "check:subnet-egress-ipv4-unproven",
         "why_open": "A check of the knowledge base (subnet egress ipv4 unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). The source and the target are not equivalent for outbound access, and the draft closes nothing: REVIEW.",
-        "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
-        "instances_not_broken_down": {
-          "reason": "unknown_count"
-        },
-        "applies_only_if": "applies only if its count (local.create_private_subnets ? local.len_private_subnets : 0) holds when OpenTofu plans — decided by data OpenTofu reads when it plans (module.vpc.data.aws_availability_zones.available); not known from the source",
-        "conditional_state": "RUNTIME_DATA_UNKNOWN"
-      },
-      {
-        "unit": "module.vpc.module.vpc.aws_subnet.private",
-        "semantic": "subnet-vpc-membership",
-        "disposition": "REVIEW",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). The VPC the subnet belongs to: the draft creates every network in one project, so the source VPC's boundary is kept only when the estate has one VPC and every resource that names a VPC provably names it; the draft states the estate's topology and what the architect decides about it once, at the top of its network file.",
         "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
         "instances_not_broken_down": {
           "reason": "unknown_count"
@@ -2552,19 +2375,6 @@
       },
       {
         "unit": "module.vpc.module.vpc.aws_subnet.public",
-        "semantic": "network-topology-boundary",
-        "disposition": "REVIEW",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). Several VPCs, a VPC count that is not visible, or a unit of the estate that names a VPC, or is placed in a subnet, the scan cannot prove is the estate's, leave the architecture to the architect for every unit of the topology, this subnet included: STACKIT has no VPC container in its stable model, the project is the boundary of its networks, so the draft cannot keep several VPCs apart in one project.",
-        "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
-        "instances_not_broken_down": {
-          "reason": "unknown_count"
-        },
-        "applies_only_if": "applies only if its count (local.create_public_subnets \u0026\u0026 (!var.one_nat_gateway_per_az || local.len_public_subnets \u003e= length(var.azs)) ? local.len_public_subnets : 0) holds when OpenTofu plans — decided by data OpenTofu reads when it plans (module.vpc.data.aws_availability_zones.available); not known from the source",
-        "conditional_state": "RUNTIME_DATA_UNKNOWN"
-      },
-      {
-        "unit": "module.vpc.module.vpc.aws_subnet.public",
         "semantic": "prefix",
         "disposition": "REVIEW",
         "reason": "observed-unknown:case:subnet",
@@ -2582,19 +2392,6 @@
         "disposition": "REVIEW",
         "reason": "check:subnet-egress-ipv4-unproven",
         "why_open": "A check of the knowledge base (subnet egress ipv4 unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). The source and the target are not equivalent for outbound access, and the draft closes nothing: REVIEW.",
-        "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
-        "instances_not_broken_down": {
-          "reason": "unknown_count"
-        },
-        "applies_only_if": "applies only if its count (local.create_public_subnets \u0026\u0026 (!var.one_nat_gateway_per_az || local.len_public_subnets \u003e= length(var.azs)) ? local.len_public_subnets : 0) holds when OpenTofu plans — decided by data OpenTofu reads when it plans (module.vpc.data.aws_availability_zones.available); not known from the source",
-        "conditional_state": "RUNTIME_DATA_UNKNOWN"
-      },
-      {
-        "unit": "module.vpc.module.vpc.aws_subnet.public",
-        "semantic": "subnet-vpc-membership",
-        "disposition": "REVIEW",
-        "reason": "check:topology-vpc-unproven",
-        "why_open": "A check of the knowledge base (topology vpc unproven) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). The VPC the subnet belongs to: the draft creates every network in one project, so the source VPC's boundary is kept only when the estate has one VPC and every resource that names a VPC provably names it; the draft states the estate's topology and what the architect decides about it once, at the top of its network file.",
         "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded.",
         "instances_not_broken_down": {
           "reason": "unknown_count"

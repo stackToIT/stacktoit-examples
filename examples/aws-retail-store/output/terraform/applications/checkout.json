@@ -9,11 +9,12 @@
   "readiness": "BLOCKED",
   "readiness_reasons": [
     "DATASTORE_PROTOCOL_NOT_ASSESSED",
+    "ENV_VALUES_REQUIRED",
     "IDENTITY_OPEN",
     "FUNCTIONAL_CHECK_NOT_RUN"
   ],
   "readiness_words": "A data store this workload reaches changes protocol or has no assessed protocol, and its code migration decision is not answered: StackToIT keeps the workload blocked until the customer answers it in the decisions file.",
-  "checklist_sha256": "sha256:4bae9ab778c2772005b360df4f79c52fd5f0a677d0c3003ea84986eb3050cf92",
+  "checklist_sha256": "sha256:0b61aaf954d6ead60ac2224d5a22403fba449da05684349ecede0ec87e796b14",
   "templates": "applications/checkout.templates.yaml",
   "validation_scope": "A kubeconform check or a kubectl apply --dry-run of the manifest establishes YAML validity only, not behaviour: it accepts a REQUIRED_ token in a string field, an empty ConfigMap and a Secret that does not exist, and runs nothing; the checklist of the application compatibility contract and an application smoke test on the target are what show that the workload works.",
   "containers": [
@@ -28,13 +29,32 @@
         "livenessProbe: exec curl -f http://localhost:8080/health (the ECS health check)",
         "startupProbe: the same check over the start period"
       ],
-      "env": []
+      "env": [
+        {
+          "name": "RETAIL_CHECKOUT_ENDPOINTS_ORDERS",
+          "class": "NOT_VISIBLE",
+          "value_copied": false,
+          "work": "the value is not visible statically (a variable or an expression): set the key in the ConfigMap to the value the running service uses"
+        },
+        {
+          "name": "RETAIL_CHECKOUT_PERSISTENCE_PROVIDER",
+          "class": "LITERAL",
+          "value_copied": false,
+          "work": "set the key in the ConfigMap to the value module.retail_app_ecs.module.checkout_service.aws_ecs_task_definition.this states for container checkout-service (not copied: an environment value can carry a secret under any name); if it names an AWS endpoint, a region or an ARN, give the STACKIT one"
+        },
+        {
+          "name": "RETAIL_CHECKOUT_PERSISTENCE_REDIS_URL",
+          "class": "NOT_VISIBLE",
+          "value_copied": false,
+          "work": "the value is not visible statically (a variable or an expression): set the key in the ConfigMap to the value the running service uses"
+        }
+      ]
     }
   ],
   "endpoints": [
     {
       "kind": "SERVICE_CONNECT_ALIAS",
-      "source": "checkout:80 (the Service Connect alias of port checkout-service in the namespace not visible statically)",
+      "source": "checkout:80 (the Service Connect alias of port checkout-service in the namespace retailstore.local)",
       "target": "checkout:80 (the Kubernetes Service checkout, port 80 → container port 8080, in the namespace the manifests are applied into)",
       "work": "the Kubernetes Service keeps the name and port the clients call: check that they resolve it from their namespace; the Service Connect proxy (its retries, timeouts, TLS and metrics) is not carried"
     }
@@ -105,6 +125,33 @@
     }
   ],
   "checklist": [
+    {
+      "id": "env_value:checkout-service/RETAIL_CHECKOUT_ENDPOINTS_ORDERS",
+      "kind": "ENV_VALUE",
+      "subject": "checkout-service/RETAIL_CHECKOUT_ENDPOINTS_ORDERS",
+      "blocking": true,
+      "sha256": "sha256:8efd667e7a3154c214dae0d970d4540d37363e8475b71c07bd215e4f21427398",
+      "state": "OPEN",
+      "work": "the value is not visible statically (a variable or an expression): set the key in the ConfigMap to the value the running service uses"
+    },
+    {
+      "id": "env_value:checkout-service/RETAIL_CHECKOUT_PERSISTENCE_PROVIDER",
+      "kind": "ENV_VALUE",
+      "subject": "checkout-service/RETAIL_CHECKOUT_PERSISTENCE_PROVIDER",
+      "blocking": true,
+      "sha256": "sha256:d70d366bf3cf066acff955de495d3d5fb755403962d592e3a574c73e9a5350c5",
+      "state": "OPEN",
+      "work": "set the key in the ConfigMap to the value module.retail_app_ecs.module.checkout_service.aws_ecs_task_definition.this states for container checkout-service (not copied: an environment value can carry a secret under any name); if it names an AWS endpoint, a region or an ARN, give the STACKIT one"
+    },
+    {
+      "id": "env_value:checkout-service/RETAIL_CHECKOUT_PERSISTENCE_REDIS_URL",
+      "kind": "ENV_VALUE",
+      "subject": "checkout-service/RETAIL_CHECKOUT_PERSISTENCE_REDIS_URL",
+      "blocking": true,
+      "sha256": "sha256:6a2ea06d7139e81af93bec189982855ddaad2b7fb89043ea52f805500fe03e49",
+      "state": "OPEN",
+      "work": "the value is not visible statically (a variable or an expression): set the key in the ConfigMap to the value the running service uses"
+    },
     {
       "id": "datastore_protocol_check:module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default",
       "kind": "DATASTORE_PROTOCOL_CHECK",

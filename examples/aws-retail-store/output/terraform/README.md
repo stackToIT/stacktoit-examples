@@ -2,7 +2,7 @@
 
 > Generated migration draft by StackToIT — architect review required. Not for apply without review.
 
-Run `f6267c3f-2848-4aa5-89df-5fee8b15b3b9` · source digest `sha256:812c5ae3f6cc8530163abbf5b6fbe305ed3b363c4886ec6b87623db857ea0c70`
+Run `80199dc3-8108-42fe-a0b9-030ac0f7777b` · source digest `sha256:5ce8b8f8868f3b3214b2dddebe87e3f04291bf5ceac46dc0d95624215d020000`
 
 Generated for STACKIT Terraform provider `0.121.0`. Fill the variables without defaults, then run `tofu init && tofu validate && tofu plan` against a test project. StackToIT never runs apply.
 
@@ -29,7 +29,7 @@ The pinned STACKIT provider marks these generated resources as not generally ava
 
 STACKIT publishes dates for the lifecycle of some capabilities this draft lands on. A state below is derived from those dates only, as of the day the sources were read; this draft does not read the clock, so compare the dates with today. The assessment's engineering/architect-report.md, section "Target lifecycle", has the dates, the effects and the sources.
 
-- **SKE Kubernetes versions**, as of 2026-10-08 (the day the sources were read; not vouched for after 2027-01-06): 1.36 SUPPORTED, 1.35 UNKNOWN, 1.34 EXPIRING (expires 2026-10-14), 1.33 EXPIRED, 1.32 EXPIRED. Suitable as a landing in production: 1.36.
+- **SKE Kubernetes versions**, as of 2026-11-03 (the day the sources were read; not vouched for after 2027-02-01): 1.36 SUPPORTED, 1.35 UNKNOWN, 1.34 EXPIRED, 1.33 EXPIRED, 1.32 EXPIRED. Suitable as a landing in production: 1.36.
 
 ## Target security checklist
 
@@ -92,6 +92,8 @@ Resources written to the .tf files in this folder.
 ## Kubernetes manifests — not Terraform
 
 The workloads of ECS services are Kubernetes manifests, not Terraform: `tofu validate` and `tofu apply` do not read them. Apply each file with the kubeconfig of the SKE cluster this draft creates (`kubectl apply -n <namespace> -f <file>`). The header of each file lists the required inputs (a `REQUIRED_` token is refused by the API server in a field that is not a string, such as a number of pods, and accepted in a string field such as an image: replace every token before you apply), the secrets to create and what is not carried.
+
+A Deployment is written with `replicas: 0`, so applying a file starts no pod: the pods start after the data move, when the start step of the plan scales the Deployment to the number its header names.
 
 How to get the kubeconfig of the cluster is a DEFINED step, not something this draft does: `handover/cluster-access/kubeconfig.md` lists the commands (the STACKIT CLI; no `stackit_ske_kubeconfig` is drafted because the admin kubeconfig would be kept in the Terraform state).
 
