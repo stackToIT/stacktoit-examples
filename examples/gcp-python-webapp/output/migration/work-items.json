@@ -1,0 +1,2361 @@
+{
+  "schema_version": "0.1.1",
+  "run_id": "6f8f72b2-1c34-4cfc-8483-344c41245364",
+  "source_digest": "sha256:19bfed642d5789ccada81b91d5c36e33175dcafd66dc46b1644ffa105d020000",
+  "statement": "The jobs of the Work Board of this run as data, in the order the report names them. The file is a projection of the board and the decision register: it states no state, no priority and no order of its own, and a job it lists is not done.",
+  "first": "DEC-GEN-CONVERT-API-OPT-IN",
+  "counts": {
+    "jobs": 108,
+    "by_queue": {
+      "APPROVE_DESIGN": 10,
+      "PERFORM_MIGRATION_WORK": 38,
+      "PROVIDE_INFORMATION": 60,
+      "VERIFY": 0
+    },
+    "by_kind": {
+      "INPUT": 27,
+      "RECORD": 43,
+      "STEP": 38
+    }
+  },
+  "order": [
+    "DEC-GEN-CONVERT-API-OPT-IN",
+    "TF/stackit_postgresflex_instance.postgres",
+    "DEC-GEN-CONVERT-DATA-MOVEMENT",
+    "TF/stackit_objectstorage_bucket.media",
+    "TF/stackit_secretsmanager_instance.migrated_secrets",
+    "TF/stackit_ske_cluster.containers",
+    "INP-TSE-1eaf5b60fa62",
+    "INP-SPA-91ae2a413691",
+    "INP-SPA-3cc45ef1d8a4",
+    "INP-SPA-12276d55f145",
+    "INP-SPA-dbe7ffc99d7e",
+    "INP-TSE-2a2e667de9c2",
+    "INP-TSE-77b8285fa505",
+    "DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE",
+    "DEC-GEN-CONVERT-SOURCE-PROJECT-MAPPING",
+    "DEC-GEN-CONVERT-SOURCE-REGION-MAPPING",
+    "REF/semantic/google_storage_bucket.media/force-destroy",
+    "REF/unit/google_firebase_project.default",
+    "INP-SDE-2a7f7b5269a1",
+    "INP-SDE-e46eb1c97548",
+    "INP-SDE-281da2c43709",
+    "INP-SDE-edc3995fc80b",
+    "INP-SDE-711698e4152d",
+    "INP-SDE-09450a7fa213",
+    "INP-SDE-d20a37a1a474",
+    "INP-SDE-9587eb7e8e9f",
+    "INP-SDE-3475bcd86a5e",
+    "INP-SDE-039e4543956e",
+    "INP-SDE-0df31f6e861f",
+    "INP-SDE-13232ceea041",
+    "INP-TSE-e0f55f8e074c",
+    "INP-TSE-f058614b497f",
+    "INP-TSE-ed9be9064ccf",
+    "INP-TSE-7a8d984b0e4d",
+    "INP-TSE-eac97a7eefd2",
+    "INP-TSE-d73c02f8659b",
+    "INP-TSE-d16ba37f3e2f",
+    "INP-TSE-3f99c0e1bfaf",
+    "DEC-IAM-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE",
+    "DEC-NET-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE",
+    "DEC-SEC-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE",
+    "DEC-GEN-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER",
+    "DEC-IAM-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER",
+    "DEC-NET-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER",
+    "DEC-SEC-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER",
+    "DEC-IAM-GOOGLE-CLOUDBUILD-TRIGGER-ACTIVATEGCB",
+    "DEC-OPS-GOOGLE-CLOUDBUILD-TRIGGER-ACTIVATEGCB",
+    "DEC-IAM-GOOGLE-CLOUDBUILD-TRIGGER-INIT",
+    "DEC-OPS-GOOGLE-CLOUDBUILD-TRIGGER-INIT",
+    "DEC-GEN-GOOGLE-CLOUDBUILD-TRIGGER-PLACEHOLDER",
+    "DEC-IAM-GOOGLE-CLOUDBUILD-TRIGGER-PLACEHOLDER",
+    "DEC-OPS-GOOGLE-CLOUDBUILD-TRIGGER-PLACEHOLDER",
+    "DEC-IAM-GOOGLE-FIREBASE-HOSTING-SITE-CLIENT",
+    "DEC-OPS-GOOGLE-FIREBASE-HOSTING-SITE-CLIENT",
+    "DEC-OPS-GOOGLE-PUBSUB-TOPIC-FAUX",
+    "DEC-IAM-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-ADMIN-PASSWORD",
+    "DEC-SEC-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-ADMIN-PASSWORD",
+    "DEC-IAM-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-SETTINGS",
+    "DEC-SEC-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-SETTINGS",
+    "DEC-IAM-GOOGLE-SERVICE-ACCOUNT-AUTOMATION",
+    "DEC-IAM-GOOGLE-SERVICE-ACCOUNT-CLIENT",
+    "DEC-IAM-GOOGLE-SERVICE-ACCOUNT-INIT",
+    "DEC-IAM-GOOGLE-SERVICE-ACCOUNT-SERVER",
+    "DEC-IAM-GOOGLE-SQL-DATABASE-INSTANCE-POSTGRES",
+    "DEC-NET-GOOGLE-SQL-DATABASE-INSTANCE-POSTGRES",
+    "DEC-OPS-GOOGLE-SQL-DATABASE-INSTANCE-POSTGRES",
+    "DEC-DATA-GOOGLE-STORAGE-BUCKET-MEDIA",
+    "DEC-GEN-GOOGLE-STORAGE-BUCKET-MEDIA",
+    "DEC-IAM-GOOGLE-STORAGE-BUCKET-MEDIA",
+    "DEC-OPS-GOOGLE-STORAGE-BUCKET-MEDIA",
+    "DEC-SEC-GOOGLE-STORAGE-BUCKET-MEDIA",
+    "DEC-OPS-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER",
+    "DEC-IAM-GOOGLE-FIREBASE-PROJECT-DEFAULT",
+    "DEC-IAM-STACKITSA-STATEMENT-MANUAL-REVIEW",
+    "DEC-IAM-STACKITSA-STATEMENT-NOT-DRAFTED",
+    "TF/stackit_service_account.automation",
+    "MAN/rabbitmq/topology",
+    "TF/stackit_rabbitmq_instance.messaging",
+    "DEC-OPS-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE",
+    "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_admin_password",
+    "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_settings",
+    "MAN/path/secrets-migration/read-back",
+    "MAN/path/secrets-migration/retire-user",
+    "MAN/data/google_storage_bucket.media/preflight",
+    "MAN/data/google_storage_bucket.media/rehearsal",
+    "MAN/data/google_storage_bucket.media/initial-copy/rclone-copy",
+    "MAN/data/google_storage_bucket.media/delta-sync/rclone-copy",
+    "MAN/data/google_sql_database_instance.postgres/preflight",
+    "MAN/data/google_sql_database_instance.postgres/rehearsal",
+    "MAN/data/google_sql_database_instance.postgres/initial-copy/logical-replication",
+    "MAN/data/google_sql_database_instance.postgres/delta-sync/logical-replication",
+    "MAN/draft/handover/cluster-access/kubeconfig-md",
+    "MAN/draft/kubernetes/server/manifests-yaml",
+    "MAN/data/google_sql_database_instance.postgres/write-freeze/dump-restore",
+    "MAN/data/google_sql_database_instance.postgres/final-sync/dump-restore",
+    "MAN/data/google_sql_database_instance.postgres/reconcile/dump-restore",
+    "MAN/data/google_sql_database_instance.postgres/write-freeze/logical-replication",
+    "MAN/data/google_sql_database_instance.postgres/final-sync/logical-replication",
+    "MAN/data/google_sql_database_instance.postgres/reconcile/logical-replication",
+    "MAN/data/google_sql_database_instance.postgres/write-freeze/own-tool",
+    "MAN/data/google_sql_database_instance.postgres/final-sync/own-tool",
+    "MAN/data/google_sql_database_instance.postgres/reconcile/own-tool",
+    "MAN/data/google_storage_bucket.media/write-freeze/rclone-copy",
+    "MAN/data/google_storage_bucket.media/final-sync/rclone-copy",
+    "MAN/data/google_storage_bucket.media/reconcile/rclone-copy",
+    "MAN/data/google_sql_database_instance.postgres/cleanup/dump-restore",
+    "MAN/data/google_sql_database_instance.postgres/cleanup/logical-replication",
+    "MAN/data/google_storage_bucket.media/cleanup/rclone-copy"
+  ],
+  "jobs": [
+    {
+      "id": "INP-TSE-1eaf5b60fa62",
+      "kind": "INPUT",
+      "title": "Answer target.region",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Customer Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "OPEN",
+      "closes_when": "The request is answered in review/inputs.yaml (stacktoit work answer) and the assessment is run again.",
+      "closes_with": "an answer in review/inputs.yaml and a new assessment",
+      "required_input": "The STACKIT region the migrated estate is built in.",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "review/inputs.yaml"
+      ],
+      "request": {
+        "id": "INP-TSE-1eaf5b60fa62",
+        "topic": "target.region",
+        "scope": {
+          "profile": "default"
+        },
+        "blocks_draft": true
+      }
+    },
+    {
+      "id": "INP-SDE-2a7f7b5269a1",
+      "kind": "INPUT",
+      "title": "Answer source.dataset.bandwidth (google_sql_database_instance.postgres)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Application Owner",
+      "priority": "LATER",
+      "state": "OPEN",
+      "closes_when": "The request is answered in review/inputs.yaml (stacktoit work answer) and the assessment is run again.",
+      "closes_with": "an answer in review/inputs.yaml and a new assessment",
+      "required_input": "The network bandwidth available for moving the data of google_sql_database_instance.postgres: it sets the lower bound of the transfer time and decides whether a replication can catch up with the writes.",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "review/inputs.yaml"
+      ],
+      "unit": "google_sql_database_instance.postgres",
+      "request": {
+        "id": "INP-SDE-2a7f7b5269a1",
+        "topic": "source.dataset.bandwidth",
+        "scope": {
+          "address": "google_sql_database_instance.postgres",
+          "profile": "default"
+        }
+      }
+    },
+    {
+      "id": "INP-SDE-e46eb1c97548",
+      "kind": "INPUT",
+      "title": "Answer source.dataset.bandwidth (google_storage_bucket.media)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Application Owner",
+      "priority": "LATER",
+      "state": "OPEN",
+      "closes_when": "The request is answered in review/inputs.yaml (stacktoit work answer) and the assessment is run again.",
+      "closes_with": "an answer in review/inputs.yaml and a new assessment",
+      "required_input": "The network bandwidth available for moving the data of google_storage_bucket.media: it sets the lower bound of the transfer time and decides whether a replication can catch up with the writes.",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "review/inputs.yaml"
+      ],
+      "unit": "google_storage_bucket.media",
+      "request": {
+        "id": "INP-SDE-e46eb1c97548",
+        "topic": "source.dataset.bandwidth",
+        "scope": {
+          "address": "google_storage_bucket.media",
+          "profile": "default"
+        }
+      }
+    },
+    {
+      "id": "INP-SDE-281da2c43709",
+      "kind": "INPUT",
+      "title": "Answer source.dataset.downtime (google_sql_database_instance.postgres)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Application Owner",
+      "priority": "LATER",
+      "state": "OPEN",
+      "closes_when": "The request is answered in review/inputs.yaml (stacktoit work answer) and the assessment is run again.",
+      "closes_with": "an answer in review/inputs.yaml and a new assessment",
+      "required_input": "The downtime window a person accepts for the cutover of google_sql_database_instance.postgres: it is the window the transfer lower bound is held against: a lower bound above it makes the dump-and-restore method need a design.",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "review/inputs.yaml"
+      ],
+      "unit": "google_sql_database_instance.postgres",
+      "request": {
+        "id": "INP-SDE-281da2c43709",
+        "topic": "source.dataset.downtime",
+        "scope": {
+          "address": "google_sql_database_instance.postgres",
+          "profile": "default"
+        }
+      }
+    },
+    {
+      "id": "INP-SDE-edc3995fc80b",
+      "kind": "INPUT",
+      "title": "Answer source.dataset.downtime (google_storage_bucket.media)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Application Owner",
+      "priority": "LATER",
+      "state": "OPEN",
+      "closes_when": "The request is answered in review/inputs.yaml (stacktoit work answer) and the assessment is run again.",
+      "closes_with": "an answer in review/inputs.yaml and a new assessment",
+      "required_input": "The downtime window a person accepts for the cutover of google_storage_bucket.media: it is the window the transfer lower bound is held against: a lower bound above it makes the dump-and-restore method need a design.",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "review/inputs.yaml"
+      ],
+      "unit": "google_storage_bucket.media",
+      "request": {
+        "id": "INP-SDE-edc3995fc80b",
+        "topic": "source.dataset.downtime",
+        "scope": {
+          "address": "google_storage_bucket.media",
+          "profile": "default"
+        }
+      }
+    },
+    {
+      "id": "INP-SDE-711698e4152d",
+      "kind": "INPUT",
+      "title": "Answer source.dataset.rpo (google_sql_database_instance.postgres)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Application Owner",
+      "priority": "LATER",
+      "state": "OPEN",
+      "closes_when": "The request is answered in review/inputs.yaml (stacktoit work answer) and the assessment is run again.",
+      "closes_with": "an answer in review/inputs.yaml and a new assessment",
+      "required_input": "The recovery point objective (the data a person accepts to lose, as time) of google_sql_database_instance.postgres: it is recorded next to the data asset and shown in the plan of its move; the plan does not compute with it yet.",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "review/inputs.yaml"
+      ],
+      "unit": "google_sql_database_instance.postgres",
+      "request": {
+        "id": "INP-SDE-711698e4152d",
+        "topic": "source.dataset.rpo",
+        "scope": {
+          "address": "google_sql_database_instance.postgres",
+          "profile": "default"
+        }
+      }
+    },
+    {
+      "id": "INP-SDE-09450a7fa213",
+      "kind": "INPUT",
+      "title": "Answer source.dataset.rpo (google_storage_bucket.media)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Application Owner",
+      "priority": "LATER",
+      "state": "OPEN",
+      "closes_when": "The request is answered in review/inputs.yaml (stacktoit work answer) and the assessment is run again.",
+      "closes_with": "an answer in review/inputs.yaml and a new assessment",
+      "required_input": "The recovery point objective (the data a person accepts to lose, as time) of google_storage_bucket.media: it is recorded next to the data asset and shown in the plan of its move; the plan does not compute with it yet.",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "review/inputs.yaml"
+      ],
+      "unit": "google_storage_bucket.media",
+      "request": {
+        "id": "INP-SDE-09450a7fa213",
+        "topic": "source.dataset.rpo",
+        "scope": {
+          "address": "google_storage_bucket.media",
+          "profile": "default"
+        }
+      }
+    },
+    {
+      "id": "INP-SDE-d20a37a1a474",
+      "kind": "INPUT",
+      "title": "Answer source.dataset.rto (google_sql_database_instance.postgres)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Application Owner",
+      "priority": "LATER",
+      "state": "OPEN",
+      "closes_when": "The request is answered in review/inputs.yaml (stacktoit work answer) and the assessment is run again.",
+      "closes_with": "an answer in review/inputs.yaml and a new assessment",
+      "required_input": "The recovery time objective (the time a person accepts the asset to be unavailable after a failure) of google_sql_database_instance.postgres: it is recorded next to the data asset and shown in the plan of its move; the plan does not compute with it yet.",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "review/inputs.yaml"
+      ],
+      "unit": "google_sql_database_instance.postgres",
+      "request": {
+        "id": "INP-SDE-d20a37a1a474",
+        "topic": "source.dataset.rto",
+        "scope": {
+          "address": "google_sql_database_instance.postgres",
+          "profile": "default"
+        }
+      }
+    },
+    {
+      "id": "INP-SDE-9587eb7e8e9f",
+      "kind": "INPUT",
+      "title": "Answer source.dataset.rto (google_storage_bucket.media)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Application Owner",
+      "priority": "LATER",
+      "state": "OPEN",
+      "closes_when": "The request is answered in review/inputs.yaml (stacktoit work answer) and the assessment is run again.",
+      "closes_with": "an answer in review/inputs.yaml and a new assessment",
+      "required_input": "The recovery time objective (the time a person accepts the asset to be unavailable after a failure) of google_storage_bucket.media: it is recorded next to the data asset and shown in the plan of its move; the plan does not compute with it yet.",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "review/inputs.yaml"
+      ],
+      "unit": "google_storage_bucket.media",
+      "request": {
+        "id": "INP-SDE-9587eb7e8e9f",
+        "topic": "source.dataset.rto",
+        "scope": {
+          "address": "google_storage_bucket.media",
+          "profile": "default"
+        }
+      }
+    },
+    {
+      "id": "INP-SDE-3475bcd86a5e",
+      "kind": "INPUT",
+      "title": "Answer source.dataset.size (google_sql_database_instance.postgres)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Application Owner",
+      "priority": "LATER",
+      "state": "OPEN",
+      "closes_when": "The request is answered in review/inputs.yaml (stacktoit work answer) and the assessment is run again.",
+      "closes_with": "an answer in review/inputs.yaml and a new assessment",
+      "required_input": "The size of the data of google_sql_database_instance.postgres: it sets the lower bound of the transfer time of the first copy (the size of the data, not the capacity the source provisions).",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "review/inputs.yaml"
+      ],
+      "unit": "google_sql_database_instance.postgres",
+      "request": {
+        "id": "INP-SDE-3475bcd86a5e",
+        "topic": "source.dataset.size",
+        "scope": {
+          "address": "google_sql_database_instance.postgres",
+          "profile": "default"
+        }
+      }
+    },
+    {
+      "id": "INP-SDE-039e4543956e",
+      "kind": "INPUT",
+      "title": "Answer source.dataset.size (google_storage_bucket.media)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Application Owner",
+      "priority": "LATER",
+      "state": "OPEN",
+      "closes_when": "The request is answered in review/inputs.yaml (stacktoit work answer) and the assessment is run again.",
+      "closes_with": "an answer in review/inputs.yaml and a new assessment",
+      "required_input": "The size of the data of google_storage_bucket.media: it sets the lower bound of the transfer time of the first copy (the size of the data, not the capacity the source provisions).",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "review/inputs.yaml"
+      ],
+      "unit": "google_storage_bucket.media",
+      "request": {
+        "id": "INP-SDE-039e4543956e",
+        "topic": "source.dataset.size",
+        "scope": {
+          "address": "google_storage_bucket.media",
+          "profile": "default"
+        }
+      }
+    },
+    {
+      "id": "INP-SDE-0df31f6e861f",
+      "kind": "INPUT",
+      "title": "Answer source.dataset.write_rate (google_sql_database_instance.postgres)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Application Owner",
+      "priority": "LATER",
+      "state": "OPEN",
+      "closes_when": "The request is answered in review/inputs.yaml (stacktoit work answer) and the assessment is run again.",
+      "closes_with": "an answer in review/inputs.yaml and a new assessment",
+      "required_input": "The rate at which the data is written of google_sql_database_instance.postgres: it decides whether a replication can catch up with the writes and how long the freeze waits for the lag to reach zero.",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "review/inputs.yaml"
+      ],
+      "unit": "google_sql_database_instance.postgres",
+      "request": {
+        "id": "INP-SDE-0df31f6e861f",
+        "topic": "source.dataset.write_rate",
+        "scope": {
+          "address": "google_sql_database_instance.postgres",
+          "profile": "default"
+        }
+      }
+    },
+    {
+      "id": "INP-SDE-13232ceea041",
+      "kind": "INPUT",
+      "title": "Answer source.dataset.write_rate (google_storage_bucket.media)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Application Owner",
+      "priority": "LATER",
+      "state": "OPEN",
+      "closes_when": "The request is answered in review/inputs.yaml (stacktoit work answer) and the assessment is run again.",
+      "closes_with": "an answer in review/inputs.yaml and a new assessment",
+      "required_input": "The rate at which the data is written of google_storage_bucket.media: it decides whether a replication can catch up with the writes and how long the freeze waits for the lag to reach zero.",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "review/inputs.yaml"
+      ],
+      "unit": "google_storage_bucket.media",
+      "request": {
+        "id": "INP-SDE-13232ceea041",
+        "topic": "source.dataset.write_rate",
+        "scope": {
+          "address": "google_storage_bucket.media",
+          "profile": "default"
+        }
+      }
+    },
+    {
+      "id": "INP-SPA-91ae2a413691",
+      "kind": "INPUT",
+      "title": "Answer source.google.region (google)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Customer Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "OPEN",
+      "closes_when": "The request is answered in review/inputs.yaml (stacktoit work answer) and the assessment is run again.",
+      "closes_with": "an answer in review/inputs.yaml and a new assessment",
+      "required_input": "The Google Cloud region the provider configuration google runs in. The source reads the region of the google provider configuration google from a variable's default (us-central1), which -var or TF_VAR_* can override. Until you answer, the region is read as us-central1 and no zone default is written from it.",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "review/inputs.yaml"
+      ],
+      "request": {
+        "id": "INP-SPA-91ae2a413691",
+        "topic": "source.google.region",
+        "scope": {
+          "profile": "default",
+          "subject": "google"
+        },
+        "blocks_draft": true
+      }
+    },
+    {
+      "id": "INP-SPA-3cc45ef1d8a4",
+      "kind": "INPUT",
+      "title": "Answer source.variable (enable_apis)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Customer Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "OPEN",
+      "closes_when": "The request is answered in review/inputs.yaml (stacktoit work answer) and the assessment is run again.",
+      "closes_with": "an answer in review/inputs.yaml and a new assessment",
+      "required_input": "The value the running environment gives the root variable enable_apis, which the source sets only as a default that a variable file or the command line can override.",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "review/inputs.yaml"
+      ],
+      "request": {
+        "id": "INP-SPA-3cc45ef1d8a4",
+        "topic": "source.variable",
+        "scope": {
+          "profile": "default",
+          "subject": "enable_apis"
+        },
+        "blocks_draft": true
+      }
+    },
+    {
+      "id": "INP-SPA-12276d55f145",
+      "kind": "INPUT",
+      "title": "Answer source.variable (init)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Customer Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "OPEN",
+      "closes_when": "The request is answered in review/inputs.yaml (stacktoit work answer) and the assessment is run again.",
+      "closes_with": "an answer in review/inputs.yaml and a new assessment",
+      "required_input": "The value the running environment gives the root variable init, which the source sets only as a default that a variable file or the command line can override.",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "review/inputs.yaml"
+      ],
+      "request": {
+        "id": "INP-SPA-12276d55f145",
+        "topic": "source.variable",
+        "scope": {
+          "profile": "default",
+          "subject": "init"
+        },
+        "blocks_draft": true
+      }
+    },
+    {
+      "id": "INP-SPA-dbe7ffc99d7e",
+      "kind": "INPUT",
+      "title": "Answer source.variable (random_suffix)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Customer Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "OPEN",
+      "closes_when": "The request is answered in review/inputs.yaml (stacktoit work answer) and the assessment is run again.",
+      "closes_with": "an answer in review/inputs.yaml and a new assessment",
+      "required_input": "The value the running environment gives the root variable random_suffix, which the source sets only as a default that a variable file or the command line can override.",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "review/inputs.yaml"
+      ],
+      "request": {
+        "id": "INP-SPA-dbe7ffc99d7e",
+        "topic": "source.variable",
+        "scope": {
+          "profile": "default",
+          "subject": "random_suffix"
+        },
+        "blocks_draft": true
+      }
+    },
+    {
+      "id": "INP-TSE-e0f55f8e074c",
+      "kind": "INPUT",
+      "title": "Answer target.project.source_project (example-project)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Customer Architect",
+      "priority": "LATER",
+      "state": "OPEN",
+      "closes_when": "The request is answered in review/inputs.yaml (stacktoit work answer) and the assessment is run again.",
+      "closes_with": "an answer in review/inputs.yaml and a new assessment",
+      "required_input": "Where the units of the project example-project go on STACKIT: 1 unit(s) of the estate stand in it.",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "review/inputs.yaml"
+      ],
+      "request": {
+        "id": "INP-TSE-e0f55f8e074c",
+        "topic": "target.project.source_project",
+        "scope": {
+          "profile": "default",
+          "subject": "example-project"
+        }
+      }
+    },
+    {
+      "id": "INP-TSE-f058614b497f",
+      "kind": "INPUT",
+      "title": "Answer target.project.source_project (unread)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Customer Architect",
+      "priority": "LATER",
+      "state": "OPEN",
+      "closes_when": "The request is answered in review/inputs.yaml (stacktoit work answer) and the assessment is run again.",
+      "closes_with": "an answer in review/inputs.yaml and a new assessment",
+      "required_input": "Where the units of a project the scan cannot read (the value comes from an input a plan can change, or the provider block states it) go on STACKIT: 3 unit(s) of the estate stand in it.",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "review/inputs.yaml"
+      ],
+      "request": {
+        "id": "INP-TSE-f058614b497f",
+        "topic": "target.project.source_project",
+        "scope": {
+          "profile": "default",
+          "subject": "unread"
+        }
+      }
+    },
+    {
+      "id": "INP-TSE-ed9be9064ccf",
+      "kind": "INPUT",
+      "title": "Answer target.region.source_location (unread)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Customer Architect",
+      "priority": "LATER",
+      "state": "OPEN",
+      "closes_when": "The request is answered in review/inputs.yaml (stacktoit work answer) and the assessment is run again.",
+      "closes_with": "an answer in review/inputs.yaml and a new assessment",
+      "required_input": "The STACKIT region that holds the residency of a location the scan cannot read (the value comes from an input a plan can change, or the source does not state it), which 4 unit(s) of the estate stand in.",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "review/inputs.yaml"
+      ],
+      "request": {
+        "id": "INP-TSE-ed9be9064ccf",
+        "topic": "target.region.source_location",
+        "scope": {
+          "profile": "default",
+          "subject": "unread"
+        }
+      }
+    },
+    {
+      "id": "INP-TSE-7a8d984b0e4d",
+      "kind": "INPUT",
+      "title": "Answer target.secret_store.binding",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Customer Architect",
+      "priority": "LATER",
+      "state": "OPEN",
+      "closes_when": "The request is answered in review/inputs.yaml (stacktoit work answer) and the assessment is run again.",
+      "closes_with": "an answer in review/inputs.yaml and a new assessment",
+      "required_input": "Who owns the STACKIT Secrets Manager instance that replaces every migrated secret (2 source units): the draft creates it (the DEFAULT), or an existing secret store is read, bound by a person, or refused. The identifier of an existing secret store is yours to give.",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "review/inputs.yaml"
+      ],
+      "request": {
+        "id": "INP-TSE-7a8d984b0e4d",
+        "topic": "target.secret_store.binding",
+        "scope": {
+          "profile": "default"
+        }
+      }
+    },
+    {
+      "id": "INP-TSE-2a2e667de9c2",
+      "kind": "INPUT",
+      "title": "Answer target.workload.identity (google_cloud_run_v2_job.migrate)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Customer Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "OPEN",
+      "closes_when": "The request is answered in review/inputs.yaml (stacktoit work answer) and the assessment is run again.",
+      "closes_with": "an answer in review/inputs.yaml and a new assessment",
+      "required_input": "Which identity the pods of google_cloud_run_v2_job.migrate use on STACKIT. The source runs them as the Google service account google_service_account.automation; a pod on STACKIT has no Google identity, and there is no default model.",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "review/inputs.yaml"
+      ],
+      "unit": "google_cloud_run_v2_job.migrate",
+      "request": {
+        "id": "INP-TSE-2a2e667de9c2",
+        "topic": "target.workload.identity",
+        "scope": {
+          "address": "google_cloud_run_v2_job.migrate",
+          "profile": "default"
+        },
+        "blocks_draft": true
+      }
+    },
+    {
+      "id": "INP-TSE-77b8285fa505",
+      "kind": "INPUT",
+      "title": "Answer target.workload.identity (google_cloud_run_v2_service.server)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Customer Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "OPEN",
+      "closes_when": "The request is answered in review/inputs.yaml (stacktoit work answer) and the assessment is run again.",
+      "closes_with": "an answer in review/inputs.yaml and a new assessment",
+      "required_input": "Which identity the pods of google_cloud_run_v2_service.server use on STACKIT. The source runs them as the Google service account google_service_account.server; a pod on STACKIT has no Google identity, and there is no default model.",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "review/inputs.yaml"
+      ],
+      "unit": "google_cloud_run_v2_service.server",
+      "request": {
+        "id": "INP-TSE-77b8285fa505",
+        "topic": "target.workload.identity",
+        "scope": {
+          "address": "google_cloud_run_v2_service.server",
+          "profile": "default"
+        },
+        "blocks_draft": true
+      }
+    },
+    {
+      "id": "INP-TSE-eac97a7eefd2",
+      "kind": "INPUT",
+      "title": "Answer target.egress",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Customer Architect",
+      "priority": "LATER",
+      "state": "OPEN",
+      "closes_when": "This build records an answer to this request and does not change the draft; configure it in the target environment: set egress.mode (ROUTED_DEFAULT, VIA_AREA_NEXT_HOP or NONE) in the target environment file given with --target-environment; the networks, route tables and security groups the draft writes follow it (AWS sources, the target environment description in the product documentation, Network policy). Not target.network.egress, which is a separate request that this build applies.",
+      "closes_with": "the setting made where the request says, outside the review files",
+      "required_input": "How outbound traffic leaves the migrated networks: the routed default, an address in a Network Area, or not at all.",
+      "next_step": "No other job on the board waits for it.",
+      "request": {
+        "id": "INP-TSE-eac97a7eefd2",
+        "topic": "target.egress",
+        "scope": {
+          "profile": "default"
+        },
+        "preference": true
+      }
+    },
+    {
+      "id": "INP-TSE-d73c02f8659b",
+      "kind": "INPUT",
+      "title": "Answer target.ingress.public",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Customer Architect",
+      "priority": "LATER",
+      "state": "OPEN",
+      "closes_when": "This build records an answer to this request and does not change the draft; configure it in the target environment: set ingress.public (ALLOW_PUBLIC_IP, LB_ONLY or NONE) in the target environment file given with --target-environment; the public addresses and load balancers the draft writes follow it (AWS sources, the target environment description in the product documentation, Network policy).",
+      "closes_with": "the setting made where the request says, outside the review files",
+      "required_input": "Whether a server may have a public address, only a load balancer may be public, or nothing is public.",
+      "next_step": "No other job on the board waits for it.",
+      "request": {
+        "id": "INP-TSE-d73c02f8659b",
+        "topic": "target.ingress.public",
+        "scope": {
+          "profile": "default"
+        },
+        "preference": true
+      }
+    },
+    {
+      "id": "INP-TSE-d16ba37f3e2f",
+      "kind": "INPUT",
+      "title": "Answer target.observability",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Customer Architect",
+      "priority": "LATER",
+      "state": "OPEN",
+      "closes_when": "This build records an answer to this request and does not change the draft; configure it in the target environment: keep or create the STACKIT Observability and Logs instances in the project yourself; this build applies no statement of it, and the observability section of the target environment file is read and bound only. Where the source has alarms, logs or metrics the draft creates its own instances, and reusing an existing one is an edit of the draft by hand.",
+      "closes_with": "the setting made where the request says, outside the review files",
+      "required_input": "Whether metrics and logs go to instances the draft creates, to existing instances, or nowhere.",
+      "next_step": "No other job on the board waits for it.",
+      "request": {
+        "id": "INP-TSE-d16ba37f3e2f",
+        "topic": "target.observability",
+        "scope": {
+          "profile": "default"
+        },
+        "preference": true
+      }
+    },
+    {
+      "id": "INP-TSE-3f99c0e1bfaf",
+      "kind": "INPUT",
+      "title": "Answer target.project",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Customer Architect",
+      "priority": "LATER",
+      "state": "OPEN",
+      "closes_when": "This build records an answer to this request and does not change the draft; configure it in the target environment: set the variable project_id of the draft (terraform.tfvars, or TF_VAR_project_id for the scripts); a project.id in a target environment file is read and bound and is not written into the draft.",
+      "closes_with": "the setting made where the request says, outside the review files",
+      "required_input": "The STACKIT project the migrated estate is built in.",
+      "next_step": "No other job on the board waits for it.",
+      "request": {
+        "id": "INP-TSE-3f99c0e1bfaf",
+        "topic": "target.project",
+        "scope": {
+          "profile": "default"
+        },
+        "preference": true
+      }
+    },
+    {
+      "id": "DEC-IAM-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud Run service (Identity Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Identity Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Review the service identity setting: The ledger entry reads preserved or transformed with a value that is a fact of the source, or a person accepts the difference.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/semantic/google_cloud_run_v2_job.migrate/service-identity"
+      ],
+      "unit": "google_cloud_run_v2_job.migrate"
+    },
+    {
+      "id": "DEC-NET-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud Run service (Network Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Network Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Review the cloud run v2 job network exposure setting: A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
+      "closes_with": "an answer in the decisions file: one of the options the record offers",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/semantic/google_cloud_run_v2_job.migrate/cloud-run-v2-job-network-exposure"
+      ],
+      "unit": "google_cloud_run_v2_job.migrate"
+    },
+    {
+      "id": "DEC-SEC-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud Run service (Security Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Security Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Create the Kubernetes Secrets for the Secret Manager references: A person creates the Kubernetes Secrets the manifest lists, filled from STACKIT Secrets Manager (for example with an External Secrets Operator).",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/semantic/google_cloud_run_v2_job.migrate/secrets"
+      ],
+      "unit": "google_cloud_run_v2_job.migrate"
+    },
+    {
+      "id": "DEC-GEN-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud Run service",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Platform Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Review the IAM policy grant setting: A person decides what this finding asks, and records the evidence or the decision. The finding says: A full IAM policy (member/role bindings) is set directly on the service via policy_data; STACKIT has no per-service IAM policy resource, so who may invoke the migrated SKE workload is decided by a person — the draft carries no invocation check.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-platform-architect"
+      ],
+      "unit": "google_cloud_run_v2_service.server"
+    },
+    {
+      "id": "DEC-IAM-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud Run service (Identity Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Identity Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Decide who may invoke the service: A person decides how callers of the workload are authenticated (in the application, behind an authenticating proxy, or by no exposure at all) and how the SKE exposure is set, since the draft carries no invocation check. Review the service identity setting: The ledger entry reads preserved or transformed with a value that is a fact of the source, or a person accepts the difference.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-identity-architect"
+      ],
+      "unit": "google_cloud_run_v2_service.server"
+    },
+    {
+      "id": "DEC-NET-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud Run service (Network Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Network Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Decide how the service connects to the database: A person points the workload at the endpoint of the migrated database instance (a Flex or MariaDB instance) over TLS, because the Cloud SQL connector socket has no counterpart.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/semantic/google_cloud_run_v2_service.server/cloud-sql-connection"
+      ],
+      "unit": "google_cloud_run_v2_service.server"
+    },
+    {
+      "id": "DEC-SEC-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud Run service (Security Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Security Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Confirm the environment settings: A person fills in the values the manifest lists as not copied, in the ConfigMap on the cluster. Create the Kubernetes Secrets for the Secret Manager references: A person creates the Kubernetes Secrets the manifest lists, filled from STACKIT Secrets Manager (for example with an External Secrets Operator).",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-security-architect"
+      ],
+      "unit": "google_cloud_run_v2_service.server"
+    },
+    {
+      "id": "DEC-IAM-GOOGLE-CLOUDBUILD-TRIGGER-ACTIVATEGCB",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud Build (Identity Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Identity Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Review the build identity setting: A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "unit": "google_cloudbuild_trigger.activategcb"
+    },
+    {
+      "id": "DEC-OPS-GOOGLE-CLOUDBUILD-TRIGGER-ACTIVATEGCB",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud Build (Platform Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Platform Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Confirm its dependency on the references: A person confirms how the replacement carries the relation, or accepts the difference. Choose the container image or artifact: A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting. Confirm the entry point of the function: A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting. Review the log destination setting: A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "unit": "google_cloudbuild_trigger.activategcb"
+    },
+    {
+      "id": "DEC-IAM-GOOGLE-CLOUDBUILD-TRIGGER-INIT",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud Build (Identity Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Identity Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Review the build identity setting: A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "unit": "google_cloudbuild_trigger.init"
+    },
+    {
+      "id": "DEC-OPS-GOOGLE-CLOUDBUILD-TRIGGER-INIT",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud Build (Platform Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Platform Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Confirm its dependency on the references: A person confirms how the replacement carries the relation, or accepts the difference. Choose the container image or artifact: A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting. Confirm the entry point of the function: A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting. Review the log destination setting: A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "unit": "google_cloudbuild_trigger.init"
+    },
+    {
+      "id": "DEC-GEN-GOOGLE-CLOUDBUILD-TRIGGER-PLACEHOLDER",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud Build",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "NOT_STATED",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Decide which firebase hosting site this resource depends on: The contract of this unit gains a semantic that reads google_firebase_hosting_site (and lists it as carried), or a person decides what the reference to the resource becomes.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "unit": "google_cloudbuild_trigger.placeholder"
+    },
+    {
+      "id": "DEC-IAM-GOOGLE-CLOUDBUILD-TRIGGER-PLACEHOLDER",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud Build (Identity Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Identity Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Review the build identity setting: A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "unit": "google_cloudbuild_trigger.placeholder"
+    },
+    {
+      "id": "DEC-OPS-GOOGLE-CLOUDBUILD-TRIGGER-PLACEHOLDER",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud Build (Platform Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Platform Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Confirm its dependency on the references: A person confirms how the replacement carries the relation, or accepts the difference. Choose the container image or artifact: A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting. Review the log destination setting: A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "unit": "google_cloudbuild_trigger.placeholder"
+    },
+    {
+      "id": "DEC-IAM-GOOGLE-FIREBASE-HOSTING-SITE-CLIENT",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a firebase hosting site (Identity Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Identity Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Confirm the project of the firebase hosting site: A person decides which STACKIT project, and with it which access rules, holds the replacement.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "unit": "google_firebase_hosting_site.client"
+    },
+    {
+      "id": "DEC-OPS-GOOGLE-FIREBASE-HOSTING-SITE-CLIENT",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a firebase hosting site (Platform Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Platform Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Confirm the site ID of the firebase hosting site: A person sets this up on the bucket, the CDN distribution and the domain that replace Firebase Hosting, or decides to drop it, and records the decision.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "unit": "google_firebase_hosting_site.client"
+    },
+    {
+      "id": "DEC-OPS-GOOGLE-PUBSUB-TOPIC-FAUX",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Pub/Sub topic (Platform Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Platform Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Confirm the name of the resource on the target: A person confirms the topic name the replacement messaging service carries against the publishers and subscribers that use it, or accepts the new name.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/semantic/google_pubsub_topic.faux/tc-name"
+      ],
+      "unit": "google_pubsub_topic.faux"
+    },
+    {
+      "id": "DEC-IAM-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-ADMIN-PASSWORD",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Secret Manager secret (Identity Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Identity Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Decide how the secrets are carried: A person recreates the secret in the Secrets Manager instance, since its data is not written into the draft, and decides for each IAM member whether it gets a user of the whole instance, a role binding on a secret group, or a separate instance.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/semantic/google_secret_manager_secret.django_admin_password/secret-settings"
+      ],
+      "unit": "google_secret_manager_secret.django_admin_password"
+    },
+    {
+      "id": "DEC-SEC-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-ADMIN-PASSWORD",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Secret Manager secret (Security Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Security Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Provide the values of the secrets: A person decides where the value comes from, supplies the document and the step has run. Confirm the name of the secret: A person confirms the secret name in STACKIT Secrets Manager against what refers to the source secret ID, or accepts the new name.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/semantic/google_secret_manager_secret.django_admin_password/open-settings-security-architect"
+      ],
+      "unit": "google_secret_manager_secret.django_admin_password"
+    },
+    {
+      "id": "DEC-IAM-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-SETTINGS",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Secret Manager secret (Identity Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Identity Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Decide how the secrets are carried: A person recreates the secret in the Secrets Manager instance, since its data is not written into the draft, and decides for each IAM member whether it gets a user of the whole instance, a role binding on a secret group, or a separate instance.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/semantic/google_secret_manager_secret.django_settings/secret-settings"
+      ],
+      "unit": "google_secret_manager_secret.django_settings"
+    },
+    {
+      "id": "DEC-SEC-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-SETTINGS",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Secret Manager secret (Security Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Security Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Provide the values of the secrets: A person decides where the value comes from, supplies the document and the step has run. Confirm the name of the secret: A person confirms the secret name in STACKIT Secrets Manager against what refers to the source secret ID, or accepts the new name.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/semantic/google_secret_manager_secret.django_settings/open-settings-security-architect"
+      ],
+      "unit": "google_secret_manager_secret.django_settings"
+    },
+    {
+      "id": "DEC-IAM-GOOGLE-SERVICE-ACCOUNT-AUTOMATION",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a service account (Identity Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Identity Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Review the account name setting: A person decides what this finding asks, and records the evidence or the decision. The finding says: The account ID is not visible statically; the STACKIT account is named after the source address. — a variable's default, not a fact. Map the IAM roles of the service account to STACKIT roles: The knowledge base's note on this setting states no closing condition; it is done when a person has chosen a way out above, recorded the choice, and the target is checked as the verification says. Map the IAM roles of the service account to STACKIT roles: A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
+      "closes_with": "an answer in the decisions file: one of the options the record offers",
+      "required_input": "the members that act as or manage the service account",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/semantic/google_service_account.automation/open-settings"
+      ],
+      "unit": "google_service_account.automation"
+    },
+    {
+      "id": "DEC-IAM-GOOGLE-SERVICE-ACCOUNT-CLIENT",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a service account (Identity Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Identity Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Review the account name setting: A person decides what this finding asks, and records the evidence or the decision. The finding says: The account ID is not visible statically; the STACKIT account is named after the source address. — a variable's default, not a fact. Map the IAM roles of the service account to STACKIT roles: The knowledge base's note on this setting states no closing condition; it is done when a person has chosen a way out above, recorded the choice, and the target is checked as the verification says. Map the IAM roles of the service account to STACKIT roles: A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
+      "closes_with": "an answer in the decisions file: one of the options the record offers",
+      "required_input": "the members that act as or manage the service account",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/semantic/google_service_account.client/open-settings"
+      ],
+      "unit": "google_service_account.client"
+    },
+    {
+      "id": "DEC-IAM-GOOGLE-SERVICE-ACCOUNT-INIT",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a service account (Identity Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Identity Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Review the account name setting: A person decides what this finding asks, and records the evidence or the decision. The finding says: The account ID is not visible statically; the STACKIT account is named after the source address. — a variable's default, not a fact. Map the IAM roles of the service account to STACKIT roles: The knowledge base's note on this setting states no closing condition; it is done when a person has chosen a way out above, recorded the choice, and the target is checked as the verification says. Map the IAM roles of the service account to STACKIT roles: A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
+      "closes_with": "an answer in the decisions file: one of the options the record offers",
+      "required_input": "the members that act as or manage the service account",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/semantic/google_service_account.init/open-settings"
+      ],
+      "unit": "google_service_account.init"
+    },
+    {
+      "id": "DEC-IAM-GOOGLE-SERVICE-ACCOUNT-SERVER",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a service account (Identity Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Identity Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Review the account name setting: A person decides what this finding asks, and records the evidence or the decision. The finding says: The account ID is not visible statically; the STACKIT account is named after the source address. — a variable's default, not a fact. Map the IAM roles of the service account to STACKIT roles: The knowledge base's note on this setting states no closing condition; it is done when a person has chosen a way out above, recorded the choice, and the target is checked as the verification says. Map the IAM roles of the service account to STACKIT roles: A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
+      "closes_with": "an answer in the decisions file: one of the options the record offers",
+      "required_input": "the members that act as or manage the service account",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/semantic/google_service_account.server/open-settings"
+      ],
+      "unit": "google_service_account.server"
+    },
+    {
+      "id": "DEC-IAM-GOOGLE-SQL-DATABASE-INSTANCE-POSTGRES",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud SQL instance (Identity Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Identity Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Review the database users setting: A literal value or a resolved reference in the source lets the check decide, or a person verifies the value.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/semantic/google_sql_database_instance.postgres/database-users"
+      ],
+      "unit": "google_sql_database_instance.postgres"
+    },
+    {
+      "id": "DEC-NET-GOOGLE-SQL-DATABASE-INSTANCE-POSTGRES",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud SQL instance (Network Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Network Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Review the user and database settings setting: A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
+      "closes_with": "an answer in the decisions file: one of the options the record offers",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/semantic/google_sql_database_instance.postgres/user-and-database-settings"
+      ],
+      "unit": "google_sql_database_instance.postgres"
+    },
+    {
+      "id": "DEC-OPS-GOOGLE-SQL-DATABASE-INSTANCE-POSTGRES",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud SQL instance (Platform Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Platform Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Confirm the name of the resource on the target: A person confirms the instance name the STACKIT database carries against what refers to the source instance name, or accepts the new name. Confirm the name of the SQL database: A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/semantic/google_sql_database_instance.postgres/open-settings-platform-architect"
+      ],
+      "unit": "google_sql_database_instance.postgres"
+    },
+    {
+      "id": "DEC-DATA-GOOGLE-STORAGE-BUCKET-MEDIA",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud Storage bucket (Storage Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Storage Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Confirm whether the bucket may be deleted with its contents: A person accepts the difference or the design changes: nothing in the source can make the target carry it.",
+      "closes_with": "an answer in the decisions file: one of the options the record offers",
+      "next_step": "No other job on the board waits for it.",
+      "unit": "google_storage_bucket.media"
+    },
+    {
+      "id": "DEC-GEN-GOOGLE-STORAGE-BUCKET-MEDIA",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud Storage bucket",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Storage Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Review the IAM access setting: A person decides it as that finding asks, and the finding's closing evidence or decision is recorded. A person creates the bucket policies and Object Storage credentials that give the same access on STACKIT.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/semantic/google_storage_bucket.media/iam-access"
+      ],
+      "unit": "google_storage_bucket.media"
+    },
+    {
+      "id": "DEC-IAM-GOOGLE-STORAGE-BUCKET-MEDIA",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud Storage bucket (Identity Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Identity Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Review the IAM grant setting: A person decides what this finding asks, and records the evidence or the decision. The finding says: Bucket access is granted with IAM bindings or ACL entries; on STACKIT it becomes bucket policies and Object Storage credentials. Review the public access setting: A literal value or a resolved reference in the source lets the check decide, or a person verifies the value.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/semantic/google_storage_bucket.media/open-settings-identity-architect"
+      ],
+      "unit": "google_storage_bucket.media"
+    },
+    {
+      "id": "DEC-OPS-GOOGLE-STORAGE-BUCKET-MEDIA",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud Storage bucket (Platform Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Platform Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Confirm the name of the Cloud Storage bucket: A person confirms the Object Storage bucket name against the applications and tools that use the source bucket name, or accepts the new name.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/semantic/google_storage_bucket.media/tc-storage-bucket-name"
+      ],
+      "unit": "google_storage_bucket.media"
+    },
+    {
+      "id": "DEC-SEC-GOOGLE-STORAGE-BUCKET-MEDIA",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud Storage bucket (Security Architect)",
+      "queue": "PROVIDE_INFORMATION",
+      "owner": "Security Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Decide the geo-replication: The value is set where the module is called (a literal), the variable is given its value in a variable file of the scan (--var-file), or a person confirms the value production uses.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/semantic/google_storage_bucket.media/geo-replication"
+      ],
+      "unit": "google_storage_bucket.media"
+    },
+    {
+      "id": "DEC-GEN-CONVERT-API-OPT-IN",
+      "kind": "RECORD",
+      "title": "Allow the calls of STACKIT APIs that are not generally available",
+      "queue": "APPROVE_DESIGN",
+      "owner": "Platform Architect",
+      "priority": "FIRST",
+      "state": "OPEN_INPUT",
+      "closes_when": "Every API the record lists is answered in the decisions file: allowed, or refused.",
+      "closes_with": "an answer in the decisions file: one of the options the record offers",
+      "required_input": "the Secrets Manager Vault-compatible API is of a maturity that is not established (its documentation states no release status and its product documentation does not establish it as generally available): the execution plan executes no call of an API that is not generally available without an explicit opt-in, so the calls of it and the steps of its path for google_secret_manager_secret.django_admin_password, google_secret_manager_secret.django_settings wait for this decision; the draft's own blocks do not | the pubsub API v1beta is beta: the execution plan executes no call of an API that is not generally available without an explicit opt-in, so the calls of it and the steps of its path for google_pubsub_topic.faux wait for this decision; the draft's own blocks do not | the platform's consent to depend on an API that may change or vanish (alpha, beta, or a maturity the documentation does not establish)",
+      "next_step": "Brings closer once it is done (each waits for more): Run the STACKIT API step WriteSecret of… and 2 more.",
+      "evidence": [
+        "https://github.com/stackitcloud/stackit-api-specifications/blob/main/services/functions/v1alpha/functions.json#L767-L771"
+      ],
+      "steps": [
+        "MAN/pubsub.topic/name/google_pubsub_topic.faux"
+      ],
+      "unit": "google_pubsub_topic.faux",
+      "options": [
+        {
+          "id": "allow-calls-of-the-api",
+          "label": "Allow the calls of the API for this migration",
+          "execution_effect": "ACK_CURRENT_ARTIFACT"
+        }
+      ]
+    },
+    {
+      "id": "DEC-GEN-CONVERT-DATA-MOVEMENT",
+      "kind": "RECORD",
+      "title": "Choose how the data is moved",
+      "queue": "APPROVE_DESIGN",
+      "owner": "Data Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "OPEN_INPUT",
+      "closes_when": "An answer whose effect frees the steps that wait for it: an acknowledgement of the current draft in the decisions file given with --decisions (decisions-template.yaml), or the inputs answer (or the change of the source) that makes the draft carry another option.",
+      "closes_with": "an answer in the decisions file: one of the options the record offers",
+      "required_input": "the plan defines both methods of the engine (a dump restored inside the write freeze, and a logical replication that follows the changes until the freeze) and keeps them open: which one applies depends on the size of the data, the write rate and the downtime the business accepts, and the source states none of them; the steps of the methods wait for the answer | the size of the data, the downtime the business tolerates and the consistency the application needs, to choose the method and the cutover window",
+      "next_step": "Brings closer once it is done (each waits for more): Source: turn logical decoding on: set the flag… and 7 more.",
+      "evidence": [
+        "https://github.com/stackitcloud/terraform-provider-stackit/blob/v0.119.0/docs/resources/mariadb_credential.md#L51-L57",
+        "https://github.com/stackitcloud/terraform-provider-stackit/blob/v0.119.0/docs/resources/mongodbflex_user.md#L59-L63",
+        "https://github.com/stackitcloud/terraform-provider-stackit/blob/v0.119.0/docs/resources/opensearch_credential.md#L51-L57",
+        "https://github.com/stackitcloud/terraform-provider-stackit/blob/v0.119.0/docs/resources/valkey_credential.md#L51-L57",
+        "https://docs.stackit.cloud/products/databases/mariadb/how-tos/backup-and-restore/",
+        "https://docs.stackit.cloud/products/databases/sqlserver-flex/how-tos/import-database-backup-from-stackit-s3-into-sqlserver-flex/",
+        "https://docs.stackit.cloud/products/databases/key-value-store/tutorials/migrate-data-to-a-new-instance/",
+        "https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/SupportedCommands.html",
+        "https://docs.aws.amazon.com/memorydb/latest/devguide/restrictedcommands.html",
+        "https://docs.stackit.cloud/products/databases/opensearch/how-tos/migrate-elasticsearch-data-to-an-opensearch2-service-instance/",
+        "https://docs.aws.amazon.com/AmazonS3/latest/userguide/replication.html",
+        "https://www.postgresql.org/docs/current/logical-replication-restrictions.html",
+        "https://www.postgresql.org/docs/current/sql-createsubscription.html",
+        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/PostgreSQL.Concepts.General.FeatureSupport.LogicalReplication.html",
+        "https://docs.stackit.cloud/products/storage/object-storage/tutorials/migrate-data-using-rclone/",
+        "https://rclone.org/commands/rclone_copy/",
+        "https://rclone.org/commands/rclone_check/",
+        "https://docs.stackit.cloud/products/storage/object-storage/reference/supported-operations-on-buckets-and-objects/",
+        "https://docs.aws.amazon.com/cli/latest/reference/s3/sync.html",
+        "https://docs.aws.amazon.com/cli/v1/userguide/cli-configure-options.html",
+        "https://docs.stackit.cloud/products/storage/object-storage/how-tos/manage-encryption/"
+      ],
+      "unit": "google_sql_database_instance.postgres",
+      "options": [
+        {
+          "id": "export-and-import-with-the-engine-clients",
+          "label": "Export the data from the source and import it with the clients of the target engine",
+          "execution_effect": "MANUAL_ALTERNATIVE"
+        },
+        {
+          "id": "replicate-with-the-engine-replication",
+          "label": "Replicate the data with the replication of the source engine until the cutover",
+          "execution_effect": "MANUAL_ALTERNATIVE"
+        },
+        {
+          "id": "copy-the-objects-with-rclone",
+          "label": "Copy the objects of the bucket with rclone, from the source bucket to the STACKIT bucket",
+          "execution_effect": "MANUAL_ALTERNATIVE"
+        },
+        {
+          "id": "copy-the-objects-with-the-aws-cli",
+          "label": "Copy the objects of the bucket with the AWS CLI, through a staging directory",
+          "execution_effect": "MANUAL_ALTERNATIVE"
+        },
+        {
+          "id": "migrate-with-a-tool-of-my-own",
+          "label": "Move the data with a migration tool or a replication of the owner's own",
+          "execution_effect": "MANUAL_ALTERNATIVE"
+        }
+      ]
+    },
+    {
+      "id": "DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE",
+      "kind": "RECORD",
+      "title": "Decide whether a proposed STACKIT alternative replaces a source capability",
+      "queue": "APPROVE_DESIGN",
+      "owner": "Platform Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "OPEN_INPUT",
+      "closes_when": "An answer whose effect frees the steps that wait for it: an acknowledgement of the current draft in the decisions file given with --decisions (decisions-template.yaml), or the inputs answer (or the change of the source) that makes the draft carry another option.",
+      "closes_with": "an answer in the decisions file: one of the options the record offers",
+      "required_input": "the target has no equal of this Cloud Build trigger: starts a build on a source event, a Pub/Sub message, a webhook or by hand, with its steps, substitutions, artifacts, secrets and optional approval: Nothing is converted. The same delivery is a workflow of STACKIT Git Pipelines (written for GitHub Actions; STACKIT-managed or custom runners; secrets from Secrets Manager or the repository; a manual-approval action) or the customer's own CI/CD. Trigger conditions, steps, secrets (created again, never copied), the service account (replaced by the credentials the workflow uses against STACKIT), the log destination and the approval are written again by a person. To decide: Which pipelines are still needed, where they run (STACKIT Git Pipelines or the customer's own CI/CD), how each trigger, step, secret and approval is written again, and who owns the workflow files. | the target has no equal of this one member's role on the Cloud Storage bucket: A STACKIT credentials group is not a grant on the Cloud Storage bucket. It is the principal that a bucket policy names, a set of S3 keys with no Google identity behind it, and by itself it gives no access to the bucket and takes none away. The statement that grants it something is a statement of the bucket policy, in the policy language of STACKIT (a credentials group or * as the principal, S3 actions, five condition keys), which no Terraform resource sets. The Google role is not mapped to S3 actions by any table, the condition of the grant has no counterpart unless it can be written with those five condition keys, and a Google group, a domain, a federated identity and allUsers or allAuthenticatedUsers are named again as credentials groups or as *. To decide: Which credentials group stands for each member of the grant, which S3 actions of the bucket policy give the same people the access they need and no more than the Google role gave, what becomes of the condition, of public members (allUsers, allAuthenticatedUsers), of Google groups, domains and federated identities, and whether the grant ends with the Cloud Storage bucket when it has no replacement. Which bucket the grant is on, because the scan does not hold it. The draft of google_storage_bucket.media stands as it is: this answer decides the module and nothing of that draft. | the target has no equal of this static web hosting site: Static files are published into an Object Storage bucket by a pipeline, and a CDN distribution (a beta resource) with the bucket as origin serves them on a custom domain; the redirects of the site become redirect rules of the distribution. Custom response headers, rewrites to Cloud Run services or Cloud Functions, preview channels and the release history have no counterpart and are restated in the pipeline or in the application. To decide: Which bucket is the origin, which domain the distribution serves, and how rewrites and previews are replaced. The CDN resources are beta. | the target has no equal of this the members of one role on the Secret Manager secret: A STACKIT role assignment is not a grant on the Secret Manager secret. It gives one user, group or service account one STACKIT role on a whole project, folder or organisation. The role is a set of STACKIT permissions, not the Google role, and no table maps one to the other. It has no condition and no public member, so what the grant gave to a Google group, a domain, a federated identity or everyone is named again, and the access reaches more than the Secret Manager secret. A binding on a secret group applies to every secret in the group, so it is wider than a grant on one secret unless the secret has a group of its own, and its roles are Secrets Manager roles. The binding was authoritative for its role: STACKIT role assignments are additive, so a person who holds the role through another assignment keeps it, and removing such people is a step of a person. To decide: Which STACKIT role, on which project, folder or organisation, gives the same people the access they need on the Secret Manager secret, knowing it covers everything in that scope; which STACKIT users, groups or service accounts take the place of Google groups, domains, federated identities and a public member; and whether the grant ends with the Secret Manager secret when it has no replacement. For secrets: which secret group holds the secret, who else shares that group, and which Secrets Manager role and subject take the grant. Whether people who hold the role through another assignment keep it. The draft of google_secret_manager_secret.django_admin_password stands as it is: this answer decides the module and nothing of that draft. | the target has no equal of this the members of one role on the Secret Manager secret: A STACKIT role assignment is not a grant on the Secret Manager secret. It gives one user, group or service account one STACKIT role on a whole project, folder or organisation. The role is a set of STACKIT permissions, not the Google role, and no table maps one to the other. It has no condition and no public member, so what the grant gave to a Google group, a domain, a federated identity or everyone is named again, and the access reaches more than the Secret Manager secret. A binding on a secret group applies to every secret in the group, so it is wider than a grant on one secret unless the secret has a group of its own, and its roles are Secrets Manager roles. The binding was authoritative for its role: STACKIT role assignments are additive, so a person who holds the role through another assignment keeps it, and removing such people is a step of a person. To decide: Which STACKIT role, on which project, folder or organisation, gives the same people the access they need on the Secret Manager secret, knowing it covers everything in that scope; which STACKIT users, groups or service accounts take the place of Google groups, domains, federated identities and a public member; and whether the grant ends with the Secret Manager secret when it has no replacement. For secrets: which secret group holds the secret, who else shares that group, and which Secrets Manager role and subject take the grant. Whether people who hold the role through another assignment keep it. The draft of google_secret_manager_secret.django_settings stands as it is: this answer decides the module and nothing of that draft. | that the stated difference from the source is acceptable for what depends on it | the values the module asks for, which the draft does not invent",
+      "next_step": "No other job on the board waits for it.",
+      "evidence": [
+        "https://opentofu.org/docs/language/meta-arguments/count/"
+      ],
+      "steps": [
+        "MAN/unit/google_firebase_hosting_site.client",
+        "MAN/unit/google_cloudbuild_trigger.activategcb",
+        "MAN/unit/google_cloudbuild_trigger.init",
+        "MAN/unit/google_cloudbuild_trigger.placeholder"
+      ],
+      "unit": "google_cloudbuild_trigger.activategcb",
+      "options": [
+        {
+          "id": "use-the-proposed-module",
+          "label": "Use the proposed module, with the stated difference",
+          "execution_effect": "ACK_CURRENT_ARTIFACT"
+        },
+        {
+          "id": "design-it-another-way",
+          "label": "Design it another way and leave the module off",
+          "execution_effect": "MANUAL_ALTERNATIVE"
+        }
+      ]
+    },
+    {
+      "id": "DEC-GEN-CONVERT-SOURCE-PROJECT-MAPPING",
+      "kind": "RECORD",
+      "title": "State where the units of each source project of the estate go",
+      "queue": "APPROVE_DESIGN",
+      "owner": "Platform Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "OPEN_INPUT",
+      "closes_when": "A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting. A person confirms the value against the target, or the knowledge base gains a rule that decides this setting. The module terraform/proposals/proposal_activategcb is switched on with its values and checked, or the design that replaces it is set up and checked; the decision records which. The module terraform/proposals/proposal_init is switched on with its values and checked, or the design that replaces it is set up and checked; the decision records which. The module terraform/proposals/proposal_placeholder is switched on with its values and checked, or the design that replaces it is set up and checked; the decision records which.",
+      "closes_with": "an answer in the decisions file: one of the options the record offers",
+      "required_input": "The source places its units in the project example-project, and in a project the scan cannot read for some units, and the source project is carried nowhere. A person maps the source projects by answering target.project.source_project for each: var.project_id, or the project of the unit's network (network-project). The answer records that mapping and changes nothing in the draft, which keeps its own project resolver. | which source projects stay one STACKIT project and which do not, and who owns each | what the customer decides: Which pipelines are still needed, where they run (STACKIT Git Pipelines or the customer's own CI/CD), how each trigger, step, secret and approval is written again, and who owns the workflow files. the review the assessment asks for: Write the workflow in the repository: one job (or step) per build step, with the same container images or their STACKIT equivalents; Recreate every secret the build reads in STACKIT Secrets Manager (read with the vault action) or as a repository secret; the values of the source are never copied; Write the trigger conditions again as the on: section of the workflow and verify each event kind against the Forgejo Actions reference; Decide where images and artifacts go: the package registry of STACKIT Git takes container images from any OCI client, or keep your own registry, and change the image names in the deploy steps.; whether google_cloudbuild_trigger.activategcb exists in production, and with how many instances: the value production gives var.init | what the customer decides: Which pipelines are still needed, where they run (STACKIT Git Pipelines or the customer's own CI/CD), how each trigger, step, secret and approval is written again, and who owns the workflow files. the review the assessment asks for: Write the workflow in the repository: one job (or step) per build step, with the same container images or their STACKIT equivalents; Recreate every secret the build reads in STACKIT Secrets Manager (read with the vault action) or as a repository secret; the values of the source are never copied; Write the trigger conditions again as the on: section of the workflow and verify each event kind against the Forgejo Actions reference; Decide where images and artifacts go: the package registry of STACKIT Git takes container images from any OCI client, or keep your own registry, and change the image names in the deploy steps.; whether google_cloudbuild_trigger.init exists in production, and with how many instances: the value production gives var.init | what the customer decides: Which pipelines are still needed, where they run (STACKIT Git Pipelines or the customer's own CI/CD), how each trigger, step, secret and approval is written again, and who owns the workflow files. the review the assessment asks for: Write the workflow in the repository: one job (or step) per build step, with the same container images or their STACKIT equivalents; Recreate every secret the build reads in STACKIT Secrets Manager (read with the vault action) or as a repository secret; the values of the source are never copied; Write the trigger conditions again as the on: section of the workflow and verify each event kind against the Forgejo Actions reference; Decide where images and artifacts go: the package registry of STACKIT Git takes container images from any OCI client, or keep your own registry, and change the image names in the deploy steps.; whether google_cloudbuild_trigger.placeholder exists in production, and with how many instances: the value production gives var.init",
+      "next_step": "No other job on the board waits for it.",
+      "evidence": [
+        "https://github.com/stackitcloud/terraform-provider-stackit/blob/v0.119.0/docs/resources/network.md"
+      ],
+      "steps": [
+        "MAN/estate/SOURCE_PROJECT_MAPPING"
+      ],
+      "unit": "google_cloudbuild_trigger.activategcb",
+      "options": [
+        {
+          "id": "units-go-to-the-project-variable",
+          "label": "The units of the source project go to the project the variable project_id names",
+          "execution_effect": "ACK_CURRENT_ARTIFACT"
+        },
+        {
+          "id": "units-go-to-the-project-of-their-network",
+          "label": "The units of the source project go to the project of their network",
+          "execution_effect": "ACK_CURRENT_ARTIFACT"
+        }
+      ]
+    },
+    {
+      "id": "DEC-GEN-CONVERT-SOURCE-REGION-MAPPING",
+      "kind": "RECORD",
+      "title": "Map each source location of the estate to a STACKIT region",
+      "queue": "APPROVE_DESIGN",
+      "owner": "Platform Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "OPEN_INPUT",
+      "closes_when": "A person confirms the STACKIT region of the SKE cluster the workload runs on holds the residency the source region gave, since no mapping between Google and STACKIT regions is evidenced. A person confirms the STACKIT region of the instance (and of a read replica, decided with its primary) holds the residency the source region gave. A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
+      "closes_with": "an answer in the decisions file: one of the options the record offers",
+      "required_input": "The source places its units in a location the scan cannot read (the value comes from an input a plan can change, or the source does not state it). No mapping between Google and STACKIT regions is evidenced, so the region the draft builds in is not shown to hold the residency of a source location: a person states it once for the estate, by answering target.region.source_location for each location. | the residency requirement behind each source location (a law, a contract, a policy) and the STACKIT region that meets it",
+      "next_step": "No other job on the board waits for it.",
+      "evidence": [
+        "https://docs.stackit.cloud/platform/regions/"
+      ],
+      "steps": [
+        "MAN/estate/SOURCE_REGION_MAPPING"
+      ],
+      "unit": "google_cloud_run_v2_job.migrate",
+      "options": [
+        {
+          "id": "map-source-locations-to-the-draft-region",
+          "label": "Map every source location of the estate to the one STACKIT region the draft builds in",
+          "execution_effect": "ACK_CURRENT_ARTIFACT",
+          "default": true
+        },
+        {
+          "id": "choose-the-region-of-each-location",
+          "label": "Choose the STACKIT region of each source location",
+          "execution_effect": "REGENERATE_REQUIRED",
+          "channel": "INPUTS",
+          "input_topic": "target.region.source_location"
+        }
+      ]
+    },
+    {
+      "id": "DEC-OPS-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud Run service (Platform Architect)",
+      "queue": "APPROVE_DESIGN",
+      "owner": "Platform Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Choose the container image or artifact: A person confirms the executable artifact or image for the STACKIT target: where it is built or pulled from and that the same build runs there. For each of 4 settings (Confirm the entry point of the function; Confirm the name of the cloud run v2 job; Confirm the name of the env entry of the containers of the template of the template of the cloud run v2 job; Confirm the name of the volumes entry of the template of the template of the cloud run v2 job): A person confirms the value against the target, or the knowledge base gains a rule that decides this setting. Review the k4 cloud run volume mount cloud run v2 job setting: A person provides the data in the target workload at the path the application expects, with an owner and mode it can use, and checks that it finds its files. Review the terraform destroy guard setting: A person decides whether the replacement keeps the guard with lifecycle { prevent_destroy = true } in the Terraform code.",
+      "closes_with": "an answer in the decisions file: one of the options the record offers",
+      "required_input": "where the image is built or pulled from",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "terraform/kubernetes/migrate/manifests.yaml"
+      ],
+      "steps": [
+        "MAN/semantic/google_cloud_run_v2_job.migrate/open-settings-platform-architect",
+        "MAN/draft/kubernetes/migrate/manifests-yaml"
+      ],
+      "unit": "google_cloud_run_v2_job.migrate"
+    },
+    {
+      "id": "DEC-OPS-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a Cloud Run service (Platform Architect)",
+      "queue": "APPROVE_DESIGN",
+      "owner": "Platform Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "Choose the container image or artifact: A person confirms the executable artifact or image for the STACKIT target: where it is built or pulled from and that the same build runs there. Decide how the volume mounts are carried: A person provides the data in the target workload at the path the application expects, with an owner and mode it can use, and checks that it finds its files. Confirm the name of the Cloud Run service: A person confirms the workload name on the cluster against what addresses or refers to the Cloud Run service name, or accepts the new name. Confirm the name of the volumes entry of the template of the Cloud Run service: A person keeps each volume name matched with the volume mount that refers to it when the volumes are rebuilt as workload volumes on the cluster. Review the terraform destroy guard setting: A person decides whether the replacement keeps the guard with lifecycle { prevent_destroy = true } in the Terraform code.",
+      "closes_with": "an answer in the decisions file: one of the options the record offers",
+      "required_input": "where the image is built or pulled from",
+      "next_step": "No other job on the board waits for it.",
+      "unit": "google_cloud_run_v2_service.server"
+    },
+    {
+      "id": "DEC-IAM-GOOGLE-FIREBASE-PROJECT-DEFAULT",
+      "kind": "RECORD",
+      "title": "Review the critical settings of a firebase project (Identity Architect)",
+      "queue": "APPROVE_DESIGN",
+      "owner": "Identity Architect",
+      "priority": "LATER",
+      "state": "BLOCKED",
+      "closes_when": "Confirm the project of the firebase project: A person decides which STACKIT project, and with it which access rules, holds the replacement.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "unit": "google_firebase_project.default"
+    },
+    {
+      "id": "REF/semantic/google_storage_bucket.media/force-destroy",
+      "kind": "STEP",
+      "title": "Approve a redesign: the target cannot carry the critical setting `force-destroy` of `google_storage_bucket.media` safely (the target has no counterpart that carries this setting of the source)",
+      "queue": "APPROVE_DESIGN",
+      "owner": "Storage Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "REFUSED",
+      "closes_when": "Not stated: the plan names no redesign.",
+      "closes_with": "an approved redesign",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "REF/semantic/google_storage_bucket.media/force-destroy"
+      ],
+      "unit": "google_storage_bucket.media"
+    },
+    {
+      "id": "REF/unit/google_firebase_project.default",
+      "kind": "STEP",
+      "title": "Approve a redesign: the target cannot carry google_firebase_project.default (google_firebase_project) safely (no STACKIT service or resource carries this source resource)",
+      "queue": "APPROVE_DESIGN",
+      "owner": "NOT_STATED",
+      "priority": "HOLDS_STEPS",
+      "state": "REFUSED",
+      "closes_when": "A redesign is approved (the plan suggests: List the Firebase services each app uses (authentication, database, storage, messaging, remote config); each needs its own replacement; The signing keys and store listings stay with Google Play and the Apple App Store; only the backend the app talks to moves.).",
+      "closes_with": "an approved redesign",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "REF/unit/google_firebase_project.default"
+      ],
+      "unit": "google_firebase_project.default"
+    },
+    {
+      "id": "DEC-IAM-STACKITSA-STATEMENT-MANUAL-REVIEW",
+      "kind": "RECORD",
+      "title": "Service account: manual review",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Identity Architect",
+      "priority": "LATER",
+      "state": "MANUAL_IMPLEMENTATION",
+      "closes_when": "The identity fact of google_cloud_run_v2_job.migrate (template[0].template[0].service_account of google_cloud_run_v2_job.migrate names google_service_account.automation) is decided on STACKIT and recorded, or recorded as not needed. The identity fact of google_cloud_run_v2_service.server (template[0].service_account of google_cloud_run_v2_service.server names google_service_account.server) is decided on STACKIT and recorded, or recorded as not needed.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/identity/facts:google_cloud_run_v2_job.migrate:google_cloud_run_v2_job.migrate.template.0.template.0.service_account-8dc3e1",
+        "MAN/identity/facts:google_cloud_run_v2_service.server:google_cloud_run_v2_service.server.template.0.service_account-5ccce9"
+      ],
+      "unit": "google_cloud_run_v2_job.migrate"
+    },
+    {
+      "id": "DEC-IAM-STACKITSA-STATEMENT-NOT-DRAFTED",
+      "kind": "RECORD",
+      "title": "Service account: not drafted",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Identity Architect",
+      "priority": "LATER",
+      "state": "MANUAL_IMPLEMENTATION",
+      "closes_when": "The people and the workloads that may use the service account written for google_service_account.automation are named, and the roles it holds are stated. The people and the workloads that may use the service account written for google_service_account.server are named, and the roles it holds are stated.",
+      "closes_with": "the work or the evidence the record names (it offers no option to choose)",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/identity/held:principal:google_service_account.automation",
+        "MAN/identity/held:principal:google_service_account.server"
+      ],
+      "unit": "google_service_account.automation"
+    },
+    {
+      "id": "TF/stackit_secretsmanager_instance.migrated_secrets",
+      "kind": "STEP",
+      "title": "Apply the blocks of terraform/security.tf with OpenTofu",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Identity Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "OPEN_INPUT",
+      "closes_when": "OpenTofu applies the blocks of terraform/security.tf and the checks of their steps in execution/verify/checks.md hold.",
+      "closes_with": "an OpenTofu apply of terraform/security.tf and the checks in execution/verify/checks.md",
+      "required_input": "the variables the blocks read (terraform/variables.tf says which have no default): project_id",
+      "next_step": "Brings closer once it is done (each waits for more): Run the STACKIT API step WriteSecret of…",
+      "evidence": [
+        "execution/verify/checks.md"
+      ],
+      "files": [
+        "terraform/security.tf"
+      ],
+      "steps": [
+        "TF/stackit_secretsmanager_instance.migrated_secrets",
+        "TF/stackit_secretsmanager_user.migration"
+      ],
+      "unit": "google_secret_manager_secret.django_admin_password"
+    },
+    {
+      "id": "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_admin_password",
+      "kind": "STEP",
+      "title": "Run the STACKIT API step WriteSecret of google_secret_manager_secret.django_admin_password",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Identity Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "BLOCKED_BY_DECISION",
+      "blocked_by": [
+        "DEC-GEN-CONVERT-API-OPT-IN"
+      ],
+      "blocker_kind": "DECISION",
+      "closes_when": "The call answers as the plan expects and the checks of the step in execution/verify/checks.md hold.",
+      "closes_with": "the answer of the call and the checks in execution/verify/checks.md",
+      "next_step": "Brings closer once it is done (each waits for more): Read each migrated secret (google_secret_manager_secret.django_admin_p…",
+      "evidence": [
+        "execution/verify/checks.md"
+      ],
+      "steps": [
+        "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_admin_password"
+      ],
+      "unit": "google_secret_manager_secret.django_admin_password"
+    },
+    {
+      "id": "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_settings",
+      "kind": "STEP",
+      "title": "Run the STACKIT API step WriteSecret of google_secret_manager_secret.django_settings",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Identity Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "BLOCKED_BY_DECISION",
+      "blocked_by": [
+        "DEC-GEN-CONVERT-API-OPT-IN"
+      ],
+      "blocker_kind": "DECISION",
+      "closes_when": "The call answers as the plan expects and the checks of the step in execution/verify/checks.md hold.",
+      "closes_with": "the answer of the call and the checks in execution/verify/checks.md",
+      "next_step": "Brings closer once it is done (each waits for more): Read each migrated secret (google_secret_manager_secret.django_admin_p…",
+      "evidence": [
+        "execution/verify/checks.md"
+      ],
+      "steps": [
+        "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_settings"
+      ],
+      "unit": "google_secret_manager_secret.django_settings"
+    },
+    {
+      "id": "MAN/path/secrets-migration/read-back",
+      "kind": "STEP",
+      "title": "Read each migrated secret (google_secret_manager_secret.django_admin_password and google_secret_manager_secret.django_settings) back from the Secrets Manager instance stackit_secretsmanager_instance.migrated_secrets before the migration user is removed: with its login, send the ReadSecret request of the write step (GET /v1/\u003cinstance id\u003e/data/\u003cpath\u003e, the path the write step names) and check that the secret has a current version, that its keys are the keys of the document you supplied, and that its values equal the document's (compare a hash of each value on your side; print none).",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Security Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "BLOCKED_BY_DECISION",
+      "blocked_by": [
+        "DEC-GEN-CONVERT-API-OPT-IN"
+      ],
+      "blocker_kind": "DECISION",
+      "closes_when": "every migrated secret has a current version whose keys and values equal those of its document, or the difference is corrected with the write step and read back again",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "the documents named in the write steps' inputs (the STACKIT API step WriteSecret of google_secret_manager_secret.django_admin_password, the STACKIT API step WriteSecret of google_secret_manager_secret.django_settings) and the login of stackit_secretsmanager_user.migration (its outputs stackit_secretsmanager_user_migration_password and stackit_secretsmanager_user_migration_username)",
+      "next_step": "Brings closer once it is done (each waits for more): Remove the migration user stackit_secretsmanager_user.migration of…",
+      "steps": [
+        "MAN/path/secrets-migration/read-back"
+      ],
+      "unit": "google_secret_manager_secret.django_admin_password"
+    },
+    {
+      "id": "MAN/path/secrets-migration/retire-user",
+      "kind": "STEP",
+      "title": "Remove the migration user stackit_secretsmanager_user.migration of the Secrets Manager instance stackit_secretsmanager_instance.migrated_secrets once the last secret is written and read back: delete its block and its two outputs (stackit_secretsmanager_user_migration_password and stackit_secretsmanager_user_migration_username) from the draft and run tofu apply, so the provider deletes the user. Afterwards the state must not list it (tofu state list shows no stackit_secretsmanager_user.migration) and the instance must list no user of that name; give a workload that reads a secret a user of its own with write_enabled = false, or the instance's role binding.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Security Architect",
+      "priority": "LATER",
+      "state": "BLOCKED_BY_DECISION",
+      "blocked_by": [
+        "DEC-GEN-CONVERT-API-OPT-IN"
+      ],
+      "blocker_kind": "DECISION",
+      "closes_when": "the block and the two outputs of stackit_secretsmanager_user.migration are gone from the draft, the state lists no such user, and the instance lists no user created for the migration",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "the draft, the state of the draft and the Secrets Manager instance's list of users",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/path/secrets-migration/retire-user"
+      ],
+      "unit": "google_secret_manager_secret.django_admin_password"
+    },
+    {
+      "id": "TF/stackit_service_account.automation",
+      "kind": "STEP",
+      "title": "Apply the blocks of terraform/identity.tf with OpenTofu",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Identity Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "OpenTofu applies the blocks of terraform/identity.tf and the checks of their steps in execution/verify/checks.md hold.",
+      "closes_with": "an OpenTofu apply of terraform/identity.tf and the checks in execution/verify/checks.md",
+      "required_input": "the variables the blocks read (terraform/variables.tf says which have no default): project_id",
+      "next_step": "No other job on the board waits for it.",
+      "evidence": [
+        "execution/verify/checks.md"
+      ],
+      "files": [
+        "terraform/identity.tf"
+      ],
+      "steps": [
+        "TF/stackit_service_account.automation",
+        "TF/stackit_service_account.client",
+        "TF/stackit_service_account.init",
+        "TF/stackit_service_account.server"
+      ],
+      "unit": "google_service_account.automation"
+    },
+    {
+      "id": "TF/stackit_objectstorage_bucket.media",
+      "kind": "STEP",
+      "title": "Apply the block of terraform/storage.tf with OpenTofu",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Storage Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "OPEN_INPUT",
+      "closes_when": "OpenTofu applies the blocks of terraform/storage.tf and the checks of their steps in execution/verify/checks.md hold.",
+      "closes_with": "an OpenTofu apply of terraform/storage.tf and the checks in execution/verify/checks.md",
+      "required_input": "the variables the blocks read (terraform/variables.tf says which have no default): media_bucket_name, project_id",
+      "next_step": "These can start once it is done: Close what the plan lists as UNKNOWN, from the move host, before any…",
+      "evidence": [
+        "execution/verify/checks.md"
+      ],
+      "files": [
+        "terraform/storage.tf"
+      ],
+      "steps": [
+        "TF/stackit_objectstorage_bucket.media"
+      ],
+      "unit": "google_storage_bucket.media"
+    },
+    {
+      "id": "MAN/data/google_storage_bucket.media/preflight",
+      "kind": "STEP",
+      "title": "Close what the plan lists as UNKNOWN, from the move host, before any object moves. The credentials of the target are the environment names TARGET_ACCESS_KEY_ID and TARGET_SECRET_ACCESS_KEY, set in the shell of the move host at run time from the credential of a credentials group; the source uses the Google identity of that shell (the service account the host runs as, or a login you made for the move; rclone's env_auth takes it from the environment). No value is written into a file, a ticket or this plan. In the shell of the move host configure the two remotes from the environment: `export RCLONE_CONFIG_SRC_TYPE=\"google cloud storage\" RCLONE_CONFIG_SRC_ENV_AUTH=true RCLONE_CONFIG_DST_TYPE=s3 RCLONE_CONFIG_DST_PROVIDER=Other RCLONE_CONFIG_DST_ENDPOINT=https://object.storage.eu01.onstackit.cloud RCLONE_CONFIG_DST_ACCESS_KEY_ID=\"$TARGET_ACCESS_KEY_ID\" RCLONE_CONFIG_DST_SECRET_ACCESS_KEY=\"$TARGET_SECRET_ACCESS_KEY\" RCLONE_CONFIG_DST_ACL=private`. Source: `rclone lsd SRC:`, `rclone size SRC:\u003csource-bucket\u003e --json` (the count and the bytes), `gcloud storage buckets describe gs://\u003csource-bucket\u003e` (versioning, retention policy, default key, requester pays, soft delete policy, storage class), and for the objects the owner names `rclone lsjson --metadata SRC:\u003csource-bucket\u003e --files-only -R --max-depth 1`. Target (after the draft is applied, the bucket exists and a key of a credentials group is issued): `rclone lsd DST:` and `rclone size DST:\u003ctarget-bucket\u003e --json`: the bucket is empty. Record the number of objects and the bytes beside the size the customer stated (the size of the data is not provided); the plan has no input for the number of objects. Check that the move host reaches both endpoints. Runbook section: `terraform/handover/bucket-media/data-copy.md#preflight`.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Data Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "OPEN_INPUT",
+      "blocker_kind": "STEP",
+      "closes_when": "every UNKNOWN check of the plan is HOLDS or FAILS, the number of objects and the bytes are recorded, and both buckets answer",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "the checks that are UNKNOWN and what closes each: target-bucket-and-credentials (closed by: preflight on the target: `rclone lsd DST:` and `rclone size DST:\u003ctarget-bucket\u003e --json` with that key (the bucket exists and is empty)); source-read-access (closed by: preflight on the source: `rclone lsd SRC:` and `rclone size SRC:\u003csource-bucket\u003e --json` with the identity the move host uses, and a read of a sample of the objects the owner names); and 7 more, all in the Needs of the step (execution/manual/actions.md)",
+      "next_step": "These can start once it is done: Rehearse the copy with a representative part of the bucket: the…",
+      "files": [
+        "terraform/handover/bucket-media/data-copy.md"
+      ],
+      "steps": [
+        "MAN/data/google_storage_bucket.media/preflight"
+      ],
+      "unit": "google_storage_bucket.media",
+      "part": "Data move"
+    },
+    {
+      "id": "MAN/data/google_storage_bucket.media/rehearsal",
+      "kind": "STEP",
+      "title": "Rehearse the copy with a representative part of the bucket: the objects of one prefix and the largest and the smallest objects, into the prefix `stacktoit-rehearsal/` of the target bucket. Note the elapsed time and the bytes a second for small and for large objects, compare `rclone lsjson --metadata` of a sample on both sides (content type, custom metadata, storage class, modification time), and delete the prefix `stacktoit-rehearsal/` when the rehearsal is done. Runbook section: `terraform/handover/bucket-media/data-copy.md#rehearsal`.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Data Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "OPEN_INPUT",
+      "blocker_kind": "STEP",
+      "closes_when": "the elapsed times are recorded, the metadata of the sample is compared and the window of the final pass is agreed from them",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "the customer's statements in inputs.yaml: source.dataset.size, source.dataset.bandwidth",
+      "next_step": "These can start once it is done: While the writers keep writing to the source, copy every live object…",
+      "steps": [
+        "MAN/data/google_storage_bucket.media/rehearsal"
+      ],
+      "unit": "google_storage_bucket.media",
+      "part": "Data move"
+    },
+    {
+      "id": "MAN/data/google_storage_bucket.media/initial-copy/rclone-copy",
+      "kind": "STEP",
+      "title": "While the writers keep writing to the source, copy every live object to the target. The credentials of the target are the environment names TARGET_ACCESS_KEY_ID and TARGET_SECRET_ACCESS_KEY, set in the shell of the move host at run time from the credential of a credentials group; the source uses the Google identity of that shell (the service account the host runs as, or a login you made for the move; rclone's env_auth takes it from the environment). No value is written into a file, a ticket or this plan. With the remotes of the preflight: `rclone copy SRC:\u003csource-bucket\u003e DST:\u003ctarget-bucket\u003e --s3-upload-cutoff 0 --progress --log-file=\u003clog-file\u003e` (the form STACKIT's tutorial uses). Read the log for every error before the next step. Runbook section: `terraform/handover/bucket-media/data-copy.md#initial-copy-rclone-copy`.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Data Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "FREE_OF_DECISIONS",
+      "blocker_kind": "STEP",
+      "closes_when": "the command ends without an error and `rclone size SRC:\u003csource-bucket\u003e --json` and `rclone size DST:\u003ctarget-bucket\u003e --json` differ only by what was written after the copy started",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "next_step": "These can start once it is done: Run the same `rclone copy` again, as often as the business needs the…",
+      "steps": [
+        "MAN/data/google_storage_bucket.media/initial-copy/rclone-copy"
+      ],
+      "unit": "google_storage_bucket.media",
+      "part": "Data move"
+    },
+    {
+      "id": "MAN/data/google_storage_bucket.media/delta-sync/rclone-copy",
+      "kind": "STEP",
+      "title": "Run the same `rclone copy` again, as often as the business needs the target to be close to the source: each pass skips the objects that are identical (rclone compares size and modification time; `--checksum` compares size and hash where there is one, and Cloud Storage stores the MD5 natively) and copies the ones that are new or changed. It deletes nothing on the target, so an object deleted in the source stays there until the final pass. Note how many objects and bytes each pass transferred. Runbook section: `terraform/handover/bucket-media/data-copy.md#delta-sync-rclone-copy`.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Data Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "OPEN_INPUT",
+      "blocker_kind": "STEP",
+      "closes_when": "the passes get shorter until a pass is as short as the freeze window the business accepts",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "the customer's statements in inputs.yaml: source.dataset.write_rate",
+      "next_step": "These can start once it is done: List who writes to the bucket: the units the README lists for it, and…",
+      "steps": [
+        "MAN/data/google_storage_bucket.media/delta-sync/rclone-copy"
+      ],
+      "unit": "google_storage_bucket.media",
+      "part": "Data move"
+    },
+    {
+      "id": "TF/stackit_postgresflex_instance.postgres",
+      "kind": "STEP",
+      "title": "Apply the block of terraform/data.tf with OpenTofu",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Data Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "OPEN_INPUT",
+      "closes_when": "OpenTofu applies the blocks of terraform/data.tf and the checks of their steps in execution/verify/checks.md hold.",
+      "closes_with": "an OpenTofu apply of terraform/data.tf and the checks in execution/verify/checks.md",
+      "required_input": "the variables the blocks read (terraform/variables.tf says which have no default): postgres_allowed_cidrs, postgres_storage_size, postgresflex_storage_class, project_id",
+      "next_step": "These can start once it is done: Close what the plan lists as UNKNOWN, from the move host, with…",
+      "evidence": [
+        "execution/verify/checks.md"
+      ],
+      "files": [
+        "terraform/data.tf"
+      ],
+      "steps": [
+        "TF/stackit_postgresflex_instance.postgres"
+      ],
+      "unit": "google_sql_database_instance.postgres"
+    },
+    {
+      "id": "MAN/data/google_sql_database_instance.postgres/preflight",
+      "kind": "STEP",
+      "title": "Close what the plan lists as UNKNOWN, from the move host, with read-only queries. The move host reaches the source through the connection method you already use for Cloud SQL for PostgreSQL (an authorized network of a public address, a private address inside the VPC network, or a proxy you run). Source: `PGPASSWORD=\"$SOURCE_PGPASSWORD\" PGSSLMODE=require psql --host=\u003csource-host\u003e --port=\u003csource-port\u003e --username=\u003csource-user\u003e --dbname=\u003csource-db\u003e --command='SHOW server_version;'`, `SELECT extname, extversion FROM pg_extension ORDER BY 1;`, `SELECT pg_size_pretty(pg_database_size(current_database()));` against the free storage of the instance (at least 25 percent of the database size free before a large export), `\\du` and `\\dp` for the roles and grants, and the users that sign in with an IAM identity. Target (after the draft is applied and the instance, user and database exist): `PGPASSWORD=\"$TARGET_PGPASSWORD\" PGSSLMODE=require psql --host=\u003ctarget-host\u003e --port=\u003ctarget-port\u003e --username=\u003ctarget-user\u003e --dbname=\u003ctarget-db\u003e --command='SHOW extwlist.extensions;'` and `SELECT version();`. Check the move host is in `network.acl` of the instance, reaches both ends and speaks TLS 1.3. Logical replication: on the source `SHOW wal_level;`, `SHOW max_replication_slots;`, `SHOW max_wal_senders;` and the tables without a primary key (`SELECT n.nspname, c.relname FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace WHERE c.relkind = 'r' AND n.nspname NOT IN ('pg_catalog', 'information_schema') AND NOT EXISTS (SELECT 1 FROM pg_index i WHERE i.indrelid = c.oid AND i.indisprimary);`); on the empty target the probe `CREATE SUBSCRIPTION stacktoit_probe CONNECTION 'host=localhost dbname=x' PUBLICATION p WITH (connect = false);` then `ALTER SUBSCRIPTION stacktoit_probe SET (slot_name = NONE);` and `DROP SUBSCRIPTION stacktoit_probe;`. Runbook section: `terraform/handover/database-postgres/data-move.md#preflight`.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Data Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "OPEN_INPUT",
+      "blocker_kind": "STEP",
+      "closes_when": "every UNKNOWN check of the plan is HOLDS or FAILS; the extension list of the source is compared with `SHOW extwlist.extensions;` of the target and each difference is settled",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "the checks that are UNKNOWN and what closes each: extensions (closed by: preflight: on the source SELECT extname, extversion FROM pg_extension ORDER BY 1; on the target SHOW extwlist.extensions; and trust the target); and 10 more, all in the Needs of the step (execution/manual/actions.md)",
+      "next_step": "These can start once it is done: Rehearse the chosen method into a scratch database of the target…",
+      "files": [
+        "terraform/handover/database-postgres/data-move.md"
+      ],
+      "steps": [
+        "MAN/data/google_sql_database_instance.postgres/preflight"
+      ],
+      "unit": "google_sql_database_instance.postgres",
+      "part": "Data move"
+    },
+    {
+      "id": "MAN/data/google_sql_database_instance.postgres/rehearsal",
+      "kind": "STEP",
+      "title": "Rehearse the chosen method into a scratch database of the target (a second `stackit_postgresflex_database` or a clone of the instance) from a copy of the source (a clone or a restored backup of the Cloud SQL for PostgreSQL instance, so that production is not loaded). Note the elapsed time of the dump, the restore, the index build and the verification. Drop the scratch database and the copy afterwards. Runbook section: `terraform/handover/database-postgres/data-move.md#rehearsal`.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Data Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "OPEN_INPUT",
+      "blocker_kind": "STEP",
+      "closes_when": "the elapsed times of each part are recorded and the write-freeze window is agreed from them",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "the customer's statements in inputs.yaml: source.dataset.size, source.dataset.bandwidth",
+      "next_step": "Brings closer once it is done (each waits for more): Source: turn logical decoding on: set the flag… and 1 more.",
+      "steps": [
+        "MAN/data/google_sql_database_instance.postgres/rehearsal"
+      ],
+      "unit": "google_sql_database_instance.postgres",
+      "part": "Data move"
+    },
+    {
+      "id": "MAN/data/google_sql_database_instance.postgres/initial-copy/logical-replication",
+      "kind": "STEP",
+      "title": "Source: turn logical decoding on: set the flag `cloudsql.logical_decoding` to `on` on the instance (a restart of the instance), create a user for the publication with the REPLICATION attribute that holds CREATE on the database (`CREATE ROLE stacktoit_repl WITH LOGIN REPLICATION PASSWORD '\u003creplication-password\u003e';`, typed in an interactive session). Every table needs a primary key or a replica identity. Copy the schema (no later DDL on either side): `PGPASSWORD=\"$SOURCE_PGPASSWORD\" pg_dump --schema-only --no-owner --no-acl --host=\u003csource-host\u003e --port=\u003csource-port\u003e --username=\u003csource-user\u003e --dbname=\u003csource-db\u003e | PGPASSWORD=\"$TARGET_PGPASSWORD\" PGSSLMODE=require psql --host=\u003ctarget-host\u003e --port=\u003ctarget-port\u003e --username=\u003ctarget-user\u003e --dbname=\u003ctarget-db\u003e`. Publish on the source: `CREATE PUBLICATION stacktoit_move FOR ALL TABLES;`. Subscribe on the target in an interactive psql session so that no password is stored in a file or the shell history: `CREATE SUBSCRIPTION stacktoit_move CONNECTION 'host=\u003csource-host\u003e port=\u003csource-port\u003e dbname=\u003csource-db\u003e user=stacktoit_repl password=\u003creplication-password\u003e sslmode=require' PUBLICATION stacktoit_move;`. Wait until `SELECT srrelid::regclass, srsubstate FROM pg_subscription_rel;` shows `r` for every table. Runbook section: `terraform/handover/database-postgres/data-move.md#initial-copy-logical-replication`.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Data Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "BLOCKED_BY_DECISION",
+      "blocked_by": [
+        "DEC-GEN-CONVERT-DATA-MOVEMENT"
+      ],
+      "blocker_kind": "DECISION",
+      "closes_when": "every table of the target is in state `r` and the replication slot of the source is active",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "the answer of DEC-GEN-CONVERT-DATA-MOVEMENT in decisions.yaml, which names the path this step belongs to",
+      "next_step": "Brings closer once it is done (each waits for more): Keep the target apart: the application does not write to it and no…",
+      "steps": [
+        "MAN/data/google_sql_database_instance.postgres/initial-copy/logical-replication"
+      ],
+      "unit": "google_sql_database_instance.postgres",
+      "part": "Data move"
+    },
+    {
+      "id": "MAN/data/google_sql_database_instance.postgres/delta-sync/logical-replication",
+      "kind": "STEP",
+      "title": "Keep the target apart: the application does not write to it and no DDL runs on either side. Watch the lag and the free storage of the source: `SELECT slot_name, active, pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_lsn(), confirmed_flush_lsn)) AS lag FROM pg_replication_slots;`. Runbook section: `terraform/handover/database-postgres/data-move.md#delta-sync-logical-replication`.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Data Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "BLOCKED_BY_DECISION",
+      "blocked_by": [
+        "DEC-GEN-CONVERT-DATA-MOVEMENT"
+      ],
+      "blocker_kind": "DECISION",
+      "closes_when": "the lag stays bounded and the free storage of the source does not fall",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "the customer's statements in inputs.yaml: source.dataset.write_rate",
+      "next_step": "Brings closer once it is done (each waits for more): List who writes (`SELECT usename, application_name, client_addr…",
+      "steps": [
+        "MAN/data/google_sql_database_instance.postgres/delta-sync/logical-replication"
+      ],
+      "unit": "google_sql_database_instance.postgres",
+      "part": "Data move"
+    },
+    {
+      "id": "MAN/rabbitmq/topology",
+      "kind": "STEP",
+      "title": "Declare the topics and subscriptions of the source on the RabbitMQ instance (exchanges: 1, queues: 0): run rabbitmq/apply-topology.sh, which writes rabbitmq/topology.json through the HTTP API of the broker. Nothing of this was run on STACKIT, and whether the credential may declare them is not stated: the script asks first and stops with the answer",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Platform Engineer",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "the script ends with status 0 after reading every queue back",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "a credential of the instance (stackit_rabbitmq_credential): its http_api_uri (RABBITMQ_HTTP_API_URI), username and password (RABBITMQ_USERNAME, RABBITMQ_PASSWORD), and the virtual host of its uri (RABBITMQ_VHOST)",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/rabbitmq/topology"
+      ],
+      "unit": "google_pubsub_topic.faux"
+    },
+    {
+      "id": "TF/stackit_rabbitmq_instance.messaging",
+      "kind": "STEP",
+      "title": "Apply the block of terraform/messaging.tf with OpenTofu",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Platform Architect",
+      "priority": "LATER",
+      "state": "OPEN_INPUT",
+      "closes_when": "OpenTofu applies the blocks of terraform/messaging.tf and the checks of their steps in execution/verify/checks.md hold.",
+      "closes_with": "an OpenTofu apply of terraform/messaging.tf and the checks in execution/verify/checks.md",
+      "required_input": "the variables the blocks read (terraform/variables.tf says which have no default): project_id, rabbitmq_allowed_cidrs, rabbitmq_plan_name, rabbitmq_version",
+      "next_step": "No other job on the board waits for it.",
+      "evidence": [
+        "execution/verify/checks.md"
+      ],
+      "files": [
+        "terraform/messaging.tf"
+      ],
+      "steps": [
+        "TF/stackit_rabbitmq_instance.messaging"
+      ],
+      "unit": "google_pubsub_topic.faux"
+    },
+    {
+      "id": "TF/stackit_ske_cluster.containers",
+      "kind": "STEP",
+      "title": "Apply the block of terraform/kubernetes.tf with OpenTofu",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Platform Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "OPEN_INPUT",
+      "closes_when": "OpenTofu applies the blocks of terraform/kubernetes.tf and the checks of their steps in execution/verify/checks.md hold.",
+      "closes_with": "an OpenTofu apply of terraform/kubernetes.tf and the checks in execution/verify/checks.md",
+      "required_input": "the variables the blocks read (terraform/variables.tf says which have no default): availability_zones, containers_machine_type, containers_nodes_max, containers_nodes_min, project_id",
+      "next_step": "These can start once it is done: Fetch the kubeconfig, check the health, create the namespace and the…",
+      "evidence": [
+        "execution/verify/checks.md"
+      ],
+      "files": [
+        "terraform/kubernetes.tf"
+      ],
+      "steps": [
+        "TF/stackit_ske_cluster.containers"
+      ],
+      "unit": "google_cloud_run_v2_job.migrate"
+    },
+    {
+      "id": "MAN/draft/handover/cluster-access/kubeconfig-md",
+      "kind": "STEP",
+      "title": "Fetch the kubeconfig, check the health, create the namespace and the secrets of the SKE cluster(s) of the draft: the namespace is one you choose for all manifest files, the secrets are migrate-secrets, server-secrets (the keys of each are listed under SECRETS TO CREATE in the header of its manifest file)",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Platform Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "OPEN_INPUT",
+      "blocker_kind": "STEP",
+      "closes_when": "the kubeconfig of each cluster of terraform/handover/cluster-access/kubeconfig.md is fetched, each cluster passes its health verification, the namespace exists and the secrets the headers of the manifest files list are created (steps 1 to 5 of the document); applying the manifest files and their cutover (steps 6 and 7) are the steps of those files in the plan",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "the STACKIT project id and a login of the STACKIT CLI for that project, and the name of each cluster (the table of handover/cluster-access/kubeconfig.md); the name of the namespace, which the source does not state, so you choose it once for all manifest files (they are applied into it with -n); and 2 more, all in the Needs of the step (execution/manual/actions.md)",
+      "next_step": "Brings closer once it is done (each waits for more): Review the critical settings of a Cloud Run service… and 1 more.",
+      "files": [
+        "terraform/handover/cluster-access/kubeconfig.md"
+      ],
+      "steps": [
+        "MAN/draft/handover/cluster-access/kubeconfig-md"
+      ],
+      "unit": "google_cloud_run_v2_job.migrate"
+    },
+    {
+      "id": "MAN/draft/kubernetes/server/manifests-yaml",
+      "kind": "STEP",
+      "title": "Fill in the required inputs of kubernetes/server/manifests.yaml and apply it to the cluster stackit_ske_cluster.containers (put 0 in the number of pods): kubectl apply -n \u003cnamespace\u003e -f \u003cmanifest file\u003e; no pod starts. The pods start when the data they connect to is moved, by the person who runs the cutover (step 2 of the header)",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Platform Architect",
+      "priority": "LATER",
+      "state": "FREE_OF_DECISIONS",
+      "blocker_kind": "STEP",
+      "closes_when": "every manifest of terraform/kubernetes/server/manifests.yaml is applied to the cluster with its inputs filled in and no pod running, and the Cloud Run resource still runs",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "next_step": "No other job on the board waits for it.",
+      "files": [
+        "terraform/kubernetes/server/manifests.yaml"
+      ],
+      "steps": [
+        "MAN/draft/kubernetes/server/manifests-yaml"
+      ],
+      "unit": "google_cloud_run_v2_service.server"
+    },
+    {
+      "id": "MAN/data/google_sql_database_instance.postgres/write-freeze/dump-restore",
+      "kind": "STEP",
+      "title": "List who writes (`SELECT usename, application_name, client_addr, count(*) FROM pg_stat_activity WHERE datname = '\u003csource-db\u003e' GROUP BY 1, 2, 3 ORDER BY 4 DESC;`) and record the connection settings of every client where they can be restored from. Then stop the writers at the application (services, jobs, migrations, cron). Do not make the source read-only and do not change it. Check: `SELECT count(*) FROM pg_stat_activity WHERE datname = '\u003csource-db\u003e' AND state \u003c\u003e 'idle' AND pid \u003c\u003e pg_backend_pid();` is 0. Runbook section: `terraform/handover/database-postgres/data-move.md#write-freeze-dump-restore`.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Migration Owner",
+      "priority": "HOLDS_STEPS",
+      "state": "BLOCKED_BY_DECISION",
+      "blocked_by": [
+        "DEC-GEN-CONVERT-DATA-MOVEMENT"
+      ],
+      "blocker_kind": "DECISION",
+      "closes_when": "no client writes to the source",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "the customer's statements in inputs.yaml: source.dataset.downtime; the maintenance window is not given: the plan states none and invents none; state the window, the blackout days and the longest downtime of one switch with ops.maintenance_window in the inputs file (inputs-template.yaml shows the empty answer), then run again",
+      "next_step": "Brings closer once it is done (each waits for more): Dump inside the freeze: `PGPASSWORD=\"$SOURCE_PGPASSWORD\"…",
+      "steps": [
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/dump-restore"
+      ],
+      "unit": "google_sql_database_instance.postgres",
+      "part": "Data move"
+    },
+    {
+      "id": "MAN/data/google_sql_database_instance.postgres/final-sync/dump-restore",
+      "kind": "STEP",
+      "title": "Dump inside the freeze: `PGPASSWORD=\"$SOURCE_PGPASSWORD\" PGSSLMODE=require pg_dump --host=\u003csource-host\u003e --port=\u003csource-port\u003e --username=\u003csource-user\u003e --dbname=\u003csource-db\u003e --format=directory --jobs=4 --no-owner --no-acl --file=\u003cdump-dir\u003e` (Google's page names --no-owner and --no-acl for a dump of one database and the directory format for a parallel dump; dump one database at a time, since pg_dumpall fails for databases with several owners). Restore as the database owner into the empty database: `PGPASSWORD=\"$TARGET_PGPASSWORD\" PGSSLMODE=require pg_restore --host=\u003ctarget-host\u003e --port=\u003ctarget-port\u003e --username=\u003ctarget-user\u003e --dbname=\u003ctarget-db\u003e --jobs=4 --no-owner --no-acl \u003cdump-dir\u003e 2\u003e restore.log`, then read restore.log line by line; create the extensions of the source that the target lists and settle the ones it does not. Runbook section: `terraform/handover/database-postgres/data-move.md#final-sync-dump-restore`.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Data Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "BLOCKED_BY_DECISION",
+      "blocked_by": [
+        "DEC-GEN-CONVERT-DATA-MOVEMENT"
+      ],
+      "blocker_kind": "DECISION",
+      "closes_when": "pg_restore finished and every error in restore.log is settled",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "the customer's statements in inputs.yaml: source.dataset.downtime; the maintenance window is not given: the plan states none and invents none; state the window, the blackout days and the longest downtime of one switch with ops.maintenance_window in the inputs file (inputs-template.yaml shows the empty answer), then run again",
+      "next_step": "Brings closer once it is done (each waits for more): Both sides, with the writers stopped: per-table counts…",
+      "steps": [
+        "MAN/data/google_sql_database_instance.postgres/final-sync/dump-restore"
+      ],
+      "unit": "google_sql_database_instance.postgres",
+      "part": "Data move"
+    },
+    {
+      "id": "MAN/data/google_sql_database_instance.postgres/reconcile/dump-restore",
+      "kind": "STEP",
+      "title": "Both sides, with the writers stopped: per-table counts (`SELECT format('SELECT %L AS tbl, count(*) FROM %I.%I;', schemaname || '.' || tablename, schemaname, tablename) FROM pg_tables WHERE schemaname NOT IN ('pg_catalog', 'information_schema');` run on each side), an md5 of every keyed table (`SELECT count(*), md5(string_agg(t::text, ',' ORDER BY t.\u003ckey-column\u003e)) FROM \u003cschema\u003e.\u003ctable\u003e t;`, a key range for a large table, `DateStyle`, `TimeZone` and `extra_float_digits` equal in both sessions), the sequences, and one read query the application itself runs on its most important data, `\u003capplication-query\u003e`: the query and the answer are the customer's, the source does not state them. Record GO or NO-GO. Runbook section: `terraform/handover/database-postgres/data-move.md#reconcile-dump-restore`.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Data Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "BLOCKED_BY_DECISION",
+      "blocked_by": [
+        "DEC-GEN-CONVERT-DATA-MOVEMENT"
+      ],
+      "blocker_kind": "DECISION",
+      "closes_when": "counts, checksums, sequences and the application query agree: GO",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "the answer of DEC-GEN-CONVERT-DATA-MOVEMENT in decisions.yaml, which names the path this step belongs to",
+      "next_step": "Brings closer once it is done (each waits for more): Only after the target has run in production for the period the…",
+      "steps": [
+        "MAN/data/google_sql_database_instance.postgres/reconcile/dump-restore"
+      ],
+      "unit": "google_sql_database_instance.postgres",
+      "part": "Data move"
+    },
+    {
+      "id": "MAN/data/google_sql_database_instance.postgres/write-freeze/logical-replication",
+      "kind": "STEP",
+      "title": "List who writes (`SELECT usename, application_name, client_addr, count(*) FROM pg_stat_activity WHERE datname = '\u003csource-db\u003e' GROUP BY 1, 2, 3 ORDER BY 4 DESC;`) and record the connection settings of every client where they can be restored from. Then stop the writers at the application (services, jobs, migrations, cron). Do not make the source read-only and do not change it. Check: `SELECT count(*) FROM pg_stat_activity WHERE datname = '\u003csource-db\u003e' AND state \u003c\u003e 'idle' AND pid \u003c\u003e pg_backend_pid();` is 0. Runbook section: `terraform/handover/database-postgres/data-move.md#write-freeze-logical-replication`.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Migration Owner",
+      "priority": "HOLDS_STEPS",
+      "state": "BLOCKED_BY_DECISION",
+      "blocked_by": [
+        "DEC-GEN-CONVERT-DATA-MOVEMENT"
+      ],
+      "blocker_kind": "DECISION",
+      "closes_when": "no client writes to the source",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "the customer's statements in inputs.yaml: source.dataset.downtime; the maintenance window is not given: the plan states none and invents none; state the window, the blackout days and the longest downtime of one switch with ops.maintenance_window in the inputs file (inputs-template.yaml shows the empty answer), then run again",
+      "next_step": "Brings closer once it is done (each waits for more): Wait until the lag is 0.",
+      "steps": [
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/logical-replication"
+      ],
+      "unit": "google_sql_database_instance.postgres",
+      "part": "Data move"
+    },
+    {
+      "id": "MAN/data/google_sql_database_instance.postgres/final-sync/logical-replication",
+      "kind": "STEP",
+      "title": "Wait until the lag is 0. Copy the sequences: on the source `SELECT format('SELECT setval(%L, %s);', schemaname || '.' || sequencename, last_value) FROM pg_sequences WHERE last_value IS NOT NULL;` with `psql --tuples-only --no-align`, and run the output on the target. Then disable the subscription on the target: `ALTER SUBSCRIPTION stacktoit_move DISABLE;` (the slot stays on the source, so the way back stays open). Runbook section: `terraform/handover/database-postgres/data-move.md#final-sync-logical-replication`.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Data Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "BLOCKED_BY_DECISION",
+      "blocked_by": [
+        "DEC-GEN-CONVERT-DATA-MOVEMENT"
+      ],
+      "blocker_kind": "DECISION",
+      "closes_when": "the lag was 0, the sequences on the target are not lower than the source's, the subscription is disabled",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "the customer's statements in inputs.yaml: source.dataset.downtime; the maintenance window is not given: the plan states none and invents none; state the window, the blackout days and the longest downtime of one switch with ops.maintenance_window in the inputs file (inputs-template.yaml shows the empty answer), then run again",
+      "next_step": "Brings closer once it is done (each waits for more): Both sides, with the writers stopped: per-table counts…",
+      "steps": [
+        "MAN/data/google_sql_database_instance.postgres/final-sync/logical-replication"
+      ],
+      "unit": "google_sql_database_instance.postgres",
+      "part": "Data move"
+    },
+    {
+      "id": "MAN/data/google_sql_database_instance.postgres/reconcile/logical-replication",
+      "kind": "STEP",
+      "title": "Both sides, with the writers stopped: per-table counts (`SELECT format('SELECT %L AS tbl, count(*) FROM %I.%I;', schemaname || '.' || tablename, schemaname, tablename) FROM pg_tables WHERE schemaname NOT IN ('pg_catalog', 'information_schema');` run on each side), an md5 of every keyed table (`SELECT count(*), md5(string_agg(t::text, ',' ORDER BY t.\u003ckey-column\u003e)) FROM \u003cschema\u003e.\u003ctable\u003e t;`, a key range for a large table, `DateStyle`, `TimeZone` and `extra_float_digits` equal in both sessions), the sequences, and one read query the application itself runs on its most important data, `\u003capplication-query\u003e`: the query and the answer are the customer's, the source does not state them. Record GO or NO-GO. Runbook section: `terraform/handover/database-postgres/data-move.md#reconcile-logical-replication`.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Data Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "BLOCKED_BY_DECISION",
+      "blocked_by": [
+        "DEC-GEN-CONVERT-DATA-MOVEMENT"
+      ],
+      "blocker_kind": "DECISION",
+      "closes_when": "counts, checksums, sequences and the application query agree: GO",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "the answer of DEC-GEN-CONVERT-DATA-MOVEMENT in decisions.yaml, which names the path this step belongs to",
+      "next_step": "Brings closer once it is done (each waits for more): Only after the target has run in production for the period the…",
+      "steps": [
+        "MAN/data/google_sql_database_instance.postgres/reconcile/logical-replication"
+      ],
+      "unit": "google_sql_database_instance.postgres",
+      "part": "Data move"
+    },
+    {
+      "id": "MAN/data/google_sql_database_instance.postgres/write-freeze/own-tool",
+      "kind": "STEP",
+      "title": "List who writes (`SELECT usename, application_name, client_addr, count(*) FROM pg_stat_activity WHERE datname = '\u003csource-db\u003e' GROUP BY 1, 2, 3 ORDER BY 4 DESC;`) and record the connection settings of every client where they can be restored from. Then stop the writers at the application (services, jobs, migrations, cron). Do not make the source read-only and do not change it. Check: `SELECT count(*) FROM pg_stat_activity WHERE datname = '\u003csource-db\u003e' AND state \u003c\u003e 'idle' AND pid \u003c\u003e pg_backend_pid();` is 0. Runbook section: `terraform/handover/database-postgres/data-move.md#write-freeze-own-tool`.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Migration Owner",
+      "priority": "HOLDS_STEPS",
+      "state": "BLOCKED_BY_DECISION",
+      "blocked_by": [
+        "DEC-GEN-CONVERT-DATA-MOVEMENT"
+      ],
+      "blocker_kind": "DECISION",
+      "closes_when": "no client writes to the source",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "the customer's statements in inputs.yaml: source.dataset.downtime; the maintenance window is not given: the plan states none and invents none; state the window, the blackout days and the longest downtime of one switch with ops.maintenance_window in the inputs file (inputs-template.yaml shows the empty answer), then run again",
+      "next_step": "Brings closer once it is done (each waits for more): Copy the data of google_sql_database_instance.postgres to…",
+      "steps": [
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/own-tool"
+      ],
+      "unit": "google_sql_database_instance.postgres",
+      "part": "Data move"
+    },
+    {
+      "id": "MAN/data/google_sql_database_instance.postgres/final-sync/own-tool",
+      "kind": "STEP",
+      "title": "Copy the data of google_sql_database_instance.postgres to stackit_postgresflex_instance.postgres with the migration tool or the replication you chose: write its steps, the checks before the move, the freeze window it needs and the way back. Runbook section: `terraform/handover/database-postgres/data-move.md#final-sync-own-tool`.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Data Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "BLOCKED_BY_DECISION",
+      "blocked_by": [
+        "DEC-GEN-CONVERT-DATA-MOVEMENT"
+      ],
+      "blocker_kind": "DECISION",
+      "closes_when": "the data of google_sql_database_instance.postgres is in stackit_postgresflex_instance.postgres and the checks of the tool hold",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "the tool, its steps, the checks before the move, the freeze window and the way back, from the person who runs it; the maintenance window is not given: the plan states none and invents none; state the window, the blackout days and the longest downtime of one switch with ops.maintenance_window in the inputs file (inputs-template.yaml shows the empty answer), then run again",
+      "next_step": "Brings closer once it is done (each waits for more): Both sides, with the writers stopped: per-table counts…",
+      "steps": [
+        "MAN/data/google_sql_database_instance.postgres/final-sync/own-tool"
+      ],
+      "unit": "google_sql_database_instance.postgres",
+      "part": "Data move"
+    },
+    {
+      "id": "MAN/data/google_sql_database_instance.postgres/reconcile/own-tool",
+      "kind": "STEP",
+      "title": "Both sides, with the writers stopped: per-table counts (`SELECT format('SELECT %L AS tbl, count(*) FROM %I.%I;', schemaname || '.' || tablename, schemaname, tablename) FROM pg_tables WHERE schemaname NOT IN ('pg_catalog', 'information_schema');` run on each side), an md5 of every keyed table (`SELECT count(*), md5(string_agg(t::text, ',' ORDER BY t.\u003ckey-column\u003e)) FROM \u003cschema\u003e.\u003ctable\u003e t;`, a key range for a large table, `DateStyle`, `TimeZone` and `extra_float_digits` equal in both sessions), the sequences, and one read query the application itself runs on its most important data, `\u003capplication-query\u003e`: the query and the answer are the customer's, the source does not state them. Record GO or NO-GO. Runbook section: `terraform/handover/database-postgres/data-move.md#reconcile-own-tool`.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Data Architect",
+      "priority": "LATER",
+      "state": "BLOCKED_BY_DECISION",
+      "blocked_by": [
+        "DEC-GEN-CONVERT-DATA-MOVEMENT"
+      ],
+      "blocker_kind": "DECISION",
+      "closes_when": "counts, checksums, sequences and the application query agree: GO",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "the answer of DEC-GEN-CONVERT-DATA-MOVEMENT in decisions.yaml, which names the path this step belongs to",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/data/google_sql_database_instance.postgres/reconcile/own-tool"
+      ],
+      "unit": "google_sql_database_instance.postgres",
+      "part": "Data move"
+    },
+    {
+      "id": "MAN/data/google_storage_bucket.media/write-freeze/rclone-copy",
+      "kind": "STEP",
+      "title": "List who writes to the bucket: the units the README lists for it, and every job, partner and signed URL outside the scan (if Cloud Audit Logs record data writes for the bucket, its object writes and deletes name the principals; the Terraform does not show whether they are). Record the endpoint, the bucket name and the credential settings of every client where they can be restored from. Then stop the writers at the application (services, jobs, uploads). Do not change the source bucket (no read-only policy, no retention lock): it stays read-write, so the way back needs nothing on the source. Runbook section: `terraform/handover/bucket-media/data-copy.md#write-freeze-rclone-copy`.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Migration Owner",
+      "priority": "HOLDS_STEPS",
+      "state": "OPEN_INPUT",
+      "blocker_kind": "STEP",
+      "closes_when": "no client writes to the source",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "the customer's statements in inputs.yaml: source.dataset.downtime; the maintenance window is not given: the plan states none and invents none; state the window, the blackout days and the longest downtime of one switch with ops.maintenance_window in the inputs file (inputs-template.yaml shows the empty answer), then run again",
+      "next_step": "These can start once it is done: Inside the freeze run the `rclone copy` of the initial copy once more…",
+      "steps": [
+        "MAN/data/google_storage_bucket.media/write-freeze/rclone-copy"
+      ],
+      "unit": "google_storage_bucket.media",
+      "part": "Data move"
+    },
+    {
+      "id": "MAN/data/google_storage_bucket.media/final-sync/rclone-copy",
+      "kind": "STEP",
+      "title": "Inside the freeze run the `rclone copy` of the initial copy once more and read how many objects it transferred; run it a second time: it transfers nothing. Then see what the target holds that the source no longer has: `rclone sync SRC:\u003csource-bucket\u003e DST:\u003ctarget-bucket\u003e --dry-run` prints what a sync would delete; read the list, and only a person who has read it runs the sync without `--dry-run` (the target must equal the source at the cutover, and an object deleted in the source after the initial copy is otherwise still served). Runbook section: `terraform/handover/bucket-media/data-copy.md#final-sync-rclone-copy`.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Data Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "OPEN_INPUT",
+      "blocker_kind": "STEP",
+      "closes_when": "the second pass transfers nothing and every object that exists only on the target is settled",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "the customer's statements in inputs.yaml: source.dataset.downtime; the maintenance window is not given: the plan states none and invents none; state the window, the blackout days and the longest downtime of one switch with ops.maintenance_window in the inputs file (inputs-template.yaml shows the empty answer), then run again",
+      "next_step": "These can start once it is done: Both sides, with the writers stopped: the number of objects and the…",
+      "steps": [
+        "MAN/data/google_storage_bucket.media/final-sync/rclone-copy"
+      ],
+      "unit": "google_storage_bucket.media",
+      "part": "Data move"
+    },
+    {
+      "id": "MAN/data/google_storage_bucket.media/reconcile/rclone-copy",
+      "kind": "STEP",
+      "title": "Both sides, with the writers stopped: the number of objects and the bytes (`rclone size SRC:\u003csource-bucket\u003e --json`, `rclone size DST:\u003ctarget-bucket\u003e --json`); the list of keys (`rclone lsf -R --files-only SRC:\u003csource-bucket\u003e | sort \u003e source-keys.txt`, the same for the target, `diff source-keys.txt target-keys.txt` is empty); and the content: `rclone check SRC:\u003csource-bucket\u003e DST:\u003ctarget-bucket\u003e --one-way --combined=\u003ccheck-file\u003e` compares size and hash where both sides have one and marks every difference, so read the file and the log; an object for which the two sides share no hash (the target's ETag of a multipart upload is not an MD5) is at best compared by size, which is not its content, so run `rclone check ... --download` for the prefixes that matter and for a sample of the rest. One read that the application itself does on its most important objects through the STACKIT endpoint with a key of a credentials group: `\u003capplication-read\u003e`, the query and the answer are the customer's, the source does not state them. Record GO or NO-GO. Runbook section: `terraform/handover/bucket-media/data-copy.md#reconcile-rclone-copy`.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Data Architect",
+      "priority": "HOLDS_STEPS",
+      "state": "FREE_OF_DECISIONS",
+      "blocker_kind": "STEP",
+      "closes_when": "the counts, the key lists and the checks agree, the application read works: GO",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "next_step": "These can start once it is done: Only after the target has run in production for the period the…",
+      "steps": [
+        "MAN/data/google_storage_bucket.media/reconcile/rclone-copy"
+      ],
+      "unit": "google_storage_bucket.media",
+      "part": "Data move"
+    },
+    {
+      "id": "MAN/data/google_sql_database_instance.postgres/cleanup/dump-restore",
+      "kind": "STEP",
+      "title": "Only after the target has run in production for the period the customer decides and the way back is no longer wanted: remove the move host from `network.acl` of the instance and from the authorized networks of the source if it was added; delete the dump files and `restore.log`; keep a final backup of the source for the retention the customer decides before anything is deleted; replace the credentials of the target user if they were ever on a ticket or in a file. Runbook section: `terraform/handover/database-postgres/data-move.md#clean-up-dump-restore`.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Data Architect",
+      "priority": "LATER",
+      "state": "BLOCKED_BY_DECISION",
+      "blocked_by": [
+        "DEC-GEN-CONVERT-DATA-MOVEMENT"
+      ],
+      "blocker_kind": "DECISION",
+      "closes_when": "no slot, subscription, publication or dump file is left, the move host is out of every access list, the credentials are replaced",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "the answer of DEC-GEN-CONVERT-DATA-MOVEMENT in decisions.yaml, which names the path this step belongs to",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/data/google_sql_database_instance.postgres/cleanup/dump-restore"
+      ],
+      "unit": "google_sql_database_instance.postgres"
+    },
+    {
+      "id": "MAN/data/google_sql_database_instance.postgres/cleanup/logical-replication",
+      "kind": "STEP",
+      "title": "Only after the target has run in production for the period the customer decides and the way back is no longer wanted: `DROP SUBSCRIPTION stacktoit_move;` on the target (it drops the slot on the source if the source is reachable; check `SELECT * FROM pg_replication_slots;`), `DROP PUBLICATION stacktoit_move;` and `DROP ROLE stacktoit_repl;` on the source, set `cloudsql.logical_decoding` back with a second restart if it was off before the move; remove the move host from `network.acl` of the instance and from the authorized networks of the source if it was added; delete the dump files and `restore.log`; keep a final backup of the source for the retention the customer decides before anything is deleted; replace the credentials of the target user if they were ever on a ticket or in a file. Runbook section: `terraform/handover/database-postgres/data-move.md#clean-up-logical-replication`.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Data Architect",
+      "priority": "LATER",
+      "state": "BLOCKED_BY_DECISION",
+      "blocked_by": [
+        "DEC-GEN-CONVERT-DATA-MOVEMENT"
+      ],
+      "blocker_kind": "DECISION",
+      "closes_when": "no slot, subscription, publication or dump file is left, the move host is out of every access list, the credentials are replaced",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "required_input": "the answer of DEC-GEN-CONVERT-DATA-MOVEMENT in decisions.yaml, which names the path this step belongs to",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/data/google_sql_database_instance.postgres/cleanup/logical-replication"
+      ],
+      "unit": "google_sql_database_instance.postgres"
+    },
+    {
+      "id": "MAN/data/google_storage_bucket.media/cleanup/rclone-copy",
+      "kind": "STEP",
+      "title": "Only after the target has run in production for the period the customer decides and the way back is no longer wanted: delete the key lists and the logs of the move (they name every object key); delete the credential made for the move, the Google login or key made for it, and take the environment names out of the shell history; keep the source bucket, with its versions, for the retention the customer decides before any object of it is deleted, and do not delete it in the same hour as the cutover. Runbook section: `terraform/handover/bucket-media/data-copy.md#clean-up-rclone-copy`.",
+      "queue": "PERFORM_MIGRATION_WORK",
+      "owner": "Data Architect",
+      "priority": "LATER",
+      "state": "FREE_OF_DECISIONS",
+      "blocker_kind": "STEP",
+      "closes_when": "no key list or log is left, the credentials of the move are removed, and the retention of the source is recorded",
+      "closes_with": "the success condition of the step (execution/manual/actions.md)",
+      "next_step": "No other job on the board waits for it.",
+      "steps": [
+        "MAN/data/google_storage_bucket.media/cleanup/rclone-copy"
+      ],
+      "unit": "google_storage_bucket.media"
+    }
+  ]
+}

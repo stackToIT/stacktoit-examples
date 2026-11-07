@@ -1,0 +1,413 @@
+# Answer template of run 6f8f72b2-1c34-4cfc-8483-344c41245364 (written by stacktoit; copy this file, fill the `value:` lines, pass it with --inputs).
+# Every request this run derives that this build can take an answer of (groups 1 and 2 below) is one stub. id, kind, topic, scope and recorded_with bind the answer to this source and this knowledge base:
+# do not edit them. Fill `value` (the options of the request are listed above it) and, if you like, `explanation`; set `answered_by` to
+# your role (it is a role, not a person) and `answered_at` to the day you answer. You may delete the stubs you do not answer.
+# A stub whose `value` you leave unfilled is no answer and no error: its request stays open, the run names it, and the answers you filled apply. A stub is never a default.
+# The shape of a value is the one of the answer file contract of this build: the outline of each stub shows it, and the run reports a value that does not fit.
+# This file ANSWERS questions of the run: an answer given with --inputs regenerates the draft with it (run again on the same --out; the earlier run is replaced).
+# A review of a decision is the other file, decisions-template.yaml (--decisions): it records the review and frees nothing until the draft is regenerated,
+# so an option that changes the draft is chosen here, in an answer, where the line of the option in decisions-template.yaml names a topic of this file; a decision with no topic here is changed in the source.
+# The requests are in three groups, in this order; only the first two are stubs to fill:
+#   GROUP 1 - APPLICABLE: a valid answer changes the draft when you run again.
+#   GROUP 2 - MANUAL: a person does the work outside StackToIT; the answer records that it was done and changes no draft.
+#   GROUP 3 - NOT APPLICABLE IN THIS BUILD: listed at the end as comments, with no stub, because this build records an answer and changes nothing;
+#     each says where the setting is made instead.
+# Requests that block the draft (7, the count of the run; each is marked BLOCKS THE DRAFT below): target.region; source.google.region (google); source.variable (enable_apis); source.variable (init); source.variable (random_suffix); target.workload.identity (google_cloud_run_v2_job.migrate); target.workload.identity (google_cloud_run_v2_service.server)
+schema_version: "0.1"
+answers:
+
+  # ===== GROUP 1 - APPLICABLE: a valid answer changes the draft when you run again =====
+
+  # answer this first: the requests marked (depends on the region) are derived from the eu01 catalogue until the region is answered and are re-derived then.
+  # An answer to such a request is recorded for eu01: if you choose another region it is STALE_CATALOG, it is not applied and the request is asked again, for the chosen region, in the template of the next run.
+  # BLOCKS THE DRAFT: answer this before the draft can be made (the run counts it among the requests that block the draft)
+  # target.region (TARGET_SELECTION, request state OPEN)
+  # needed: The STACKIT region the migrated estate is built in.
+  - id: INP-TSE-1eaf5b60fa62
+    kind: TARGET_SELECTION
+    topic: target.region
+    scope:
+      profile: default
+    # options: eu01 | eu02
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-07"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:94a1663bf63dd33750f12f962a5adedcc2bf291ebf4b101eee03238a48e95e54
+
+  # source.dataset.bandwidth (SOURCE_DECLARATION, request state OPEN)
+  # needed: The network bandwidth available for moving the data of google_sql_database_instance.postgres: it sets the lower bound of the transfer time and decides whether a replication can catch up with the writes.
+  - id: INP-SDE-2a7f7b5269a1
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.bandwidth
+    scope:
+      address: google_sql_database_instance.postgres
+      profile: default
+    # form: value: {quantity: {value: "50", unit: Mbit/s}} (the figures are examples, not a default); unit: one of Mbit/s | Gbit/s | MB/s; a range: min and max in place of value
+    value: {}                # write your answer in the form above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-07"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:e4ad17d7c615d24002a98300470a888a601771756e57f926d3d6cd0a0a9bde6e
+
+  # source.dataset.bandwidth (SOURCE_DECLARATION, request state OPEN)
+  # needed: The network bandwidth available for moving the data of google_storage_bucket.media: it sets the lower bound of the transfer time and decides whether a replication can catch up with the writes.
+  - id: INP-SDE-e46eb1c97548
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.bandwidth
+    scope:
+      address: google_storage_bucket.media
+      profile: default
+    # form: value: {quantity: {value: "50", unit: Mbit/s}} (the figures are examples, not a default); unit: one of Mbit/s | Gbit/s | MB/s; a range: min and max in place of value
+    value: {}                # write your answer in the form above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-07"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:7d0e67b92524c3fbc98e99618fd8dfae0cf0532c321c426334d0fc91b4a9ee84
+
+  # source.dataset.downtime (SOURCE_DECLARATION, request state OPEN)
+  # needed: The downtime window a person accepts for the cutover of google_sql_database_instance.postgres: it is the window the transfer lower bound is held against: a lower bound above it makes the dump-and-restore method need a design.
+  - id: INP-SDE-281da2c43709
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.downtime
+    scope:
+      address: google_sql_database_instance.postgres
+      profile: default
+    # form: value: {quantity: {value: "50", unit: minutes}} (the figures are examples, not a default); unit: one of minutes | hours; a range: min and max in place of value
+    value: {}                # write your answer in the form above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-07"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:ccb3002c60d00f87f9e6291880b5fcc03ee671aa545d684d439ee9d92c39e99a
+
+  # source.dataset.downtime (SOURCE_DECLARATION, request state OPEN)
+  # needed: The downtime window a person accepts for the cutover of google_storage_bucket.media: it is the window the transfer lower bound is held against: a lower bound above it makes the dump-and-restore method need a design.
+  - id: INP-SDE-edc3995fc80b
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.downtime
+    scope:
+      address: google_storage_bucket.media
+      profile: default
+    # form: value: {quantity: {value: "50", unit: minutes}} (the figures are examples, not a default); unit: one of minutes | hours; a range: min and max in place of value
+    value: {}                # write your answer in the form above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-07"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:dd078ffc3b86d216b9a2180b48024e6dcded35566375389187f79ba6b13a339c
+
+  # source.dataset.rpo (SOURCE_DECLARATION, request state OPEN)
+  # needed: The recovery point objective (the data a person accepts to lose, as time) of google_sql_database_instance.postgres: it is recorded next to the data asset and shown in the plan of its move; the plan does not compute with it yet.
+  - id: INP-SDE-711698e4152d
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.rpo
+    scope:
+      address: google_sql_database_instance.postgres
+      profile: default
+    # form: value: {quantity: {value: "50", unit: minutes}} (the figures are examples, not a default); unit: one of minutes | hours; a range: min and max in place of value
+    value: {}                # write your answer in the form above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-07"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:9de132724e507a39678f877272b188321871b882e295008e6368532e73ba0e90
+
+  # source.dataset.rpo (SOURCE_DECLARATION, request state OPEN)
+  # needed: The recovery point objective (the data a person accepts to lose, as time) of google_storage_bucket.media: it is recorded next to the data asset and shown in the plan of its move; the plan does not compute with it yet.
+  - id: INP-SDE-09450a7fa213
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.rpo
+    scope:
+      address: google_storage_bucket.media
+      profile: default
+    # form: value: {quantity: {value: "50", unit: minutes}} (the figures are examples, not a default); unit: one of minutes | hours; a range: min and max in place of value
+    value: {}                # write your answer in the form above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-07"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:7ca2ac687d2afca7539c67ef401cc1e8e96b6149ecfce0b69f7b42b828fc9363
+
+  # source.dataset.rto (SOURCE_DECLARATION, request state OPEN)
+  # needed: The recovery time objective (the time a person accepts the asset to be unavailable after a failure) of google_sql_database_instance.postgres: it is recorded next to the data asset and shown in the plan of its move; the plan does not compute with it yet.
+  - id: INP-SDE-d20a37a1a474
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.rto
+    scope:
+      address: google_sql_database_instance.postgres
+      profile: default
+    # form: value: {quantity: {value: "50", unit: minutes}} (the figures are examples, not a default); unit: one of minutes | hours; a range: min and max in place of value
+    value: {}                # write your answer in the form above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-07"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:9b0ca4ca849b1f4b86c74a3b81c7d01f025780c7bdc1ee48f4a1ade6dcaf826c
+
+  # source.dataset.rto (SOURCE_DECLARATION, request state OPEN)
+  # needed: The recovery time objective (the time a person accepts the asset to be unavailable after a failure) of google_storage_bucket.media: it is recorded next to the data asset and shown in the plan of its move; the plan does not compute with it yet.
+  - id: INP-SDE-9587eb7e8e9f
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.rto
+    scope:
+      address: google_storage_bucket.media
+      profile: default
+    # form: value: {quantity: {value: "50", unit: minutes}} (the figures are examples, not a default); unit: one of minutes | hours; a range: min and max in place of value
+    value: {}                # write your answer in the form above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-07"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:742d2beab06101b73da5bd651e042e0e5a2abcf271009c864726e5ce7d80d877
+
+  # source.dataset.size (SOURCE_DECLARATION, request state OPEN)
+  # needed: The size of the data of google_sql_database_instance.postgres: it sets the lower bound of the transfer time of the first copy (the size of the data, not the capacity the source provisions).
+  - id: INP-SDE-3475bcd86a5e
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.size
+    scope:
+      address: google_sql_database_instance.postgres
+      profile: default
+    # form: value: {quantity: {value: "50", unit: GiB}} (the figures are examples, not a default); unit: one of GiB | TiB | GB | TB; a range: min and max in place of value
+    value: {}                # write your answer in the form above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-07"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:1900e790a0e8aeed0b9a3c120bfadaf8ea86fd3a3108872644f459f5871c18e9
+
+  # source.dataset.size (SOURCE_DECLARATION, request state OPEN)
+  # needed: The size of the data of google_storage_bucket.media: it sets the lower bound of the transfer time of the first copy (the size of the data, not the capacity the source provisions).
+  - id: INP-SDE-039e4543956e
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.size
+    scope:
+      address: google_storage_bucket.media
+      profile: default
+    # form: value: {quantity: {value: "50", unit: GiB}} (the figures are examples, not a default); unit: one of GiB | TiB | GB | TB; a range: min and max in place of value
+    value: {}                # write your answer in the form above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-07"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:f759c3cddd4f1d647302545872cca51a1ded7d5b48dfe624b35dbe56f1451396
+
+  # source.dataset.write_rate (SOURCE_DECLARATION, request state OPEN)
+  # needed: The rate at which the data is written of google_sql_database_instance.postgres: it decides whether a replication can catch up with the writes and how long the freeze waits for the lag to reach zero.
+  - id: INP-SDE-0df31f6e861f
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.write_rate
+    scope:
+      address: google_sql_database_instance.postgres
+      profile: default
+    # form: value: {quantity: {value: "50", unit: GiB/h}} (the figures are examples, not a default); unit: one of GiB/h | MiB/s | MB/s; a range: min and max in place of value
+    value: {}                # write your answer in the form above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-07"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:773e31a9dae8d20b23a7149d9685e942bd10b541cb1a686769575f0340bb764f
+
+  # source.dataset.write_rate (SOURCE_DECLARATION, request state OPEN)
+  # needed: The rate at which the data is written of google_storage_bucket.media: it decides whether a replication can catch up with the writes and how long the freeze waits for the lag to reach zero.
+  - id: INP-SDE-13232ceea041
+    kind: SOURCE_DECLARATION
+    topic: source.dataset.write_rate
+    scope:
+      address: google_storage_bucket.media
+      profile: default
+    # form: value: {quantity: {value: "50", unit: GiB/h}} (the figures are examples, not a default); unit: one of GiB/h | MiB/s | MB/s; a range: min and max in place of value
+    value: {}                # write your answer in the form above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: APPLICATION_OWNER   # a role, not a person
+    answered_at: "2026-11-07"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:738fac32af2ab8b1ee06e81b22614d980fafe49c106403d8724eec6529fc439e
+
+  # BLOCKS THE DRAFT: answer this before the draft can be made (the run counts it among the requests that block the draft)
+  # source.google.region (SOURCE_PARAMETER, request state OPEN)
+  # needed: The Google Cloud region the provider configuration google runs in. The source reads the region of the google provider configuration google from a variable's default (us-central1), which -var or TF_VAR_* can override. Until you answer, the region is read as us-central1 and no zone default is written from it.
+  - id: INP-SPA-91ae2a413691
+    kind: SOURCE_PARAMETER
+    topic: source.google.region
+    scope:
+      profile: default
+      subject: google
+    value: ""                # fill one value
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-07"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:3bceec5b51f026690994446d8cf65690dc04bdeece8107a18a30f066fdd1b3f9
+
+  # BLOCKS THE DRAFT: answer this before the draft can be made (the run counts it among the requests that block the draft)
+  # source.variable (SOURCE_PARAMETER, request state OPEN)
+  # needed: The value the running environment gives the root variable enable_apis, which the source sets only as a default that a variable file or the command line can override.
+  - id: INP-SPA-3cc45ef1d8a4
+    kind: SOURCE_PARAMETER
+    topic: source.variable
+    scope:
+      profile: default
+      subject: enable_apis
+    value: ""                # fill one value
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-07"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:e4e6fb16b4d3f1e7b49e246d21a9d1c5a172b26ea6a419377f1b83f566ded61a
+
+  # BLOCKS THE DRAFT: answer this before the draft can be made (the run counts it among the requests that block the draft)
+  # source.variable (SOURCE_PARAMETER, request state OPEN)
+  # needed: The value the running environment gives the root variable init, which the source sets only as a default that a variable file or the command line can override.
+  - id: INP-SPA-12276d55f145
+    kind: SOURCE_PARAMETER
+    topic: source.variable
+    scope:
+      profile: default
+      subject: init
+    value: ""                # fill one value
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-07"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:e4e6fb16b4d3f1e7b49e246d21a9d1c5a172b26ea6a419377f1b83f566ded61a
+
+  # BLOCKS THE DRAFT: answer this before the draft can be made (the run counts it among the requests that block the draft)
+  # source.variable (SOURCE_PARAMETER, request state OPEN)
+  # needed: The value the running environment gives the root variable random_suffix, which the source sets only as a default that a variable file or the command line can override.
+  - id: INP-SPA-dbe7ffc99d7e
+    kind: SOURCE_PARAMETER
+    topic: source.variable
+    scope:
+      profile: default
+      subject: random_suffix
+    value: ""                # fill one value
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-07"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:ecd520e764d6ea2de6da95264905a6303347c537a323e6fcb9aa9ca06ca48a78
+
+  # target.secret_store.binding (TARGET_SELECTION, request state OPEN)
+  # needed: Who owns the STACKIT Secrets Manager instance that replaces every migrated secret (2 source units): the draft creates it (the DEFAULT), or an existing secret store is read, bound by a person, or refused. The identifier of an existing secret store is yours to give.
+  - id: INP-TSE-7a8d984b0e4d
+    kind: TARGET_SELECTION
+    topic: target.secret_store.binding
+    scope:
+      profile: default
+    # options: CREATE | REUSE_EXISTING:<instance id> | MANUAL_BIND | REFUSE
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-07"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:270c12d45c66e2ecd85a52d99c8d6de2ec885442d400b1b8662899559dedc714
+
+  # BLOCKS THE DRAFT: answer this before the draft can be made (the run counts it among the requests that block the draft)
+  # target.workload.identity (TARGET_SELECTION, request state OPEN)
+  # needed: Which identity the pods of google_cloud_run_v2_job.migrate use on STACKIT. The source runs them as the Google service account google_service_account.automation; a pod on STACKIT has no Google identity, and there is no default model.
+  - id: INP-TSE-2a2e667de9c2
+    kind: TARGET_SELECTION
+    topic: target.workload.identity
+    scope:
+      address: google_cloud_run_v2_job.migrate
+      profile: default
+    # options: federated_service_account | service_account_key | no_workload_identity
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-07"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:a3eb6d36c1d1c68349d2f0138300b5e2f20ccb1329ff70db982916ab00680565
+
+  # BLOCKS THE DRAFT: answer this before the draft can be made (the run counts it among the requests that block the draft)
+  # target.workload.identity (TARGET_SELECTION, request state OPEN)
+  # needed: Which identity the pods of google_cloud_run_v2_service.server use on STACKIT. The source runs them as the Google service account google_service_account.server; a pod on STACKIT has no Google identity, and there is no default model.
+  - id: INP-TSE-77b8285fa505
+    kind: TARGET_SELECTION
+    topic: target.workload.identity
+    scope:
+      address: google_cloud_run_v2_service.server
+      profile: default
+    # options: federated_service_account | service_account_key | no_workload_identity
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-07"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:14bdfcbaf7bfff50da596a3f87abe7e22ed14bc52e03b3337985b980a4175485
+
+  # ===== GROUP 2 - MANUAL: a person does the work outside StackToIT; the answer records that it was done and changes no draft =====
+
+  # target.project.source_project (TARGET_SELECTION, request state OPEN)
+  # needed: Where the units of the project example-project go on STACKIT: 1 unit(s) of the estate stand in it.
+  # impact: Closes the critical settings of this place for the estate, once.
+  - id: INP-TSE-e0f55f8e074c
+    kind: TARGET_SELECTION
+    topic: target.project.source_project
+    scope:
+      profile: default
+      subject: example-project
+    # options: var.project_id | network-project
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-07"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:10e30d4544962e0a3c87fd11d3070dc2167024b313b017c5ef57c9dc02481caa
+
+  # target.project.source_project (TARGET_SELECTION, request state OPEN)
+  # needed: Where the units of a project the scan cannot read (the value comes from an input a plan can change, or the provider block states it) go on STACKIT: 3 unit(s) of the estate stand in it.
+  # impact: Closes the critical settings of this place for the estate, once.
+  - id: INP-TSE-f058614b497f
+    kind: TARGET_SELECTION
+    topic: target.project.source_project
+    scope:
+      profile: default
+      subject: unread
+    # options: var.project_id | network-project
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-07"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:17561d28fbcfbfe49e0008f27ed788b76eb4718753e4f4ff1cfc1349d2b5d793
+
+  # target.region.source_location (TARGET_SELECTION, request state OPEN)
+  # needed: The STACKIT region that holds the residency of a location the scan cannot read (the value comes from an input a plan can change, or the source does not state it), which 4 unit(s) of the estate stand in.
+  # impact: Closes the critical settings of this place for the estate, once.
+  - id: INP-TSE-ed9be9064ccf
+    kind: TARGET_SELECTION
+    topic: target.region.source_location
+    scope:
+      profile: default
+      subject: unread
+    # options: eu01 | eu02
+    value: ""                # pick one of the options above
+    # explanation: why you chose this (optional; remove the # to write it)
+    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-07"   # YYYY-MM-DD
+    recorded_with:
+      basis_digest: sha256:02ce443c4d0a03b2406b6e77ce134863ab59ad00a288fc7999a95b4df6b521b6
+
+  # ===== GROUP 3 - NOT APPLICABLE IN THIS BUILD: no stub: an answer would be recorded and would change nothing =====
+
+  # target.egress (request INP-TSE-eac97a7eefd2)
+  #   needed: How outbound traffic leaves the migrated networks: the routed default, an address in a Network Area, or not at all.
+  #   This build records an answer to this request and does not change the draft; configure it in the target environment: set egress.mode (ROUTED_DEFAULT, VIA_AREA_NEXT_HOP or NONE) in the target environment file given with --target-environment; the networks, route tables and security groups the draft writes follow it (AWS sources, the target environment description in the product documentation, Network policy). Not target.network.egress, which is a separate request that this build applies.
+
+  # target.ingress.public (request INP-TSE-d73c02f8659b)
+  #   needed: Whether a server may have a public address, only a load balancer may be public, or nothing is public.
+  #   This build records an answer to this request and does not change the draft; configure it in the target environment: set ingress.public (ALLOW_PUBLIC_IP, LB_ONLY or NONE) in the target environment file given with --target-environment; the public addresses and load balancers the draft writes follow it (AWS sources, the target environment description in the product documentation, Network policy).
+
+  # target.observability (request INP-TSE-d16ba37f3e2f)
+  #   needed: Whether metrics and logs go to instances the draft creates, to existing instances, or nowhere.
+  #   This build records an answer to this request and does not change the draft; configure it in the target environment: keep or create the STACKIT Observability and Logs instances in the project yourself; this build applies no statement of it, and the observability section of the target environment file is read and bound only. Where the source has alarms, logs or metrics the draft creates its own instances, and reusing an existing one is an edit of the draft by hand.
+
+  # target.project (request INP-TSE-3f99c0e1bfaf)
+  #   needed: The STACKIT project the migrated estate is built in.
+  #   This build records an answer to this request and does not change the draft; configure it in the target environment: set the variable project_id of the draft (terraform.tfvars, or TF_VAR_project_id for the scripts); a project.id in a target environment file is read and bound and is not written into the draft.

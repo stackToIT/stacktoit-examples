@@ -19,6 +19,10 @@ SCHEMA = ROOT / "schema" / "example.schema.json"
 
 failures: list[str] = []
 
+# the Terraform provider that carries the source estate of each cloud
+SOURCE_PROVIDER = {"AWS": "aws", "Azure": "azurerm", "Google Cloud": "google"}
+UPSTREAM_FIELDS = ("repository_url", "commit", "commit_url", "terraform_root_url")
+
 
 def fail(msg: str) -> None:
     failures.append(msg)
@@ -112,7 +116,7 @@ def check_cross(ex_dir: Path, meta: dict, manifest: dict) -> None:
         ("tool.kb_sha256", meta["tool"]["kb_sha256"], prod["kb_sha256"]),
         ("tool.assessment_schema", meta["tool"]["assessment_schema"], a["schema_version"]),
         ("tool.manifest_version", meta["tool"]["manifest_version"], manifest["manifest_version"]),
-        ("tool.opentofu", meta["tool"]["opentofu"], manifest["validation"]["tofu_validate"]["tool_version"]),
+        ("tool.opentofu", meta["tool"]["opentofu"], manifest["validation"]["tofu_validate"].get("tool_version", "not run")),
         ("run.run_id", meta["run"]["run_id"], a["run"]["run_id"]),
         ("run.generated_at", meta["run"]["generated_at"], a["generated_at"]),
         ("run.source_digest", meta["run"]["source_digest"], a["run"]["source_digest"]),
@@ -143,11 +147,13 @@ def check_cross(ex_dir: Path, meta: dict, manifest: dict) -> None:
     checks.append(("validation.global_invariants.state", meta["metrics"]["validation"]["global_invariants"]["state"], vm["GLOBAL_INVARIANTS"]))
     for row in meta["metrics"]["validation"]["not_established"]:
         checks.append((f"validation.not_established.{row['id']}", row["state"], vm.get(row["id"])))
-    src_val = (out / "console.txt").read_text().split("\n", 3)[2]
     stated = meta["metrics"]["validation"]["source_opentofu"]["state"]
-    if not src_val.startswith(f"source validation: {stated}"):
-        fail(f"{meta['id']}: validation.source_opentofu.state={stated} but console.txt says: {src_val[:80]}")
-    provider = next(p for p in w["header"]["source_snapshot"]["providers"] if p["name"] == "aws")
+    checks.append(("validation.source_opentofu.state", stated, a["summary"]["source_validation"]["native"]["status"]))
+    src_val = re.search(r"^source validation: (\w+)", (out / "console.txt").read_text(), re.M)
+    if src_val:  # a run that validated or tried to validate the source also says so in its console output
+        checks.append(("validation.source_opentofu.state (console.txt)", stated, src_val.group(1)))
+    provider_name = SOURCE_PROVIDER[meta["source"]["cloud"]]
+    provider = next(p for p in w["header"]["source_snapshot"]["providers"] if p["name"] == provider_name)
     checks.append(("validation.source_provider.state", meta["metrics"]["validation"]["source_provider"]["state"], provider["status"]))
     bad = 0
     for name, stated, actual in checks:
@@ -162,6 +168,22 @@ def check_cross(ex_dir: Path, meta: dict, manifest: dict) -> None:
     for key in ("architecture_dir", "terraform_dir"):
         if not (out / meta["report"][key]).is_dir():
             fail(f"{meta['id']}: report.{key} is not a directory")
+
+
+def check_source(ex_dir: Path, meta: dict) -> None:
+    """An upstream estate is pinned to a public commit; an authored estate is published in the example itself."""
+    src = meta.get("source", {})
+    origin = src.get("origin", "upstream")
+    if origin == "upstream":
+        for k in UPSTREAM_FIELDS:
+            if k not in src:
+                fail(f"{ex_dir.name}: source.{k} is required for an upstream estate")
+        if "commit" in src and not re.fullmatch(r"[0-9a-f]{40}", src["commit"]):
+            fail(f"{ex_dir.name}: source.commit is not a full 40-character commit")
+    else:
+        folder = ex_dir / src.get("source_path", "")
+        if not src.get("source_path") or not folder.is_dir() or not list(folder.rglob("*.tf")):
+            fail(f"{ex_dir.name}: source.source_path must name a folder of the example that holds the assessed .tf files")
 
 
 def check_examples() -> list[dict]:
@@ -181,6 +203,7 @@ def check_examples() -> list[dict]:
             fail(f"{ex_dir.name}: id {meta.get('id')!r} does not match the folder name")
         if not (ex_dir / "README.md").exists():
             fail(f"{ex_dir.name}: README.md missing")
+        check_source(ex_dir, meta)
         if len(failures) == before:
             ok(f"{ex_dir.name}: example.json conforms to the schema")
             manifest = check_manifest(ex_dir, meta)

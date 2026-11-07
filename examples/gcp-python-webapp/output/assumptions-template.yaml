@@ -1,0 +1,121 @@
+# Assumptions the cost model of the run waits for (written by stacktoit). Run 6f8f72b2-1c34-4cfc-8483-344c41245364 · source digest sha256:19bfed642d5789ccada81b91d5c36e33175dcafd66dc46b1644ffa105d020000
+# Each stub below is one value the cost model needs and no source states: a choice the draft leaves open (target_choice) or the use of one month of a service
+# that is billed by use. As written this file holds no entry and assigns nothing. To price a line on your value: remove the leading "# " of its stub, put your value
+# in `value` (or `min` and `max` for a range), write why in `explanation`, and pass the file with --assumptions FILE. The line is then priced on your value,
+# and says "priced on your assumption"; a line the file does not mention stays unpriced. Nothing here is a default or a recommendation.
+schema_version: "1.0"
+assumptions:
+
+  # SOURCE google_pubsub_topic.faux.data (1 line waits for it, PRICE_SOURCE_ABSENT)
+  # - id: data-transfer-google-pubsub-topic.faux.data
+  #   scenario: STANDARD_730H
+  #   subject: google_pubsub_topic.faux.data
+  #   variable: data_transfer
+  #   value: ""  # the use of one month, in GiB
+  #   unit: GiB
+  #   explanation: ""         # why you chose it
+
+  # TARGET stackit_postgresflex_instance.postgres.storage_class (2 lines wait for it, TARGET_NOT_CHOSEN)
+  # - id: target-choice-stackit-postgresflex-instance.postgres.storage-cla
+  #   scenario: STANDARD_730H
+  #   subject: stackit_postgresflex_instance.postgres.storage_class
+  #   variable: target_choice
+  #   value: ""  # a storage class such as "premium-perf6-stackit"
+  #   explanation: ""         # why you chose it
+
+  # TARGET stackit_rabbitmq_instance.messaging (1 line waits for it, TARGET_NOT_CHOSEN)
+  # - id: target-choice-stackit-rabbitmq-instance.messaging
+  #   scenario: STANDARD_730H
+  #   subject: stackit_rabbitmq_instance.messaging
+  #   variable: target_choice
+  #   value: ""  # a plan of the catalogue such as "stackit-rabbitmq-2.4.10-single"
+  #   explanation: ""         # why you chose it
+
+  # TARGET stackit_ske_cluster.containers.node_pool.workloads (1 line waits for it, TARGET_NOT_CHOSEN)
+  # - id: target-choice-stackit-ske-cluster.containers.node-pool.workloads
+  #   scenario: STANDARD_730H
+  #   subject: stackit_ske_cluster.containers.node_pool.workloads
+  #   variable: target_choice
+  #   value: ""  # a server flavor such as "g2i.4"
+  #   explanation: ""         # why you chose it
+
+  # SOURCE google_cloud_run_v2_job.migrate.instance_time (2 lines wait for it, PRICE_NOT_FOUND)
+  # - id: usage-quantity-google-cloud-run-v2-job.migrate.instance-time
+  #   scenario: STANDARD_730H
+  #   subject: google_cloud_run_v2_job.migrate.instance_time
+  #   variable: usage_quantity
+  #   value: ""  # the use of one month, in instance-hour
+  #   unit: instance-hour
+  #   explanation: ""         # why you chose it
+
+  # SOURCE google_cloud_run_v2_service.server.instance_time (2 lines wait for it, PRICE_NOT_FOUND)
+  # - id: usage-quantity-google-cloud-run-v2-service.server.instance-time
+  #   scenario: STANDARD_730H
+  #   subject: google_cloud_run_v2_service.server.instance_time
+  #   variable: usage_quantity
+  #   value: ""  # the use of one month, in instance-hour
+  #   unit: instance-hour
+  #   explanation: ""         # why you chose it
+
+  # SOURCE google_cloud_run_v2_service.server.requests (1 line waits for it, PRICE_NOT_FOUND)
+  # - id: usage-quantity-google-cloud-run-v2-service.server.requests
+  #   scenario: STANDARD_730H
+  #   subject: google_cloud_run_v2_service.server.requests
+  #   variable: usage_quantity
+  #   value: ""  # the use of one month, in request
+  #   unit: request
+  #   explanation: ""         # why you chose it
+
+  # SOURCE google_secret_manager_secret.django_admin_password.operations (1 line waits for it, PRICE_SOURCE_ABSENT)
+  # - id: usage-quantity-google-secret-manager-secret.django-admin-passwor
+  #   scenario: STANDARD_730H
+  #   subject: google_secret_manager_secret.django_admin_password.operations
+  #   variable: usage_quantity
+  #   value: ""  # the use of one month, in operation
+  #   unit: operation
+  #   explanation: ""         # why you chose it
+
+  # SOURCE google_secret_manager_secret.django_admin_password.versions (1 line waits for it, PRICE_SOURCE_ABSENT)
+  # - id: usage-quantity-google-secret-manager-secret.django-admin-passwor
+  #   scenario: STANDARD_730H
+  #   subject: google_secret_manager_secret.django_admin_password.versions
+  #   variable: usage_quantity
+  #   value: ""  # the use of one month, in version
+  #   unit: version
+  #   explanation: ""         # why you chose it
+
+  # SOURCE google_secret_manager_secret.django_settings.operations (1 line waits for it, PRICE_SOURCE_ABSENT)
+  # - id: usage-quantity-google-secret-manager-secret.django-settings.oper
+  #   scenario: STANDARD_730H
+  #   subject: google_secret_manager_secret.django_settings.operations
+  #   variable: usage_quantity
+  #   value: ""  # the use of one month, in operation
+  #   unit: operation
+  #   explanation: ""         # why you chose it
+
+  # SOURCE google_secret_manager_secret.django_settings.versions (1 line waits for it, PRICE_SOURCE_ABSENT)
+  # - id: usage-quantity-google-secret-manager-secret.django-settings.vers
+  #   scenario: STANDARD_730H
+  #   subject: google_secret_manager_secret.django_settings.versions
+  #   variable: usage_quantity
+  #   value: ""  # the use of one month, in version
+  #   unit: version
+  #   explanation: ""         # why you chose it
+
+  # SOURCE google_storage_bucket.media.storage (1 line waits for it, PRICE_NOT_FOUND)
+  # - id: volume-size-google-storage-bucket.media.storage
+  #   scenario: STANDARD_730H
+  #   subject: google_storage_bucket.media.storage
+  #   variable: volume_size
+  #   value: ""  # the use of one month, in GiB
+  #   unit: GiB
+  #   explanation: ""         # why you chose it
+
+  # TARGET stackit_objectstorage_bucket.media (1 line waits for it, QUANTITY_UNKNOWN)
+  # - id: volume-size-stackit-objectstorage-bucket.media
+  #   scenario: STANDARD_730H
+  #   subject: stackit_objectstorage_bucket.media
+  #   variable: volume_size
+  #   value: ""  # the average gigabytes one bucket holds, in GB
+  #   unit: GB
+  #   explanation: ""         # why you chose it

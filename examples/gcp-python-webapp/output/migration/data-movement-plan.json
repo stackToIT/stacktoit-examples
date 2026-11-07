@@ -1,0 +1,1356 @@
+{
+  "schema_version": "0.1.0",
+  "run_id": "6f8f72b2-1c34-4cfc-8483-344c41245364",
+  "source_digest": "sha256:19bfed642d5789ccada81b91d5c36e33175dcafd66dc46b1644ffa105d020000",
+  "statement": "This file plans how the data of the stateful units the draft moves is carried to STACKIT, for the families of data stores that have a planner (families). It moves no data and opens no connection: every step is for a person. A number in it is the customer's own statement (origin CUSTOMER_INPUT, with the answer it came from) or it is UNKNOWN; a quantity nobody stated is never zero. A duration is a lower bound of the transfer alone and a comparison with the accepted downtime says only whether that bound exceeds it, never that the window fits. Stateful units of other families have no plan here.",
+  "families": [
+    "rds-postgresql-to-postgresflex",
+    "s3-to-objectstorage",
+    "rds-mysql-to-mariadb",
+    "ebs-to-block-storage",
+    "efs-to-file-storage",
+    "fsx-openzfs-to-file-storage",
+    "rds-sqlserver-to-sqlserverflex",
+    "ecr-to-harbor",
+    "elasticache-to-keyvalue",
+    "dsql-to-postgresflex",
+    "amazonmq-to-rabbitmq",
+    "cloudsql-postgresql-to-postgresflex",
+    "alloydb-to-postgresflex",
+    "cloudsql-mysql-to-mariadb",
+    "cloudsql-sqlserver-to-sqlserverflex",
+    "gcs-to-objectstorage",
+    "filestore-to-file-storage",
+    "gce-disk-to-block-storage",
+    "memorystore-to-keyvalue",
+    "artifact-registry-to-harbor"
+  ],
+  "assets": [
+    {
+      "unit": "google_sql_database_instance.postgres",
+      "source_type": "google_sql_database_instance",
+      "family": "cloudsql-postgresql-to-postgresflex",
+      "source": {
+        "engine": "cloudsql-postgres",
+        "engine_version": {
+          "state": "OBSERVED",
+          "value": "POSTGRES_14",
+          "from": "assessment:units/google_sql_database_instance.postgres#database_version"
+        },
+        "major": {
+          "state": "OBSERVED",
+          "value": "14",
+          "from": "assessment:units/google_sql_database_instance.postgres#database_version"
+        },
+        "provisioned_capacity": {
+          "state": "NOT_PROVIDED"
+        }
+      },
+      "target": {
+        "instance": "stackit_postgresflex_instance.postgres",
+        "version": {
+          "state": "OBSERVED",
+          "value": "14",
+          "from": "draft:stackit_postgresflex_instance.postgres#version"
+        },
+        "offered_majors": [
+          "14",
+          "15",
+          "16",
+          "17",
+          "18"
+        ]
+      },
+      "quantities": {
+        "size": {
+          "topic": "source.dataset.size",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "write_rate": {
+          "topic": "source.dataset.write_rate",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "bandwidth": {
+          "topic": "source.dataset.bandwidth",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "rpo": {
+          "topic": "source.dataset.rpo",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "rto": {
+          "topic": "source.dataset.rto",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "downtime": {
+          "topic": "source.dataset.downtime",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        }
+      },
+      "selection": "OPEN",
+      "decision": "convert:google_sql_database_instance.postgres:data:DATA_MOVEMENT",
+      "methods": [
+        {
+          "id": "dump-restore",
+          "decision_option": "export-and-import-with-the-engine-clients",
+          "state": "CANDIDATE",
+          "chosen": false,
+          "duration": {
+            "state": "UNKNOWN",
+            "formula": "copy lower bound = size.min / bandwidth.max",
+            "inputs": [
+              "source.dataset.size",
+              "source.dataset.bandwidth"
+            ],
+            "text": "unknown: source.dataset.size, source.dataset.bandwidth must be stated by the customer (a value from the source or an application file is not used)",
+            "missing": [
+              "source.dataset.size",
+              "source.dataset.bandwidth"
+            ]
+          },
+          "freeze_window": {
+            "basis": "the dump and the restore run inside the freeze, but their lower bound cannot be computed: source.dataset.size, source.dataset.bandwidth must be stated by the customer (a value from the source or an application file is not used)",
+            "missing": [
+              "source.dataset.size",
+              "source.dataset.bandwidth"
+            ],
+            "stated_downtime": {
+              "topic": "source.dataset.downtime",
+              "origin": "UNKNOWN",
+              "reason": "NOT_PROVIDED"
+            },
+            "comparison": "UNKNOWN",
+            "detail": "no lower bound of the window can be computed: the dump and the restore run inside the freeze, but their lower bound cannot be computed: source.dataset.size, source.dataset.bandwidth must be stated by the customer (a value from the source or an application file is not used)"
+          },
+          "objectives": {
+            "rpo": {
+              "stated": {
+                "topic": "source.dataset.rpo",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "Designed to lose no write that was committed before the freeze: the writers are stopped before the dump starts and the source is neither stopped nor changed, so the dump is the final state of the source. Writes after the freeze wait until the applications are switched. Not measured.",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            },
+            "rto": {
+              "stated": {
+                "topic": "source.dataset.rto",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "The applications are unavailable for the whole write freeze: the dump, the restore, the reconcile and the switch of the applications. The lower bound of the first part is the freeze window; the rest is measured in the rehearsal.",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            }
+          },
+          "prerequisites": [
+            "version-deprecated: FAILS (closed by: the customer chooses a newer major (answer target.postgres.version))",
+            "extensions: UNKNOWN (closed by: preflight: on the source SELECT extname, extversion FROM pg_extension ORDER BY 1; on the target SHOW extwlist.extensions; and trust the target)",
+            "roles: UNKNOWN (closed by: preflight on the source, the roles: `SELECT rolname, rolsuper, rolcanlogin, rolcreatedb, rolcreaterole, rolreplication, rolconnlimit FROM pg_roles WHERE rolname !~ '^(pg_|cloudsql)' ORDER BY 1;` (psql: `\\du`); the memberships: `SELECT r.rolname AS role, m.rolname AS member, a.admin_option FROM pg_auth_members a JOIN pg_roles r ON r.oid = a.roleid JOIN pg_roles m ON m.oid = a.member ORDER BY 1, 2;`; and in every database to move: `\\dp`, `\\ddp`, `\\dn+`, `\\l` and `\\drds`; each role the application uses is created as a stackit_postgresflex_user resource and its grants are issued again)",
+            "network-tls: UNKNOWN (closed by: preflight from the move host: psql to the source and to the target with PGSSLMODE=require)",
+            "database-users-and-iam: UNKNOWN (closed by: preflight on the source: the users of the instance (gcloud sql users list --instance=<instance> for Cloud SQL, the pg_roles listing for both) and which of the applications sign in with a token)",
+            "source-headroom: UNKNOWN (closed by: preflight on the source: SELECT pg_size_pretty(pg_database_size(current_database())); and the free storage of the instance in Cloud Monitoring, against the size the customer states under source.dataset.size)"
+          ],
+          "risks": [
+            "the dump, the restore and the verification run inside the write freeze: the freeze lasts as long as all three",
+            "the dump holds the data: keep it readable only by the person who moves it and delete it at cleanup",
+            "pg_restore does not stop at an error: every line of restore.log is settled by a person",
+            "a schema of the source named metric_helpers or user_management collides with the platform-owned schemas of every PostgreSQL Flex instance"
+          ],
+          "steps": [
+            {
+              "kind": "preflight",
+              "id": "MAN/data/google_sql_database_instance.postgres/preflight",
+              "in_plan": true
+            },
+            {
+              "kind": "rehearsal",
+              "id": "MAN/data/google_sql_database_instance.postgres/rehearsal",
+              "in_plan": true
+            },
+            {
+              "kind": "write-freeze",
+              "id": "MAN/data/google_sql_database_instance.postgres/write-freeze/dump-restore",
+              "in_plan": true
+            },
+            {
+              "kind": "final-sync",
+              "id": "MAN/data/google_sql_database_instance.postgres/final-sync/dump-restore",
+              "in_plan": true
+            },
+            {
+              "kind": "reconcile",
+              "id": "MAN/data/google_sql_database_instance.postgres/reconcile/dump-restore",
+              "in_plan": true
+            },
+            {
+              "kind": "cleanup",
+              "id": "MAN/data/google_sql_database_instance.postgres/cleanup/dump-restore",
+              "in_plan": true
+            }
+          ],
+          "verification": [
+            {
+              "id": "row-counts",
+              "kind": "COUNT_COMPARISON",
+              "mode": "COMMAND",
+              "what": "Count the rows of every table on both sides, with the writers stopped (an exact count of each table; the estimates of pg_stat_user_tables are not counts).",
+              "expected": "the same tables with the same number of rows on both sides; the tables of the schemas metric_helpers and user_management, which every PostgreSQL Flex instance keeps for the platform, are left out of the comparison",
+              "command": "SELECT format('SELECT %L AS tbl, count(*) FROM %I.%I;', schemaname || '.' || tablename, schemaname, tablename) FROM pg_tables WHERE schemaname NOT IN ('pg_catalog', 'information_schema') \\gexec"
+            },
+            {
+              "id": "table-checksums",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "Take the md5 of the rows of every keyed table that matters on both sides, ordered by its key (a key range for a large table; DateStyle, TimeZone and extra_float_digits equal in both sessions).",
+              "expected": "the row count and the md5 are equal on both sides for every table checked",
+              "command": "SELECT count(*), md5(string_agg(t::text, ',' ORDER BY t.<key-column>)) FROM <schema>.<table> t;",
+              "not_provided": [
+                "the key column of each table (<key-column>)",
+                "the tables that matter"
+              ]
+            },
+            {
+              "id": "sequences",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "Compare the position of every sequence on both sides, so that the first insert on the target does not repeat a key.",
+              "expected": "the positions are equal, or the target's is higher",
+              "command": "SELECT sequencename, last_value FROM pg_sequences ORDER BY 1;"
+            },
+            {
+              "id": "restore-log",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "Read every error pg_restore wrote to restore.log: it does not stop at an error, so a table, an index or a constraint that failed leaves the restore finished.",
+              "expected": "every line the command prints is settled and recorded; none is left unread",
+              "command": "grep -n 'error:' restore.log"
+            },
+            {
+              "id": "extensions",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "List the extensions and their versions on both sides: the restore or the subscription does not create on the target what it does not offer.",
+              "expected": "every extension the application uses is on the target; a difference is settled and recorded",
+              "command": "SELECT extname, extversion FROM pg_extension ORDER BY 1;"
+            },
+            {
+              "id": "roles-and-grants",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "List the roles and the table grants on both sides: the schema is copied with --no-owner --no-acl, so the owners and the grants of the source are not on the target, and a user of Cloud SQL for PostgreSQL that signs in with an IAM identity has no counterpart on PostgreSQL Flex, which has password users only.",
+              "expected": "every login the application uses exists on the target with the grants it needs; cloudsqlsuperuser, the roles of the platform of each side and the users that signed in with an IAM identity are settled one by one",
+              "command": "SELECT rolname, rolcanlogin FROM pg_roles WHERE rolname !~ '^pg_' ORDER BY 1;\nSELECT grantee, table_schema, table_name, privilege_type FROM information_schema.role_table_grants WHERE table_schema NOT IN ('pg_catalog', 'information_schema') ORDER BY 1, 2, 3, 4;"
+            },
+            {
+              "id": "application-check",
+              "kind": "APPLICATION_SMOKE",
+              "mode": "MANUAL",
+              "what": "Run one read the application itself makes on its most important data against the target database and compare its answer with the answer the application gets from the Cloud SQL for PostgreSQL database; then, from a test copy of the application, make one write against the target database and read it back.",
+              "expected": "the two answers are equal, the write succeeds and the read returns it",
+              "manual_reason": "the read and the write are the application's, and the source states neither the query nor the answer",
+              "not_provided": [
+                "the read the application makes on its most important data and its expected answer",
+                "the write the test copy of the application makes"
+              ]
+            },
+            {
+              "id": "rollback-limit",
+              "kind": "ROLLBACK_LIMIT",
+              "mode": "MANUAL",
+              "what": "Record the point after which a rollback loses data. Until the first of the writes that the target database accepts after the switch, a rollback is only the connection settings put back: the Cloud SQL for PostgreSQL database was not changed after the freeze and is current to it. From that write on, what the target database holds exists only there: it is copied back to the Cloud SQL for PostgreSQL database with a method rehearsed before the window, or accepted as lost. Once the Cloud SQL for PostgreSQL database is retired (its retirement step, after the GO and the retention the owner decides) there is nothing to go back to.",
+              "expected": "before the window the owner records the date until which the Cloud SQL for PostgreSQL database is kept, the method that copies the writes of the target database back or the decision that they are lost, and who calls the rollback",
+              "manual_reason": "how long the source is kept and whether the writes made on the target are copied back or lost are decisions of the owner of the application: the source states neither, so the plan names the limit and no date",
+              "not_provided": [
+                "the date until which the Cloud SQL for PostgreSQL database is kept",
+                "the method that copies the writes of the target database back, or the decision that they are lost"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "logical-replication",
+          "decision_option": "replicate-with-the-engine-replication",
+          "state": "CANDIDATE",
+          "chosen": false,
+          "duration": {
+            "state": "UNKNOWN",
+            "formula": "min = size.min / bandwidth.max; max = size.max / (bandwidth.min - write_rate.max)",
+            "inputs": [
+              "source.dataset.size",
+              "source.dataset.bandwidth",
+              "source.dataset.write_rate"
+            ],
+            "text": "unknown: source.dataset.size, source.dataset.bandwidth, source.dataset.write_rate must be stated by the customer (a value from the source or an application file is not used)",
+            "missing": [
+              "source.dataset.size",
+              "source.dataset.bandwidth",
+              "source.dataset.write_rate"
+            ]
+          },
+          "freeze_window": {
+            "basis": "the freeze lasts until the lag of the replication is drained, the sequences are copied, the reconcile is done and the applications are switched; the lag at the freeze depends on the throughput the rehearsal measures, so the plan has no formula for the window",
+            "stated_downtime": {
+              "topic": "source.dataset.downtime",
+              "origin": "UNKNOWN",
+              "reason": "NOT_PROVIDED"
+            },
+            "comparison": "UNKNOWN",
+            "detail": "no lower bound of the window can be computed: the freeze lasts until the lag of the replication is drained, the sequences are copied, the reconcile is done and the applications are switched; the lag at the freeze depends on the throughput the rehearsal measures, so the plan has no formula for the window"
+          },
+          "objectives": {
+            "rpo": {
+              "stated": {
+                "topic": "source.dataset.rpo",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "Designed to lose no write that was committed before the freeze: the replication follows the changes until the freeze, and the final copy waits until the lag is 0 with the writers stopped. Not measured.",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            },
+            "rto": {
+              "stated": {
+                "topic": "source.dataset.rto",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "The applications are unavailable from the write freeze until they are switched: the lag drain, the sequences, the reconcile and the switch. The plan has no formula for it; the rehearsal measures it.",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            }
+          },
+          "prerequisites": [
+            "version-deprecated: FAILS (closed by: the customer chooses a newer major (answer target.postgres.version))",
+            "extensions: UNKNOWN (closed by: preflight: on the source SELECT extname, extversion FROM pg_extension ORDER BY 1; on the target SHOW extwlist.extensions; and trust the target)",
+            "roles: UNKNOWN (closed by: preflight on the source, the roles: `SELECT rolname, rolsuper, rolcanlogin, rolcreatedb, rolcreaterole, rolreplication, rolconnlimit FROM pg_roles WHERE rolname !~ '^(pg_|cloudsql)' ORDER BY 1;` (psql: `\\du`); the memberships: `SELECT r.rolname AS role, m.rolname AS member, a.admin_option FROM pg_auth_members a JOIN pg_roles r ON r.oid = a.roleid JOIN pg_roles m ON m.oid = a.member ORDER BY 1, 2;`; and in every database to move: `\\dp`, `\\ddp`, `\\dn+`, `\\l` and `\\drds`; each role the application uses is created as a stackit_postgresflex_user resource and its grants are issued again)",
+            "network-tls: UNKNOWN (closed by: preflight from the move host: psql to the source and to the target with PGSSLMODE=require)",
+            "database-users-and-iam: UNKNOWN (closed by: preflight on the source: the users of the instance (gcloud sql users list --instance=<instance> for Cloud SQL, the pg_roles listing for both) and which of the applications sign in with a token)",
+            "source-headroom: UNKNOWN (closed by: preflight on the source: SELECT pg_size_pretty(pg_database_size(current_database())); and the free storage of the instance in Cloud Monitoring, against the size the customer states under source.dataset.size)",
+            "lr-enabled: UNKNOWN (closed by: preflight on the source: SHOW wal_level; and the flag cloudsql.logical_decoding of the instance (the owner of the source sets it and restarts the instance))",
+            "lr-replica-identity: UNKNOWN (closed by: preflight on the source: list the tables without a primary key (pg_class / pg_index, relkind 'r', outside pg_catalog and information_schema))",
+            "lr-subscription-privilege: UNKNOWN (closed by: preflight on the empty target: CREATE SUBSCRIPTION stacktoit_probe CONNECTION 'host=localhost dbname=x' PUBLICATION p WITH (connect = false); then ALTER SUBSCRIPTION stacktoit_probe SET (slot_name = NONE); DROP SUBSCRIPTION stacktoit_probe; if the master user cannot, the method is a design)",
+            "source-reach: UNKNOWN (closed by: the rehearsal: a subscription from a scratch database of the target to a copy of the source, and psql from the move host to both ends)",
+            "replication-cannot-catch-up: UNKNOWN (closed by: the customer states source.dataset.size, source.dataset.bandwidth and source.dataset.write_rate; the rehearsal measures the real throughput)"
+          ],
+          "risks": [
+            "a change and a restart of the source to turn cloudsql.logical_decoding on, and a second one to turn it off",
+            "the schema, later DDL, sequences and large objects are not replicated: the schema is copied first, the sequences at the freeze, a large object has no replication path",
+            "a replication slot nobody reads keeps WAL on the disk of the source until the disk is full",
+            "max_replication_slots and max_wal_senders of the source must hold the slot of the move beside the ones already used"
+          ],
+          "steps": [
+            {
+              "kind": "preflight",
+              "id": "MAN/data/google_sql_database_instance.postgres/preflight",
+              "in_plan": true
+            },
+            {
+              "kind": "rehearsal",
+              "id": "MAN/data/google_sql_database_instance.postgres/rehearsal",
+              "in_plan": true
+            },
+            {
+              "kind": "initial-copy",
+              "id": "MAN/data/google_sql_database_instance.postgres/initial-copy/logical-replication",
+              "in_plan": true
+            },
+            {
+              "kind": "delta-sync",
+              "id": "MAN/data/google_sql_database_instance.postgres/delta-sync/logical-replication",
+              "in_plan": true
+            },
+            {
+              "kind": "write-freeze",
+              "id": "MAN/data/google_sql_database_instance.postgres/write-freeze/logical-replication",
+              "in_plan": true
+            },
+            {
+              "kind": "final-sync",
+              "id": "MAN/data/google_sql_database_instance.postgres/final-sync/logical-replication",
+              "in_plan": true
+            },
+            {
+              "kind": "reconcile",
+              "id": "MAN/data/google_sql_database_instance.postgres/reconcile/logical-replication",
+              "in_plan": true
+            },
+            {
+              "kind": "cleanup",
+              "id": "MAN/data/google_sql_database_instance.postgres/cleanup/logical-replication",
+              "in_plan": true
+            }
+          ],
+          "verification": [
+            {
+              "id": "replication-lag",
+              "kind": "REPLICATION_LAG",
+              "mode": "COMMAND",
+              "what": "On the source, inside the freeze and before the final sync, read how far the subscription is behind the source: the lag of the replication slot in bytes.",
+              "expected": "the lag is 0 bytes with the writers stopped; the final sync (the sequences, then disabling the subscription) waits for it",
+              "command": "SELECT slot_name, active, pg_wal_lsn_diff(pg_current_wal_lsn(), confirmed_flush_lsn) AS lag_bytes FROM pg_replication_slots;"
+            },
+            {
+              "id": "last-sync-time",
+              "kind": "LAST_SYNC_TIME",
+              "mode": "COMMAND",
+              "what": "On the target, read the time of the last change the subscription applied, and record it with the time the writers stopped.",
+              "expected": "the time of the last sync is not earlier than the time the writers stopped, and no change arrives after it",
+              "command": "SELECT subname, latest_end_lsn, latest_end_time FROM pg_stat_subscription;",
+              "not_provided": [
+                "the time the writers stopped (recorded by the freeze step)"
+              ]
+            },
+            {
+              "id": "row-counts",
+              "kind": "COUNT_COMPARISON",
+              "mode": "COMMAND",
+              "what": "Count the rows of every table on both sides, with the writers stopped (an exact count of each table; the estimates of pg_stat_user_tables are not counts).",
+              "expected": "the same tables with the same number of rows on both sides; the tables of the schemas metric_helpers and user_management, which every PostgreSQL Flex instance keeps for the platform, are left out of the comparison",
+              "command": "SELECT format('SELECT %L AS tbl, count(*) FROM %I.%I;', schemaname || '.' || tablename, schemaname, tablename) FROM pg_tables WHERE schemaname NOT IN ('pg_catalog', 'information_schema') \\gexec"
+            },
+            {
+              "id": "table-checksums",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "Take the md5 of the rows of every keyed table that matters on both sides, ordered by its key (a key range for a large table; DateStyle, TimeZone and extra_float_digits equal in both sessions).",
+              "expected": "the row count and the md5 are equal on both sides for every table checked",
+              "command": "SELECT count(*), md5(string_agg(t::text, ',' ORDER BY t.<key-column>)) FROM <schema>.<table> t;",
+              "not_provided": [
+                "the key column of each table (<key-column>)",
+                "the tables that matter"
+              ]
+            },
+            {
+              "id": "sequences",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "Compare the position of every sequence on both sides, so that the first insert on the target does not repeat a key.",
+              "expected": "the positions are equal, or the target's is higher",
+              "command": "SELECT sequencename, last_value FROM pg_sequences ORDER BY 1;"
+            },
+            {
+              "id": "subscription-state",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "On the target, list the tables of the subscription that have not reached the state ready, and read the state of the subscription: a table added after the publication, or one whose copy failed, is not followed.",
+              "expected": "the first statement returns no row, and the subscription is disabled after the final sync",
+              "command": "SELECT srrelid::regclass, srsubstate FROM pg_subscription_rel WHERE srsubstate <> 'r';\nSELECT subname, subenabled FROM pg_subscription;"
+            },
+            {
+              "id": "extensions",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "List the extensions and their versions on both sides: the restore or the subscription does not create on the target what it does not offer.",
+              "expected": "every extension the application uses is on the target; a difference is settled and recorded",
+              "command": "SELECT extname, extversion FROM pg_extension ORDER BY 1;"
+            },
+            {
+              "id": "roles-and-grants",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "List the roles and the table grants on both sides: the schema is copied with --no-owner --no-acl, so the owners and the grants of the source are not on the target, and a user of Cloud SQL for PostgreSQL that signs in with an IAM identity has no counterpart on PostgreSQL Flex, which has password users only.",
+              "expected": "every login the application uses exists on the target with the grants it needs; cloudsqlsuperuser, the roles of the platform of each side and the users that signed in with an IAM identity are settled one by one",
+              "command": "SELECT rolname, rolcanlogin FROM pg_roles WHERE rolname !~ '^pg_' ORDER BY 1;\nSELECT grantee, table_schema, table_name, privilege_type FROM information_schema.role_table_grants WHERE table_schema NOT IN ('pg_catalog', 'information_schema') ORDER BY 1, 2, 3, 4;"
+            },
+            {
+              "id": "application-check",
+              "kind": "APPLICATION_SMOKE",
+              "mode": "MANUAL",
+              "what": "Run one read the application itself makes on its most important data against the target database and compare its answer with the answer the application gets from the Cloud SQL for PostgreSQL database; then, from a test copy of the application, make one write against the target database and read it back.",
+              "expected": "the two answers are equal, the write succeeds and the read returns it",
+              "manual_reason": "the read and the write are the application's, and the source states neither the query nor the answer",
+              "not_provided": [
+                "the read the application makes on its most important data and its expected answer",
+                "the write the test copy of the application makes"
+              ]
+            },
+            {
+              "id": "rollback-limit",
+              "kind": "ROLLBACK_LIMIT",
+              "mode": "MANUAL",
+              "what": "Record the point after which a rollback loses data. Until the first of the writes that the target database accepts after the switch, a rollback is only the connection settings put back: the Cloud SQL for PostgreSQL database was not changed after the freeze and is current to it. From that write on, what the target database holds exists only there: it is copied back to the Cloud SQL for PostgreSQL database with a method rehearsed before the window, or accepted as lost. Once the Cloud SQL for PostgreSQL database is retired (its retirement step, after the GO and the retention the owner decides) there is nothing to go back to.",
+              "expected": "before the window the owner records the date until which the Cloud SQL for PostgreSQL database is kept, the method that copies the writes of the target database back or the decision that they are lost, and who calls the rollback",
+              "manual_reason": "how long the source is kept and whether the writes made on the target are copied back or lost are decisions of the owner of the application: the source states neither, so the plan names the limit and no date",
+              "not_provided": [
+                "the date until which the Cloud SQL for PostgreSQL database is kept",
+                "the method that copies the writes of the target database back, or the decision that they are lost"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "own-tool",
+          "decision_option": "migrate-with-a-tool-of-my-own",
+          "state": "CUSTOMER_OWNED",
+          "why": "the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point",
+          "chosen": false,
+          "duration": {
+            "state": "UNKNOWN",
+            "inputs": [],
+            "text": "unknown: the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point",
+            "reason": "a tool of the customer's own"
+          },
+          "freeze_window": {
+            "basis": "the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point",
+            "stated_downtime": {
+              "topic": "source.dataset.downtime",
+              "origin": "UNKNOWN",
+              "reason": "NOT_PROVIDED"
+            },
+            "comparison": "UNKNOWN",
+            "detail": "no lower bound of the window can be computed: the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point"
+          },
+          "objectives": {
+            "rpo": {
+              "stated": {
+                "topic": "source.dataset.rpo",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "unknown: the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            },
+            "rto": {
+              "stated": {
+                "topic": "source.dataset.rto",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "unknown: the customer moves the data with a tool or a replication of their own: the plan knows nothing of it, so it states no duration, no freeze window and no recovery point",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            }
+          },
+          "prerequisites": [],
+          "risks": [],
+          "steps": [
+            {
+              "kind": "write-freeze",
+              "id": "MAN/data/google_sql_database_instance.postgres/write-freeze/own-tool",
+              "in_plan": true
+            },
+            {
+              "kind": "final-sync",
+              "id": "MAN/data/google_sql_database_instance.postgres/final-sync/own-tool",
+              "in_plan": true
+            },
+            {
+              "kind": "reconcile",
+              "id": "MAN/data/google_sql_database_instance.postgres/reconcile/own-tool",
+              "in_plan": true
+            }
+          ],
+          "verification": [
+            {
+              "id": "row-counts",
+              "kind": "COUNT_COMPARISON",
+              "mode": "COMMAND",
+              "what": "Count the rows of every table on both sides, with the writers stopped (an exact count of each table; the estimates of pg_stat_user_tables are not counts).",
+              "expected": "the same tables with the same number of rows on both sides; the tables of the schemas metric_helpers and user_management, which every PostgreSQL Flex instance keeps for the platform, are left out of the comparison",
+              "command": "SELECT format('SELECT %L AS tbl, count(*) FROM %I.%I;', schemaname || '.' || tablename, schemaname, tablename) FROM pg_tables WHERE schemaname NOT IN ('pg_catalog', 'information_schema') \\gexec"
+            },
+            {
+              "id": "table-checksums",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "Take the md5 of the rows of every keyed table that matters on both sides, ordered by its key (a key range for a large table; DateStyle, TimeZone and extra_float_digits equal in both sessions).",
+              "expected": "the row count and the md5 are equal on both sides for every table checked",
+              "command": "SELECT count(*), md5(string_agg(t::text, ',' ORDER BY t.<key-column>)) FROM <schema>.<table> t;",
+              "not_provided": [
+                "the key column of each table (<key-column>)",
+                "the tables that matter"
+              ]
+            },
+            {
+              "id": "sequences",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "Compare the position of every sequence on both sides, so that the first insert on the target does not repeat a key.",
+              "expected": "the positions are equal, or the target's is higher",
+              "command": "SELECT sequencename, last_value FROM pg_sequences ORDER BY 1;"
+            },
+            {
+              "id": "extensions",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "List the extensions and their versions on both sides: the restore or the subscription does not create on the target what it does not offer.",
+              "expected": "every extension the application uses is on the target; a difference is settled and recorded",
+              "command": "SELECT extname, extversion FROM pg_extension ORDER BY 1;"
+            },
+            {
+              "id": "roles-and-grants",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "List the roles and the table grants on both sides: the schema is copied with --no-owner --no-acl, so the owners and the grants of the source are not on the target, and a user of Cloud SQL for PostgreSQL that signs in with an IAM identity has no counterpart on PostgreSQL Flex, which has password users only.",
+              "expected": "every login the application uses exists on the target with the grants it needs; cloudsqlsuperuser, the roles of the platform of each side and the users that signed in with an IAM identity are settled one by one",
+              "command": "SELECT rolname, rolcanlogin FROM pg_roles WHERE rolname !~ '^pg_' ORDER BY 1;\nSELECT grantee, table_schema, table_name, privilege_type FROM information_schema.role_table_grants WHERE table_schema NOT IN ('pg_catalog', 'information_schema') ORDER BY 1, 2, 3, 4;"
+            },
+            {
+              "id": "application-check",
+              "kind": "APPLICATION_SMOKE",
+              "mode": "MANUAL",
+              "what": "Run one read the application itself makes on its most important data against the target database and compare its answer with the answer the application gets from the Cloud SQL for PostgreSQL database; then, from a test copy of the application, make one write against the target database and read it back.",
+              "expected": "the two answers are equal, the write succeeds and the read returns it",
+              "manual_reason": "the read and the write are the application's, and the source states neither the query nor the answer",
+              "not_provided": [
+                "the read the application makes on its most important data and its expected answer",
+                "the write the test copy of the application makes"
+              ]
+            },
+            {
+              "id": "rollback-limit",
+              "kind": "ROLLBACK_LIMIT",
+              "mode": "MANUAL",
+              "what": "Record the point after which a rollback loses data. Until the first of the writes that the target database accepts after the switch, a rollback is only the connection settings put back: the Cloud SQL for PostgreSQL database was not changed after the freeze and is current to it. From that write on, what the target database holds exists only there: it is copied back to the Cloud SQL for PostgreSQL database with a method rehearsed before the window, or accepted as lost. Once the Cloud SQL for PostgreSQL database is retired (its retirement step, after the GO and the retention the owner decides) there is nothing to go back to.",
+              "expected": "before the window the owner records the date until which the Cloud SQL for PostgreSQL database is kept, the method that copies the writes of the target database back or the decision that they are lost, and who calls the rollback",
+              "manual_reason": "how long the source is kept and whether the writes made on the target are copied back or lost are decisions of the owner of the application: the source states neither, so the plan names the limit and no date",
+              "not_provided": [
+                "the date until which the Cloud SQL for PostgreSQL database is kept",
+                "the method that copies the writes of the target database back, or the decision that they are lost"
+              ]
+            }
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "version-offered",
+          "state": "HOLDS",
+          "detail": "source major 14 is offered by PostgreSQL Flex (14, 15, 16, 17, 18)",
+          "evidence": "PostgreSQL Flex versions: the versions the service offers in the region (the list of versions of the PostgreSQL Flex API), else the documented range 14 to 18 (supported-extensions page)",
+          "closed_by": "preflight on the source: SHOW server_version;"
+        },
+        {
+          "id": "version-target",
+          "state": "HOLDS",
+          "detail": "target major 14 equals the source's: no upgrade",
+          "evidence": "PostgreSQL pg_dump documentation: pg_dump dumps older servers and refuses a newer one; --quote-all-identifiers is recommended for a dump loaded into another major",
+          "closed_by": "the customer chooses the target major (answer target.postgres.version); preflight on the source: SHOW server_version;"
+        },
+        {
+          "id": "version-deprecated",
+          "state": "FAILS",
+          "detail": "PostgreSQL Flex 14, the major the draft writes, is deprecated: end of support 2026-11-12; an instance on it must be updated to a newer major",
+          "evidence": "STACKIT release notes, entry of 2026-05-20 (https://docs.stackit.cloud/stackit/en/release-notes-23101442.html): PostgreSQL 14 reaches its end of support on 12 November 2026",
+          "closed_by": "the customer chooses a newer major (answer target.postgres.version)"
+        },
+        {
+          "id": "extensions",
+          "state": "UNKNOWN",
+          "detail": "no flag of the source turns on an extension that is off the documented list; the extensions the database creates are not in the scan",
+          "evidence": "STACKIT PostgreSQL Flex supported-extensions page (https://docs.stackit.cloud/products/databases/postgresql-flex/reference/supported-extensions/, read 2026-10-18): the list below, `show extwlist.extensions;` as the authority on an instance, \"Your database owner has all the required permissions to create extensions\"",
+          "closed_by": "preflight: on the source SELECT extname, extversion FROM pg_extension ORDER BY 1; on the target SHOW extwlist.extensions; and trust the target"
+        },
+        {
+          "id": "roles",
+          "state": "UNKNOWN",
+          "detail": "pg_dump of one database carries no role; the users of Cloud SQL for PostgreSQL are members of cloudsqlsuperuser and STACKIT documents no superuser for a customer, so restore with --no-owner --no-acl and issue the grants again; the roles the application uses beyond the users the draft writes are not in the Terraform; the draft writes no user, so the user that restores the dump is created by a person",
+          "evidence": "stackit-api-specifications services/postgres-flex/v3/postgres-flex.json (user.role, ListRolesResponse: \"valid roles depend on the Postgres version\"); the users admin and postgres are reserved (409 ALREADY_EXISTS, observed on a STACKIT sandbox target on 2026-10-15); PostgreSQL 18 documentation (postgresql.org, read 2026-11-02): the view pg_roles (rolname, rolsuper, rolcanlogin, rolcreatedb, rolcreaterole, rolreplication, rolconnlimit), the catalog pg_auth_members (roleid, member, grantor, admin_option) and the psql commands \\du (user-created roles), \\dp (tables, views and sequences with their access privileges), \\ddp (default access privileges), \\dn+ (schemas with their permissions), \\l (databases with owners and access privileges) and \\drds (role-specific and database-specific settings)",
+          "closed_by": "preflight on the source, the roles: `SELECT rolname, rolsuper, rolcanlogin, rolcreatedb, rolcreaterole, rolreplication, rolconnlimit FROM pg_roles WHERE rolname !~ '^(pg_|cloudsql)' ORDER BY 1;` (psql: `\\du`); the memberships: `SELECT r.rolname AS role, m.rolname AS member, a.admin_option FROM pg_auth_members a JOIN pg_roles r ON r.oid = a.roleid JOIN pg_roles m ON m.oid = a.member ORDER BY 1, 2;`; and in every database to move: `\\dp`, `\\ddp`, `\\dn+`, `\\l` and `\\drds`; each role the application uses is created as a stackit_postgresflex_user resource and its grants are issued again"
+        },
+        {
+          "id": "network-tls",
+          "state": "UNKNOWN",
+          "detail": "the host that runs the move must be in network.acl of the instance (remove it afterwards), reach the source (a private address of Cloud SQL for PostgreSQL needs a host in or routed to that VPC network; a public one needs the host among the authorized networks of a Cloud SQL instance), use the fixed port connection_info.write.port of the target, and speak TLS 1.3 (PGSSLMODE=require)",
+          "evidence": "STACKIT PostgreSQL Flex FAQ (https://docs.stackit.cloud/products/databases/postgresql-flex/faq/, read 2026-10-18): \"Currently you can't change the PostgreSQL port\"; \"Connections to your database are always encrypted using TLS 1.3 and signed certificates\"; documentation of the stackit_postgresflex_instance resource of the STACKIT Terraform provider 0.119.0: the host and port are connection_info.write.host and .port",
+          "closed_by": "preflight from the move host: psql to the source and to the target with PGSSLMODE=require"
+        },
+        {
+          "id": "database-users-and-iam",
+          "state": "UNKNOWN",
+          "detail": "a database user of Cloud SQL for PostgreSQL can sign in with an IAM identity instead of a password (an IAM user, a service account or a group of Cloud IAM); PostgreSQL Flex has password users only, so the applications that sign in that way get a password user and a changed connection setting, and the Terraform shows the users it creates, not the ones created outside it",
+          "evidence": "stackit-api-specifications services/postgres-flex/v3/postgres-flex.json (user.role, ListRolesResponse: \"valid roles depend on the Postgres version\"); the users admin and postgres are reserved (409 ALREADY_EXISTS, observed on a STACKIT sandbox target on 2026-10-15); Google Cloud, Cloud SQL for PostgreSQL, Configure logical replication and decoding (https://docs.cloud.google.com/sql/docs/postgres/replication/configure-logical-replication, read 2026-11-05): logical decoding is turned on with the flag cloudsql.logical_decoding (\"Changing the flags discussed in this section requires a restart of your instance\"); \"To use logical decoding features, you create a PostgreSQL user with the REPLICATION attribute\"; Cloud SQL users need the cloudsqlsuperuser role, not SUPERUSER, and a user needs the CREATE privilege on each database it replicates; max_wal_senders and max_replication_slots default to 10; \"Unused slots keep WAL segments, so disk usage can grow without limit\"; the page gives no limit on sequences and refers to the PostgreSQL documentation for DDL",
+          "closed_by": "preflight on the source: the users of the instance (gcloud sql users list --instance=<instance> for Cloud SQL, the pg_roles listing for both) and which of the applications sign in with a token"
+        },
+        {
+          "id": "source-headroom",
+          "state": "UNKNOWN",
+          "detail": "Google says to keep at least 25 percent of the database size free on the instance before a large export, and the free disk and the size of the data are not in the Terraform (the disk_size of the instance is its capacity, never the size of the data)",
+          "evidence": "Google Cloud, Cloud SQL for PostgreSQL, Export data with pg_dump (https://docs.cloud.google.com/sql/docs/postgres/import-export/import-export-dmp, read 2026-11-05): the dump of one database uses pg_dump with --no-owner and --no-acl for a file that is loaded into Cloud SQL; pg_restore reads the custom and directory formats; parallel export works only with the directory format (-j); pg_dumpall needs --exclude-database=cloudsqladmin and --exclude-database=template* and fails when the databases have several owners; \"make sure at least 25 percent of the database size is free\" on the instance before a large export",
+          "closed_by": "preflight on the source: SELECT pg_size_pretty(pg_database_size(current_database())); and the free storage of the instance in Cloud Monitoring, against the size the customer states under source.dataset.size"
+        },
+        {
+          "id": "lr-enabled",
+          "state": "UNKNOWN",
+          "detail": "cloudsql.logical_decoding is not stated in the database flags of the source; turning it on is a change and a restart of the instance",
+          "evidence": "Google Cloud, Cloud SQL for PostgreSQL, Configure logical replication and decoding (https://docs.cloud.google.com/sql/docs/postgres/replication/configure-logical-replication, read 2026-11-05): logical decoding is turned on with the flag cloudsql.logical_decoding (\"Changing the flags discussed in this section requires a restart of your instance\"); \"To use logical decoding features, you create a PostgreSQL user with the REPLICATION attribute\"; Cloud SQL users need the cloudsqlsuperuser role, not SUPERUSER, and a user needs the CREATE privilege on each database it replicates; max_wal_senders and max_replication_slots default to 10; \"Unused slots keep WAL segments, so disk usage can grow without limit\"; the page gives no limit on sequences and refers to the PostgreSQL documentation for DDL",
+          "closed_by": "preflight on the source: SHOW wal_level; and the flag cloudsql.logical_decoding of the instance (the owner of the source sets it and restarts the instance)"
+        },
+        {
+          "id": "lr-replica-identity",
+          "state": "UNKNOWN",
+          "detail": "every table needs a primary key or a replica identity for UPDATE and DELETE to replicate; the scan does not show the tables of the database",
+          "evidence": "PostgreSQL docs, logical-replication-restrictions (no schema, sequences or large objects) and sql-createsubscription (needs the pg_create_subscription role and CREATE on the database)",
+          "closed_by": "preflight on the source: list the tables without a primary key (pg_class / pg_index, relkind 'r', outside pg_catalog and information_schema)"
+        },
+        {
+          "id": "lr-subscription-privilege",
+          "state": "UNKNOWN",
+          "detail": "the source needs a user with the REPLICATION attribute and CREATE on the database for the publication (Cloud SQL for PostgreSQL users are members of cloudsqlsuperuser, not SUPERUSER), and a subscription needs the pg_create_subscription role and CREATE on the database of the target; STACKIT does not document that the master user of an instance has them",
+          "evidence": "PostgreSQL docs, logical-replication-restrictions (no schema, sequences or large objects) and sql-createsubscription (needs the pg_create_subscription role and CREATE on the database); Google Cloud, Cloud SQL for PostgreSQL, Configure logical replication and decoding (https://docs.cloud.google.com/sql/docs/postgres/replication/configure-logical-replication, read 2026-11-05): logical decoding is turned on with the flag cloudsql.logical_decoding (\"Changing the flags discussed in this section requires a restart of your instance\"); \"To use logical decoding features, you create a PostgreSQL user with the REPLICATION attribute\"; Cloud SQL users need the cloudsqlsuperuser role, not SUPERUSER, and a user needs the CREATE privilege on each database it replicates; max_wal_senders and max_replication_slots default to 10; \"Unused slots keep WAL segments, so disk usage can grow without limit\"; the page gives no limit on sequences and refers to the PostgreSQL documentation for DDL",
+          "closed_by": "preflight on the empty target: CREATE SUBSCRIPTION stacktoit_probe CONNECTION 'host=localhost dbname=x' PUBLICATION p WITH (connect = false); then ALTER SUBSCRIPTION stacktoit_probe SET (slot_name = NONE); DROP SUBSCRIPTION stacktoit_probe; if the master user cannot, the method is a design"
+        },
+        {
+          "id": "source-reach",
+          "state": "UNKNOWN",
+          "detail": "the target instance must reach the source for a subscription, and the move host must reach both; the source is reached on a public address that lists the move host (or the address the target connects from, which STACKIT does not document) among its authorized networks, or on a private address inside a network the move host and the target can route to; the Terraform shows neither path",
+          "evidence": "not documented: STACKIT PostgreSQL Flex FAQ (https://docs.stackit.cloud/products/databases/postgresql-flex/faq/, read 2026-10-18): \"Currently you can't change the PostgreSQL port\"; \"Connections to your database are always encrypted using TLS 1.3 and signed certificates\"",
+          "closed_by": "the rehearsal: a subscription from a scratch database of the target to a copy of the source, and psql from the move host to both ends"
+        },
+        {
+          "id": "replication-cannot-catch-up",
+          "state": "UNKNOWN",
+          "detail": "not computable: source.dataset.size, source.dataset.bandwidth, source.dataset.write_rate must be stated by the customer (a value from the source or an application file is not used)",
+          "evidence": "arithmetic on the customer's inputs: a copy that follows the changes catches up only if the bandwidth exceeds the write rate",
+          "closed_by": "the customer states source.dataset.size, source.dataset.bandwidth and source.dataset.write_rate; the rehearsal measures the real throughput"
+        }
+      ],
+      "runbook": "terraform/handover/database-postgres/data-move.md",
+      "applications": {
+        "confirmed_state": "NONE_CONFIRMED",
+        "confirmed": [],
+        "reason": "no application of the customer's applications file confirms this store: no file was given, no application claims it, or several claim it",
+        "proposed": {
+          "state": "NOT_LINKED",
+          "reason": "the suggested groups that reach this store are several (migrate, server), so it is a member of none: a unit that more than one group reaches is shared"
+        }
+      },
+      "connected_units": [
+        "google_cloud_run_v2_service.server"
+      ],
+      "connections": [
+        {
+          "unit": "google_cloud_run_v2_service.server",
+          "via": "REFERENCE",
+          "detail": "the unit depends on the store in the Terraform: it names the store or a value of it",
+          "evidence": [
+            "google_cloud_run_v2_service.server depends on google_sql_database_instance.postgres"
+          ]
+        }
+      ],
+      "open": [
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.size",
+          "what": "source.dataset.size of google_sql_database_instance.postgres is not stated",
+          "closed_by": "the customer answers the request for source.dataset.size in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.write_rate",
+          "what": "source.dataset.write_rate of google_sql_database_instance.postgres is not stated",
+          "closed_by": "the customer answers the request for source.dataset.write_rate in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.bandwidth",
+          "what": "source.dataset.bandwidth of google_sql_database_instance.postgres is not stated",
+          "closed_by": "the customer answers the request for source.dataset.bandwidth in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.rpo",
+          "what": "source.dataset.rpo of google_sql_database_instance.postgres is not stated",
+          "closed_by": "the customer answers the request for source.dataset.rpo in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.rto",
+          "what": "source.dataset.rto of google_sql_database_instance.postgres is not stated",
+          "closed_by": "the customer answers the request for source.dataset.rto in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.downtime",
+          "what": "source.dataset.downtime of google_sql_database_instance.postgres is not stated",
+          "closed_by": "the customer answers the request for source.dataset.downtime in the inputs file"
+        },
+        {
+          "kind": "CHECK",
+          "id": "extensions",
+          "what": "no flag of the source turns on an extension that is off the documented list; the extensions the database creates are not in the scan",
+          "closed_by": "preflight: on the source SELECT extname, extversion FROM pg_extension ORDER BY 1; on the target SHOW extwlist.extensions; and trust the target"
+        },
+        {
+          "kind": "CHECK",
+          "id": "roles",
+          "what": "pg_dump of one database carries no role; the users of Cloud SQL for PostgreSQL are members of cloudsqlsuperuser and STACKIT documents no superuser for a customer, so restore with --no-owner --no-acl and issue the grants again; the roles the application uses beyond the users the draft writes are not in the Terraform; the draft writes no user, so the user that restores the dump is created by a person",
+          "closed_by": "preflight on the source, the roles: `SELECT rolname, rolsuper, rolcanlogin, rolcreatedb, rolcreaterole, rolreplication, rolconnlimit FROM pg_roles WHERE rolname !~ '^(pg_|cloudsql)' ORDER BY 1;` (psql: `\\du`); the memberships: `SELECT r.rolname AS role, m.rolname AS member, a.admin_option FROM pg_auth_members a JOIN pg_roles r ON r.oid = a.roleid JOIN pg_roles m ON m.oid = a.member ORDER BY 1, 2;`; and in every database to move: `\\dp`, `\\ddp`, `\\dn+`, `\\l` and `\\drds`; each role the application uses is created as a stackit_postgresflex_user resource and its grants are issued again"
+        },
+        {
+          "kind": "CHECK",
+          "id": "network-tls",
+          "what": "the host that runs the move must be in network.acl of the instance (remove it afterwards), reach the source (a private address of Cloud SQL for PostgreSQL needs a host in or routed to that VPC network; a public one needs the host among the authorized networks of a Cloud SQL instance), use the fixed port connection_info.write.port of the target, and speak TLS 1.3 (PGSSLMODE=require)",
+          "closed_by": "preflight from the move host: psql to the source and to the target with PGSSLMODE=require"
+        },
+        {
+          "kind": "CHECK",
+          "id": "database-users-and-iam",
+          "what": "a database user of Cloud SQL for PostgreSQL can sign in with an IAM identity instead of a password (an IAM user, a service account or a group of Cloud IAM); PostgreSQL Flex has password users only, so the applications that sign in that way get a password user and a changed connection setting, and the Terraform shows the users it creates, not the ones created outside it",
+          "closed_by": "preflight on the source: the users of the instance (gcloud sql users list --instance=<instance> for Cloud SQL, the pg_roles listing for both) and which of the applications sign in with a token"
+        },
+        {
+          "kind": "CHECK",
+          "id": "source-headroom",
+          "what": "Google says to keep at least 25 percent of the database size free on the instance before a large export, and the free disk and the size of the data are not in the Terraform (the disk_size of the instance is its capacity, never the size of the data)",
+          "closed_by": "preflight on the source: SELECT pg_size_pretty(pg_database_size(current_database())); and the free storage of the instance in Cloud Monitoring, against the size the customer states under source.dataset.size"
+        },
+        {
+          "kind": "CHECK",
+          "id": "lr-enabled",
+          "what": "cloudsql.logical_decoding is not stated in the database flags of the source; turning it on is a change and a restart of the instance",
+          "closed_by": "preflight on the source: SHOW wal_level; and the flag cloudsql.logical_decoding of the instance (the owner of the source sets it and restarts the instance)"
+        },
+        {
+          "kind": "CHECK",
+          "id": "lr-replica-identity",
+          "what": "every table needs a primary key or a replica identity for UPDATE and DELETE to replicate; the scan does not show the tables of the database",
+          "closed_by": "preflight on the source: list the tables without a primary key (pg_class / pg_index, relkind 'r', outside pg_catalog and information_schema)"
+        },
+        {
+          "kind": "CHECK",
+          "id": "lr-subscription-privilege",
+          "what": "the source needs a user with the REPLICATION attribute and CREATE on the database for the publication (Cloud SQL for PostgreSQL users are members of cloudsqlsuperuser, not SUPERUSER), and a subscription needs the pg_create_subscription role and CREATE on the database of the target; STACKIT does not document that the master user of an instance has them",
+          "closed_by": "preflight on the empty target: CREATE SUBSCRIPTION stacktoit_probe CONNECTION 'host=localhost dbname=x' PUBLICATION p WITH (connect = false); then ALTER SUBSCRIPTION stacktoit_probe SET (slot_name = NONE); DROP SUBSCRIPTION stacktoit_probe; if the master user cannot, the method is a design"
+        },
+        {
+          "kind": "CHECK",
+          "id": "source-reach",
+          "what": "the target instance must reach the source for a subscription, and the move host must reach both; the source is reached on a public address that lists the move host (or the address the target connects from, which STACKIT does not document) among its authorized networks, or on a private address inside a network the move host and the target can route to; the Terraform shows neither path",
+          "closed_by": "the rehearsal: a subscription from a scratch database of the target to a copy of the source, and psql from the move host to both ends"
+        },
+        {
+          "kind": "CHECK",
+          "id": "replication-cannot-catch-up",
+          "what": "not computable: source.dataset.size, source.dataset.bandwidth, source.dataset.write_rate must be stated by the customer (a value from the source or an application file is not used)",
+          "closed_by": "the customer states source.dataset.size, source.dataset.bandwidth and source.dataset.write_rate; the rehearsal measures the real throughput"
+        },
+        {
+          "kind": "DECISION",
+          "id": "convert:google_sql_database_instance.postgres:data:DATA_MOVEMENT",
+          "what": "the method that moves the data of google_sql_database_instance.postgres is not chosen",
+          "closed_by": "the architect answers the decision; the steps of the methods the answer does not take are not taken"
+        }
+      ],
+      "rollback": "Before the connection strings are switched nothing is switched: the source was neither stopped nor made read-only nor changed after the freeze, so it is current to the freeze; stop the writers, put the recorded connection settings of the source back and start the writers on it. After the switch, what was written to the target is not on the source: the point of no return is the first write to the target. The way back is a copy in the other direction (the same method, a separate rehearsal) or accepting the loss; take that decision before the window. There is no reverse replication defined on STACKIT. Keep the target until the cause is known and do not delete the source in the same hour.",
+      "limits": [
+        "StackToIT moves no data and opens no connection: every step is defined for a person to run; none is applied or verified by this plan",
+        "the disk size of the source is its provisioned capacity, not the size of the data: the size is the customer's input (source.dataset.size)",
+        "the extension list is the one STACKIT documented when read (2026-10-18); an instance is the authority (`SHOW extwlist.extensions;`)",
+        "not verified on STACKIT: that the master user of an instance can create a subscription (not documented), that a PostgreSQL Flex instance can reach a source for logical replication and from which address, and which errors pg_restore reports on a dump of Cloud SQL for PostgreSQL",
+        "the privileges the roles of the target's role list carry are not verified"
+      ]
+    },
+    {
+      "unit": "google_storage_bucket.media",
+      "source_type": "google_storage_bucket",
+      "family": "gcs-to-objectstorage",
+      "source": {
+        "engine": "gcs",
+        "engine_version": {
+          "state": "NOT_APPLICABLE",
+          "value": "this store has no engine version the plan compares"
+        },
+        "major": {
+          "state": "NOT_APPLICABLE",
+          "value": "this store has no engine version the plan compares"
+        },
+        "provisioned_capacity": {
+          "state": "NOT_APPLICABLE",
+          "value": "a bucket has no provisioned capacity"
+        }
+      },
+      "target": {
+        "instance": "stackit_objectstorage_bucket.media",
+        "version": {
+          "state": "NOT_APPLICABLE",
+          "value": "this store has no engine version the plan compares"
+        },
+        "offered_majors": []
+      },
+      "quantities": {
+        "size": {
+          "topic": "source.dataset.size",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "write_rate": {
+          "topic": "source.dataset.write_rate",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "bandwidth": {
+          "topic": "source.dataset.bandwidth",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "rpo": {
+          "topic": "source.dataset.rpo",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "rto": {
+          "topic": "source.dataset.rto",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        },
+        "downtime": {
+          "topic": "source.dataset.downtime",
+          "origin": "UNKNOWN",
+          "reason": "NOT_PROVIDED"
+        }
+      },
+      "selection": "ONLY_OPEN_METHOD",
+      "chosen_method": "rclone-copy",
+      "methods": [
+        {
+          "id": "rclone-copy",
+          "decision_option": "copy-the-objects-with-rclone",
+          "state": "CANDIDATE",
+          "chosen": true,
+          "duration": {
+            "state": "UNKNOWN",
+            "formula": "min = size.min / bandwidth.max; max = size.max / (bandwidth.min - write_rate.max)",
+            "inputs": [
+              "source.dataset.size",
+              "source.dataset.bandwidth",
+              "source.dataset.write_rate"
+            ],
+            "text": "unknown: source.dataset.size, source.dataset.bandwidth, source.dataset.write_rate must be stated by the customer (a value from the source or an application file is not used)",
+            "missing": [
+              "source.dataset.size",
+              "source.dataset.bandwidth",
+              "source.dataset.write_rate"
+            ]
+          },
+          "freeze_window": {
+            "basis": "the freeze covers the last pass only (the objects that changed since the previous pass), then the settlement of the deletions, the reconcile and the switch of the applications; the last pass depends on the write rate and on the time since the previous pass, so the plan has no formula for the window",
+            "stated_downtime": {
+              "topic": "source.dataset.downtime",
+              "origin": "UNKNOWN",
+              "reason": "NOT_PROVIDED"
+            },
+            "comparison": "UNKNOWN",
+            "detail": "no lower bound of the window can be computed: the freeze covers the last pass only (the objects that changed since the previous pass), then the settlement of the deletions, the reconcile and the switch of the applications; the last pass depends on the write rate and on the time since the previous pass, so the plan has no formula for the window"
+          },
+          "objectives": {
+            "rpo": {
+              "stated": {
+                "topic": "source.dataset.rpo",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "Designed to lose no write that was committed before the freeze: the writers are stopped before the last pass and the source is neither stopped nor changed, so the target holds every object of the source at the freeze. Writes after the freeze wait until the applications are switched. Not measured.",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            },
+            "rto": {
+              "stated": {
+                "topic": "source.dataset.rto",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "The writers of the bucket are unavailable from the freeze until the applications are switched: the last pass, the settlement of the deletions, the reconcile and the switch. The plan has no formula for it; the rehearsal measures the passes.",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            }
+          },
+          "prerequisites": [
+            "target-bucket-and-credentials: UNKNOWN (closed by: preflight on the target: `rclone lsd DST:` and `rclone size DST:<target-bucket> --json` with that key (the bucket exists and is empty))",
+            "source-read-access: UNKNOWN (closed by: preflight on the source: `rclone lsd SRC:` and `rclone size SRC:<source-bucket> --json` with the identity the move host uses, and a read of a sample of the objects the owner names)",
+            "encryption: UNKNOWN (closed by: preflight on the source: `gcloud storage buckets describe gs://<source-bucket> --format='value(default_kms_key)'` and the key of a sample of the objects)",
+            "acl-and-policy: FAILS (closed by: the bucket policy and the ACL are settled where the draft states them (the NOT CARRIED lines of storage.tf and the decision records); the ACLs of objects are read in the preflight on a sample)",
+            "object-metadata: UNKNOWN (closed by: the rehearsal: `rclone lsjson --metadata` of a sample on both sides, compared field by field)",
+            "requester-pays: UNKNOWN (closed by: preflight on the source: `gcloud storage buckets describe gs://<source-bucket> --format='value(billing.requester_pays)'`)",
+            "soft-deleted-objects: UNKNOWN (closed by: preflight on the source: whether the owner needs deleted objects restored on the target (they are restored in the source first, then copied))",
+            "copy-cannot-catch-up: UNKNOWN (closed by: the customer states source.dataset.size, source.dataset.bandwidth and source.dataset.write_rate; the rehearsal measures the real throughput)"
+          ],
+          "risks": [
+            "rclone is a tool of the operator's own to install and run: STACKIT's tutorial uses it, StackToIT does not run or verify it",
+            "a copy of the live objects carries no noncurrent version, no generation number, no retention, no ACL, no policy and no key of the source: the checks of the plan say which of these the source has",
+            "the copy never deletes on the target: an object deleted in the source after the initial copy is still on the target until the final pass is reviewed",
+            "the key that copies into the target reaches every bucket of the project: keep it to the move host and remove it at the cleanup",
+            "Google bills the network egress of the data read out of the bucket and the retrieval fee of the colder classes; the plan computes no cost",
+            "the object keys are in the logs and key lists of the move: keep them readable only by the person who moves"
+          ],
+          "steps": [
+            {
+              "kind": "preflight",
+              "id": "MAN/data/google_storage_bucket.media/preflight",
+              "in_plan": true
+            },
+            {
+              "kind": "rehearsal",
+              "id": "MAN/data/google_storage_bucket.media/rehearsal",
+              "in_plan": true
+            },
+            {
+              "kind": "initial-copy",
+              "id": "MAN/data/google_storage_bucket.media/initial-copy/rclone-copy",
+              "in_plan": true
+            },
+            {
+              "kind": "delta-sync",
+              "id": "MAN/data/google_storage_bucket.media/delta-sync/rclone-copy",
+              "in_plan": true
+            },
+            {
+              "kind": "write-freeze",
+              "id": "MAN/data/google_storage_bucket.media/write-freeze/rclone-copy",
+              "in_plan": true
+            },
+            {
+              "kind": "final-sync",
+              "id": "MAN/data/google_storage_bucket.media/final-sync/rclone-copy",
+              "in_plan": true
+            },
+            {
+              "kind": "reconcile",
+              "id": "MAN/data/google_storage_bucket.media/reconcile/rclone-copy",
+              "in_plan": true
+            },
+            {
+              "kind": "cleanup",
+              "id": "MAN/data/google_storage_bucket.media/cleanup/rclone-copy",
+              "in_plan": true
+            }
+          ],
+          "verification": [
+            {
+              "id": "object-count-and-bytes",
+              "kind": "COUNT_COMPARISON",
+              "mode": "COMMAND",
+              "what": "Count the objects and the bytes of both buckets with the writers stopped.",
+              "expected": "the number of objects and the bytes are equal on both sides",
+              "command": "rclone size SRC:<source-bucket> --json\nrclone size DST:<target-bucket> --json"
+            },
+            {
+              "id": "key-lists",
+              "kind": "COUNT_COMPARISON",
+              "mode": "COMMAND",
+              "what": "List the keys of both buckets, sort them and compare the lists.",
+              "expected": "the difference of the two lists is empty",
+              "command": "rclone lsf -R --files-only SRC:<source-bucket> | sort > source-keys.txt\nrclone lsf -R --files-only DST:<target-bucket> | sort > target-keys.txt\ndiff source-keys.txt target-keys.txt"
+            },
+            {
+              "id": "content",
+              "kind": "CONTENT_CHECK",
+              "mode": "COMMAND",
+              "what": "Compare size and hash where both sides have one, and read the combined file and the log for every difference; an object for which the two sides share no hash is at best compared by size, which is not its content, so run the check with --download for the prefixes that matter and for a sample of the rest.",
+              "expected": "the combined file marks no difference",
+              "command": "rclone check SRC:<source-bucket> DST:<target-bucket> --one-way --combined=<check-file>",
+              "not_provided": [
+                "the prefixes that matter",
+                "the file the result is written to (<check-file>)"
+              ]
+            },
+            {
+              "id": "application-check",
+              "kind": "APPLICATION_SMOKE",
+              "mode": "MANUAL",
+              "what": "Read the objects the application itself reads on its most important data through the STACKIT endpoint with a key of a credentials group, and compare them with the source; then write one object from a test copy of the application and read it back.",
+              "expected": "the reads return the same objects, the write succeeds and the read returns it",
+              "manual_reason": "the read and the write are the application's, and the source states neither the keys nor the answer",
+              "not_provided": [
+                "the read the application makes on its most important objects (<application-read>)",
+                "the write the test copy of the application makes"
+              ]
+            },
+            {
+              "id": "rollback-limit",
+              "kind": "ROLLBACK_LIMIT",
+              "mode": "MANUAL",
+              "what": "Record the point after which a rollback loses data. Until the first of the uploads that the target bucket accepts after the switch, a rollback is only the connection settings put back: the source bucket was not changed after the freeze and is current to it. From that write on, what the target bucket holds exists only there: it is copied back to the source bucket with a method rehearsed before the window, or accepted as lost. Once the source bucket is retired (its retirement step, after the GO and the retention the owner decides) there is nothing to go back to.",
+              "expected": "before the window the owner records the date until which the source bucket is kept, the method that copies the writes of the target bucket back or the decision that they are lost, and who calls the rollback",
+              "manual_reason": "how long the source is kept and whether the writes made on the target are copied back or lost are decisions of the owner of the application: the source states neither, so the plan names the limit and no date",
+              "not_provided": [
+                "the date until which the source bucket is kept",
+                "the method that copies the writes of the target bucket back, or the decision that they are lost"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "storage-transfer-service",
+          "decision_option": "",
+          "state": "UNSUPPORTED",
+          "why": "the Storage Transfer Service writes into Cloud Storage buckets and reads S3-compatible stores (with agents), and the page names no S3-compatible destination: a STACKIT Object Storage bucket is not documented as one, so the plan offers no transfer by that service; the objects move by a copy (Google Cloud, Storage Transfer Service, Sources and sinks (https://docs.cloud.google.com/storage-transfer/docs/configure-access, read 2026-11-05): \"Cloud Storage is a valid sink for transfers from all sources\" and S3-compatible storage is a source for transfers to Cloud Storage only (it needs agents and agent pools); the page lists no S3-compatible sink)",
+          "chosen": false,
+          "duration": {
+            "state": "UNKNOWN",
+            "inputs": [],
+            "text": "unknown: the plan offers no transfer by the Storage Transfer Service, so it states nothing of it",
+            "reason": "the plan offers no transfer by the Storage Transfer Service, so it states nothing of it"
+          },
+          "freeze_window": {
+            "basis": "the plan offers no transfer by the Storage Transfer Service, so it states nothing of it",
+            "stated_downtime": {
+              "topic": "source.dataset.downtime",
+              "origin": "UNKNOWN",
+              "reason": "NOT_PROVIDED"
+            },
+            "comparison": "UNKNOWN",
+            "detail": "no lower bound of the window can be computed: the plan offers no transfer by the Storage Transfer Service, so it states nothing of it"
+          },
+          "objectives": {
+            "rpo": {
+              "stated": {
+                "topic": "source.dataset.rpo",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "unknown: the plan offers no transfer by the Storage Transfer Service, so it states nothing of it",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            },
+            "rto": {
+              "stated": {
+                "topic": "source.dataset.rto",
+                "origin": "UNKNOWN",
+                "reason": "NOT_PROVIDED"
+              },
+              "method_gives": "unknown: the plan offers no transfer by the Storage Transfer Service, so it states nothing of it",
+              "comparison": "NOT_COMPARED",
+              "reason": "the plan states what the method is designed to give and does not compute with the stated objective: a person compares the two, and the rehearsal measures the time"
+            }
+          },
+          "prerequisites": [],
+          "risks": [],
+          "steps": [],
+          "verification": []
+        }
+      ],
+      "checks": [
+        {
+          "id": "s3-api-compatible",
+          "state": "HOLDS",
+          "detail": "STACKIT Object Storage is S3 compatible and rclone reads a Cloud Storage bucket: the operations a copy uses (list, get, head, put, multipart upload) are among the supported ones on the STACKIT side, and STACKIT's own tutorial copies into it with rclone and a second endpoint; the documentation was read, no copy was run against a STACKIT bucket by this build",
+          "evidence": "STACKIT Object Storage reference, Supported operations on buckets and objects (https://docs.stackit.cloud/products/storage/object-storage/reference/supported-operations-on-buckets-and-objects/, last updated Aug 12, 2026): List ObjectsV2, Get Object, Head Object, Put Object, Copy Object, Create Multipart Upload, Upload Part, Complete Multipart Upload, List Object Versions, Get and Put Object Retention, Get ObjectAcl (no Put Object ACL); STACKIT tutorial \"Migrate data to Object Storage using rclone\" (https://docs.stackit.cloud/products/storage/object-storage/tutorials/migrate-data-using-rclone/): two S3 remotes, the destination with provider Other, the endpoint https://object.storage.eu01.onstackit.cloud and acl private, and the command `rclone copy source:/BUCKET_NAME destination:/BUCKET_NAME --s3-upload-cutoff 0 --progress --log-file /tmp/rclone.log`; rclone documentation, Google Cloud Storage (https://rclone.org/googlecloudstorage/, read 2026-11-05): the backend is \"google cloud storage\"; credentials from service_account_file or, with env_auth, from the runtime environment; \"Google Cloud Storage stores md5sum natively\"; the modification time is stored in the metadata mtime; the page documents no setting for object versions or generations",
+          "closed_by": "the rehearsal: a copy of one prefix into the target bucket"
+        },
+        {
+          "id": "target-endpoint",
+          "state": "HOLDS",
+          "detail": "the S3 endpoint of the region of the draft is https://object.storage.eu01.onstackit.cloud",
+          "evidence": "the S3 endpoint of the STACKIT region of the draft, as the build documents it (docs.stackit.cloud object-storage: https://object.storage.eu01.onstackit.cloud for eu01)",
+          "closed_by": "the endpoint of the region is read from the STACKIT documentation and written into the commands"
+        },
+        {
+          "id": "target-bucket-and-credentials",
+          "state": "UNKNOWN",
+          "detail": "the target bucket exists only after the draft is applied, and the key that copies into it is a credential of a credentials group, which reaches every bucket of the project (the draft creates none by default: var.objectstorage_consumers is empty)",
+          "evidence": "STACKIT Object Storage concepts, as the draft's README quotes them: \"any credential created in a project has access to all buckets within that project\"; STACKIT Object Storage reference, Supported operations on buckets and objects (https://docs.stackit.cloud/products/storage/object-storage/reference/supported-operations-on-buckets-and-objects/, last updated Aug 12, 2026): List ObjectsV2, Get Object, Head Object, Put Object, Copy Object, Create Multipart Upload, Upload Part, Complete Multipart Upload, List Object Versions, Get and Put Object Retention, Get ObjectAcl (no Put Object ACL)",
+          "closed_by": "preflight on the target: `rclone lsd DST:` and `rclone size DST:<target-bucket> --json` with that key (the bucket exists and is empty)"
+        },
+        {
+          "id": "source-read-access",
+          "state": "UNKNOWN",
+          "detail": "the credentials of the copy must list and read every object of the source (and every noncurrent version, if the history is copied); a bucket with requester pays needs a project to bill; the scan does not show the IAM of the person who copies or the service account the move host runs as",
+          "evidence": "rclone documentation, Google Cloud Storage (https://rclone.org/googlecloudstorage/, read 2026-11-05): the backend is \"google cloud storage\"; credentials from service_account_file or, with env_auth, from the runtime environment; \"Google Cloud Storage stores md5sum natively\"; the modification time is stored in the metadata mtime; the page documents no setting for object versions or generations",
+          "closed_by": "preflight on the source: `rclone lsd SRC:` and `rclone size SRC:<source-bucket> --json` with the identity the move host uses, and a read of a sample of the objects the owner names"
+        },
+        {
+          "id": "object-count-and-size",
+          "state": "UNKNOWN",
+          "detail": "the Terraform shows neither the number of objects nor their bytes: the size of the data is not provided; the number of objects is not provided (no input states it), and many small objects take longer than their bytes say",
+          "evidence": "rclone documentation: copy (\"Copy files from source to dest, skipping identical files.\", \"Doesn't delete files from the destination.\"), check (\"compares sizes and hashes (MD5 or SHA1)\", --download, --one-way), size (\"total size and number of objects\"), docs (a remote configured with RCLONE_CONFIG_<NAME>_<OPTION>, the _TYPE variable is required) and the S3 page (\"the ETag header is no longer the MD5 sum of the data\" for a multipart upload, so rclone adds the metadata X-Amz-Meta-Md5chksum)",
+          "closed_by": "preflight on the source: `rclone size SRC:<source-bucket> --json` for the count and the bytes; the customer states the size under source.dataset.size"
+        },
+        {
+          "id": "versions",
+          "state": "HOLDS",
+          "detail": "the source states no versioning: the current object of every key is the whole content",
+          "evidence": "Google Cloud, Cloud Storage, Object Versioning (https://docs.cloud.google.com/storage/docs/object-versioning, read 2026-11-05): a noncurrent version keeps the name of the object and is identified by its generation number, which it keeps when it becomes noncurrent; there is no default limit on the number of versions; STACKIT Object Storage how-to, Manage bucket versioning (last updated Aug 25, 2026): \"Once versioning has been enabled on a bucket, it cannot be disabled. It can only be suspended.\"; List Object Versions and Put Bucket Versioning are supported operations",
+          "closed_by": "preflight on the source: `gcloud storage buckets describe gs://<source-bucket> --format='value(versioning.enabled)'`; the history is copied by the procedure of the runbook once a person decides it is wanted"
+        },
+        {
+          "id": "object-lock-retention",
+          "state": "HOLDS",
+          "detail": "the source states no retention policy: no retention is lost by a copy",
+          "evidence": "Google Cloud, Cloud Storage, Bucket Lock (https://docs.cloud.google.com/storage/docs/bucket-lock, read 2026-11-05): a retention policy keeps every object from deletion or replacement until it reaches the retention age (measured in seconds, up to 100 years); locking the policy is irreversible; an event-based hold stops deletion while it applies; STACKIT Object Storage, Object Lock (last updated Jul 21, 2026): a project-level compliance lock, a lock per bucket set at creation, a retention per object through the S3 API, \"The maximum retention period for projects is 365 days\"; Get and Put Object Retention are supported operations",
+          "closed_by": "preflight on the source: `gcloud storage buckets describe gs://<source-bucket> --format='value(retentionPolicy)'` and the holds on a sample of the objects; the retention is settled by the decision on the bucket's object lock, before any object is copied"
+        },
+        {
+          "id": "encryption",
+          "state": "UNKNOWN",
+          "detail": "the Terraform states no customer-managed key (not provided): the objects are encrypted at rest by Google with its own key and the target replaces it with its own AES256; an object can still be written with a key of its own, which the scan does not show",
+          "evidence": "STACKIT Object Storage how-to, Manage encryption (last updated Jul 21, 2026): \"All data stored in STACKIT Object Storage is encrypted at rest using AES256.\"; server-side encryption AES256 and SSE-C (a key the client supplies per request) are the two ways documented, no SSE-KMS; \"When using SSE-C, the ETag in the response is not the MD5 checksum of the object data.\"",
+          "closed_by": "preflight on the source: `gcloud storage buckets describe gs://<source-bucket> --format='value(default_kms_key)'` and the key of a sample of the objects"
+        },
+        {
+          "id": "acl-and-policy",
+          "state": "FAILS",
+          "detail": "the source states IAM bindings on the bucket: bucket configuration, not object data, so a copy of the objects brings none of it; it is settled where the draft names it, and the consumers' keys reach every bucket of the project until a policy narrows them",
+          "evidence": "STACKIT Object Storage reference, Supported operations on buckets and objects (https://docs.stackit.cloud/products/storage/object-storage/reference/supported-operations-on-buckets-and-objects/, last updated Aug 12, 2026): List ObjectsV2, Get Object, Head Object, Put Object, Copy Object, Create Multipart Upload, Upload Part, Complete Multipart Upload, List Object Versions, Get and Put Object Retention, Get ObjectAcl (no Put Object ACL)",
+          "closed_by": "the bucket policy and the ACL are settled where the draft states them (the NOT CARRIED lines of storage.tf and the decision records); the ACLs of objects are read in the preflight on a sample"
+        },
+        {
+          "id": "archived-objects",
+          "state": "HOLDS",
+          "detail": "Google states that every storage class is readable within milliseconds with no offline retrieval, so no object needs a restore before the copy reads it; an object in Nearline, Coldline or Archive costs a retrieval fee when it is read, which the plan does not compute, and the Terraform does not show the class of the objects",
+          "evidence": "Google Cloud, Cloud Storage, Storage classes (https://docs.cloud.google.com/storage/docs/storage-classes, read 2026-11-05): all classes offer \"Low latency with no offline data retrieval\" and Archive data \"is available within milliseconds, not hours or days\"; Nearline, Coldline and Archive have a minimum storage duration (30, 90 and 365 days) and retrieval fees",
+          "closed_by": "preflight on the source: the storage class of the objects (`gcloud storage ls --long` of a sample, or the inventory of the bucket); the retrieval fees of the classes are in the Google bill of the move"
+        },
+        {
+          "id": "object-metadata",
+          "state": "UNKNOWN",
+          "detail": "what a copy keeps of an object's own metadata (content type, custom metadata, cache control, storage class) depends on the tool and its flags, the last-modified time of the target is the time of the copy (rclone keeps the source's time in a metadata entry of the object it writes), and an object ACL is not carried (STACKIT lists no Put Object ACL); the scan shows none of the objects",
+          "evidence": "rclone documentation, Google Cloud Storage (https://rclone.org/googlecloudstorage/, read 2026-11-05): the backend is \"google cloud storage\"; credentials from service_account_file or, with env_auth, from the runtime environment; \"Google Cloud Storage stores md5sum natively\"; the modification time is stored in the metadata mtime; the page documents no setting for object versions or generations; rclone documentation: copy (\"Copy files from source to dest, skipping identical files.\", \"Doesn't delete files from the destination.\"), check (\"compares sizes and hashes (MD5 or SHA1)\", --download, --one-way), size (\"total size and number of objects\"), docs (a remote configured with RCLONE_CONFIG_<NAME>_<OPTION>, the _TYPE variable is required) and the S3 page (\"the ETag header is no longer the MD5 sum of the data\" for a multipart upload, so rclone adds the metadata X-Amz-Meta-Md5chksum)",
+          "closed_by": "the rehearsal: `rclone lsjson --metadata` of a sample on both sides, compared field by field"
+        },
+        {
+          "id": "requester-pays",
+          "state": "UNKNOWN",
+          "detail": "the source states no requester pays; an operator can still turn it on outside the Terraform",
+          "evidence": "Google Cloud, Cloud Storage, Requester pays (the source states the setting; the page was not read for this plan)",
+          "closed_by": "preflight on the source: `gcloud storage buckets describe gs://<source-bucket> --format='value(billing.requester_pays)'`"
+        },
+        {
+          "id": "soft-deleted-objects",
+          "state": "UNKNOWN",
+          "detail": "an object that was deleted but is still inside the soft delete retention of the source is not a live object and is not copied; the Terraform states the soft delete policy of the bucket, not the objects inside it, and STACKIT's pages read describe no counterpart",
+          "evidence": "Google Cloud, Cloud Storage, Object Versioning (https://docs.cloud.google.com/storage/docs/object-versioning, read 2026-11-05): with soft delete enabled, deleting a noncurrent object changes its state to soft-deleted and it is permanently deleted after the retention period",
+          "closed_by": "preflight on the source: whether the owner needs deleted objects restored on the target (they are restored in the source first, then copied)"
+        },
+        {
+          "id": "copy-cannot-catch-up",
+          "state": "UNKNOWN",
+          "detail": "not computable: source.dataset.size, source.dataset.bandwidth, source.dataset.write_rate must be stated by the customer (a value from the source or an application file is not used)",
+          "evidence": "arithmetic on the customer's inputs: a copy that runs while the writers write catches up only if the bandwidth exceeds the write rate",
+          "closed_by": "the customer states source.dataset.size, source.dataset.bandwidth and source.dataset.write_rate; the rehearsal measures the real throughput"
+        }
+      ],
+      "runbook": "terraform/handover/bucket-media/data-copy.md",
+      "applications": {
+        "confirmed_state": "NONE_CONFIRMED",
+        "confirmed": [],
+        "reason": "no application of the customer's applications file confirms this store: no file was given, no application claims it, or several claim it",
+        "proposed": {
+          "state": "NOT_LINKED",
+          "reason": "the suggested groups that reach this store are several (migrate, server), so it is a member of none: a unit that more than one group reaches is shared"
+        }
+      },
+      "connected_units": [
+        "google_cloud_run_v2_service.server"
+      ],
+      "connections": [
+        {
+          "unit": "google_cloud_run_v2_service.server",
+          "via": "POSSIBLE_CLIENT",
+          "detail": "the source relates the unit to the store only through other units, and what the unit does with it is not visible in the Terraform: a possible client, listed so that the cut-over does not leave it out; it is not claimed to connect",
+          "evidence": [
+            "google_cloud_run_v2_service.server -> google_secret_manager_secret.django_settings (template.containers.env.value_source.secret_key_ref.secret)",
+            "google_secret_manager_secret_version.django_settings [part of google_secret_manager_secret.django_settings] -> google_storage_bucket.media (secret_data)"
+          ]
+        }
+      ],
+      "open": [
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.size",
+          "what": "source.dataset.size of google_storage_bucket.media is not stated",
+          "closed_by": "the customer answers the request for source.dataset.size in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.write_rate",
+          "what": "source.dataset.write_rate of google_storage_bucket.media is not stated",
+          "closed_by": "the customer answers the request for source.dataset.write_rate in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.bandwidth",
+          "what": "source.dataset.bandwidth of google_storage_bucket.media is not stated",
+          "closed_by": "the customer answers the request for source.dataset.bandwidth in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.rpo",
+          "what": "source.dataset.rpo of google_storage_bucket.media is not stated",
+          "closed_by": "the customer answers the request for source.dataset.rpo in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.rto",
+          "what": "source.dataset.rto of google_storage_bucket.media is not stated",
+          "closed_by": "the customer answers the request for source.dataset.rto in the inputs file"
+        },
+        {
+          "kind": "QUANTITY",
+          "id": "source.dataset.downtime",
+          "what": "source.dataset.downtime of google_storage_bucket.media is not stated",
+          "closed_by": "the customer answers the request for source.dataset.downtime in the inputs file"
+        },
+        {
+          "kind": "CHECK",
+          "id": "target-bucket-and-credentials",
+          "what": "the target bucket exists only after the draft is applied, and the key that copies into it is a credential of a credentials group, which reaches every bucket of the project (the draft creates none by default: var.objectstorage_consumers is empty)",
+          "closed_by": "preflight on the target: `rclone lsd DST:` and `rclone size DST:<target-bucket> --json` with that key (the bucket exists and is empty)"
+        },
+        {
+          "kind": "CHECK",
+          "id": "source-read-access",
+          "what": "the credentials of the copy must list and read every object of the source (and every noncurrent version, if the history is copied); a bucket with requester pays needs a project to bill; the scan does not show the IAM of the person who copies or the service account the move host runs as",
+          "closed_by": "preflight on the source: `rclone lsd SRC:` and `rclone size SRC:<source-bucket> --json` with the identity the move host uses, and a read of a sample of the objects the owner names"
+        },
+        {
+          "kind": "CHECK",
+          "id": "object-count-and-size",
+          "what": "the Terraform shows neither the number of objects nor their bytes: the size of the data is not provided; the number of objects is not provided (no input states it), and many small objects take longer than their bytes say",
+          "closed_by": "preflight on the source: `rclone size SRC:<source-bucket> --json` for the count and the bytes; the customer states the size under source.dataset.size"
+        },
+        {
+          "kind": "CHECK",
+          "id": "encryption",
+          "what": "the Terraform states no customer-managed key (not provided): the objects are encrypted at rest by Google with its own key and the target replaces it with its own AES256; an object can still be written with a key of its own, which the scan does not show",
+          "closed_by": "preflight on the source: `gcloud storage buckets describe gs://<source-bucket> --format='value(default_kms_key)'` and the key of a sample of the objects"
+        },
+        {
+          "kind": "CHECK",
+          "id": "object-metadata",
+          "what": "what a copy keeps of an object's own metadata (content type, custom metadata, cache control, storage class) depends on the tool and its flags, the last-modified time of the target is the time of the copy (rclone keeps the source's time in a metadata entry of the object it writes), and an object ACL is not carried (STACKIT lists no Put Object ACL); the scan shows none of the objects",
+          "closed_by": "the rehearsal: `rclone lsjson --metadata` of a sample on both sides, compared field by field"
+        },
+        {
+          "kind": "CHECK",
+          "id": "requester-pays",
+          "what": "the source states no requester pays; an operator can still turn it on outside the Terraform",
+          "closed_by": "preflight on the source: `gcloud storage buckets describe gs://<source-bucket> --format='value(billing.requester_pays)'`"
+        },
+        {
+          "kind": "CHECK",
+          "id": "soft-deleted-objects",
+          "what": "an object that was deleted but is still inside the soft delete retention of the source is not a live object and is not copied; the Terraform states the soft delete policy of the bucket, not the objects inside it, and STACKIT's pages read describe no counterpart",
+          "closed_by": "preflight on the source: whether the owner needs deleted objects restored on the target (they are restored in the source first, then copied)"
+        },
+        {
+          "kind": "CHECK",
+          "id": "copy-cannot-catch-up",
+          "what": "not computable: source.dataset.size, source.dataset.bandwidth, source.dataset.write_rate must be stated by the customer (a value from the source or an application file is not used)",
+          "closed_by": "the customer states source.dataset.size, source.dataset.bandwidth and source.dataset.write_rate; the rehearsal measures the real throughput"
+        }
+      ],
+      "rollback": "Before the consumers are switched nothing is switched: the source bucket was neither changed nor made read-only after the freeze, so it is current to the freeze; stop the writers, put the recorded endpoint, bucket name and credentials of the source back and start the writers on it. After the switch, what was written to the target is not in the source: the point of no return is the first write to the target through the switch (a new object, an overwritten one or a delete, and the versions the target creates if versioning is on). The way back is a copy in the other direction (the same tool with the two ends swapped, a separate rehearsal; the retention and the version history of the source cannot be recreated by it) or accepting the loss; take that decision before the window. This plan defines no reverse replication. Keep the source until the cause is known and do not delete it in the same hour.",
+      "limits": [
+        "StackToIT moves no data and opens no connection: every step is defined for a person to run; none is applied or verified by this plan",
+        "the commands are templates for rclone with a Cloud Storage remote; no copy was run against a STACKIT bucket by this build, and the documentation read for them is cited with each check",
+        "the Terraform shows neither the size of the data (the customer's input source.dataset.size) nor the number of objects (no input states it; the preflight counts them)",
+        "what a copy does not carry is the checks versions, object-lock-retention, encryption, acl-and-policy, object-metadata, requester-pays and soft-deleted-objects; the settings of the bucket itself are the NOT CARRIED lines of storage.tf and the decision records, and this plan does not repeat them",
+        "not verified on STACKIT: the throughput, a multipart upload of every object (--s3-upload-cutoff 0) at large sizes, the behaviour of per-version writes and delete markers, and the limits of the endpoint",
+        "not read for this plan: the Google pages on requester pays, uniform bucket-level access and the soft delete policy; the commands that name them are templates to check against the gcloud reference",
+        "Google bills the network egress of the data read out of the bucket and the retrieval fee of the colder classes; the plan computes no cost",
+        "a duration is a lower bound of the transfer alone and the window of the final pass has no formula: it depends on what changed since the last pass"
+      ]
+    }
+  ],
+  "not_planned": []
+}

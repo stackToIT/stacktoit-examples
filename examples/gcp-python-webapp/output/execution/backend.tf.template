@@ -1,0 +1,27 @@
+# Template of the remote OpenTofu state in STACKIT Object Storage: a prerequisite of execution/deploy.sh.
+#
+# Copy this file to review/backend.tf (the run keeps that folder) and replace the two values in capitals. deploy.sh puts it beside every root it applies, so
+# that all of them use one state. The bucket holds the state: it exists before the first apply and is no part of the draft, so create it by hand, in a project
+# you keep after the migration, with the credentials of a credentials group of its own.
+#
+# No secret in this file: the S3 backend reads AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY from the environment. If those two belong to the Object Storage of the
+# migrated estate (its S3 calls read them), give the keys of the state bucket in STACKIT_BACKEND_ACCESS_KEY_ID and STACKIT_BACKEND_SECRET_ACCESS_KEY.
+#
+# Locking: the STACKIT provider documentation says that `use_lockfile = true` has no effect on a STACKIT Object Storage bucket, and points to the PostgreSQL backend for
+# state locking. With this backend run one deploy at a time; deploy.sh guards its own folder, not the bucket. Sensitive values stay in the state: limit who reads the bucket.
+#
+# The address is that of region eu01; for another region use the endpoint of that region.
+terraform {
+  backend "s3" {
+    bucket = "REPLACE_WITH_THE_STATE_BUCKET"
+    key    = "REPLACE_WITH_A_KEY/terraform.tfstate"
+    endpoints = {
+      s3 = "https://object.storage.eu01.onstackit.cloud"
+    }
+    region                      = "eu01"
+    skip_credentials_validation = true
+    skip_region_validation      = true
+    skip_s3_checksum            = true
+    skip_requesting_account_id  = true
+  }
+}

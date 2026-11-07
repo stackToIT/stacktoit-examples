@@ -1,0 +1,13 @@
+unit,type,class,confidence,counted,properties_not_carried
+google_cloud_run_v2_job.migrate,google_cloud_run_v2_job,CONTAINERIZE,MEDIUM,yes,3
+google_cloud_run_v2_service.server,google_cloud_run_v2_service,CONTAINERIZE,MEDIUM,yes,6
+google_pubsub_topic.faux,google_pubsub_topic,REPLATFORM,MEDIUM,yes,1
+google_secret_manager_secret.django_admin_password,google_secret_manager_secret,RECONFIGURE,MEDIUM,yes,5
+google_secret_manager_secret.django_settings,google_secret_manager_secret,RECONFIGURE,MEDIUM,yes,5
+google_service_account.automation,google_service_account,RECONFIGURE,MEDIUM,yes,2
+google_service_account.client,google_service_account,RECONFIGURE,MEDIUM,yes,2
+google_service_account.init,google_service_account,RECONFIGURE,MEDIUM,yes,2
+google_service_account.server,google_service_account,RECONFIGURE,MEDIUM,yes,2
+google_sql_database_instance.postgres,google_sql_database_instance,REPLATFORM,MEDIUM,yes,6
+google_storage_bucket.media,google_storage_bucket,RECONFIGURE,MEDIUM,yes,6
+google_firebase_project.default,google_firebase_project,MANUAL_REVIEW,LOW,no,

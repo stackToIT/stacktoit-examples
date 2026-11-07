@@ -1,0 +1,840 @@
+{
+  "run_id": "6f8f72b2-1c34-4cfc-8483-344c41245364",
+  "source_digest": "sha256:19bfed642d5789ccada81b91d5c36e33175dcafd66dc46b1644ffa105d020000",
+  "critical_semantic_resolution": {
+    "resolved": 12,
+    "total": 62,
+    "units_without_contract": 0,
+    "open": [
+      {
+        "unit": "google_cloud_run_v2_job.migrate",
+        "semantic": "cloud-run-v2-job-network-exposure",
+        "disposition": "REVIEW",
+        "reason": "case:run-job",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. template.template.vpc_access.egress, template.template.vpc_access.network_interfaces.network, template.template.vpc_access.network_interfaces.subnetwork, template.template.volumes.cloud_sql_instance.instances (network exposure) — what the resource is reachable from and what it can reach. The draft names these settings NOT CARRIED: which database the job mounts and which network its egress goes through are re-created on the target (a database connection, the network of the workload) by a person. A person decides: REVIEW.",
+        "closes_when": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting."
+      },
+      {
+        "unit": "google_cloud_run_v2_job.migrate",
+        "semantic": "deployment-artifact",
+        "disposition": "REVIEW",
+        "reason": "case:run-job",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_cloud_run_service.template.spec.containers.image; google_cloud_run_v2_service.template.containers.image, build_config.base_image, build_config.image_uri and 5 more; google_cloud_run_v2_job.template.template.containers.image; google_cloud_run_v2_worker_pool.template.containers.image, artifact or image reference (workload compatibility: a setting that binds the code to its runtime stays CRITICAL).",
+        "closes_when": "A person confirms the executable artifact or image for the STACKIT target: where it is built or pulled from and that the same build runs there."
+      },
+      {
+        "unit": "google_cloud_run_v2_job.migrate",
+        "semantic": "entry-point",
+        "disposition": "REVIEW",
+        "reason": "case:run-job",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_cloud_run_service.template.spec.containers.command, template.spec.containers.args, template.spec.containers.working_dir; google_cloud_run_v2_service.template.containers.command, template.containers.args, template.containers.working_dir and 4 more.",
+        "closes_when": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting."
+      },
+      {
+        "unit": "google_cloud_run_v2_job.migrate",
+        "semantic": "k4-cloud-run-volume-mount-cloud-run-v2-job",
+        "disposition": "REVIEW",
+        "reason": "case:run-job",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. Where a volume appears in the container, which part of it is mounted there and the gcsfuse flags of a bucket mount (volume_mounts, mount_path and sub_path; volumes, gcs, mount_options). The application opens the bucket or share as a local directory, and the STACKIT draft mounts no volume into a container.",
+        "closes_when": "A person provides the data in the target workload at the path the application expects, with an owner and mode it can use, and checks that it finds its files."
+      },
+      {
+        "unit": "google_cloud_run_v2_job.migrate",
+        "semantic": "location-residency",
+        "disposition": "REVIEW",
+        "reason": "case:run-job",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. The region the service, job or worker pool runs in (google 8.4.0 `location`). A person confirms the region — REVIEW (critical, the value is not verified against the target).",
+        "closes_when": "A person confirms the STACKIT region of the SKE cluster the workload runs on holds the residency the source region gave, since no mapping between Google and STACKIT regions is evidenced."
+      },
+      {
+        "unit": "google_cloud_run_v2_job.migrate",
+        "semantic": "secrets",
+        "disposition": "REVIEW",
+        "reason": "case:run-job",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. A Secret Manager reference in the environment becomes a secretKeyRef of the Deployment or Job and a secret volume a Kubernetes secret volume, and the head of the manifest lists the Secrets to create. The draft writes no Secret, because no value of a secret reaches an output.",
+        "closes_when": "A person creates the Kubernetes Secrets the manifest lists, filled from STACKIT Secrets Manager (for example with an External Secrets Operator)."
+      },
+      {
+        "unit": "google_cloud_run_v2_job.migrate",
+        "semantic": "service-identity",
+        "disposition": "LEDGER",
+        "reason": "ledger:workload identity",
+        "why_open": "Whether the draft carries this setting is decided by its semantic ledger entry \"workload identity\", and that entry does not state it as carried (it reads review or unsupported, is missing, or rests on a variable's default). The Google service account the workload runs as. target.workload.identity asks the customer which model the pods use.",
+        "closes_when": "The ledger entry reads preserved or transformed with a value that is a fact of the source, or a person accepts the difference."
+      },
+      {
+        "unit": "google_cloud_run_v2_job.migrate",
+        "semantic": "tc-cloud-run-v2-job-name",
+        "disposition": "REVIEW",
+        "reason": "case:run-job",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_cloud_run_v2_job.name: The job's own name, used for identification.",
+        "closes_when": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting."
+      },
+      {
+        "unit": "google_cloud_run_v2_job.migrate",
+        "semantic": "tc-cloud-run-v2-job-template--template--containers--env--name",
+        "disposition": "REVIEW",
+        "reason": "case:run-job",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_cloud_run_v2_job.template.template.containers.env.name: The name of an environment variable; an identifier, not the value it carries.",
+        "closes_when": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
+        "carried_by": {
+          "step": "MAN/draft/kubernetes/migrate/manifests-yaml",
+          "mode": "MANUAL",
+          "evidence": "the 1 environment keys of the source (DJANGO_ENV) are the env entries of `terraform/kubernetes/migrate/manifests.yaml`: the keys are carried, and the values stay the person's"
+        }
+      },
+      {
+        "unit": "google_cloud_run_v2_job.migrate",
+        "semantic": "tc-cloud-run-v2-job-template--template--volumes--name",
+        "disposition": "REVIEW",
+        "reason": "case:run-job",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_cloud_run_v2_job.template.template.volumes.name: The volume's own name, used only to cross-reference it from volume_mounts.name; an internal wiring identifier with no security meaning of its own.",
+        "closes_when": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting."
+      },
+      {
+        "unit": "google_cloud_run_v2_job.migrate",
+        "semantic": "terraform-destroy-guard",
+        "disposition": "REVIEW",
+        "reason": "case:run-job",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. deletion_protection of a Cloud Run service, job or worker pool (on unless the source switches it off, which an explicit false states) only stops Terraform from destroying the resource; it is not an API protection.",
+        "closes_when": "A person decides whether the replacement keeps the guard with lifecycle { prevent_destroy = true } in the Terraform code."
+      },
+      {
+        "unit": "google_cloud_run_v2_service.server",
+        "semantic": "cloud-sql-connection",
+        "disposition": "REVIEW",
+        "reason": "case:run-service",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. The Cloud SQL connection volume (a connector socket) has no counterpart: the workload connects to the migrated Flex instance endpoint over TLS.",
+        "closes_when": "A person points the workload at the endpoint of the migrated database instance (a Flex or MariaDB instance) over TLS, because the Cloud SQL connector socket has no counterpart."
+      },
+      {
+        "unit": "google_cloud_run_v2_service.server",
+        "semantic": "deployment-artifact",
+        "disposition": "REVIEW",
+        "reason": "case:run-service",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_cloud_run_service.template.spec.containers.image; google_cloud_run_v2_service.template.containers.image, build_config.base_image, build_config.image_uri and 5 more; google_cloud_run_v2_job.template.template.containers.image; google_cloud_run_v2_worker_pool.template.containers.image, artifact or image reference (workload compatibility: a setting that binds the code to its runtime stays CRITICAL).",
+        "closes_when": "A person confirms the executable artifact or image for the STACKIT target: where it is built or pulled from and that the same build runs there."
+      },
+      {
+        "unit": "google_cloud_run_v2_service.server",
+        "semantic": "environment",
+        "disposition": "REVIEW",
+        "reason": "case:run-service",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. The draft writes the environment keys into the ConfigMap and the env of the Deployment or Job. A value is copied only when it is a quantity under a name that says so or a boolean, because any other value can hold a secret, so the rest of the values are a person's.",
+        "closes_when": "A person fills in the values the manifest lists as not copied, in the ConfigMap on the cluster."
+      },
+      {
+        "unit": "google_cloud_run_v2_service.server",
+        "semantic": "iam-invocation",
+        "disposition": "REVIEW",
+        "reason": "case:run-service",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. Cloud Run lets only callers with the invoker role through unless the service is made public. The draft carries no invocation check; the SKE exposure and the authentication of callers (application, authenticating proxy, or no exposure at all) are decided by a person.",
+        "closes_when": "A person decides how callers of the workload are authenticated (in the application, behind an authenticating proxy, or by no exposure at all) and how the SKE exposure is set, since the draft carries no invocation check."
+      },
+      {
+        "unit": "google_cloud_run_v2_service.server",
+        "semantic": "iam-policy-grant",
+        "disposition": "REVIEW",
+        "reason": "check:run-iam-policy",
+        "why_open": "A check of the knowledge base (run iam policy) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). A full IAM policy (member/role bindings) is set directly on the service via policy_data (google 8.4.0); STACKIT has no per-service IAM policy resource, so who may invoke the migrated SKE workload is decided by a person — REVIEW.",
+        "closes_when": "A person decides what this finding asks, and records the evidence or the decision. The finding says: A full IAM policy (member/role bindings) is set directly on the service via policy_data; STACKIT has no per-service IAM policy resource, so who may invoke the migrated SKE workload is decided by a person — the draft carries no invocation check."
+      },
+      {
+        "unit": "google_cloud_run_v2_service.server",
+        "semantic": "k4-cloud-run-volume-mount-cloud-run-v2-service",
+        "disposition": "REVIEW",
+        "reason": "case:run-service",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. Where a volume appears in the container, which part of it is mounted there and the gcsfuse flags of a bucket mount (volume_mounts, mount_path and sub_path; volumes, gcs, mount_options). The application opens the bucket or share as a local directory, and the STACKIT draft mounts no volume into a container.",
+        "closes_when": "A person provides the data in the target workload at the path the application expects, with an owner and mode it can use, and checks that it finds its files."
+      },
+      {
+        "unit": "google_cloud_run_v2_service.server",
+        "semantic": "location-residency",
+        "disposition": "REVIEW",
+        "reason": "case:run-service",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. The region the service, job or worker pool runs in (google 8.4.0 `location`). A person confirms the region — REVIEW (critical, the value is not verified against the target).",
+        "closes_when": "A person confirms the STACKIT region of the SKE cluster the workload runs on holds the residency the source region gave, since no mapping between Google and STACKIT regions is evidenced."
+      },
+      {
+        "unit": "google_cloud_run_v2_service.server",
+        "semantic": "secrets",
+        "disposition": "REVIEW",
+        "reason": "case:run-service",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. A Secret Manager reference in the environment becomes a secretKeyRef of the Deployment or Job and a secret volume a Kubernetes secret volume, and the head of the manifest lists the Secrets to create. The draft writes no Secret, because no value of a secret reaches an output.",
+        "closes_when": "A person creates the Kubernetes Secrets the manifest lists, filled from STACKIT Secrets Manager (for example with an External Secrets Operator)."
+      },
+      {
+        "unit": "google_cloud_run_v2_service.server",
+        "semantic": "service-identity",
+        "disposition": "LEDGER",
+        "reason": "ledger:workload identity",
+        "why_open": "Whether the draft carries this setting is decided by its semantic ledger entry \"workload identity\", and that entry does not state it as carried (it reads review or unsupported, is missing, or rests on a variable's default). The Google service account the workload runs as. target.workload.identity asks the customer which model the pods use.",
+        "closes_when": "The ledger entry reads preserved or transformed with a value that is a fact of the source, or a person accepts the difference."
+      },
+      {
+        "unit": "google_cloud_run_v2_service.server",
+        "semantic": "tc-cloud-run-v2-service-name",
+        "disposition": "REVIEW",
+        "reason": "case:run-service",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_cloud_run_v2_service.name: The Service's own name; an identifier used for addressing/reference, not an access-control or safety property in itself.",
+        "closes_when": "A person confirms the workload name on the cluster against what addresses or refers to the Cloud Run service name, or accepts the new name."
+      },
+      {
+        "unit": "google_cloud_run_v2_service.server",
+        "semantic": "tc-cloud-run-v2-service-template--volumes--name",
+        "disposition": "REVIEW",
+        "reason": "case:run-service",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_cloud_run_v2_service.template.volumes.name: The volume's own name, used only to cross-reference it from a volume_mounts.name entry; internal wiring identifier.",
+        "closes_when": "A person keeps each volume name matched with the volume mount that refers to it when the volumes are rebuilt as workload volumes on the cluster."
+      },
+      {
+        "unit": "google_cloud_run_v2_service.server",
+        "semantic": "terraform-destroy-guard",
+        "disposition": "REVIEW",
+        "reason": "case:run-service",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. deletion_protection of a Cloud Run service, job or worker pool (on unless the source switches it off, which an explicit false states) only stops Terraform from destroying the resource; it is not an API protection.",
+        "closes_when": "A person decides whether the replacement keeps the guard with lifecycle { prevent_destroy = true } in the Terraform code."
+      },
+      {
+        "unit": "google_firebase_project.default",
+        "semantic": "tc-firebase-project-project",
+        "disposition": "REVIEW",
+        "reason": "case:app-platform-project",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_firebase_project.project (identity access): The Google Cloud project the resource is created in. IAM policy, organisation policy and audit configuration are inherited from the project, so it decides who can act on the resource and what it is isolated from. Firebase has no STACKIT counterpart, so the registration of the app is not moved and the backend the app talks to is chosen by a person.",
+        "closes_when": "A person decides which STACKIT project, and with it which access rules, holds the replacement."
+      },
+      {
+        "unit": "google_pubsub_topic.faux",
+        "semantic": "tc-name",
+        "disposition": "REVIEW",
+        "reason": "case:pubsub",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_pubsub_topic.name: The topic's own resource name, which publishers and subscribers address it by; access to it is controlled by IAM, not by the name string itself, and a changed name breaks every client that uses the old one.",
+        "closes_when": "A person confirms the topic name the replacement messaging service carries against the publishers and subscribers that use it, or accepts the new name."
+      },
+      {
+        "unit": "google_secret_manager_secret.django_admin_password",
+        "semantic": "secret-settings",
+        "disposition": "REVIEW",
+        "reason": "case:secret",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. The settings of the secret beside its value (secret-value): STACKIT replicates it itself (no replica locations or per-replica keys), tags and version states have no counterpart, and IAM members and policy map to Secrets Manager users (read-only or read-write for a whole instance) or to experimental role bindings on a secret group — REVIEW.",
+        "closes_when": "A person recreates the secret in the Secrets Manager instance, since its data is not written into the draft, and decides for each IAM member whether it gets a user of the whole instance, a role binding on a secret group, or a separate instance."
+      },
+      {
+        "unit": "google_secret_manager_secret.django_admin_password",
+        "semantic": "secret-value",
+        "disposition": "REVIEW",
+        "reason": "case:secret",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_secret_manager_secret_version.secret_data: the value of the secret. StackToIT never reads it and never writes it into the draft; the API step of the secret writes the document the customer supplies.",
+        "closes_when": "A person decides where the value comes from, supplies the document and the step has run."
+      },
+      {
+        "unit": "google_secret_manager_secret.django_admin_password",
+        "semantic": "tcr-secret-id",
+        "disposition": "REVIEW",
+        "reason": "case:secret",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_secret_manager_secret.secret_id: The secret's own resource identifier; access to the secret's value is controlled by IAM bindings and replication/encryption settings, not by the id string itself.",
+        "closes_when": "A person confirms the secret name in STACKIT Secrets Manager against what refers to the source secret ID, or accepts the new name."
+      },
+      {
+        "unit": "google_secret_manager_secret.django_settings",
+        "semantic": "secret-settings",
+        "disposition": "REVIEW",
+        "reason": "case:secret",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. The settings of the secret beside its value (secret-value): STACKIT replicates it itself (no replica locations or per-replica keys), tags and version states have no counterpart, and IAM members and policy map to Secrets Manager users (read-only or read-write for a whole instance) or to experimental role bindings on a secret group — REVIEW.",
+        "closes_when": "A person recreates the secret in the Secrets Manager instance, since its data is not written into the draft, and decides for each IAM member whether it gets a user of the whole instance, a role binding on a secret group, or a separate instance."
+      },
+      {
+        "unit": "google_secret_manager_secret.django_settings",
+        "semantic": "secret-value",
+        "disposition": "REVIEW",
+        "reason": "case:secret",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_secret_manager_secret_version.secret_data: the value of the secret. StackToIT never reads it and never writes it into the draft; the API step of the secret writes the document the customer supplies.",
+        "closes_when": "A person decides where the value comes from, supplies the document and the step has run."
+      },
+      {
+        "unit": "google_secret_manager_secret.django_settings",
+        "semantic": "tcr-secret-id",
+        "disposition": "REVIEW",
+        "reason": "case:secret",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_secret_manager_secret.secret_id: The secret's own resource identifier; access to the secret's value is controlled by IAM bindings and replication/encryption settings, not by the id string itself.",
+        "closes_when": "A person confirms the secret name in STACKIT Secrets Manager against what refers to the source secret ID, or accepts the new name."
+      },
+      {
+        "unit": "google_service_account.automation",
+        "semantic": "account-name",
+        "disposition": "REVIEW",
+        "reason": "check:sa-account-id-not-visible",
+        "why_open": "A check of the knowledge base (sa account id not visible) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). The account ID becomes the stackit_service_account name (shortened to the STACKIT name rules; pinned provider) — TRANSFORMED; the e-mail address changes. An ID not visible statically (or a repeated account) is named NOT CARRIED — REVIEW (check sa-account-id-not-visible).",
+        "closes_when": "A person decides what this finding asks, and records the evidence or the decision. The finding says: The account ID is not visible statically; the STACKIT account is named after the source address. — a variable's default, not a fact."
+      },
+      {
+        "unit": "google_service_account.automation",
+        "semantic": "role-bindings",
+        "disposition": "REVIEW",
+        "reason": "case:service-account",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. The grants of the estate that name the account: a grant on a project, a folder or an organisation is written as a STACKIT role assignment of the account when its role and members are visible statically and it has no condition, and a grant that lets another account act as it is written as an Act-As assignment. A Google role is written as a STACKIT role only where the mapping shows the STACKIT role holds the same permissions or fewer on a project; every other role is an input that names the candidates, and a person confirms each. A binding or a policy is authoritative (it removes the members of its role that it does not list) and a role assignment only adds, which the draft says on each: members that hold the role outside the configuration keep it on STACKIT until a person removes them.",
+        "closes_when": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting."
+      },
+      {
+        "unit": "google_service_account.client",
+        "semantic": "account-name",
+        "disposition": "REVIEW",
+        "reason": "check:sa-account-id-not-visible",
+        "why_open": "A check of the knowledge base (sa account id not visible) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). The account ID becomes the stackit_service_account name (shortened to the STACKIT name rules; pinned provider) — TRANSFORMED; the e-mail address changes. An ID not visible statically (or a repeated account) is named NOT CARRIED — REVIEW (check sa-account-id-not-visible).",
+        "closes_when": "A person decides what this finding asks, and records the evidence or the decision. The finding says: The account ID is not visible statically; the STACKIT account is named after the source address. — a variable's default, not a fact."
+      },
+      {
+        "unit": "google_service_account.client",
+        "semantic": "role-bindings",
+        "disposition": "REVIEW",
+        "reason": "case:service-account",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. The grants of the estate that name the account: a grant on a project, a folder or an organisation is written as a STACKIT role assignment of the account when its role and members are visible statically and it has no condition, and a grant that lets another account act as it is written as an Act-As assignment. A Google role is written as a STACKIT role only where the mapping shows the STACKIT role holds the same permissions or fewer on a project; every other role is an input that names the candidates, and a person confirms each. A binding or a policy is authoritative (it removes the members of its role that it does not list) and a role assignment only adds, which the draft says on each: members that hold the role outside the configuration keep it on STACKIT until a person removes them.",
+        "closes_when": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting."
+      },
+      {
+        "unit": "google_service_account.server",
+        "semantic": "account-name",
+        "disposition": "REVIEW",
+        "reason": "check:sa-account-id-not-visible",
+        "why_open": "A check of the knowledge base (sa account id not visible) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). The account ID becomes the stackit_service_account name (shortened to the STACKIT name rules; pinned provider) — TRANSFORMED; the e-mail address changes. An ID not visible statically (or a repeated account) is named NOT CARRIED — REVIEW (check sa-account-id-not-visible).",
+        "closes_when": "A person decides what this finding asks, and records the evidence or the decision. The finding says: The account ID is not visible statically; the STACKIT account is named after the source address. — a variable's default, not a fact."
+      },
+      {
+        "unit": "google_service_account.server",
+        "semantic": "role-bindings",
+        "disposition": "REVIEW",
+        "reason": "case:service-account",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. The grants of the estate that name the account: a grant on a project, a folder or an organisation is written as a STACKIT role assignment of the account when its role and members are visible statically and it has no condition, and a grant that lets another account act as it is written as an Act-As assignment. A Google role is written as a STACKIT role only where the mapping shows the STACKIT role holds the same permissions or fewer on a project; every other role is an input that names the candidates, and a person confirms each. A binding or a policy is authoritative (it removes the members of its role that it does not list) and a role assignment only adds, which the draft says on each: members that hold the role outside the configuration keep it on STACKIT until a person removes them.",
+        "closes_when": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting."
+      },
+      {
+        "unit": "google_sql_database_instance.postgres",
+        "semantic": "database-users",
+        "disposition": "REVIEW",
+        "reason": "unverified-check:sql-user-not-generated",
+        "why_open": "A check of the knowledge base (sql user not generated) needs a value the scan cannot read statically, so it could not decide. A built-in user of a PostgreSQL instance becomes a stackit_postgresflex_user with the same username (pinned provider) — TRANSFORMED. IAM users (and a name or type not visible statically) are not generated — REVIEW (check sql-user-not-generated); users of the other engines are named NOT CARRIED — REVIEW.",
+        "closes_when": "A literal value or a resolved reference in the source lets the check decide, or a person verifies the value."
+      },
+      {
+        "unit": "google_sql_database_instance.postgres",
+        "semantic": "project-scope",
+        "disposition": "REVIEW",
+        "reason": "case:sql-postgres",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. The project of the instance (google 8.4.0 `project`: \"The ID of the project in which the resource belongs. If it is not provided, the provider project is used\"). A STACKIT project is the scope for ownership, resource consumption and access control (docs.stackit.cloud/platform/resource-manager/basics/projects/): whether the database's source project becomes the project of the rest of the estate is a design decision no rule evidences — a person confirms it — REVIEW (critical).",
+        "closes_when": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting."
+      },
+      {
+        "unit": "google_sql_database_instance.postgres",
+        "semantic": "region-residency",
+        "disposition": "REVIEW",
+        "reason": "case:sql-postgres",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. The region of the instance (google 8.4.0 `region`; unset means the provider's region). A person confirms the region — REVIEW (critical, the value is not verified against the target).",
+        "closes_when": "A person confirms the STACKIT region of the instance (and of a read replica, decided with its primary) holds the residency the source region gave."
+      },
+      {
+        "unit": "google_sql_database_instance.postgres",
+        "semantic": "tc-name",
+        "disposition": "REVIEW",
+        "reason": "case:sql-postgres",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_sql_database_instance.name: The instance's name/label; does not itself grant access, encrypt data, or control backups/availability/residency.",
+        "closes_when": "A person confirms the instance name the STACKIT database carries against what refers to the source instance name, or accepts the new name."
+      },
+      {
+        "unit": "google_sql_database_instance.postgres",
+        "semantic": "tcf-sql-database--name",
+        "disposition": "REVIEW",
+        "reason": "case:sql-postgres",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_sql_database.name (a facet of the unit): The literal database name; determines the connection target's label but does not itself grant or restrict access, encrypt data, or affect backups/availability/residency.",
+        "closes_when": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting."
+      },
+      {
+        "unit": "google_sql_database_instance.postgres",
+        "semantic": "user-and-database-settings",
+        "disposition": "REVIEW",
+        "reason": "case:sql-postgres",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. The source password is not copied (STACKIT generates it: stackit_postgresflex_user.password is computed), a host restriction and ABANDON deletion policies have no counterpart (pinned provider) — the draft names them NOT CARRIED — REVIEW.",
+        "closes_when": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting."
+      },
+      {
+        "unit": "google_storage_bucket.media",
+        "semantic": "bucket-region",
+        "disposition": "REVIEW",
+        "reason": "case:gcs",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. A single-region location (us-central1, europe-west3, ...), or one not visible statically: the draft sets no region on stackit_objectstorage_bucket (`region`: \"if not defined, the provider region is used\", pinned provider), so the bucket lands in the STACKIT region the user sets, not in the source's — a person confirms the residency — REVIEW.",
+        "closes_when": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting."
+      },
+      {
+        "unit": "google_storage_bucket.media",
+        "semantic": "force-destroy",
+        "disposition": "UNSUPPORTED",
+        "reason": "check:gcs-force-destroy",
+        "why_open": "A check of the knowledge base (gcs force destroy) found a setting the target has no counterpart for (a finding of this unit describes it). stackit_objectstorage_bucket (pinned provider) \"cannot be destroyed if the bucket contains objects\" (schema description): force_destroy = false — a destroy that stops at a non-empty bucket — is what STACKIT does, PRESERVED; true has no counterpart, UNSUPPORTED (check gcs-force-destroy).",
+        "closes_when": "A person accepts the difference or the design changes: nothing in the source can make the target carry it."
+      },
+      {
+        "unit": "google_storage_bucket.media",
+        "semantic": "geo-replication",
+        "disposition": "REVIEW",
+        "reason": "variable-default:case:gcs",
+        "why_open": "The value is read from a variable's default; that is not a fact of the source. A custom_placement_config not visible statically (a dynamic block over an unknown for_each, a whole value from a variable) may be absent: the facts state no replication, the ledger writes no line and a person decides (REVIEW by the case; 2026-09-25 unknown-value audit — it used to be claimed as replicated).",
+        "closes_when": "The value is set where the module is called (a literal), the variable is given its value in a variable file of the scan (--var-file), or a person confirms the value production uses."
+      },
+      {
+        "unit": "google_storage_bucket.media",
+        "semantic": "iam-access",
+        "disposition": "REVIEW",
+        "reason": "check:gcs-iam",
+        "why_open": "A check of the knowledge base (gcs iam) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). The setting states who may access the bucket, granted with IAM bindings or ACL entries.",
+        "closes_when": "A person decides it as that finding asks, and the finding's closing evidence or decision is recorded. A person creates the bucket policies and Object Storage credentials that give the same access on STACKIT."
+      },
+      {
+        "unit": "google_storage_bucket.media",
+        "semantic": "iam-grant",
+        "disposition": "REVIEW",
+        "reason": "check:gcs-iam",
+        "why_open": "A check of the knowledge base (gcs iam) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). The value-level reader of who gets which role (`iam-access` above is the facet as a whole): role, member(s) and condition. A GCP principal (user:, group:, serviceAccount:, allUsers) and a predefined role have no STACKIT counterpart in a bucket policy, whose statements name principals and S3 actions (supported-permissions-in-bucket-policies docs; the draft writes no policy) — a person translates each grant — REVIEW for every value, allUsers included (that one is also public-access, TRANSFORMED).",
+        "closes_when": "A person decides what this finding asks, and records the evidence or the decision. The finding says: Bucket access is granted with IAM bindings or ACL entries; on STACKIT it becomes bucket policies and Object Storage credentials."
+      },
+      {
+        "unit": "google_storage_bucket.media",
+        "semantic": "public-access",
+        "disposition": "REVIEW",
+        "reason": "unverified-check:gcs-public",
+        "why_open": "A check of the knowledge base (gcs public) needs a value the scan cannot read statically, so it could not decide. The counterpart is a bucket policy with Principal \"*\" and s3:GetObject (documented sample), but stackit_objectstorage_bucket has no policy attribute and the provider no bucket-policy resource, so the draft writes none: REVIEW, as for the IP rules.",
+        "closes_when": "A literal value or a resolved reference in the source lets the check decide, or a person verifies the value."
+      },
+      {
+        "unit": "google_storage_bucket.media",
+        "semantic": "tc-storage-bucket-name",
+        "disposition": "REVIEW",
+        "reason": "case:gcs",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. The name of the Cloud Storage bucket, in lowercase and at most 63 characters per the provider documentation, by which applications address it.",
+        "closes_when": "A person confirms the Object Storage bucket name against the applications and tools that use the source bucket name, or accepts the new name."
+      }
+    ],
+    "conditional_open": [
+      {
+        "unit": "google_cloudbuild_trigger.activategcb",
+        "semantic": "build-identity",
+        "disposition": "REVIEW",
+        "reason": "case:cicd-redesign",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. The service account the build (or the Pub/Sub push notification) runs as; STACKIT Git Pipelines has its own, differently-shaped identity model -- REVIEW.",
+        "closes_when": "A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting.",
+        "applies_only_if": "applies only if its count (var.init ? 1 : 0) holds when OpenTofu plans — present with the defaults of var.init (1 instance); a variable file (-var-file), -var or TF_VAR_init can change that",
+        "conditional_state": "PRESENT_ON_DEFAULTS"
+      },
+      {
+        "unit": "google_cloudbuild_trigger.activategcb",
+        "semantic": "dep-references",
+        "disposition": "REVIEW",
+        "reason": "case:cicd-redesign",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_cloudbuild_trigger and google_cloudbuild_worker_pool names other units or resources (google_cloudbuild_bitbucket_server_config, google_cloudbuild_worker_pool, google_cloudbuildv2_repository, google_compute_global_address, google_compute_network, google_developer_connect_git_repository_link, google_pubsub_topic, google_secret_manager_secret, google_secret_manager_secret_version, google_service_account, google_sourcerepo_repository, google_storage_bucket). A person confirms how the replacement carries the relation between this unit and the units it names, or accepts the difference.",
+        "closes_when": "A person confirms how the replacement carries the relation, or accepts the difference.",
+        "applies_only_if": "applies only if its count (var.init ? 1 : 0) holds when OpenTofu plans — present with the defaults of var.init (1 instance); a variable file (-var-file), -var or TF_VAR_init can change that",
+        "conditional_state": "PRESENT_ON_DEFAULTS"
+      },
+      {
+        "unit": "google_cloudbuild_trigger.activategcb",
+        "semantic": "deployment-artifact",
+        "disposition": "REVIEW",
+        "reason": "case:cicd-redesign",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_cloudbuild_trigger.build.step.name, artifact or image reference (workload compatibility: a setting that binds the code to its runtime stays CRITICAL).",
+        "closes_when": "A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting.",
+        "applies_only_if": "applies only if its count (var.init ? 1 : 0) holds when OpenTofu plans — present with the defaults of var.init (1 instance); a variable file (-var-file), -var or TF_VAR_init can change that",
+        "conditional_state": "PRESENT_ON_DEFAULTS"
+      },
+      {
+        "unit": "google_cloudbuild_trigger.activategcb",
+        "semantic": "entry-point",
+        "disposition": "REVIEW",
+        "reason": "case:cicd-redesign",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_cloudbuild_trigger.build.step.entrypoint, build.step.script, build.step.args, entry point (workload compatibility: a setting that binds the code to its runtime stays CRITICAL).",
+        "closes_when": "A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting.",
+        "applies_only_if": "applies only if its count (var.init ? 1 : 0) holds when OpenTofu plans — present with the defaults of var.init (1 instance); a variable file (-var-file), -var or TF_VAR_init can change that",
+        "conditional_state": "PRESENT_ON_DEFAULTS"
+      },
+      {
+        "unit": "google_cloudbuild_trigger.activategcb",
+        "semantic": "log-destination",
+        "disposition": "REVIEW",
+        "reason": "case:cicd-redesign",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. The setting states where/whether build logs are captured or exposed back to GitHub; STACKIT Git Pipelines' own logging model is different -- REVIEW.",
+        "closes_when": "A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting.",
+        "applies_only_if": "applies only if its count (var.init ? 1 : 0) holds when OpenTofu plans — present with the defaults of var.init (1 instance); a variable file (-var-file), -var or TF_VAR_init can change that",
+        "conditional_state": "PRESENT_ON_DEFAULTS"
+      },
+      {
+        "unit": "google_cloudbuild_trigger.activategcb",
+        "semantic": "project-residency",
+        "disposition": "REVIEW",
+        "reason": "case:cicd-redesign",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. Project and Cloud Build location are data-residency/project-boundary facts with no STACKIT CI/CD resource to remap them onto -- REVIEW.",
+        "closes_when": "A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting.",
+        "applies_only_if": "applies only if its count (var.init ? 1 : 0) holds when OpenTofu plans — present with the defaults of var.init (1 instance); a variable file (-var-file), -var or TF_VAR_init can change that",
+        "conditional_state": "PRESENT_ON_DEFAULTS"
+      },
+      {
+        "unit": "google_cloudbuild_trigger.init",
+        "semantic": "build-identity",
+        "disposition": "REVIEW",
+        "reason": "case:cicd-redesign",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. The service account the build (or the Pub/Sub push notification) runs as; STACKIT Git Pipelines has its own, differently-shaped identity model -- REVIEW.",
+        "closes_when": "A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting.",
+        "applies_only_if": "applies only if its count (var.init ? 1 : 0) holds when OpenTofu plans — present with the defaults of var.init (1 instance); a variable file (-var-file), -var or TF_VAR_init can change that",
+        "conditional_state": "PRESENT_ON_DEFAULTS"
+      },
+      {
+        "unit": "google_cloudbuild_trigger.init",
+        "semantic": "dep-references",
+        "disposition": "REVIEW",
+        "reason": "case:cicd-redesign",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_cloudbuild_trigger and google_cloudbuild_worker_pool names other units or resources (google_cloudbuild_bitbucket_server_config, google_cloudbuild_worker_pool, google_cloudbuildv2_repository, google_compute_global_address, google_compute_network, google_developer_connect_git_repository_link, google_pubsub_topic, google_secret_manager_secret, google_secret_manager_secret_version, google_service_account, google_sourcerepo_repository, google_storage_bucket). A person confirms how the replacement carries the relation between this unit and the units it names, or accepts the difference.",
+        "closes_when": "A person confirms how the replacement carries the relation, or accepts the difference.",
+        "applies_only_if": "applies only if its count (var.init ? 1 : 0) holds when OpenTofu plans — present with the defaults of var.init (1 instance); a variable file (-var-file), -var or TF_VAR_init can change that",
+        "conditional_state": "PRESENT_ON_DEFAULTS"
+      },
+      {
+        "unit": "google_cloudbuild_trigger.init",
+        "semantic": "deployment-artifact",
+        "disposition": "REVIEW",
+        "reason": "case:cicd-redesign",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_cloudbuild_trigger.build.step.name, artifact or image reference (workload compatibility: a setting that binds the code to its runtime stays CRITICAL).",
+        "closes_when": "A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting.",
+        "applies_only_if": "applies only if its count (var.init ? 1 : 0) holds when OpenTofu plans — present with the defaults of var.init (1 instance); a variable file (-var-file), -var or TF_VAR_init can change that",
+        "conditional_state": "PRESENT_ON_DEFAULTS"
+      },
+      {
+        "unit": "google_cloudbuild_trigger.init",
+        "semantic": "entry-point",
+        "disposition": "REVIEW",
+        "reason": "case:cicd-redesign",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_cloudbuild_trigger.build.step.entrypoint, build.step.script, build.step.args, entry point (workload compatibility: a setting that binds the code to its runtime stays CRITICAL). The unit names google_firebase_hosting_site.client (google_firebase_hosting_site) through this setting (the target does not carry it: it is REDESIGN), so what the reference becomes is part of this setting.",
+        "closes_when": "A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting.",
+        "applies_only_if": "applies only if its count (var.init ? 1 : 0) holds when OpenTofu plans — present with the defaults of var.init (1 instance); a variable file (-var-file), -var or TF_VAR_init can change that",
+        "conditional_state": "PRESENT_ON_DEFAULTS"
+      },
+      {
+        "unit": "google_cloudbuild_trigger.init",
+        "semantic": "log-destination",
+        "disposition": "REVIEW",
+        "reason": "case:cicd-redesign",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. The setting states where/whether build logs are captured or exposed back to GitHub; STACKIT Git Pipelines' own logging model is different -- REVIEW.",
+        "closes_when": "A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting.",
+        "applies_only_if": "applies only if its count (var.init ? 1 : 0) holds when OpenTofu plans — present with the defaults of var.init (1 instance); a variable file (-var-file), -var or TF_VAR_init can change that",
+        "conditional_state": "PRESENT_ON_DEFAULTS"
+      },
+      {
+        "unit": "google_cloudbuild_trigger.init",
+        "semantic": "project-residency",
+        "disposition": "REVIEW",
+        "reason": "case:cicd-redesign",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. Project and Cloud Build location are data-residency/project-boundary facts with no STACKIT CI/CD resource to remap them onto -- REVIEW.",
+        "closes_when": "A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting.",
+        "applies_only_if": "applies only if its count (var.init ? 1 : 0) holds when OpenTofu plans — present with the defaults of var.init (1 instance); a variable file (-var-file), -var or TF_VAR_init can change that",
+        "conditional_state": "PRESENT_ON_DEFAULTS"
+      },
+      {
+        "unit": "google_cloudbuild_trigger.placeholder",
+        "semantic": "build-identity",
+        "disposition": "REVIEW",
+        "reason": "case:cicd-redesign",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. The service account the build (or the Pub/Sub push notification) runs as; STACKIT Git Pipelines has its own, differently-shaped identity model -- REVIEW.",
+        "closes_when": "A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting.",
+        "applies_only_if": "applies only if its count (var.init ? 1 : 0) holds when OpenTofu plans — present with the defaults of var.init (1 instance); a variable file (-var-file), -var or TF_VAR_init can change that",
+        "conditional_state": "PRESENT_ON_DEFAULTS"
+      },
+      {
+        "unit": "google_cloudbuild_trigger.placeholder",
+        "semantic": "dep-references",
+        "disposition": "REVIEW",
+        "reason": "case:cicd-redesign",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_cloudbuild_trigger and google_cloudbuild_worker_pool names other units or resources (google_cloudbuild_bitbucket_server_config, google_cloudbuild_worker_pool, google_cloudbuildv2_repository, google_compute_global_address, google_compute_network, google_developer_connect_git_repository_link, google_pubsub_topic, google_secret_manager_secret, google_secret_manager_secret_version, google_service_account, google_sourcerepo_repository, google_storage_bucket). A person confirms how the replacement carries the relation between this unit and the units it names, or accepts the difference.",
+        "closes_when": "A person confirms how the replacement carries the relation, or accepts the difference.",
+        "applies_only_if": "applies only if its count (var.init ? 1 : 0) holds when OpenTofu plans — present with the defaults of var.init (1 instance); a variable file (-var-file), -var or TF_VAR_init can change that",
+        "conditional_state": "PRESENT_ON_DEFAULTS"
+      },
+      {
+        "unit": "google_cloudbuild_trigger.placeholder",
+        "semantic": "deployment-artifact",
+        "disposition": "REVIEW",
+        "reason": "case:cicd-redesign",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_cloudbuild_trigger.build.step.name, artifact or image reference (workload compatibility: a setting that binds the code to its runtime stays CRITICAL).",
+        "closes_when": "A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting.",
+        "applies_only_if": "applies only if its count (var.init ? 1 : 0) holds when OpenTofu plans — present with the defaults of var.init (1 instance); a variable file (-var-file), -var or TF_VAR_init can change that",
+        "conditional_state": "PRESENT_ON_DEFAULTS"
+      },
+      {
+        "unit": "google_cloudbuild_trigger.placeholder",
+        "semantic": "linked-dependency:google_firebase_hosting_site",
+        "disposition": "REVIEW",
+        "reason": "linked-dependency:google_firebase_hosting_site",
+        "why_open": "This unit names a resource of the type google_firebase_hosting_site (by an attribute that configures it) and the target does not carry that resource as a mapped unit (it is redesigned, blocked, left for review or has no draft block of its own), and no semantic of this unit's contract reads that type: what the reference becomes on the target is not assessed.",
+        "closes_when": "The contract of this unit gains a semantic that reads google_firebase_hosting_site (and lists it as carried), or a person decides what the reference to the resource becomes.",
+        "applies_only_if": "applies only if its count (var.init ? 1 : 0) holds when OpenTofu plans — present with the defaults of var.init (1 instance); a variable file (-var-file), -var or TF_VAR_init can change that",
+        "conditional_state": "PRESENT_ON_DEFAULTS"
+      },
+      {
+        "unit": "google_cloudbuild_trigger.placeholder",
+        "semantic": "log-destination",
+        "disposition": "REVIEW",
+        "reason": "case:cicd-redesign",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. The setting states where/whether build logs are captured or exposed back to GitHub; STACKIT Git Pipelines' own logging model is different -- REVIEW.",
+        "closes_when": "A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting.",
+        "applies_only_if": "applies only if its count (var.init ? 1 : 0) holds when OpenTofu plans — present with the defaults of var.init (1 instance); a variable file (-var-file), -var or TF_VAR_init can change that",
+        "conditional_state": "PRESENT_ON_DEFAULTS"
+      },
+      {
+        "unit": "google_cloudbuild_trigger.placeholder",
+        "semantic": "project-residency",
+        "disposition": "REVIEW",
+        "reason": "case:cicd-redesign",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. Project and Cloud Build location are data-residency/project-boundary facts with no STACKIT CI/CD resource to remap them onto -- REVIEW.",
+        "closes_when": "A person decides the setting with what replaces the unit once the architect has chosen it, or the knowledge base gains a rule that decides this setting.",
+        "applies_only_if": "applies only if its count (var.init ? 1 : 0) holds when OpenTofu plans — present with the defaults of var.init (1 instance); a variable file (-var-file), -var or TF_VAR_init can change that",
+        "conditional_state": "PRESENT_ON_DEFAULTS"
+      },
+      {
+        "unit": "google_firebase_hosting_site.client",
+        "semantic": "tc-firebase-hosting-site-project",
+        "disposition": "REVIEW",
+        "reason": "case:web-hosting-site",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_firebase_hosting_site.project (identity access): The Google Cloud project the resource is created in. IAM policy, organisation policy and audit configuration are inherited from the project, so it decides who can act on the resource and what it is isolated from. The unit names google_firebase_project.default (google_firebase_project) through this setting (the target does not carry it: it is MANUAL_REVIEW), so what the reference becomes is part of this setting.",
+        "closes_when": "A person decides which STACKIT project, and with it which access rules, holds the replacement.",
+        "applies_only_if": "applies only if its count (var.random_suffix ? 1 : 0) holds when OpenTofu plans — present with the defaults of var.random_suffix (1 instance); a variable file (-var-file), -var or TF_VAR_random_suffix can change that",
+        "conditional_state": "PRESENT_ON_DEFAULTS"
+      },
+      {
+        "unit": "google_firebase_hosting_site.client",
+        "semantic": "tcr-firebase-hosting-site-site-id",
+        "disposition": "REVIEW",
+        "reason": "case:web-hosting-site",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. google_firebase_hosting_site.site_id (workload compatibility): A globally unique identifier for the Hosting site; other settings, bindings and clients refer to the object by this id. Firebase Hosting has no STACKIT counterpart, so the site is rebuilt on Object Storage with a CDN.",
+        "closes_when": "A person sets this up on the bucket, the CDN distribution and the domain that replace Firebase Hosting, or decides to drop it, and records the decision.",
+        "applies_only_if": "applies only if its count (var.random_suffix ? 1 : 0) holds when OpenTofu plans — present with the defaults of var.random_suffix (1 instance); a variable file (-var-file), -var or TF_VAR_random_suffix can change that",
+        "conditional_state": "PRESENT_ON_DEFAULTS"
+      },
+      {
+        "unit": "google_service_account.init",
+        "semantic": "account-name",
+        "disposition": "REVIEW",
+        "reason": "check:sa-account-id-not-visible",
+        "why_open": "A check of the knowledge base (sa account id not visible) fired on this unit and leaves the setting to a person: the target does not settle it by itself (a finding of this unit describes it). The account ID becomes the stackit_service_account name (shortened to the STACKIT name rules; pinned provider) — TRANSFORMED; the e-mail address changes. An ID not visible statically (or a repeated account) is named NOT CARRIED — REVIEW (check sa-account-id-not-visible).",
+        "closes_when": "A person decides what this finding asks, and records the evidence or the decision. The finding says: The account ID is not visible statically; the STACKIT account is named after the source address. — a variable's default, not a fact.",
+        "applies_only_if": "applies only if its count (var.init ? 1 : 0) holds when OpenTofu plans — present with the defaults of var.init (1 instance); a variable file (-var-file), -var or TF_VAR_init can change that",
+        "conditional_state": "PRESENT_ON_DEFAULTS"
+      },
+      {
+        "unit": "google_service_account.init",
+        "semantic": "role-bindings",
+        "disposition": "REVIEW",
+        "reason": "case:service-account",
+        "why_open": "The mapping rule for this kind of unit recognises the unit but only passes this setting to a person; it does not decide its value. The grants of the estate that name the account: a grant on a project, a folder or an organisation is written as a STACKIT role assignment of the account when its role and members are visible statically and it has no condition, and a grant that lets another account act as it is written as an Act-As assignment. A Google role is written as a STACKIT role only where the mapping shows the STACKIT role holds the same permissions or fewer on a project; every other role is an input that names the candidates, and a person confirms each. A binding or a policy is authoritative (it removes the members of its role that it does not list) and a role assignment only adds, which the draft says on each: members that hold the role outside the configuration keep it on STACKIT until a person removes them.",
+        "closes_when": "A person confirms the value against the target, or the knowledge base gains a rule that decides this setting.",
+        "applies_only_if": "applies only if its count (var.init ? 1 : 0) holds when OpenTofu plans — present with the defaults of var.init (1 instance); a variable file (-var-file), -var or TF_VAR_init can change that",
+        "conditional_state": "PRESENT_ON_DEFAULTS"
+      }
+    ],
+    "support_settings": [
+      {
+        "support": "google_cloud_run_service_iam_policy.server_noauth",
+        "source_type": "google_cloud_run_service_iam_policy",
+        "attribute": "location",
+        "semantic": "sp-location",
+        "closure": "CLOSED:REVIEW",
+        "disposition": "GAP",
+        "gap": "no unit of the source reads google_cloud_run_service_iam_policy.server_noauth, so no step carries its location; the draft writes nothing for a support resource — a person decides it"
+      },
+      {
+        "support": "google_cloud_run_service_iam_policy.server_noauth",
+        "source_type": "google_cloud_run_service_iam_policy",
+        "attribute": "policy_data",
+        "semantic": "sp-policy-data",
+        "closure": "CLOSED:REVIEW",
+        "disposition": "GAP",
+        "gap": "no unit of the source reads google_cloud_run_service_iam_policy.server_noauth, so no step carries its policy_data; the draft writes nothing for a support resource — a person decides it"
+      },
+      {
+        "support": "google_cloud_run_service_iam_policy.server_noauth",
+        "source_type": "google_cloud_run_service_iam_policy",
+        "attribute": "project",
+        "semantic": "sp-project",
+        "closure": "CLOSED:REVIEW",
+        "disposition": "GAP",
+        "gap": "no unit of the source reads google_cloud_run_service_iam_policy.server_noauth, so no step carries its project; the draft writes nothing for a support resource — a person decides it"
+      },
+      {
+        "support": "google_cloud_run_service_iam_policy.server_noauth",
+        "source_type": "google_cloud_run_service_iam_policy",
+        "attribute": "service",
+        "semantic": "sp-service",
+        "closure": "CLOSED:REVIEW",
+        "disposition": "GAP",
+        "gap": "no unit of the source reads google_cloud_run_service_iam_policy.server_noauth, so no step carries its service; the draft writes nothing for a support resource — a person decides it"
+      },
+      {
+        "support": "google_project_iam_member.automation_permissions",
+        "source_type": "google_project_iam_member",
+        "attribute": "member",
+        "semantic": "sp-member",
+        "closure": "CLOSED:REVIEW",
+        "disposition": "GAP",
+        "gap": "no unit of the source reads google_project_iam_member.automation_permissions, so no step carries its member; the draft writes nothing for a support resource — a person decides it"
+      },
+      {
+        "support": "google_project_iam_member.automation_permissions",
+        "source_type": "google_project_iam_member",
+        "attribute": "project",
+        "semantic": "sp-project",
+        "closure": "CLOSED:REVIEW",
+        "disposition": "GAP",
+        "gap": "no unit of the source reads google_project_iam_member.automation_permissions, so no step carries its project; the draft writes nothing for a support resource — a person decides it"
+      },
+      {
+        "support": "google_project_iam_member.automation_permissions",
+        "source_type": "google_project_iam_member",
+        "attribute": "role",
+        "semantic": "sp-role",
+        "closure": "CLOSED:REVIEW",
+        "disposition": "GAP",
+        "gap": "no unit of the source reads google_project_iam_member.automation_permissions, so no step carries its role; the draft writes nothing for a support resource — a person decides it"
+      },
+      {
+        "support": "google_project_iam_member.client_permissions",
+        "source_type": "google_project_iam_member",
+        "attribute": "member",
+        "semantic": "sp-member",
+        "closure": "CLOSED:REVIEW",
+        "disposition": "GAP",
+        "gap": "no unit of the source reads google_project_iam_member.client_permissions, so no step carries its member; the draft writes nothing for a support resource — a person decides it"
+      },
+      {
+        "support": "google_project_iam_member.client_permissions",
+        "source_type": "google_project_iam_member",
+        "attribute": "project",
+        "semantic": "sp-project",
+        "closure": "CLOSED:REVIEW",
+        "disposition": "GAP",
+        "gap": "no unit of the source reads google_project_iam_member.client_permissions, so no step carries its project; the draft writes nothing for a support resource — a person decides it"
+      },
+      {
+        "support": "google_project_iam_member.client_permissions",
+        "source_type": "google_project_iam_member",
+        "attribute": "role",
+        "semantic": "sp-role",
+        "closure": "CLOSED:REVIEW",
+        "disposition": "GAP",
+        "gap": "no unit of the source reads google_project_iam_member.client_permissions, so no step carries its role; the draft writes nothing for a support resource — a person decides it"
+      },
+      {
+        "support": "google_project_iam_member.init_permissions",
+        "source_type": "google_project_iam_member",
+        "attribute": "member",
+        "semantic": "sp-member",
+        "closure": "CLOSED:REVIEW",
+        "disposition": "GAP",
+        "gap": "no unit of the source reads google_project_iam_member.init_permissions, so no step carries its member; the draft writes nothing for a support resource — a person decides it"
+      },
+      {
+        "support": "google_project_iam_member.init_permissions",
+        "source_type": "google_project_iam_member",
+        "attribute": "project",
+        "semantic": "sp-project",
+        "closure": "CLOSED:REVIEW",
+        "disposition": "GAP",
+        "gap": "no unit of the source reads google_project_iam_member.init_permissions, so no step carries its project; the draft writes nothing for a support resource — a person decides it"
+      },
+      {
+        "support": "google_project_iam_member.init_permissions",
+        "source_type": "google_project_iam_member",
+        "attribute": "role",
+        "semantic": "sp-role",
+        "closure": "CLOSED:REVIEW",
+        "disposition": "GAP",
+        "gap": "no unit of the source reads google_project_iam_member.init_permissions, so no step carries its role; the draft writes nothing for a support resource — a person decides it"
+      },
+      {
+        "support": "google_project_iam_member.server_permissions",
+        "source_type": "google_project_iam_member",
+        "attribute": "member",
+        "semantic": "sp-member",
+        "closure": "CLOSED:REVIEW",
+        "disposition": "GAP",
+        "gap": "no unit of the source reads google_project_iam_member.server_permissions, so no step carries its member; the draft writes nothing for a support resource — a person decides it"
+      },
+      {
+        "support": "google_project_iam_member.server_permissions",
+        "source_type": "google_project_iam_member",
+        "attribute": "project",
+        "semantic": "sp-project",
+        "closure": "CLOSED:REVIEW",
+        "disposition": "GAP",
+        "gap": "no unit of the source reads google_project_iam_member.server_permissions, so no step carries its project; the draft writes nothing for a support resource — a person decides it"
+      },
+      {
+        "support": "google_project_iam_member.server_permissions",
+        "source_type": "google_project_iam_member",
+        "attribute": "role",
+        "semantic": "sp-role",
+        "closure": "CLOSED:REVIEW",
+        "disposition": "GAP",
+        "gap": "no unit of the source reads google_project_iam_member.server_permissions, so no step carries its role; the draft writes nothing for a support resource — a person decides it"
+      },
+      {
+        "support": "module.project_services.google_project_service.project_services",
+        "source_type": "google_project_service",
+        "attribute": "disable_dependent_services",
+        "semantic": "sp-disable-dependent-services",
+        "closure": "CLOSED:REVIEW",
+        "disposition": "GAP",
+        "gap": "no unit of the source reads module.project_services.google_project_service.project_services, so no step carries its disable_dependent_services; the draft writes nothing for a support resource — a person decides it"
+      },
+      {
+        "support": "module.project_services.google_project_service.project_services",
+        "source_type": "google_project_service",
+        "attribute": "disable_on_destroy",
+        "semantic": "sp-disable-on-destroy",
+        "closure": "CLOSED:REVIEW",
+        "disposition": "GAP",
+        "gap": "no unit of the source reads module.project_services.google_project_service.project_services, so no step carries its disable_on_destroy; the draft writes nothing for a support resource — a person decides it"
+      },
+      {
+        "support": "module.project_services.google_project_service.project_services",
+        "source_type": "google_project_service",
+        "attribute": "project",
+        "semantic": "sp-project",
+        "closure": "CLOSED:REVIEW",
+        "disposition": "GAP",
+        "gap": "no unit of the source reads module.project_services.google_project_service.project_services, so no step carries its project; the draft writes nothing for a support resource — a person decides it"
+      },
+      {
+        "support": "module.project_services.google_project_service.project_services",
+        "source_type": "google_project_service",
+        "attribute": "service",
+        "semantic": "sp-service",
+        "closure": "CLOSED:REVIEW",
+        "disposition": "GAP",
+        "gap": "no unit of the source reads module.project_services.google_project_service.project_services, so no step carries its service; the draft writes nothing for a support resource — a person decides it"
+      }
+    ],
+    "default_variables": {
+      "variables": [
+        {
+          "name": "region",
+          "holds": "Google Cloud Region",
+          "open": 1,
+          "conditional_open": 0,
+          "settings": [
+            "geo-replication"
+          ],
+          "statement": "variable region (Google Cloud Region) · 1 open, 0 conditional_open · settings: geo-replication · state it in a variable file and give the file with --var-file FILE (the scan reads no -var and no TF_VAR_*)"
+        }
+      ],
+      "open": 1,
+      "conditional_open": 0,
+      "rows_on_variables": 1,
+      "rows_untraced": 0,
+      "statement": "1 root variable hold 1 of the 1 open critical setting that rest on a variable's default (1 open, 0 conditional_open; a setting that rests on several is counted once): 1 left at their defaults — region: state it in a variable file and give the file with --var-file FILE (the scan reads no -var and no TF_VAR_*)",
+      "route": "state it in a variable file and give the file with --var-file FILE (the scan reads no -var and no TF_VAR_*)"
+    }
+  }
+}

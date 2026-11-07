@@ -41,11 +41,7 @@
         "iac",
         "project_name",
         "maintainer",
-        "repository_url",
-        "commit",
-        "commit_url",
         "terraform_root",
-        "terraform_root_url",
         "license",
         "description",
         "attribution"
@@ -102,6 +98,18 @@
         },
         "attribution": {
           "type": "string"
+        },
+        "origin": {
+          "type": "string",
+          "enum": [
+            "upstream",
+            "authored"
+          ],
+          "description": "upstream: a public project at a pinned commit (repository_url, commit, commit_url, terraform_root_url are required). authored: an estate written by StackToIT and published in this example's source/ folder (source_path is required)."
+        },
+        "source_path": {
+          "type": "string",
+          "description": "authored estates only: folder inside the example that holds the Terraform estate that was assessed"
         }
       }
     },

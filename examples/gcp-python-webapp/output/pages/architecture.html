@@ -1,0 +1,999 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'self' file:; script-src 'sha256-CwASM6IjFFU0cbLjKYkJ0eTksrLAqSrzVwwNUyJ01Fs='; base-uri 'none'; form-action 'none'">
+<title>StackToIT Migration Intelligence Workspace - Architecture</title>
+<style>
+:root{color-scheme:light dark;--bg:#f2f5f4;--surface:#fff;--panel:#f7f9f8;--panel2:#e9eeec;--ink:#10201d;--ink2:#2c3b38;--muted:#4f5b58;--line:#d3dad8;--line2:#b9c4c1;--accent:#17603f;--accent2:#0f4a30;--accent-soft:#e2f0e7;--focus:#0b57d0;--crit:#a82218;--crit-soft:#fbe6e2;--warn:#7c5208;--warn-soft:#fbf0d4;--ok:#26683a;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+@media screen and (prefers-color-scheme:dark){:root{--bg:#0e1514;--surface:#151f1d;--panel:#1a2624;--panel2:#22302d;--ink:#e3ebe8;--ink2:#c8d3d0;--muted:#9eafab;--line:#2b3a37;--line2:#3d4f4b;--accent:#74d19c;--accent2:#9be3b9;--accent-soft:#183326;--focus:#8fb4ff;--crit:#ff958a;--crit-soft:#3a1c18;--warn:#ecc56f;--warn-soft:#33290f;--ok:#86d494}svg.diagram{background:#fff;border-radius:4px}}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:1rem;line-height:1.5;color:var(--ink);background:var(--bg);margin:0 auto;padding:0 1.5rem 3rem;max-width:84rem;overflow-wrap:break-word;-webkit-text-size-adjust:100%}
+h1,h2,h3,h4,h5{color:var(--ink);line-height:1.25;text-wrap:balance}h1{font-size:1.3rem;margin:1.25rem 0 .4rem;letter-spacing:-.01em}h2{font-size:1.4rem;margin:1.5rem 0 .6rem;letter-spacing:-.01em}h3{font-size:1.15rem;margin:1.4rem 0 .5rem}h4{font-size:1rem;margin:1.2rem 0 .4rem}p,li{max-width:110ch}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:.18em}a:hover{color:var(--accent2);text-decoration-thickness:2px}
+code{font-family:var(--mono);font-size:.84em;background:var(--panel2);border-radius:4px;padding:.05em .3em}
+summary{cursor:pointer}summary:hover{color:var(--accent2)}
+header>p:first-of-type{display:inline-block;margin:0 0 .75rem;padding:.3rem .8rem;font-size:.875rem;color:var(--ink2);background:var(--warn-soft);border:1px solid color-mix(in srgb,var(--warn) 35%,transparent);border-radius:4px}
+header>p[role=status],header>details.technical{font-size:.875rem;color:var(--ink2);margin:.35rem 0}
+nav{display:flex;flex-wrap:wrap;align-items:center;column-gap:.75rem;row-gap:.25rem;margin:1rem 0 .5rem;padding:.35rem .5rem;background:var(--surface);border:1px solid var(--line);border-radius:4px;font-size:1.05rem}
+nav ol{display:flex;flex-wrap:wrap;gap:.15rem .2rem;list-style:none;margin:0;padding:0;font-size:.85em}
+nav ol a{display:block;padding:.3rem .6rem;border-radius:4px;color:var(--ink2);text-decoration:none}nav ol a:hover{background:var(--panel2);color:var(--ink)}nav [aria-current]{background:var(--accent-soft);color:var(--accent2);box-shadow:inset 0 -2px 0 var(--accent)}
+nav ol:first-child{font-weight:600}.navmore{font-size:.8em;color:var(--muted);padding-left:.75rem;border-left:1px solid var(--line2)}
+a:focus,summary:focus,button:focus,input:focus,[tabindex]:focus{outline:3px solid var(--focus);outline-offset:2px}
+[hidden]{display:none!important}
+.toolbar{display:flex;flex-wrap:wrap;gap:.5rem;padding:.5rem 0}
+.toolbar button{font:inherit;font-size:.875rem;line-height:1.3;padding:.3rem .8rem;cursor:pointer;color:var(--ink);background:var(--surface);border:1px solid var(--line2);border-radius:4px}
+.toolbar button:hover{background:var(--panel2)}
+.toolbar button[aria-pressed="true"]{font-weight:bold;color:var(--accent2);background:var(--accent-soft);border-color:var(--accent)}
+.skip{position:absolute;left:-999px}.skip:focus{position:static}
+table{border-collapse:collapse;margin:.5rem 0 1rem;font-size:.9rem;font-variant-numeric:tabular-nums;background:var(--surface)}
+th,td{border:1px solid var(--line);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:var(--panel2);font-size:.8rem;font-weight:600;color:var(--ink2);text-transform:uppercase;letter-spacing:.03em}tbody th{font-weight:600}tbody tr:nth-child(even)>*{background:color-mix(in srgb,var(--panel) 70%,transparent)}
+caption{font-weight:600;text-align:left;padding-bottom:.4rem;color:var(--ink)}
+.scroll{overflow-x:auto;content-visibility:auto;contain-intrinsic-size:auto 40rem}
+.wide{width:calc(100vw - 2rem);max-width:1500px;margin-left:calc(50% - min(50vw - 1rem, 750px));background:var(--surface);border-radius:4px}
+svg.diagram a{cursor:pointer}
+svg.diagram a:hover rect,svg.diagram a:focus rect{stroke:#0b57d0;stroke-width:3}
+dl.topbar{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.6rem 1.5rem}
+dl.topbar dt{font-weight:600;font-size:.8rem;color:var(--muted)}dl.topbar dd{margin:0}
+
+
+ul.actions{display:flex;flex-wrap:wrap;gap:.3rem .4rem;list-style:none;margin:.4rem 0;padding:0}
+ul.actions li{border:1px solid var(--line2);background:var(--panel);border-radius:999px;padding:.05rem .55rem;white-space:nowrap;font-size:.9rem}ul.actions .fig{font-weight:bold;font-variant-numeric:tabular-nums}ul.actions .zero{opacity:.6}ul.actions [data-action-state=BLOCKED]{background:var(--crit-soft);border-color:color-mix(in srgb,var(--crit) 40%,transparent)}
+.state{display:inline-block;padding:0 .45rem;font-size:.85em;line-height:1.5;white-space:nowrap;background:var(--panel);border:1px solid var(--line);border-radius:4px}
+[data-dim-state] strong{color:var(--warn)}[data-dim-state^=COMPLETE] strong,[data-dim-state^=PASSED] strong,[data-dim-state^=SETTINGS] strong{color:var(--ink)}[data-dim-state=EXECUTION_READY] strong{color:var(--ok)}[data-dim-state^=REJECTED] strong,[data-dim-state^=BLOCKED] strong{color:var(--crit)}[data-dim-state^=NOT] strong,[data-dim-state^=NONE] strong{color:var(--muted)}
+@media screen and (max-width:40rem){nav{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;padding:.3rem .4rem;background:linear-gradient(90deg,var(--surface) 40%,transparent) left/1.5rem 100% no-repeat local,linear-gradient(270deg,var(--surface) 40%,transparent) right/1.5rem 100% no-repeat local,linear-gradient(90deg,color-mix(in srgb,var(--ink) 22%,transparent),transparent) left/.6rem 100% no-repeat scroll,linear-gradient(270deg,color-mix(in srgb,var(--ink) 22%,transparent),transparent) right/.6rem 100% no-repeat scroll,var(--surface)}nav ol{flex-wrap:nowrap}nav ol a,.navmore{white-space:nowrap}nav [aria-current]{scroll-initial-target:nearest}}
+@media (max-width:40rem){body{padding:0 1rem 2rem}nav ol a{padding:.25rem .45rem;min-height:2.75rem;display:flex;align-items:center}summary{min-height:2.75rem;padding-top:.6rem;padding-bottom:.6rem;box-sizing:border-box}.toolbar button{min-height:2.75rem}h2{font-size:1.25rem}}
+.lensnow{display:none}
+details.lensgroup{margin:.25rem 0}details.lensgroup>summary{font-size:.85em;color:var(--muted)}
+details.technical{margin:.5rem 0}details.technical[open]{padding:.25rem 1rem .75rem;background:var(--surface);border:1px solid var(--line);border-radius:4px}
+details.fold{margin:0;border-top:1px solid var(--line)}details.fold:last-of-type{border-bottom:1px solid var(--line)}details.fold>summary{font-weight:bold;padding:.65rem .25rem}details.fold>summary:hover{background:var(--panel)}details.fold>summary>h3{display:inline;margin:0;font-size:1.08em}details.fold[open]>summary{margin-bottom:.25rem}.foldcount{font-weight:normal;font-size:.85em;color:var(--muted);margin-left:.35rem}
+.na,small{color:var(--muted)}
+section{padding-top:1rem;border-top:1px solid var(--line)}
+main>section{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:.5rem 1.75rem 1.5rem;margin:1rem 0}main>section>h2:first-child{margin-top:.9rem}@media (max-width:40rem){main>section{padding:.25rem 1rem 1rem}}
+.lensnote{display:none;margin:.4rem 0;padding:.4rem .75rem;font-size:.9rem;background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);border-radius:4px}
+body[data-lens=executive] [data-lens]:not([data-lens~=executive]),body[data-lens=architect] [data-lens]:not([data-lens~=architect]),body[data-lens=platform] [data-lens]:not([data-lens~=platform]),body[data-lens=security] [data-lens]:not([data-lens~=security]),body[data-lens=application-owner] [data-lens]:not([data-lens~=application-owner]),body[data-lens=programme] [data-lens]:not([data-lens~=programme]),body[data-lens=finops] [data-lens]:not([data-lens~=finops]),body[data-lens=engineering] [data-lens]:not([data-lens~=engineering]){display:none}
+body[data-lens=all] .lensnow[data-for=all],body[data-lens=executive] .lensnow[data-for=executive],body[data-lens=executive] .lensnote[data-lens-note=executive],body[data-lens=architect] .lensnow[data-for=architect],body[data-lens=architect] .lensnote[data-lens-note=architect],body[data-lens=platform] .lensnow[data-for=platform],body[data-lens=platform] .lensnote[data-lens-note=platform],body[data-lens=security] .lensnow[data-for=security],body[data-lens=security] .lensnote[data-lens-note=security],body[data-lens=application-owner] .lensnow[data-for=application-owner],body[data-lens=application-owner] .lensnote[data-lens-note=application-owner],body[data-lens=programme] .lensnow[data-for=programme],body[data-lens=programme] .lensnote[data-lens-note=programme],body[data-lens=finops] .lensnow[data-for=finops],body[data-lens=finops] .lensnote[data-lens-note=finops],body[data-lens=engineering] .lensnow[data-for=engineering],body[data-lens=engineering] .lensnote[data-lens-note=engineering]{display:revert}
+
+@media print{.skip,nav,.toolbar,details.lensgroup,.lensnote,[data-js-only]{display:none!important}section{break-inside:avoid-page}details::details-content,.scroll{content-visibility:visible}[data-lens],[data-item][hidden],[data-group][hidden]{display:revert!important}body{background:#fff;max-width:none;padding:0}section.hero,main>section,ul.glance li{break-inside:auto}main>section{border:0;padding:0}a{color:inherit}svg.diagram{width:100%;height:auto}.wide{width:auto;margin-left:0;overflow:visible}}
+ol.chain{margin:0;padding:0 0 0 1.1rem;min-width:16rem;font-size:.85em}ol.chain>li{margin:0;overflow-wrap:anywhere}
+fieldset.viewpick{margin:.75rem 0;padding:.4rem .9rem .6rem;border:1px solid var(--line);border-radius:4px;background:var(--panel)}fieldset.viewpick legend{padding:0 .3rem;font-size:.8rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}fieldset.viewpick label{display:inline-flex;align-items:center;gap:.4rem;margin:.1rem 1rem .1rem 0;padding:.25rem 0;cursor:pointer}fieldset.viewpick input{width:1.1rem;height:1.1rem;margin:0;accent-color:var(--accent)}fieldset.viewpick .viewpick-note{margin:.3rem 0 0;font-size:.85rem;color:var(--muted)}
+#architecture:has(.viewpick input[value=current]:checked) [data-view]:not([data-view=current]),#architecture:has(.viewpick input[value=target]:checked) [data-view]:not([data-view=target]),#architecture:has(.viewpick input[value=delta]:checked) [data-view]:not([data-view=delta]){display:none}
+@media (max-width:40rem){fieldset.viewpick label{display:flex;min-height:2.75rem;margin-right:0}}
+@media print{fieldset.viewpick{display:none}#architecture [data-view]{display:revert!important}}
+</style>
+</head>
+<body data-lens="all" data-pages="">
+<dl hidden data-run><div><dt>Run</dt><dd>6f8f72b2-1c34-4cfc-8483-344c41245364 &middot; source digest sha256:19bfed642d5789ccada81b91d5c36e33175dcafd66dc46b1644ffa105d020000</dd></div></dl>
+<a class="skip" href="#main">Skip to the content</a>
+<noscript><p>Scripts are switched off. Nothing in this workspace needs them: every page is shown in full. A script would only add buttons: one that opens or closes every group of details, the lenses that put the navigation in another order, and the filters and sorts of the decision records and of the Target Fit rows.</p></noscript>
+<header>
+<h1>StackToIT Migration Intelligence Workspace</h1>
+<p>FOR REVIEW — generated by StackToIT Assess. Architect review required before any decision.</p>
+<nav aria-label="Workspace pages">
+<ol>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="overview"><a href="../index.html">Overview</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="applications"><a href="applications.html">Applications</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="decisions"><a href="decisions.html">Decisions</a></li>
+<li data-lens="executive architect platform application-owner programme finops engineering" data-nav="migration"><a href="migration.html">Migration Plan</a></li>
+<li data-lens="architect platform security application-owner programme engineering" data-nav="architecture"><a href="#architecture" aria-current="page">Architecture</a></li>
+<li data-lens="executive application-owner programme finops" data-nav="cost"><a href="cost.html">Costs</a></li>
+</ol>
+<span class="navmore" aria-hidden="true">More</span><ol aria-label="More pages">
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="work-board"><a href="work-board.html">Work Board</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="security-assurance"><a href="security-assurance.html">Security &amp; Resilience</a></li>
+<li data-lens="architect platform security engineering" data-nav="engineering"><a href="engineering.html">Engineering Evidence</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="target-fit"><a href="target-fit.html">Target Fit</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="sovereignty"><a href="sovereignty.html">Sovereignty</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="operations"><a href="operations.html">Operations</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="evidence"><a href="evidence.html">Evidence</a></li>
+</ol>
+</nav>
+<p role="status"><strong>Partially executable migration package</strong> &middot; For review only · Not approved.</p>
+<details class="technical">
+<summary>Technical details: run, versions, digest and evidence freshness</summary>
+<h2>Assessment</h2>
+<dl class="topbar">
+<div><dt>Assessment</dt><dd>gcp-candidates/terraform-dynamic-python-webapp/infra (assessment format 0.24.0)</dd></div>
+<div><dt>Assessment timestamp</dt><dd>Generated 2026-11-07 04:24 UTC by stacktoit 0.6.0-13076-ga19ea28c64 (a19ea28c64)</dd></div>
+<div><dt>Run</dt><dd>6f8f72b2-1c34-4cfc-8483-344c41245364 &middot; source digest sha256:19bfed642d5789ccada81b91d5c36e33175dcafd66dc46b1644ffa105d020000</dd></div>
+<div><dt>Source snapshot</dt><dd>partly decided only at plan time &middot; google not locked; google-beta not locked; http not locked; random not locked; time not locked</dd></div>
+<div><dt>STACKIT target profile</dt><dd>Stable network model: the experimental STACKIT VPC resources are not used (STACKIT_STABLE)</dd></div>
+<div><dt>STACKIT provider version</dt><dd>0.121.0</dd></div>
+<div><dt>Knowledge base version</dt><dd>0.394.0</dd></div>
+<div><dt>Evidence freshness</dt><dd><span class="state"><span aria-hidden="true">○</span> Not assessed</span> &mdash; Evidence freshness as one measure is not assessed in this build. Dated evidence is shown where it is used: each STACKIT support option and each assurance row states when it was verified (verified_at, and recheck_after for support), in support_suitability and assurance. The date beside a readiness dimension is the assessment date, not a retrieval date.</dd></div>
+</dl>
+<p role="status"><strong>Staleness:</strong> <span class="state"><span aria-hidden="true">○</span> Not assessed</span> &mdash; This build has no change detection, so there has been no re-check since the assessment was made (Generated 2026-11-07 04:24 UTC). The source may have changed since.</p>
+</details>
+<p role="status"><strong>Source checks:</strong> Built-in source checks passed — OpenTofu validation of the source did not run (LOCK_FILE)</p>
+<p role="status"><strong>Run status:</strong> COMPLETE (report published). Source: partly decided only at plan time. Draft: GENERATED. The report was written whole; this is not a statement that the migration is ready.</p>
+
+</header>
+<div class="toolbar" role="group" aria-label="Page controls" data-js-only hidden>
+<button type="button" aria-pressed="false" data-act="details">Open all details</button>
+</div>
+<details class="lensgroup" data-js-only hidden><summary>Read this page as<span class="lensnow" data-for="all">: All</span><span class="lensnow" data-for="executive">: Executive</span><span class="lensnow" data-for="architect">: Architect</span><span class="lensnow" data-for="platform">: Platform</span><span class="lensnow" data-for="security">: Security</span><span class="lensnow" data-for="application-owner">: Application owner</span><span class="lensnow" data-for="programme">: Programme</span><span class="lensnow" data-for="finops">: FinOps</span><span class="lensnow" data-for="engineering">: Engineering</span></summary>
+<div class="toolbar" role="group" aria-label="Reader lens" data-js-only hidden>
+<button type="button" aria-pressed="true" data-lens-set="all" data-lens-order="overview applications decisions migration architecture cost work-board security-assurance engineering target-fit sovereignty operations evidence">All</button>
+<button type="button" aria-pressed="false" data-lens-set="executive" data-lens-order="overview decisions applications target-fit security-assurance sovereignty cost migration work-board operations evidence architecture engineering">Executive</button>
+<button type="button" aria-pressed="false" data-lens-set="architect" data-lens-order="overview architecture applications decisions target-fit migration work-board operations security-assurance sovereignty evidence cost engineering">Architect</button>
+<button type="button" aria-pressed="false" data-lens-set="platform" data-lens-order="overview architecture target-fit operations security-assurance decisions applications migration work-board evidence sovereignty cost engineering">Platform</button>
+<button type="button" aria-pressed="false" data-lens-set="security" data-lens-order="overview security-assurance decisions sovereignty target-fit architecture evidence applications operations migration work-board cost engineering">Security</button>
+<button type="button" aria-pressed="false" data-lens-set="application-owner" data-lens-order="overview applications decisions architecture target-fit operations migration work-board evidence security-assurance sovereignty cost engineering">Application owner</button>
+<button type="button" aria-pressed="false" data-lens-set="programme" data-lens-order="overview applications decisions migration work-board operations target-fit architecture evidence security-assurance sovereignty cost engineering">Programme</button>
+<button type="button" aria-pressed="false" data-lens-set="finops" data-lens-order="overview cost applications target-fit decisions operations security-assurance migration work-board sovereignty evidence architecture engineering">FinOps</button>
+<button type="button" aria-pressed="false" data-lens-set="engineering" data-lens-order="overview engineering architecture evidence decisions target-fit operations applications security-assurance migration work-board sovereignty cost">Engineering</button>
+</div></details>
+<p class="lensnote" role="status" data-lens-note="executive">Executive lens: the sections are in the order this reader usually wants, and Architecture and Engineering Evidence are put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="architect">Architect lens: the sections are in the order this reader usually wants, and Costs is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="platform">Platform lens: the sections are in the order this reader usually wants, and Costs is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="security">Security lens: the sections are in the order this reader usually wants, and Costs and Migration Plan are put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="application-owner">Application owner lens: the sections are in the order this reader usually wants, and Engineering Evidence is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="programme">Programme lens: the sections are in the order this reader usually wants, and Engineering Evidence is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="finops">FinOps lens: the sections are in the order this reader usually wants, and Architecture and Engineering Evidence are put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="engineering">Engineering lens: the sections are in the order this reader usually wants, and Costs is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<main id="main" tabindex="-1">
+<section id="architecture" aria-labelledby="h-architecture">
+<h2 id="h-architecture">Architecture</h2>
+<p>The units of the estate and what the assessment decided for each. Class and confidence are the assessment's technical vocabulary. A unit whose evidence coverage is not traced is not a unit with nothing open: the work that is open on it is not measured here. The open work counts are never an input of the unit's class, confidence or eligibility.</p>
+<fieldset class="viewpick" id="architecture-view-choice"><legend>View</legend>
+<label><input type="radio" name="architecture-view" value="all" checked> All three</label>
+<label><input type="radio" name="architecture-view" value="current"> Current (the Google Cloud source)</label>
+<label><input type="radio" name="architecture-view" value="target"> Target (STACKIT)</label>
+<label><input type="radio" name="architecture-view" value="delta"> What changes</label>
+<p class="viewpick-note">Choosing one view shows it for the estate, for every application and for every PROPOSED group below, and puts the other two aside; nothing is removed, and printing shows all three.</p>
+</fieldset>
+<h3 id="architecture-drawings">Architecture drawings</h3>
+<p>Each box is a unit and each arrow a dependency, drawn from the same units and dependencies as <code>architecture/dependencies.mmd</code> (the file for Mermaid), with no script and nothing loaded. A scope with more than 120 units is not drawn, because a drawing of part of it would read as all of it; <code>architecture/dependencies.mmd</code> holds the whole graph. The drawings state what the assessment states and decide nothing.</p>
+<p>16 units and 29 dependencies in this scope.</p>
+<div data-view="current"><h4>Source</h4>
+<p>Each box is a unit: its short name, its source type and the module call it sits in; an arrow runs from a unit to a unit it depends on, and a subnet is drawn inside the network box it depends on. The columns run from the network and edge units on the left to compute, data, and identity and observability on the right.</p>
+<div class="scroll wide" role="region" aria-label="Source: drawing" tabindex="0"><svg class="diagram" role="img" aria-label="Source dependencies of 16 units and 29 dependencies" width="1089" height="554" viewBox="0 0 1089 554" font-family="Helvetica, Arial, sans-serif" font-size="12"><rect x="1" y="1" width="1087" height="552" rx="10" fill="none" stroke="#c4cfcc"/><text x="14" y="21" font-weight="bold" fill="#2c3b38">Estate</text><text x="14" y="46" font-weight="bold" fill="#3b4a47">Network and edge</text><path d="M14 52h169" stroke="#c4cfcc" fill="none"/><text x="219" y="46" font-weight="bold" fill="#3b4a47">Compute and workload</text><path d="M219 52h182" stroke="#c4cfcc" fill="none"/><text x="456" y="46" font-weight="bold" fill="#3b4a47">Data</text><path d="M456 52h178" stroke="#c4cfcc" fill="none"/><text x="670" y="46" font-weight="bold" fill="#3b4a47">Identity and observability</text><path d="M670 52h195" stroke="#c4cfcc" fill="none"/><text x="901" y="46" font-weight="bold" fill="#3b4a47">Other</text><path d="M901 52h174" stroke="#c4cfcc" fill="none"/><path d="M865 305L875 305M875 305L875 235M875 235L865 235M634 108C652 108 652 235 670 235M634 108C652 108 652 95 670 95M865 165L882 165M882 165L882 235M882 235L865 235M865 165L875 165M875 165L875 95M875 95L865 95M634 197C652 197 652 165 670 165M634 108C652 108 652 165 670 165M401 235C429 235 429 248 456 248M456 248L634 248M634 248C652 248 652 235 670 235M401 235C429 235 429 159 456 159M456 159L634 159M634 159C652 159 652 165 670 165M401 165C429 165 429 70 456 70M456 70L634 70M634 70C652 70 652 95 670 95M401 165C429 165 429 146 456 146M456 146L634 146M634 146C652 146 652 165 670 165M401 451C429 451 429 339 456 339M456 339L634 339M634 339C652 339 652 451 670 451M401 305C429 305 429 261 456 261M456 261L634 261M634 261C652 261 652 235 670 235M401 305C429 305 429 300 456 300M456 300L634 300M634 300C652 300 652 381 670 381M401 305C429 305 429 274 456 274M456 274L634 274M634 274C652 274 652 305 670 305M401 305C429 305 429 235 456 235M456 235L634 235M634 235C652 235 652 165 670 165M401 305C429 305 429 313 456 313M456 313L634 313M634 313C652 313 652 451 670 451M401 381C429 381 429 326 456 326M456 326L634 326M634 326C652 326 652 451 670 451" fill="none" stroke="#7f8d8a" stroke-width="1" stroke-dasharray="1 3" stroke-linecap="round"/><path d="M865 235l9 -4.5l0 9zM670 235l-9 -4.5l0 9zM670 95l-9 -4.5l0 9zM865 235l9 -4.5l0 9zM865 95l9 -4.5l0 9zM634 197l9 -4.5l0 9zM634 108l9 -4.5l0 9zM670 235l-9 -4.5l0 9zM670 165l-9 -4.5l0 9zM670 95l-9 -4.5l0 9zM670 165l-9 -4.5l0 9zM670 451l-9 -4.5l0 9zM670 235l-9 -4.5l0 9zM670 381l-9 -4.5l0 9zM670 305l-9 -4.5l0 9zM670 165l-9 -4.5l0 9zM670 451l-9 -4.5l0 9zM670 451l-9 -4.5l0 9z" fill="#7f8d8a"/><path d="M401 235C429 235 429 197 456 197M401 165C429 165 429 197 456 197M401 451L411 451M411 451L411 95M411 95L401 95M401 305L418 305M418 305L418 95M418 95L401 95M401 305C429 305 429 197 456 197M401 305L439 305M439 305L439 235M439 235L401 235M401 305L432 305M432 305L432 165M432 165L401 165M183 95C201 95 201 305 219 305M401 381L425 381M425 381L425 95M425 95L401 95M183 95C201 95 201 381 219 381M183 95C201 95 201 343 219 343M219 343L401 343M401 343C429 343 429 287 456 287M456 287L634 287M634 287C652 287 652 343 670 343M670 343L865 343M865 343C883 343 883 95 901 95" fill="none" stroke="#5e6e6b" stroke-width="1.5"/><path d="M456 197l-9 -4.5l0 9zM456 197l-9 -4.5l0 9zM401 95l9 -4.5l0 9zM401 95l9 -4.5l0 9zM456 197l-9 -4.5l0 9zM401 235l9 -4.5l0 9zM401 165l9 -4.5l0 9zM183 95l9 -4.5l0 9zM401 95l9 -4.5l0 9zM183 95l9 -4.5l0 9zM901 95l-9 -4.5l0 9z" fill="#5e6e6b"/><a href="#unit/google_firebase_project.default" id="drawing/google_firebase_project.default"><g><title>google_firebase_project.default — google_firebase_project — root module — 1 open critical semantics</title><rect x="901" y="66" width="174" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2"/><text x="911" y="83" font-weight="bold" fill="#10201d">firebase project default</text><text x="911" y="99" fill="#10201d">google_firebase_proje…</text><text x="911" y="115" fill="#10201d">root module</text><circle cx="1075" cy="66" r="10" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="1075" y="70" text-anchor="middle" font-weight="bold" fill="#ffffff">1</text></g></a><a href="#unit/google_pubsub_topic.faux" id="drawing/google_pubsub_topic.faux"><g><title>google_pubsub_topic.faux — google_pubsub_topic — root module — 1 open critical semantics</title><rect x="219" y="66" width="182" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2"/><text x="229" y="83" font-weight="bold" fill="#10201d">pubsub topic faux</text><text x="229" y="99" fill="#10201d">google_pubsub_topic</text><text x="229" y="115" fill="#10201d">root module</text><circle cx="401" cy="66" r="10" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="401" y="70" text-anchor="middle" font-weight="bold" fill="#ffffff">1</text></g></a><a href="#unit/google_service_account.automation" id="drawing/google_service_account.automation"><g><title>google_service_account.automation — google_service_account — root module — 2 open critical semantics</title><rect x="670" y="206" width="195" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2"/><text x="680" y="223" font-weight="bold" fill="#10201d">account automation</text><text x="680" y="239" fill="#10201d">google_service_account</text><text x="680" y="255" fill="#10201d">root module</text><circle cx="865" cy="206" r="10" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="865" y="210" text-anchor="middle" font-weight="bold" fill="#ffffff">2</text></g></a><a href="#unit/google_service_account.client" id="drawing/google_service_account.client"><g><title>google_service_account.client — google_service_account — root module — 2 open critical semantics</title><rect x="670" y="352" width="195" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2"/><text x="680" y="369" font-weight="bold" fill="#10201d">service account client</text><text x="680" y="385" fill="#10201d">google_service_account</text><text x="680" y="401" fill="#10201d">root module</text><circle cx="865" cy="352" r="10" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="865" y="356" text-anchor="middle" font-weight="bold" fill="#ffffff">2</text></g></a><a href="#unit/google_service_account.server" id="drawing/google_service_account.server"><g><title>google_service_account.server — google_service_account — root module — 2 open critical semantics</title><rect x="670" y="66" width="195" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2"/><text x="680" y="83" font-weight="bold" fill="#10201d">service account server</text><text x="680" y="99" fill="#10201d">google_service_account</text><text x="680" y="115" fill="#10201d">root module</text><circle cx="865" cy="66" r="10" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="865" y="70" text-anchor="middle" font-weight="bold" fill="#ffffff">2</text></g></a><a href="#unit/google_sql_database_instance.postgres" id="drawing/google_sql_database_instance.postgres"><g><title>google_sql_database_instance.postgres — google_sql_database_instance — root module — 6 open critical semantics</title><rect x="456" y="168" width="178" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2"/><text x="466" y="185" font-weight="bold" fill="#10201d">instance postgres</text><text x="466" y="201" fill="#10201d">google_sql_database_i…</text><text x="466" y="217" fill="#10201d">root module</text><circle cx="634" cy="168" r="10" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="634" y="172" text-anchor="middle" font-weight="bold" fill="#ffffff">6</text></g></a><a href="#unit/google_secret_manager_secret.django_admin_password" id="drawing/google_secret_manager_secret.django_admin_password"><g><title>google_secret_manager_secret.django_admin_password — google_secret_manager_secret — root module — 3 open critical semantics</title><rect x="670" y="276" width="195" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2"/><text x="680" y="293" font-weight="bold" fill="#10201d">secret django_admin_pas…</text><text x="680" y="309" fill="#10201d">google_secret_manager…</text><text x="680" y="325" fill="#10201d">root module</text><circle cx="865" cy="276" r="10" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="865" y="280" text-anchor="middle" font-weight="bold" fill="#ffffff">3</text></g></a><a href="#unit/google_storage_bucket.media" id="drawing/google_storage_bucket.media"><g><title>google_storage_bucket.media — google_storage_bucket — root module — 7 open critical semantics</title><rect x="456" y="79" width="178" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2"/><text x="466" y="96" font-weight="bold" fill="#10201d">storage bucket media</text><text x="466" y="112" fill="#10201d">google_storage_bucket</text><text x="466" y="128" fill="#10201d">root module</text><circle cx="634" cy="79" r="10" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="634" y="83" text-anchor="middle" font-weight="bold" fill="#ffffff">7</text></g></a><a href="#unit/google_secret_manager_secret.django_settings" id="drawing/google_secret_manager_secret.django_settings"><g><title>google_secret_manager_secret.django_settings — google_secret_manager_secret — root module — 3 open critical semantics</title><rect x="670" y="136" width="195" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2"/><text x="680" y="153" font-weight="bold" fill="#10201d">secret django_settings</text><text x="680" y="169" fill="#10201d">google_secret_manager…</text><text x="680" y="185" fill="#10201d">root module</text><circle cx="865" cy="136" r="10" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="865" y="140" text-anchor="middle" font-weight="bold" fill="#ffffff">3</text></g></a><a href="#unit/google_cloud_run_v2_job.migrate" id="drawing/google_cloud_run_v2_job.migrate"><g><title>google_cloud_run_v2_job.migrate — google_cloud_run_v2_job — root module — 11 open critical semantics</title><rect x="219" y="206" width="182" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2"/><text x="229" y="223" font-weight="bold" fill="#10201d">cloud run v2 job migrate</text><text x="229" y="239" fill="#10201d">google_cloud_run_v2_j…</text><text x="229" y="255" fill="#10201d">root module</text><circle cx="401" cy="206" r="12" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="401" y="210" text-anchor="middle" font-weight="bold" fill="#ffffff">11</text></g></a><a href="#unit/google_cloud_run_v2_service.server" id="drawing/google_cloud_run_v2_service.server"><g><title>google_cloud_run_v2_service.server — google_cloud_run_v2_service — root module — 12 open critical semantics</title><rect x="219" y="136" width="182" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2"/><text x="229" y="153" font-weight="bold" fill="#10201d">run v2 service server</text><text x="229" y="169" fill="#10201d">google_cloud_run_v2_s…</text><text x="229" y="185" fill="#10201d">root module</text><circle cx="401" cy="136" r="12" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="401" y="140" text-anchor="middle" font-weight="bold" fill="#ffffff">12</text></g></a><a href="#unit/google_cloudbuild_trigger.activategcb" id="drawing/google_cloudbuild_trigger.activategcb"><g><title>google_cloudbuild_trigger.activategcb — google_cloudbuild_trigger — root module — 6 open critical semantics — may not exist</title><rect x="219" y="422" width="182" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2" stroke-dasharray="5 3"/><text x="229" y="439" font-weight="bold" fill="#10201d">trigger activategcb</text><text x="229" y="455" fill="#10201d">google_cloudbuild_tri…</text><text x="229" y="471" fill="#10201d">root module</text><circle cx="401" cy="422" r="10" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="401" y="426" text-anchor="middle" font-weight="bold" fill="#ffffff">6</text></g></a><a href="#unit/google_cloudbuild_trigger.init" id="drawing/google_cloudbuild_trigger.init"><g><title>google_cloudbuild_trigger.init — google_cloudbuild_trigger — root module — 6 open critical semantics — may not exist</title><rect x="219" y="276" width="182" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2" stroke-dasharray="5 3"/><text x="229" y="293" font-weight="bold" fill="#10201d">cloudbuild trigger init</text><text x="229" y="309" fill="#10201d">google_cloudbuild_tri…</text><text x="229" y="325" fill="#10201d">root module</text><circle cx="401" cy="276" r="10" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="401" y="280" text-anchor="middle" font-weight="bold" fill="#ffffff">6</text></g></a><a href="#unit/google_cloudbuild_trigger.placeholder" id="drawing/google_cloudbuild_trigger.placeholder"><g><title>google_cloudbuild_trigger.placeholder — google_cloudbuild_trigger — root module — 6 open critical semantics — may not exist</title><rect x="219" y="352" width="182" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2" stroke-dasharray="5 3"/><text x="229" y="369" font-weight="bold" fill="#10201d">trigger placeholder</text><text x="229" y="385" fill="#10201d">google_cloudbuild_tri…</text><text x="229" y="401" fill="#10201d">root module</text><circle cx="401" cy="352" r="10" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="401" y="356" text-anchor="middle" font-weight="bold" fill="#ffffff">6</text></g></a><a href="#unit/google_firebase_hosting_site.client" id="drawing/google_firebase_hosting_site.client"><g><title>google_firebase_hosting_site.client — google_firebase_hosting_site — root module — 2 open critical semantics — may not exist</title><rect x="14" y="66" width="169" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2" stroke-dasharray="5 3"/><text x="24" y="83" font-weight="bold" fill="#10201d">hosting site client</text><text x="24" y="99" fill="#10201d">google_firebase_hosti…</text><text x="24" y="115" fill="#10201d">root module</text><circle cx="183" cy="66" r="10" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="183" y="70" text-anchor="middle" font-weight="bold" fill="#ffffff">2</text></g></a><a href="#unit/google_service_account.init" id="drawing/google_service_account.init"><g><title>google_service_account.init — google_service_account — root module — 2 open critical semantics — may not exist</title><rect x="670" y="422" width="195" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2" stroke-dasharray="5 3"/><text x="680" y="439" font-weight="bold" fill="#10201d">service account init</text><text x="680" y="455" fill="#10201d">google_service_account</text><text x="680" y="471" fill="#10201d">root module</text><circle cx="865" cy="422" r="10" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="865" y="426" text-anchor="middle" font-weight="bold" fill="#ffffff">2</text></g></a><circle cx="21" cy="503" r="9" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="21" y="507" text-anchor="middle" font-weight="bold" fill="#ffffff">3</text><text x="34" y="508" fill="#2c3b38">open critical semantics</text><rect x="199" y="496" width="14" height="14" rx="3" fill="#ffffff" stroke="#6d7d79" stroke-dasharray="4 2"/><text x="219" y="508" fill="#2c3b38">may not exist</text><path d="M324 503h14" stroke="#5e6e6b" fill="none"/><path d="M328 503l9 -4.5l0 9z" fill="#5e6e6b"/><text x="344" y="508" fill="#2c3b38">depends on</text><path d="M436 503h14" stroke="#7f8d8a" stroke-width="1" fill="none" stroke-dasharray="1 3" stroke-linecap="round"/><path d="M440 503l9 -4.5l0 9z" fill="#7f8d8a"/><text x="456" y="508" fill="#2c3b38">identity or observability dependency</text></svg></div></div>
+<div data-view="target"><h4>Source mapping view</h4>
+<p>The same source units in the same places, each relabelled with the STACKIT service the assessment proposes for it, with the class and confidence of its decision (the colour is the class; a grey box has no target). It maps the source, not the target: one unit can become several resources of the draft, none, or part of one, and the arrows are the dependencies of the source. The generated target design draws the resources of the draft. A proposal; an architect decides.</p>
+<div class="scroll wide" role="region" aria-label="Source mapping view: drawing" tabindex="0"><img src="../architecture/target.svg" alt="Source mapping view of this scope: the file architecture/target.svg of the package (the source drawing above links each box to its unit)" loading="lazy"></div></div>
+<div data-view="delta"><h4>What changes</h4>
+<p>The same units in the same places, with only what the move changes: the class, whether the unit has a target at all, and how many of its properties the draft names as not carried (not counted: the unit&#39;s properties were not accounted). A faded box is a direct unit with a target and nothing not carried.</p>
+<div class="scroll wide" role="region" aria-label="What changes: drawing" tabindex="0"><img src="../architecture/delta.svg" alt="What changes of this scope: the file architecture/delta.svg of the package (the source drawing above links each box to its unit)" loading="lazy"></div></div>
+<div data-view="target"><h3 id="generated-target-design">Generated target design</h3>
+<p>The source mapping view above relabels the source units. This drawing is made from the draft: each box is a resource the draft writes (a network, a network interface, a public IP, a routing table, a DNS zone, a load balancer, a server or a data store), inside the network the draft places it in, with the source units it is written from; an arrow is a reference the draft writes, directly or through a volume, interface or public IP attachment. A dashed arrow is a link the draft does not settle (one the source states, or two resources only another block of the draft names): unknown, listed below with what the source states, never a guess. Security groups, identities and the other resources of the draft are not drawn here (the line below the drawing counts them by type) (<code>architecture/network-security.mmd</code> and <code>architecture/identity.mmd</code> draw them, <code>terraform/</code> holds them all).</p>
+<p class="summary-graph"><strong>Summary graph: 3 of 10 draft blocks drawn.</strong> The drawing is a summary, not the draft: the full list of the draft's blocks, each with the source units it comes from, is <a href="../engineering/evidence-index.json"><code>engineering/evidence-index.json</code></a>, and <code>terraform/</code> holds every block itself.</p>
+<p>3 resources of the draft, written from 4 source units; 1 links, 1 of them unknown. By kind: server 1 · data-store 2.</p>
+<div class="scroll wide" role="region" aria-label="Generated target design: drawing" tabindex="0"><svg class="diagram" role="img" aria-label="Generated target design of 3 resources of the draft and 1 links" width="420" height="268" viewBox="0 0 420 268" font-family="Helvetica, Arial, sans-serif" font-size="12"><rect x="1" y="1" width="418" height="266" rx="10" fill="none" stroke="#c4cfcc"/><text x="14" y="21" font-weight="bold" fill="#2c3b38">Generated STACKIT target design</text><text x="14" y="46" font-weight="bold" fill="#3b4a47">Compute and workload</text><path d="M14 52h167" stroke="#c4cfcc" fill="none"/><text x="217" y="46" font-weight="bold" fill="#3b4a47">Data</text><path d="M217 52h161" stroke="#c4cfcc" fill="none"/><path d="M181 95C199 95 199 165 217 165" fill="none" stroke="#a23a62" stroke-width="1.5" stroke-dasharray="6 4"/><path d="M217 165l-9 -4.5l0 9z" fill="#a23a62"/><g><title>stackit_objectstorage_bucket.media — stackit_objectstorage_bucket — from storage bucket media</title><rect x="217" y="66" width="161" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2"/><text x="227" y="83" font-weight="bold" fill="#10201d">bucket media</text><text x="227" y="99" fill="#10201d">objectstorage bucket</text><text x="227" y="115" fill="#10201d">from storage bucket m…</text></g><g><title>stackit_postgresflex_instance.postgres — stackit_postgresflex_instance — from sql database instance postgres</title><rect x="217" y="136" width="161" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2"/><text x="227" y="153" font-weight="bold" fill="#10201d">instance postgres</text><text x="227" y="169" fill="#10201d">postgresflex instance</text><text x="227" y="185" fill="#10201d">from sql database ins…</text></g><g><title>stackit_ske_cluster.containers — stackit_ske_cluster — from 2 source units</title><rect x="14" y="66" width="167" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2"/><text x="24" y="83" font-weight="bold" fill="#10201d">ske cluster containers</text><text x="24" y="99" fill="#10201d">ske cluster</text><text x="24" y="115" fill="#10201d">from 2 source units</text></g><path d="M14 217h14" stroke="#5e6e6b" fill="none"/><path d="M18 217l9 -4.5l0 9z" fill="#5e6e6b"/><text x="34" y="222" fill="#2c3b38">references (in the draft)</text><path d="M14 239h14" stroke="#a23a62" stroke-width="1.5" stroke-dasharray="6 4" fill="none"/><path d="M18 239l9 -4.5l0 9z" fill="#a23a62"/><text x="34" y="244" fill="#2c3b38">unknown: a link the draft does not settle (see the list below)</text></svg></div>
+<p>Not drawn: 1 stackit_rabbitmq_instance, 1 stackit_secretsmanager_instance, 1 stackit_secretsmanager_user, 4 stackit_service_account (<code>terraform/</code> holds them).</p>
+<h4>Links the draft does not settle</h4>
+<ul><li><code>stackit_ske_cluster.containers</code> &rarr; <code>stackit_postgresflex_instance.postgres</code>: unknown. google_cloud_run_v2_job.migrate refers to google_sql_database_instance.postgres (template.template.volumes.cloud_sql_instance.instances) in the source; the draft writes no reference between stackit_ske_cluster.containers and stackit_postgresflex_instance.postgres; what decides it: stackit_postgresflex_instance has a network block with an access list and a scope but no network ID of a project network (provider schema 0.120.0); network.acl and network.access_scope (PUBLIC or SNA) is its access control, so who reaches it is decided by var.postgres_allowed_cidrs, which the draft leaves without a default, which is to name the addresses the workload connects from: the pods of a drafted cluster connect from its egress_address_ranges (a computed attribute: &#34;The outgoing network ranges (in CIDR notation) of traffic originating from workload on the cluster.&#34;, provider schema 0.120.0).</li>
+</ul>
+<h4>Source units and resources that are not one to one</h4>
+<div class="scroll" role="region" aria-label="Source units and resources that are not one to one" tabindex="0"><table>
+<thead><tr><th scope="col">Mapping</th><th scope="col">Source units</th><th scope="col">Resources of the draft</th></tr></thead>
+<tbody><tr><td>2 units &rarr; 1 resource</td><td><code>google_cloud_run_v2_job.migrate</code>, <code>google_cloud_run_v2_service.server</code></td><td><code>stackit_ske_cluster.containers</code></td></tr>
+</tbody></table></div>
+</div><div data-view="target"><h3 id="architecture-views">Architecture views of the target</h3>
+<p>Three more views are drawn from the plans of the draft. They are Mermaid sources: text for a tool that draws Mermaid, not images. The page shows the text of the network and security view and of the data flow view below; it loads no Mermaid program and nothing else. An estate with more than 120 units in the network and security view or in the data flow view gets that file as a partition map (one box for each partition, the arrows between partitions counted, every unknown edge accounted for) and one file for each partition under <code>architecture/partitions/</code>, which the map names.</p>
+<ul>
+<li><a href="../architecture/network-security.mmd"><code>architecture/network-security.mmd</code></a> &mdash; networks, subnets, load balancers and security groups of the target</li>
+<li><a href="../architecture/identity.mmd"><code>architecture/identity.mmd</code></a> &mdash; the identities of the source and the STACKIT identity each moves to</li>
+<li><a href="../architecture/data-flows.mmd"><code>architecture/data-flows.mmd</code></a> &mdash; clients, load balancers, applications and data stores, with the protocol and port of each flow</li>
+</ul>
+<h4 id="architecture-view-drawings">The network and security view and the data flow view, drawn</h4>
+<p>The same boxes and arrows as the Mermaid files, drawn with no script; where the run wrote the drawing files beside them (<code>architecture/network-security.svg</code> and <code>architecture/data-flows.svg</code>) the page shows those files, the one copy of each drawing, and embeds none twice. Each arrow carries a number; the key under the drawing gives its two ends in the direction of the arrow and its words (protocol, port and direction of a rule or listener, the attribute of a reference). A thin grey arrow is a source link (a reference the source configuration makes), a thick dark one a target link (a path a rule, route or listener of the draft permits), a thick blue one an accepted change (a link an answer of the inputs file changed), a dashed one unknown. Nothing here is observed traffic.</p>
+<div class="scroll wide" role="region" aria-label="Drawing of architecture/network-security.mmd" tabindex="0"><img src="../architecture/network-security.svg" alt="Drawing of architecture/network-security.mmd: the file architecture/network-security.svg of the package" loading="lazy"></div>
+<div class="scroll wide" role="region" aria-label="Drawing of architecture/data-flows.mmd" tabindex="0"><img src="../architecture/data-flows.svg" alt="Drawing of architecture/data-flows.mmd: the file architecture/data-flows.svg of the package" loading="lazy"></div>
+<h4 id="architecture-view-texts">The network and security view and the data flow view as text</h4>
+<p>The Mermaid text of each, as the run wrote it: readable here offline, and drawn by a Mermaid tool on your own machine. The page loads no Mermaid program.</p>
+<details>
+<summary>Mermaid text of <code>architecture/network-security.mmd</code>: networks, subnets, load balancers and security groups of the target</summary>
+<div class="scroll" role="region" aria-label="Mermaid text of architecture/network-security.mmd" tabindex="0"><pre>%% FOR REVIEW — generated by StackToIT Assess. Architect review required before any decision.
+%% What this view is: the network and security picture of the migration, drawn from the plans of the draft (security group rules, attachments, routing) and from the assessment (the references the source configuration makes). One box per source unit: its address, its source type, the STACKIT service the assessment proposes and, when a plan drafts resources from it, their addresses.
+%% Arrows: a thin arrow is a reference the source configuration makes (its label is the attribute that holds it); a thick arrow is a path a rule, a route or a listener permits (direction, protocol, ports); a dashed arrow is UNKNOWN (its label says why the sources do not settle it). Nothing here is observed traffic or a verified connection, and a connection no source states is not drawn.
+%% Google Cloud: a load balancer is its forwarding rule and its backend service, with the target proxy and the URL map as the label of the arrow between them. A firewall rule is the box of the rule; a thin arrow from an instance, a group manager or a cluster to it is the selection the source states by network tag or service account (&#34;selected by target_tags web&#34;), and the arrow says whether the draft attaches the rule&#39;s security group to that unit. A thick arrow from a range to the rule is a rule the draft drafts; a deny rule is an orange arrow, because STACKIT security groups only allow. What faces the internet is read from the load balancing scheme, the external IP of a network interface, the ingress setting and invoker of a Cloud Run service or Function, the endpoint of a GKE cluster and the public address of a Cloud SQL instance.
+%% Only GCP units of a network role are drawn. architecture/dependencies.mmd holds every unit.
+flowchart LR
+  n_google_cloud_run_v2_job_migrate[&#34;google_cloud_run_v2_job.migrate&lt;br/&gt;&lt;small&gt;google_cloud_run_v2_job → Kubernetes Job/CronJob on SKE&lt;/small&gt;&lt;br/&gt;&lt;small&gt;location us-central1&lt;/small&gt;&#34;]:::unit
+  n_google_cloud_run_v2_service_server[&#34;google_cloud_run_v2_service.server&lt;br/&gt;&lt;small&gt;google_cloud_run_v2_service → SKE workload (or Cloud Foundry Docker app)&lt;/small&gt;&lt;br/&gt;&lt;small&gt;location us-central1&lt;/small&gt;&#34;]:::unit
+  n_google_sql_database_instance_postgres[&#34;google_sql_database_instance.postgres&lt;br/&gt;&lt;small&gt;google_sql_database_instance → STACKIT PostgreSQL Flex&lt;/small&gt;&lt;br/&gt;&lt;small&gt;POSTGRES_14, region us-central1, db-custom-2-4096&lt;/small&gt;&#34;]:::unit
+  n_internet[&#34;internet&#34;]:::internet
+  n_google_cloud_run_v2_job_migrate --&gt;|&#34;template.template.volumes.cloud_sql_instance.instances&#34;| n_google_sql_database_instance_postgres
+  n_google_cloud_run_v2_service_server --&gt;|&#34;template.volumes.cloud_sql_instance.instances&#34;| n_google_sql_database_instance_postgres
+  n_internet --&gt;|&#34;the URL is reachable from the internet (ingress is not set, and by default the service accepts all traffic) but needs an authenticated caller: no IAM member of the source gives allUsers the invoker role (a binding or policy outside the scan could)&#34;| n_google_cloud_run_v2_service_server
+  n_internet --&gt;|&#34;public IPv4 address (ipv4_enabled is not set and its default is true); no authorized network, so only the Cloud SQL connectors reach it&#34;| n_google_sql_database_instance_postgres
+  classDef unit fill:#e1e5f5,stroke:#4b5ba6
+  classDef synthetic fill:#f3f3f3,stroke:#566663
+  classDef unknown fill:#f3f3f3,stroke:#566663,stroke-dasharray:4 3
+  classDef manual fill:#f6e7cf,stroke:#a8650c
+  classDef internet fill:#f8deda,stroke:#b1261b
+</pre></div>
+</details>
+<details>
+<summary>Mermaid text of <code>architecture/data-flows.mmd</code>: clients, load balancers, applications and data stores, with the protocol and port of each flow</summary>
+<div class="scroll" role="region" aria-label="Mermaid text of architecture/data-flows.mmd" tabindex="0"><pre>%% FOR REVIEW — generated by StackToIT Assess. Architect review required before any decision.
+%% What this view is: the data flows between the clients, load balancers, applications, databases, object storage and registries of the estate, drawn from the forwarding rules and backend services of the source, the ingress settings of its serverless units, the firewall rules of the VPC and the references the source configuration makes. Each flow says its protocol and port where the source states them, whether it is public or private, and the migration effect (the class the assessment gives the unit it ends in). What the source does not state is written unknown.
+%% The flows are the paths a forwarding rule, a backend service or a firewall rule permits, not observed traffic. A load balancer is drawn as its forwarding rule (the clients, the protocol of its target proxy, its ports) and its backend service (the protocol and the named port it speaks to the instance groups, network endpoint groups and buckets behind it); the proxy and the URL map are the label of the arrow between them. A firewall rule is drawn between the clients and the instances it selects by network tag or service account, thick only when the draft attaches the rule&#39;s security group to the unit it filters, else dashed and saying what the draft does not do. A thin arrow is a reference from an application to a unit it uses, whose protocol and port the source does not state; a dashed arrow is UNKNOWN. A deny rule is no flow: the network and security view draws it.
+%% Only GCP units are drawn. architecture/dependencies.mmd holds every unit and the dependencies among them.
+%% 2 managed service units that no flow touches are not drawn and not counted toward the 120 units above which this view is cut into partitions: google_pubsub_topic.faux, google_secret_manager_secret.django_admin_password. architecture/dependencies.mmd holds every unit.
+%% A label that ends in &#34;full reason at the end of this file&#34; is cut at the end of a clause: the lines &#34;Full reason of arrow N&#34; at the end of this file, and the key of the drawn view, carry the whole reason.
+flowchart LR
+  n_clients_public[&#34;clients&lt;br/&gt;internet&#34;]:::internet
+  n_google_cloud_run_v2_job_migrate[&#34;google_cloud_run_v2_job.migrate&lt;br/&gt;&lt;small&gt;google_cloud_run_v2_job → Kubernetes Job/CronJob on SKE&lt;/small&gt;&lt;br/&gt;&lt;small&gt;location us-central1&lt;/small&gt;&#34;]:::unit
+  n_google_cloud_run_v2_service_server[&#34;google_cloud_run_v2_service.server&lt;br/&gt;&lt;small&gt;google_cloud_run_v2_service → SKE workload (or Cloud Foundry Docker app)&lt;/small&gt;&lt;br/&gt;&lt;small&gt;location us-central1&lt;/small&gt;&#34;]:::unit
+  n_google_secret_manager_secret_django_settings[&#34;google_secret_manager_secret.django_settings&lt;br/&gt;&lt;small&gt;google_secret_manager_secret → STACKIT Secrets Manager&lt;/small&gt;&#34;]:::unit
+  n_google_sql_database_instance_postgres[&#34;google_sql_database_instance.postgres&lt;br/&gt;&lt;small&gt;google_sql_database_instance → STACKIT PostgreSQL Flex&lt;/small&gt;&lt;br/&gt;&lt;small&gt;POSTGRES_14, region us-central1, db-custom-2-4096&lt;/small&gt;&#34;]:::unit
+  n_google_storage_bucket_media[&#34;google_storage_bucket.media&lt;br/&gt;&lt;small&gt;google_storage_bucket → STACKIT Object Storage&lt;/small&gt;&lt;br/&gt;&lt;small&gt;location us-central1, REGIONAL&lt;/small&gt;&#34;]:::unit
+  n_clients_public --&gt;|&#34;the URL is reachable from the internet (ingress is not set, and by default the service accepts all traffic) but needs an authenticated caller: no IAM member of the source gives allUsers the invoker role (a binding or policy outside the scan could) … (full reason at the end of this file and in the key of the drawn view)&#34;| n_google_cloud_run_v2_service_server
+  n_clients_public --&gt;|&#34;public IPv4 address (ipv4_enabled is not set and its default is true); no authorized network, so only the Cloud SQL connectors reach it; effect: REPLATFORM&#34;| n_google_sql_database_instance_postgres
+  n_google_cloud_run_v2_job_migrate --&gt;|&#34;uses (template.template.containers.env.value_source.secret_key_ref.secret): protocol and port unknown, public or private unknown; effect: RECONFIGURE&#34;| n_google_secret_manager_secret_django_settings
+  n_google_cloud_run_v2_job_migrate --&gt;|&#34;uses (template.template.volumes.cloud_sql_instance.instances): protocol and port unknown, public or private unknown; effect: REPLATFORM&#34;| n_google_sql_database_instance_postgres
+  n_google_cloud_run_v2_service_server --&gt;|&#34;uses (template.containers.env.value_source.secret_key_ref.secret): protocol and port unknown, public or private unknown; effect: RECONFIGURE&#34;| n_google_secret_manager_secret_django_settings
+  n_google_cloud_run_v2_service_server --&gt;|&#34;uses (template.volumes.cloud_sql_instance.instances): protocol and port unknown, public or private unknown; effect: REPLATFORM&#34;| n_google_sql_database_instance_postgres
+  classDef unit fill:#e1e5f5,stroke:#4b5ba6
+  classDef synthetic fill:#f3f3f3,stroke:#566663
+  classDef unknown fill:#f3f3f3,stroke:#566663,stroke-dasharray:4 3
+  classDef manual fill:#f6e7cf,stroke:#a8650c
+  classDef internet fill:#f8deda,stroke:#b1261b
+%% Full reason of arrow 1 (clients:public → google_cloud_run_v2_service.server): the URL is reachable from the internet (ingress is not set, and by default the service accepts all traffic) but needs an authenticated caller: no IAM member of the source gives allUsers the invoker role (a binding or policy outside the scan could); effect: CONTAINERIZE
+</pre></div>
+</details>
+</div><h3 id="architecture-by-application">Current, target and what changes, by application</h3>
+<p>The same three views for each application of your file and for each group StackToIT PROPOSES from the source, drawn from the same units and dependencies as the estate. A PROPOSED group is a reading of the source that nobody has confirmed: it is labelled PROPOSED here as everywhere. Choose a view above to see one of the three for every application at once.</p>
+<details data-app-drawing="migrate" data-proposed>
+<summary><code>migrate</code> (PROPOSED &mdash; not confirmed): 3 units &middot; NOT MIGRATION-READY</summary>
+<p>3 units and 2 dependencies in this scope.</p>
+<div data-view="current"><h4>Source</h4>
+<p>Each box is a unit: its short name, its source type and the module call it sits in; an arrow runs from a unit to a unit it depends on, and a subnet is drawn inside the network box it depends on. The columns run from the network and edge units on the left to compute, data, and identity and observability on the right.</p>
+<div class="scroll wide" role="region" aria-label="Source: drawing" tabindex="0"><svg class="diagram" role="img" aria-label="Source dependencies of 3 units and 2 dependencies" width="655" height="198" viewBox="0 0 655 198" font-family="Helvetica, Arial, sans-serif" font-size="12"><rect x="1" y="1" width="653" height="196" rx="10" fill="none" stroke="#c4cfcc"/><text x="14" y="21" font-weight="bold" fill="#2c3b38">PROPOSED group migrate (not confirmed)</text><text x="14" y="46" font-weight="bold" fill="#3b4a47">Compute and workload</text><path d="M14 52h182" stroke="#c4cfcc" fill="none"/><text x="232" y="46" font-weight="bold" fill="#3b4a47">Identity and observability</text><path d="M232 52h409" stroke="#c4cfcc" fill="none"/><path d="M410 95C428 95 428 95 446 95M196 95C214 95 214 95 232 95" fill="none" stroke="#7f8d8a" stroke-width="1" stroke-dasharray="1 3" stroke-linecap="round"/><path d="M410 95l9 -4.5l0 9zM232 95l-9 -4.5l0 9z" fill="#7f8d8a"/><a href="#unit/google_service_account.automation"><g><title>google_service_account.automation — google_service_account — root module — 2 open critical semantics</title><rect x="232" y="66" width="178" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2"/><text x="242" y="83" font-weight="bold" fill="#10201d">account automation</text><text x="242" y="99" fill="#10201d">google_service_account</text><text x="242" y="115" fill="#10201d">root module</text><circle cx="410" cy="66" r="10" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="410" y="70" text-anchor="middle" font-weight="bold" fill="#ffffff">2</text></g></a><a href="#unit/google_secret_manager_secret.django_admin_password"><g><title>google_secret_manager_secret.django_admin_password — google_secret_manager_secret — root module — 3 open critical semantics</title><rect x="446" y="66" width="195" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2"/><text x="456" y="83" font-weight="bold" fill="#10201d">secret django_admin_pas…</text><text x="456" y="99" fill="#10201d">google_secret_manager…</text><text x="456" y="115" fill="#10201d">root module</text><circle cx="641" cy="66" r="10" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="641" y="70" text-anchor="middle" font-weight="bold" fill="#ffffff">3</text></g></a><a href="#unit/google_cloud_run_v2_job.migrate"><g><title>google_cloud_run_v2_job.migrate — google_cloud_run_v2_job — root module — 11 open critical semantics</title><rect x="14" y="66" width="182" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2"/><text x="24" y="83" font-weight="bold" fill="#10201d">cloud run v2 job migrate</text><text x="24" y="99" fill="#10201d">google_cloud_run_v2_j…</text><text x="24" y="115" fill="#10201d">root module</text><circle cx="196" cy="66" r="12" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="196" y="70" text-anchor="middle" font-weight="bold" fill="#ffffff">11</text></g></a><circle cx="21" cy="147" r="9" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="21" y="151" text-anchor="middle" font-weight="bold" fill="#ffffff">3</text><text x="34" y="152" fill="#2c3b38">open critical semantics</text><path d="M199 147h14" stroke="#5e6e6b" fill="none"/><path d="M203 147l9 -4.5l0 9z" fill="#5e6e6b"/><text x="219" y="152" fill="#2c3b38">depends on</text><path d="M310 147h14" stroke="#7f8d8a" stroke-width="1" fill="none" stroke-dasharray="1 3" stroke-linecap="round"/><path d="M314 147l9 -4.5l0 9z" fill="#7f8d8a"/><text x="330" y="152" fill="#2c3b38">identity or observability dependency</text></svg></div></div>
+<div data-view="target"><h4>Source mapping view</h4>
+<p>The same source units in the same places, each relabelled with the STACKIT service the assessment proposes for it, with the class and confidence of its decision (the colour is the class; a grey box has no target). It maps the source, not the target: one unit can become several resources of the draft, none, or part of one, and the arrows are the dependencies of the source. The generated target design draws the resources of the draft. A proposal; an architect decides.</p>
+<div class="scroll wide" role="region" aria-label="Source mapping view: drawing" tabindex="0"><svg class="diagram" role="img" aria-label="Source mapping view of 3 units and 2 dependencies" width="655" height="198" viewBox="0 0 655 198" font-family="Helvetica, Arial, sans-serif" font-size="12"><rect x="1" y="1" width="653" height="196" rx="10" fill="none" stroke="#c4cfcc"/><text x="14" y="21" font-weight="bold" fill="#2c3b38">PROPOSED group migrate (not confirmed)</text><text x="14" y="46" font-weight="bold" fill="#3b4a47">Compute and workload</text><path d="M14 52h182" stroke="#c4cfcc" fill="none"/><text x="232" y="46" font-weight="bold" fill="#3b4a47">Identity and observability</text><path d="M232 52h409" stroke="#c4cfcc" fill="none"/><path d="M410 95C428 95 428 95 446 95M196 95C214 95 214 95 232 95" fill="none" stroke="#7f8d8a" stroke-width="1" stroke-dasharray="1 3" stroke-linecap="round"/><path d="M410 95l9 -4.5l0 9zM232 95l-9 -4.5l0 9z" fill="#7f8d8a"/><a href="#unit/google_service_account.automation"><g><title>google_service_account.automation — STACKIT service account — RECONFIGURE / MEDIUM — 2 open critical semantics</title><rect x="232" y="66" width="178" height="58" rx="6" fill="#fbe8bd" stroke="#a8700f" stroke-width="1.2"/><text x="242" y="83" font-weight="bold" fill="#10201d">account automation</text><text x="242" y="99" fill="#10201d">STACKIT service accou…</text><text x="242" y="115" fill="#10201d">RECONFIGURE · MEDIUM</text><circle cx="410" cy="66" r="10" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="410" y="70" text-anchor="middle" font-weight="bold" fill="#ffffff">2</text></g></a><a href="#unit/google_secret_manager_secret.django_admin_password"><g><title>google_secret_manager_secret.django_admin_password — STACKIT Secrets Manager — RECONFIGURE / MEDIUM — 3 open critical semantics</title><rect x="446" y="66" width="195" height="58" rx="6" fill="#fbe8bd" stroke="#a8700f" stroke-width="1.2"/><text x="456" y="83" font-weight="bold" fill="#10201d">secret django_admin_pas…</text><text x="456" y="99" fill="#10201d">STACKIT Secrets Manag…</text><text x="456" y="115" fill="#10201d">RECONFIGURE · MEDIUM</text><circle cx="641" cy="66" r="10" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="641" y="70" text-anchor="middle" font-weight="bold" fill="#ffffff">3</text></g></a><a href="#unit/google_cloud_run_v2_job.migrate"><g><title>google_cloud_run_v2_job.migrate — Kubernetes Job/CronJob on SKE — CONTAINERIZE / MEDIUM — 11 open critical semantics</title><rect x="14" y="66" width="182" height="58" rx="6" fill="#cde9f5" stroke="#1b6e96" stroke-width="1.2"/><text x="24" y="83" font-weight="bold" fill="#10201d">cloud run v2 job migrate</text><text x="24" y="99" fill="#10201d">Kubernetes Job/CronJo…</text><text x="24" y="115" fill="#10201d">CONTAINERIZE · MEDIUM</text><circle cx="196" cy="66" r="12" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="196" y="70" text-anchor="middle" font-weight="bold" fill="#ffffff">11</text></g></a><rect x="14" y="140" width="14" height="14" rx="3" fill="#fbe8bd" stroke="#a8700f"/><text x="34" y="152" fill="#2c3b38">RECONFIGURE</text><rect x="148" y="140" width="14" height="14" rx="3" fill="#cde9f5" stroke="#1b6e96"/><text x="168" y="152" fill="#2c3b38">CONTAINERIZE</text><circle cx="294" cy="147" r="9" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="294" y="151" text-anchor="middle" font-weight="bold" fill="#ffffff">3</text><text x="307" y="152" fill="#2c3b38">open critical semantics</text><path d="M472 147h14" stroke="#5e6e6b" fill="none"/><path d="M476 147l9 -4.5l0 9z" fill="#5e6e6b"/><text x="492" y="152" fill="#2c3b38">depends on</text><path d="M14 169h14" stroke="#7f8d8a" stroke-width="1" fill="none" stroke-dasharray="1 3" stroke-linecap="round"/><path d="M18 169l9 -4.5l0 9z" fill="#7f8d8a"/><text x="34" y="174" fill="#2c3b38">identity or observability dependency</text></svg></div></div>
+<div data-view="delta"><h4>What changes</h4>
+<p>The same units in the same places, with only what the move changes: the class, whether the unit has a target at all, and how many of its properties the draft names as not carried (not counted: the unit&#39;s properties were not accounted). A faded box is a direct unit with a target and nothing not carried.</p>
+<div class="scroll wide" role="region" aria-label="What changes: drawing" tabindex="0"><svg class="diagram" role="img" aria-label="What changes of 3 units and 2 dependencies" width="655" height="198" viewBox="0 0 655 198" font-family="Helvetica, Arial, sans-serif" font-size="12"><rect x="1" y="1" width="653" height="196" rx="10" fill="none" stroke="#c4cfcc"/><text x="14" y="21" font-weight="bold" fill="#2c3b38">PROPOSED group migrate (not confirmed)</text><text x="14" y="46" font-weight="bold" fill="#3b4a47">Compute and workload</text><path d="M14 52h182" stroke="#c4cfcc" fill="none"/><text x="232" y="46" font-weight="bold" fill="#3b4a47">Identity and observability</text><path d="M232 52h409" stroke="#c4cfcc" fill="none"/><path d="M410 95C428 95 428 95 446 95M196 95C214 95 214 95 232 95" fill="none" stroke="#d3dad8" stroke-width="1" stroke-dasharray="1 3" stroke-linecap="round"/><path d="M410 95l9 -4.5l0 9zM232 95l-9 -4.5l0 9z" fill="#d3dad8"/><a href="#unit/google_service_account.automation"><g><title>google_service_account.automation — RECONFIGURE — 2 properties not carried — 2 open critical semantics</title><rect x="232" y="66" width="178" height="58" rx="6" fill="#fbe8bd" stroke="#a8700f" stroke-width="1.2"/><text x="242" y="83" font-weight="bold" fill="#10201d">account automation</text><text x="242" y="99" fill="#10201d">RECONFIGURE</text><text x="242" y="115" fill="#10201d">2 not carried</text><circle cx="410" cy="66" r="10" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="410" y="70" text-anchor="middle" font-weight="bold" fill="#ffffff">2</text></g></a><a href="#unit/google_secret_manager_secret.django_admin_password"><g><title>google_secret_manager_secret.django_admin_password — RECONFIGURE — 5 properties not carried — 3 open critical semantics</title><rect x="446" y="66" width="195" height="58" rx="6" fill="#fbe8bd" stroke="#a8700f" stroke-width="1.2"/><text x="456" y="83" font-weight="bold" fill="#10201d">secret django_admin_pas…</text><text x="456" y="99" fill="#10201d">RECONFIGURE</text><text x="456" y="115" fill="#10201d">5 not carried</text><circle cx="641" cy="66" r="10" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="641" y="70" text-anchor="middle" font-weight="bold" fill="#ffffff">3</text></g></a><a href="#unit/google_cloud_run_v2_job.migrate"><g><title>google_cloud_run_v2_job.migrate — CONTAINERIZE — 3 properties not carried — 11 open critical semantics</title><rect x="14" y="66" width="182" height="58" rx="6" fill="#cde9f5" stroke="#1b6e96" stroke-width="1.2"/><text x="24" y="83" font-weight="bold" fill="#10201d">cloud run v2 job migrate</text><text x="24" y="99" fill="#10201d">CONTAINERIZE</text><text x="24" y="115" fill="#10201d">3 not carried</text><circle cx="196" cy="66" r="12" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="196" y="70" text-anchor="middle" font-weight="bold" fill="#ffffff">11</text></g></a><rect x="14" y="140" width="14" height="14" rx="3" fill="#fbe8bd" stroke="#a8700f"/><text x="34" y="152" fill="#2c3b38">RECONFIGURE</text><rect x="148" y="140" width="14" height="14" rx="3" fill="#cde9f5" stroke="#1b6e96"/><text x="168" y="152" fill="#2c3b38">CONTAINERIZE</text><circle cx="294" cy="147" r="9" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="294" y="151" text-anchor="middle" font-weight="bold" fill="#ffffff">3</text><text x="307" y="152" fill="#2c3b38">open critical semantics</text><path d="M472 147h14" stroke="#5e6e6b" fill="none"/><path d="M476 147l9 -4.5l0 9z" fill="#5e6e6b"/><text x="492" y="152" fill="#2c3b38">depends on</text><path d="M14 169h14" stroke="#d3dad8" stroke-width="1" fill="none" stroke-dasharray="1 3" stroke-linecap="round"/><path d="M18 169l9 -4.5l0 9z" fill="#d3dad8"/><text x="34" y="174" fill="#2c3b38">identity or observability dependency</text></svg></div></div>
+</details>
+<details data-app-drawing="server" data-proposed>
+<summary><code>server</code> (PROPOSED &mdash; not confirmed): 2 units &middot; NOT MIGRATION-READY</summary>
+<p>2 units and 1 dependencies in this scope.</p>
+<div data-view="current"><h4>Source</h4>
+<p>Each box is a unit: its short name, its source type and the module call it sits in; an arrow runs from a unit to a unit it depends on, and a subnet is drawn inside the network box it depends on. The columns run from the network and edge units on the left to compute, data, and identity and observability on the right.</p>
+<div class="scroll wide" role="region" aria-label="Source: drawing" tabindex="0"><svg class="diagram" role="img" aria-label="Source dependencies of 2 units and 1 dependencies" width="424" height="220" viewBox="0 0 424 220" font-family="Helvetica, Arial, sans-serif" font-size="12"><rect x="1" y="1" width="422" height="218" rx="10" fill="none" stroke="#c4cfcc"/><text x="14" y="21" font-weight="bold" fill="#2c3b38">PROPOSED group server (not confirmed)</text><text x="14" y="46" font-weight="bold" fill="#3b4a47">Compute and workload</text><path d="M14 52h182" stroke="#c4cfcc" fill="none"/><text x="232" y="46" font-weight="bold" fill="#3b4a47">Identity and observability</text><path d="M232 52h178" stroke="#c4cfcc" fill="none"/><path d="M196 95C214 95 214 95 232 95" fill="none" stroke="#7f8d8a" stroke-width="1" stroke-dasharray="1 3" stroke-linecap="round"/><path d="M232 95l-9 -4.5l0 9z" fill="#7f8d8a"/><a href="#unit/google_service_account.server"><g><title>google_service_account.server — google_service_account — root module — 2 open critical semantics</title><rect x="232" y="66" width="178" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2"/><text x="242" y="83" font-weight="bold" fill="#10201d">service account server</text><text x="242" y="99" fill="#10201d">google_service_account</text><text x="242" y="115" fill="#10201d">root module</text><circle cx="410" cy="66" r="10" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="410" y="70" text-anchor="middle" font-weight="bold" fill="#ffffff">2</text></g></a><a href="#unit/google_cloud_run_v2_service.server"><g><title>google_cloud_run_v2_service.server — google_cloud_run_v2_service — root module — 12 open critical semantics</title><rect x="14" y="66" width="182" height="58" rx="6" fill="#f7f9f8" stroke="#6d7d79" stroke-width="1.2"/><text x="24" y="83" font-weight="bold" fill="#10201d">run v2 service server</text><text x="24" y="99" fill="#10201d">google_cloud_run_v2_s…</text><text x="24" y="115" fill="#10201d">root module</text><circle cx="196" cy="66" r="12" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="196" y="70" text-anchor="middle" font-weight="bold" fill="#ffffff">12</text></g></a><circle cx="21" cy="147" r="9" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="21" y="151" text-anchor="middle" font-weight="bold" fill="#ffffff">3</text><text x="34" y="152" fill="#2c3b38">open critical semantics</text><path d="M199 147h14" stroke="#5e6e6b" fill="none"/><path d="M203 147l9 -4.5l0 9z" fill="#5e6e6b"/><text x="219" y="152" fill="#2c3b38">depends on</text><path d="M14 169h14" stroke="#7f8d8a" stroke-width="1" fill="none" stroke-dasharray="1 3" stroke-linecap="round"/><path d="M18 169l9 -4.5l0 9z" fill="#7f8d8a"/><text x="34" y="174" fill="#2c3b38">identity or observability dependency</text></svg></div></div>
+<div data-view="target"><h4>Source mapping view</h4>
+<p>The same source units in the same places, each relabelled with the STACKIT service the assessment proposes for it, with the class and confidence of its decision (the colour is the class; a grey box has no target). It maps the source, not the target: one unit can become several resources of the draft, none, or part of one, and the arrows are the dependencies of the source. The generated target design draws the resources of the draft. A proposal; an architect decides.</p>
+<div class="scroll wide" role="region" aria-label="Source mapping view: drawing" tabindex="0"><svg class="diagram" role="img" aria-label="Source mapping view of 2 units and 1 dependencies" width="424" height="220" viewBox="0 0 424 220" font-family="Helvetica, Arial, sans-serif" font-size="12"><rect x="1" y="1" width="422" height="218" rx="10" fill="none" stroke="#c4cfcc"/><text x="14" y="21" font-weight="bold" fill="#2c3b38">PROPOSED group server (not confirmed)</text><text x="14" y="46" font-weight="bold" fill="#3b4a47">Compute and workload</text><path d="M14 52h182" stroke="#c4cfcc" fill="none"/><text x="232" y="46" font-weight="bold" fill="#3b4a47">Identity and observability</text><path d="M232 52h178" stroke="#c4cfcc" fill="none"/><path d="M196 95C214 95 214 95 232 95" fill="none" stroke="#7f8d8a" stroke-width="1" stroke-dasharray="1 3" stroke-linecap="round"/><path d="M232 95l-9 -4.5l0 9z" fill="#7f8d8a"/><a href="#unit/google_service_account.server"><g><title>google_service_account.server — STACKIT service account — RECONFIGURE / MEDIUM — 2 open critical semantics</title><rect x="232" y="66" width="178" height="58" rx="6" fill="#fbe8bd" stroke="#a8700f" stroke-width="1.2"/><text x="242" y="83" font-weight="bold" fill="#10201d">service account server</text><text x="242" y="99" fill="#10201d">STACKIT service accou…</text><text x="242" y="115" fill="#10201d">RECONFIGURE · MEDIUM</text><circle cx="410" cy="66" r="10" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="410" y="70" text-anchor="middle" font-weight="bold" fill="#ffffff">2</text></g></a><a href="#unit/google_cloud_run_v2_service.server"><g><title>google_cloud_run_v2_service.server — SKE workload (or Cloud Foundry Docker app) — CONTAINERIZE / MEDIUM — 12 open critical semantics</title><rect x="14" y="66" width="182" height="58" rx="6" fill="#cde9f5" stroke="#1b6e96" stroke-width="1.2"/><text x="24" y="83" font-weight="bold" fill="#10201d">run v2 service server</text><text x="24" y="99" fill="#10201d">SKE workload (or Clou…</text><text x="24" y="115" fill="#10201d">CONTAINERIZE · MEDIUM</text><circle cx="196" cy="66" r="12" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="196" y="70" text-anchor="middle" font-weight="bold" fill="#ffffff">12</text></g></a><rect x="14" y="140" width="14" height="14" rx="3" fill="#fbe8bd" stroke="#a8700f"/><text x="34" y="152" fill="#2c3b38">RECONFIGURE</text><rect x="148" y="140" width="14" height="14" rx="3" fill="#cde9f5" stroke="#1b6e96"/><text x="168" y="152" fill="#2c3b38">CONTAINERIZE</text><circle cx="21" cy="169" r="9" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="21" y="173" text-anchor="middle" font-weight="bold" fill="#ffffff">3</text><text x="34" y="174" fill="#2c3b38">open critical semantics</text><path d="M199 169h14" stroke="#5e6e6b" fill="none"/><path d="M203 169l9 -4.5l0 9z" fill="#5e6e6b"/><text x="219" y="174" fill="#2c3b38">depends on</text><path d="M14 191h14" stroke="#7f8d8a" stroke-width="1" fill="none" stroke-dasharray="1 3" stroke-linecap="round"/><path d="M18 191l9 -4.5l0 9z" fill="#7f8d8a"/><text x="34" y="196" fill="#2c3b38">identity or observability dependency</text></svg></div></div>
+<div data-view="delta"><h4>What changes</h4>
+<p>The same units in the same places, with only what the move changes: the class, whether the unit has a target at all, and how many of its properties the draft names as not carried (not counted: the unit&#39;s properties were not accounted). A faded box is a direct unit with a target and nothing not carried.</p>
+<div class="scroll wide" role="region" aria-label="What changes: drawing" tabindex="0"><svg class="diagram" role="img" aria-label="What changes of 2 units and 1 dependencies" width="424" height="220" viewBox="0 0 424 220" font-family="Helvetica, Arial, sans-serif" font-size="12"><rect x="1" y="1" width="422" height="218" rx="10" fill="none" stroke="#c4cfcc"/><text x="14" y="21" font-weight="bold" fill="#2c3b38">PROPOSED group server (not confirmed)</text><text x="14" y="46" font-weight="bold" fill="#3b4a47">Compute and workload</text><path d="M14 52h182" stroke="#c4cfcc" fill="none"/><text x="232" y="46" font-weight="bold" fill="#3b4a47">Identity and observability</text><path d="M232 52h178" stroke="#c4cfcc" fill="none"/><path d="M196 95C214 95 214 95 232 95" fill="none" stroke="#d3dad8" stroke-width="1" stroke-dasharray="1 3" stroke-linecap="round"/><path d="M232 95l-9 -4.5l0 9z" fill="#d3dad8"/><a href="#unit/google_service_account.server"><g><title>google_service_account.server — RECONFIGURE — 2 properties not carried — 2 open critical semantics</title><rect x="232" y="66" width="178" height="58" rx="6" fill="#fbe8bd" stroke="#a8700f" stroke-width="1.2"/><text x="242" y="83" font-weight="bold" fill="#10201d">service account server</text><text x="242" y="99" fill="#10201d">RECONFIGURE</text><text x="242" y="115" fill="#10201d">2 not carried</text><circle cx="410" cy="66" r="10" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="410" y="70" text-anchor="middle" font-weight="bold" fill="#ffffff">2</text></g></a><a href="#unit/google_cloud_run_v2_service.server"><g><title>google_cloud_run_v2_service.server — CONTAINERIZE — 6 properties not carried — 12 open critical semantics</title><rect x="14" y="66" width="182" height="58" rx="6" fill="#cde9f5" stroke="#1b6e96" stroke-width="1.2"/><text x="24" y="83" font-weight="bold" fill="#10201d">run v2 service server</text><text x="24" y="99" fill="#10201d">CONTAINERIZE</text><text x="24" y="115" fill="#10201d">6 not carried</text><circle cx="196" cy="66" r="12" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="196" y="70" text-anchor="middle" font-weight="bold" fill="#ffffff">12</text></g></a><rect x="14" y="140" width="14" height="14" rx="3" fill="#fbe8bd" stroke="#a8700f"/><text x="34" y="152" fill="#2c3b38">RECONFIGURE</text><rect x="148" y="140" width="14" height="14" rx="3" fill="#cde9f5" stroke="#1b6e96"/><text x="168" y="152" fill="#2c3b38">CONTAINERIZE</text><circle cx="21" cy="169" r="9" fill="#b1261b" stroke="#ffffff" stroke-width="1.5"/><text x="21" y="173" text-anchor="middle" font-weight="bold" fill="#ffffff">3</text><text x="34" y="174" fill="#2c3b38">open critical semantics</text><path d="M199 169h14" stroke="#5e6e6b" fill="none"/><path d="M203 169l9 -4.5l0 9z" fill="#5e6e6b"/><text x="219" y="174" fill="#2c3b38">depends on</text><path d="M14 191h14" stroke="#d3dad8" stroke-width="1" fill="none" stroke-dasharray="1 3" stroke-linecap="round"/><path d="M18 191l9 -4.5l0 9z" fill="#d3dad8"/><text x="34" y="196" fill="#2c3b38">identity or observability dependency</text></svg></div></div>
+</details>
+<div class="scroll" role="region" aria-label="Units" tabindex="0">
+<table>
+<caption>Units (16)</caption>
+<thead><tr><th scope="col">Unit</th><th scope="col">Type</th><th scope="col">Exists</th><th scope="col">Counted in totals</th><th scope="col">Class</th><th scope="col">Confidence</th><th scope="col">Blocker categories</th><th scope="col">Findings</th><th scope="col">Automation-eligible (property gate)</th><th scope="col">Evidence coverage</th><th scope="col">Open work</th><th scope="col">From the source to the draft</th></tr></thead>
+<tbody>
+<tr id="unit/google_cloud_run_v2_job.migrate">
+<th scope="row"><code>google_cloud_run_v2_job.migrate</code> <a href="#drawing/google_cloud_run_v2_job.migrate">drawing</a></th>
+<td>google_cloud_run_v2_job</td>
+<td>Exists</td>
+<td>Yes</td>
+<td>CONTAINERIZE</td>
+<td>MEDIUM</td>
+<td>2</td>
+<td>3</td>
+<td>No</td>
+<td>not traced: the draft holds its block, but no trace producer covers its family in this build</td>
+<td>1 open decision · 0 manual actions</td>
+<td class="chain"><ol class="chain">
+<li>Source: <a href="../assessment.json"><code>assessment.json /units/9</code></a></li>
+<li>Target: <a href="target-fit.html#capability/compute.managed-kubernetes"><code>compute.managed-kubernetes</code></a></li>
+<li>Difference: <a href="../engineering/not-carried.csv"><code>3 settings not carried</code></a></li>
+<li>Decision: <a href="decisions.html#decision/DEC-GEN-CONVERT-SOURCE-REGION-MAPPING"><code>DEC-GEN-CONVERT-SOURCE-REGION-MAPPING</code></a>, <a href="decisions.html#decision/DEC-IAM-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE"><code>DEC-IAM-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE</code></a>, <a href="decisions.html#decision/DEC-NET-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE"><code>DEC-NET-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE</code></a> and 3 more records</li>
+<li>Generated: <a href="../terraform/kubernetes.tf"><code>kubernetes.tf:15</code></a></li>
+</ol></td>
+</tr>
+<tr id="unit/google_cloud_run_v2_service.server">
+<th scope="row"><code>google_cloud_run_v2_service.server</code> <a href="#drawing/google_cloud_run_v2_service.server">drawing</a></th>
+<td>google_cloud_run_v2_service</td>
+<td>Exists</td>
+<td>Yes</td>
+<td>CONTAINERIZE</td>
+<td>MEDIUM</td>
+<td>3</td>
+<td>4</td>
+<td>No</td>
+<td>not traced: the draft holds its block, but no trace producer covers its family in this build</td>
+<td>1 open decision · 0 manual actions</td>
+<td class="chain"><ol class="chain">
+<li>Source: <a href="../assessment.json"><code>assessment.json /units/10</code></a></li>
+<li>Target: <a href="target-fit.html#capability/compute.managed-kubernetes"><code>compute.managed-kubernetes</code></a></li>
+<li>Difference: <a href="../engineering/not-carried.csv"><code>6 settings not carried</code></a></li>
+<li>Decision: <a href="decisions.html#decision/DEC-GEN-CONVERT-SOURCE-REGION-MAPPING"><code>DEC-GEN-CONVERT-SOURCE-REGION-MAPPING</code></a>, <a href="decisions.html#decision/DEC-GEN-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER"><code>DEC-GEN-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER</code></a>, <a href="decisions.html#decision/DEC-IAM-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER"><code>DEC-IAM-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER</code></a> and 4 more records</li>
+<li>Generated: <a href="../terraform/kubernetes.tf"><code>kubernetes.tf:15</code></a></li>
+</ol></td>
+</tr>
+<tr id="unit/google_cloudbuild_trigger.activategcb">
+<th scope="row"><code>google_cloudbuild_trigger.activategcb</code> <a href="#drawing/google_cloudbuild_trigger.activategcb">drawing</a></th>
+<td>google_cloudbuild_trigger</td>
+<td>Decided at plan time</td>
+<td>No</td>
+<td>REDESIGN</td>
+<td>MEDIUM</td>
+<td>2</td>
+<td>2</td>
+<td>No</td>
+<td>not traced: decided only when OpenTofu plans, and the generator that would write it records no intent or plan</td>
+<td>2 open decisions · 0 manual actions</td>
+<td class="chain"><ol class="chain">
+<li>Source: <a href="../assessment.json"><code>assessment.json /units/11</code></a></li>
+<li>Target: <a href="target-fit.html#capability/devtools.git"><code>devtools.git</code></a></li>
+<li>Difference: none named</li>
+<li>Decision: <a href="decisions.html#decision/DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE"><code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE</code></a>, <a href="decisions.html#decision/DEC-GEN-CONVERT-SOURCE-PROJECT-MAPPING"><code>DEC-GEN-CONVERT-SOURCE-PROJECT-MAPPING</code></a>, <a href="decisions.html#decision/DEC-IAM-GOOGLE-CLOUDBUILD-TRIGGER-ACTIVATEGCB"><code>DEC-IAM-GOOGLE-CLOUDBUILD-TRIGGER-ACTIVATEGCB</code></a> and 1 more record</li>
+<li>Generated: no block of the draft</li>
+</ol></td>
+</tr>
+<tr id="unit/google_cloudbuild_trigger.init">
+<th scope="row"><code>google_cloudbuild_trigger.init</code> <a href="#drawing/google_cloudbuild_trigger.init">drawing</a></th>
+<td>google_cloudbuild_trigger</td>
+<td>Decided at plan time</td>
+<td>No</td>
+<td>REDESIGN</td>
+<td>LOW</td>
+<td>2</td>
+<td>6</td>
+<td>No</td>
+<td>not traced: decided only when OpenTofu plans, and the generator that would write it records no intent or plan</td>
+<td>2 open decisions · 0 manual actions</td>
+<td class="chain"><ol class="chain">
+<li>Source: <a href="../assessment.json"><code>assessment.json /units/12</code></a></li>
+<li>Target: <a href="target-fit.html#capability/devtools.git"><code>devtools.git</code></a></li>
+<li>Difference: none named</li>
+<li>Decision: <a href="decisions.html#decision/DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE"><code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE</code></a>, <a href="decisions.html#decision/DEC-GEN-CONVERT-SOURCE-PROJECT-MAPPING"><code>DEC-GEN-CONVERT-SOURCE-PROJECT-MAPPING</code></a>, <a href="decisions.html#decision/DEC-IAM-GOOGLE-CLOUDBUILD-TRIGGER-INIT"><code>DEC-IAM-GOOGLE-CLOUDBUILD-TRIGGER-INIT</code></a> and 1 more record</li>
+<li>Generated: no block of the draft</li>
+</ol></td>
+</tr>
+<tr id="unit/google_cloudbuild_trigger.placeholder">
+<th scope="row"><code>google_cloudbuild_trigger.placeholder</code> <a href="#drawing/google_cloudbuild_trigger.placeholder">drawing</a></th>
+<td>google_cloudbuild_trigger</td>
+<td>Decided at plan time</td>
+<td>No</td>
+<td>REDESIGN</td>
+<td>LOW</td>
+<td>2</td>
+<td>3</td>
+<td>No</td>
+<td>not traced: decided only when OpenTofu plans, and the generator that would write it records no intent or plan</td>
+<td>2 open decisions · 0 manual actions</td>
+<td class="chain"><ol class="chain">
+<li>Source: <a href="../assessment.json"><code>assessment.json /units/13</code></a></li>
+<li>Target: <a href="target-fit.html#capability/devtools.git"><code>devtools.git</code></a></li>
+<li>Difference: none named</li>
+<li>Decision: <a href="decisions.html#decision/DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE"><code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE</code></a>, <a href="decisions.html#decision/DEC-GEN-CONVERT-SOURCE-PROJECT-MAPPING"><code>DEC-GEN-CONVERT-SOURCE-PROJECT-MAPPING</code></a>, <a href="decisions.html#decision/DEC-GEN-GOOGLE-CLOUDBUILD-TRIGGER-PLACEHOLDER"><code>DEC-GEN-GOOGLE-CLOUDBUILD-TRIGGER-PLACEHOLDER</code></a> and 2 more records</li>
+<li>Generated: no block of the draft</li>
+</ol></td>
+</tr>
+<tr id="unit/google_firebase_hosting_site.client">
+<th scope="row"><code>google_firebase_hosting_site.client</code> <a href="#drawing/google_firebase_hosting_site.client">drawing</a></th>
+<td>google_firebase_hosting_site</td>
+<td>Decided at plan time</td>
+<td>No</td>
+<td>REDESIGN</td>
+<td>LOW</td>
+<td>2</td>
+<td>2</td>
+<td>No</td>
+<td>not traced: decided only when OpenTofu plans, and the generator that would write it records no intent or plan</td>
+<td>1 open decision · 0 manual actions</td>
+<td class="chain"><ol class="chain">
+<li>Source: <a href="../assessment.json"><code>assessment.json /units/14</code></a></li>
+<li>Target: <a href="target-fit.html#capability/cdn.custom-domain"><code>cdn.custom-domain</code></a>, <a href="target-fit.html#capability/cdn.distribution"><code>cdn.distribution</code></a></li>
+<li>Difference: none named</li>
+<li>Decision: <a href="decisions.html#decision/DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE"><code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE</code></a>, <a href="decisions.html#decision/DEC-IAM-GOOGLE-FIREBASE-HOSTING-SITE-CLIENT"><code>DEC-IAM-GOOGLE-FIREBASE-HOSTING-SITE-CLIENT</code></a>, <a href="decisions.html#decision/DEC-OPS-GOOGLE-FIREBASE-HOSTING-SITE-CLIENT"><code>DEC-OPS-GOOGLE-FIREBASE-HOSTING-SITE-CLIENT</code></a></li>
+<li>Generated: no block of the draft</li>
+</ol></td>
+</tr>
+<tr id="unit/google_firebase_project.default">
+<th scope="row"><code>google_firebase_project.default</code> <a href="#drawing/google_firebase_project.default">drawing</a></th>
+<td>google_firebase_project</td>
+<td>Exists</td>
+<td>Yes</td>
+<td>MANUAL_REVIEW</td>
+<td>LOW</td>
+<td>1</td>
+<td>1</td>
+<td>No</td>
+<td>not traced: the draft holds no block for it (it needs no resource of its own, or it is left to the architect): nothing to trace</td>
+<td>not measured</td>
+<td class="chain"><ol class="chain">
+<li>Source: <a href="../assessment.json"><code>assessment.json /units/0</code></a></li>
+<li>Target: not stated</li>
+<li>Difference: none named</li>
+<li>Decision: <a href="decisions.html#decision/DEC-IAM-GOOGLE-FIREBASE-PROJECT-DEFAULT"><code>DEC-IAM-GOOGLE-FIREBASE-PROJECT-DEFAULT</code></a></li>
+<li>Generated: no block of the draft</li>
+</ol></td>
+</tr>
+<tr id="unit/google_pubsub_topic.faux">
+<th scope="row"><code>google_pubsub_topic.faux</code> <a href="#drawing/google_pubsub_topic.faux">drawing</a></th>
+<td>google_pubsub_topic</td>
+<td>Exists</td>
+<td>Yes</td>
+<td>REPLATFORM</td>
+<td>MEDIUM</td>
+<td>2</td>
+<td>1</td>
+<td>No</td>
+<td><a href="engineering.html#evidence/google_pubsub_topic.faux">TRACED FROM RECORDED LINES</a></td>
+<td>2 open steps · 1 open decision · 0 manual actions</td>
+<td class="chain"><ol class="chain">
+<li>Source: <a href="../assessment.json"><code>assessment.json /units/1</code></a></li>
+<li>Target: <a href="target-fit.html#capability/messaging.mqtt-broker"><code>messaging.mqtt-broker</code></a>, <a href="target-fit.html#capability/messaging.rabbitmq-credential"><code>messaging.rabbitmq-credential</code></a></li>
+<li>Difference: <a href="engineering.html#evidence/google_pubsub_topic.faux"><code>evidence drawer</code></a>, <a href="../engineering/not-carried.csv"><code>1 setting not carried</code></a></li>
+<li>Decision: <a href="decisions.html#decision/DEC-GEN-CONVERT-API-OPT-IN"><code>DEC-GEN-CONVERT-API-OPT-IN</code></a>, <a href="decisions.html#decision/DEC-OPS-GOOGLE-PUBSUB-TOPIC-FAUX"><code>DEC-OPS-GOOGLE-PUBSUB-TOPIC-FAUX</code></a></li>
+<li>Generated: <a href="../terraform/messaging.tf"><code>messaging.tf:8</code></a></li>
+</ol></td>
+</tr>
+<tr id="unit/google_secret_manager_secret.django_admin_password">
+<th scope="row"><code>google_secret_manager_secret.django_admin_password</code> <a href="#drawing/google_secret_manager_secret.django_admin_password">drawing</a></th>
+<td>google_secret_manager_secret</td>
+<td>Exists</td>
+<td>Yes</td>
+<td>RECONFIGURE</td>
+<td>MEDIUM</td>
+<td>2</td>
+<td>2</td>
+<td>No</td>
+<td><a href="engineering.html#evidence/google_secret_manager_secret.django_admin_password">TRACED FROM RECORDED LINES</a></td>
+<td>2 open steps · 2 open decisions · 0 manual actions</td>
+<td class="chain"><ol class="chain">
+<li>Source: <a href="../assessment.json"><code>assessment.json /units/6</code></a></li>
+<li>Target: <a href="target-fit.html#capability/security.secrets-manager"><code>security.secrets-manager</code></a></li>
+<li>Difference: <a href="engineering.html#evidence/google_secret_manager_secret.django_admin_password"><code>evidence drawer</code></a>, <a href="../engineering/not-carried.csv"><code>5 settings not carried</code></a></li>
+<li>Decision: <a href="decisions.html#decision/DEC-GEN-CONVERT-API-OPT-IN"><code>DEC-GEN-CONVERT-API-OPT-IN</code></a>, <a href="decisions.html#decision/DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE"><code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE</code></a>, <a href="decisions.html#decision/DEC-IAM-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-ADMIN-PASSWORD"><code>DEC-IAM-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-ADMIN-PASSWORD</code></a> and 1 more record</li>
+<li>Generated: <a href="../terraform/security.tf"><code>security.tf:16</code></a>, <a href="../terraform/security.tf"><code>security.tf:24</code></a></li>
+</ol></td>
+</tr>
+<tr id="unit/google_secret_manager_secret.django_settings">
+<th scope="row"><code>google_secret_manager_secret.django_settings</code> <a href="#drawing/google_secret_manager_secret.django_settings">drawing</a></th>
+<td>google_secret_manager_secret</td>
+<td>Exists</td>
+<td>Yes</td>
+<td>RECONFIGURE</td>
+<td>MEDIUM</td>
+<td>2</td>
+<td>2</td>
+<td>No</td>
+<td><a href="engineering.html#evidence/google_secret_manager_secret.django_settings">TRACED FROM RECORDED LINES</a></td>
+<td>2 open steps · 2 open decisions · 0 manual actions</td>
+<td class="chain"><ol class="chain">
+<li>Source: <a href="../assessment.json"><code>assessment.json /units/8</code></a></li>
+<li>Target: <a href="target-fit.html#capability/security.secrets-manager"><code>security.secrets-manager</code></a></li>
+<li>Difference: <a href="engineering.html#evidence/google_secret_manager_secret.django_settings"><code>evidence drawer</code></a>, <a href="../engineering/not-carried.csv"><code>5 settings not carried</code></a></li>
+<li>Decision: <a href="decisions.html#decision/DEC-GEN-CONVERT-API-OPT-IN"><code>DEC-GEN-CONVERT-API-OPT-IN</code></a>, <a href="decisions.html#decision/DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE"><code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE</code></a>, <a href="decisions.html#decision/DEC-IAM-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-SETTINGS"><code>DEC-IAM-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-SETTINGS</code></a> and 1 more record</li>
+<li>Generated: <a href="../terraform/security.tf"><code>security.tf:16</code></a>, <a href="../terraform/security.tf"><code>security.tf:24</code></a></li>
+</ol></td>
+</tr>
+<tr id="unit/google_service_account.automation">
+<th scope="row"><code>google_service_account.automation</code> <a href="#drawing/google_service_account.automation">drawing</a></th>
+<td>google_service_account</td>
+<td>Exists</td>
+<td>Yes</td>
+<td>RECONFIGURE</td>
+<td>MEDIUM</td>
+<td>2</td>
+<td>2</td>
+<td>No</td>
+<td>not traced: the draft holds its block, but no trace producer covers its family in this build</td>
+<td>not measured</td>
+<td class="chain"><ol class="chain">
+<li>Source: <a href="../assessment.json"><code>assessment.json /units/2</code></a></li>
+<li>Target: <a href="target-fit.html#capability/identity.role-assignment"><code>identity.role-assignment</code></a>, <a href="target-fit.html#capability/identity.server-service-account"><code>identity.server-service-account</code></a></li>
+<li>Difference: <a href="../engineering/not-carried.csv"><code>2 settings not carried</code></a></li>
+<li>Decision: <a href="decisions.html#decision/DEC-IAM-GOOGLE-SERVICE-ACCOUNT-AUTOMATION"><code>DEC-IAM-GOOGLE-SERVICE-ACCOUNT-AUTOMATION</code></a>, <a href="decisions.html#decision/DEC-IAM-STACKITSA-STATEMENT-NOT-DRAFTED"><code>DEC-IAM-STACKITSA-STATEMENT-NOT-DRAFTED</code></a></li>
+<li>Generated: <a href="../terraform/identity.tf"><code>identity.tf:13</code></a></li>
+</ol></td>
+</tr>
+<tr id="unit/google_service_account.client">
+<th scope="row"><code>google_service_account.client</code> <a href="#drawing/google_service_account.client">drawing</a></th>
+<td>google_service_account</td>
+<td>Exists</td>
+<td>Yes</td>
+<td>RECONFIGURE</td>
+<td>MEDIUM</td>
+<td>2</td>
+<td>2</td>
+<td>No</td>
+<td><a href="engineering.html#evidence/google_service_account.client">TRACED FROM RECORDED LINES</a></td>
+<td>2 open steps</td>
+<td class="chain"><ol class="chain">
+<li>Source: <a href="../assessment.json"><code>assessment.json /units/3</code></a></li>
+<li>Target: <a href="target-fit.html#capability/identity.role-assignment"><code>identity.role-assignment</code></a>, <a href="target-fit.html#capability/identity.server-service-account"><code>identity.server-service-account</code></a></li>
+<li>Difference: <a href="engineering.html#evidence/google_service_account.client"><code>evidence drawer</code></a>, <a href="../engineering/not-carried.csv"><code>2 settings not carried</code></a></li>
+<li>Decision: <a href="decisions.html#decision/DEC-IAM-GOOGLE-SERVICE-ACCOUNT-CLIENT"><code>DEC-IAM-GOOGLE-SERVICE-ACCOUNT-CLIENT</code></a></li>
+<li>Generated: <a href="../terraform/identity.tf"><code>identity.tf:24</code></a></li>
+</ol></td>
+</tr>
+<tr id="unit/google_service_account.init">
+<th scope="row"><code>google_service_account.init</code> <a href="#drawing/google_service_account.init">drawing</a></th>
+<td>google_service_account</td>
+<td>Decided at plan time</td>
+<td>No</td>
+<td>RECONFIGURE</td>
+<td>MEDIUM</td>
+<td>2</td>
+<td>2</td>
+<td>No</td>
+<td><a href="engineering.html#evidence/google_service_account.init">TRACED FROM RECORDED LINES</a></td>
+<td>2 open steps</td>
+<td class="chain"><ol class="chain">
+<li>Source: <a href="../assessment.json"><code>assessment.json /units/15</code></a></li>
+<li>Target: <a href="target-fit.html#capability/identity.role-assignment"><code>identity.role-assignment</code></a>, <a href="target-fit.html#capability/identity.server-service-account"><code>identity.server-service-account</code></a></li>
+<li>Difference: <a href="engineering.html#evidence/google_service_account.init"><code>evidence drawer</code></a>, <a href="../engineering/not-carried.csv"><code>2 settings not carried</code></a></li>
+<li>Decision: <a href="decisions.html#decision/DEC-IAM-GOOGLE-SERVICE-ACCOUNT-INIT"><code>DEC-IAM-GOOGLE-SERVICE-ACCOUNT-INIT</code></a></li>
+<li>Generated: <a href="../terraform/identity.tf"><code>identity.tf:36</code></a></li>
+</ol></td>
+</tr>
+<tr id="unit/google_service_account.server">
+<th scope="row"><code>google_service_account.server</code> <a href="#drawing/google_service_account.server">drawing</a></th>
+<td>google_service_account</td>
+<td>Exists</td>
+<td>Yes</td>
+<td>RECONFIGURE</td>
+<td>MEDIUM</td>
+<td>2</td>
+<td>2</td>
+<td>No</td>
+<td>not traced: the draft holds its block, but no trace producer covers its family in this build</td>
+<td>not measured</td>
+<td class="chain"><ol class="chain">
+<li>Source: <a href="../assessment.json"><code>assessment.json /units/4</code></a></li>
+<li>Target: <a href="target-fit.html#capability/identity.role-assignment"><code>identity.role-assignment</code></a>, <a href="target-fit.html#capability/identity.server-service-account"><code>identity.server-service-account</code></a></li>
+<li>Difference: <a href="../engineering/not-carried.csv"><code>2 settings not carried</code></a></li>
+<li>Decision: <a href="decisions.html#decision/DEC-IAM-GOOGLE-SERVICE-ACCOUNT-SERVER"><code>DEC-IAM-GOOGLE-SERVICE-ACCOUNT-SERVER</code></a>, <a href="decisions.html#decision/DEC-IAM-STACKITSA-STATEMENT-NOT-DRAFTED"><code>DEC-IAM-STACKITSA-STATEMENT-NOT-DRAFTED</code></a></li>
+<li>Generated: <a href="../terraform/identity.tf"><code>identity.tf:49</code></a></li>
+</ol></td>
+</tr>
+<tr id="unit/google_sql_database_instance.postgres">
+<th scope="row"><code>google_sql_database_instance.postgres</code> <a href="#drawing/google_sql_database_instance.postgres">drawing</a></th>
+<td>google_sql_database_instance</td>
+<td>Exists</td>
+<td>Yes</td>
+<td>REPLATFORM</td>
+<td>MEDIUM</td>
+<td>2</td>
+<td>3</td>
+<td>No</td>
+<td><a href="engineering.html#evidence/google_sql_database_instance.postgres">TRACED FROM RECORDED LINES</a></td>
+<td>2 open steps · 3 open decisions · 0 manual actions</td>
+<td class="chain"><ol class="chain">
+<li>Source: <a href="../assessment.json"><code>assessment.json /units/5</code></a></li>
+<li>Target: <a href="target-fit.html#capability/database.postgresql-flex"><code>database.postgresql-flex</code></a></li>
+<li>Difference: <a href="engineering.html#evidence/google_sql_database_instance.postgres"><code>evidence drawer</code></a>, <a href="../engineering/not-carried.csv"><code>6 settings not carried</code></a></li>
+<li>Decision: <a href="decisions.html#decision/DEC-GEN-CONVERT-DATA-MOVEMENT"><code>DEC-GEN-CONVERT-DATA-MOVEMENT</code></a>, <a href="decisions.html#decision/DEC-GEN-CONVERT-SOURCE-PROJECT-MAPPING"><code>DEC-GEN-CONVERT-SOURCE-PROJECT-MAPPING</code></a>, <a href="decisions.html#decision/DEC-GEN-CONVERT-SOURCE-REGION-MAPPING"><code>DEC-GEN-CONVERT-SOURCE-REGION-MAPPING</code></a> and 3 more records</li>
+<li>Generated: <a href="../terraform/data.tf"><code>data.tf:18</code></a></li>
+</ol></td>
+</tr>
+<tr id="unit/google_storage_bucket.media">
+<th scope="row"><code>google_storage_bucket.media</code> <a href="#drawing/google_storage_bucket.media">drawing</a></th>
+<td>google_storage_bucket</td>
+<td>Exists</td>
+<td>Yes</td>
+<td>RECONFIGURE</td>
+<td>MEDIUM</td>
+<td>2</td>
+<td>4</td>
+<td>No</td>
+<td><a href="engineering.html#evidence/google_storage_bucket.media">TRACED FROM RECORDED LINES</a></td>
+<td>2 open steps · 3 open decisions · 0 manual actions</td>
+<td class="chain"><ol class="chain">
+<li>Source: <a href="../assessment.json"><code>assessment.json /units/7</code></a></li>
+<li>Target: STACKIT Object Storage (no capability row)</li>
+<li>Difference: <a href="engineering.html#evidence/google_storage_bucket.media"><code>evidence drawer</code></a>, <a href="../engineering/not-carried.csv"><code>6 settings not carried</code></a></li>
+<li>Decision: <a href="decisions.html#decision/DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE"><code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE</code></a>, <a href="decisions.html#decision/DEC-GEN-CONVERT-SOURCE-REGION-MAPPING"><code>DEC-GEN-CONVERT-SOURCE-REGION-MAPPING</code></a>, <a href="decisions.html#decision/DEC-DATA-GOOGLE-STORAGE-BUCKET-MEDIA"><code>DEC-DATA-GOOGLE-STORAGE-BUCKET-MEDIA</code></a> and 4 more records</li>
+<li>Generated: <a href="../terraform/storage.tf"><code>storage.tf:11</code></a></li>
+</ol></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="open-work">Open work for this resource</h3>
+<div class="prerequisites">
+<p>Open work for this resource <code>google_cloud_run_v2_job.migrate</code>: 6 open records · 0 accepted · blocks automation.</p>
+<ul>
+<li>plan decision: DEC-GEN-CONVERT-SOURCE-REGION-MAPPING</li>
+<li>critical semantic review: DEC-IAM-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE, DEC-NET-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE, DEC-OPS-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE, DEC-SEC-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE</li>
+<li>plan statement: DEC-IAM-STACKITSA-STATEMENT-MANUAL-REVIEW</li>
+</ul>
+<p>Next step: Decide &#34;source region mapping&#34; (DEC-GEN-CONVERT-SOURCE-REGION-MAPPING): the plan of the draft leaves it open.</p>
+</div>
+<div class="prerequisites">
+<p>Open work for this resource <code>google_cloud_run_v2_service.server</code>: 7 open records · 0 accepted · blocks automation.</p>
+<ul>
+<li>plan decision: DEC-GEN-CONVERT-SOURCE-REGION-MAPPING</li>
+<li>critical semantic review: DEC-GEN-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER, DEC-IAM-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER, DEC-NET-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER, DEC-OPS-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER, DEC-SEC-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER</li>
+<li>plan statement: DEC-IAM-STACKITSA-STATEMENT-MANUAL-REVIEW</li>
+</ul>
+<p>Next step: Decide &#34;source region mapping&#34; (DEC-GEN-CONVERT-SOURCE-REGION-MAPPING): the plan of the draft leaves it open.</p>
+</div>
+<div class="prerequisites">
+<p>Open work for this resource <code>google_cloudbuild_trigger.activategcb</code>: 4 open records · 0 accepted · blocks automation.</p>
+<ul>
+<li>plan decision: DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE, DEC-GEN-CONVERT-SOURCE-PROJECT-MAPPING</li>
+<li>critical semantic review: DEC-IAM-GOOGLE-CLOUDBUILD-TRIGGER-ACTIVATEGCB, DEC-OPS-GOOGLE-CLOUDBUILD-TRIGGER-ACTIVATEGCB</li>
+</ul>
+<p>Next step: Decide &#34;proposed alternative&#34; (DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE): the plan of the draft leaves it open.</p>
+</div>
+<div class="prerequisites">
+<p>Open work for this resource <code>google_cloudbuild_trigger.init</code>: 4 open records · 0 accepted · blocks automation.</p>
+<ul>
+<li>plan decision: DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE, DEC-GEN-CONVERT-SOURCE-PROJECT-MAPPING</li>
+<li>critical semantic review: DEC-IAM-GOOGLE-CLOUDBUILD-TRIGGER-INIT, DEC-OPS-GOOGLE-CLOUDBUILD-TRIGGER-INIT</li>
+</ul>
+<p>Next step: Decide &#34;proposed alternative&#34; (DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE): the plan of the draft leaves it open.</p>
+</div>
+<div class="prerequisites">
+<p>Open work for this resource <code>google_cloudbuild_trigger.placeholder</code>: 5 open records · 0 accepted · blocks automation.</p>
+<ul>
+<li>plan decision: DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE, DEC-GEN-CONVERT-SOURCE-PROJECT-MAPPING</li>
+<li>critical semantic review: DEC-GEN-GOOGLE-CLOUDBUILD-TRIGGER-PLACEHOLDER, DEC-IAM-GOOGLE-CLOUDBUILD-TRIGGER-PLACEHOLDER, DEC-OPS-GOOGLE-CLOUDBUILD-TRIGGER-PLACEHOLDER</li>
+</ul>
+<p>Next step: Decide &#34;proposed alternative&#34; (DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE): the plan of the draft leaves it open.</p>
+</div>
+<div class="prerequisites">
+<p>Open work for this resource <code>google_firebase_hosting_site.client</code>: 3 open records · 0 accepted · blocks automation.</p>
+<ul>
+<li>plan decision: DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE</li>
+<li>critical semantic review: DEC-IAM-GOOGLE-FIREBASE-HOSTING-SITE-CLIENT, DEC-OPS-GOOGLE-FIREBASE-HOSTING-SITE-CLIENT</li>
+</ul>
+<p>Next step: Decide &#34;proposed alternative&#34; (DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE): the plan of the draft leaves it open.</p>
+</div>
+<div class="prerequisites">
+<p>Open work for this resource <code>google_firebase_project.default</code>: 1 open record · 0 accepted · blocks automation.</p>
+<ul>
+<li>critical semantic review: DEC-IAM-GOOGLE-FIREBASE-PROJECT-DEFAULT</li>
+</ul>
+<p>Next step: Review the critical settings of google_firebase_project.default (DEC-IAM-GOOGLE-FIREBASE-PROJECT-DEFAULT): decide each or accept the difference.</p>
+</div>
+<div class="prerequisites">
+<p>Open work for this resource <code>google_pubsub_topic.faux</code>: 2 open records · 0 accepted · blocks automation.</p>
+<ul>
+<li>plan decision: DEC-GEN-CONVERT-API-OPT-IN</li>
+<li>critical semantic review: DEC-OPS-GOOGLE-PUBSUB-TOPIC-FAUX</li>
+</ul>
+<p>Next step: Decide &#34;api opt in&#34; (DEC-GEN-CONVERT-API-OPT-IN): the plan of the draft leaves it open.</p>
+</div>
+<div class="prerequisites">
+<p>Open work for this resource <code>google_secret_manager_secret.django_admin_password</code>: 4 open records · 0 accepted · blocks automation.</p>
+<ul>
+<li>plan decision: DEC-GEN-CONVERT-API-OPT-IN, DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE</li>
+<li>critical semantic review: DEC-IAM-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-ADMIN-PASSWORD, DEC-SEC-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-ADMIN-PASSWORD</li>
+</ul>
+<p>Next step: Decide &#34;api opt in&#34; (DEC-GEN-CONVERT-API-OPT-IN): the plan of the draft leaves it open.</p>
+</div>
+<div class="prerequisites">
+<p>Open work for this resource <code>google_secret_manager_secret.django_settings</code>: 4 open records · 0 accepted · blocks automation.</p>
+<ul>
+<li>plan decision: DEC-GEN-CONVERT-API-OPT-IN, DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE</li>
+<li>critical semantic review: DEC-IAM-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-SETTINGS, DEC-SEC-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-SETTINGS</li>
+</ul>
+<p>Next step: Decide &#34;api opt in&#34; (DEC-GEN-CONVERT-API-OPT-IN): the plan of the draft leaves it open.</p>
+</div>
+<div class="prerequisites">
+<p>Open work for this resource <code>google_service_account.automation</code>: 2 open records · 0 accepted · blocks automation.</p>
+<ul>
+<li>critical semantic review: DEC-IAM-GOOGLE-SERVICE-ACCOUNT-AUTOMATION</li>
+<li>plan statement: DEC-IAM-STACKITSA-STATEMENT-NOT-DRAFTED</li>
+</ul>
+<p>Next step: Review the critical settings of google_service_account.automation (DEC-IAM-GOOGLE-SERVICE-ACCOUNT-AUTOMATION): decide each or accept the difference.</p>
+</div>
+<div class="prerequisites">
+<p>Open work for this resource <code>google_service_account.client</code>: 1 open record · 0 accepted · blocks automation.</p>
+<ul>
+<li>critical semantic review: DEC-IAM-GOOGLE-SERVICE-ACCOUNT-CLIENT</li>
+</ul>
+<p>Next step: Review the critical settings of google_service_account.client (DEC-IAM-GOOGLE-SERVICE-ACCOUNT-CLIENT): decide each or accept the difference.</p>
+</div>
+<div class="prerequisites">
+<p>Open work for this resource <code>google_service_account.init</code>: 1 open record · 0 accepted · blocks automation.</p>
+<ul>
+<li>critical semantic review: DEC-IAM-GOOGLE-SERVICE-ACCOUNT-INIT</li>
+</ul>
+<p>Next step: Review the critical settings of google_service_account.init (DEC-IAM-GOOGLE-SERVICE-ACCOUNT-INIT): decide each or accept the difference.</p>
+</div>
+<div class="prerequisites">
+<p>Open work for this resource <code>google_service_account.server</code>: 2 open records · 0 accepted · blocks automation.</p>
+<ul>
+<li>critical semantic review: DEC-IAM-GOOGLE-SERVICE-ACCOUNT-SERVER</li>
+<li>plan statement: DEC-IAM-STACKITSA-STATEMENT-NOT-DRAFTED</li>
+</ul>
+<p>Next step: Review the critical settings of google_service_account.server (DEC-IAM-GOOGLE-SERVICE-ACCOUNT-SERVER): decide each or accept the difference.</p>
+</div>
+<div class="prerequisites">
+<p>Open work for this resource <code>google_sql_database_instance.postgres</code>: 6 open records · 0 accepted · blocks automation.</p>
+<ul>
+<li>plan decision: DEC-GEN-CONVERT-DATA-MOVEMENT, DEC-GEN-CONVERT-SOURCE-PROJECT-MAPPING, DEC-GEN-CONVERT-SOURCE-REGION-MAPPING</li>
+<li>critical semantic review: DEC-IAM-GOOGLE-SQL-DATABASE-INSTANCE-POSTGRES, DEC-NET-GOOGLE-SQL-DATABASE-INSTANCE-POSTGRES, DEC-OPS-GOOGLE-SQL-DATABASE-INSTANCE-POSTGRES</li>
+</ul>
+<p>Next step: Decide &#34;data movement&#34; (DEC-GEN-CONVERT-DATA-MOVEMENT): the plan of the draft leaves it open.</p>
+</div>
+<div class="prerequisites">
+<p>Open work for this resource <code>google_storage_bucket.media</code>: 7 open records · 0 accepted · blocks automation.</p>
+<ul>
+<li>plan decision: DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE, DEC-GEN-CONVERT-SOURCE-REGION-MAPPING</li>
+<li>critical semantic review: DEC-DATA-GOOGLE-STORAGE-BUCKET-MEDIA, DEC-GEN-GOOGLE-STORAGE-BUCKET-MEDIA, DEC-IAM-GOOGLE-STORAGE-BUCKET-MEDIA, DEC-OPS-GOOGLE-STORAGE-BUCKET-MEDIA, DEC-SEC-GOOGLE-STORAGE-BUCKET-MEDIA</li>
+</ul>
+<p>Next step: Decide &#34;proposed alternative&#34; (DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE): the plan of the draft leaves it open.</p>
+</div>
+<h3 id="deployment-prerequisites">Deployment prerequisites</h3>
+<div class="prerequisites">
+<p><code>google_cloud_run_v2_job.migrate</code>: passed StackToIT&#39;s own draft checks; tofu validate: PASSED; NOT deployment-ready: 1 open decisions, 0 manual actions</p>
+<ul>
+<li>decision <code>DEC-GEN-CONVERT-SOURCE-REGION-MAPPING</code> (alias <code>convert:estate:source_location:SOURCE_REGION_MAPPING</code>): Map each source location of the estate to a STACKIT region &middot; The source places its units in a location the scan cannot read (the value comes from an input a plan can change, or the source does not state it). No mapping between Google and STACKIT regions is evidenced, so the region the draft builds in is not shown to hold the residency of a source location: a person states it once for the estate, by answering target.region.source_location for each location.</li>
+</ul>
+</div>
+<div class="prerequisites">
+<p><code>google_cloud_run_v2_service.server</code>: passed StackToIT&#39;s own draft checks; tofu validate: PASSED; NOT deployment-ready: 1 open decisions, 0 manual actions</p>
+<ul>
+<li>decision <code>DEC-GEN-CONVERT-SOURCE-REGION-MAPPING</code> (alias <code>convert:estate:source_location:SOURCE_REGION_MAPPING</code>): Map each source location of the estate to a STACKIT region &middot; The source places its units in a location the scan cannot read (the value comes from an input a plan can change, or the source does not state it). No mapping between Google and STACKIT regions is evidenced, so the region the draft builds in is not shown to hold the residency of a source location: a person states it once for the estate, by answering target.region.source_location for each location.</li>
+</ul>
+</div>
+<div class="prerequisites">
+<p><code>google_cloudbuild_trigger.activategcb</code>: passed StackToIT&#39;s own draft checks; tofu validate: PASSED; NOT deployment-ready: 2 open decisions, 0 manual actions</p>
+<ul>
+<li>decision <code>DEC-GEN-CONVERT-SOURCE-PROJECT-MAPPING</code> (alias <code>convert:estate:source_project:SOURCE_PROJECT_MAPPING</code>): State where the units of each source project of the estate go &middot; The source places its units in the project example-project, and in a project the scan cannot read for some units, and the source project is carried nowhere. A person maps the source projects by answering target.project.source_project for each: var.project_id, or the project of the unit&#39;s network (network-project). The answer records that mapping and changes nothing in the draft, which keeps its own project resolver.</li>
+<li>decision <code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE/google_cloudbuild_trigger.activategcb</code> (alias <code>convert:google_cloudbuild_trigger.activategcb:proposal:PROPOSED_ALTERNATIVE</code>): Decide whether the proposed STACKIT alternative replaces google_cloudbuild_trigger.activategcb: read the module proposals/proposal_activategcb, accept the difference and set its values, or design it another way &middot; the target has no equal of this Cloud Build trigger: starts a build on a source event, a Pub/Sub message, a webhook or by hand, with its steps, substitutions, artifacts, secrets and optional approval: Nothing is converted. The same delivery is a workflow of STACKIT Git Pipelines (written for GitHub Actions; STACKIT-managed or custom runners; secrets from Secrets Manager or the repository; a manual-approval action) or the customer&#39;s own CI/CD. Trigger conditions, steps, secrets (created again, never copied), the service account (replaced by the credentials the workflow uses against STACKIT), the log destination and the approval are written again by a person. To decide: Which pipelines are still needed, where they run (STACKIT Git Pipelines or the customer&#39;s own CI/CD), how each trigger, step, secret and approval is written again, and who owns the workflow files.</li>
+</ul>
+</div>
+<div class="prerequisites">
+<p><code>google_cloudbuild_trigger.init</code>: passed StackToIT&#39;s own draft checks; tofu validate: PASSED; NOT deployment-ready: 2 open decisions, 0 manual actions</p>
+<ul>
+<li>decision <code>DEC-GEN-CONVERT-SOURCE-PROJECT-MAPPING</code> (alias <code>convert:estate:source_project:SOURCE_PROJECT_MAPPING</code>): State where the units of each source project of the estate go &middot; The source places its units in the project example-project, and in a project the scan cannot read for some units, and the source project is carried nowhere. A person maps the source projects by answering target.project.source_project for each: var.project_id, or the project of the unit&#39;s network (network-project). The answer records that mapping and changes nothing in the draft, which keeps its own project resolver.</li>
+<li>decision <code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE/google_cloudbuild_trigger.init</code> (alias <code>convert:google_cloudbuild_trigger.init:proposal:PROPOSED_ALTERNATIVE</code>): Decide whether the proposed STACKIT alternative replaces google_cloudbuild_trigger.init: read the module proposals/proposal_init, accept the difference and set its values, or design it another way &middot; the target has no equal of this Cloud Build trigger: starts a build on a source event, a Pub/Sub message, a webhook or by hand, with its steps, substitutions, artifacts, secrets and optional approval: Nothing is converted. The same delivery is a workflow of STACKIT Git Pipelines (written for GitHub Actions; STACKIT-managed or custom runners; secrets from Secrets Manager or the repository; a manual-approval action) or the customer&#39;s own CI/CD. Trigger conditions, steps, secrets (created again, never copied), the service account (replaced by the credentials the workflow uses against STACKIT), the log destination and the approval are written again by a person. To decide: Which pipelines are still needed, where they run (STACKIT Git Pipelines or the customer&#39;s own CI/CD), how each trigger, step, secret and approval is written again, and who owns the workflow files.</li>
+</ul>
+</div>
+<div class="prerequisites">
+<p><code>google_cloudbuild_trigger.placeholder</code>: passed StackToIT&#39;s own draft checks; tofu validate: PASSED; NOT deployment-ready: 2 open decisions, 0 manual actions</p>
+<ul>
+<li>decision <code>DEC-GEN-CONVERT-SOURCE-PROJECT-MAPPING</code> (alias <code>convert:estate:source_project:SOURCE_PROJECT_MAPPING</code>): State where the units of each source project of the estate go &middot; The source places its units in the project example-project, and in a project the scan cannot read for some units, and the source project is carried nowhere. A person maps the source projects by answering target.project.source_project for each: var.project_id, or the project of the unit&#39;s network (network-project). The answer records that mapping and changes nothing in the draft, which keeps its own project resolver.</li>
+<li>decision <code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE/google_cloudbuild_trigger.placeholder</code> (alias <code>convert:google_cloudbuild_trigger.placeholder:proposal:PROPOSED_ALTERNATIVE</code>): Decide whether the proposed STACKIT alternative replaces google_cloudbuild_trigger.placeholder: read the module proposals/proposal_placeholder, accept the difference and set its values, or design it another way &middot; the target has no equal of this Cloud Build trigger: starts a build on a source event, a Pub/Sub message, a webhook or by hand, with its steps, substitutions, artifacts, secrets and optional approval: Nothing is converted. The same delivery is a workflow of STACKIT Git Pipelines (written for GitHub Actions; STACKIT-managed or custom runners; secrets from Secrets Manager or the repository; a manual-approval action) or the customer&#39;s own CI/CD. Trigger conditions, steps, secrets (created again, never copied), the service account (replaced by the credentials the workflow uses against STACKIT), the log destination and the approval are written again by a person. To decide: Which pipelines are still needed, where they run (STACKIT Git Pipelines or the customer&#39;s own CI/CD), how each trigger, step, secret and approval is written again, and who owns the workflow files.</li>
+</ul>
+</div>
+<div class="prerequisites">
+<p><code>google_firebase_hosting_site.client</code>: passed StackToIT&#39;s own draft checks; tofu validate: PASSED; NOT deployment-ready: 1 open decisions, 0 manual actions</p>
+<ul>
+<li>decision <code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE/google_firebase_hosting_site.client</code> (alias <code>convert:google_firebase_hosting_site.client:proposal:PROPOSED_ALTERNATIVE</code>): Decide whether the proposed STACKIT alternative replaces google_firebase_hosting_site.client: read the module proposals/proposal_client, accept the difference and set its values, or design it another way &middot; the target has no equal of this static web hosting site: Static files are published into an Object Storage bucket by a pipeline, and a CDN distribution (a beta resource) with the bucket as origin serves them on a custom domain; the redirects of the site become redirect rules of the distribution. Custom response headers, rewrites to Cloud Run services or Cloud Functions, preview channels and the release history have no counterpart and are restated in the pipeline or in the application. To decide: Which bucket is the origin, which domain the distribution serves, and how rewrites and previews are replaced. The CDN resources are beta.</li>
+</ul>
+</div>
+<div class="prerequisites">
+<p><code>google_pubsub_topic.faux</code>: passed StackToIT&#39;s own draft checks; tofu validate: PASSED; NOT deployment-ready: 1 open decisions, 0 manual actions</p>
+<ul>
+<li>decision <code>DEC-GEN-CONVERT-API-OPT-IN/google_pubsub_topic.faux</code> (alias <code>convert:api:pubsub:v1beta:beta:API_OPT_IN</code>): Allow calls of the beta pubsub API v1beta for this migration (the API may change or vanish)? Accept: the pubsub API v1beta path is carried out for google_pubsub_topic.faux: its calls become executable. the RabbitMQ instance the draft writes stays in the draft this run wrote, so its step is held (REGENERATE_REQUIRED) until a draft is generated without it (answer target.messaging.path with pubsub in the inputs file and run again); an instance shared with a queue or topic that has no call of the pubsub API v1beta path stays taken. Refuse: the RabbitMQ instance the draft writes is carried out and the calls and steps of the pubsub API v1beta path are not taken. &middot; the pubsub API v1beta is beta: the execution plan executes no call of an API that is not generally available without an explicit opt-in, so the calls of it and the steps of its path for google_pubsub_topic.faux wait for this decision; the draft&#39;s own blocks do not</li>
+</ul>
+</div>
+<div class="prerequisites">
+<p><code>google_secret_manager_secret.django_admin_password</code>: passed StackToIT&#39;s own draft checks; tofu validate: PASSED; NOT deployment-ready: 2 open decisions, 0 manual actions</p>
+<ul>
+<li>decision <code>DEC-GEN-CONVERT-API-OPT-IN/google_secret_manager_secret.django_admin_password</code> (alias <code>convert:api:secrets-manager-vault:v1:unknown:API_OPT_IN</code>): Allow calls of the Secrets Manager Vault-compatible API, whose maturity is not established, for this migration (the API may change or vanish)? Accept: the calls of the Secrets Manager Vault-compatible API (WriteSecret) are carried out for google_secret_manager_secret.django_admin_password, google_secret_manager_secret.django_settings. Refuse: no call is made, a refusal selects no other path (the draft holds no other carrier of what the calls set), and what they set stays open for google_secret_manager_secret.django_admin_password, google_secret_manager_secret.django_settings. &middot; the Secrets Manager Vault-compatible API is of a maturity that is not established (its documentation states no release status and its product documentation does not establish it as generally available): the execution plan executes no call of an API that is not generally available without an explicit opt-in, so the calls of it and the steps of its path for google_secret_manager_secret.django_admin_password, google_secret_manager_secret.django_settings wait for this decision; the draft&#39;s own blocks do not</li>
+<li>decision <code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE/google_secret_manager_secret_iam_binding.django_admin_password</code> (alias <code>convert:google_secret_manager_secret_iam_binding.django_admin_password:proposal:PROPOSED_ALTERNATIVE</code>): Decide whether the proposed STACKIT alternative replaces google_secret_manager_secret_iam_binding.django_admin_password: read the module proposals/proposal_django_admin_password, accept the difference and set its values, or design it another way &middot; the target has no equal of this the members of one role on the Secret Manager secret: A STACKIT role assignment is not a grant on the Secret Manager secret. It gives one user, group or service account one STACKIT role on a whole project, folder or organisation. The role is a set of STACKIT permissions, not the Google role, and no table maps one to the other. It has no condition and no public member, so what the grant gave to a Google group, a domain, a federated identity or everyone is named again, and the access reaches more than the Secret Manager secret. A binding on a secret group applies to every secret in the group, so it is wider than a grant on one secret unless the secret has a group of its own, and its roles are Secrets Manager roles. The binding was authoritative for its role: STACKIT role assignments are additive, so a person who holds the role through another assignment keeps it, and removing such people is a step of a person. To decide: Which STACKIT role, on which project, folder or organisation, gives the same people the access they need on the Secret Manager secret, knowing it covers everything in that scope; which STACKIT users, groups or service accounts take the place of Google groups, domains, federated identities and a public member; and whether the grant ends with the Secret Manager secret when it has no replacement. For secrets: which secret group holds the secret, who else shares that group, and which Secrets Manager role and subject take the grant. Whether people who hold the role through another assignment keep it. The draft of google_secret_manager_secret.django_admin_password stands as it is: this answer decides the module and nothing of that draft.</li>
+</ul>
+</div>
+<div class="prerequisites">
+<p><code>google_secret_manager_secret.django_settings</code>: passed StackToIT&#39;s own draft checks; tofu validate: PASSED; NOT deployment-ready: 2 open decisions, 0 manual actions</p>
+<ul>
+<li>decision <code>DEC-GEN-CONVERT-API-OPT-IN/google_secret_manager_secret.django_admin_password</code> (alias <code>convert:api:secrets-manager-vault:v1:unknown:API_OPT_IN</code>): Allow calls of the Secrets Manager Vault-compatible API, whose maturity is not established, for this migration (the API may change or vanish)? Accept: the calls of the Secrets Manager Vault-compatible API (WriteSecret) are carried out for google_secret_manager_secret.django_admin_password, google_secret_manager_secret.django_settings. Refuse: no call is made, a refusal selects no other path (the draft holds no other carrier of what the calls set), and what they set stays open for google_secret_manager_secret.django_admin_password, google_secret_manager_secret.django_settings. &middot; the Secrets Manager Vault-compatible API is of a maturity that is not established (its documentation states no release status and its product documentation does not establish it as generally available): the execution plan executes no call of an API that is not generally available without an explicit opt-in, so the calls of it and the steps of its path for google_secret_manager_secret.django_admin_password, google_secret_manager_secret.django_settings wait for this decision; the draft&#39;s own blocks do not</li>
+<li>decision <code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE/google_secret_manager_secret_iam_binding.django_settings</code> (alias <code>convert:google_secret_manager_secret_iam_binding.django_settings:proposal:PROPOSED_ALTERNATIVE</code>): Decide whether the proposed STACKIT alternative replaces google_secret_manager_secret_iam_binding.django_settings: read the module proposals/proposal_django_settings, accept the difference and set its values, or design it another way &middot; the target has no equal of this the members of one role on the Secret Manager secret: A STACKIT role assignment is not a grant on the Secret Manager secret. It gives one user, group or service account one STACKIT role on a whole project, folder or organisation. The role is a set of STACKIT permissions, not the Google role, and no table maps one to the other. It has no condition and no public member, so what the grant gave to a Google group, a domain, a federated identity or everyone is named again, and the access reaches more than the Secret Manager secret. A binding on a secret group applies to every secret in the group, so it is wider than a grant on one secret unless the secret has a group of its own, and its roles are Secrets Manager roles. The binding was authoritative for its role: STACKIT role assignments are additive, so a person who holds the role through another assignment keeps it, and removing such people is a step of a person. To decide: Which STACKIT role, on which project, folder or organisation, gives the same people the access they need on the Secret Manager secret, knowing it covers everything in that scope; which STACKIT users, groups or service accounts take the place of Google groups, domains, federated identities and a public member; and whether the grant ends with the Secret Manager secret when it has no replacement. For secrets: which secret group holds the secret, who else shares that group, and which Secrets Manager role and subject take the grant. Whether people who hold the role through another assignment keep it. The draft of google_secret_manager_secret.django_settings stands as it is: this answer decides the module and nothing of that draft.</li>
+</ul>
+</div>
+<div class="prerequisites">
+<p><code>google_sql_database_instance.postgres</code>: passed StackToIT&#39;s own draft checks; tofu validate: PASSED; NOT deployment-ready: 3 open decisions, 0 manual actions</p>
+<ul>
+<li>decision <code>DEC-GEN-CONVERT-SOURCE-REGION-MAPPING</code> (alias <code>convert:estate:source_location:SOURCE_REGION_MAPPING</code>): Map each source location of the estate to a STACKIT region &middot; The source places its units in a location the scan cannot read (the value comes from an input a plan can change, or the source does not state it). No mapping between Google and STACKIT regions is evidenced, so the region the draft builds in is not shown to hold the residency of a source location: a person states it once for the estate, by answering target.region.source_location for each location.</li>
+<li>decision <code>DEC-GEN-CONVERT-SOURCE-PROJECT-MAPPING</code> (alias <code>convert:estate:source_project:SOURCE_PROJECT_MAPPING</code>): State where the units of each source project of the estate go &middot; The source places its units in the project example-project, and in a project the scan cannot read for some units, and the source project is carried nowhere. A person maps the source projects by answering target.project.source_project for each: var.project_id, or the project of the unit&#39;s network (network-project). The answer records that mapping and changes nothing in the draft, which keeps its own project resolver.</li>
+<li>decision <code>DEC-GEN-CONVERT-DATA-MOVEMENT</code> (alias <code>convert:google_sql_database_instance.postgres:data:DATA_MOVEMENT</code>): Choose how the data of google_sql_database_instance.postgres moves from google_sql_database_instance to PostgreSQL Flex (stackit_postgresflex_instance.postgres): a dump restored inside the write freeze, the engine&#39;s logical replication, or a tool of your own &middot; the plan defines both methods of the engine (a dump restored inside the write freeze, and a logical replication that follows the changes until the freeze) and keeps them open: which one applies depends on the size of the data, the write rate and the downtime the business accepts, and the source states none of them; the steps of the methods wait for the answer</li>
+</ul>
+</div>
+<div class="prerequisites">
+<p><code>google_storage_bucket.media</code>: passed StackToIT&#39;s own draft checks; tofu validate: PASSED; NOT deployment-ready: 2 open decisions (3 questions), 0 manual actions</p>
+<ul>
+<li>decision <code>DEC-GEN-CONVERT-SOURCE-REGION-MAPPING</code> (alias <code>convert:estate:source_location:SOURCE_REGION_MAPPING</code>): Map each source location of the estate to a STACKIT region &middot; The source places its units in a location the scan cannot read (the value comes from an input a plan can change, or the source does not state it). No mapping between Google and STACKIT regions is evidenced, so the region the draft builds in is not shown to hold the residency of a source location: a person states it once for the estate, by answering target.region.source_location for each location.</li>
+<li>decision <code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE/google_storage_bucket_iam_member.automation</code> (alias <code>convert:google_storage_bucket_iam_member.automation:proposal:PROPOSED_ALTERNATIVE</code>): Decide whether the proposed STACKIT alternative replaces google_storage_bucket_iam_member.automation: read the module proposals/proposal_automation, accept the difference and set its values, or design it another way &middot; the target has no equal of this one member&#39;s role on the Cloud Storage bucket: A STACKIT credentials group is not a grant on the Cloud Storage bucket. It is the principal that a bucket policy names, a set of S3 keys with no Google identity behind it, and by itself it gives no access to the bucket and takes none away. The statement that grants it something is a statement of the bucket policy, in the policy language of STACKIT (a credentials group or * as the principal, S3 actions, five condition keys), which no Terraform resource sets. The Google role is not mapped to S3 actions by any table, the condition of the grant has no counterpart unless it can be written with those five condition keys, and a Google group, a domain, a federated identity and allUsers or allAuthenticatedUsers are named again as credentials groups or as *. To decide: Which credentials group stands for each member of the grant, which S3 actions of the bucket policy give the same people the access they need and no more than the Google role gave, what becomes of the condition, of public members (allUsers, allAuthenticatedUsers), of Google groups, domains and federated identities, and whether the grant ends with the Cloud Storage bucket when it has no replacement. Which bucket the grant is on, because the scan does not hold it. The draft of google_storage_bucket.media stands as it is: this answer decides the module and nothing of that draft.</li>
+<li>decision <code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE/google_storage_bucket_iam_member.server</code> (alias <code>convert:google_storage_bucket_iam_member.server:proposal:PROPOSED_ALTERNATIVE</code>): Decide whether the proposed STACKIT alternative replaces google_storage_bucket_iam_member.server: read the module proposals/proposal_server, accept the difference and set its values, or design it another way &middot; the target has no equal of this one member&#39;s role on the Cloud Storage bucket: A STACKIT credentials group is not a grant on the Cloud Storage bucket. It is the principal that a bucket policy names, a set of S3 keys with no Google identity behind it, and by itself it gives no access to the bucket and takes none away. The statement that grants it something is a statement of the bucket policy, in the policy language of STACKIT (a credentials group or * as the principal, S3 actions, five condition keys), which no Terraform resource sets. The Google role is not mapped to S3 actions by any table, the condition of the grant has no counterpart unless it can be written with those five condition keys, and a Google group, a domain, a federated identity and allUsers or allAuthenticatedUsers are named again as credentials groups or as *. To decide: Which credentials group stands for each member of the grant, which S3 actions of the bucket policy give the same people the access they need and no more than the Google role gave, what becomes of the condition, of public members (allUsers, allAuthenticatedUsers), of Google groups, domains and federated identities, and whether the grant ends with the Cloud Storage bucket when it has no replacement. Which bucket the grant is on, because the scan does not hold it. The draft of google_storage_bucket.media stands as it is: this answer decides the module and nothing of that draft.</li>
+</ul>
+</div>
+</section></main>
+<script>(function () {
+  'use strict';
+  var doc = document;
+  var win = window;
+  function all(selector, root) { return Array.prototype.slice.call((root || doc).querySelectorAll(selector)); }
+  function press(button, on) { button.setAttribute('aria-pressed', on ? 'true' : 'false'); }
+  function pressed(button) { return button.getAttribute('aria-pressed') === 'true'; }
+
+  all('[data-js-only]').forEach(function (e) { e.hidden = false; });
+
+  var detailsButton = doc.querySelector('[data-act="details"]');
+  if (detailsButton) {
+    detailsButton.addEventListener('click', function () {
+      var on = !pressed(detailsButton);
+      press(detailsButton, on);
+      all('details').forEach(function (d) { d.open = on; });
+    });
+  }
+
+  function listOf(scope) { return doc.querySelector('[data-list="' + scope + '"]'); }
+  function itemsOf(list) {
+    return all('[data-item]', list);
+  }
+  function chosen(scope) {
+    var by = {};
+    all('[data-controls="' + scope + '"] [data-filter]').forEach(function (b) {
+      if (!pressed(b)) { return; }
+      var group = b.getAttribute('data-filter');
+      (by[group] = by[group] || []).push(b.getAttribute('data-value'));
+    });
+    return by;
+  }
+  function passes(item, by, cells) {
+    if (cells) {
+      if (!by.dim && !by.state) { return true; }
+      return all('[data-state]', item).some(function (c) {
+        return (!by.dim || by.dim.indexOf(c.getAttribute('data-dim')) >= 0) && (!by.state || by.state.indexOf(c.getAttribute('data-state')) >= 0);
+      });
+    }
+    return Object.keys(by).every(function (group) { return by[group].indexOf(item.getAttribute('data-' + group)) >= 0; });
+  }
+  function refresh(scope) {
+    var list = listOf(scope);
+    if (!list) { return; }
+    var by = chosen(scope);
+    var cells = list.hasAttribute('data-cells');
+    var seen = false;
+    var search = doc.querySelector('[data-search="' + scope + '"]');
+    var words = search ? search.value.toLowerCase().split(' ').filter(Boolean) : [];
+    itemsOf(list).forEach(function (item) {
+      var text = (item.id + ' ' + (item.getAttribute('data-text') || '')).toLowerCase();
+      var ok = passes(item, by, cells) && words.every(function (w) { return text.indexOf(w) >= 0; });
+      item.hidden = !ok;
+      if (ok) { seen = true; }
+    });
+    all('[data-group]', list).forEach(function (g) {
+      g.hidden = !all('[data-item]', g).some(function (item) { return !item.hidden; });
+      if (words[0] && !g.hidden && g.tagName === 'DETAILS') { g.open = true; }
+    });
+    var none = doc.querySelector('[data-empty="' + scope + '"]');
+    if (none) { none.hidden = seen; }
+  }
+  function sortBy(scope, button) {
+    var list = listOf(scope);
+    if (!list) { return; }
+    var key = button.getAttribute('data-sort');
+    var attr = key === 'record' ? 'data-seq' : 'data-sort-' + key;
+    var desc = button.getAttribute('data-dir') === 'desc';
+    var items = itemsOf(list);
+    var parents = items.map(function (i) { return i.parentNode; }).filter(function (p, k, a) { return a.indexOf(p) === k; });
+    parents.forEach(function (parent) {
+      items.filter(function (i) { return i.parentNode === parent; }).sort(function (a, b) {
+        var x = Number(a.getAttribute(attr));
+        var y = Number(b.getAttribute(attr));
+        if (x !== y) { return desc ? y - x : x - y; }
+        return Number(a.getAttribute('data-seq')) - Number(b.getAttribute('data-seq'));
+      }).forEach(function (item) { parent.appendChild(item); });
+    });
+    all('[data-controls="' + scope + '"] [data-sort]').forEach(function (b) { press(b, b === button); });
+  }
+  all('[data-controls]').forEach(function (box) {
+    var scope = box.getAttribute('data-controls');
+    all('[data-filter]', box).forEach(function (b) {
+      b.addEventListener('click', function () { press(b, !pressed(b)); refresh(scope); });
+    });
+    all('[data-sort]', box).forEach(function (b) {
+      b.addEventListener('click', function () { sortBy(scope, b); });
+    });
+    var search = box.querySelector('[data-search]');
+    if (search) {
+      search.addEventListener('input', function () { refresh(scope); });
+    }
+    var clear = box.querySelector('[data-act="clear-filters"]');
+    if (clear) {
+      clear.addEventListener('click', function () {
+        all('[data-filter]', box).forEach(function (b) { press(b, false); });
+        if (search) { search.value = ''; }
+        refresh(scope);
+      });
+    }
+  });
+
+  var main = doc.getElementById('main');
+  var lensButtons = all('[data-lens-set]');
+  function setLens(lens) {
+    doc.body.setAttribute('data-lens', lens);
+    lensButtons.forEach(function (b) {
+      var on = b.getAttribute('data-lens-set') === lens;
+      press(b, on);
+      if (on) {
+        b.getAttribute('data-lens-order').split(' ').forEach(function (id) {
+          var section = doc.getElementById(id);
+          if (main && section && section.parentNode === main && (section.nextElementSibling || section.previousElementSibling)) { main.appendChild(section); }
+          var entry = doc.querySelector('nav [data-nav="' + id + '"]');
+          if (entry) { entry.parentNode.appendChild(entry); }
+        });
+      }
+    });
+  }
+  lensButtons.forEach(function (b) {
+    b.addEventListener('click', function () { setLens(b.getAttribute('data-lens-set')); });
+  });
+
+  function indicated() {
+    var hash = win.location.hash;
+    if (hash === '' || hash === '#') { return null; }
+    var id = hash.slice(1);
+    var found = doc.getElementById(id);
+    if (!found) {
+      try { found = doc.getElementById(decodeURIComponent(id)); } catch (e) { found = null; }
+    }
+    return found;
+  }
+  var kindPages = {'action': 'decisions', 'application': 'applications', 'capability': 'target-fit', 'check': 'evidence', 'claim': 'engineering', 'decision': 'decisions', 'evidence': 'engineering', 'field': 'engineering', 'findinggroup': 'evidence', 'intent': 'engineering', 'residual': 'engineering', 'target': 'evidence', 'unit': 'architecture'};
+  var sectionPages = ' applications architecture decisions target-fit migration security-assurance sovereignty operations cost evidence engineering work-board ';
+  function before(a, b) {
+    var x = Array.from(a);
+    var y = Array.from(b);
+    for (var i = 0; ; i++) {
+      if (x[i] === undefined) { return y[i] !== undefined; }
+      if (y[i] === undefined) { return false; }
+      if (x[i] !== y[i]) { return x[i].codePointAt(0) < y[i].codePointAt(0); }
+    }
+  }
+  function grouped(kind, key) {
+    var rows = all('[data-routes] [data-kind="' + kind + '"]');
+    if (!rows[0]) { return null; }
+    var at = rows[0];
+    rows.forEach(function (r) { if (!before(key, r.getAttribute('data-first'))) { at = r; } });
+    return at.getAttribute('data-page');
+  }
+  function routed(id) {
+    var slash = id.indexOf('/');
+    if (slash > 0) {
+      var kind = id.slice(0, slash);
+      var key = null;
+      try { key = decodeURIComponent(id.slice(slash + 1)); } catch (e) { key = null; }
+      var group = key === null ? null : grouped(kind, key);
+      if (group !== null) { return group; }
+      return kindPages.hasOwnProperty(kind) ? kindPages[kind] : null;
+    }
+    return sectionPages.indexOf(' ' + id + ' ') >= 0 ? id : null;
+  }
+  function route() {
+    var base = doc.body.getAttribute('data-pages');
+    var page = routed(win.location.hash.slice(1));
+    if (base === null || page === null || win.location.pathname.endsWith('/' + page + '.html')) { return; }
+    win.location.replace(base + page + '.html' + win.location.hash);
+  }
+  function reveal() {
+    var target = indicated();
+    if (!target) { route(); return; }
+    if (target.tagName === 'DETAILS') { target.open = true; }
+    for (var p = target.parentElement; p; p = p.parentElement) {
+      if (p.tagName === 'DETAILS') { p.open = true; }
+    }
+    var body = target.querySelector(':scope > details');
+    if (body) { body.open = true; }
+    if (!target.getClientRects()[0]) {
+      all('[data-controls] [data-filter]').forEach(function (b) { press(b, false); });
+      all('[data-search]').forEach(function (b) { b.value = ''; });
+      all('[data-controls]').forEach(function (box) { refresh(box.getAttribute('data-controls')); });
+      if (lensButtons[0]) { setLens('all'); }
+    }
+    target.scrollIntoView();
+  }
+  win.addEventListener('hashchange', reveal);
+  reveal();
+
+  var opened = [];
+  win.addEventListener('beforeprint', function () {
+    opened = all('details:not([open])');
+    opened.forEach(function (d) { d.open = true; });
+  });
+  win.addEventListener('afterprint', function () {
+    opened.forEach(function (d) { d.open = false; });
+    opened = [];
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'self' file:; script-src 'sha256-CwASM6IjFFU0cbLjKYkJ0eTksrLAqSrzVwwNUyJ01Fs='; base-uri 'none'; form-action 'none'">
+<title>StackToIT Migration Intelligence Workspace - Engineering Evidence</title>
+<style>
+:root{color-scheme:light dark;--bg:#f2f5f4;--surface:#fff;--panel:#f7f9f8;--panel2:#e9eeec;--ink:#10201d;--ink2:#2c3b38;--muted:#4f5b58;--line:#d3dad8;--line2:#b9c4c1;--accent:#17603f;--accent2:#0f4a30;--accent-soft:#e2f0e7;--focus:#0b57d0;--crit:#a82218;--crit-soft:#fbe6e2;--warn:#7c5208;--warn-soft:#fbf0d4;--ok:#26683a;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+@media screen and (prefers-color-scheme:dark){:root{--bg:#0e1514;--surface:#151f1d;--panel:#1a2624;--panel2:#22302d;--ink:#e3ebe8;--ink2:#c8d3d0;--muted:#9eafab;--line:#2b3a37;--line2:#3d4f4b;--accent:#74d19c;--accent2:#9be3b9;--accent-soft:#183326;--focus:#8fb4ff;--crit:#ff958a;--crit-soft:#3a1c18;--warn:#ecc56f;--warn-soft:#33290f;--ok:#86d494}}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:1rem;line-height:1.5;color:var(--ink);background:var(--bg);margin:0 auto;padding:0 1.5rem 3rem;max-width:84rem;overflow-wrap:break-word;-webkit-text-size-adjust:100%}
+h1,h2,h3,h4,h5{color:var(--ink);line-height:1.25;text-wrap:balance}h1{font-size:1.3rem;margin:1.25rem 0 .4rem;letter-spacing:-.01em}h2{font-size:1.4rem;margin:1.5rem 0 .6rem;letter-spacing:-.01em}h3{font-size:1.15rem;margin:1.4rem 0 .5rem}h4{font-size:1rem;margin:1.2rem 0 .4rem}p,li{max-width:110ch}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:.18em}a:hover{color:var(--accent2);text-decoration-thickness:2px}
+code{font-family:var(--mono);font-size:.84em;background:var(--panel2);border-radius:4px;padding:.05em .3em}
+summary{cursor:pointer}summary:hover{color:var(--accent2)}
+header>p:first-of-type{display:inline-block;margin:0 0 .75rem;padding:.3rem .8rem;font-size:.875rem;color:var(--ink2);background:var(--warn-soft);border:1px solid color-mix(in srgb,var(--warn) 35%,transparent);border-radius:4px}
+header>p[role=status],header>details.technical{font-size:.875rem;color:var(--ink2);margin:.35rem 0}
+nav{display:flex;flex-wrap:wrap;align-items:center;column-gap:.75rem;row-gap:.25rem;margin:1rem 0 .5rem;padding:.35rem .5rem;background:var(--surface);border:1px solid var(--line);border-radius:4px;font-size:1.05rem}
+nav ol{display:flex;flex-wrap:wrap;gap:.15rem .2rem;list-style:none;margin:0;padding:0;font-size:.85em}
+nav ol a{display:block;padding:.3rem .6rem;border-radius:4px;color:var(--ink2);text-decoration:none}nav ol a:hover{background:var(--panel2);color:var(--ink)}nav [aria-current]{background:var(--accent-soft);color:var(--accent2);box-shadow:inset 0 -2px 0 var(--accent)}
+nav ol:first-child{font-weight:600}.navmore{font-size:.8em;color:var(--muted);padding-left:.75rem;border-left:1px solid var(--line2)}
+a:focus,summary:focus,button:focus,input:focus,[tabindex]:focus{outline:3px solid var(--focus);outline-offset:2px}
+[hidden]{display:none!important}
+.toolbar{display:flex;flex-wrap:wrap;gap:.5rem;padding:.5rem 0}
+.toolbar button{font:inherit;font-size:.875rem;line-height:1.3;padding:.3rem .8rem;cursor:pointer;color:var(--ink);background:var(--surface);border:1px solid var(--line2);border-radius:4px}
+.toolbar button:hover{background:var(--panel2)}
+.toolbar button[aria-pressed="true"]{font-weight:bold;color:var(--accent2);background:var(--accent-soft);border-color:var(--accent)}
+.skip{position:absolute;left:-999px}.skip:focus{position:static}
+table{border-collapse:collapse;margin:.5rem 0 1rem;font-size:.9rem;font-variant-numeric:tabular-nums;background:var(--surface)}
+th,td{border:1px solid var(--line);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:var(--panel2);font-size:.8rem;font-weight:600;color:var(--ink2);text-transform:uppercase;letter-spacing:.03em}tbody th{font-weight:600}tbody tr:nth-child(even)>*{background:color-mix(in srgb,var(--panel) 70%,transparent)}
+caption{font-weight:600;text-align:left;padding-bottom:.4rem;color:var(--ink)}
+.scroll{overflow-x:auto;content-visibility:auto;contain-intrinsic-size:auto 40rem}
+dl.topbar{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.6rem 1.5rem}
+dl.topbar dt{font-weight:600;font-size:.8rem;color:var(--muted)}dl.topbar dd{margin:0}
+
+
+ul.actions{display:flex;flex-wrap:wrap;gap:.3rem .4rem;list-style:none;margin:.4rem 0;padding:0}
+ul.actions li{border:1px solid var(--line2);background:var(--panel);border-radius:999px;padding:.05rem .55rem;white-space:nowrap;font-size:.9rem}ul.actions .fig{font-weight:bold;font-variant-numeric:tabular-nums}ul.actions .zero{opacity:.6}ul.actions [data-action-state=BLOCKED]{background:var(--crit-soft);border-color:color-mix(in srgb,var(--crit) 40%,transparent)}
+.state{display:inline-block;padding:0 .45rem;font-size:.85em;line-height:1.5;white-space:nowrap;background:var(--panel);border:1px solid var(--line);border-radius:4px}
+[data-dim-state] strong{color:var(--warn)}[data-dim-state^=COMPLETE] strong,[data-dim-state^=PASSED] strong,[data-dim-state^=SETTINGS] strong{color:var(--ink)}[data-dim-state=EXECUTION_READY] strong{color:var(--ok)}[data-dim-state^=REJECTED] strong,[data-dim-state^=BLOCKED] strong{color:var(--crit)}[data-dim-state^=NOT] strong,[data-dim-state^=NONE] strong{color:var(--muted)}
+@media screen and (max-width:40rem){nav{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;padding:.3rem .4rem;background:linear-gradient(90deg,var(--surface) 40%,transparent) left/1.5rem 100% no-repeat local,linear-gradient(270deg,var(--surface) 40%,transparent) right/1.5rem 100% no-repeat local,linear-gradient(90deg,color-mix(in srgb,var(--ink) 22%,transparent),transparent) left/.6rem 100% no-repeat scroll,linear-gradient(270deg,color-mix(in srgb,var(--ink) 22%,transparent),transparent) right/.6rem 100% no-repeat scroll,var(--surface)}nav ol{flex-wrap:nowrap}nav ol a,.navmore{white-space:nowrap}nav [aria-current]{scroll-initial-target:nearest}}
+@media (max-width:40rem){body{padding:0 1rem 2rem}nav ol a{padding:.25rem .45rem;min-height:2.75rem;display:flex;align-items:center}summary{min-height:2.75rem;padding-top:.6rem;padding-bottom:.6rem;box-sizing:border-box}.toolbar button{min-height:2.75rem}h2{font-size:1.25rem}}
+.lensnow{display:none}
+details.lensgroup{margin:.25rem 0}details.lensgroup>summary{font-size:.85em;color:var(--muted)}
+details.technical{margin:.5rem 0}details.technical[open]{padding:.25rem 1rem .75rem;background:var(--surface);border:1px solid var(--line);border-radius:4px}
+details.fold{margin:0;border-top:1px solid var(--line)}details.fold:last-of-type{border-bottom:1px solid var(--line)}details.fold>summary{font-weight:bold;padding:.65rem .25rem}details.fold>summary:hover{background:var(--panel)}details.fold>summary>h3{display:inline;margin:0;font-size:1.08em}details.fold[open]>summary{margin-bottom:.25rem}.foldcount{font-weight:normal;font-size:.85em;color:var(--muted);margin-left:.35rem}
+.na,small{color:var(--muted)}
+section{padding-top:1rem;border-top:1px solid var(--line)}
+main>section{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:.5rem 1.75rem 1.5rem;margin:1rem 0}main>section>h2:first-child{margin-top:.9rem}@media (max-width:40rem){main>section{padding:.25rem 1rem 1rem}}
+.lensnote{display:none;margin:.4rem 0;padding:.4rem .75rem;font-size:.9rem;background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);border-radius:4px}
+body[data-lens=executive] [data-lens]:not([data-lens~=executive]),body[data-lens=architect] [data-lens]:not([data-lens~=architect]),body[data-lens=platform] [data-lens]:not([data-lens~=platform]),body[data-lens=security] [data-lens]:not([data-lens~=security]),body[data-lens=application-owner] [data-lens]:not([data-lens~=application-owner]),body[data-lens=programme] [data-lens]:not([data-lens~=programme]),body[data-lens=finops] [data-lens]:not([data-lens~=finops]),body[data-lens=engineering] [data-lens]:not([data-lens~=engineering]){display:none}
+body[data-lens=all] .lensnow[data-for=all],body[data-lens=executive] .lensnow[data-for=executive],body[data-lens=executive] .lensnote[data-lens-note=executive],body[data-lens=architect] .lensnow[data-for=architect],body[data-lens=architect] .lensnote[data-lens-note=architect],body[data-lens=platform] .lensnow[data-for=platform],body[data-lens=platform] .lensnote[data-lens-note=platform],body[data-lens=security] .lensnow[data-for=security],body[data-lens=security] .lensnote[data-lens-note=security],body[data-lens=application-owner] .lensnow[data-for=application-owner],body[data-lens=application-owner] .lensnote[data-lens-note=application-owner],body[data-lens=programme] .lensnow[data-for=programme],body[data-lens=programme] .lensnote[data-lens-note=programme],body[data-lens=finops] .lensnow[data-for=finops],body[data-lens=finops] .lensnote[data-lens-note=finops],body[data-lens=engineering] .lensnow[data-for=engineering],body[data-lens=engineering] .lensnote[data-lens-note=engineering]{display:revert}
+
+@media print{.skip,nav,.toolbar,details.lensgroup,.lensnote,[data-js-only]{display:none!important}section{break-inside:avoid-page}details::details-content,.scroll{content-visibility:visible}[data-lens],[data-item][hidden],[data-group][hidden]{display:revert!important}body{background:#fff;max-width:none;padding:0}section.hero,main>section,ul.glance li{break-inside:auto}main>section{border:0;padding:0}a{color:inherit}}
+</style>
+<style>
+details.trace{border:1px solid var(--line);border-radius:4px;background:var(--surface);margin:.5rem 0;padding:.4rem .9rem}
+details.trace>summary{cursor:pointer;font-weight:bold;overflow-wrap:anywhere}
+details.trace .meta{font-weight:normal}
+ol.arrows{list-style:none;margin:.5rem 0 0;padding:0 0 0 .75rem;border-left:2px solid var(--line2)}
+ol.arrows>li{margin:0 0 1rem;padding-left:.75rem}
+ol.arrows p{margin:.25rem 0;overflow-wrap:anywhere}
+ol.arrows ul{margin:.25rem 0;padding-left:1.25rem}
+ol.arrows li li{overflow-wrap:anywhere}
+.arrow-head{display:flex;flex-wrap:wrap;gap:.1rem 1rem;align-items:baseline}
+details.expert{margin-top:.25rem;font-size:.9em}
+details.expert summary{cursor:pointer}
+details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
+@media (max-width:40rem){details.trace{padding:.25rem .5rem}ol.arrows{padding-left:.25rem}ol.arrows>li{padding-left:.5rem}}
+</style>
+</head>
+<body data-lens="all" data-pages="">
+<dl hidden data-run><div><dt>Run</dt><dd>6f8f72b2-1c34-4cfc-8483-344c41245364 &middot; source digest sha256:19bfed642d5789ccada81b91d5c36e33175dcafd66dc46b1644ffa105d020000</dd></div></dl>
+<a class="skip" href="#main">Skip to the content</a>
+<noscript><p>Scripts are switched off. Nothing in this workspace needs them: every page is shown in full. A script would only add buttons: one that opens or closes every group of details, the lenses that put the navigation in another order, and the filters and sorts of the decision records and of the Target Fit rows.</p></noscript>
+<header>
+<h1>StackToIT Migration Intelligence Workspace</h1>
+<p>FOR REVIEW — generated by StackToIT Assess. Architect review required before any decision.</p>
+<nav aria-label="Workspace pages">
+<ol>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="overview"><a href="../index.html">Overview</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="applications"><a href="applications.html">Applications</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="decisions"><a href="decisions.html">Decisions</a></li>
+<li data-lens="executive architect platform application-owner programme finops engineering" data-nav="migration"><a href="migration.html">Migration Plan</a></li>
+<li data-lens="architect platform security application-owner programme engineering" data-nav="architecture"><a href="architecture.html">Architecture</a></li>
+<li data-lens="executive application-owner programme finops" data-nav="cost"><a href="cost.html">Costs</a></li>
+</ol>
+<span class="navmore" aria-hidden="true">More</span><ol aria-label="More pages">
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="work-board"><a href="work-board.html">Work Board</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="security-assurance"><a href="security-assurance.html">Security &amp; Resilience</a></li>
+<li data-lens="architect platform security engineering" data-nav="engineering"><a href="#engineering" aria-current="page">Engineering Evidence</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="target-fit"><a href="target-fit.html">Target Fit</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="sovereignty"><a href="sovereignty.html">Sovereignty</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="operations"><a href="operations.html">Operations</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="evidence"><a href="evidence.html">Evidence</a></li>
+</ol>
+</nav>
+<p role="status"><strong>Partially executable migration package</strong> &middot; For review only · Not approved.</p>
+<details class="technical">
+<summary>Technical details: run, versions, digest and evidence freshness</summary>
+<h2>Assessment</h2>
+<dl class="topbar">
+<div><dt>Assessment</dt><dd>gcp-candidates/terraform-dynamic-python-webapp/infra (assessment format 0.24.0)</dd></div>
+<div><dt>Assessment timestamp</dt><dd>Generated 2026-11-07 04:24 UTC by stacktoit 0.6.0-13076-ga19ea28c64 (a19ea28c64)</dd></div>
+<div><dt>Run</dt><dd>6f8f72b2-1c34-4cfc-8483-344c41245364 &middot; source digest sha256:19bfed642d5789ccada81b91d5c36e33175dcafd66dc46b1644ffa105d020000</dd></div>
+<div><dt>Source snapshot</dt><dd>partly decided only at plan time &middot; google not locked; google-beta not locked; http not locked; random not locked; time not locked</dd></div>
+<div><dt>STACKIT target profile</dt><dd>Stable network model: the experimental STACKIT VPC resources are not used (STACKIT_STABLE)</dd></div>
+<div><dt>STACKIT provider version</dt><dd>0.121.0</dd></div>
+<div><dt>Knowledge base version</dt><dd>0.394.0</dd></div>
+<div><dt>Evidence freshness</dt><dd><span class="state"><span aria-hidden="true">○</span> Not assessed</span> &mdash; Evidence freshness as one measure is not assessed in this build. Dated evidence is shown where it is used: each STACKIT support option and each assurance row states when it was verified (verified_at, and recheck_after for support), in support_suitability and assurance. The date beside a readiness dimension is the assessment date, not a retrieval date.</dd></div>
+</dl>
+<p role="status"><strong>Staleness:</strong> <span class="state"><span aria-hidden="true">○</span> Not assessed</span> &mdash; This build has no change detection, so there has been no re-check since the assessment was made (Generated 2026-11-07 04:24 UTC). The source may have changed since.</p>
+</details>
+<p role="status"><strong>Source checks:</strong> Built-in source checks passed — OpenTofu validation of the source did not run (LOCK_FILE)</p>
+<p role="status"><strong>Run status:</strong> COMPLETE (report published). Source: partly decided only at plan time. Draft: GENERATED. The report was written whole; this is not a statement that the migration is ready.</p>
+
+</header>
+<div class="toolbar" role="group" aria-label="Page controls" data-js-only hidden>
+<button type="button" aria-pressed="false" data-act="details">Open all details</button>
+</div>
+<details class="lensgroup" data-js-only hidden><summary>Read this page as<span class="lensnow" data-for="all">: All</span><span class="lensnow" data-for="executive">: Executive</span><span class="lensnow" data-for="architect">: Architect</span><span class="lensnow" data-for="platform">: Platform</span><span class="lensnow" data-for="security">: Security</span><span class="lensnow" data-for="application-owner">: Application owner</span><span class="lensnow" data-for="programme">: Programme</span><span class="lensnow" data-for="finops">: FinOps</span><span class="lensnow" data-for="engineering">: Engineering</span></summary>
+<div class="toolbar" role="group" aria-label="Reader lens" data-js-only hidden>
+<button type="button" aria-pressed="true" data-lens-set="all" data-lens-order="overview applications decisions migration architecture cost work-board security-assurance engineering target-fit sovereignty operations evidence">All</button>
+<button type="button" aria-pressed="false" data-lens-set="executive" data-lens-order="overview decisions applications target-fit security-assurance sovereignty cost migration work-board operations evidence architecture engineering">Executive</button>
+<button type="button" aria-pressed="false" data-lens-set="architect" data-lens-order="overview architecture applications decisions target-fit migration work-board operations security-assurance sovereignty evidence cost engineering">Architect</button>
+<button type="button" aria-pressed="false" data-lens-set="platform" data-lens-order="overview architecture target-fit operations security-assurance decisions applications migration work-board evidence sovereignty cost engineering">Platform</button>
+<button type="button" aria-pressed="false" data-lens-set="security" data-lens-order="overview security-assurance decisions sovereignty target-fit architecture evidence applications operations migration work-board cost engineering">Security</button>
+<button type="button" aria-pressed="false" data-lens-set="application-owner" data-lens-order="overview applications decisions architecture target-fit operations migration work-board evidence security-assurance sovereignty cost engineering">Application owner</button>
+<button type="button" aria-pressed="false" data-lens-set="programme" data-lens-order="overview applications decisions migration work-board operations target-fit architecture evidence security-assurance sovereignty cost engineering">Programme</button>
+<button type="button" aria-pressed="false" data-lens-set="finops" data-lens-order="overview cost applications target-fit decisions operations security-assurance migration work-board sovereignty evidence architecture engineering">FinOps</button>
+<button type="button" aria-pressed="false" data-lens-set="engineering" data-lens-order="overview engineering architecture evidence decisions target-fit operations applications security-assurance migration work-board sovereignty cost">Engineering</button>
+</div></details>
+<p class="lensnote" role="status" data-lens-note="executive">Executive lens: the sections are in the order this reader usually wants, and Architecture and Engineering Evidence are put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="architect">Architect lens: the sections are in the order this reader usually wants, and Costs is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="platform">Platform lens: the sections are in the order this reader usually wants, and Costs is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="security">Security lens: the sections are in the order this reader usually wants, and Costs and Migration Plan are put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="application-owner">Application owner lens: the sections are in the order this reader usually wants, and Engineering Evidence is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="programme">Programme lens: the sections are in the order this reader usually wants, and Engineering Evidence is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="finops">FinOps lens: the sections are in the order this reader usually wants, and Architecture and Engineering Evidence are put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="engineering">Engineering lens: the sections are in the order this reader usually wants, and Costs is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<main id="main" tabindex="-1">
+<section id="engineering" aria-labelledby="h-engineering">
+<h2 id="h-engineering">Engineering Evidence</h2>
+<p>The machine-readable files and the Terraform draft.</p>
+<h3 id="machine-files">Files in this report folder</h3>
+<p>Every file the run publishes, with what it is for. A name links to the file when it is in this folder and you opened this page from it. The size and the sha256 of every file are in <code>manifest.json</code>: this page is written before the manifest and a file cannot state its own size, so only the files of the Terraform draft show theirs here.</p>
+<div class="scroll" role="region" aria-label="Files in this report folder" tabindex="0">
+<table id="machine-files-table">
+<caption>Files in this report folder</caption>
+<thead><tr><th scope="col">File</th><th scope="col">What it is</th><th scope="col">In this report</th><th scope="col">Size in bytes</th></tr></thead>
+<tbody>
+<tr><th scope="row"><a href="../assessment.json"><code>assessment.json</code></a></th><td>The full assessment: every unit, finding and count, machine-readable. Every number in this workspace is read from it.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../engineering/architect-report.md"><code>engineering/architect-report.md</code></a></th><td>The assessment in words: the run status and its checks, and for each unit the class, the confidence and the STACKIT target proposed.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../engineering/analysis-details.md"><code>engineering/analysis-details.md</code></a></th><td>The working behind engineering/architect-report.md: the relations and combinations the engine evaluated for the decisions that depend on them. Nothing here is a second decision.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../architecture/dependencies.mmd"><code>architecture/dependencies.mmd</code></a></th><td>The source and the target architecture as a diagram in Mermaid text, for tools that draw it. The Architecture section of this page draws the same units itself.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../migration/technical-sequencing.md"><code>migration/technical-sequencing.md</code></a></th><td>A draft order of work: waves computed from the dependencies between units. A starting point for the architect&#39;s plan, not a schedule.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../engineering/review.csv"><code>engineering/review.csv</code></a></th><td>One row per unit for spreadsheet review.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../engineering/review-edges.csv"><code>engineering/review-edges.csv</code></a></th><td>One row per dependency between units, for the architect to confirm, correct or complete.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../workspace.json"><code>workspace.json</code></a></th><td>The compact model the pages show, machine-readable. No page embeds it: the pages are complete without it, and a tool reads the model from this file.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../index.html"><code>index.html</code></a></th><td>The front page: the header, the navigation and the Overview. The other sections are the pages in pages/.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="applications.html"><code>pages/applications.html</code></a></th><td>The Applications section as a page of its own, with the same header and navigation. Which application each unit belongs to, and each application&#39;s migration strategy.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="architecture.html"><code>pages/architecture.html</code></a></th><td>The Architecture section as a page of its own, with the same header and navigation. The units of the estate and what the assessment decided for each.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="decisions.html"><code>pages/decisions.html</code></a></th><td>The Decisions section as a page of its own, with the same header and navigation. The decisions people must take, aggregated, with their options, owners and deadlines.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="target-fit.html"><code>pages/target-fit.html</code></a></th><td>The Target Fit section as a page of its own, with the same header and navigation. How well each STACKIT target fits: service, interface, Terraform, region, maturity, quota, lifecycle, operability, support and security.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="migration.html"><code>pages/migration.html</code></a></th><td>The Migration Plan section as a page of its own, with the same header and navigation. Waves, prerequisites, data movement and the order of work.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="security-assurance.html"><code>pages/security-assurance.html</code></a></th><td>The Security &amp; Resilience section as a page of its own, with the same header and navigation. What has been proven about security and resilience, what has not, and what needs evidence from outside; the resilience of each unit, where this run assesses it, is on the Operations page.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="sovereignty.html"><code>pages/sovereignty.html</code></a></th><td>The Sovereignty section as a page of its own, with the same header and navigation. Dependencies, jurisdiction, data placement, key control and exit paths, source against target.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="operations.html"><code>pages/operations.html</code></a></th><td>The Operations section as a page of its own, with the same header and navigation. Whether the target can be run: identity, audit, observability, backup, restore, support and lifecycle.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="cost.html"><code>pages/cost.html</code></a></th><td>The Costs section as a page of its own, with the same header and navigation. Priced and unpriced coverage, and the inputs a cost estimate needs.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="evidence.html"><code>pages/evidence.html</code></a></th><td>The Evidence section as a page of its own, with the same header and navigation. The counts, versions and sources behind every statement in this workspace.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="engineering.html"><code>pages/engineering.html</code></a></th><td>The Engineering Evidence section as a page of its own, with the same header and navigation. The machine-readable files and the Terraform draft.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="work-board.html"><code>pages/work-board.html</code></a></th><td>The Work Board section as a page of its own, with the same header and navigation. Every job of the migration in one list, in four queues: who does it, what it waits for, what closes it and which file it carries out.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../decisions.json"><code>decisions.json</code></a></th><td>The decision register, machine-readable, with a template of the decisions file to fill in.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../migration/decisions.csv"><code>migration/decisions.csv</code></a></th><td>The decision records as rows for a spreadsheet.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../executive/decisions.md"><code>executive/decisions.md</code></a></th><td>The decision records in words.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../executive/brief.md"><code>executive/brief.md</code></a></th><td>The five-minute answer as a document: the run summary, what holds the estate back, what people must decide, the shape of the target and what has and has not been established. It restates numbers this file holds and scores nothing.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../migration/applications.csv"><code>migration/applications.csv</code></a></th><td>One row per application of the applications file you gave, with the values as you wrote them (a value you did not write is marked not provided), and one row per unit claimed by several applications. Header only without an applications file.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../migration/waves.csv"><code>migration/waves.csv</code></a></th><td>The dependency order of the units, one row per unit: the wave, WITHHELD when a part of the source was not read in full, or REFUSED for a unit the partial draft refuses for a missing input (in no wave). An order of work, not a schedule.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../migration/actions.csv"><code>migration/actions.csv</code></a></th><td>The register of what a person has to do, decide or establish before the draft is deployed, one typed row per item: gaps in the reading of the source, critical semantics left open, open decisions and manual actions of the plans, workload items that wait for evidence, and validation rows not yet established. Every member of decisions.json is a row; each row names the decision record that holds it. It lists what is open and decides nothing.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../migration/work-board.csv"><code>migration/work-board.csv</code></a></th><td>The Work Board as a sheet: one row per job of the migration, in one of four queues (provide information, approve a design, perform migration work, verify), with its owner, priority, what it waits for, what closes it, its evidence, the files it carries out and the steps of the execution plan it holds. Every step of the plan is in exactly one job, or listed as not taken; pages/work-board.html shows the same jobs. The rows are in board order (queue by queue); the order to work in is the order of migration/work-items.json and the Start here list of the page. Header only when the run wrote no execution plan.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../migration/work-items.json"><code>migration/work-items.json</code></a></th><td>The jobs of the Work Board as data, with the run they belong to: each job&#39;s id, kind, queue, owner, state, what it waits for, what closes it, its files and steps and, for a decision, its options and how each is carried out, and the one order in which the report names the jobs (the first job, then the jobs that can start, then the others). It is the file the guided work command reads; it states no state or priority of its own, and a job it lists is not done.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../migration/source-target.csv"><code>migration/source-target.csv</code></a></th><td>Each source unit beside its STACKIT target, one row per unit (the standing column says what the knowledge base and the run state of the unit&#39;s target; the drafted and manual counts of the console and of the draft&#39;s README partition what the draft did, and are another count): the target service and its resources (the knowledge base&#39;s candidate resource types), the resource types the draft really writes for the unit (drafted_resources: empty when it writes none, marked not assessed when no draft was read), or in words that there is no target, that the unit is refused or that the source switches it off, and how many of its settings are kept (PRESERVED), changed (TRANSFORMED), accepted (ACCEPTED_*) or still to do (everything else, including anything not known). Counted from the rows of assurance/equivalence-ledger.csv; a unit with no ledger row has four zeros, which says nothing was counted, not that nothing is left to do. Header only when the Workspace holds no counts.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../migration/application-chain.csv"><code>migration/application-chain.csv</code></a></th><td>The drill-down from each application of the customer&#39;s file and each group the run suggested (PROPOSED: a reading of the source, not confirmed by anyone), one row per member unit: the Google Cloud resource, the STACKIT target in the words of migration/source-target.csv, the ids of the decisions that still ask something about the unit, the steps of the execution plan that carry it with the number an answer leaves not taken, the Kubernetes manifest objects that tie to it by an exact literal match, and what the code scan says of the application. A run that read no plan or built no register marks those cells as not assessed, which is not an empty list. Header only when the Workspace holds none.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../migration/prerequisites.md"><code>migration/prerequisites.md</code></a></th><td>For each unit, the open decisions and manual actions that stand between its draft and its deployment, as its plan states them.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../migration/data-movement.csv"><code>migration/data-movement.csv</code></a></th><td>One row per stateful source unit (a database, a cache, a volume, a file share, an object store): its source and target service, the data class, RPO and downtime tolerance you stated (or marked not provided), the provisioned capacity the source states (not the size of the data) and the cutover dependency. The mechanism of every unit is UNKNOWN: StackToIT never moves data.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../migration/data-movement.md"><code>migration/data-movement.md</code></a></th><td>The same units in words, with what the source and the plans do and do not state about each. No size, change rate, duration, transfer rate or downtime is ever stated, and no mechanism is chosen.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../migration/data-movement.json"><code>migration/data-movement.json</code></a></th><td>The data_movement block of workspace.json with every stateful source unit (the facets, the unknowns, the provisioned capacity and where each fact is read from), as a file of its own, with the run it belongs to. workspace.json carries the tally of the units.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../architecture/current.mmd"><code>architecture/current.mmd</code></a></th><td>The units of the estate and the dependencies among them as a Mermaid flowchart, with the units of each application drawn together.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../architecture/target.mmd"><code>architecture/target.mmd</code></a></th><td>The same units with the STACKIT service proposed for each, its class and confidence, as a Mermaid flowchart.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../architecture/delta.mmd"><code>architecture/delta.mmd</code></a></th><td>The same units with what the move changes for each: its class, whether it has a target, and how many properties the draft names as not carried.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../architecture/current.svg"><code>architecture/current.svg</code></a></th><td>The drawing of the source architecture of the Architecture section, as a file of its own, without the links of the page.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../architecture/target.svg"><code>architecture/target.svg</code></a></th><td>The drawing of the proposed STACKIT target of the Architecture section, as a file of its own.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../architecture/delta.svg"><code>architecture/delta.svg</code></a></th><td>The drawing of what the move changes, as a file of its own.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../assurance/safety.md"><code>assurance/safety.md</code></a></th><td>What has and has not been established about the draft, row by row, with the global invariants. It approves nothing and asserts neither equivalence nor that the draft is safe to apply.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../assurance/source-compatibility.md"><code>assurance/source-compatibility.md</code></a></th><td>How much of the source was read, the source providers the assessment saw and the source types the knowledge base does not know.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../assurance/target-readiness.md"><code>assurance/target-readiness.md</code></a></th><td>How the STACKIT targets of the units stand in the capability catalogue and in the pinned provider (maturity, lifecycle), and the readiness dimensions.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../assurance/operational-readiness.md"><code>assurance/operational-readiness.md</code></a></th><td>The workload readiness of the units (installation, source artifacts, target preconditions, cutover, day 2) and the support options STACKIT evidences. Terraform generated is not workload ready.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../assurance/compliance-evidence.md"><code>assurance/compliance-evidence.md</code></a></th><td>For each STACKIT service of the draft and each framework in scope, the state of the provider&#39;s own evidence. It says nothing about the compliance of your workload.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../assurance/compliance-evidence.csv"><code>assurance/compliance-evidence.csv</code></a></th><td>The cells of compliance-evidence.md as rows for a spreadsheet.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../assurance/equivalence-ledger.csv"><code>assurance/equivalence-ledger.csv</code></a></th><td>The equivalence ledger: one row per unit and semantic of the assessment that the source states (workspace.json counts those it does not state), and one row per unit and property for the properties the draft does not carry, no semantic accounts for or that are critical and still open. Each row says how the source states the value, what proves the disposition, where the draft carries it and what stays open. Dispositions are the words the assessment uses today; PRESERVED appears only where the assessment or the draft&#39;s plan states it.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../assurance/evidence-ledger.csv"><code>assurance/evidence-ledger.csv</code></a></th><td>The evidence the ledger and the other blocks cite, one row per document, with what it backs, the date it was checked, the date after which it is to be checked again and its state. Evidence that states no such dates is UNDATED, never CURRENT.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../assurance/critical-semantics.json"><code>assurance/critical-semantics.json</code></a></th><td>The open critical semantics, one row per unit and semantic, with the disposition the contract result gives, the cause code, the sentences that say why the semantic is open and what would close it, the instances of a repeated unit and the alarm card where there is one. These are the rows the decision records name as their members; workspace.json carries the tally of them, with the run it belongs to.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../assurance/resilience.md"><code>assurance/resilience.md</code></a></th><td>The RTO and RPO you stated (or that none was stated) and, for each unit that holds state or states a zone, replication or backup fact, what the source states. No unit is called resilient and no intent is chosen.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../assurance/resilience.json"><code>assurance/resilience.json</code></a></th><td>The resilience block of workspace.json with every unit that states a failure-domain, replication or backup fact or holds state (the quoted source facts, the state and where each fact is read from), as a file of its own, with the run it belongs to. workspace.json carries the tally of the units.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../assurance/identity-transition.md"><code>assurance/identity-transition.md</code></a></th><td>For each unit that runs as an identity or is one: the identities the source names, the static credential the knowledge base reads, the federation facts, the attachment the identity plan holds and its state. It makes no claim that federation is an option; privilege delta, break-glass access and human identity are not assessed.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../assurance/sovereignty.md"><code>assurance/sovereignty.md</code></a></th><td>The sovereignty requirement (not provided unless your applications file states one), the dimensions of sovereignty with what the source shows and what the target is proposed to be, the dependencies and the exitability. Sovereignty is not residency; it holds no score and certifies no legal compliance.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../assurance/sovereignty.json"><code>assurance/sovereignty.json</code></a></th><td>The sovereignty block of workspace.json as a file of its own, with the run it belongs to.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../financial/price-snapshot.json"><code>financial/price-snapshot.json</code></a></th><td>The price_snapshot block of workspace.json as a file of its own, with the run it belongs to: which snapshot of the public STACKIT price list this run cites (source, retrieval date, sha256, currency, net list price) and how many of the drafted resources it priced. It holds list prices only: no quantity is read, no total is built, and no usage and no egress is computed.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../financial/cost-model.json"><code>financial/cost-model.json</code></a></th><td>The cost model of the run, line by line: for each component of the source (its servers and disks) and of the STACKIT target (servers and volumes) its quantity (a value, a range or unknown, and where it comes from), its price record or the reason there is none, its pricing state and its amount; then the totals of the estate and of each service for each side (full, partial or none), the comparison of source and target with the reason a saving is or is not given, the price sources (the local price cache) and the assumptions the figures rest on. An estimate under one labelled scenario, not a bill.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../financial/priced-resources.csv"><code>financial/priced-resources.csv</code></a></th><td>One row for each line of the cost model (financial/cost-model.json), source and target: the quantity with its provenance, the price record (SKU, rate, unit, the date it is valid from, the snapshot it comes from) or the state and the reason there is none, and the amount of a priced line. An empty amount is a line that is not priced, never a zero.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../financial/mapping.csv"><code>financial/mapping.csv</code></a></th><td>The technical mapping beside the prices: for each server, boot disk, disk and database whose source and target are both in the computed group of the cost model, what each side states about vCPU, memory, CPU model, disk capacity, IOPS, throughput and high availability. The source side is read from the attributes of the source resource, the target side from the catalogue snapshot of the region; a fact a side does not state is the words not stated. A machine type is one of the types of the catalogue with at least the vCPUs and memory of the source (a burstable source may be offered shared types); a storage class is the one the draft names (the customer&#39;s answer or the variable&#39;s default), shown with the catalogue&#39;s own IOPS and throughput. The table states sizes; it is not a statement about the performance of the target against the source (no benchmark was run, and a CPU model that a side does not state is shown as not stated). The last six columns add, for a disk, the fee of the selected performance class (the cost model&#39;s own amount) with the assumption behind the class, whether the class covers the IOPS and throughput of the source volume, and the smaller classes of the catalogue that still cover them with their fee and change (an alternative with the same or better figures than the source; not a recommendation), and, for a server, whether the flavor is with or without CPU overprovisioning (the documentation&#39;s terms, by the overcommit the catalogue states) and what STACKIT states of its lifecycle (a deprecated type says so, with the sentence of the documentation). The size match columns state the comparison of a server&#39;s machine type with the source instance and of a database&#39;s PostgreSQL Flex flavor with the database instance of the source (vCPUs, memory and the kind, single node or replica set, against its high-availability setting) as proven, to review, not met or unknown, with the sentence that says what was compared; a basis names a size only where the size match is proven.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../financial/cost-coverage.md"><code>financial/cost-coverage.md</code></a></th><td>What the cost model covers: the price sources it looked at, the lines by pricing state for each side, the totals with their state (full, partial or none), the comparison of source and target and why a saving is or is not given, the assumptions, and what the list prices of the STACKIT snapshot cover, with what is known of the terms of reuse of the price data.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../engineering/not-carried.csv"><code>engineering/not-carried.csv</code></a></th><td>One row per property the draft names as not carried: the unit, the node and the property, what the assessment states about it (the class and closure of the critical-property gate, the draft&#39;s own reason, the contract semantic that reads it, what closes that semantic while it is open) and the place of the node in the source. A cell the assessment states nothing for is empty.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../engineering/not-carried-summary.csv"><code>engineering/not-carried-summary.csv</code></a></th><td>The units for which the draft names properties as not carried, with how many, and the units that have no count (their draft block was not accounted, or they need no resource of their own).</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../engineering/evidence-index.json"><code>engineering/evidence-index.json</code></a></th><td>The reverse table of the evidence index: one entry per block of the draft, with the units it comes from, whether it is an HCL block, a comment or not placed, and its file and line, with the hop table and the checks over the draft. workspace.json carries the tally of the entries and, on each unit, the forward hops; this file is the mirror of them, with the run it belongs to.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../engineering/trace/"><code>engineering/trace/</code></a></th><td>The full comment of each block of the Terraform draft that has one: the draft keeps a one-paragraph comment above the block (where it comes from, why its values are what they are, what is not carried, which decision is open) and a `# trace: TR-...` line, and the section of this folder that line names holds the whole comment the generators wrote, unabridged: the rule and knowledge-base stamp, the references with their digests, the evidence of each chosen value and the reason of each attribute that is not written. One file for each file of the draft that has such a block, named after it with the extension .md, one section for each block under an anchor that is its trace id; the blocks are linked to their file by `trace_file` and their anchor `trace_id` in engineering/evidence-index.json. This run wrote 6 files with 10 sections.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../engineering/trace-index.csv"><code>engineering/trace-index.csv</code></a></th><td>One row per block with a trace: the trace id, the block, the draft file, the source units, the lines of the comment as the generators wrote it and the lines the draft keeps, and the pointer of the block (the trace file and the anchor of its section).</td><td>Yes</td><td>1804</td></tr>
+<tr><th scope="row"><a href="../terraform/"><code>terraform/</code></a></th><td>The STACKIT Terraform draft: architect review is required before any use. Present only when the run produced it.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../terraform/README.md"><code>terraform/README.md</code></a></th><td>How to read the draft: what was generated, what is left to a person, and how to check it with OpenTofu.</td><td>Yes</td><td>22234</td></tr>
+<tr><th scope="row"><a href="../terraform/data.tf"><code>terraform/data.tf</code></a></th><td>The STACKIT resources the draft writes for one area of the target (data).</td><td>Yes</td><td>2824</td></tr>
+<tr><th scope="row"><a href="../terraform/handover/bucket-media/data-copy.md"><code>terraform/handover/bucket-media/data-copy.md</code></a></th><td>A file of the STACKIT Terraform draft.</td><td>Yes</td><td>18011</td></tr>
+<tr><th scope="row"><a href="../terraform/handover/cluster-access/kubeconfig.md"><code>terraform/handover/cluster-access/kubeconfig.md</code></a></th><td>A file of the STACKIT Terraform draft.</td><td>Yes</td><td>5326</td></tr>
+<tr><th scope="row"><a href="../terraform/handover/database-postgres/data-move.md"><code>terraform/handover/database-postgres/data-move.md</code></a></th><td>A file of the STACKIT Terraform draft.</td><td>Yes</td><td>46051</td></tr>
+<tr><th scope="row"><a href="../terraform/identity.tf"><code>terraform/identity.tf</code></a></th><td>The STACKIT resources the draft writes for one area of the target (identity).</td><td>Yes</td><td>10383</td></tr>
+<tr><th scope="row"><a href="../terraform/kubernetes.tf"><code>terraform/kubernetes.tf</code></a></th><td>The STACKIT resources the draft writes for one area of the target (kubernetes).</td><td>Yes</td><td>3549</td></tr>
+<tr><th scope="row"><a href="../terraform/kubernetes/migrate/manifests.yaml"><code>terraform/kubernetes/migrate/manifests.yaml</code></a></th><td>A file of the STACKIT Terraform draft.</td><td>Yes</td><td>5894</td></tr>
+<tr><th scope="row"><a href="../terraform/kubernetes/server/manifests.yaml"><code>terraform/kubernetes/server/manifests.yaml</code></a></th><td>A file of the STACKIT Terraform draft.</td><td>Yes</td><td>11017</td></tr>
+<tr><th scope="row"><a href="../terraform/messaging.tf"><code>terraform/messaging.tf</code></a></th><td>The STACKIT resources the draft writes for one area of the target (messaging).</td><td>Yes</td><td>1052</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals.tf"><code>terraform/proposals.tf</code></a></th><td>The switches of the proposed alternatives: each is off, so a plan of the draft does not hold them.</td><td>Yes</td><td>20819</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_activategcb/main.tf"><code>terraform/proposals/proposal_activategcb/main.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>4102</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_activategcb/variables.tf"><code>terraform/proposals/proposal_activategcb/variables.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>431</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_activategcb/versions.tf"><code>terraform/proposals/proposal_activategcb/versions.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>231</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_automation/main.tf"><code>terraform/proposals/proposal_automation/main.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>3117</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_automation/variables.tf"><code>terraform/proposals/proposal_automation/variables.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>429</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_automation/versions.tf"><code>terraform/proposals/proposal_automation/versions.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>231</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_client/main.tf"><code>terraform/proposals/proposal_client/main.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>4672</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_client/variables.tf"><code>terraform/proposals/proposal_client/variables.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>1861</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_client/versions.tf"><code>terraform/proposals/proposal_client/versions.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>231</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_django_admin_password/main.tf"><code>terraform/proposals/proposal_django_admin_password/main.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>12503</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_django_admin_password/variables.tf"><code>terraform/proposals/proposal_django_admin_password/variables.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>4058</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_django_admin_password/versions.tf"><code>terraform/proposals/proposal_django_admin_password/versions.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>231</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_django_settings/main.tf"><code>terraform/proposals/proposal_django_settings/main.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>12479</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_django_settings/variables.tf"><code>terraform/proposals/proposal_django_settings/variables.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>4058</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_django_settings/versions.tf"><code>terraform/proposals/proposal_django_settings/versions.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>231</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_init/main.tf"><code>terraform/proposals/proposal_init/main.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>4025</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_init/variables.tf"><code>terraform/proposals/proposal_init/variables.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>431</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_init/versions.tf"><code>terraform/proposals/proposal_init/versions.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>231</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_placeholder/main.tf"><code>terraform/proposals/proposal_placeholder/main.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>4099</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_placeholder/variables.tf"><code>terraform/proposals/proposal_placeholder/variables.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>431</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_placeholder/versions.tf"><code>terraform/proposals/proposal_placeholder/versions.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>231</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_server/main.tf"><code>terraform/proposals/proposal_server/main.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>3105</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_server/variables.tf"><code>terraform/proposals/proposal_server/variables.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>429</td></tr>
+<tr><th scope="row"><a href="../terraform/proposals/proposal_server/versions.tf"><code>terraform/proposals/proposal_server/versions.tf</code></a></th><td>A proposed alternative, switched off: not equal to the source, and not applied until a person decides on it, gives it its values and switches it on.</td><td>Yes</td><td>231</td></tr>
+<tr><th scope="row"><a href="../terraform/rabbitmq/apply-topology.sh"><code>terraform/rabbitmq/apply-topology.sh</code></a></th><td>A file of the STACKIT Terraform draft.</td><td>Yes</td><td>3324</td></tr>
+<tr><th scope="row"><a href="../terraform/rabbitmq/topology.json"><code>terraform/rabbitmq/topology.json</code></a></th><td>A file of the STACKIT Terraform draft.</td><td>Yes</td><td>219</td></tr>
+<tr><th scope="row"><a href="../terraform/security.tf"><code>terraform/security.tf</code></a></th><td>The STACKIT resources the draft writes for one area of the target (security).</td><td>Yes</td><td>6073</td></tr>
+<tr><th scope="row"><a href="../terraform/storage.tf"><code>terraform/storage.tf</code></a></th><td>The STACKIT resources the draft writes for one area of the target (storage).</td><td>Yes</td><td>1881</td></tr>
+<tr><th scope="row"><a href="../terraform/terraform.tf"><code>terraform/terraform.tf</code></a></th><td>The OpenTofu and provider version requirements of the draft.</td><td>Yes</td><td>700</td></tr>
+<tr><th scope="row"><a href="../terraform/variables.tf"><code>terraform/variables.tf</code></a></th><td>The input variables of the draft: the values a person fills in.</td><td>Yes</td><td>4286</td></tr>
+<tr><th scope="row"><a href="../target-plan.json"><code>target-plan.json</code></a></th><td>The canonical TargetPlans the draft was generated from, machine-readable: one plan for each family of the draft that is written from a plan (the security groups of each source cloud, routing, identity, log sources, servers), each with how the draft wrote every resource of it (a resource, a comment only, or a statement about a block another generator writes). The run read it back against the draft before it was published: every resource of a plan is, or is not, a block of the draft as the file says. Present only when the run produced the draft.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../execution/"><code>execution/</code></a></th><td>The execution package: execution/README.md is the entry point for carrying the migration out (the verdict for the resources with a typed plan and the draft files it does not cover, what is created, what is not migrated, the decisions, the credentials, the order of the steps, the OpenTofu and API commands, the manual steps, the checks and the rollback); execution/terraform/apply.md, one request file and one script per STACKIT API call under execution/api/, execution/manual/actions.md and execution/verify/checks.md beside it; execution/deploy.sh, the one entry point that carries the steps out in the order of the plan, up to the verification (no argument: a dry run that prints the order; --run: stops at each step that waits, and resumes from review/progress.yaml), with the template of the remote state (execution/backend.tf.template), one example of a pipeline (execution/ci-pipeline.example.yml) and, when a step sits between OpenTofu blocks, the generated roots of the stages before the draft (execution/stages/); a run whose plan holds checks that are commands, or a load balancer in the network of a cluster, also holds the scripts that run those checks and fill the values of the cluster, this entry names them when the run wrote them. A rendering of execution-plan.json and of the facts of the staged draft (the variables, outputs and manifests the scripts read); nothing in it has been run, and a script stops before it calls anything when its step waits for a decision. Present only when the run produced the draft. This run also wrote the scripts execution/deploy.sh, execution/verify/verify.sh.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../migration/execution-actions.csv"><code>migration/execution-actions.csv</code></a></th><td>One row per step of execution-plan.json for a spreadsheet: id, phase, mode, source, target, dependencies, owner, status, file, risks, rollback, whether it is executable and the decisions it waits for. The steps to carry out, not the register of open items (migration/actions.csv). Present only when the run produced the draft.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../migration/work-packages.csv"><code>migration/work-packages.csv</code></a></th><td>One row per work package of the manual steps of execution-plan.json for a spreadsheet: the steps of one phase, one owner role and one kind of work that one person carries out together, with their number, the resources they touch, the decisions they rest on and wait for, the strictest state among them, their success conditions and the ids of the steps. Every manual step is in exactly one package; execution/README.md lists the same packages. Present only when the run produced the draft.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../architecture/network-security.mmd"><code>architecture/network-security.mmd</code></a></th><td>The network and security view as a Mermaid flowchart, or, in an estate with more than 120 units in it, the partition map of the files under architecture/partitions/ (one box for each partition, the arrows between partitions counted, every unknown edge accounted for). Drawn from the TargetPlans of the draft and the assessment: the internet, public IPs, load balancers, networks, subnets, servers, databases, security groups and their rules, network ACLs and routing. A path the sources do not state is a dashed edge labelled unknown with its reason, never a connection that was not read. Present only when the run produced the draft.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../architecture/identity.mmd"><code>architecture/identity.mmd</code></a></th><td>The identity view as a Mermaid flowchart (an estate with more principals than a drawing keeps legible gets one sentence that names assurance/identity-transition.md, which lists every identity, instead of a drawing): the Google Cloud principal, the decision the assessment and the plan hold for it, the STACKIT identity it moves to, the role assignment and its scope. A step the typed plan does not hold (the role assignment) is drawn as manual, and a step it leaves open is a dashed edge labelled unknown. Present only when the run produced the draft.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../architecture/data-flows.mmd"><code>architecture/data-flows.mmd</code></a></th><td>The data flows as a Mermaid flowchart, or, in an estate with more than 120 units in it, the partition map of the files under architecture/partitions/ (one box for each partition, the arrows between partitions counted, every unknown edge accounted for): clients, load balancers, applications, databases, object storage and registries, with the protocol and port of each flow where the source states them, public or private, and the migration effect on the unit that carries it; what the source does not state is written unknown. The flows are the paths the listeners and security group rules permit, not observed traffic. Present only when the run produced the draft.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../architecture/network-security.svg"><code>architecture/network-security.svg</code></a></th><td>The network and security view drawn offline: the same boxes and arrows as architecture/network-security.mmd, each arrow numbered, with a key that gives its two ends in the direction of the arrow and its words (protocol, port and direction of a rule; the attribute of a reference). Source links, target links (what a rule, route or listener of the draft permits), links an answer of the inputs file changed and unknowns are drawn apart and named in the legend. A view that is not drawn whole (a partition map above 120 units) is one sentence. Present only when the run produced the draft.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../architecture/data-flows.svg"><code>architecture/data-flows.svg</code></a></th><td>The data flow view drawn offline: the same boxes and arrows as architecture/data-flows.mmd, each flow numbered, with a key that gives its two ends in the direction of the flow, its protocol and port, public or private, and the migration effect. Source links, target links and unknowns are drawn apart and named in the legend. A view that is not drawn whole (a partition map above 120 units) is one sentence. Present only when the run produced the draft.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../migration/roadmap.md"><code>migration/roadmap.md</code></a></th><td>The execution plan laid out in ten waves: wave 0 the decisions some step waits for, then the landing zone, network and security, data services, platform, workloads, data migration, cutover, verification and decommission. Each step names what it does, the Google Cloud resource, the mode, what it depends on and whether it is ready, blocked by a decision, not ready or refused. It holds the steps of execution-plan.json only. Present only when the run produced the draft.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../migration/landing-zone-requirements.md"><code>migration/landing-zone-requirements.md</code></a></th><td>What the STACKIT organization and project have to provide before the first apply: organization and project, network area and region, address ranges, routing, DNS, identity, service enablement, quotas to check, API access, Terraform permissions, external dependencies and the customer decisions. Read from the TargetPlans, the execution plan and the assessment; what they do not state is written as unknown and no limit or role name is invented. Present only when the run produced the draft.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../engineering/explain-index.json"><code>engineering/explain-index.json</code></a></th><td>Where, in this folder&#39;s files, the entries and ledger rows of each unit sit, as byte offsets: the explain command (stacktoit explain) reads a unit&#39;s chain from it without parsing the whole files. Machine-only: it is not an exchange document and states nothing the files it points into do not state; without it, or when it does not fit the files, explain reads them in full and prints the same answer.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../manifest.json"><code>manifest.json</code></a></th><td>The run&#39;s identity (run id, source digest) and the list of the files it published, each with its sha256 and size; its status says whether the run is COMPLETE, PARTIAL or FAILED.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><code>migration/strategies.csv</code></th><td>Not produced in this build: a migration strategy for each application. No run writes this file, and nothing links to it.</td><td>No</td><td>&ndash;</td></tr>
+<tr><th scope="row"><code>assurance/preflight.md</code></th><td>Not produced in this build: the preflight checks in words. No run writes this file, and nothing links to it.</td><td>No</td><td>&ndash;</td></tr>
+<tr><th scope="row"><code>assurance/terraform-operability.md</code></th><td>Not produced in this build: how the draft is operated with OpenTofu. No run writes this file, and nothing links to it.</td><td>No</td><td>&ndash;</td></tr>
+<tr><th scope="row"><code>financial/business-case.md</code></th><td>Not produced in this build: a business case. No run writes this file, and nothing links to it.</td><td>No</td><td>&ndash;</td></tr>
+<tr><th scope="row"><code>financial/finops-readiness.md</code></th><td>Not produced in this build: the FinOps readiness. No run writes this file, and nothing links to it.</td><td>No</td><td>&ndash;</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="traces">Evidence traces</h3>
+<p>Each drawer follows one resource from the source to its STACKIT target: source, evidence, resolution proof, semantic claim, intent, target capability, transformation, render, validation and the differences that remain. A step says what holds, what is open and where its machine artefact is. Nothing here is decided by this page. The expert view of a step lists the identifiers behind it.</p>
+<details class="trace" id="evidence/google_pubsub_topic.faux">
+<summary><code>google_pubsub_topic.faux</code> <span class="meta">&mdash; 2 of 5 steps with open items</span></summary>
+<ol class="arrows">
+<li>
+<p class="arrow-head"><strong>Source</strong> <span class="state"><span aria-hidden="true">✓</span> Established</span></p>
+<p>google_pubsub_topic.faux is a resource of the source, declared in postdeployment.tf (lines 32-34). The block that stands for it in the draft is written by a generator that records no intent and no plan, so this trace is made from the lines the draft records for it, not from a typed plan: it holds the stages those lines support and none of the others.</p>
+<p><small>In assessment.json of this report.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: REPORT_FILE assessment.json /units/1 <code>google_pubsub_topic.faux</code></p>
+<ul>
+<li>knowledge base case: pubsub</li>
+<li>knowledge base rule: gcp.pubsub_topic</li>
+<li>source type: google_pubsub_topic</li>
+<li>unit: google_pubsub_topic.faux</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Evidence</strong> <span class="state"><span aria-hidden="true">✓</span> Established</span></p>
+<p>The generator that writes this unit&#39;s block states, above the block, why its values are what they are. These are the generator&#39;s own statements in the draft, not checks of the draft.</p>
+<ul>
+<li>One RabbitMQ instance hosts all migrated topics as exchanges and subscriptions as queues.</li>
+</ul>
+<p><small>Held in memory in this build; no file contains it.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: IN_MEMORY</p>
+<ul>
+<li>recorded: finding: source-provider-unverified</li>
+<li>recorded: trace: TR-4a61e547964d</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Semantic claim</strong> <span class="state"><span aria-hidden="true">◐</span> Open items</span></p>
+<p>The engine read 2 statements the source makes about this resource and decided what happens to each; 2 of them are critical settings, 1 of those still open.</p>
+<ul>
+<li>1 kept in another form</li>
+<li>1 left to a person to review</li>
+<li>46 further statements that the source does not make (nothing to carry)</li>
+</ul>
+<p><small>In assessment.json of this report.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: REPORT_FILE assessment.json /kernel/units/1 <code>google_pubsub_topic.faux</code></p>
+<ul>
+<li>claim: messaging-model = KNOWN, CRITICAL, TRANSFORMED</li>
+<li>claim: tc-name = KNOWN, CRITICAL, REVIEW</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Render</strong> <span class="state"><span aria-hidden="true">✓</span> Established</span></p>
+<p>The draft holds 1 block for this unit, written as active Terraform.</p>
+<ul>
+<li>stackit_rabbitmq_instance.messaging: written as an active resource (terraform/messaging.tf, lines 8-16); the whole comment of the block is in engineering/trace/messaging.md</li>
+</ul>
+<p><small>In terraform/messaging.tf of this report.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: REPORT_FILE terraform/messaging.tf <code>stackit_rabbitmq_instance.messaging</code></p>
+<ul>
+<li>block in the draft: stackit_rabbitmq_instance.messaging</li>
+<li>block in the draft: terraform/messaging.tf:8-16</li>
+<li>trace: TR-4a61e547964d</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Residual difference</strong> <span class="state"><span aria-hidden="true">◐</span> Open items</span></p>
+<p>The draft states, for this unit: 1 property it does not carry, 1 finding, 1 open decision of the converter. That is what the draft states, not a proof that the block and the source are equivalent.</p>
+<ul>
+<li>NOT CARRIED (google_pubsub_topic.faux): name — the topic becomes an exchange and its subscriptions queues of the shared RabbitMQ instance, created in RabbitMQ by hand (not by this draft): names, delivery, retention and push settings are not generated.</li>
+<li>warning: no lock file records the version of registry.terraform.io/hashicorp/google, and the constraint &#34;&gt;= 6, &lt; 8&#34; excludes it (pinned 8.4.0) (stated once for the whole estate)</li>
+<li>1 open decision of the converter wait for a person: the unit is not ready to deploy until each is decided</li>
+</ul>
+<p><small>Held in memory in this build; no file contains it.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: IN_MEMORY</p>
+<ul>
+<li>decision: <code>DEC-GEN-CONVERT-API-OPT-IN/google_pubsub_topic.faux</code> (alias <code>convert:api:pubsub:v1beta:beta:API_OPT_IN</code>)</li>
+</ul>
+</details>
+</li>
+</ol>
+</details>
+<details class="trace" id="evidence/google_secret_manager_secret.django_admin_password">
+<summary><code>google_secret_manager_secret.django_admin_password</code> <span class="meta">&mdash; 2 of 5 steps with open items</span></summary>
+<ol class="arrows">
+<li>
+<p class="arrow-head"><strong>Source</strong> <span class="state"><span aria-hidden="true">✓</span> Established</span></p>
+<p>google_secret_manager_secret.django_admin_password is a resource of the source, declared in secrets.tf (lines 25-37). The block that stands for it in the draft is written by a generator that records no intent and no plan, so this trace is made from the lines the draft records for it, not from a typed plan: it holds the stages those lines support and none of the others.</p>
+<p><small>In assessment.json of this report.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: REPORT_FILE assessment.json /units/6 <code>google_secret_manager_secret.django_admin_password</code></p>
+<ul>
+<li>knowledge base case: secret</li>
+<li>knowledge base rule: gcp.secret</li>
+<li>source type: google_secret_manager_secret</li>
+<li>unit: google_secret_manager_secret.django_admin_password</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Evidence</strong> <span class="state"><span aria-hidden="true">–</span> Nothing to show</span></p>
+<p>The block stands for several units, so the generator&#39;s explanations of its values are not attributed to this unit; the trace file of the block holds them. These are the generator&#39;s own statements in the draft, not checks of the draft.</p>
+<p><small>Held in memory in this build; no file contains it.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: IN_MEMORY</p>
+<ul>
+<li>recorded: finding: secret-iam-access</li>
+<li>recorded: finding: source-provider-unverified</li>
+<li>recorded: trace: TR-20eecaf8afaa</li>
+<li>recorded: trace: TR-d46bac8a52a7</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Semantic claim</strong> <span class="state"><span aria-hidden="true">◐</span> Open items</span></p>
+<p>The engine read 4 statements the source makes about this resource and decided what happens to each; 4 of them are critical settings, 3 of those still open.</p>
+<ul>
+<li>1 kept in another form</li>
+<li>3 left to a person to review</li>
+<li>14 further statements that the source does not make (nothing to carry)</li>
+</ul>
+<p><small>In assessment.json of this report.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: REPORT_FILE assessment.json /kernel/units/6 <code>google_secret_manager_secret.django_admin_password</code></p>
+<ul>
+<li>claim: secret-settings = KNOWN, CRITICAL, REVIEW</li>
+<li>claim: secret-value = KNOWN, CRITICAL, REVIEW</li>
+<li>claim: secret-values = KNOWN, CRITICAL, TRANSFORMED</li>
+<li>claim: tcr-secret-id = KNOWN, CRITICAL, REVIEW</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Render</strong> <span class="state"><span aria-hidden="true">✓</span> Established</span></p>
+<p>The draft holds 2 blocks for this unit, written as active Terraform.</p>
+<ul>
+<li>stackit_secretsmanager_instance.migrated_secrets: written as an active resource (terraform/security.tf, lines 16-19); it also stands for 1 other unit; the whole comment of the block is in engineering/trace/security.md</li>
+<li>stackit_secretsmanager_user.migration: written as an active resource (terraform/security.tf, lines 24-29); it also stands for 1 other unit; the whole comment of the block is in engineering/trace/security.md</li>
+</ul>
+<p><small>In terraform/security.tf of this report.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: REPORT_FILE terraform/security.tf <code>stackit_secretsmanager_instance.migrated_secrets</code></p>
+<ul>
+<li>block in the draft: stackit_secretsmanager_instance.migrated_secrets</li>
+<li>block in the draft: stackit_secretsmanager_user.migration</li>
+<li>block in the draft: terraform/security.tf:16-19</li>
+<li>block in the draft: terraform/security.tf:24-29</li>
+<li>trace: TR-20eecaf8afaa</li>
+<li>trace: TR-d46bac8a52a7</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Residual difference</strong> <span class="state"><span aria-hidden="true">◐</span> Open items</span></p>
+<p>The draft states, for this unit: 3 properties it does not carry, 2 findings, 2 open decisions of the converter. That is what the draft states, not a proof that the block and the source are equivalent.</p>
+<ul>
+<li>NOT CARRIED (google_secret_manager_secret.django_admin_password): replication, secret_id — the API step API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_admin_password writes it into the Secrets Manager instance from a document you supply (the path is its name when the … (full text: engineering/trace/security.md)</li>
+<li>NOT CARRIED (google_secret_manager_secret_iam_binding.django_admin_password): members, role = roles/secretmanager.secretAccessor — the API step API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_admin_password writes it into the Secrets Manager instance from a document you … (full text: engineering/trace/security.md)</li>
+<li>NOT CARRIED (google_secret_manager_secret_version.django_admin_password): secret_data — the API step API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_admin_password writes it into the Secrets Manager instance from a document you supply (the path is its name when the source … (full text: engineering/trace/security.md)</li>
+<li>warning: The secret has grants for individual principals.</li>
+<li>warning: no lock file records the version of registry.terraform.io/hashicorp/google, and the constraint &#34;&gt;= 6, &lt; 8&#34; excludes it (pinned 8.4.0) (stated once for the whole estate)</li>
+<li>2 open decisions of the converter wait for a person: the unit is not ready to deploy until each is decided</li>
+</ul>
+<p><small>Held in memory in this build; no file contains it.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: IN_MEMORY</p>
+<ul>
+<li>decision: <code>DEC-GEN-CONVERT-API-OPT-IN/google_secret_manager_secret.django_admin_password</code> (alias <code>convert:api:secrets-manager-vault:v1:unknown:API_OPT_IN</code>)</li>
+<li>decision: <code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE/google_secret_manager_secret_iam_binding.django_admin_password</code> (alias <code>convert:google_secret_manager_secret_iam_binding.django_admin_password:proposal:PROPOSED_ALTERNATIVE</code>)</li>
+</ul>
+</details>
+</li>
+</ol>
+</details>
+<details class="trace" id="evidence/google_secret_manager_secret.django_settings">
+<summary><code>google_secret_manager_secret.django_settings</code> <span class="meta">&mdash; 2 of 5 steps with open items</span></summary>
+<ol class="arrows">
+<li>
+<p class="arrow-head"><strong>Source</strong> <span class="state"><span aria-hidden="true">✓</span> Established</span></p>
+<p>google_secret_manager_secret.django_settings is a resource of the source, declared in secrets.tf (lines 56-68). The block that stands for it in the draft is written by a generator that records no intent and no plan, so this trace is made from the lines the draft records for it, not from a typed plan: it holds the stages those lines support and none of the others.</p>
+<p><small>In assessment.json of this report.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: REPORT_FILE assessment.json /units/8 <code>google_secret_manager_secret.django_settings</code></p>
+<ul>
+<li>knowledge base case: secret</li>
+<li>knowledge base rule: gcp.secret</li>
+<li>source type: google_secret_manager_secret</li>
+<li>unit: google_secret_manager_secret.django_settings</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Evidence</strong> <span class="state"><span aria-hidden="true">–</span> Nothing to show</span></p>
+<p>The block stands for several units, so the generator&#39;s explanations of its values are not attributed to this unit; the trace file of the block holds them. These are the generator&#39;s own statements in the draft, not checks of the draft.</p>
+<p><small>Held in memory in this build; no file contains it.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: IN_MEMORY</p>
+<ul>
+<li>recorded: finding: secret-iam-access</li>
+<li>recorded: finding: source-provider-unverified</li>
+<li>recorded: trace: TR-20eecaf8afaa</li>
+<li>recorded: trace: TR-d46bac8a52a7</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Semantic claim</strong> <span class="state"><span aria-hidden="true">◐</span> Open items</span></p>
+<p>The engine read 4 statements the source makes about this resource and decided what happens to each; 4 of them are critical settings, 3 of those still open.</p>
+<ul>
+<li>1 kept in another form</li>
+<li>3 left to a person to review</li>
+<li>14 further statements that the source does not make (nothing to carry)</li>
+</ul>
+<p><small>In assessment.json of this report.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: REPORT_FILE assessment.json /kernel/units/8 <code>google_secret_manager_secret.django_settings</code></p>
+<ul>
+<li>claim: secret-settings = KNOWN, CRITICAL, REVIEW</li>
+<li>claim: secret-value = KNOWN, CRITICAL, REVIEW</li>
+<li>claim: secret-values = KNOWN, CRITICAL, TRANSFORMED</li>
+<li>claim: tcr-secret-id = KNOWN, CRITICAL, REVIEW</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Render</strong> <span class="state"><span aria-hidden="true">✓</span> Established</span></p>
+<p>The draft holds 2 blocks for this unit, written as active Terraform.</p>
+<ul>
+<li>stackit_secretsmanager_instance.migrated_secrets: written as an active resource (terraform/security.tf, lines 16-19); it also stands for 1 other unit; the whole comment of the block is in engineering/trace/security.md</li>
+<li>stackit_secretsmanager_user.migration: written as an active resource (terraform/security.tf, lines 24-29); it also stands for 1 other unit; the whole comment of the block is in engineering/trace/security.md</li>
+</ul>
+<p><small>In terraform/security.tf of this report.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: REPORT_FILE terraform/security.tf <code>stackit_secretsmanager_instance.migrated_secrets</code></p>
+<ul>
+<li>block in the draft: stackit_secretsmanager_instance.migrated_secrets</li>
+<li>block in the draft: stackit_secretsmanager_user.migration</li>
+<li>block in the draft: terraform/security.tf:16-19</li>
+<li>block in the draft: terraform/security.tf:24-29</li>
+<li>trace: TR-20eecaf8afaa</li>
+<li>trace: TR-d46bac8a52a7</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Residual difference</strong> <span class="state"><span aria-hidden="true">◐</span> Open items</span></p>
+<p>The draft states, for this unit: 3 properties it does not carry, 2 findings, 2 open decisions of the converter. That is what the draft states, not a proof that the block and the source are equivalent.</p>
+<ul>
+<li>NOT CARRIED (google_secret_manager_secret.django_settings): replication, secret_id — the API step API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_settings writes it into the Secrets Manager instance from a document you supply (the path is its name when the source states it … (full text: engineering/trace/security.md)</li>
+<li>NOT CARRIED (google_secret_manager_secret_iam_binding.django_settings): members, role = roles/secretmanager.secretAccessor — the API step API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_settings writes it into the Secrets Manager instance from a document you supply (the … (full text: engineering/trace/security.md)</li>
+<li>NOT CARRIED (google_secret_manager_secret_version.django_settings): secret_data — the API step API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_settings writes it into the Secrets Manager instance from a document you supply (the path is its name when the source states it as … (full text: engineering/trace/security.md)</li>
+<li>warning: The secret has grants for individual principals.</li>
+<li>warning: no lock file records the version of registry.terraform.io/hashicorp/google, and the constraint &#34;&gt;= 6, &lt; 8&#34; excludes it (pinned 8.4.0) (stated once for the whole estate)</li>
+<li>2 open decisions of the converter wait for a person: the unit is not ready to deploy until each is decided</li>
+</ul>
+<p><small>Held in memory in this build; no file contains it.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: IN_MEMORY</p>
+<ul>
+<li>decision: <code>DEC-GEN-CONVERT-API-OPT-IN/google_secret_manager_secret.django_admin_password</code> (alias <code>convert:api:secrets-manager-vault:v1:unknown:API_OPT_IN</code>)</li>
+<li>decision: <code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE/google_secret_manager_secret_iam_binding.django_settings</code> (alias <code>convert:google_secret_manager_secret_iam_binding.django_settings:proposal:PROPOSED_ALTERNATIVE</code>)</li>
+</ul>
+</details>
+</li>
+</ol>
+</details>
+<details class="trace" id="evidence/google_service_account.client">
+<summary><code>google_service_account.client</code> <span class="meta">&mdash; 2 of 5 steps with open items</span></summary>
+<ol class="arrows">
+<li>
+<p class="arrow-head"><strong>Source</strong> <span class="state"><span aria-hidden="true">✓</span> Established</span></p>
+<p>google_service_account.client is a resource of the source, declared in iam.tf (lines 48-52). The block that stands for it in the draft is written by a generator that records no intent and no plan, so this trace is made from the lines the draft records for it, not from a typed plan: it holds the stages those lines support and none of the others.</p>
+<ul>
+<li>from google_service_account.client (iam.tf:48) — RECONFIGURE / MEDIUM</li>
+</ul>
+<p><small>In assessment.json of this report.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: REPORT_FILE assessment.json /units/3 <code>google_service_account.client</code></p>
+<ul>
+<li>knowledge base case: service-account</li>
+<li>knowledge base rule: gcp.service_account</li>
+<li>source type: google_service_account</li>
+<li>unit: google_service_account.client</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Evidence</strong> <span class="state"><span aria-hidden="true">✓</span> Established</span></p>
+<p>The generator that writes this unit&#39;s block states, above the block, why its values are what they are. These are the generator&#39;s own statements in the draft, not checks of the draft.</p>
+<ul>
+<li>Grant the permissions of the source policies as STACKIT role assignments (provider experiment &#34;iam&#34;).</li>
+</ul>
+<p><small>Held in memory in this build; no file contains it.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: IN_MEMORY</p>
+<ul>
+<li>recorded: finding: source-provider-unverified</li>
+<li>recorded: rule line: rule gcp.service_account/service-account · KB 0.394.0 · target maturity EXPERIMENTAL · lifecycle active · evidence internal · review required</li>
+<li>recorded: trace: TR-5ca70ac9e6fa</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Semantic claim</strong> <span class="state"><span aria-hidden="true">◐</span> Open items</span></p>
+<p>The engine read 3 statements the source makes about this resource and decided what happens to each; 3 of them are critical settings, 2 of those still open.</p>
+<ul>
+<li>1 kept in another form</li>
+<li>2 left to a person to review</li>
+<li>9 further statements that the source does not make (nothing to carry)</li>
+</ul>
+<p><small>In assessment.json of this report.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: REPORT_FILE assessment.json /kernel/units/3 <code>google_service_account.client</code></p>
+<ul>
+<li>claim: account-name = UNKNOWN, CRITICAL, REVIEW</li>
+<li>claim: role-bindings = KNOWN, CRITICAL, REVIEW</li>
+<li>claim: workload-identity = KNOWN, CRITICAL, TRANSFORMED</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Render</strong> <span class="state"><span aria-hidden="true">✓</span> Established</span></p>
+<p>The draft holds 1 block for this unit, written as active Terraform.</p>
+<ul>
+<li>stackit_service_account.client: written as an active resource (terraform/identity.tf, lines 24-27); the whole comment of the block is in engineering/trace/identity.md</li>
+</ul>
+<p><small>In terraform/identity.tf of this report.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: REPORT_FILE terraform/identity.tf <code>stackit_service_account.client</code></p>
+<ul>
+<li>block in the draft: stackit_service_account.client</li>
+<li>block in the draft: terraform/identity.tf:24-27</li>
+<li>trace: TR-5ca70ac9e6fa</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Residual difference</strong> <span class="state"><span aria-hidden="true">◐</span> Open items</span></p>
+<p>The draft states, for this unit: 2 properties it does not carry, 1 finding. That is what the draft states, not a proof that the block and the source are equivalent.</p>
+<ul>
+<li>NOT CARRIED (google_service_account.client): account_id — the account ID is not visible statically, or the account is declared several times: the STACKIT account is named after the source address.</li>
+<li>NOT CARRIED (google_service_account.client): display_name = Client Frontend service account — stackit_service_account has no display name, only a name besides project_id (pinned provider).</li>
+<li>warning: no lock file records the version of registry.terraform.io/hashicorp/google, and the constraint &#34;&gt;= 6, &lt; 8&#34; excludes it (pinned 8.4.0) (stated once for the whole estate)</li>
+</ul>
+<p><small>Held in memory in this build; no file contains it.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: IN_MEMORY</p>
+<p>No identifiers.</p>
+</details>
+</li>
+</ol>
+</details>
+<details class="trace" id="evidence/google_service_account.init">
+<summary><code>google_service_account.init</code> <span class="meta">&mdash; 2 of 5 steps with open items</span></summary>
+<ol class="arrows">
+<li>
+<p class="arrow-head"><strong>Source</strong> <span class="state"><span aria-hidden="true">✓</span> Established</span></p>
+<p>google_service_account.init is a resource of the source, declared in iam.tf (lines 61-66). Whether it exists is decided only when OpenTofu plans. The block that stands for it in the draft is written by a generator that records no intent and no plan, so this trace is made from the lines the draft records for it, not from a typed plan: it holds the stages those lines support and none of the others.</p>
+<ul>
+<li>from google_service_account.init (iam.tf:61) — RECONFIGURE / MEDIUM</li>
+</ul>
+<p><small>In assessment.json of this report.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: REPORT_FILE assessment.json /units/15 <code>google_service_account.init</code></p>
+<ul>
+<li>knowledge base case: service-account</li>
+<li>knowledge base rule: gcp.service_account</li>
+<li>source type: google_service_account</li>
+<li>unit: google_service_account.init</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Evidence</strong> <span class="state"><span aria-hidden="true">✓</span> Established</span></p>
+<p>The generator that writes this unit&#39;s block states, above the block, why its values are what they are. These are the generator&#39;s own statements in the draft, not checks of the draft.</p>
+<ul>
+<li>Grant the permissions of the source policies as STACKIT role assignments (provider experiment &#34;iam&#34;).</li>
+</ul>
+<p><small>Held in memory in this build; no file contains it.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: IN_MEMORY</p>
+<ul>
+<li>recorded: finding: source-provider-unverified</li>
+<li>recorded: rule line: rule gcp.service_account/service-account · KB 0.394.0 · target maturity EXPERIMENTAL · lifecycle active · evidence internal · review required</li>
+<li>recorded: trace: TR-82b9a11ffa8d</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Semantic claim</strong> <span class="state"><span aria-hidden="true">◐</span> Open items</span></p>
+<p>The engine read 3 statements the source makes about this resource and decided what happens to each; 3 of them are critical settings, 2 of those still open.</p>
+<ul>
+<li>1 kept in another form</li>
+<li>2 left to a person to review</li>
+<li>9 further statements that the source does not make (nothing to carry)</li>
+</ul>
+<p><small>In assessment.json of this report.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: REPORT_FILE assessment.json /kernel/units/15 <code>google_service_account.init</code></p>
+<ul>
+<li>claim: account-name = UNKNOWN, CRITICAL, REVIEW</li>
+<li>claim: role-bindings = KNOWN, CRITICAL, REVIEW</li>
+<li>claim: workload-identity = KNOWN, CRITICAL, TRANSFORMED</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Render</strong> <span class="state"><span aria-hidden="true">✓</span> Established</span></p>
+<p>The draft holds 1 block for this unit, written as active Terraform.</p>
+<ul>
+<li>stackit_service_account.init: written as an active resource (terraform/identity.tf, lines 36-39); the whole comment of the block is in engineering/trace/identity.md</li>
+</ul>
+<p><small>In terraform/identity.tf of this report.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: REPORT_FILE terraform/identity.tf <code>stackit_service_account.init</code></p>
+<ul>
+<li>block in the draft: stackit_service_account.init</li>
+<li>block in the draft: terraform/identity.tf:36-39</li>
+<li>trace: TR-82b9a11ffa8d</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Residual difference</strong> <span class="state"><span aria-hidden="true">◐</span> Open items</span></p>
+<p>The draft states, for this unit: 2 properties it does not carry, 1 finding, 1 open item. That is what the draft states, not a proof that the block and the source are equivalent.</p>
+<ul>
+<li>NOT CARRIED (google_service_account.init): account_id — the account ID is not visible statically, or the account is declared several times: the STACKIT account is named after the source address.</li>
+<li>NOT CARRIED (google_service_account.init): display_name = Jump Start App Init SA — stackit_service_account has no display name, only a name besides project_id (pinned provider).</li>
+<li>warning: no lock file records the version of registry.terraform.io/hashicorp/google, and the constraint &#34;&gt;= 6, &lt; 8&#34; excludes it (pinned 8.4.0) (stated once for the whole estate)</li>
+<li>Open: how many instances google_service_account.init creates is not visible statically (its count/for_each reads a variable that can be set when the source is planned, so the variable&#39;s default is not a fact of the source and is not used); this block drafts one instance — repeat it (count/for_each) for … (full text: engineering/trace/identity.md)</li>
+</ul>
+<p><small>Held in memory in this build; no file contains it.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: IN_MEMORY</p>
+<p>No identifiers.</p>
+</details>
+</li>
+</ol>
+</details>
+<details class="trace" id="evidence/google_sql_database_instance.postgres">
+<summary><code>google_sql_database_instance.postgres</code> <span class="meta">&mdash; 2 of 5 steps with open items</span></summary>
+<ol class="arrows">
+<li>
+<p class="arrow-head"><strong>Source</strong> <span class="state"><span aria-hidden="true">✓</span> Established</span></p>
+<p>google_sql_database_instance.postgres is a resource of the source, declared in database.tf (lines 25-38). The block that stands for it in the draft is written by a generator that records no intent and no plan, so this trace is made from the lines the draft records for it, not from a typed plan: it holds the stages those lines support and none of the others.</p>
+<ul>
+<li>from google_sql_database_instance.postgres (database.tf:25) — REPLATFORM / MEDIUM</li>
+</ul>
+<p><small>In assessment.json of this report.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: REPORT_FILE assessment.json /units/5 <code>google_sql_database_instance.postgres</code></p>
+<ul>
+<li>knowledge base case: sql-postgres</li>
+<li>knowledge base rule: gcp.sql_instance</li>
+<li>source type: google_sql_database_instance</li>
+<li>unit: google_sql_database_instance.postgres</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Evidence</strong> <span class="state"><span aria-hidden="true">✓</span> Established</span></p>
+<p>The generator that writes this unit&#39;s block states, above the block, why its values are what they are. These are the generator&#39;s own statements in the draft, not checks of the draft.</p>
+<ul>
+<li>flavor_id 2.4 = 2 vCPU / 4 GiB, single-node (eu01 catalogue 2026-10-18).</li>
+<li>REVIEW: the source disk grows by itself (disk_autoresize is on, the Cloud SQL default), so its disk_size is the size the Terraform file asks for and not necessarily the size of the data today — read the current disk size of the instance before the move and give PostgreSQL Flex at least that much; a … (full text: engineering/trace/data.md)</li>
+<li>backup_schedule is a default (02:00 daily): the source states no backup start time (Cloud SQL then picks one of its own).</li>
+<li>PITR on PostgreSQL Flex restores into a new cloned instance; backups are kept 32–90 days.</li>
+<li>retention_days: the source backup retention is not visible statically; 32 days is the STACKIT minimum (32–90).</li>
+</ul>
+<p><small>Held in memory in this build; no file contains it.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: IN_MEMORY</p>
+<ul>
+<li>recorded: finding: source-provider-unverified</li>
+<li>recorded: rule line: rule gcp.sql_instance/sql-postgres · KB 0.394.0 · target maturity GA · lifecycle active · evidence internal · review required</li>
+<li>recorded: trace: TR-97904614ad56</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Semantic claim</strong> <span class="state"><span aria-hidden="true">◐</span> Open items</span></p>
+<p>The engine read 11 statements the source makes about this resource and decided what happens to each; 11 of them are critical settings, 7 of those still open.</p>
+<ul>
+<li>2 kept as it is</li>
+<li>1 kept in another form</li>
+<li>7 left to a person to review</li>
+<li>1 carried into the draft and listed in the ledger</li>
+<li>60 further statements that the source does not make (nothing to carry)</li>
+</ul>
+<p><small>In assessment.json of this report.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: REPORT_FILE assessment.json /kernel/units/5 <code>google_sql_database_instance.postgres</code></p>
+<ul>
+<li>claim: database-users = UNKNOWN, CRITICAL, REVIEW</li>
+<li>claim: engine = KNOWN, CRITICAL, TRANSFORMED</li>
+<li>claim: engine-version = KNOWN, CRITICAL, PRESERVED</li>
+<li>claim: network-exposure = KNOWN, CRITICAL, LEDGER</li>
+<li>claim: project-scope = KNOWN, CRITICAL, REVIEW</li>
+<li>claim: region-residency = KNOWN, CRITICAL, REVIEW</li>
+<li>claim: tc-name = KNOWN, CRITICAL, REVIEW</li>
+<li>claim: tcf-sql-database--name = KNOWN, CRITICAL, REVIEW</li>
+<li>claim: tcfp-sql-user--name = KNOWN, CRITICAL, REVIEW</li>
+<li>claim: terraform-destroy-guard-off = KNOWN, CRITICAL, PRESERVED</li>
+<li>claim: user-and-database-settings = KNOWN, CRITICAL, REVIEW</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Render</strong> <span class="state"><span aria-hidden="true">✓</span> Established</span></p>
+<p>The draft holds 1 block for this unit, written as active Terraform.</p>
+<ul>
+<li>stackit_postgresflex_instance.postgres: written as an active resource (terraform/data.tf, lines 18-32); the whole comment of the block is in engineering/trace/data.md</li>
+</ul>
+<p><small>In terraform/data.tf of this report.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: REPORT_FILE terraform/data.tf <code>stackit_postgresflex_instance.postgres</code></p>
+<ul>
+<li>block in the draft: stackit_postgresflex_instance.postgres</li>
+<li>block in the draft: terraform/data.tf:18-32</li>
+<li>trace: TR-97904614ad56</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Residual difference</strong> <span class="state"><span aria-hidden="true">◐</span> Open items</span></p>
+<p>The draft states, for this unit: 6 properties it does not carry, 1 finding, 3 open decisions of the converter. That is what the draft states, not a proof that the block and the source are equivalent.</p>
+<ul>
+<li>NOT CARRIED (google_sql_database_instance.postgres): settings.user_labels — labels are metadata and the draft carries none.</li>
+<li>NOT CARRIED (google_sql_user.django): password — the source password is not copied: STACKIT generates the user&#39;s password (stackit_postgresflex_user.password is computed, pinned provider) — hand the new one to the application.</li>
+<li>NOT CARRIED (google_sql_user.django): deletion_policy — stackit_postgresflex_user is deleted directly (pinned provider): ABANDON (keep the Cloud SQL user, drop it from state only) has no counterpart.</li>
+<li>NOT CARRIED (google_sql_user.django): name — a user name is not visible statically: create that user with stackit_postgresflex_user.</li>
+<li>NOT CARRIED (google_sql_database.database): deletion_policy — stackit_postgresflex_database is deleted directly (pinned provider): ABANDON (keep the Cloud SQL database, drop it from state only) has no counterpart.</li>
+<li>NOT CARRIED (google_sql_database.database): name — a database name (or the number of databases) is not visible statically: create that database with stackit_postgresflex_database.</li>
+<li>warning: no lock file records the version of registry.terraform.io/hashicorp/google, and the constraint &#34;&gt;= 6, &lt; 8&#34; excludes it (pinned 8.4.0) (stated once for the whole estate)</li>
+<li>3 open decisions of the converter wait for a person: the unit is not ready to deploy until each is decided</li>
+</ul>
+<p><small>Held in memory in this build; no file contains it.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: IN_MEMORY</p>
+<ul>
+<li>decision: <code>DEC-GEN-CONVERT-SOURCE-REGION-MAPPING</code> (alias <code>convert:estate:source_location:SOURCE_REGION_MAPPING</code>)</li>
+<li>decision: <code>DEC-GEN-CONVERT-SOURCE-PROJECT-MAPPING</code> (alias <code>convert:estate:source_project:SOURCE_PROJECT_MAPPING</code>)</li>
+<li>decision: <code>DEC-GEN-CONVERT-DATA-MOVEMENT</code> (alias <code>convert:google_sql_database_instance.postgres:data:DATA_MOVEMENT</code>)</li>
+</ul>
+</details>
+</li>
+</ol>
+</details>
+<details class="trace" id="evidence/google_storage_bucket.media">
+<summary><code>google_storage_bucket.media</code> <span class="meta">&mdash; 2 of 5 steps with open items</span></summary>
+<ol class="arrows">
+<li>
+<p class="arrow-head"><strong>Source</strong> <span class="state"><span aria-hidden="true">✓</span> Established</span></p>
+<p>google_storage_bucket.media is a resource of the source, declared in storage.tf (lines 17-25). The block that stands for it in the draft is written by a generator that records no intent and no plan, so this trace is made from the lines the draft records for it, not from a typed plan: it holds the stages those lines support and none of the others.</p>
+<ul>
+<li>from google_storage_bucket.media (storage.tf:17) — RECONFIGURE / MEDIUM</li>
+</ul>
+<p><small>In assessment.json of this report.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: REPORT_FILE assessment.json /units/7 <code>google_storage_bucket.media</code></p>
+<ul>
+<li>knowledge base case: gcs</li>
+<li>knowledge base rule: gcp.storage_bucket</li>
+<li>source type: google_storage_bucket</li>
+<li>unit: google_storage_bucket.media</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Evidence</strong> <span class="state"><span aria-hidden="true">–</span> Nothing to show</span></p>
+<p>The generator records no explanation of the values of this unit&#39;s block and no source attribute for them. These are the generator&#39;s own statements in the draft, not checks of the draft.</p>
+<p><small>Held in memory in this build; no file contains it.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: IN_MEMORY</p>
+<ul>
+<li>recorded: finding: gcs-force-destroy</li>
+<li>recorded: finding: source-provider-unverified</li>
+<li>recorded: rule line: rule gcp.storage_bucket/gcs · KB 0.394.0 · target maturity GA · lifecycle active · evidence internal · review required</li>
+<li>recorded: trace: TR-03d7fb936653</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Semantic claim</strong> <span class="state"><span aria-hidden="true">◐</span> Open items</span></p>
+<p>The engine read 7 statements the source makes about this resource and decided what happens to each; 7 of them are critical settings, 7 of those still open.</p>
+<ul>
+<li>1 not supported on STACKIT</li>
+<li>6 left to a person to review</li>
+<li>56 further statements that the source does not make (nothing to carry)</li>
+</ul>
+<p><small>In assessment.json of this report.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: REPORT_FILE assessment.json /kernel/units/7 <code>google_storage_bucket.media</code></p>
+<ul>
+<li>claim: bucket-region = KNOWN, CRITICAL, REVIEW</li>
+<li>claim: force-destroy = KNOWN, CRITICAL, UNSUPPORTED</li>
+<li>claim: geo-replication = UNKNOWN, CRITICAL, REVIEW</li>
+<li>claim: iam-access = KNOWN, CRITICAL, REVIEW</li>
+<li>claim: iam-grant = KNOWN, CRITICAL, REVIEW</li>
+<li>claim: public-access = UNKNOWN, CRITICAL, REVIEW</li>
+<li>claim: tc-storage-bucket-name = KNOWN, CRITICAL, REVIEW</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Render</strong> <span class="state"><span aria-hidden="true">✓</span> Established</span></p>
+<p>The draft holds 1 block for this unit, written as active Terraform.</p>
+<ul>
+<li>stackit_objectstorage_bucket.media: written as an active resource (terraform/storage.tf, lines 11-14); the whole comment of the block is in engineering/trace/storage.md</li>
+</ul>
+<p><small>In terraform/storage.tf of this report.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: REPORT_FILE terraform/storage.tf <code>stackit_objectstorage_bucket.media</code></p>
+<ul>
+<li>block in the draft: stackit_objectstorage_bucket.media</li>
+<li>block in the draft: terraform/storage.tf:11-14</li>
+<li>trace: TR-03d7fb936653</li>
+</ul>
+</details>
+</li>
+<li>
+<p class="arrow-head"><strong>Residual difference</strong> <span class="state"><span aria-hidden="true">◐</span> Open items</span></p>
+<p>The draft states, for this unit: 4 properties it does not carry, 2 findings, 3 open decisions of the converter. That is what the draft states, not a proof that the block and the source are equivalent.</p>
+<ul>
+<li>NOT CARRIED (google_storage_bucket.media): storage_class = REGIONAL — stackit_objectstorage_bucket has a name and object_lock only (pinned provider): the bucket&#39;s storage class, Autoclass, hierarchical-namespace and requester-pays settings are not generated.</li>
+<li>NOT CARRIED (google_storage_bucket.media): force_destroy = true — stackit_objectstorage_bucket has no force-destroy override (pinned provider): deleting a bucket that still holds objects behaves as STACKIT&#39;s Object Storage API defines it — empty the bucket (or migrate its objects) before it is … (full text: engineering/trace/storage.md)</li>
+<li>NOT CARRIED (google_storage_bucket_iam_member.automation): member, role = roles/storage.admin — the draft of google_storage_bucket.media does not carry this one member&#39;s role on the Cloud Storage bucket. Proposed, switched off until it is decided: proposals/proposal_automation, switch … (full text: engineering/trace/storage.md)</li>
+<li>NOT CARRIED (google_storage_bucket_iam_member.server): member, role = roles/storage.admin — the draft of google_storage_bucket.media does not carry this one member&#39;s role on the Cloud Storage bucket. Proposed, switched off until it is decided: proposals/proposal_server, switch … (full text: engineering/trace/storage.md)</li>
+<li>warning: force_destroy lets Terraform delete the bucket together with its objects.</li>
+<li>warning: no lock file records the version of registry.terraform.io/hashicorp/google, and the constraint &#34;&gt;= 6, &lt; 8&#34; excludes it (pinned 8.4.0) (stated once for the whole estate)</li>
+<li>3 open decisions of the converter wait for a person: the unit is not ready to deploy until each is decided</li>
+</ul>
+<p><small>Held in memory in this build; no file contains it.</small></p>
+<details class="expert"><summary>Expert: identifiers</summary>
+<p>Artefact: IN_MEMORY</p>
+<ul>
+<li>decision: <code>DEC-GEN-CONVERT-SOURCE-REGION-MAPPING</code> (alias <code>convert:estate:source_location:SOURCE_REGION_MAPPING</code>)</li>
+<li>decision: <code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE/google_storage_bucket_iam_member.automation</code> (alias <code>convert:google_storage_bucket_iam_member.automation:proposal:PROPOSED_ALTERNATIVE</code>)</li>
+<li>decision: <code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE/google_storage_bucket_iam_member.server</code> (alias <code>convert:google_storage_bucket_iam_member.server:proposal:PROPOSED_ALTERNATIVE</code>)</li>
+</ul>
+</details>
+</li>
+</ol>
+</details>
+</section></main>
+<script>(function () {
+  'use strict';
+  var doc = document;
+  var win = window;
+  function all(selector, root) { return Array.prototype.slice.call((root || doc).querySelectorAll(selector)); }
+  function press(button, on) { button.setAttribute('aria-pressed', on ? 'true' : 'false'); }
+  function pressed(button) { return button.getAttribute('aria-pressed') === 'true'; }
+
+  all('[data-js-only]').forEach(function (e) { e.hidden = false; });
+
+  var detailsButton = doc.querySelector('[data-act="details"]');
+  if (detailsButton) {
+    detailsButton.addEventListener('click', function () {
+      var on = !pressed(detailsButton);
+      press(detailsButton, on);
+      all('details').forEach(function (d) { d.open = on; });
+    });
+  }
+
+  function listOf(scope) { return doc.querySelector('[data-list="' + scope + '"]'); }
+  function itemsOf(list) {
+    return all('[data-item]', list);
+  }
+  function chosen(scope) {
+    var by = {};
+    all('[data-controls="' + scope + '"] [data-filter]').forEach(function (b) {
+      if (!pressed(b)) { return; }
+      var group = b.getAttribute('data-filter');
+      (by[group] = by[group] || []).push(b.getAttribute('data-value'));
+    });
+    return by;
+  }
+  function passes(item, by, cells) {
+    if (cells) {
+      if (!by.dim && !by.state) { return true; }
+      return all('[data-state]', item).some(function (c) {
+        return (!by.dim || by.dim.indexOf(c.getAttribute('data-dim')) >= 0) && (!by.state || by.state.indexOf(c.getAttribute('data-state')) >= 0);
+      });
+    }
+    return Object.keys(by).every(function (group) { return by[group].indexOf(item.getAttribute('data-' + group)) >= 0; });
+  }
+  function refresh(scope) {
+    var list = listOf(scope);
+    if (!list) { return; }
+    var by = chosen(scope);
+    var cells = list.hasAttribute('data-cells');
+    var seen = false;
+    var search = doc.querySelector('[data-search="' + scope + '"]');
+    var words = search ? search.value.toLowerCase().split(' ').filter(Boolean) : [];
+    itemsOf(list).forEach(function (item) {
+      var text = (item.id + ' ' + (item.getAttribute('data-text') || '')).toLowerCase();
+      var ok = passes(item, by, cells) && words.every(function (w) { return text.indexOf(w) >= 0; });
+      item.hidden = !ok;
+      if (ok) { seen = true; }
+    });
+    all('[data-group]', list).forEach(function (g) {
+      g.hidden = !all('[data-item]', g).some(function (item) { return !item.hidden; });
+      if (words[0] && !g.hidden && g.tagName === 'DETAILS') { g.open = true; }
+    });
+    var none = doc.querySelector('[data-empty="' + scope + '"]');
+    if (none) { none.hidden = seen; }
+  }
+  function sortBy(scope, button) {
+    var list = listOf(scope);
+    if (!list) { return; }
+    var key = button.getAttribute('data-sort');
+    var attr = key === 'record' ? 'data-seq' : 'data-sort-' + key;
+    var desc = button.getAttribute('data-dir') === 'desc';
+    var items = itemsOf(list);
+    var parents = items.map(function (i) { return i.parentNode; }).filter(function (p, k, a) { return a.indexOf(p) === k; });
+    parents.forEach(function (parent) {
+      items.filter(function (i) { return i.parentNode === parent; }).sort(function (a, b) {
+        var x = Number(a.getAttribute(attr));
+        var y = Number(b.getAttribute(attr));
+        if (x !== y) { return desc ? y - x : x - y; }
+        return Number(a.getAttribute('data-seq')) - Number(b.getAttribute('data-seq'));
+      }).forEach(function (item) { parent.appendChild(item); });
+    });
+    all('[data-controls="' + scope + '"] [data-sort]').forEach(function (b) { press(b, b === button); });
+  }
+  all('[data-controls]').forEach(function (box) {
+    var scope = box.getAttribute('data-controls');
+    all('[data-filter]', box).forEach(function (b) {
+      b.addEventListener('click', function () { press(b, !pressed(b)); refresh(scope); });
+    });
+    all('[data-sort]', box).forEach(function (b) {
+      b.addEventListener('click', function () { sortBy(scope, b); });
+    });
+    var search = box.querySelector('[data-search]');
+    if (search) {
+      search.addEventListener('input', function () { refresh(scope); });
+    }
+    var clear = box.querySelector('[data-act="clear-filters"]');
+    if (clear) {
+      clear.addEventListener('click', function () {
+        all('[data-filter]', box).forEach(function (b) { press(b, false); });
+        if (search) { search.value = ''; }
+        refresh(scope);
+      });
+    }
+  });
+
+  var main = doc.getElementById('main');
+  var lensButtons = all('[data-lens-set]');
+  function setLens(lens) {
+    doc.body.setAttribute('data-lens', lens);
+    lensButtons.forEach(function (b) {
+      var on = b.getAttribute('data-lens-set') === lens;
+      press(b, on);
+      if (on) {
+        b.getAttribute('data-lens-order').split(' ').forEach(function (id) {
+          var section = doc.getElementById(id);
+          if (main && section && section.parentNode === main && (section.nextElementSibling || section.previousElementSibling)) { main.appendChild(section); }
+          var entry = doc.querySelector('nav [data-nav="' + id + '"]');
+          if (entry) { entry.parentNode.appendChild(entry); }
+        });
+      }
+    });
+  }
+  lensButtons.forEach(function (b) {
+    b.addEventListener('click', function () { setLens(b.getAttribute('data-lens-set')); });
+  });
+
+  function indicated() {
+    var hash = win.location.hash;
+    if (hash === '' || hash === '#') { return null; }
+    var id = hash.slice(1);
+    var found = doc.getElementById(id);
+    if (!found) {
+      try { found = doc.getElementById(decodeURIComponent(id)); } catch (e) { found = null; }
+    }
+    return found;
+  }
+  var kindPages = {'action': 'decisions', 'application': 'applications', 'capability': 'target-fit', 'check': 'evidence', 'claim': 'engineering', 'decision': 'decisions', 'evidence': 'engineering', 'field': 'engineering', 'findinggroup': 'evidence', 'intent': 'engineering', 'residual': 'engineering', 'target': 'evidence', 'unit': 'architecture'};
+  var sectionPages = ' applications architecture decisions target-fit migration security-assurance sovereignty operations cost evidence engineering work-board ';
+  function before(a, b) {
+    var x = Array.from(a);
+    var y = Array.from(b);
+    for (var i = 0; ; i++) {
+      if (x[i] === undefined) { return y[i] !== undefined; }
+      if (y[i] === undefined) { return false; }
+      if (x[i] !== y[i]) { return x[i].codePointAt(0) < y[i].codePointAt(0); }
+    }
+  }
+  function grouped(kind, key) {
+    var rows = all('[data-routes] [data-kind="' + kind + '"]');
+    if (!rows[0]) { return null; }
+    var at = rows[0];
+    rows.forEach(function (r) { if (!before(key, r.getAttribute('data-first'))) { at = r; } });
+    return at.getAttribute('data-page');
+  }
+  function routed(id) {
+    var slash = id.indexOf('/');
+    if (slash > 0) {
+      var kind = id.slice(0, slash);
+      var key = null;
+      try { key = decodeURIComponent(id.slice(slash + 1)); } catch (e) { key = null; }
+      var group = key === null ? null : grouped(kind, key);
+      if (group !== null) { return group; }
+      return kindPages.hasOwnProperty(kind) ? kindPages[kind] : null;
+    }
+    return sectionPages.indexOf(' ' + id + ' ') >= 0 ? id : null;
+  }
+  function route() {
+    var base = doc.body.getAttribute('data-pages');
+    var page = routed(win.location.hash.slice(1));
+    if (base === null || page === null || win.location.pathname.endsWith('/' + page + '.html')) { return; }
+    win.location.replace(base + page + '.html' + win.location.hash);
+  }
+  function reveal() {
+    var target = indicated();
+    if (!target) { route(); return; }
+    if (target.tagName === 'DETAILS') { target.open = true; }
+    for (var p = target.parentElement; p; p = p.parentElement) {
+      if (p.tagName === 'DETAILS') { p.open = true; }
+    }
+    var body = target.querySelector(':scope > details');
+    if (body) { body.open = true; }
+    if (!target.getClientRects()[0]) {
+      all('[data-controls] [data-filter]').forEach(function (b) { press(b, false); });
+      all('[data-search]').forEach(function (b) { b.value = ''; });
+      all('[data-controls]').forEach(function (box) { refresh(box.getAttribute('data-controls')); });
+      if (lensButtons[0]) { setLens('all'); }
+    }
+    target.scrollIntoView();
+  }
+  win.addEventListener('hashchange', reveal);
+  reveal();
+
+  var opened = [];
+  win.addEventListener('beforeprint', function () {
+    opened = all('details:not([open])');
+    opened.forEach(function (d) { d.open = true; });
+  });
+  win.addEventListener('afterprint', function () {
+    opened.forEach(function (d) { d.open = false; });
+    opened = [];
+  });
+})();
+</script>
+</body>
+</html>

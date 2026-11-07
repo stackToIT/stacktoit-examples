@@ -1,0 +1,55 @@
+# Generated migration draft by StackToIT — architect review required. Not for apply without review.
+# Cloud Run job google_cloud_run_v2_job.migrate (jobs.tf:18) as Kubernetes manifests for STACKIT SKE — a draft, not Terraform.
+# rule gcp.cloud_run/run-job · CONTAINERIZE / MEDIUM · KB 0.394.0
+# Target cluster: the shared SKE cluster stackit_ske_cluster.containers (kubernetes.tf). Apply with the cluster's kubeconfig into the namespace you choose: kubectl apply -n <namespace> -f manifests.yaml
+# Kind: Job.
+#
+# SECRETS TO CREATE (references only — names, never values; create migrate-secrets with these keys, e.g. from a STACKIT Secrets Manager instance, the pinned provider has no resource for its entries):
+#   DJANGO_ENV ← the Secret Manager secret google_secret_manager_secret.django_settings (the unit of this scan the service references)
+#   The Kubernetes Secret name migrate-secrets is chosen by the draft, not stated by the source (the name of the workload and -secrets for the variables that come from secrets): the source states only the Secret Manager secret each Secret comes from. Create each Secret under the name the manifest uses, or change the reference in this file.
+#
+# IMAGES: the images are pulled from us-docker.pkg.dev; the SKE nodes must reach that registry with a pull secret if it is private — decide where the images live on STACKIT
+#
+# CUTOVER AND ROLLBACK (the customer performs it; nothing here is executed):
+#   1. BEFORE THE DATA MOVE: fill in the inputs above and apply the Job. It is written suspended (suspend: true): a Cloud Run job runs only when it is executed, and a Kubernetes Job would otherwise start at once. Leave google_cloud_run_v2_job.migrate as it is.
+#   2. TO RUN IT (after the data it works on has been moved, whenever the job should run): unsuspend it (`kubectl patch job/migrate --type=merge -p '{"spec":{"suspend":false}}'`). A Job is not run again by changing it: create a new Job from the file (delete the finished one) for every further run; what starts google_cloud_run_v2_job.migrate today (a scheduler, a workflow, a person) starts the new Job or a CronJob instead.
+#   3. ROLLBACK: keep running google_cloud_run_v2_job.migrate until the Job has carried a production run for the period you choose.
+#
+# TODO: the identity model of the application of google_cloud_run_v2_job.migrate is an open decision: answer the input target.workload.identity for it. Until then the pods run as the default ServiceAccount of the namespace with no STACKIT identity.
+# LEDGER workload identity: the Google service account of the revision → no identity in the manifests: the pods run as the default ServiceAccount until a person decides — REVIEW
+# TODO: the name of google_cloud_run_v2_job.migrate is is not visible statically: the workload and its Service are named after the resource (migrate), and other workloads reach the Service by that name — set the name they use.
+# TODO: the volume cloudsql is a Cloud SQL connection (the /cloudsql socket of the Cloud SQL Auth Proxy): the draft writes no volume for it and the containers that mount it have no mount — connect to the migrated service by its network address instead of the mount, or mount an NFS share or a volume of the cluster yourself. The pods are held until you decide.
+# TODO: container container-1 has no limits in the source: Cloud Run applies its own defaults, the manifest sets no requests or limits, and an autoscaler on CPU cannot compute its metric until each container has a CPU request — size the containers.
+# NOT CARRIED (google_cloud_run_v2_job.migrate): template.template.service_account — the identity of the revision is a Google service account; the pods run as the default Kubernetes ServiceAccount of the namespace and the draft gives them no identity — decide the identity of the application (the service account unit of the source and the identity decisions of the draft, identity.tf), and the roles it holds on the services it calls.
+# Cloud Run injects the variables K_SERVICE, K_REVISION and K_CONFIGURATION (CLOUD_RUN_JOB, CLOUD_RUN_EXECUTION, CLOUD_RUN_TASK_INDEX, CLOUD_RUN_TASK_COUNT and CLOUD_RUN_TASK_ATTEMPT for a job) into the container (https://docs.cloud.google.com/run/docs/container-contract); a pod gets only the PORT variable written above — an application that reads one of the others needs its value set in the ConfigMap (the index of a task is JOB_COMPLETION_INDEX in an indexed Kubernetes Job).
+# NOT CARRIED (google_cloud_run_v2_job.migrate): deletion_protection = false — deletion protection is a Google API guard against deleting the resource; the manifests carry no such guard — protect the workload with the access rules of the namespace.
+# NOT CARRIED (google_cloud_run_v2_job.migrate): labels — labels, tags and annotations of the resource are Google metadata; the manifests carry labels of their own — copy those you rely on.
+# NOT CARRIED (google_cloud_run_v2_job.migrate): template.template.volumes.cloud_sql_instance.instances — a Cloud Run setting with no counterpart in the draft manifests: Kubernetes has its own rollout, health, scheduling and exec behaviour.
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migrate
+  labels:
+    app.kubernetes.io/name: migrate
+spec:
+  suspend: true
+  completions: 1
+  backoffLimit: 3 # Cloud Run retries a failed task 3 times by default (max_retries, the pinned Google provider documentation)
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: migrate
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: container-1
+        image: "us-docker.pkg.dev/hsa-public/containers/terraform-python-dynamic-webapp/server:v1.13.4"
+        command:
+        - "migrate"
+        env:
+        - name: DJANGO_ENV
+          valueFrom:
+            secretKeyRef:
+              name: migrate-secrets
+              key: DJANGO_ENV

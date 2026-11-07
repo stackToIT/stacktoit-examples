@@ -1,0 +1,483 @@
+# Progress journal of the run (written by stacktoit). Run 6f8f72b2-1c34-4cfc-8483-344c41245364 · source digest sha256:19bfed642d5789ccada81b91d5c36e33175dcafd66dc46b1644ffa105d020000
+# This file is where YOU record how far each step of execution-plan.json has come. It is a record of what you did, not a proof: StackToIT reads no
+# cloud, runs nothing and checks nothing of what you write here, and the journal changes no step, no readiness count and no decision.
+#   - to record a step change its `state` to BLOCKED, IN_PROGRESS, DONE, FAILED or WAIVED; you may add `owner`, `note` and `at` (a quoted RFC 3339 time,
+#     "2026-10-29T10:00:00Z") to an entry;
+#   - keep `contract_sha256` as it is: it ties the entry to the step as it is now. When a later run changes the step, its entry is shown as STALE beside
+#     the state you recorded, and DONE is not carried over to the changed step; an entry for a step the plan no longer holds is listed as ORPHANED;
+#   - a step with no entry is NOT_STARTED; you may delete the entries you do not use;
+#   - keep `steps_sha256` as it is: it says which plan this file was written from, so that the next run can tell an entry you
+#     deleted from a journal written for an older plan (it is not a state and changes no step);
+#   - keep `environment_sha256` as it is: it says which environment (its `environment_id`, the target project, the workspace and the variable files by
+#     their names; never the name of the source folder) this journal was written for. A run of another environment reads every entry of it as STALE, never
+#     as DONE; an edit of the Terraform, or a renamed source folder, does not change it. No variable value is part of it (a value, a password above all,
+#     must never reach a digest), so two environments that differ only in a value cannot be told apart by the names of their files. After you changed the
+#     environment on purpose and checked the steps, copy the `environment_sha256` (and `environment_id`) of the newest progress-template.yaml here;
+#   - NAME THE ENVIRONMENT: nothing in this run says which environment it is (no `environment_id`, no target project). A state you record
+#     here is then not applied by the next run: it reads STALE, "done in another or unidentified environment, confirm". Write `environment_id: prod-eu`
+#     (your own name) in the profile of stacktoit.yaml, or run with `--environment-id prod-eu`, run again, and copy the `environment_sha256` and `environment_id`
+#     lines of the newest progress-template.yaml into this file after you checked the steps;
+#   - the entry of the reconcile step of a data move lists its checks after the transfer, each NOT_RUN. When you have made a check, change its `result` to PASS
+#     or FAIL (add `owner`, `note`, `at`); to leave one out on purpose write WAIVED and the reason in `note` (a WAIVED check with no note is refused). A FAIL keeps
+#     the step from DONE. The results belong to the entry and are bound to its `contract_sha256`: when a later run changes the step (a check added, dropped
+#     or changed in kind or mode) they are shown as STALE, never applied. They are what you record, not a proof: StackToIT runs none of the checks. The
+#     data move of a store reads DATA_MOVE_PLANNED, DATA_MOVE_EXECUTED (its copy steps are DONE) or DATA_VERIFIED (and its reconcile is DONE, every check PASS or
+#     WAIVED) in migration/progress.json, from these records;
+#   - pass the file back with --progress, or keep it as review/progress.yaml; the run writes migration/progress.json from it.
+steps_sha256: "sha256:0a1fe3f1f4c8e7eca8b3230064b2af95db7798201cd5cfa0b5b61f42042c43bf"
+environment_sha256: "sha256:713a7053a7d625f722f26b899a5f80b8a2168a5d57647238425c2c1bc0a4bc52"
+entries:
+
+  # MANUAL OTHER - google_cloud_run_v2_job.migrate
+  - action_id: "MAN/identity/facts:google_cloud_run_v2_job.migrate:google_cloud_run_v2_job.migrate.template.0.template.0.service_account-8dc3e1"
+    contract_sha256: "sha256:9ce88532216052b4662281e47d587f1e6be1072381afd25888149d071c7db193"
+    state: NOT_STARTED
+
+  # MANUAL OTHER - google_cloud_run_v2_service.server
+  - action_id: "MAN/identity/facts:google_cloud_run_v2_service.server:google_cloud_run_v2_service.server.template.0.service_account-5ccce9"
+    contract_sha256: "sha256:f5dea1671537e56d536477a239fecd6215d0577e3f0b6d2651162578bc98f4e4"
+    state: NOT_STARTED
+
+  # MANUAL OTHER - google_service_account.automation
+  - action_id: "MAN/identity/held:principal:google_service_account.automation"
+    contract_sha256: "sha256:f7ffb9286971eb16e5b22edd233e7275ac67b11d179c8f95faf2d816bb0a14f1"
+    state: NOT_STARTED
+
+  # MANUAL OTHER - google_service_account.server
+  - action_id: "MAN/identity/held:principal:google_service_account.server"
+    contract_sha256: "sha256:b2f8a119a8434fb22925ca5dcfd8dd7c316b6e42bbcd70b2366747af3b799e1e"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_secret_manager_secret.django_admin_password
+  - action_id: "MAN/semantic/google_secret_manager_secret.django_admin_password/open-settings-security-architect"
+    contract_sha256: "sha256:e4d022affed32f393b55396b4ee7cff94c1f05b58167a54105acff0f1b01b5b6"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_secret_manager_secret.django_admin_password
+  - action_id: "MAN/semantic/google_secret_manager_secret.django_admin_password/secret-settings"
+    contract_sha256: "sha256:df1f4f648c17778723aea45f6ff5beab01e05e576e780a3f8c3b7f6656ee7c6a"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_secret_manager_secret.django_settings
+  - action_id: "MAN/semantic/google_secret_manager_secret.django_settings/open-settings-security-architect"
+    contract_sha256: "sha256:1bafb8a64674df75002410bbee6532ccca5fe8e3b9fb96d35d6963fd228d476b"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_secret_manager_secret.django_settings
+  - action_id: "MAN/semantic/google_secret_manager_secret.django_settings/secret-settings"
+    contract_sha256: "sha256:5429d4f14ca17f1771bec7cc62fc2ce5ef912981e660bdc1047f02d6d742c26c"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_service_account.automation
+  - action_id: "MAN/semantic/google_service_account.automation/open-settings"
+    contract_sha256: "sha256:efe342a02b7b1488c69a60117220f95f0f5b7837587b801f0f58374c32ee305d"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_service_account.client
+  - action_id: "MAN/semantic/google_service_account.client/open-settings"
+    contract_sha256: "sha256:48c0dfdd36ae4a59ee1219de15f7e8c02659613c13037672dd5a92294a2999bd"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_service_account.init
+  - action_id: "MAN/semantic/google_service_account.init/open-settings"
+    contract_sha256: "sha256:82059bb9ede16c26244fa3bffb25dca575e0a252816240eaee433038947debcc"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_service_account.server
+  - action_id: "MAN/semantic/google_service_account.server/open-settings"
+    contract_sha256: "sha256:7af999d3747206c520a658131eebf706ea93abaa7aa99169283457a57248ed68"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_secretsmanager_instance - google_secret_manager_secret.django_admin_password
+  - action_id: "TF/stackit_secretsmanager_instance.migrated_secrets"
+    contract_sha256: "sha256:bf4437463b183eb9edbf651a11a6c760a6f6e689cd4c4a314406dd01980dbe95"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_secretsmanager_user - google_secret_manager_secret.django_admin_password
+  - action_id: "TF/stackit_secretsmanager_user.migration"
+    contract_sha256: "sha256:e9934f2386740df500399a2b8ff480893d2ac891665b5d9ea42219ad9f315b56"
+    state: NOT_STARTED
+
+  # STACKIT_API identity.secret - google_secret_manager_secret.django_admin_password
+  - action_id: "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_admin_password"
+    contract_sha256: "sha256:e779adfd8765c17c4647043906970e2d4e04fafcba754c78daca4ee440644fb4"
+    state: NOT_STARTED
+
+  # STACKIT_API identity.secret - google_secret_manager_secret.django_settings
+  - action_id: "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_settings"
+    contract_sha256: "sha256:b8dd9e6429418b7b234d929b61451912171fea974aabea87325405c00572b13d"
+    state: NOT_STARTED
+
+  # MANUAL SECRETS_READ_BACK - google_secret_manager_secret.django_admin_password
+  - action_id: "MAN/path/secrets-migration/read-back"
+    contract_sha256: "sha256:cf5055d6971aaaf057386f793d62015784df8ea1e90dc200a62a45937609651b"
+    state: NOT_STARTED
+
+  # MANUAL SECRETS_MIGRATION_USER_RETIRE - google_secret_manager_secret.django_admin_password
+  - action_id: "MAN/path/secrets-migration/retire-user"
+    contract_sha256: "sha256:bd48863b3841d52e33e7b681c067661406b2d626f91b7fbab6c51f3d2ea33ad9"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_service_account - google_service_account.automation
+  - action_id: "TF/stackit_service_account.automation"
+    contract_sha256: "sha256:31dbb833569c4f9b30fea9c6578bd970ef7772efaf21e5bff73b4a579d731da5"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_service_account - google_service_account.client
+  - action_id: "TF/stackit_service_account.client"
+    contract_sha256: "sha256:5177eb717a2ce5845ba31a46b8c9e8e015a27b0715aad0c1b63d9a41344058c0"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_service_account - google_service_account.init
+  - action_id: "TF/stackit_service_account.init"
+    contract_sha256: "sha256:81bc70f2e3f7063208020b4d111f1057d99ee7ac3f874f52203983a0d2a69ecd"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_service_account - google_service_account.server
+  - action_id: "TF/stackit_service_account.server"
+    contract_sha256: "sha256:9cafe9e335a20b39fb2c979beb3e842c468c53a1d5552f93559c781e2ae4b4f6"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_sql_database_instance.postgres
+  - action_id: "MAN/estate/SOURCE_PROJECT_MAPPING"
+    contract_sha256: "sha256:3787b0bd6c646865abd2d4830b74a85700eb97d3166c7b223cd92bbf5d83f408"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_cloud_run_v2_job.migrate
+  - action_id: "MAN/estate/SOURCE_REGION_MAPPING"
+    contract_sha256: "sha256:cf0a95f3434ea7d2dff90570f5c0742caacd380af76700bdcb64ddbeee3ecabf"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_sql_database_instance.postgres
+  - action_id: "MAN/semantic/google_sql_database_instance.postgres/database-users"
+    contract_sha256: "sha256:479fe269cb156726d44f3bd13fc8499ce40ffe4d410e8b3ad4513a862094de28"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_sql_database_instance.postgres
+  - action_id: "MAN/semantic/google_sql_database_instance.postgres/open-settings-platform-architect"
+    contract_sha256: "sha256:1e206538724178dfc6335248850bd6b7c610000abbf0ff0bce0164495ed7bd13"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_sql_database_instance.postgres
+  - action_id: "MAN/semantic/google_sql_database_instance.postgres/user-and-database-settings"
+    contract_sha256: "sha256:9d356b13251ae9e9e177120e962a63cd2318c1bfbef550af874f9c8494a20f2e"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_storage_bucket.media
+  - action_id: "MAN/semantic/google_storage_bucket.media/geo-replication"
+    contract_sha256: "sha256:1d539fec2aa58572d1001dde4a28684246bcae17cc577d5d18557a54408383ec"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_storage_bucket.media
+  - action_id: "MAN/semantic/google_storage_bucket.media/iam-access"
+    contract_sha256: "sha256:35c5ee960bbe2a6cb792e971a57b6d6596d051f01a053316dc12b240eb1dba48"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_storage_bucket.media
+  - action_id: "MAN/semantic/google_storage_bucket.media/open-settings-identity-architect"
+    contract_sha256: "sha256:e7acbc5e93086cfbd96918cf14100ab946d6a25b338c5b360d4c8685b2afc49a"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_storage_bucket.media
+  - action_id: "MAN/semantic/google_storage_bucket.media/tc-storage-bucket-name"
+    contract_sha256: "sha256:48ae38f0ec2a8b8980e09257b924009764da8b030f200ff5b85d309eae253b19"
+    state: NOT_STARTED
+
+  # MANUAL manual-migration - google_firebase_hosting_site.client
+  - action_id: "MAN/unit/google_firebase_hosting_site.client"
+    contract_sha256: "sha256:53b8bd455caf11c82062923d434ba0608d21b02d513ac864a3b4517b04448967"
+    state: NOT_STARTED
+
+  # REFUSE google_storage_bucket.force-destroy - google_storage_bucket.media
+  - action_id: "REF/semantic/google_storage_bucket.media/force-destroy"
+    contract_sha256: "sha256:27ab2b1d19b5cc9852efb99d9f013af56fa05b2ea1114d542536c96c79d0a638"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_objectstorage_bucket - google_storage_bucket.media
+  - action_id: "TF/stackit_objectstorage_bucket.media"
+    contract_sha256: "sha256:3fd9fa0364d73f11295c62c3f61e67dce2bb1187ba0403c0edc7131e34970276"
+    state: NOT_STARTED
+
+  # MANUAL DATA_PREFLIGHT - google_storage_bucket.media
+  - action_id: "MAN/data/google_storage_bucket.media/preflight"
+    contract_sha256: "sha256:be5707e12272cd31f95dae35217bb308b12a10a58644b5b0d376cc8b064de3a1"
+    state: NOT_STARTED
+
+  # MANUAL DATA_REHEARSAL - google_storage_bucket.media
+  - action_id: "MAN/data/google_storage_bucket.media/rehearsal"
+    contract_sha256: "sha256:fb8f5653c1b27313c036a208da8e32b3b6e5036db02d20a827b4430543673953"
+    state: NOT_STARTED
+
+  # MANUAL DATA_MIGRATION - google_storage_bucket.media
+  - action_id: "MAN/data/google_storage_bucket.media/initial-copy/rclone-copy"
+    contract_sha256: "sha256:b2f8230144fe20a2c31ea1f987ca72ca583cf9aa240232dba3a03a0c3157bbbc"
+    state: NOT_STARTED
+
+  # MANUAL DATA_DELTA_SYNC - google_storage_bucket.media
+  - action_id: "MAN/data/google_storage_bucket.media/delta-sync/rclone-copy"
+    contract_sha256: "sha256:17c9310edc64cbf49e325fb93b12d756fc44c8fdba992b6787d229ac00456eb5"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_postgresflex_instance - google_sql_database_instance.postgres
+  - action_id: "TF/stackit_postgresflex_instance.postgres"
+    contract_sha256: "sha256:0e771974810184060fe13057cd835e66335dda735e70fca90b1bfc88f2ecfc39"
+    state: NOT_STARTED
+
+  # MANUAL DATA_PREFLIGHT - google_sql_database_instance.postgres
+  - action_id: "MAN/data/google_sql_database_instance.postgres/preflight"
+    contract_sha256: "sha256:625dfa0074e758977d0f6544a0924e6f042092e75e54232ce3d05b119d793ce3"
+    state: NOT_STARTED
+
+  # MANUAL DATA_REHEARSAL - google_sql_database_instance.postgres
+  - action_id: "MAN/data/google_sql_database_instance.postgres/rehearsal"
+    contract_sha256: "sha256:c721c9f72c837e81f08495fed8d297b620f40285482685b4846a5a7da10ab519"
+    state: NOT_STARTED
+
+  # MANUAL DATA_MIGRATION - google_sql_database_instance.postgres
+  - action_id: "MAN/data/google_sql_database_instance.postgres/initial-copy/logical-replication"
+    contract_sha256: "sha256:9975e45d05b8b951a2c376b33ed4d1135e667e127be98be6f37205d04000bdee"
+    state: NOT_STARTED
+
+  # MANUAL DATA_DELTA_SYNC - google_sql_database_instance.postgres
+  - action_id: "MAN/data/google_sql_database_instance.postgres/delta-sync/logical-replication"
+    contract_sha256: "sha256:0a172aba592d05b774c193f31b6eefcd90857883cbf7e827e320bae4dd5d76e7"
+    state: NOT_STARTED
+
+  # MANUAL pubsub.topic.name - google_pubsub_topic.faux
+  - action_id: "MAN/pubsub.topic/name/google_pubsub_topic.faux"
+    contract_sha256: "sha256:c41287819c603e482146314e61c1229d4399319b08dee3a2d10702627c847cd5"
+    state: NOT_STARTED
+
+  # MANUAL messaging-topology - google_pubsub_topic.faux
+  - action_id: "MAN/rabbitmq/topology"
+    contract_sha256: "sha256:15e687d6cadb4472ed17bbc923f37dad88fe773aca2f34b8ab3fe533fc652eae"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_cloud_run_v2_job.migrate
+  - action_id: "MAN/semantic/google_cloud_run_v2_job.migrate/cloud-run-v2-job-network-exposure"
+    contract_sha256: "sha256:1c9a1fe1e40e8c8828dfe74a5c1ec278d05e571e1b7281d0a78cb3d11dd09af9"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_cloud_run_v2_job.migrate
+  - action_id: "MAN/semantic/google_cloud_run_v2_job.migrate/open-settings-platform-architect"
+    contract_sha256: "sha256:870c2e6f6690a6b8bb27b76a90c3d209eee27e53cf912778ef0fcf38755d7ba7"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_cloud_run_v2_job.migrate
+  - action_id: "MAN/semantic/google_cloud_run_v2_job.migrate/secrets"
+    contract_sha256: "sha256:ccf7ed77ed22045af7f02119e337a38136f98144a0499fc1811cd43b3be23943"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_cloud_run_v2_job.migrate
+  - action_id: "MAN/semantic/google_cloud_run_v2_job.migrate/service-identity"
+    contract_sha256: "sha256:298d2eede307b1eb80e27d6b90d821cf9df516a6bab67a667e971af7c3a579b5"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_cloud_run_v2_service.server
+  - action_id: "MAN/semantic/google_cloud_run_v2_service.server/cloud-sql-connection"
+    contract_sha256: "sha256:e1e97ebcacd3826e89ba663ff7c92dac49e6625c57496f462611554469e2ff50"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_cloud_run_v2_service.server
+  - action_id: "MAN/semantic/google_cloud_run_v2_service.server/open-settings-identity-architect"
+    contract_sha256: "sha256:4149a3fb8301178ae29c73bb323a46192f53483c9e863b5720cf385d633b9056"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_cloud_run_v2_service.server
+  - action_id: "MAN/semantic/google_cloud_run_v2_service.server/open-settings-platform-architect"
+    contract_sha256: "sha256:fdd1e6180bc5c50bfc2a7e495cbf14c355933fb3a265740049be24c6f241d845"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_cloud_run_v2_service.server
+  - action_id: "MAN/semantic/google_cloud_run_v2_service.server/open-settings-security-architect"
+    contract_sha256: "sha256:3b939d25926b91abf8b2cfefc1802f91870aff5318834c15e03dcc6bee6e7614"
+    state: NOT_STARTED
+
+  # MANUAL critical-semantic - google_pubsub_topic.faux
+  - action_id: "MAN/semantic/google_pubsub_topic.faux/tc-name"
+    contract_sha256: "sha256:81df48ba7364e2bc64f5aaa9e9f655353f62fce8a1f4906b80b1a0645271ebf8"
+    state: NOT_STARTED
+
+  # REFUSE google_firebase_project - google_firebase_project.default
+  - action_id: "REF/unit/google_firebase_project.default"
+    contract_sha256: "sha256:dffdcefa92c9c47099446ad4827124ff99b1eab647368f5a55ddaefa6b692d10"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_rabbitmq_instance - google_pubsub_topic.faux
+  - action_id: "TF/stackit_rabbitmq_instance.messaging"
+    contract_sha256: "sha256:23d196fb1506986e401cf479cb7c90aceb7dc0fbcc512ddef887cd07ef9b8cba"
+    state: NOT_STARTED
+
+  # TERRAFORM stackit_ske_cluster - google_cloud_run_v2_job.migrate
+  - action_id: "TF/stackit_ske_cluster.containers"
+    contract_sha256: "sha256:14d10f4201b29dc7074758eb8d8e44f0fc8d0749e240f46112af780f038fb370"
+    state: NOT_STARTED
+
+  # MANUAL CLUSTER_ACCESS - google_cloud_run_v2_job.migrate
+  - action_id: "MAN/draft/handover/cluster-access/kubeconfig-md"
+    contract_sha256: "sha256:4a8a48e5fe7e137e8381f08d2774a3fbfce2453a794d0ddada1bbed73e2123cc"
+    state: NOT_STARTED
+
+  # MANUAL KUBERNETES_APPLY - google_cloud_run_v2_job.migrate
+  - action_id: "MAN/draft/kubernetes/migrate/manifests-yaml"
+    contract_sha256: "sha256:54f0e4a3b4da9c017f133b52b5e60c701a7ec808d9d8e5f0530dc3e5e4cb0124"
+    state: NOT_STARTED
+
+  # MANUAL KUBERNETES_APPLY - google_cloud_run_v2_service.server
+  - action_id: "MAN/draft/kubernetes/server/manifests-yaml"
+    contract_sha256: "sha256:6c9a6187d8852ec1403fd37fa067c2458c57915384809b591ced1edb674c0e1f"
+    state: NOT_STARTED
+
+  # MANUAL manual-migration - google_cloudbuild_trigger.activategcb
+  - action_id: "MAN/unit/google_cloudbuild_trigger.activategcb"
+    contract_sha256: "sha256:4fce9e58e6122f1952d88bf38aea1fb92780391f4b25df15e80a5d84d81ab3b8"
+    state: NOT_STARTED
+
+  # MANUAL manual-migration - google_cloudbuild_trigger.init
+  - action_id: "MAN/unit/google_cloudbuild_trigger.init"
+    contract_sha256: "sha256:9470c78c9a0d60d234b1011b246c639b6b30fb03389db7169221a9ce389cc685"
+    state: NOT_STARTED
+
+  # MANUAL manual-migration - google_cloudbuild_trigger.placeholder
+  - action_id: "MAN/unit/google_cloudbuild_trigger.placeholder"
+    contract_sha256: "sha256:a20e27c0b93f2e32005e3391deb1cf3c67c9ca99c44d053fe2d26aa65e6aad88"
+    state: NOT_STARTED
+
+  # MANUAL DATA_WRITE_FREEZE - google_sql_database_instance.postgres
+  - action_id: "MAN/data/google_sql_database_instance.postgres/write-freeze/dump-restore"
+    contract_sha256: "sha256:172c3ec084557cfcadcfd5015ca95638ddfe51f16b1a8e1412b291a076341877"
+    state: NOT_STARTED
+
+  # MANUAL DATA_FINAL_SYNC - google_sql_database_instance.postgres
+  - action_id: "MAN/data/google_sql_database_instance.postgres/final-sync/dump-restore"
+    contract_sha256: "sha256:675b52be810bb1bdd416b68cd6b25fc112e6ddc9900d37eca7794b3ec2638cb4"
+    state: NOT_STARTED
+
+  # MANUAL DATA_RECONCILE - google_sql_database_instance.postgres
+  - action_id: "MAN/data/google_sql_database_instance.postgres/reconcile/dump-restore"
+    contract_sha256: "sha256:161e1d17a24ef7d46cac948e5acd17f34a19cef4524f18eae433d0e354ece464"
+    state: NOT_STARTED
+    checks:
+      - check_id: "row-counts"
+        result: NOT_RUN
+      - check_id: "table-checksums"
+        result: NOT_RUN
+      - check_id: "sequences"
+        result: NOT_RUN
+      - check_id: "restore-log"
+        result: NOT_RUN
+      - check_id: "extensions"
+        result: NOT_RUN
+      - check_id: "roles-and-grants"
+        result: NOT_RUN
+      - check_id: "application-check"
+        result: NOT_RUN
+      - check_id: "rollback-limit"
+        result: NOT_RUN
+
+  # MANUAL DATA_WRITE_FREEZE - google_sql_database_instance.postgres
+  - action_id: "MAN/data/google_sql_database_instance.postgres/write-freeze/logical-replication"
+    contract_sha256: "sha256:69ad6bc80d25e66f9aa44d166e7b20a0bfe5e2311c8e218a090444558c3d55f1"
+    state: NOT_STARTED
+
+  # MANUAL DATA_FINAL_SYNC - google_sql_database_instance.postgres
+  - action_id: "MAN/data/google_sql_database_instance.postgres/final-sync/logical-replication"
+    contract_sha256: "sha256:3cc4fc62254b8b2311f93f20e3d40c21ea80bd787ed1be06a37565163e7371d4"
+    state: NOT_STARTED
+
+  # MANUAL DATA_RECONCILE - google_sql_database_instance.postgres
+  - action_id: "MAN/data/google_sql_database_instance.postgres/reconcile/logical-replication"
+    contract_sha256: "sha256:045ec09cbc04f8e06cb8150290715eae89d2f7c2f088cacad1aa8ba8437d3e80"
+    state: NOT_STARTED
+    checks:
+      - check_id: "replication-lag"
+        result: NOT_RUN
+      - check_id: "last-sync-time"
+        result: NOT_RUN
+      - check_id: "row-counts"
+        result: NOT_RUN
+      - check_id: "table-checksums"
+        result: NOT_RUN
+      - check_id: "sequences"
+        result: NOT_RUN
+      - check_id: "subscription-state"
+        result: NOT_RUN
+      - check_id: "extensions"
+        result: NOT_RUN
+      - check_id: "roles-and-grants"
+        result: NOT_RUN
+      - check_id: "application-check"
+        result: NOT_RUN
+      - check_id: "rollback-limit"
+        result: NOT_RUN
+
+  # MANUAL DATA_WRITE_FREEZE - google_sql_database_instance.postgres
+  - action_id: "MAN/data/google_sql_database_instance.postgres/write-freeze/own-tool"
+    contract_sha256: "sha256:5369abf396c411e9b5ce6fc6c3faba88e30e3d273acea9d673a48f6f8f90d2d9"
+    state: NOT_STARTED
+
+  # MANUAL DATA_FINAL_SYNC - google_sql_database_instance.postgres
+  - action_id: "MAN/data/google_sql_database_instance.postgres/final-sync/own-tool"
+    contract_sha256: "sha256:263dabcb04771bf85da682f8c8ae79e489b6b42e580990d5095ead050bbc86bc"
+    state: NOT_STARTED
+
+  # MANUAL DATA_RECONCILE - google_sql_database_instance.postgres
+  - action_id: "MAN/data/google_sql_database_instance.postgres/reconcile/own-tool"
+    contract_sha256: "sha256:efd2f41cddffda58697cfe54ddc87d875c9a27024165563305ba91af70b68342"
+    state: NOT_STARTED
+    checks:
+      - check_id: "row-counts"
+        result: NOT_RUN
+      - check_id: "table-checksums"
+        result: NOT_RUN
+      - check_id: "sequences"
+        result: NOT_RUN
+      - check_id: "extensions"
+        result: NOT_RUN
+      - check_id: "roles-and-grants"
+        result: NOT_RUN
+      - check_id: "application-check"
+        result: NOT_RUN
+      - check_id: "rollback-limit"
+        result: NOT_RUN
+
+  # MANUAL DATA_WRITE_FREEZE - google_storage_bucket.media
+  - action_id: "MAN/data/google_storage_bucket.media/write-freeze/rclone-copy"
+    contract_sha256: "sha256:a9ac77b4d1805a9c125eb187d12467e6c71c13ffbba9f06f10a9a97d2e32ae97"
+    state: NOT_STARTED
+
+  # MANUAL DATA_FINAL_SYNC - google_storage_bucket.media
+  - action_id: "MAN/data/google_storage_bucket.media/final-sync/rclone-copy"
+    contract_sha256: "sha256:4c6ad7fc625814cd1626a0d510123a45a13e44c1cab39fed31f9de8f34f7441d"
+    state: NOT_STARTED
+
+  # MANUAL DATA_RECONCILE - google_storage_bucket.media
+  - action_id: "MAN/data/google_storage_bucket.media/reconcile/rclone-copy"
+    contract_sha256: "sha256:969577bf72ade37ab461145237197c8d5c08060970495a30674d893e7ddd38c1"
+    state: NOT_STARTED
+    checks:
+      - check_id: "object-count-and-bytes"
+        result: NOT_RUN
+      - check_id: "key-lists"
+        result: NOT_RUN
+      - check_id: "content"
+        result: NOT_RUN
+      - check_id: "application-check"
+        result: NOT_RUN
+      - check_id: "rollback-limit"
+        result: NOT_RUN
+
+  # MANUAL DATA_CLEANUP - google_sql_database_instance.postgres
+  - action_id: "MAN/data/google_sql_database_instance.postgres/cleanup/dump-restore"
+    contract_sha256: "sha256:5a6c7e080239d0cbdfac8298c8f156e1419b49948e80160000d8c98464f13984"
+    state: NOT_STARTED
+
+  # MANUAL DATA_CLEANUP - google_sql_database_instance.postgres
+  - action_id: "MAN/data/google_sql_database_instance.postgres/cleanup/logical-replication"
+    contract_sha256: "sha256:2fb15f653de7fdb2607dc254e72438ea7c2839b63e3b461d3737daa32fbd0220"
+    state: NOT_STARTED
+
+  # MANUAL DATA_CLEANUP - google_storage_bucket.media
+  - action_id: "MAN/data/google_storage_bucket.media/cleanup/rclone-copy"
+    contract_sha256: "sha256:b452ab452b47e279ee990cb8a59b1472116d9e0dd3a63f34e09a5916b219c714"
+    state: NOT_STARTED

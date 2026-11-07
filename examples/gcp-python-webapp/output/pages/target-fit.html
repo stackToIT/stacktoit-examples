@@ -1,0 +1,1063 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'self' file:; script-src 'sha256-CwASM6IjFFU0cbLjKYkJ0eTksrLAqSrzVwwNUyJ01Fs='; base-uri 'none'; form-action 'none'">
+<title>StackToIT Migration Intelligence Workspace - Target Fit</title>
+<style>
+:root{color-scheme:light dark;--bg:#f2f5f4;--surface:#fff;--panel:#f7f9f8;--panel2:#e9eeec;--ink:#10201d;--ink2:#2c3b38;--muted:#4f5b58;--line:#d3dad8;--line2:#b9c4c1;--accent:#17603f;--accent2:#0f4a30;--accent-soft:#e2f0e7;--focus:#0b57d0;--crit:#a82218;--crit-soft:#fbe6e2;--warn:#7c5208;--warn-soft:#fbf0d4;--ok:#26683a;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+@media screen and (prefers-color-scheme:dark){:root{--bg:#0e1514;--surface:#151f1d;--panel:#1a2624;--panel2:#22302d;--ink:#e3ebe8;--ink2:#c8d3d0;--muted:#9eafab;--line:#2b3a37;--line2:#3d4f4b;--accent:#74d19c;--accent2:#9be3b9;--accent-soft:#183326;--focus:#8fb4ff;--crit:#ff958a;--crit-soft:#3a1c18;--warn:#ecc56f;--warn-soft:#33290f;--ok:#86d494}}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:1rem;line-height:1.5;color:var(--ink);background:var(--bg);margin:0 auto;padding:0 1.5rem 3rem;max-width:84rem;overflow-wrap:break-word;-webkit-text-size-adjust:100%}
+h1,h2,h3,h4,h5{color:var(--ink);line-height:1.25;text-wrap:balance}h1{font-size:1.3rem;margin:1.25rem 0 .4rem;letter-spacing:-.01em}h2{font-size:1.4rem;margin:1.5rem 0 .6rem;letter-spacing:-.01em}h3{font-size:1.15rem;margin:1.4rem 0 .5rem}h4{font-size:1rem;margin:1.2rem 0 .4rem}p,li{max-width:110ch}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:.18em}a:hover{color:var(--accent2);text-decoration-thickness:2px}
+code{font-family:var(--mono);font-size:.84em;background:var(--panel2);border-radius:4px;padding:.05em .3em}
+summary{cursor:pointer}summary:hover{color:var(--accent2)}
+header>p:first-of-type{display:inline-block;margin:0 0 .75rem;padding:.3rem .8rem;font-size:.875rem;color:var(--ink2);background:var(--warn-soft);border:1px solid color-mix(in srgb,var(--warn) 35%,transparent);border-radius:4px}
+header>p[role=status],header>details.technical{font-size:.875rem;color:var(--ink2);margin:.35rem 0}
+nav{display:flex;flex-wrap:wrap;align-items:center;column-gap:.75rem;row-gap:.25rem;margin:1rem 0 .5rem;padding:.35rem .5rem;background:var(--surface);border:1px solid var(--line);border-radius:4px;font-size:1.05rem}
+nav ol{display:flex;flex-wrap:wrap;gap:.15rem .2rem;list-style:none;margin:0;padding:0;font-size:.85em}
+nav ol a{display:block;padding:.3rem .6rem;border-radius:4px;color:var(--ink2);text-decoration:none}nav ol a:hover{background:var(--panel2);color:var(--ink)}nav [aria-current]{background:var(--accent-soft);color:var(--accent2);box-shadow:inset 0 -2px 0 var(--accent)}
+nav ol:first-child{font-weight:600}.navmore{font-size:.8em;color:var(--muted);padding-left:.75rem;border-left:1px solid var(--line2)}
+a:focus,summary:focus,button:focus,input:focus,[tabindex]:focus{outline:3px solid var(--focus);outline-offset:2px}
+input[type=search]{font:inherit;font-size:.9rem;width:22rem;max-width:100%;padding:.3rem .6rem;color:var(--ink);background:var(--surface);border:1px solid var(--line2);border-radius:4px}.filters label{min-width:0}
+[hidden]{display:none!important}
+.toolbar{display:flex;flex-wrap:wrap;gap:.5rem;padding:.5rem 0}
+.toolbar button,.filters button{font:inherit;font-size:.875rem;line-height:1.3;padding:.3rem .8rem;cursor:pointer;color:var(--ink);background:var(--surface);border:1px solid var(--line2);border-radius:4px}
+.toolbar button:hover,.filters button:hover{background:var(--panel2)}
+.toolbar button[aria-pressed="true"],.filters button[aria-pressed="true"]{font-weight:bold;color:var(--accent2);background:var(--accent-soft);border-color:var(--accent)}
+.skip{position:absolute;left:-999px}.skip:focus{position:static}
+table{border-collapse:collapse;margin:.5rem 0 1rem;font-size:.9rem;font-variant-numeric:tabular-nums;background:var(--surface)}
+th,td{border:1px solid var(--line);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:var(--panel2);font-size:.8rem;font-weight:600;color:var(--ink2);text-transform:uppercase;letter-spacing:.03em}tbody th{font-weight:600}tbody tr:nth-child(even)>*{background:color-mix(in srgb,var(--panel) 70%,transparent)}
+caption{font-weight:600;text-align:left;padding-bottom:.4rem;color:var(--ink)}
+.scroll{overflow-x:auto;content-visibility:auto;contain-intrinsic-size:auto 40rem}
+dl.topbar{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.6rem 1.5rem}
+dl.topbar dt{font-weight:600;font-size:.8rem;color:var(--muted)}dl.topbar dd{margin:0}
+
+
+ul.actions{display:flex;flex-wrap:wrap;gap:.3rem .4rem;list-style:none;margin:.4rem 0;padding:0}
+ul.actions li{border:1px solid var(--line2);background:var(--panel);border-radius:999px;padding:.05rem .55rem;white-space:nowrap;font-size:.9rem}ul.actions .fig{font-weight:bold;font-variant-numeric:tabular-nums}ul.actions .zero{opacity:.6}ul.actions [data-action-state=BLOCKED]{background:var(--crit-soft);border-color:color-mix(in srgb,var(--crit) 40%,transparent)}
+.state{display:inline-block;padding:0 .45rem;font-size:.85em;line-height:1.5;white-space:nowrap;background:var(--panel);border:1px solid var(--line);border-radius:4px}
+[data-dim-state] strong{color:var(--warn)}[data-dim-state^=COMPLETE] strong,[data-dim-state^=PASSED] strong,[data-dim-state^=SETTINGS] strong{color:var(--ink)}[data-dim-state=EXECUTION_READY] strong{color:var(--ok)}[data-dim-state^=REJECTED] strong,[data-dim-state^=BLOCKED] strong{color:var(--crit)}[data-dim-state^=NOT] strong,[data-dim-state^=NONE] strong{color:var(--muted)}
+@media screen and (max-width:40rem){nav{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;padding:.3rem .4rem;background:linear-gradient(90deg,var(--surface) 40%,transparent) left/1.5rem 100% no-repeat local,linear-gradient(270deg,var(--surface) 40%,transparent) right/1.5rem 100% no-repeat local,linear-gradient(90deg,color-mix(in srgb,var(--ink) 22%,transparent),transparent) left/.6rem 100% no-repeat scroll,linear-gradient(270deg,color-mix(in srgb,var(--ink) 22%,transparent),transparent) right/.6rem 100% no-repeat scroll,var(--surface)}nav ol{flex-wrap:nowrap}nav ol a,.navmore{white-space:nowrap}nav [aria-current]{scroll-initial-target:nearest}}
+@media (max-width:40rem){body{padding:0 1rem 2rem}nav ol a{padding:.25rem .45rem;min-height:2.75rem;display:flex;align-items:center}summary{min-height:2.75rem;padding-top:.6rem;padding-bottom:.6rem;box-sizing:border-box}input[type=search],.toolbar button,.filters button{min-height:2.75rem}h2{font-size:1.25rem}}
+.lensnow{display:none}
+details.lensgroup{margin:.25rem 0}details.lensgroup>summary{font-size:.85em;color:var(--muted)}
+details.technical{margin:.5rem 0}details.technical[open]{padding:.25rem 1rem .75rem;background:var(--surface);border:1px solid var(--line);border-radius:4px}
+details.fold{margin:0;border-top:1px solid var(--line)}details.fold:last-of-type{border-bottom:1px solid var(--line)}details.fold>summary{font-weight:bold;padding:.65rem .25rem}details.fold>summary:hover{background:var(--panel)}details.fold>summary>h3{display:inline;margin:0;font-size:1.08em}details.fold[open]>summary{margin-bottom:.25rem}.foldcount{font-weight:normal;font-size:.85em;color:var(--muted);margin-left:.35rem}
+.na,small{color:var(--muted)}
+section{padding-top:1rem;border-top:1px solid var(--line)}
+main>section{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:.5rem 1.75rem 1.5rem;margin:1rem 0}main>section>h2:first-child{margin-top:.9rem}@media (max-width:40rem){main>section{padding:.25rem 1rem 1rem}}
+.lensnote{display:none;margin:.4rem 0;padding:.4rem .75rem;font-size:.9rem;background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);border-radius:4px}
+body[data-lens=executive] [data-lens]:not([data-lens~=executive]),body[data-lens=architect] [data-lens]:not([data-lens~=architect]),body[data-lens=platform] [data-lens]:not([data-lens~=platform]),body[data-lens=security] [data-lens]:not([data-lens~=security]),body[data-lens=application-owner] [data-lens]:not([data-lens~=application-owner]),body[data-lens=programme] [data-lens]:not([data-lens~=programme]),body[data-lens=finops] [data-lens]:not([data-lens~=finops]),body[data-lens=engineering] [data-lens]:not([data-lens~=engineering]){display:none}
+body[data-lens=all] .lensnow[data-for=all],body[data-lens=executive] .lensnow[data-for=executive],body[data-lens=executive] .lensnote[data-lens-note=executive],body[data-lens=architect] .lensnow[data-for=architect],body[data-lens=architect] .lensnote[data-lens-note=architect],body[data-lens=platform] .lensnow[data-for=platform],body[data-lens=platform] .lensnote[data-lens-note=platform],body[data-lens=security] .lensnow[data-for=security],body[data-lens=security] .lensnote[data-lens-note=security],body[data-lens=application-owner] .lensnow[data-for=application-owner],body[data-lens=application-owner] .lensnote[data-lens-note=application-owner],body[data-lens=programme] .lensnow[data-for=programme],body[data-lens=programme] .lensnote[data-lens-note=programme],body[data-lens=finops] .lensnow[data-for=finops],body[data-lens=finops] .lensnote[data-lens-note=finops],body[data-lens=engineering] .lensnow[data-for=engineering],body[data-lens=engineering] .lensnote[data-lens-note=engineering]{display:revert}
+.filters{margin:.5rem 0}.filters div{display:flex;flex-wrap:wrap;gap:.3rem .5rem;align-items:baseline;margin:.3rem 0}
+@media print{.skip,nav,.toolbar,details.lensgroup,.lensnote,.filters,[data-js-only]{display:none!important}section{break-inside:avoid-page}details::details-content,.scroll{content-visibility:visible}[data-lens],[data-item][hidden],[data-group][hidden]{display:revert!important}body{background:#fff;max-width:none;padding:0}section.hero,main>section,ul.glance li{break-inside:auto}main>section{border:0;padding:0}a{color:inherit}}
+</style>
+</head>
+<body data-lens="all" data-pages="">
+<dl hidden data-run><div><dt>Run</dt><dd>6f8f72b2-1c34-4cfc-8483-344c41245364 &middot; source digest sha256:19bfed642d5789ccada81b91d5c36e33175dcafd66dc46b1644ffa105d020000</dd></div></dl>
+<a class="skip" href="#main">Skip to the content</a>
+<noscript><p>Scripts are switched off. Nothing in this workspace needs them: every page is shown in full. A script would only add buttons: one that opens or closes every group of details, the lenses that put the navigation in another order, and the filters and sorts of the decision records and of the Target Fit rows.</p></noscript>
+<header>
+<h1>StackToIT Migration Intelligence Workspace</h1>
+<p>FOR REVIEW — generated by StackToIT Assess. Architect review required before any decision.</p>
+<nav aria-label="Workspace pages">
+<ol>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="overview"><a href="../index.html">Overview</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="applications"><a href="applications.html">Applications</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="decisions"><a href="decisions.html">Decisions</a></li>
+<li data-lens="executive architect platform application-owner programme finops engineering" data-nav="migration"><a href="migration.html">Migration Plan</a></li>
+<li data-lens="architect platform security application-owner programme engineering" data-nav="architecture"><a href="architecture.html">Architecture</a></li>
+<li data-lens="executive application-owner programme finops" data-nav="cost"><a href="cost.html">Costs</a></li>
+</ol>
+<span class="navmore" aria-hidden="true">More</span><ol aria-label="More pages">
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="work-board"><a href="work-board.html">Work Board</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="security-assurance"><a href="security-assurance.html">Security &amp; Resilience</a></li>
+<li data-lens="architect platform security engineering" data-nav="engineering"><a href="engineering.html">Engineering Evidence</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="target-fit"><a href="#target-fit" aria-current="page">Target Fit</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="sovereignty"><a href="sovereignty.html">Sovereignty</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="operations"><a href="operations.html">Operations</a></li>
+<li data-lens="executive architect platform security application-owner programme finops engineering" data-nav="evidence"><a href="evidence.html">Evidence</a></li>
+</ol>
+</nav>
+<p role="status"><strong>Partially executable migration package</strong> &middot; For review only · Not approved.</p>
+<details class="technical">
+<summary>Technical details: run, versions, digest and evidence freshness</summary>
+<h2>Assessment</h2>
+<dl class="topbar">
+<div><dt>Assessment</dt><dd>gcp-candidates/terraform-dynamic-python-webapp/infra (assessment format 0.24.0)</dd></div>
+<div><dt>Assessment timestamp</dt><dd>Generated 2026-11-07 04:24 UTC by stacktoit 0.6.0-13076-ga19ea28c64 (a19ea28c64)</dd></div>
+<div><dt>Run</dt><dd>6f8f72b2-1c34-4cfc-8483-344c41245364 &middot; source digest sha256:19bfed642d5789ccada81b91d5c36e33175dcafd66dc46b1644ffa105d020000</dd></div>
+<div><dt>Source snapshot</dt><dd>partly decided only at plan time &middot; google not locked; google-beta not locked; http not locked; random not locked; time not locked</dd></div>
+<div><dt>STACKIT target profile</dt><dd>Stable network model: the experimental STACKIT VPC resources are not used (STACKIT_STABLE)</dd></div>
+<div><dt>STACKIT provider version</dt><dd>0.121.0</dd></div>
+<div><dt>Knowledge base version</dt><dd>0.394.0</dd></div>
+<div><dt>Evidence freshness</dt><dd><span class="state"><span aria-hidden="true">○</span> Not assessed</span> &mdash; Evidence freshness as one measure is not assessed in this build. Dated evidence is shown where it is used: each STACKIT support option and each assurance row states when it was verified (verified_at, and recheck_after for support), in support_suitability and assurance. The date beside a readiness dimension is the assessment date, not a retrieval date.</dd></div>
+</dl>
+<p role="status"><strong>Staleness:</strong> <span class="state"><span aria-hidden="true">○</span> Not assessed</span> &mdash; This build has no change detection, so there has been no re-check since the assessment was made (Generated 2026-11-07 04:24 UTC). The source may have changed since.</p>
+</details>
+<p role="status"><strong>Source checks:</strong> Built-in source checks passed — OpenTofu validation of the source did not run (LOCK_FILE)</p>
+<p role="status"><strong>Run status:</strong> COMPLETE (report published). Source: partly decided only at plan time. Draft: GENERATED. The report was written whole; this is not a statement that the migration is ready.</p>
+
+</header>
+<div class="toolbar" role="group" aria-label="Page controls" data-js-only hidden>
+<button type="button" aria-pressed="false" data-act="details">Open all details</button>
+</div>
+<details class="lensgroup" data-js-only hidden><summary>Read this page as<span class="lensnow" data-for="all">: All</span><span class="lensnow" data-for="executive">: Executive</span><span class="lensnow" data-for="architect">: Architect</span><span class="lensnow" data-for="platform">: Platform</span><span class="lensnow" data-for="security">: Security</span><span class="lensnow" data-for="application-owner">: Application owner</span><span class="lensnow" data-for="programme">: Programme</span><span class="lensnow" data-for="finops">: FinOps</span><span class="lensnow" data-for="engineering">: Engineering</span></summary>
+<div class="toolbar" role="group" aria-label="Reader lens" data-js-only hidden>
+<button type="button" aria-pressed="true" data-lens-set="all" data-lens-order="overview applications decisions migration architecture cost work-board security-assurance engineering target-fit sovereignty operations evidence">All</button>
+<button type="button" aria-pressed="false" data-lens-set="executive" data-lens-order="overview decisions applications target-fit security-assurance sovereignty cost migration work-board operations evidence architecture engineering">Executive</button>
+<button type="button" aria-pressed="false" data-lens-set="architect" data-lens-order="overview architecture applications decisions target-fit migration work-board operations security-assurance sovereignty evidence cost engineering">Architect</button>
+<button type="button" aria-pressed="false" data-lens-set="platform" data-lens-order="overview architecture target-fit operations security-assurance decisions applications migration work-board evidence sovereignty cost engineering">Platform</button>
+<button type="button" aria-pressed="false" data-lens-set="security" data-lens-order="overview security-assurance decisions sovereignty target-fit architecture evidence applications operations migration work-board cost engineering">Security</button>
+<button type="button" aria-pressed="false" data-lens-set="application-owner" data-lens-order="overview applications decisions architecture target-fit operations migration work-board evidence security-assurance sovereignty cost engineering">Application owner</button>
+<button type="button" aria-pressed="false" data-lens-set="programme" data-lens-order="overview applications decisions migration work-board operations target-fit architecture evidence security-assurance sovereignty cost engineering">Programme</button>
+<button type="button" aria-pressed="false" data-lens-set="finops" data-lens-order="overview cost applications target-fit decisions operations security-assurance migration work-board sovereignty evidence architecture engineering">FinOps</button>
+<button type="button" aria-pressed="false" data-lens-set="engineering" data-lens-order="overview engineering architecture evidence decisions target-fit operations applications security-assurance migration work-board sovereignty cost">Engineering</button>
+</div></details>
+<p class="lensnote" role="status" data-lens-note="executive">Executive lens: the sections are in the order this reader usually wants, and Architecture and Engineering Evidence are put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="architect">Architect lens: the sections are in the order this reader usually wants, and Costs is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="platform">Platform lens: the sections are in the order this reader usually wants, and Costs is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="security">Security lens: the sections are in the order this reader usually wants, and Costs and Migration Plan are put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="application-owner">Application owner lens: the sections are in the order this reader usually wants, and Engineering Evidence is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="programme">Programme lens: the sections are in the order this reader usually wants, and Engineering Evidence is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="finops">FinOps lens: the sections are in the order this reader usually wants, and Architecture and Engineering Evidence are put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<p class="lensnote" role="status" data-lens-note="engineering">Engineering lens: the sections are in the order this reader usually wants, and Costs is put aside. Nothing is removed from the page: choose All to show every section in the order of the navigation, or follow a link into a section that is put aside.</p>
+<main id="main" tabindex="-1">
+<section id="target-fit" aria-labelledby="h-target-fit">
+<h2 id="h-target-fit">Target Fit</h2>
+<p>How well each STACKIT target fits: service, interface, Terraform, region, maturity, quota, lifecycle, operability, support and security.</p>
+<p>Support options with fresh evidence as of 2026-11-07: Essential Support, Advanced Support, Ultimate Support.</p>
+<details class="page-method" id="target-fit-method"><summary>How this matrix works</summary>
+<p>Every STACKIT capability is shown along independent dimensions. There is no overall verdict, no score and no yes or no: a dimension is assessed only where the capability catalogue carries a value for it with evidence, and "not assessed" means the catalogue states nothing, which is not the same as not available. A list of evidenced facts (quota limits, known issues) is counted beside its dimension and does not complete it.</p>
+<p>The catalogue holds 321 capabilities; the Terraform facts are derived from the stackit provider schema 0.121.0. Evidence is judged as of 2026-11-07, the date of the assessment; stale evidence is no longer vouched for, which is not the same as false.</p>
+</details>
+<h3 id="support-by-family">Support by family</h3>
+<p>One row for each family of the units this run holds, read from those units and nothing else: the family is the category the knowledge base's catalogue gives the source type, the counts are of the 11 units counted in the totals, and the evidence is the evidence references of their decisions. Counts are stated with their base and none is a success rate: how many rules exist for a family says nothing about how much of an estate it carries. A family with no unit in this run has no row: nothing here says anything about it. A family none of whose units carries an evidence reference says so.</p>
+<div class="scroll" role="region" aria-label="Support by family" tabindex="0">
+<table id="family-matrix">
+<caption>Support by family: what the run found, how it lands, the draft path, the limits and the evidence (6 families, 11 units)</caption>
+<thead><tr><th scope="col">Family</th><th scope="col">Source types in this run</th><th scope="col">Units</th><th scope="col">How they land</th><th scope="col">Draft path</th><th scope="col">Limits</th><th scope="col">Evidence</th></tr></thead>
+<tbody>
+<tr data-family="Identity"><th scope="row">Identity</th><td>google_secret_manager_secret, google_service_account</td><td>5</td><td>5 can be drafted with configuration changes</td><td>5 of 5 units state a STACKIT target; the draft writes a Terraform resource for 5 (3 experimental, 2 ga in the pinned provider). Services: STACKIT service account, STACKIT Secrets Manager</td><td>0 of 5 accounted units automation-eligible; 16 properties the draft names as not carried</td><td>10 evidence references</td></tr>
+<tr data-family="Compute"><th scope="row">Compute</th><td>google_cloud_run_v2_job, google_cloud_run_v2_service</td><td>2</td><td>2 move into containers</td><td>2 of 2 units state a STACKIT target; the draft writes a Terraform resource for 2 (2 ga in the pinned provider). Services: Kubernetes Job/CronJob on SKE, SKE workload (or Cloud Foundry Docker app)</td><td>0 of 2 accounted units automation-eligible; 9 properties the draft names as not carried</td><td>4 evidence references</td></tr>
+<tr data-family="Data"><th scope="row">Data</th><td>google_sql_database_instance</td><td>1</td><td>1 moves to another service</td><td>1 of 1 unit state a STACKIT target; the draft writes a Terraform resource for 1 (1 ga in the pinned provider). Services: STACKIT PostgreSQL Flex</td><td>0 of 1 accounted unit automation-eligible; 6 properties the draft names as not carried</td><td>3 evidence references</td></tr>
+<tr data-family="Messaging"><th scope="row">Messaging</th><td>google_pubsub_topic</td><td>1</td><td>1 moves to another service</td><td>1 of 1 unit state a STACKIT target; the draft writes a Terraform resource for 1 (1 ga in the pinned provider). Services: STACKIT RabbitMQ</td><td>0 of 1 accounted unit automation-eligible; 1 property the draft names as not carried</td><td>3 evidence references</td></tr>
+<tr data-family="Platform"><th scope="row">Platform</th><td>google_firebase_project</td><td>1</td><td>1 needs manual review</td><td>none of the 1 unit states a STACKIT target</td><td>0 of 1 accounted unit automation-eligible; 0 properties the draft names as not carried</td><td>3 evidence references</td></tr>
+<tr data-family="Storage"><th scope="row">Storage</th><td>google_storage_bucket</td><td>1</td><td>1 can be drafted with configuration changes</td><td>1 of 1 unit state a STACKIT target; the draft writes a Terraform resource for 1 (1 ga in the pinned provider). Services: STACKIT Object Storage</td><td>0 of 1 accounted unit automation-eligible; 6 properties the draft names as not carried</td><td>3 evidence references</td></tr>
+</tbody>
+</table>
+</div>
+<p>The 15 units that state a STACKIT target are joined to the catalogue by the resource types of their target: 13 have every type listed by a capability, 1 some, 1 none although the STACKIT provider 0.121.0 has every one of their resource types (the capability metadata for them is incomplete: the resource exists, its fit is not assessed), 0 none with a type the provider schema does not have (the matrix says nothing about these units, which is not the same as unsupported), and 0 need no STACKIT resource. 1 units state no target.</p>
+<div class="scroll" role="region" aria-label="Catalogue standing by presence" tabindex="0">
+<table id="target-fit-presence">
+<caption>Catalogue standing of the units, counted apart for the units that exist, those whose existence the plan decides and those switched off</caption>
+<thead><tr><th scope="col">Units</th><th scope="col">State a target</th><th scope="col">Every type listed</th><th scope="col">Some listed</th><th scope="col">Provider has the resource, metadata incomplete</th><th scope="col">Type not in the provider schema</th><th scope="col">Need no STACKIT resource</th><th scope="col">State no target</th></tr></thead>
+<tbody>
+<tr><th scope="row">Exists</th><td>10</td><td>9</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+<tr><th scope="row">Decided at plan time</th><td>5</td><td>4</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><th scope="row">Switched off</th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="filters" role="group" aria-label="Filter and sort the capabilities" data-controls="fit-rows" data-js-only hidden>
+<p>Choose dimensions and states to show only the capabilities with a cell in one of the dimensions chosen that is in one of the states chosen. These controls show and order the rows below; every row stays on the page, and printing shows them all.</p>
+<div role="group" aria-label="Dimension"><strong>Dimension:</strong> <button type="button" aria-pressed="false" data-filter="dim" data-value="Functional parity">Functional parity</button> <button type="button" aria-pressed="false" data-filter="dim" data-value="Service">Service</button> <button type="button" aria-pressed="false" data-filter="dim" data-value="API">API</button> <button type="button" aria-pressed="false" data-filter="dim" data-value="Terraform">Terraform</button> <button type="button" aria-pressed="false" data-filter="dim" data-value="Region">Region</button> <button type="button" aria-pressed="false" data-filter="dim" data-value="Maturity">Maturity</button> <button type="button" aria-pressed="false" data-filter="dim" data-value="Quota">Quota</button> <button type="button" aria-pressed="false" data-filter="dim" data-value="Lifecycle">Lifecycle</button> <button type="button" aria-pressed="false" data-filter="dim" data-value="Operability">Operability</button> <button type="button" aria-pressed="false" data-filter="dim" data-value="Security">Security</button> <button type="button" aria-pressed="false" data-filter="dim" data-value="Support">Support</button> <button type="button" aria-pressed="false" data-filter="dim" data-value="Evidence and probes">Evidence and probes</button></div>
+<div role="group" aria-label="State of the cell"><strong>State of the cell:</strong> <button type="button" aria-pressed="false" data-filter="state" data-value="Assessed">Assessed</button> <button type="button" aria-pressed="false" data-filter="state" data-value="Not assessed">Not assessed</button></div>
+<div role="group" aria-label="Sort"><strong>Sort by:</strong> <button type="button" aria-pressed="true" data-sort="record">Capability</button> <button type="button" aria-pressed="false" data-sort="units" data-dir="desc">Units</button></div>
+<div><button type="button" data-act="clear-filters">Show all rows</button></div>
+</div>
+<div class="scroll" role="region" aria-label="Target fit matrix" tabindex="0">
+<table id="target-fit-matrix">
+<caption>Capabilities that units of this estate reach (10 of 321), by dimension</caption>
+<thead><tr><th scope="col">Capability</th><th scope="col">Units</th><th scope="col">Functional parity</th><th scope="col">Service</th><th scope="col">API</th><th scope="col">Terraform</th><th scope="col">Region</th><th scope="col">Maturity</th><th scope="col">Quota</th><th scope="col">Lifecycle</th><th scope="col">Operability</th><th scope="col">Security</th><th scope="col">Support</th><th scope="col">Evidence and probes</th></tr></thead>
+<tbody data-list="fit-rows" data-cells>
+<tr id="capability/cdn.custom-domain" data-item data-seq="0" data-sort-units="1">
+<th scope="row"><code>cdn.custom-domain</code></th>
+<td>1</td>
+<td data-dim="Functional parity" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Service" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code></td>
+<td data-dim="API" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code></td>
+<td data-dim="Terraform" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>RESOURCE_AVAILABLE,DATA_SOURCE_AVAILABLE,BETA</code></td>
+<td data-dim="Region" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Maturity" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>BETA</code></td>
+<td data-dim="Quota" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Lifecycle" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Operability" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>ESTABLISHED</code> REPORTED&nbsp;1 PROVEN PLATFORM BUG&nbsp;0 RESOLVED&nbsp;0 BLOCKING EFFECT&nbsp;0</td>
+<td data-dim="Security" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Support" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Evidence and probes" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+</tr>
+<tr id="capability/cdn.distribution" data-item data-seq="1" data-sort-units="1">
+<th scope="row"><code>cdn.distribution</code></th>
+<td>1</td>
+<td data-dim="Functional parity" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Service" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code></td>
+<td data-dim="API" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code></td>
+<td data-dim="Terraform" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>RESOURCE_AVAILABLE,DATA_SOURCE_AVAILABLE,BETA</code></td>
+<td data-dim="Region" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Maturity" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>BETA</code></td>
+<td data-dim="Quota" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Lifecycle" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Operability" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>ESTABLISHED</code> REPORTED&nbsp;3 PROVEN PLATFORM BUG&nbsp;0 RESOLVED&nbsp;0 BLOCKING EFFECT&nbsp;0</td>
+<td data-dim="Security" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Support" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Evidence and probes" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+</tr>
+<tr id="capability/compute.managed-kubernetes" data-item data-seq="2" data-sort-units="2">
+<th scope="row"><code>compute.managed-kubernetes</code></th>
+<td>2</td>
+<td data-dim="Functional parity" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Service" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="API" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Terraform" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>RESOURCE_AVAILABLE,DATA_SOURCE_AVAILABLE</code></td>
+<td data-dim="Region" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Maturity" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Quota" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Lifecycle" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Operability" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>ESTABLISHED</code> REPORTED&nbsp;3 PROVEN PLATFORM BUG&nbsp;0 RESOLVED&nbsp;0 BLOCKING EFFECT&nbsp;0</td>
+<td data-dim="Security" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Support" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Evidence and probes" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+</tr>
+<tr id="capability/database.postgresql-flex" data-item data-seq="3" data-sort-units="1">
+<th scope="row"><code>database.postgresql-flex</code></th>
+<td>1</td>
+<td data-dim="Functional parity" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Service" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code></td>
+<td data-dim="API" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code></td>
+<td data-dim="Terraform" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>RESOURCE_AVAILABLE,DATA_SOURCE_AVAILABLE</code></td>
+<td data-dim="Region" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Maturity" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Quota" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Lifecycle" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Operability" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>ESTABLISHED</code> REPORTED&nbsp;1 PROVEN PLATFORM BUG&nbsp;0 RESOLVED&nbsp;0 BLOCKING EFFECT&nbsp;0</td>
+<td data-dim="Security" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Support" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Evidence and probes" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+</tr>
+<tr id="capability/devtools.git" data-item data-seq="4" data-sort-units="3">
+<th scope="row"><code>devtools.git</code></th>
+<td>3</td>
+<td data-dim="Functional parity" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Service" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code></td>
+<td data-dim="API" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code></td>
+<td data-dim="Terraform" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>RESOURCE_AVAILABLE,DATA_SOURCE_AVAILABLE,BETA</code></td>
+<td data-dim="Region" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Maturity" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>BETA</code></td>
+<td data-dim="Quota" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Lifecycle" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Operability" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>ESTABLISHED</code> REPORTED&nbsp;3 PROVEN PLATFORM BUG&nbsp;0 RESOLVED&nbsp;0 BLOCKING EFFECT&nbsp;0</td>
+<td data-dim="Security" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Support" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Evidence and probes" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+</tr>
+<tr id="capability/identity.role-assignment" data-item data-seq="5" data-sort-units="4">
+<th scope="row"><code>identity.role-assignment</code></th>
+<td>4</td>
+<td data-dim="Functional parity" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Service" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code></td>
+<td data-dim="API" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code></td>
+<td data-dim="Terraform" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>RESOURCE_AVAILABLE,EXPERIMENTAL</code></td>
+<td data-dim="Region" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Maturity" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>EXPERIMENTAL</code></td>
+<td data-dim="Quota" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span> LIMIT&nbsp;1</td>
+<td data-dim="Lifecycle" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Operability" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>ESTABLISHED</code> REPORTED&nbsp;1 PROVEN PLATFORM BUG&nbsp;0 RESOLVED&nbsp;0 BLOCKING EFFECT&nbsp;0</td>
+<td data-dim="Security" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Support" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Evidence and probes" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+</tr>
+<tr id="capability/identity.server-service-account" data-item data-seq="6" data-sort-units="4">
+<th scope="row"><code>identity.server-service-account</code></th>
+<td>4</td>
+<td data-dim="Functional parity" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Service" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code></td>
+<td data-dim="API" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>WRITE_SUPPORTED</code></td>
+<td data-dim="Terraform" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>RESOURCE_AVAILABLE</code></td>
+<td data-dim="Region" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Maturity" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Quota" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span> LIMIT&nbsp;1</td>
+<td data-dim="Lifecycle" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Operability" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Security" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Support" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Evidence and probes" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>RECORDED</code> PROBES&nbsp;11 EVIDENCE ITEMS&nbsp;0</td>
+</tr>
+<tr id="capability/messaging.mqtt-broker" data-item data-seq="7" data-sort-units="1">
+<th scope="row"><code>messaging.mqtt-broker</code></th>
+<td>1</td>
+<td data-dim="Functional parity" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Service" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="API" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Terraform" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>RESOURCE_AVAILABLE,DATA_SOURCE_AVAILABLE</code></td>
+<td data-dim="Region" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Maturity" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Quota" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Lifecycle" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Operability" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Security" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Support" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Evidence and probes" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+</tr>
+<tr id="capability/messaging.rabbitmq-credential" data-item data-seq="8" data-sort-units="1">
+<th scope="row"><code>messaging.rabbitmq-credential</code></th>
+<td>1</td>
+<td data-dim="Functional parity" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Service" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="API" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code></td>
+<td data-dim="Terraform" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>RESOURCE_AVAILABLE,DATA_SOURCE_AVAILABLE</code></td>
+<td data-dim="Region" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Maturity" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Quota" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Lifecycle" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Operability" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Security" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Support" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Evidence and probes" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+</tr>
+<tr id="capability/security.secrets-manager" data-item data-seq="9" data-sort-units="2">
+<th scope="row"><code>security.secrets-manager</code></th>
+<td>2</td>
+<td data-dim="Functional parity" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Service" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="API" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code></td>
+<td data-dim="Terraform" data-state="Assessed"><span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>RESOURCE_AVAILABLE,DATA_SOURCE_AVAILABLE</code></td>
+<td data-dim="Region" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Maturity" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Quota" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Lifecycle" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Operability" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Security" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Support" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+<td data-dim="Evidence and probes" data-state="Not assessed"><span class="state"><span aria-hidden="true">○</span> Not assessed</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p data-empty="fit-rows" hidden>No capability row matches the filters chosen. Show all rows clears them.</p>
+<h3 id="target-fit-basis">Why each capability cell has its state</h3>
+<details>
+<summary><code>cdn.custom-domain</code></summary>
+<ul>
+<li><strong>functional_parity</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The model has no field for functional parity or changed semantics, so it is not assessed for any capability.</li>
+<li><strong>service</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code>. Service availability of the capability, as the registry states it with evidence. [TARGET OFFICIAL DOC: https://docs.stackit.cloud/products/network/load-balancing-and-content-delivery/cdn/basics/features-cdn/; unknown]</li>
+<li><strong>api</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code>. API capability of the service, as the registry states it with evidence. [TARGET API SPEC: stackitcloud/stackit-api-specifications, services/cdn/v1/cdn.json:3849-4199 (knowledge-base evidence, not in this folder); unknown]</li>
+<li><strong>terraform</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>RESOURCE_AVAILABLE,DATA_SOURCE_AVAILABLE,BETA</code>. Facts derived from the pinned provider schema for the resource types the registry lists; a fact that is not listed is not established, it is not false. <code>stackit_cdn_custom_domain</code>: RESOURCE_AVAILABLE, DATA_SOURCE_AVAILABLE, BETA; [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0; unknown] [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0 resource_schemas.stackit_cdn_custom_domain; unknown]</li>
+<li><strong>region</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no regions for this capability. Where a catalogue snapshot offers a unit&#39;s target in a region, the unit says so (Target Fit page, per unit).</li>
+<li><strong>maturity</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>BETA</code>. Maturity of the capability, as the registry states it with evidence. The maturity the knowledge base keeps for a unit&#39;s target is shown per unit and is another source. [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0 (resource_schemas.stackit_cdn_custom_domain.block.description); unknown]</li>
+<li><strong>quota</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry has no complete statement of the quotas of this capability.</li>
+<li><strong>lifecycle</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no lifecycle for this capability. The typed lifecycle of a target with dated lifecycle data is shown per unit.</li>
+<li><strong>operability</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>ESTABLISHED</code>. Provider and backend behaviours the control plane records for the capability, by status. A reported issue is not a proven platform bug. [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0: provider.attributes.enable_beta_resources; fresh]</li>
+<li><strong>security</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no security features or defaults for this capability.</li>
+<li><strong>support</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. A capability states no support requirement; the support verdict is per application (support_suitability).</li>
+<li><strong>evidence</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. No probe of the live target and no capability-level evidence is recorded for this capability.</li>
+</ul>
+</details>
+<details>
+<summary><code>cdn.distribution</code></summary>
+<ul>
+<li><strong>functional_parity</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The model has no field for functional parity or changed semantics, so it is not assessed for any capability.</li>
+<li><strong>service</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code>. Service availability of the capability, as the registry states it with evidence. [TARGET OFFICIAL DOC: https://docs.stackit.cloud/products/network/load-balancing-and-content-delivery/cdn/basics/features-cdn/; unknown]</li>
+<li><strong>api</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code>. API capability of the service, as the registry states it with evidence. [TARGET API SPEC: stackitcloud/stackit-api-specifications, services/cdn/v1/cdn.json:2410-2924 (knowledge-base evidence, not in this folder); unknown]</li>
+<li><strong>terraform</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>RESOURCE_AVAILABLE,DATA_SOURCE_AVAILABLE,BETA</code>. Facts derived from the pinned provider schema for the resource types the registry lists; a fact that is not listed is not established, it is not false. <code>stackit_cdn_distribution</code>: RESOURCE_AVAILABLE, DATA_SOURCE_AVAILABLE, BETA; [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0; unknown] [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0 resource_schemas.stackit_cdn_distribution; unknown]</li>
+<li><strong>region</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no regions for this capability. Where a catalogue snapshot offers a unit&#39;s target in a region, the unit says so (Target Fit page, per unit).</li>
+<li><strong>maturity</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>BETA</code>. Maturity of the capability, as the registry states it with evidence. The maturity the knowledge base keeps for a unit&#39;s target is shown per unit and is another source. [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0 (resource_schemas.stackit_cdn_distribution.block.description); unknown]</li>
+<li><strong>quota</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry has no complete statement of the quotas of this capability.</li>
+<li><strong>lifecycle</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no lifecycle for this capability. The typed lifecycle of a target with dated lifecycle data is shown per unit.</li>
+<li><strong>operability</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>ESTABLISHED</code>. Provider and backend behaviours the control plane records for the capability, by status. A reported issue is not a proven platform bug. [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0: provider.attributes.enable_beta_resources; fresh] [PUBLIC ISSUE: https://github.com/stackitcloud/terraform-provider-stackit/issues/1629; fresh] [PUBLIC ISSUE: https://github.com/stackitcloud/terraform-provider-stackit/issues/1630; fresh]</li>
+<li><strong>security</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no security features or defaults for this capability.</li>
+<li><strong>support</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. A capability states no support requirement; the support verdict is per application (support_suitability).</li>
+<li><strong>evidence</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. No probe of the live target and no capability-level evidence is recorded for this capability.</li>
+</ul>
+</details>
+<details>
+<summary><code>compute.managed-kubernetes</code></summary>
+<ul>
+<li><strong>functional_parity</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The model has no field for functional parity or changed semantics, so it is not assessed for any capability.</li>
+<li><strong>service</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no service availability for this capability.</li>
+<li><strong>api</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no API capability for this capability.</li>
+<li><strong>terraform</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>RESOURCE_AVAILABLE,DATA_SOURCE_AVAILABLE</code>. Facts derived from the pinned provider schema for the resource types the registry lists; a fact that is not listed is not established, it is not false. <code>stackit_ske_cluster</code>: RESOURCE_AVAILABLE, DATA_SOURCE_AVAILABLE; [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0; unknown] [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0 resource_schemas.stackit_ske_cluster; unknown]</li>
+<li><strong>region</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no regions for this capability. Where a catalogue snapshot offers a unit&#39;s target in a region, the unit says so (Target Fit page, per unit).</li>
+<li><strong>maturity</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no maturity for this capability.</li>
+<li><strong>quota</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry has no complete statement of the quotas of this capability.</li>
+<li><strong>lifecycle</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no lifecycle for this capability. The typed lifecycle of a target with dated lifecycle data is shown per unit.</li>
+<li><strong>operability</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>ESTABLISHED</code>. Provider and backend behaviours the control plane records for the capability, by status. A reported issue is not a proven platform bug. [TARGET OFFICIAL DOC: https://docs.stackit.cloud/products/runtime/kubernetes-engine/reference/lifecycle/; fresh] [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0: resource_schemas.stackit_ske_cluster extensions.argus; fresh] [PUBLIC ISSUE: https://github.com/stackitcloud/terraform-provider-stackit/issues/1713; fresh]</li>
+<li><strong>security</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no security features or defaults for this capability.</li>
+<li><strong>support</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. A capability states no support requirement; the support verdict is per application (support_suitability).</li>
+<li><strong>evidence</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. No probe of the live target and no capability-level evidence is recorded for this capability.</li>
+</ul>
+</details>
+<details>
+<summary><code>database.postgresql-flex</code></summary>
+<ul>
+<li><strong>functional_parity</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The model has no field for functional parity or changed semantics, so it is not assessed for any capability.</li>
+<li><strong>service</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code>. Service availability of the capability, as the registry states it with evidence. [TARGET OFFICIAL DOC: https://docs.stackit.cloud/products/databases/postgresql-flex/basics/architecture-of-postgresql-flex/; stackitcloud/docs.stackit.cloud, products/databases/postgresql-flex/basics/architecture-of-postgresql-flex.txt; unknown]</li>
+<li><strong>api</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code>. API capability of the service, as the registry states it with evidence. [TARGET API SPEC: stackitcloud/stackit-api-specifications, services/postgres-flex/v3/postgres-flex.json:2050-2332; stackitcloud/stackit-api-specifications, services/postgres-flex/v3/postgres-flex.json:3554; stackitcloud/stackit-api-specifications, services/postgres-flex/v3/postgres-flex.json:4744 (knowledge-base evidence, not in this folder); unknown]</li>
+<li><strong>terraform</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>RESOURCE_AVAILABLE,DATA_SOURCE_AVAILABLE</code>. Facts derived from the pinned provider schema for the resource types the registry lists; a fact that is not listed is not established, it is not false. <code>stackit_postgresflex_database</code>: RESOURCE_AVAILABLE, DATA_SOURCE_AVAILABLE; <code>stackit_postgresflex_instance</code>: RESOURCE_AVAILABLE, DATA_SOURCE_AVAILABLE; <code>stackit_postgresflex_user</code>: RESOURCE_AVAILABLE, DATA_SOURCE_AVAILABLE; [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0; unknown] [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0 resource_schemas.stackit_postgresflex_database; unknown] [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0 resource_schemas.stackit_postgresflex_instance; unknown] [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0 resource_schemas.stackit_postgresflex_user; unknown]</li>
+<li><strong>region</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no regions for this capability. Where a catalogue snapshot offers a unit&#39;s target in a region, the unit says so (Target Fit page, per unit).</li>
+<li><strong>maturity</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no maturity for this capability.</li>
+<li><strong>quota</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry has no complete statement of the quotas of this capability.</li>
+<li><strong>lifecycle</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no lifecycle for this capability. The typed lifecycle of a target with dated lifecycle data is shown per unit.</li>
+<li><strong>operability</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>ESTABLISHED</code>. Provider and backend behaviours the control plane records for the capability, by status. A reported issue is not a proven platform bug. [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0: resource_schemas.stackit_postgresflex_instance (acl, flavor, replicas deprecated: true); fresh]</li>
+<li><strong>security</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no security features or defaults for this capability.</li>
+<li><strong>support</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. A capability states no support requirement; the support verdict is per application (support_suitability).</li>
+<li><strong>evidence</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. No probe of the live target and no capability-level evidence is recorded for this capability.</li>
+</ul>
+</details>
+<details>
+<summary><code>devtools.git</code></summary>
+<ul>
+<li><strong>functional_parity</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The model has no field for functional parity or changed semantics, so it is not assessed for any capability.</li>
+<li><strong>service</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code>. Service availability of the capability, as the registry states it with evidence. [TARGET OFFICIAL DOC: https://docs.stackit.cloud/products/developer-platform/git/; unknown]</li>
+<li><strong>api</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code>. API capability of the service, as the registry states it with evidence. [TARGET API SPEC: stackitcloud/stackit-api-specifications, services/git/v1beta/git.json:968-1313 (knowledge-base evidence, not in this folder); unknown]</li>
+<li><strong>terraform</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>RESOURCE_AVAILABLE,DATA_SOURCE_AVAILABLE,BETA</code>. Facts derived from the pinned provider schema for the resource types the registry lists; a fact that is not listed is not established, it is not false. <code>stackit_git</code>: RESOURCE_AVAILABLE, DATA_SOURCE_AVAILABLE, BETA; [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0; unknown] [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0 resource_schemas.stackit_git; unknown]</li>
+<li><strong>region</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no regions for this capability. Where a catalogue snapshot offers a unit&#39;s target in a region, the unit says so (Target Fit page, per unit).</li>
+<li><strong>maturity</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>BETA</code>. Maturity of the capability, as the registry states it with evidence. The maturity the knowledge base keeps for a unit&#39;s target is shown per unit and is another source. [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0 (resource_schemas.stackit_git.block.description); unknown]</li>
+<li><strong>quota</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry has no complete statement of the quotas of this capability.</li>
+<li><strong>lifecycle</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no lifecycle for this capability. The typed lifecycle of a target with dated lifecycle data is shown per unit.</li>
+<li><strong>operability</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>ESTABLISHED</code>. Provider and backend behaviours the control plane records for the capability, by status. A reported issue is not a proven platform bug. [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0: provider.attributes.enable_beta_resources; fresh] [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0: resource_schemas.stackit_git block description; fresh] [PUBLIC ISSUE: https://github.com/stackitcloud/terraform-provider-stackit/issues/1633; fresh]</li>
+<li><strong>security</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no security features or defaults for this capability.</li>
+<li><strong>support</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. A capability states no support requirement; the support verdict is per application (support_suitability).</li>
+<li><strong>evidence</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. No probe of the live target and no capability-level evidence is recorded for this capability.</li>
+</ul>
+</details>
+<details>
+<summary><code>identity.role-assignment</code></summary>
+<ul>
+<li><strong>functional_parity</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The model has no field for functional parity or changed semantics, so it is not assessed for any capability.</li>
+<li><strong>service</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code>. Service availability of the capability, as the registry states it with evidence. [TARGET OFFICIAL DOC: https://docs.stackit.cloud/platform/access-and-identity/roles-permissions/roles-permissions/; unknown]</li>
+<li><strong>api</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code>. API capability of the service, as the registry states it with evidence. [TARGET API SPEC: stackitcloud/stackit-api-specifications, services/authorization/v2/authorization.json:807-840 (knowledge-base evidence, not in this folder); unknown] [LIVE TARGET PROBE: tested on a STACKIT project on 2026-10-08; unknown]</li>
+<li><strong>terraform</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>RESOURCE_AVAILABLE,EXPERIMENTAL</code>. Facts derived from the pinned provider schema for the resource types the registry lists; a fact that is not listed is not established, it is not false. <code>stackit_authorization_folder_role_assignment</code>: RESOURCE_AVAILABLE, EXPERIMENTAL (experiment iam); <code>stackit_authorization_organization_role_assignment</code>: RESOURCE_AVAILABLE, EXPERIMENTAL (experiment iam); <code>stackit_authorization_project_custom_role</code>: RESOURCE_AVAILABLE, DATA_SOURCE_AVAILABLE; <code>stackit_authorization_project_role_assignment</code>: RESOURCE_AVAILABLE, EXPERIMENTAL (experiment iam); <code>stackit_authorization_service_account_role_assignment</code>: RESOURCE_AVAILABLE, EXPERIMENTAL (experiment iam); [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0; unknown] [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0 resource_schemas.stackit_authorization_folder_role_assignment; unknown] [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0 resource_schemas.stackit_authorization_organization_role_assignment; unknown] [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0 resource_schemas.stackit_authorization_project_custom_role; unknown] [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0 resource_schemas.stackit_authorization_project_role_assignment; unknown] [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0 resource_schemas.stackit_authorization_service_account_role_assignment; unknown]</li>
+<li><strong>region</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no regions for this capability. Where a catalogue snapshot offers a unit&#39;s target in a region, the unit says so (Target Fit page, per unit).</li>
+<li><strong>maturity</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>EXPERIMENTAL</code>. Maturity of the capability, as the registry states it with evidence. The maturity the knowledge base keeps for a unit&#39;s target is shown per unit and is another source. [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0 (resource_schemas.stackit_authorization_project_role_assignment.block.description, ..._folder_..., ..._organization_..., ..._service_account_role_assignment.block.description); unknown]</li>
+<li><strong>quota</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry lists evidenced limits for this capability. A list of facts is not a complete description of the quotas, so the dimension stays not assessed.</li>
+<li><strong>lifecycle</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no lifecycle for this capability. The typed lifecycle of a target with dated lifecycle data is shown per unit.</li>
+<li><strong>operability</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>ESTABLISHED</code>. Provider and backend behaviours the control plane records for the capability, by status. A reported issue is not a proven platform bug. [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0: provider.attributes.experiments; fresh]</li>
+<li><strong>security</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no security features or defaults for this capability.</li>
+<li><strong>support</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. A capability states no support requirement; the support verdict is per application (support_suitability).</li>
+<li><strong>evidence</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. No probe of the live target and no capability-level evidence is recorded for this capability.</li>
+</ul>
+</details>
+<details>
+<summary><code>identity.server-service-account</code></summary>
+<ul>
+<li><strong>functional_parity</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The model has no field for functional parity or changed semantics, so it is not assessed for any capability.</li>
+<li><strong>service</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code>. Service availability of the capability, as the registry states it with evidence. [TARGET OFFICIAL DOC: https://docs.stackit.cloud/products/compute-engine/server/how-tos/attaching-service-account-to-servers/; unknown] [LIVE TARGET PROBE: tested on a STACKIT project on 2026-10-08; unknown]</li>
+<li><strong>api</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>WRITE_SUPPORTED</code>. API capability of the service, as the registry states it with evidence. [TARGET API SPEC: STACKIT IaaS API v2 specification (path /v2/projects/{projectId}/regions/{region}/servers/{serverId}/service-accounts/{serviceAccountMail}); unknown] [LIVE TARGET PROBE: tested on a STACKIT project on 2026-10-08; unknown] [LIVE TARGET PROBE: tested on a STACKIT project on 2026-10-09; unknown]</li>
+<li><strong>terraform</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>RESOURCE_AVAILABLE</code>. Facts derived from the pinned provider schema for the resource types the registry lists; a fact that is not listed is not established, it is not false. <code>stackit_server_service_account_attach</code>: RESOURCE_AVAILABLE; <code>stackit_service_account</code>: RESOURCE_AVAILABLE, DATA_SOURCE_AVAILABLE; [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0; unknown] [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0 resource_schemas.stackit_server_service_account_attach; unknown] [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0 resource_schemas.stackit_service_account; unknown]</li>
+<li><strong>region</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no regions for this capability. Where a catalogue snapshot offers a unit&#39;s target in a region, the unit says so (Target Fit page, per unit).</li>
+<li><strong>maturity</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no maturity for this capability.</li>
+<li><strong>quota</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry lists evidenced limits for this capability. A list of facts is not a complete description of the quotas, so the dimension stays not assessed.</li>
+<li><strong>lifecycle</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no lifecycle for this capability. The typed lifecycle of a target with dated lifecycle data is shown per unit.</li>
+<li><strong>operability</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. No provider or backend behaviour is recorded for this capability. That is not the same as having none.</li>
+<li><strong>security</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no security features or defaults for this capability.</li>
+<li><strong>support</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. A capability states no support requirement; the support verdict is per application (support_suitability).</li>
+<li><strong>evidence</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>RECORDED</code>. Probes of the live target and evidence of the capability as a whole. A probe is an observation of one exact variant, not of the capability. A disagreement between sources is listed as a conflict of the row. [LIVE TARGET PROBE: tested on a STACKIT project on 2026-11-06; unknown] [LIVE TARGET PROBE: tested on a STACKIT project on 2026-11-06; unknown] [LIVE TARGET PROBE: tested on a STACKIT project on 2026-10-08; unknown] [LIVE TARGET PROBE: tested on a STACKIT project on 2026-10-08; unknown] [LIVE TARGET PROBE: tested on a STACKIT project on 2026-10-08; unknown] [LIVE TARGET PROBE: tested on a STACKIT project on 2026-10-08; unknown] [LIVE TARGET PROBE: tested on a STACKIT project on 2026-10-09; unknown] [LIVE TARGET PROBE: tested on a STACKIT project on 2026-10-09; unknown] [LIVE TARGET PROBE: tested on a STACKIT project on 2026-10-09; unknown] [LIVE TARGET PROBE: tested on a STACKIT project on 2026-10-09; unknown] [LIVE TARGET PROBE: tested on a STACKIT project on 2026-10-10; unknown]</li>
+</ul>
+</details>
+<details>
+<summary><code>messaging.mqtt-broker</code></summary>
+<ul>
+<li><strong>functional_parity</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The model has no field for functional parity or changed semantics, so it is not assessed for any capability.</li>
+<li><strong>service</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no service availability for this capability.</li>
+<li><strong>api</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no API capability for this capability.</li>
+<li><strong>terraform</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>RESOURCE_AVAILABLE,DATA_SOURCE_AVAILABLE</code>. Facts derived from the pinned provider schema for the resource types the registry lists; a fact that is not listed is not established, it is not false. <code>stackit_rabbitmq_instance</code>: RESOURCE_AVAILABLE, DATA_SOURCE_AVAILABLE; [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0; unknown] [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0 resource_schemas.stackit_rabbitmq_instance; unknown]</li>
+<li><strong>region</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no regions for this capability. Where a catalogue snapshot offers a unit&#39;s target in a region, the unit says so (Target Fit page, per unit).</li>
+<li><strong>maturity</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no maturity for this capability.</li>
+<li><strong>quota</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry has no complete statement of the quotas of this capability.</li>
+<li><strong>lifecycle</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no lifecycle for this capability. The typed lifecycle of a target with dated lifecycle data is shown per unit.</li>
+<li><strong>operability</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. No provider or backend behaviour is recorded for this capability. That is not the same as having none.</li>
+<li><strong>security</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no security features or defaults for this capability.</li>
+<li><strong>support</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. A capability states no support requirement; the support verdict is per application (support_suitability).</li>
+<li><strong>evidence</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. No probe of the live target and no capability-level evidence is recorded for this capability.</li>
+</ul>
+</details>
+<details>
+<summary><code>messaging.rabbitmq-credential</code></summary>
+<ul>
+<li><strong>functional_parity</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The model has no field for functional parity or changed semantics, so it is not assessed for any capability.</li>
+<li><strong>service</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no service availability for this capability.</li>
+<li><strong>api</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code>. API capability of the service, as the registry states it with evidence. [TARGET API SPEC: stackitcloud/stackit-api-specifications, services/rabbitmq/v2/rabbitmq.json:1379 (knowledge-base evidence, not in this folder); unknown]</li>
+<li><strong>terraform</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>RESOURCE_AVAILABLE,DATA_SOURCE_AVAILABLE</code>. Facts derived from the pinned provider schema for the resource types the registry lists; a fact that is not listed is not established, it is not false. <code>stackit_rabbitmq_credential</code>: RESOURCE_AVAILABLE, DATA_SOURCE_AVAILABLE; [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0; unknown] [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0 resource_schemas.stackit_rabbitmq_credential; unknown]</li>
+<li><strong>region</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no regions for this capability. Where a catalogue snapshot offers a unit&#39;s target in a region, the unit says so (Target Fit page, per unit).</li>
+<li><strong>maturity</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no maturity for this capability.</li>
+<li><strong>quota</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry has no complete statement of the quotas of this capability.</li>
+<li><strong>lifecycle</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no lifecycle for this capability. The typed lifecycle of a target with dated lifecycle data is shown per unit.</li>
+<li><strong>operability</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. No provider or backend behaviour is recorded for this capability. That is not the same as having none.</li>
+<li><strong>security</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no security features or defaults for this capability.</li>
+<li><strong>support</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. A capability states no support requirement; the support verdict is per application (support_suitability).</li>
+<li><strong>evidence</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. No probe of the live target and no capability-level evidence is recorded for this capability.</li>
+</ul>
+</details>
+<details>
+<summary><code>security.secrets-manager</code></summary>
+<ul>
+<li><strong>functional_parity</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The model has no field for functional parity or changed semantics, so it is not assessed for any capability.</li>
+<li><strong>service</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no service availability for this capability.</li>
+<li><strong>api</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>AVAILABLE</code>. API capability of the service, as the registry states it with evidence. [TARGET API SPEC: stackitcloud/stackit-api-specifications, services/secrets-manager/v1/secrets-manager.json:481; stackitcloud/stackit-api-specifications, services/secrets-manager/v1/secrets-manager.json:1922 (knowledge-base evidence, not in this folder); unknown]</li>
+<li><strong>terraform</strong> &mdash; <span class="state"><span aria-hidden="true">●</span> Assessed</span> <code>RESOURCE_AVAILABLE,DATA_SOURCE_AVAILABLE</code>. Facts derived from the pinned provider schema for the resource types the registry lists; a fact that is not listed is not established, it is not false. <code>stackit_secretsmanager_instance</code>: RESOURCE_AVAILABLE, DATA_SOURCE_AVAILABLE; <code>stackit_secretsmanager_user</code>: RESOURCE_AVAILABLE, DATA_SOURCE_AVAILABLE; [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0; unknown] [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0 resource_schemas.stackit_secretsmanager_instance; unknown] [TARGET PROVIDER SCHEMA: STACKIT provider schema 0.121.0 resource_schemas.stackit_secretsmanager_user; unknown]</li>
+<li><strong>region</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no regions for this capability. Where a catalogue snapshot offers a unit&#39;s target in a region, the unit says so (Target Fit page, per unit).</li>
+<li><strong>maturity</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no maturity for this capability.</li>
+<li><strong>quota</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry has no complete statement of the quotas of this capability.</li>
+<li><strong>lifecycle</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no lifecycle for this capability. The typed lifecycle of a target with dated lifecycle data is shown per unit.</li>
+<li><strong>operability</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. No provider or backend behaviour is recorded for this capability. That is not the same as having none.</li>
+<li><strong>security</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. The registry states no security features or defaults for this capability.</li>
+<li><strong>support</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. A capability states no support requirement; the support verdict is per application (support_suitability).</li>
+<li><strong>evidence</strong> &mdash; <span class="state"><span aria-hidden="true">○</span> Not assessed</span>. No probe of the live target and no capability-level evidence is recorded for this capability.</li>
+</ul>
+</details>
+<details>
+<summary>STACKIT resource types of the targets that no capability lists (3)</summary>
+<ul>
+<li><code>stackit_objectstorage_bucket</code>: 2 units &mdash; RESOURCE EXISTS BUT CAPABILITY UNLINKED. The pinned STACKIT provider has this resource; StackToIT&#39;s capability metadata for it is incomplete. Terraform: RESOURCE_AVAILABLE, DATA_SOURCE_AVAILABLE. Functional parity: <span class="state"><span aria-hidden="true">○</span> Not assessed</span>.</li>
+<li><code>stackit_objectstorage_credential</code>: 1 units &mdash; RESOURCE EXISTS BUT CAPABILITY UNLINKED. The pinned STACKIT provider has this resource; StackToIT&#39;s capability metadata for it is incomplete. Terraform: RESOURCE_AVAILABLE, DATA_SOURCE_AVAILABLE. Functional parity: <span class="state"><span aria-hidden="true">○</span> Not assessed</span>.</li>
+<li><code>stackit_objectstorage_credentials_group</code>: 1 units &mdash; RESOURCE EXISTS BUT CAPABILITY UNLINKED. The pinned STACKIT provider has this resource; StackToIT&#39;s capability metadata for it is incomplete. Terraform: RESOURCE_AVAILABLE, DATA_SOURCE_AVAILABLE. Functional parity: <span class="state"><span aria-hidden="true">○</span> Not assessed</span>.</li>
+</ul>
+</details>
+<h3 id="target-fit-api-only">Requirements only a STACKIT API carries</h3>
+<p>Where no resource of the STACKIT provider carries a requirement, the tool can write a STACKIT API step, only when the call is evidenced and a converter of the tool writes it. The tool can do this for 28 requirements; 4 more are catalogued only (the call is known, no converter writes it) and are not counted as something the tool carries. Two things are kept apart below: what this build can do (the first table) and what arose on this estate (the second table, counted from the execution plan of this run). In this run 2 of 28 requirements have a step in the plan (2 STACKIT API steps in all), 4 are named by a unit of this estate and have none, and 22 are not used by any unit of this estate. An execution plan without API steps is then not a gap of the tool unless a requirement is named by a unit and has no step.</p>
+<h4 id="target-fit-api-can">What this build can do</h4>
+<div class="scroll" role="region" aria-label="API-only requirements the build can carry" tabindex="0">
+<table id="target-fit-api-capabilities">
+<caption>API-only requirements a converter of this build can write as a STACKIT API step, in general. A step is not a verified one: each row says how far its step has come.</caption>
+<thead><tr><th scope="col">Requirement</th><th scope="col">Source types</th><th scope="col">Mode</th><th scope="col">Operation</th><th scope="col">Maturity of the step</th></tr></thead>
+<tbody>
+<tr><th scope="row"><code>compute.image-share</code></th><td>aws_ami_launch_permission</td><td>STACKIT_API</td><td><code>iaas_v2 SetImageShare</code></td><td>a converter writes the step; tested offline, not verified live</td></tr>
+<tr><th scope="row"><code>compute.run-command</code></th><td>aws_ssm_document, aws_ssm_association, aws_ssm_maintenance_window_task, awscc_ssm_document, awscc_ssm_association, awscc_ssm_maintenance_window_task</td><td>STACKIT_API</td><td><code>run-command_v2 CreateCommand</code></td><td>a converter writes the step; not yet tested offline</td></tr>
+<tr><th scope="row"><code>compute.snapshot</code></th><td>aws_ebs_snapshot, google_compute_instant_snapshot, google_compute_region_instant_snapshot</td><td>STACKIT_API</td><td><code>iaas_v2 CreateSnapshot</code></td><td>a converter writes the step; not yet tested offline</td></tr>
+<tr><th scope="row"><code>containers.container-app</code></th><td>aws_apprunner_service, awscc_apprunner_service, aws_lightsail_container_service_deployment_version</td><td>STACKIT_API</td><td><code>sca_v1alpha CreateApplication</code></td><td>a converter writes the step; not yet tested offline</td></tr>
+<tr><th scope="row"><code>database.postgresql.deletion-protection</code></th><td>aws_db_instance, aws_rds_cluster, awscc_rds_db_instance, awscc_rds_db_cluster, google_sql_database_instance</td><td>STACKIT_API</td><td><code>postgres-flex_v3 UpdateInstanceProtection</code></td><td>a converter writes the step; tested offline, not verified live</td></tr>
+<tr><th scope="row"><code>database.sqlserver.deletion-protection</code></th><td>aws_db_instance, awscc_rds_db_instance, google_sql_database_instance</td><td>STACKIT_API</td><td><code>sqlserverflex_v3 UpdateInstanceProtection</code></td><td>a converter writes the step; tested offline, not verified live</td></tr>
+<tr><th scope="row"><code>function.container-image</code></th><td>aws_lambda_function, awscc_lambda_function</td><td>STACKIT_API</td><td><code>sca_v1alpha CreateApplication</code></td><td>a converter writes the step; not yet tested offline</td></tr>
+<tr><th scope="row"><code>function.http</code></th><td>aws_lambda_function, awscc_lambda_function, aws_lambda_function_url, aws_lambda_alias, aws_lambda_layer_version, aws_lambda_permission</td><td>STACKIT_API</td><td><code>functions_v1alpha CreateFunction</code></td><td>a converter writes the step; tested offline, not verified live</td></tr>
+<tr><th scope="row"><code>identity.secret</code></th><td>aws_secretsmanager_secret, aws_ssm_parameter, awscc_secretsmanager_secret, google_secret_manager_secret, google_secret_manager_regional_secret</td><td>STACKIT_API</td><td><code>secretsmanager-vault WriteSecret</code></td><td>a converter writes the step; tested offline, not verified live</td></tr>
+<tr><th scope="row"><code>network.lb-block-list</code></th><td>aws_wafv2_ip_set, awscc_wafv2_ip_set</td><td>STACKIT_API</td><td><code>lb-ip-lists_v1alpha UploadIPList</code></td><td>a converter writes the step; tested offline, not verified live</td></tr>
+<tr><th scope="row"><code>network.security-group.default-egress-rules</code></th><td>aws_subnet</td><td>STACKIT_API</td><td><code>iaas_v2 DeleteSecurityGroupRule</code></td><td>a converter writes the step; tested offline, not verified live</td></tr>
+<tr><th scope="row"><code>objectstorage.bucket.cors</code></th><td>aws_s3_bucket_cors_configuration, google_storage_bucket</td><td>STACKIT_API</td><td><code>s3 PutBucketCors</code></td><td>a converter writes the step; tested offline, not verified live</td></tr>
+<tr><th scope="row"><code>objectstorage.bucket.lifecycle</code></th><td>aws_s3_bucket_lifecycle_configuration, aws_s3control_bucket_lifecycle_configuration, google_storage_bucket</td><td>STACKIT_API</td><td><code>s3 PutBucketLifecycleConfiguration</code></td><td>a converter writes the step; tested offline, not verified live</td></tr>
+<tr><th scope="row"><code>objectstorage.bucket.policy</code></th><td>aws_s3_bucket_policy, google_storage_bucket</td><td>STACKIT_API</td><td><code>s3 PutBucketPolicy</code></td><td>a converter writes the step; not yet tested offline</td></tr>
+<tr><th scope="row"><code>objectstorage.bucket.tagging</code></th><td>aws_s3_bucket</td><td>STACKIT_API</td><td><code>s3 PutBucketTagging</code></td><td>a converter writes the step; tested offline, not verified live</td></tr>
+<tr><th scope="row"><code>objectstorage.bucket.versioning</code></th><td>aws_s3_bucket_versioning, google_storage_bucket</td><td>STACKIT_API</td><td><code>s3 PutBucketVersioning</code></td><td>a converter writes the step; tested offline, not verified live</td></tr>
+<tr><th scope="row"><code>observability.cdn-log-sink</code></th><td>aws_cloudfront_realtime_log_config</td><td>STACKIT_API</td><td><code>cdn_v1 PatchDistribution</code></td><td>a converter writes the step; not yet tested offline</td></tr>
+<tr><th scope="row"><code>platform.git-runner</code></th><td>google_cloudbuild_worker_pool</td><td>STACKIT_API</td><td><code>git_v1beta CreateRunner</code></td><td>a converter writes the step; not yet tested offline</td></tr>
+<tr><th scope="row"><code>platform.service-enablement</code></th><td></td><td>STACKIT_API</td><td><code>service-enablement_v2 EnableServiceRegional</code></td><td>a converter writes the step; not yet tested offline</td></tr>
+<tr><th scope="row"><code>pubsub.queue</code></th><td>aws_sqs_queue</td><td>STACKIT_API</td><td><code>pubsub_v1beta create-topic</code></td><td>a converter writes the step; tested offline, not verified live</td></tr>
+<tr><th scope="row"><code>pubsub.subscription</code></th><td>aws_sns_topic_subscription, google_pubsub_subscription</td><td>STACKIT_API</td><td><code>pubsub_v1beta create-subscription</code></td><td>a converter writes the step; tested offline, not verified live</td></tr>
+<tr><th scope="row"><code>pubsub.subscription.subscriber-grant</code></th><td>google_pubsub_subscription_iam_member, google_pubsub_subscription_iam_binding</td><td>STACKIT_API</td><td><code>pubsub_v1beta grant-subscription-subscriber-access</code></td><td>a converter writes the step; not yet tested offline</td></tr>
+<tr><th scope="row"><code>pubsub.topic</code></th><td>aws_sns_topic, google_pubsub_topic</td><td>STACKIT_API</td><td><code>pubsub_v1beta create-topic</code></td><td>a converter writes the step; tested offline, not verified live</td></tr>
+<tr><th scope="row"><code>pubsub.topic.publisher-grant</code></th><td>google_pubsub_topic_iam_member, google_pubsub_topic_iam_binding</td><td>STACKIT_API</td><td><code>pubsub_v1beta grant-topic-publisher-access</code></td><td>a converter writes the step; not yet tested offline</td></tr>
+<tr><th scope="row"><code>registry.git-repository</code></th><td>aws_codecommit_repository, awscc_codecommit_repository</td><td>STACKIT_API</td><td><code>stackit-git-forgejo CreateOrgRepo</code></td><td>a converter writes the step; tested offline, not verified live</td></tr>
+<tr><th scope="row"><code>registry.repository</code></th><td>aws_ecr_repository, awscc_ecr_repository, aws_ecr_pull_through_cache_rule, google_artifact_registry_repository, google_container_registry</td><td>STACKIT_API</td><td><code>registry_v1 CreateArtifactory</code></td><td>a converter writes the step; tested offline, not verified live</td></tr>
+<tr><th scope="row"><code>workflows.airflow</code></th><td>aws_mwaa_environment</td><td>STACKIT_API</td><td><code>workflows_v1alpha CreateInstance</code></td><td>a converter writes the step; tested offline, not verified live</td></tr>
+<tr><th scope="row"><code>workflows.composer</code></th><td>google_composer_environment</td><td>STACKIT_API</td><td><code>workflows_v1alpha CreateInstance</code></td><td>a converter writes the step; not yet tested offline</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="target-fit-api-estate-heading">What arises on this estate</h4>
+<div class="scroll" role="region" aria-label="API-only requirements on this estate" tabindex="0">
+<table id="target-fit-api-estate">
+<caption>For each requirement above: the units of this estate whose source type it names, and the steps of the execution plan of this run that carry it. Whether a unit gets the step depends on what its source sets.</caption>
+<thead><tr><th scope="col">Requirement</th><th scope="col">Units that exist</th><th scope="col">Conditional</th><th scope="col">Switched off</th><th scope="col">OpenTofu blocks</th><th scope="col">STACKIT API steps</th><th scope="col">Manual steps</th><th scope="col">On this estate</th></tr></thead>
+<tbody>
+<tr><th scope="row"><code>compute.image-share</code></th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>Not used by any unit of this estate: no unit has the source type aws_ami_launch_permission.</td></tr>
+<tr><th scope="row"><code>compute.run-command</code></th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>Not used by any unit of this estate: no unit has one of the source types aws_ssm_document, aws_ssm_association, aws_ssm_maintenance_window_task, awscc_ssm_document, awscc_ssm_association, awscc_ssm_maintenance_window_task.</td></tr>
+<tr><th scope="row"><code>compute.snapshot</code></th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>Not used by any unit of this estate: no unit has one of the source types aws_ebs_snapshot, google_compute_instant_snapshot, google_compute_region_instant_snapshot.</td></tr>
+<tr><th scope="row"><code>containers.container-app</code></th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>Not used by any unit of this estate: no unit has one of the source types aws_apprunner_service, awscc_apprunner_service, aws_lightsail_container_service_deployment_version.</td></tr>
+<tr><th scope="row"><code>database.postgresql.deletion-protection</code></th><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>Not used by any unit of this estate: the 1 unit of its source types that exist (google_sql_database_instance.postgres) asks for no deletion protection (deletion_protection is not set to true), so no step is needed.</td></tr>
+<tr><th scope="row"><code>database.sqlserver.deletion-protection</code></th><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>Not used by any unit of this estate: the 1 unit of its source types that exist (google_sql_database_instance.postgres) is drafted onto another STACKIT service than the one this requirement is for (stackit_sqlserverflex_instance), so no step of it is needed.</td></tr>
+<tr><th scope="row"><code>function.container-image</code></th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>Not used by any unit of this estate: no unit has one of the source types aws_lambda_function, awscc_lambda_function.</td></tr>
+<tr><th scope="row"><code>function.http</code></th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>Not used by any unit of this estate: no unit has one of the source types aws_lambda_function, awscc_lambda_function, aws_lambda_function_url, aws_lambda_alias, aws_lambda_layer_version, aws_lambda_permission.</td></tr>
+<tr><th scope="row"><code>identity.secret</code></th><td>2</td><td>0</td><td>0</td><td>0</td><td>2</td><td>0</td><td>2 STACKIT API steps, in this run&#39;s execution plan.</td></tr>
+<tr><th scope="row"><code>network.lb-block-list</code></th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>Not used by any unit of this estate: no unit has one of the source types aws_wafv2_ip_set, awscc_wafv2_ip_set.</td></tr>
+<tr><th scope="row"><code>network.security-group.default-egress-rules</code></th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>Not used by any unit of this estate: no unit has the source type aws_subnet.</td></tr>
+<tr><th scope="row"><code>objectstorage.bucket.cors</code></th><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1 unit of its source types exist or are decided at plan time (google_storage_bucket.media), and the execution plan holds no step of this requirement: a unit gets the step only when its source sets what the call carries. For these units the plan holds 1 OpenTofu step, 13 manual steps, 1 refused step.</td></tr>
+<tr><th scope="row"><code>objectstorage.bucket.lifecycle</code></th><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1 unit of its source types exist or are decided at plan time (google_storage_bucket.media), and the execution plan holds no step of this requirement: a unit gets the step only when its source sets what the call carries. For these units the plan holds 1 OpenTofu step, 13 manual steps, 1 refused step.</td></tr>
+<tr><th scope="row"><code>objectstorage.bucket.policy</code></th><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1 unit of its source types exist or are decided at plan time (google_storage_bucket.media), and the execution plan holds no step of this requirement: a unit gets the step only when its source sets what the call carries. For these units the plan holds 1 OpenTofu step, 13 manual steps, 1 refused step.</td></tr>
+<tr><th scope="row"><code>objectstorage.bucket.tagging</code></th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>Not used by any unit of this estate: no unit has the source type aws_s3_bucket.</td></tr>
+<tr><th scope="row"><code>objectstorage.bucket.versioning</code></th><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1 unit of its source types exist or are decided at plan time (google_storage_bucket.media), and the execution plan holds no step of this requirement: a unit gets the step only when its source sets what the call carries. For these units the plan holds 1 OpenTofu step, 13 manual steps, 1 refused step.</td></tr>
+<tr><th scope="row"><code>observability.cdn-log-sink</code></th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>Not used by any unit of this estate: no unit has the source type aws_cloudfront_realtime_log_config.</td></tr>
+<tr><th scope="row"><code>platform.git-runner</code></th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>Not used by any unit of this estate: no unit has the source type google_cloudbuild_worker_pool.</td></tr>
+<tr><th scope="row"><code>platform.service-enablement</code></th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>Not used by any unit of this estate: no unit has one of the source types .</td></tr>
+<tr><th scope="row"><code>pubsub.queue</code></th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>Not used by any unit of this estate: no unit has the source type aws_sqs_queue.</td></tr>
+<tr><th scope="row"><code>pubsub.subscription</code></th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>Not used by any unit of this estate: no unit has one of the source types aws_sns_topic_subscription, google_pubsub_subscription.</td></tr>
+<tr><th scope="row"><code>pubsub.subscription.subscriber-grant</code></th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>Not used by any unit of this estate: no unit has one of the source types google_pubsub_subscription_iam_member, google_pubsub_subscription_iam_binding.</td></tr>
+<tr><th scope="row"><code>pubsub.topic</code></th><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1 manual step, in this run&#39;s execution plan.</td></tr>
+<tr><th scope="row"><code>pubsub.topic.publisher-grant</code></th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>Not used by any unit of this estate: no unit has one of the source types google_pubsub_topic_iam_member, google_pubsub_topic_iam_binding.</td></tr>
+<tr><th scope="row"><code>registry.git-repository</code></th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>Not used by any unit of this estate: no unit has one of the source types aws_codecommit_repository, awscc_codecommit_repository.</td></tr>
+<tr><th scope="row"><code>registry.repository</code></th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>Not used by any unit of this estate: no unit has one of the source types aws_ecr_repository, awscc_ecr_repository, aws_ecr_pull_through_cache_rule, google_artifact_registry_repository, google_container_registry.</td></tr>
+<tr><th scope="row"><code>workflows.airflow</code></th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>Not used by any unit of this estate: no unit has the source type aws_mwaa_environment.</td></tr>
+<tr><th scope="row"><code>workflows.composer</code></th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>Not used by any unit of this estate: no unit has the source type google_composer_environment.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="scroll" role="region" aria-label="Support suitability" tabindex="0">
+<table>
+<caption>Support suitability, judged against the STACKIT support options evidenced as of 2026-11-07 (a business-critical application gets a review, never a plan; stated times are not a contractual SLA)</caption>
+<thead><tr><th scope="col">Application</th><th scope="col">Verdict</th><th scope="col">Required support class</th><th scope="col">Options with fresh evidence</th><th scope="col">Options offering the stated hours</th><th scope="col">Why</th></tr></thead>
+<tbody>
+<tr>
+<th scope="row">estate</th>
+<td>NOT_ASSESSED</td>
+<td>&ndash;</td>
+<td>Essential Support, Advanced Support, Ultimate Support</td>
+<td>&ndash;</td>
+<td>No criticality stated; pass --applications to state criticality and explicit support requirements</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="source-target-heading">Source and target side by side</h3>
+<p>Each source unit beside what the draft makes of it, with its settings counted in the rows of the equivalence ledger: <strong>kept</strong> as they are, <strong>changed</strong> into another form, <strong>accepted</strong> by a person on the record, and <strong>to do</strong>, which is everything else, including anything not known. Over all 16 units: 2 kept, 10 changed, 0 accepted, 189 to do. The units with the most to do come first; <a href="../migration/source-target.csv"><code>migration/source-target.csv</code></a> lists every unit.</p>
+<div class="scroll" role="region" aria-label="Source and target side by side" tabindex="0">
+<table id="source-target">
+<caption>The 15 of 16 units with the most to do; a dash means no setting of the unit was counted</caption>
+<thead><tr><th scope="col">Source unit</th><th scope="col">STACKIT target</th><th scope="col">Kept</th><th scope="col">Changed</th><th scope="col">Accepted</th><th scope="col">To do</th></tr></thead>
+<tbody>
+<tr><th scope="row"><code>google_cloud_run_v2_service.server</code></th><td>SKE workload (or Cloud Foundry Docker app)</td><td>0</td><td>1</td><td>0</td><td>30</td></tr>
+<tr><th scope="row"><code>google_cloud_run_v2_job.migrate</code></th><td>Kubernetes Job/CronJob on SKE</td><td>0</td><td>1</td><td>0</td><td>26</td></tr>
+<tr><th scope="row"><code>google_sql_database_instance.postgres</code></th><td>STACKIT PostgreSQL Flex</td><td>2</td><td>1</td><td>0</td><td>22</td></tr>
+<tr><th scope="row"><code>google_storage_bucket.media</code></th><td>STACKIT Object Storage</td><td>0</td><td>0</td><td>0</td><td>20</td></tr>
+<tr><th scope="row"><code>google_secret_manager_secret.django_admin_password</code></th><td>STACKIT Secrets Manager</td><td>0</td><td>1</td><td>0</td><td>13</td></tr>
+<tr><th scope="row"><code>google_secret_manager_secret.django_settings</code></th><td>STACKIT Secrets Manager</td><td>0</td><td>1</td><td>0</td><td>13</td></tr>
+<tr><th scope="row"><code>google_cloudbuild_trigger.init</code></th><td>Left for the architect (REDESIGN): the draft writes no block of this unit, the architect decides its design. Candidate target in the knowledge base: a workflow in STACKIT Git Pipelines (GitHub Actions syntax, STACKIT-managed or custom runners) or the customer&#39;s CI/CD.</td><td>0</td><td>0</td><td>0</td><td>12</td></tr>
+<tr><th scope="row"><code>google_cloudbuild_trigger.activategcb</code></th><td>Left for the architect (REDESIGN): the draft writes no block of this unit, the architect decides its design. Candidate target in the knowledge base: a workflow in STACKIT Git Pipelines (GitHub Actions syntax, STACKIT-managed or custom runners) or the customer&#39;s CI/CD.</td><td>0</td><td>0</td><td>0</td><td>11</td></tr>
+<tr><th scope="row"><code>google_cloudbuild_trigger.placeholder</code></th><td>Left for the architect (REDESIGN): the draft writes no block of this unit, the architect decides its design. Candidate target in the knowledge base: a workflow in STACKIT Git Pipelines (GitHub Actions syntax, STACKIT-managed or custom runners) or the customer&#39;s CI/CD.</td><td>0</td><td>0</td><td>0</td><td>10</td></tr>
+<tr><th scope="row"><code>google_firebase_hosting_site.client</code></th><td>Left for the architect (REDESIGN): the draft writes no block of this unit, the architect decides its design. Candidate target in the knowledge base: STACKIT Object Storage as origin of a STACKIT CDN distribution, with a custom domain.</td><td>0</td><td>0</td><td>0</td><td>6</td></tr>
+<tr><th scope="row"><code>google_service_account.automation</code></th><td>STACKIT service account</td><td>0</td><td>1</td><td>0</td><td>5</td></tr>
+<tr><th scope="row"><code>google_service_account.client</code></th><td>STACKIT service account</td><td>0</td><td>1</td><td>0</td><td>5</td></tr>
+<tr><th scope="row"><code>google_service_account.init</code></th><td>STACKIT service account</td><td>0</td><td>1</td><td>0</td><td>5</td></tr>
+<tr><th scope="row"><code>google_service_account.server</code></th><td>STACKIT service account</td><td>0</td><td>1</td><td>0</td><td>5</td></tr>
+<tr><th scope="row"><code>google_firebase_project.default</code></th><td>No STACKIT target is stated for this unit.</td><td>0</td><td>0</td><td>0</td><td>3</td></tr>
+</tbody>
+</table>
+</div>
+<p>and 1 more in the sheet.</p>
+
+<div class="scroll" role="region" aria-label="Targets" tabindex="0">
+<table>
+<caption>STACKIT target of each unit (15 listed; 1 without a target)</caption>
+<thead><tr><th scope="col">Unit</th><th scope="col">Target service</th><th scope="col">Target resources</th><th scope="col">Maturity</th><th scope="col">Lifecycle</th><th scope="col">Region</th><th scope="col">Catalogue capabilities</th><th scope="col">Evidence references</th></tr></thead>
+<tbody>
+<tr>
+<th scope="row"><code>google_cloud_run_v2_job.migrate</code></th>
+<td>Kubernetes Job/CronJob on SKE</td>
+<td><code>stackit_ske_cluster</code> <span class="rmat" title="Maturity of this resource in the pinned provider">GA</span></td>
+<td>ga</td>
+<td>active</td>
+<td>eu01, eu02</td>
+<td>MATCHED: <a href="#capability/compute.managed-kubernetes">compute.managed-kubernetes</a></td>
+<td>2</td>
+</tr>
+<tr>
+<th scope="row"><code>google_cloud_run_v2_service.server</code></th>
+<td>SKE workload (or Cloud Foundry Docker app)</td>
+<td><code>stackit_ske_cluster</code> <span class="rmat" title="Maturity of this resource in the pinned provider">GA</span></td>
+<td>ga</td>
+<td>active</td>
+<td>eu01, eu02</td>
+<td>MATCHED: <a href="#capability/compute.managed-kubernetes">compute.managed-kubernetes</a></td>
+<td>2</td>
+</tr>
+<tr>
+<th scope="row"><code>google_cloudbuild_trigger.activategcb</code></th>
+<td>a workflow in STACKIT Git Pipelines (GitHub Actions syntax, STACKIT-managed or custom runners) or the customer&#39;s CI/CD</td>
+<td><code>stackit_git</code> <span class="rmat" title="Maturity of this resource in the pinned provider">BETA</span></td>
+<td>beta</td>
+<td>active</td>
+<td>eu01, eu02</td>
+<td>MATCHED: <a href="#capability/devtools.git">devtools.git</a></td>
+<td>15</td>
+</tr>
+<tr>
+<th scope="row"><code>google_cloudbuild_trigger.init</code></th>
+<td>a workflow in STACKIT Git Pipelines (GitHub Actions syntax, STACKIT-managed or custom runners) or the customer&#39;s CI/CD</td>
+<td><code>stackit_git</code> <span class="rmat" title="Maturity of this resource in the pinned provider">BETA</span></td>
+<td>beta</td>
+<td>active</td>
+<td>eu01, eu02</td>
+<td>MATCHED: <a href="#capability/devtools.git">devtools.git</a></td>
+<td>15</td>
+</tr>
+<tr>
+<th scope="row"><code>google_cloudbuild_trigger.placeholder</code></th>
+<td>a workflow in STACKIT Git Pipelines (GitHub Actions syntax, STACKIT-managed or custom runners) or the customer&#39;s CI/CD</td>
+<td><code>stackit_git</code> <span class="rmat" title="Maturity of this resource in the pinned provider">BETA</span></td>
+<td>beta</td>
+<td>active</td>
+<td>eu01, eu02</td>
+<td>MATCHED: <a href="#capability/devtools.git">devtools.git</a></td>
+<td>15</td>
+</tr>
+<tr>
+<th scope="row"><code>google_firebase_hosting_site.client</code></th>
+<td>STACKIT Object Storage as origin of a STACKIT CDN distribution, with a custom domain</td>
+<td><code>stackit_objectstorage_bucket</code> <span class="rmat" title="Maturity of this resource in the pinned provider">GA</span>, <code>stackit_cdn_distribution</code> <span class="rmat" title="Maturity of this resource in the pinned provider">BETA</span>, <code>stackit_cdn_custom_domain</code> <span class="rmat" title="Maturity of this resource in the pinned provider">BETA</span></td>
+<td>beta</td>
+<td>active</td>
+<td>not established by a catalogue snapshot</td>
+<td>PARTIAL: <a href="#capability/cdn.custom-domain">cdn.custom-domain</a>, <a href="#capability/cdn.distribution">cdn.distribution</a> (not listed by any capability: stackit_objectstorage_bucket; the STACKIT provider has stackit_objectstorage_bucket as resources, StackToIT's capability metadata for them is incomplete)</td>
+<td>7</td>
+</tr>
+<tr>
+<th scope="row"><code>google_pubsub_topic.faux</code></th>
+<td>STACKIT RabbitMQ</td>
+<td><code>stackit_rabbitmq_instance</code> <span class="rmat" title="Maturity of this resource in the pinned provider">GA</span>, <code>stackit_rabbitmq_credential</code> <span class="rmat" title="Maturity of this resource in the pinned provider">GA</span></td>
+<td>ga</td>
+<td>active</td>
+<td>eu01, eu02</td>
+<td>MATCHED: <a href="#capability/messaging.mqtt-broker">messaging.mqtt-broker</a>, <a href="#capability/messaging.rabbitmq-credential">messaging.rabbitmq-credential</a></td>
+<td>3</td>
+</tr>
+<tr>
+<th scope="row"><code>google_secret_manager_secret.django_admin_password</code></th>
+<td>STACKIT Secrets Manager</td>
+<td><code>stackit_secretsmanager_instance</code> <span class="rmat" title="Maturity of this resource in the pinned provider">GA</span>, <code>stackit_secretsmanager_user</code> <span class="rmat" title="Maturity of this resource in the pinned provider">GA</span></td>
+<td>ga</td>
+<td>active</td>
+<td>not established by a catalogue snapshot</td>
+<td>MATCHED: <a href="#capability/security.secrets-manager">security.secrets-manager</a></td>
+<td>2</td>
+</tr>
+<tr>
+<th scope="row"><code>google_secret_manager_secret.django_settings</code></th>
+<td>STACKIT Secrets Manager</td>
+<td><code>stackit_secretsmanager_instance</code> <span class="rmat" title="Maturity of this resource in the pinned provider">GA</span>, <code>stackit_secretsmanager_user</code> <span class="rmat" title="Maturity of this resource in the pinned provider">GA</span></td>
+<td>ga</td>
+<td>active</td>
+<td>not established by a catalogue snapshot</td>
+<td>MATCHED: <a href="#capability/security.secrets-manager">security.secrets-manager</a></td>
+<td>2</td>
+</tr>
+<tr>
+<th scope="row"><code>google_service_account.automation</code></th>
+<td>STACKIT service account</td>
+<td><code>stackit_service_account</code> <span class="rmat" title="Maturity of this resource in the pinned provider">GA</span>, <code>stackit_authorization_project_role_assignment</code> <span class="rmat" title="Maturity of this resource in the pinned provider">EXPERIMENTAL (feature iam)</span>, <code>stackit_authorization_folder_role_assignment</code> <span class="rmat" title="Maturity of this resource in the pinned provider">EXPERIMENTAL (feature iam)</span>, <code>stackit_authorization_organization_role_assignment</code> <span class="rmat" title="Maturity of this resource in the pinned provider">EXPERIMENTAL (feature iam)</span>, <code>stackit_authorization_service_account_role_assignment</code> <span class="rmat" title="Maturity of this resource in the pinned provider">EXPERIMENTAL (feature iam)</span></td>
+<td>experimental</td>
+<td>active</td>
+<td>not established by a catalogue snapshot</td>
+<td>MATCHED: <a href="#capability/identity.role-assignment">identity.role-assignment</a>, <a href="#capability/identity.server-service-account">identity.server-service-account</a></td>
+<td>2</td>
+</tr>
+<tr>
+<th scope="row"><code>google_service_account.client</code></th>
+<td>STACKIT service account</td>
+<td><code>stackit_service_account</code> <span class="rmat" title="Maturity of this resource in the pinned provider">GA</span>, <code>stackit_authorization_project_role_assignment</code> <span class="rmat" title="Maturity of this resource in the pinned provider">EXPERIMENTAL (feature iam)</span>, <code>stackit_authorization_folder_role_assignment</code> <span class="rmat" title="Maturity of this resource in the pinned provider">EXPERIMENTAL (feature iam)</span>, <code>stackit_authorization_organization_role_assignment</code> <span class="rmat" title="Maturity of this resource in the pinned provider">EXPERIMENTAL (feature iam)</span>, <code>stackit_authorization_service_account_role_assignment</code> <span class="rmat" title="Maturity of this resource in the pinned provider">EXPERIMENTAL (feature iam)</span></td>
+<td>experimental</td>
+<td>active</td>
+<td>not established by a catalogue snapshot</td>
+<td>MATCHED: <a href="#capability/identity.role-assignment">identity.role-assignment</a>, <a href="#capability/identity.server-service-account">identity.server-service-account</a></td>
+<td>2</td>
+</tr>
+<tr>
+<th scope="row"><code>google_service_account.init</code></th>
+<td>STACKIT service account</td>
+<td><code>stackit_service_account</code> <span class="rmat" title="Maturity of this resource in the pinned provider">GA</span>, <code>stackit_authorization_project_role_assignment</code> <span class="rmat" title="Maturity of this resource in the pinned provider">EXPERIMENTAL (feature iam)</span>, <code>stackit_authorization_folder_role_assignment</code> <span class="rmat" title="Maturity of this resource in the pinned provider">EXPERIMENTAL (feature iam)</span>, <code>stackit_authorization_organization_role_assignment</code> <span class="rmat" title="Maturity of this resource in the pinned provider">EXPERIMENTAL (feature iam)</span>, <code>stackit_authorization_service_account_role_assignment</code> <span class="rmat" title="Maturity of this resource in the pinned provider">EXPERIMENTAL (feature iam)</span></td>
+<td>experimental</td>
+<td>active</td>
+<td>not established by a catalogue snapshot</td>
+<td>MATCHED: <a href="#capability/identity.role-assignment">identity.role-assignment</a>, <a href="#capability/identity.server-service-account">identity.server-service-account</a></td>
+<td>2</td>
+</tr>
+<tr>
+<th scope="row"><code>google_service_account.server</code></th>
+<td>STACKIT service account</td>
+<td><code>stackit_service_account</code> <span class="rmat" title="Maturity of this resource in the pinned provider">GA</span>, <code>stackit_authorization_project_role_assignment</code> <span class="rmat" title="Maturity of this resource in the pinned provider">EXPERIMENTAL (feature iam)</span>, <code>stackit_authorization_folder_role_assignment</code> <span class="rmat" title="Maturity of this resource in the pinned provider">EXPERIMENTAL (feature iam)</span>, <code>stackit_authorization_organization_role_assignment</code> <span class="rmat" title="Maturity of this resource in the pinned provider">EXPERIMENTAL (feature iam)</span>, <code>stackit_authorization_service_account_role_assignment</code> <span class="rmat" title="Maturity of this resource in the pinned provider">EXPERIMENTAL (feature iam)</span></td>
+<td>experimental</td>
+<td>active</td>
+<td>not established by a catalogue snapshot</td>
+<td>MATCHED: <a href="#capability/identity.role-assignment">identity.role-assignment</a>, <a href="#capability/identity.server-service-account">identity.server-service-account</a></td>
+<td>2</td>
+</tr>
+<tr>
+<th scope="row"><code>google_sql_database_instance.postgres</code></th>
+<td>STACKIT PostgreSQL Flex</td>
+<td><code>stackit_postgresflex_instance</code> <span class="rmat" title="Maturity of this resource in the pinned provider">GA</span>, <code>stackit_postgresflex_database</code> <span class="rmat" title="Maturity of this resource in the pinned provider">GA</span>, <code>stackit_postgresflex_user</code> <span class="rmat" title="Maturity of this resource in the pinned provider">GA</span></td>
+<td>ga</td>
+<td>active</td>
+<td>eu01, eu02</td>
+<td>MATCHED: <a href="#capability/database.postgresql-flex">database.postgresql-flex</a></td>
+<td>3</td>
+</tr>
+<tr>
+<th scope="row"><code>google_storage_bucket.media</code></th>
+<td>STACKIT Object Storage</td>
+<td><code>stackit_objectstorage_bucket</code> <span class="rmat" title="Maturity of this resource in the pinned provider">GA</span>, <code>stackit_objectstorage_credentials_group</code> <span class="rmat" title="Maturity of this resource in the pinned provider">GA</span>, <code>stackit_objectstorage_credential</code> <span class="rmat" title="Maturity of this resource in the pinned provider">GA</span></td>
+<td>ga</td>
+<td>active</td>
+<td>not established by a catalogue snapshot</td>
+<td>RESOURCE EXISTS BUT CAPABILITY UNLINKED (not listed by any capability: stackit_objectstorage_bucket, stackit_objectstorage_credential, stackit_objectstorage_credentials_group; the STACKIT provider has stackit_objectstorage_bucket, stackit_objectstorage_credential, stackit_objectstorage_credentials_group as resources, StackToIT's capability metadata for them is incomplete)</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>Target lifecycle: SKE Kubernetes versions</h3>
+<p>Units whose target uses it: <code>google_cloud_run_v2_job.migrate</code>, <code>google_cloud_run_v2_service.server</code>. The provider presents the target resources as GA. States are derived from published dates only, as of <strong>2026-11-03</strong>, the day the sources were read; this page reads no clock, so compare the dates with today. The set is not vouched for after <strong>2027-02-01</strong>. The 30-day window that makes a version EXPIRING is a StackToIT parameter, not a provider fact.</p>
+<div class="scroll" role="region" aria-label="Lifecycle of SKE Kubernetes versions" tabindex="0">
+<table>
+<caption>SKE Kubernetes versions: production suitability of the capability is SUITABLE (a version with no published end date is never read as safe)</caption>
+<thead><tr><th scope="col">Version</th><th scope="col">State</th><th scope="col">Released</th><th scope="col">Deprecated</th><th scope="col">Expires</th><th scope="col">Production suitability</th><th scope="col">Upgrade action</th><th scope="col">Migration timing risk</th></tr></thead>
+<tbody>
+<tr>
+<th scope="row">1.36</th>
+<td>SUPPORTED</td>
+<td>2026-08-27</td>
+<td>not stated</td>
+<td>2027-06-09</td>
+<td>SUITABLE</td>
+<td>PLAN</td>
+<td>LOW</td>
+</tr>
+<tr>
+<th scope="row">1.35</th>
+<td>UNKNOWN</td>
+<td>not stated</td>
+<td>not stated</td>
+<td>2027-02-10</td>
+<td>UNKNOWN</td>
+<td>UNKNOWN</td>
+<td>UNKNOWN</td>
+</tr>
+<tr>
+<th scope="row">1.34</th>
+<td>EXPIRED</td>
+<td>2025-12-16</td>
+<td>2026-08-28</td>
+<td>2026-10-14</td>
+<td>NOT_SUITABLE</td>
+<td>MANDATORY_UPDATE_APPLIES</td>
+<td>HIGH</td>
+</tr>
+<tr>
+<th scope="row">1.33</th>
+<td>EXPIRED (disputed)</td>
+<td>2025-07-29</td>
+<td>2026-06-09</td>
+<td>2026-06-10 (sources disagree: 2026-07-08)</td>
+<td>NOT_SUITABLE</td>
+<td>MANDATORY_UPDATE_APPLIES</td>
+<td>HIGH</td>
+</tr>
+<tr>
+<th scope="row">1.32</th>
+<td>EXPIRED</td>
+<td>not stated</td>
+<td>2026-02-20</td>
+<td>2026-04-15</td>
+<td>NOT_SUITABLE</td>
+<td>MANDATORY_UPDATE_APPLIES</td>
+<td>HIGH</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Day-2 responsibility: when a version reaches its expiry the update is performed by the provider (STACKIT). &#34;If the Kubernetes or OS version of a cluster has reached its expiration date, SKE starts a mandatory update to the highest available patch version of the current minor version, or to the highest patch version of the consecutive minor version that is not classified as preview version.&#34; and &#34;mandatory version updates run, even if the auto update for the Kubernetes version is deactivated&#34;. Automatic updates otherwise &#34;only update to higher patch levels&#34; in the cluster&#39;s maintenance window. Notice: &#34;As a SKE user you will get informed via release notes and via email in case you are operating a cluster with a deprecated Kubernetes version.&#34; Customer: &#34;you can check the exact expiration dates for your current Kubernetes and node pool versions in the cluster.status.expiration field via the SKE API&#34;. The page does not assign any further duty (workload readiness for the update, testing) to the customer or to STACKIT: not stated.</p>
+<p><small>Sources: https://docs.stackit.cloud/products/runtime/kubernetes-engine/basics/operations/version-updates/, https://docs.stackit.cloud/products/runtime/kubernetes-engine/reference/lifecycle/, https://docs.stackit.cloud/products/runtime/kubernetes-engine/release-notes/</small></p>
+</section></main>
+<script>(function () {
+  'use strict';
+  var doc = document;
+  var win = window;
+  function all(selector, root) { return Array.prototype.slice.call((root || doc).querySelectorAll(selector)); }
+  function press(button, on) { button.setAttribute('aria-pressed', on ? 'true' : 'false'); }
+  function pressed(button) { return button.getAttribute('aria-pressed') === 'true'; }
+
+  all('[data-js-only]').forEach(function (e) { e.hidden = false; });
+
+  var detailsButton = doc.querySelector('[data-act="details"]');
+  if (detailsButton) {
+    detailsButton.addEventListener('click', function () {
+      var on = !pressed(detailsButton);
+      press(detailsButton, on);
+      all('details').forEach(function (d) { d.open = on; });
+    });
+  }
+
+  function listOf(scope) { return doc.querySelector('[data-list="' + scope + '"]'); }
+  function itemsOf(list) {
+    return all('[data-item]', list);
+  }
+  function chosen(scope) {
+    var by = {};
+    all('[data-controls="' + scope + '"] [data-filter]').forEach(function (b) {
+      if (!pressed(b)) { return; }
+      var group = b.getAttribute('data-filter');
+      (by[group] = by[group] || []).push(b.getAttribute('data-value'));
+    });
+    return by;
+  }
+  function passes(item, by, cells) {
+    if (cells) {
+      if (!by.dim && !by.state) { return true; }
+      return all('[data-state]', item).some(function (c) {
+        return (!by.dim || by.dim.indexOf(c.getAttribute('data-dim')) >= 0) && (!by.state || by.state.indexOf(c.getAttribute('data-state')) >= 0);
+      });
+    }
+    return Object.keys(by).every(function (group) { return by[group].indexOf(item.getAttribute('data-' + group)) >= 0; });
+  }
+  function refresh(scope) {
+    var list = listOf(scope);
+    if (!list) { return; }
+    var by = chosen(scope);
+    var cells = list.hasAttribute('data-cells');
+    var seen = false;
+    var search = doc.querySelector('[data-search="' + scope + '"]');
+    var words = search ? search.value.toLowerCase().split(' ').filter(Boolean) : [];
+    itemsOf(list).forEach(function (item) {
+      var text = (item.id + ' ' + (item.getAttribute('data-text') || '')).toLowerCase();
+      var ok = passes(item, by, cells) && words.every(function (w) { return text.indexOf(w) >= 0; });
+      item.hidden = !ok;
+      if (ok) { seen = true; }
+    });
+    all('[data-group]', list).forEach(function (g) {
+      g.hidden = !all('[data-item]', g).some(function (item) { return !item.hidden; });
+      if (words[0] && !g.hidden && g.tagName === 'DETAILS') { g.open = true; }
+    });
+    var none = doc.querySelector('[data-empty="' + scope + '"]');
+    if (none) { none.hidden = seen; }
+  }
+  function sortBy(scope, button) {
+    var list = listOf(scope);
+    if (!list) { return; }
+    var key = button.getAttribute('data-sort');
+    var attr = key === 'record' ? 'data-seq' : 'data-sort-' + key;
+    var desc = button.getAttribute('data-dir') === 'desc';
+    var items = itemsOf(list);
+    var parents = items.map(function (i) { return i.parentNode; }).filter(function (p, k, a) { return a.indexOf(p) === k; });
+    parents.forEach(function (parent) {
+      items.filter(function (i) { return i.parentNode === parent; }).sort(function (a, b) {
+        var x = Number(a.getAttribute(attr));
+        var y = Number(b.getAttribute(attr));
+        if (x !== y) { return desc ? y - x : x - y; }
+        return Number(a.getAttribute('data-seq')) - Number(b.getAttribute('data-seq'));
+      }).forEach(function (item) { parent.appendChild(item); });
+    });
+    all('[data-controls="' + scope + '"] [data-sort]').forEach(function (b) { press(b, b === button); });
+  }
+  all('[data-controls]').forEach(function (box) {
+    var scope = box.getAttribute('data-controls');
+    all('[data-filter]', box).forEach(function (b) {
+      b.addEventListener('click', function () { press(b, !pressed(b)); refresh(scope); });
+    });
+    all('[data-sort]', box).forEach(function (b) {
+      b.addEventListener('click', function () { sortBy(scope, b); });
+    });
+    var search = box.querySelector('[data-search]');
+    if (search) {
+      search.addEventListener('input', function () { refresh(scope); });
+    }
+    var clear = box.querySelector('[data-act="clear-filters"]');
+    if (clear) {
+      clear.addEventListener('click', function () {
+        all('[data-filter]', box).forEach(function (b) { press(b, false); });
+        if (search) { search.value = ''; }
+        refresh(scope);
+      });
+    }
+  });
+
+  var main = doc.getElementById('main');
+  var lensButtons = all('[data-lens-set]');
+  function setLens(lens) {
+    doc.body.setAttribute('data-lens', lens);
+    lensButtons.forEach(function (b) {
+      var on = b.getAttribute('data-lens-set') === lens;
+      press(b, on);
+      if (on) {
+        b.getAttribute('data-lens-order').split(' ').forEach(function (id) {
+          var section = doc.getElementById(id);
+          if (main && section && section.parentNode === main && (section.nextElementSibling || section.previousElementSibling)) { main.appendChild(section); }
+          var entry = doc.querySelector('nav [data-nav="' + id + '"]');
+          if (entry) { entry.parentNode.appendChild(entry); }
+        });
+      }
+    });
+  }
+  lensButtons.forEach(function (b) {
+    b.addEventListener('click', function () { setLens(b.getAttribute('data-lens-set')); });
+  });
+
+  function indicated() {
+    var hash = win.location.hash;
+    if (hash === '' || hash === '#') { return null; }
+    var id = hash.slice(1);
+    var found = doc.getElementById(id);
+    if (!found) {
+      try { found = doc.getElementById(decodeURIComponent(id)); } catch (e) { found = null; }
+    }
+    return found;
+  }
+  var kindPages = {'action': 'decisions', 'application': 'applications', 'capability': 'target-fit', 'check': 'evidence', 'claim': 'engineering', 'decision': 'decisions', 'evidence': 'engineering', 'field': 'engineering', 'findinggroup': 'evidence', 'intent': 'engineering', 'residual': 'engineering', 'target': 'evidence', 'unit': 'architecture'};
+  var sectionPages = ' applications architecture decisions target-fit migration security-assurance sovereignty operations cost evidence engineering work-board ';
+  function before(a, b) {
+    var x = Array.from(a);
+    var y = Array.from(b);
+    for (var i = 0; ; i++) {
+      if (x[i] === undefined) { return y[i] !== undefined; }
+      if (y[i] === undefined) { return false; }
+      if (x[i] !== y[i]) { return x[i].codePointAt(0) < y[i].codePointAt(0); }
+    }
+  }
+  function grouped(kind, key) {
+    var rows = all('[data-routes] [data-kind="' + kind + '"]');
+    if (!rows[0]) { return null; }
+    var at = rows[0];
+    rows.forEach(function (r) { if (!before(key, r.getAttribute('data-first'))) { at = r; } });
+    return at.getAttribute('data-page');
+  }
+  function routed(id) {
+    var slash = id.indexOf('/');
+    if (slash > 0) {
+      var kind = id.slice(0, slash);
+      var key = null;
+      try { key = decodeURIComponent(id.slice(slash + 1)); } catch (e) { key = null; }
+      var group = key === null ? null : grouped(kind, key);
+      if (group !== null) { return group; }
+      return kindPages.hasOwnProperty(kind) ? kindPages[kind] : null;
+    }
+    return sectionPages.indexOf(' ' + id + ' ') >= 0 ? id : null;
+  }
+  function route() {
+    var base = doc.body.getAttribute('data-pages');
+    var page = routed(win.location.hash.slice(1));
+    if (base === null || page === null || win.location.pathname.endsWith('/' + page + '.html')) { return; }
+    win.location.replace(base + page + '.html' + win.location.hash);
+  }
+  function reveal() {
+    var target = indicated();
+    if (!target) { route(); return; }
+    if (target.tagName === 'DETAILS') { target.open = true; }
+    for (var p = target.parentElement; p; p = p.parentElement) {
+      if (p.tagName === 'DETAILS') { p.open = true; }
+    }
+    var body = target.querySelector(':scope > details');
+    if (body) { body.open = true; }
+    if (!target.getClientRects()[0]) {
+      all('[data-controls] [data-filter]').forEach(function (b) { press(b, false); });
+      all('[data-search]').forEach(function (b) { b.value = ''; });
+      all('[data-controls]').forEach(function (box) { refresh(box.getAttribute('data-controls')); });
+      if (lensButtons[0]) { setLens('all'); }
+    }
+    target.scrollIntoView();
+  }
+  win.addEventListener('hashchange', reveal);
+  reveal();
+
+  var opened = [];
+  win.addEventListener('beforeprint', function () {
+    opened = all('details:not([open])');
+    opened.forEach(function (d) { d.open = true; });
+  });
+  win.addEventListener('afterprint', function () {
+    opened.forEach(function (d) { d.open = false; });
+    opened = [];
+  });
+})();
+</script>
+</body>
+</html>

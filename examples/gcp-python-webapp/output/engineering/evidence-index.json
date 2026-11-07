@@ -1,0 +1,442 @@
+{
+  "run_id": "6f8f72b2-1c34-4cfc-8483-344c41245364",
+  "source_digest": "sha256:19bfed642d5789ccada81b91d5c36e33175dcafd66dc46b1644ffa105d020000",
+  "evidence_index": {
+    "limits": [
+      "A unit id is its Terraform address: renaming a resource in the source is a new unit. Continuity of a unit across a rename is not built (a semantic fingerprint is a later item).",
+      "An id names an object and holds no run: the same estate gives the same ids in every run. The JSON pointer into a file of the report is valid for the run named in header.run.",
+      "A line is given only for a block of the draft that parses as HCL. A block the draft writes as a comment has a file and no line, and a block the report could not place has neither.",
+      "A hop that reads UNSUPPORTED is not produced by this build; one that reads NOT_AVAILABLE is produced by this build and made nothing in this run. Neither is a finding of no risk."
+    ],
+    "counts": {
+      "units": 16,
+      "units_with_targets": 11,
+      "targets": 10,
+      "edges": 13,
+      "unowned_targets": 0
+    },
+    "families": [
+      {
+        "family": "GCP_IDENTITY",
+        "units": 4,
+        "trace_producer": false,
+        "traced_units": 0,
+        "hops": [
+          {
+            "hop": "source",
+            "states": [
+              {
+                "state": "ESTABLISHED",
+                "units": 4
+              }
+            ]
+          },
+          {
+            "hop": "intent",
+            "states": [
+              {
+                "state": "NOT_AVAILABLE",
+                "units": 4
+              }
+            ]
+          },
+          {
+            "hop": "plan",
+            "states": [
+              {
+                "state": "OPEN",
+                "units": 4
+              }
+            ]
+          },
+          {
+            "hop": "hcl",
+            "states": [
+              {
+                "state": "ESTABLISHED",
+                "units": 4
+              }
+            ]
+          },
+          {
+            "hop": "validation",
+            "states": [
+              {
+                "state": "ESTABLISHED",
+                "units": 4
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "family": "LEGACY_GENERATOR",
+        "units": 12,
+        "trace_producer": true,
+        "traced_units": 7,
+        "hops": [
+          {
+            "hop": "source",
+            "states": [
+              {
+                "state": "ESTABLISHED",
+                "units": 12
+              }
+            ]
+          },
+          {
+            "hop": "intent",
+            "states": [
+              {
+                "state": "UNSUPPORTED",
+                "units": 12
+              }
+            ]
+          },
+          {
+            "hop": "plan",
+            "states": [
+              {
+                "state": "UNSUPPORTED",
+                "units": 12
+              }
+            ]
+          },
+          {
+            "hop": "hcl",
+            "states": [
+              {
+                "state": "ESTABLISHED",
+                "units": 7
+              },
+              {
+                "state": "NONE",
+                "units": 5
+              }
+            ]
+          },
+          {
+            "hop": "validation",
+            "states": [
+              {
+                "state": "UNSUPPORTED",
+                "units": 12
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "targets": [
+      {
+        "id": "target:stackit_objectstorage_bucket.media",
+        "address": "stackit_objectstorage_bucket.media",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/storage.tf",
+        "line": 11,
+        "end_line": 14,
+        "units": [
+          "unit:google_storage_bucket.media"
+        ],
+        "trace_id": "TR-03d7fb936653",
+        "trace_file": "engineering/trace/storage.md"
+      },
+      {
+        "id": "target:stackit_postgresflex_instance.postgres",
+        "address": "stackit_postgresflex_instance.postgres",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/data.tf",
+        "line": 18,
+        "end_line": 32,
+        "units": [
+          "unit:google_sql_database_instance.postgres"
+        ],
+        "trace_id": "TR-97904614ad56",
+        "trace_file": "engineering/trace/data.md"
+      },
+      {
+        "id": "target:stackit_rabbitmq_instance.messaging",
+        "address": "stackit_rabbitmq_instance.messaging",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/messaging.tf",
+        "line": 8,
+        "end_line": 16,
+        "units": [
+          "unit:google_pubsub_topic.faux"
+        ],
+        "trace_id": "TR-4a61e547964d",
+        "trace_file": "engineering/trace/messaging.md"
+      },
+      {
+        "id": "target:stackit_secretsmanager_instance.migrated_secrets",
+        "address": "stackit_secretsmanager_instance.migrated_secrets",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/security.tf",
+        "line": 16,
+        "end_line": 19,
+        "units": [
+          "unit:google_secret_manager_secret.django_admin_password",
+          "unit:google_secret_manager_secret.django_settings"
+        ],
+        "trace_id": "TR-20eecaf8afaa",
+        "trace_file": "engineering/trace/security.md"
+      },
+      {
+        "id": "target:stackit_secretsmanager_user.migration",
+        "address": "stackit_secretsmanager_user.migration",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/security.tf",
+        "line": 24,
+        "end_line": 29,
+        "units": [
+          "unit:google_secret_manager_secret.django_admin_password",
+          "unit:google_secret_manager_secret.django_settings"
+        ],
+        "trace_id": "TR-d46bac8a52a7",
+        "trace_file": "engineering/trace/security.md"
+      },
+      {
+        "id": "target:stackit_service_account.automation",
+        "address": "stackit_service_account.automation",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 13,
+        "end_line": 16,
+        "units": [
+          "unit:google_service_account.automation"
+        ],
+        "trace_id": "TR-043d09e0acdf",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_service_account.client",
+        "address": "stackit_service_account.client",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 24,
+        "end_line": 27,
+        "units": [
+          "unit:google_service_account.client"
+        ],
+        "trace_id": "TR-5ca70ac9e6fa",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_service_account.init",
+        "address": "stackit_service_account.init",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 36,
+        "end_line": 39,
+        "units": [
+          "unit:google_service_account.init"
+        ],
+        "trace_id": "TR-82b9a11ffa8d",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_service_account.server",
+        "address": "stackit_service_account.server",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/identity.tf",
+        "line": 49,
+        "end_line": 52,
+        "units": [
+          "unit:google_service_account.server"
+        ],
+        "trace_id": "TR-49328bb589c6",
+        "trace_file": "engineering/trace/identity.md"
+      },
+      {
+        "id": "target:stackit_ske_cluster.containers",
+        "address": "stackit_ske_cluster.containers",
+        "origin": "LEGACY_GENERATOR",
+        "block": "HCL_BLOCK",
+        "kind": "REPORT_FILE",
+        "file": "terraform/kubernetes.tf",
+        "line": 15,
+        "end_line": 25,
+        "units": [
+          "unit:google_cloud_run_v2_job.migrate",
+          "unit:google_cloud_run_v2_service.server"
+        ],
+        "trace_id": "TR-d30d8f964263",
+        "trace_file": "engineering/trace/kubernetes.md"
+      }
+    ],
+    "checks": [
+      {
+        "id": "check:GLOBAL_RESOURCE_UNIQUENESS",
+        "state": "PASS",
+        "checked": 55,
+        "file": "manifest.json",
+        "pointer": "/verification/0"
+      },
+      {
+        "id": "check:NO_UNPLANNED_RESOURCE",
+        "state": "PASS",
+        "checked": 10,
+        "file": "manifest.json",
+        "pointer": "/verification/1"
+      },
+      {
+        "id": "check:NO_UNPLANNED_REFERENCE",
+        "state": "PASS",
+        "checked": 9,
+        "file": "manifest.json",
+        "pointer": "/verification/2"
+      },
+      {
+        "id": "check:NO_UNRESOLVED_REQUIRED_FIELD",
+        "state": "PASS",
+        "checked": 28,
+        "file": "manifest.json",
+        "pointer": "/verification/3"
+      },
+      {
+        "id": "check:NO_SECURITY_WIDENING",
+        "state": "PASS",
+        "checked": 0,
+        "file": "manifest.json",
+        "pointer": "/verification/4"
+      },
+      {
+        "id": "check:ALL_OUTPUTS_SAME_RUN",
+        "state": "PASS",
+        "checked": 48,
+        "file": "manifest.json",
+        "pointer": "/verification/5"
+      },
+      {
+        "id": "check:VARIABLE_IDENTITY_PRESERVED",
+        "state": "PASS",
+        "checked": 0,
+        "file": "manifest.json",
+        "pointer": "/verification/6"
+      },
+      {
+        "id": "check:NO_ORPHAN_MANUAL_ACTION",
+        "state": "PASS",
+        "checked": 4,
+        "file": "manifest.json",
+        "pointer": "/verification/7"
+      },
+      {
+        "id": "check:SOURCE_PROVIDER_MATCHES_SCHEMA_OR_IS_UNVERIFIED",
+        "state": "PASS",
+        "checked": 16,
+        "file": "manifest.json",
+        "pointer": "/verification/8"
+      },
+      {
+        "id": "check:APPLICATION_READY_IMPLIES_REQUIRED_ENV_SECRETS_DEPENDENCIES",
+        "state": "PASS",
+        "checked": 0,
+        "file": "manifest.json",
+        "pointer": "/verification/9"
+      },
+      {
+        "id": "check:ALL_EMITTED_TARGET_TYPES_CLASSIFIED",
+        "state": "PASS",
+        "checked": 10,
+        "file": "manifest.json",
+        "pointer": "/verification/10"
+      },
+      {
+        "id": "check:ALL_UNACCOUNTED_PROPERTIES_EXPLICIT",
+        "state": "PASS",
+        "checked": 69,
+        "file": "manifest.json",
+        "pointer": "/verification/11"
+      },
+      {
+        "id": "check:SOURCE_COMPLETENESS",
+        "state": "PARTIAL",
+        "checked": 0,
+        "file": "workspace.json",
+        "pointer": "/validation_matrix/rows/0"
+      },
+      {
+        "id": "check:DRAFT_GENERATION",
+        "state": "GENERATED",
+        "checked": 0,
+        "file": "workspace.json",
+        "pointer": "/validation_matrix/rows/1"
+      },
+      {
+        "id": "check:STACKTOIT_DRAFT_CHECKS",
+        "state": "PASSED",
+        "checked": 0,
+        "file": "workspace.json",
+        "pointer": "/validation_matrix/rows/2"
+      },
+      {
+        "id": "check:GLOBAL_INVARIANTS",
+        "state": "PASSED",
+        "checked": 0,
+        "file": "workspace.json",
+        "pointer": "/validation_matrix/rows/3"
+      },
+      {
+        "id": "check:TOFU_STATIC_VALIDATION",
+        "state": "PASSED",
+        "checked": 0,
+        "file": "workspace.json",
+        "pointer": "/validation_matrix/rows/4"
+      },
+      {
+        "id": "check:OUTPUT_SCHEMA_VALIDATION",
+        "state": "PASSED",
+        "checked": 0,
+        "file": "workspace.json",
+        "pointer": "/validation_matrix/rows/5"
+      },
+      {
+        "id": "check:STACKIT_PLAN",
+        "state": "NOT_RUN",
+        "checked": 0,
+        "file": "workspace.json",
+        "pointer": "/validation_matrix/rows/6"
+      },
+      {
+        "id": "check:ARCHITECT_APPROVAL",
+        "state": "NOT_PROVIDED",
+        "checked": 0,
+        "file": "workspace.json",
+        "pointer": "/validation_matrix/rows/7"
+      },
+      {
+        "id": "check:SEMANTIC_EQUIVALENCE",
+        "state": "NOT_ASSESSED",
+        "checked": 0,
+        "file": "workspace.json",
+        "pointer": "/validation_matrix/rows/8"
+      },
+      {
+        "id": "check:SAFE_TO_APPLY",
+        "state": "NOT_ASSERTED",
+        "checked": 0,
+        "file": "workspace.json",
+        "pointer": "/validation_matrix/rows/9"
+      }
+    ]
+  }
+}

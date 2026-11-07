@@ -1,0 +1,152 @@
+{
+  "schema_version": "0.1.0",
+  "tool": "stacktoit",
+  "run_id": "6f8f72b2-1c34-4cfc-8483-344c41245364",
+  "source_digest": "sha256:19bfed642d5789ccada81b91d5c36e33175dcafd66dc46b1644ffa105d020000",
+  "plans": [
+    {
+      "family": "identity",
+      "rendering": [],
+      "plan": {
+        "schema_version": "0.2.8",
+        "producer": {
+          "name": "stacktoit-stackitsa",
+          "version": "0.1.0"
+        },
+        "target": {
+          "provider": "stackit",
+          "provider_version": "0.121.0"
+        },
+        "source_units": [
+          {
+            "id": "google_cloud_run_v2_job.migrate",
+            "provider": "google",
+            "type": "google_cloud_run_v2_job",
+            "address": "google_cloud_run_v2_job.migrate"
+          },
+          {
+            "id": "google_cloud_run_v2_service.server",
+            "provider": "google",
+            "type": "google_cloud_run_v2_service",
+            "address": "google_cloud_run_v2_service.server"
+          },
+          {
+            "id": "google_service_account.automation",
+            "provider": "google",
+            "type": "google_service_account",
+            "address": "google_service_account.automation"
+          },
+          {
+            "id": "google_service_account.server",
+            "provider": "google",
+            "type": "google_service_account",
+            "address": "google_service_account.server"
+          }
+        ],
+        "resources": [],
+        "relations": [],
+        "variables": [],
+        "prerequisites": [],
+        "manual_actions": [
+          {
+            "id": "stackitsa:facts:google_cloud_run_v2_job.migrate:google_cloud_run_v2_job.migrate#template[0].template[0].service_account",
+            "kind": "OTHER",
+            "on": {
+              "unit": "google_cloud_run_v2_job.migrate",
+              "node": "google_cloud_run_v2_job.migrate",
+              "attribute": "template[0].template[0].service_account"
+            },
+            "what": "Decide how google_cloud_run_v2_job.migrate gets its application identity on STACKIT (a service account of its own, workload federation): the draft does not write it",
+            "why": "the workload is a container task, not a server an account is attached to (template[0].template[0].service_account of google_cloud_run_v2_job.migrate names google_service_account.automation). no service account is attached to a workload of this source: an account attaches, but it can do nothing without its roles, and writing a role assignment from a draft has not been shown on STACKIT (it needs a right the key that tried it did not hold), so the draft grants no role and attaches no account",
+            "phase": "BEFORE_PILOT",
+            "owner_role": "Identity Architect",
+            "subjects": [
+              "google_cloud_run_v2_job.migrate"
+            ],
+            "success_condition": "the identity fact of google_cloud_run_v2_job.migrate (template[0].template[0].service_account of google_cloud_run_v2_job.migrate names google_service_account.automation) is decided on STACKIT and recorded, or recorded as not needed"
+          },
+          {
+            "id": "stackitsa:facts:google_cloud_run_v2_service.server:google_cloud_run_v2_service.server#template[0].service_account",
+            "kind": "OTHER",
+            "on": {
+              "unit": "google_cloud_run_v2_service.server",
+              "node": "google_cloud_run_v2_service.server",
+              "attribute": "template[0].service_account"
+            },
+            "what": "Decide how google_cloud_run_v2_service.server gets its application identity on STACKIT (a service account of its own, workload federation): the draft does not write it",
+            "why": "the workload is a container service, not a server an account is attached to (template[0].service_account of google_cloud_run_v2_service.server names google_service_account.server). no service account is attached to a workload of this source: an account attaches, but it can do nothing without its roles, and writing a role assignment from a draft has not been shown on STACKIT (it needs a right the key that tried it did not hold), so the draft grants no role and attaches no account",
+            "phase": "BEFORE_PILOT",
+            "owner_role": "Identity Architect",
+            "subjects": [
+              "google_cloud_run_v2_service.server"
+            ],
+            "success_condition": "the identity fact of google_cloud_run_v2_service.server (template[0].service_account of google_cloud_run_v2_service.server names google_service_account.server) is decided on STACKIT and recorded, or recorded as not needed"
+          },
+          {
+            "id": "stackitsa:held:principal:google_service_account.automation",
+            "kind": "OTHER",
+            "on": {
+              "unit": "google_service_account.automation"
+            },
+            "what": "Decide who may use the STACKIT service account written for google_service_account.automation, what it may do and which workloads run as it: the draft attaches it to nothing",
+            "why": "google_service_account.automation is used by the workloads that run as it, by a reading that is KNOWN: google_cloud_run_v2_job.migrate (google_cloud_run_v2_job.migrate#template[0].template[0].service_account); the other places that refer to it: google_cloudbuild_trigger.init, google_project_iam_member.automation_permissions, google_secret_manager_secret_iam_binding.django_admin_password, google_secret_manager_secret_iam_binding.django_settings, google_storage_bucket_iam_member.automation. Its service account is written by the draft's converter of google_service_account, not by this plan, and the plan attaches it to nothing.",
+            "phase": "BEFORE_PILOT",
+            "owner_role": "Identity Architect",
+            "subjects": [
+              "google_service_account.automation"
+            ],
+            "success_condition": "the people and the workloads that may use the service account written for google_service_account.automation are named, and the roles it holds are stated"
+          },
+          {
+            "id": "stackitsa:held:principal:google_service_account.server",
+            "kind": "OTHER",
+            "on": {
+              "unit": "google_service_account.server"
+            },
+            "what": "Decide who may use the STACKIT service account written for google_service_account.server, what it may do and which workloads run as it: the draft attaches it to nothing",
+            "why": "google_service_account.server is used by the workloads that run as it, by a reading that is KNOWN: google_cloud_run_v2_service.server (google_cloud_run_v2_service.server#template[0].service_account); the other places that refer to it: google_project_iam_member.server_permissions, google_secret_manager_secret_iam_binding.django_settings, google_storage_bucket_iam_member.server. Its service account is written by the draft's converter of google_service_account, not by this plan, and the plan attaches it to nothing.",
+            "phase": "BEFORE_PILOT",
+            "owner_role": "Identity Architect",
+            "subjects": [
+              "google_service_account.server"
+            ],
+            "success_condition": "the people and the workloads that may use the service account written for google_service_account.server are named, and the roles it holds are stated"
+          }
+        ],
+        "decisions": [],
+        "residual_differences": [],
+        "ledger": [],
+        "validation_requirements": [],
+        "no_targets": [
+          {
+            "unit": "google_cloud_run_v2_job.migrate",
+            "reason": "MANUAL_REVIEW",
+            "cause": "google_cloud_run_v2_job.migrate is a container task: its 1 identity binding(s) are facts only, and no service account is attached for it (no service account is attached to a workload of this source: an account attaches, but it can do nothing without its roles, and writing a role assignment from a draft has not been shown on STACKIT (it needs a right the key that tried it did not hold), so the draft grants no role and attaches no account)"
+          },
+          {
+            "unit": "google_cloud_run_v2_service.server",
+            "reason": "MANUAL_REVIEW",
+            "cause": "google_cloud_run_v2_service.server is a container service: its 1 identity binding(s) are facts only, and no service account is attached for it (no service account is attached to a workload of this source: an account attaches, but it can do nothing without its roles, and writing a role assignment from a draft has not been shown on STACKIT (it needs a right the key that tried it did not hold), so the draft grants no role and attaches no account)"
+          },
+          {
+            "unit": "google_service_account.automation",
+            "reason": "NOT_DRAFTED",
+            "cause": "google_service_account.automation is an identity of the source whose service account is written by the draft's converter of google_service_account, not by this plan: the plan states what uses it and attaches it to nothing"
+          },
+          {
+            "unit": "google_service_account.server",
+            "reason": "NOT_DRAFTED",
+            "cause": "google_service_account.server is an identity of the source whose service account is written by the draft's converter of google_service_account, not by this plan: the plan states what uses it and attaches it to nothing"
+          }
+        ],
+        "provenance": {
+          "kb_version": "0.394.0",
+          "rules": [
+            "stackitsa.account",
+            "stackitsa.attach"
+          ]
+        }
+      }
+    }
+  ]
+}

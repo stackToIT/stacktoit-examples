@@ -1,0 +1,17 @@
+wave,wave_state,unit,type,module_call,presence,class,confidence,application,application_status,proposed_group
+1,MEMBER,google_firebase_project.default,google_firebase_project,,KNOWN_PRESENT,MANUAL_REVIEW,LOW,,UNASSIGNED,
+1,MEMBER,google_pubsub_topic.faux,google_pubsub_topic,,KNOWN_PRESENT,REPLATFORM,MEDIUM,,UNASSIGNED,
+1,MEMBER,google_service_account.automation,google_service_account,,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,migrate
+1,MEMBER,google_service_account.client,google_service_account,,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,UNASSIGNED,
+1,MEMBER,google_service_account.server,google_service_account,,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,server
+1,MEMBER,google_sql_database_instance.postgres,google_sql_database_instance,,KNOWN_PRESENT,REPLATFORM,MEDIUM,,SHARED,migrate; server
+2,MEMBER,google_secret_manager_secret.django_admin_password,google_secret_manager_secret,,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,PROPOSED,migrate
+2,MEMBER,google_storage_bucket.media,google_storage_bucket,,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,SHARED,migrate; server
+3,MEMBER,google_secret_manager_secret.django_settings,google_secret_manager_secret,,KNOWN_PRESENT,RECONFIGURE,MEDIUM,,SHARED,migrate; server
+4,MEMBER,google_cloud_run_v2_job.migrate,google_cloud_run_v2_job,,KNOWN_PRESENT,CONTAINERIZE,MEDIUM,,PROPOSED,migrate
+4,MEMBER,google_cloud_run_v2_service.server,google_cloud_run_v2_service,,KNOWN_PRESENT,CONTAINERIZE,MEDIUM,,PROPOSED,server
+0,NOT_A_MEMBER,google_cloudbuild_trigger.activategcb,google_cloudbuild_trigger,,CONDITIONAL,REDESIGN,MEDIUM,,UNASSIGNED,
+0,NOT_A_MEMBER,google_cloudbuild_trigger.init,google_cloudbuild_trigger,,CONDITIONAL,REDESIGN,LOW,,UNASSIGNED,
+0,NOT_A_MEMBER,google_cloudbuild_trigger.placeholder,google_cloudbuild_trigger,,CONDITIONAL,REDESIGN,LOW,,UNASSIGNED,
+0,NOT_A_MEMBER,google_firebase_hosting_site.client,google_firebase_hosting_site,,CONDITIONAL,REDESIGN,LOW,,UNASSIGNED,
+0,NOT_A_MEMBER,google_service_account.init,google_service_account,,CONDITIONAL,RECONFIGURE,MEDIUM,,UNASSIGNED,

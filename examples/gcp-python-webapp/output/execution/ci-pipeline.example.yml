@@ -1,0 +1,73 @@
+# Example of a pipeline around execution/deploy.sh, in the workflow syntax of Forgejo Actions (STACKIT Git) and GitHub Actions. It is generic: adapt the names, the runner
+# and the store of the secrets; any other CI runs the same two commands. StackToIT has not run it. It assumes OpenTofu, jq, curl and, for S3 calls, the aws CLI on the runner,
+# and the output folder of the run at the root of the repository.
+#
+# Nothing is in a file: every secret comes from the store of the CI into the environment of the job. No plan file is kept between jobs: a plan can hold sensitive values, so the
+# script makes it in a private temporary folder and removes it.
+#
+# How a run goes: the first job prints the order and stops at nothing. The second job runs until the first step that holds, and says which:
+#   - an approval of an OpenTofu plan: it prints the plan and its digest. A person reads them, sets the variable STACKIT_DEPLOY_APPROVED_PLAN of the protected environment to
+#     that digest and starts the workflow again. The digest covers the addresses and the actions of the plan, no value;
+#   - a call that needs a confirmation: set STACKIT_CONFIRM_ACTION to the id of the step the job names;
+#   - a decision, a value, a manual step, a data move or the cutover: a person carries it out, records it in review/progress.yaml and commits the file.
+# The job then commits review/progress.yaml (keep this step: the journal is how a later run resumes). Exit code 10 is such a stop, not a failure of the pipeline.
+name: stackit-deploy
+
+on:
+  workflow_dispatch: {}
+
+# The journal step below commits and pushes review/progress.yaml with the token of the job, so the job needs write access to the contents of the repository.
+permissions:
+  contents: write
+
+concurrency:
+  group: stackit-deploy # one at a time: the state in Object Storage has no lock
+  cancel-in-progress: false
+
+jobs:
+  dry-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: The order, with nothing called, applied or written
+        run: bash execution/deploy.sh --dry-run
+
+  deploy:
+    needs: dry-run
+    runs-on: ubuntu-latest
+    environment: stackit-migration # protect it: a person starts this job
+    env:
+      STACKIT_SERVICE_ACCOUNT_KEY_PATH: ${{ runner.temp }}/stackit-sa-key.json
+      STACKIT_ACCESS_TOKEN: ${{ secrets.STACKIT_ACCESS_TOKEN }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.STATE_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.STATE_SECRET_ACCESS_KEY }}
+      TF_VAR_project_id: ${{ vars.STACKIT_PROJECT_ID }}
+      STACKIT_DEPLOY_APPROVED_PLAN: ${{ vars.STACKIT_DEPLOY_APPROVED_PLAN }}
+      STACKIT_CONFIRM_ACTION: ${{ vars.STACKIT_CONFIRM_ACTION }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Give the key of the service account to the provider, for this job only
+        env:
+          KEY: ${{ secrets.STACKIT_SERVICE_ACCOUNT_KEY }}
+        run: |
+          umask 077
+          printf '%s' "$KEY" > "$STACKIT_SERVICE_ACCOUNT_KEY_PATH"
+      - name: Give the backend, from the file you filled in from execution/backend.tf.template
+        run: test -f review/backend.tf
+      - name: Run until the first step that holds
+        id: deploy
+        run: |
+          code=0
+          bash execution/deploy.sh --run || code=$?
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          [ "$code" -eq 0 ] || [ "$code" -eq 10 ]
+      - name: Keep the journal, whatever happened
+        if: always()
+        run: |
+          git config user.name "stackit-deploy"
+          git config user.email "stackit-deploy@localhost"
+          git add review/progress.yaml
+          git diff --cached --quiet || { git commit -m "Record the deployment progress" && git push; }
+      - name: Remove the key
+        if: always()
+        run: rm -f "$STACKIT_SERVICE_ACCOUNT_KEY_PATH"

@@ -1,0 +1,11 @@
+trace_id,block,draft_file,source_units,comment_lines_written,comment_lines_kept,trace_file
+TR-97904614ad56,stackit_postgresflex_instance.postgres,terraform/data.tf,google_sql_database_instance.postgres,15,15,engineering/trace/data.md#TR-97904614ad56
+TR-043d09e0acdf,stackit_service_account.automation,terraform/identity.tf,google_service_account.automation,10,10,engineering/trace/identity.md#TR-043d09e0acdf
+TR-5ca70ac9e6fa,stackit_service_account.client,terraform/identity.tf,google_service_account.client,6,6,engineering/trace/identity.md#TR-5ca70ac9e6fa
+TR-82b9a11ffa8d,stackit_service_account.init,terraform/identity.tf,google_service_account.init,7,7,engineering/trace/identity.md#TR-82b9a11ffa8d
+TR-49328bb589c6,stackit_service_account.server,terraform/identity.tf,google_service_account.server,8,8,engineering/trace/identity.md#TR-49328bb589c6
+TR-d30d8f964263,stackit_ske_cluster.containers,terraform/kubernetes.tf,google_cloud_run_v2_job.migrate; google_cloud_run_v2_service.server,11,12,engineering/trace/kubernetes.md#TR-d30d8f964263
+TR-4a61e547964d,stackit_rabbitmq_instance.messaging,terraform/messaging.tf,google_pubsub_topic.faux,4,5,engineering/trace/messaging.md#TR-4a61e547964d
+TR-20eecaf8afaa,stackit_secretsmanager_instance.migrated_secrets,terraform/security.tf,google_secret_manager_secret.django_admin_password; google_secret_manager_secret.django_settings,18,13,engineering/trace/security.md#TR-20eecaf8afaa
+TR-d46bac8a52a7,stackit_secretsmanager_user.migration,terraform/security.tf,google_secret_manager_secret.django_admin_password; google_secret_manager_secret.django_settings,3,3,engineering/trace/security.md#TR-d46bac8a52a7
+TR-03d7fb936653,stackit_objectstorage_bucket.media,terraform/storage.tf,google_storage_bucket.media,8,8,engineering/trace/storage.md#TR-03d7fb936653

@@ -83,7 +83,8 @@
       "manual": 3,
       "variables": 60,
       "terraform_only": 34,
-      "hybrid": 4
+      "hybrid": 4,
+      "proposed_switched_off": 0
     },
     "execution": {
       "package_state": "PARTIALLY_EXECUTABLE",
@@ -108,7 +109,7 @@
     },
     "readiness": {
       "migration_ready": "NO",
-      "approval": "NOT READY FOR APPROVAL",
+      "approval": "NOT PROVIDED",
       "automation_eligible_units": 0,
       "automation_eligible_after_open_items": 29,
       "cannot_be_automated_in_this_build": 15,

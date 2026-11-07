@@ -1,0 +1,137 @@
+# Generated migration draft by StackToIT — architect review required. Not for apply without review.
+# Cloud Run service google_cloud_run_v2_service.server (service.tf:17) as Kubernetes manifests for STACKIT SKE — a draft, not Terraform.
+# rule gcp.cloud_run/run-service · CONTAINERIZE / MEDIUM · KB 0.394.0
+# Target cluster: the shared SKE cluster stackit_ske_cluster.containers (kubernetes.tf). Apply with the cluster's kubeconfig into the namespace you choose: kubectl apply -n <namespace> -f manifests.yaml
+# Kind: Deployment.
+#
+# REQUIRED INPUTS (a REQUIRED_ token in a field that is not a string, such as a number of pods, is refused by the API server; in a string field, such as an image or an argument, it is accepted, which is why a Deployment with any token standing also has a REQUIRED_ number of pods (a DaemonSet a REQUIRED_ minReadySeconds); replace every token before you apply; nothing is guessed):
+#   REQUIRED_SERVER_REPLICAS — the number of pods (1 pod(s): Cloud Run can scale to zero (minimum 0, the default) and a Deployment with no pod serves nothing: the draft keeps one pod; scale to zero needs KEDA or Knative on the cluster): put 0 here for the apply step of the plan, which starts no pod; set the number once the data is loaded and the connections of the data stores are switched. A REQUIRED_ token in this integer field is refused by the API server until you replace it, which is the hold
+#
+# SECRETS TO CREATE (references only — names, never values; create server-secrets with these keys, e.g. from a STACKIT Secrets Manager instance, the pinned provider has no resource for its entries):
+#   DJANGO_ENV ← the Secret Manager secret google_secret_manager_secret.django_settings (the unit of this scan the service references)
+#   The Kubernetes Secret name server-secrets is chosen by the draft, not stated by the source (the name of the workload and -secrets for the variables that come from secrets): the source states only the Secret Manager secret each Secret comes from. Create each Secret under the name the manifest uses, or change the reference in this file.
+#
+# ENVIRONMENT KEYS TO FILL in the ConfigMap server-env (names only; the values are not copied from the source): DEPLOYMENT_SUFFIX, DJANGO_SETTINGS_MODULE, OTEL_METRICS_EXPORTER, OTEL_PYTHON_EXCLUDED_URLS, OTEL_TRACES_EXPORTER, PYTHONPATH
+#
+# IMAGES: the images are pulled from us-docker.pkg.dev; the SKE nodes must reach that registry with a pull secret if it is private — decide where the images live on STACKIT
+#
+# CUTOVER AND ROLLBACK (the customer performs it; nothing here is executed):
+#   1. BEFORE THE DATA MOVE: fill in the inputs above and apply the manifests with the number of pods 0, so that no pod runs and none connects to a store of the target before its data is loaded; leave google_cloud_run_v2_service.server running in Cloud Run as it is.
+#   2. AFTER THE FINAL COPY OF THE DATA AND THE SWITCH OF THE CONNECTIONS OF THE DATA STORES: scale to the number of instances the source runs now (`kubectl scale deployment/server --replicas=<that number>`) and write that number into the file as well, wait for `kubectl rollout status deployment/server` to succeed and for the Service to answer from another pod of the cluster, and run the smoke test of the application.
+#   3. AT THE CUTOVER, once the pods answer: move what reached the Cloud Run service (its run.app URL, a custom domain mapping, a load balancer with a serverless NEG, a scheduler job or a Pub/Sub push subscription that calls it) to the Service of the pods, and keep the old route in place.
+#   4. ROLLBACK: return the traffic to google_cloud_run_v2_service.server, which was left running; the pods can stay applied (scale them to 0 if they would write to a store that is not current). Delete the Cloud Run resource last, after the period you choose.
+#
+# TODO: the identity model of the application of google_cloud_run_v2_service.server is an open decision: answer the input target.workload.identity for it. Until then the pods run as the default ServiceAccount of the namespace with no STACKIT identity.
+# LEDGER workload identity: the Google service account of the revision → no identity in the manifests: the pods run as the default ServiceAccount until a person decides — REVIEW
+# TODO: the name of google_cloud_run_v2_service.server is is not visible statically: the workload and its Service are named after the resource (server), and other workloads reach the Service by that name — set the name they use.
+# TODO: the volume cloudsql is a Cloud SQL connection (the /cloudsql socket of the Cloud SQL Auth Proxy): the draft writes no volume for it and the containers that mount it have no mount — connect to the migrated service by its network address instead of the mount, or mount an NFS share or a volume of the cluster yourself. The pods are held until you decide.
+# the container states no port: Cloud Run sends requests to port 8080 by default (https://docs.cloud.google.com/run/docs/container-contract), so the container declares 8080 and the Service forwards to it.
+# readinessProbe of container container-1: a TCP check of port 8080 — Cloud Run sends requests "as soon as it is listening on the configured port" (https://docs.cloud.google.com/run/docs/container-contract), a Kubernetes Service sends them to every started pod, so the draft waits for the port the same way; replace it with a check of what the application needs to be ready.
+# TODO: container container-1 has no limits in the source: Cloud Run applies its own defaults, the manifest sets no requests or limits, and an autoscaler on CPU cannot compute its metric until each container has a CPU request — size the containers.
+# TODO: the source states no maximum number of instances (Cloud Run calculates a default from the project's instance quota in the region and the instance size): no autoscaler is drafted and the Deployment has a fixed number of pods — decide whether and how far it scales.
+# NOT CARRIED (google_cloud_run_v2_service.server): template.service_account — the identity of the revision is a Google service account; the pods run as the default Kubernetes ServiceAccount of the namespace and the draft gives them no identity — decide the identity of the application (the service account unit of the source and the identity decisions of the draft, identity.tf), and the roles it holds on the services it calls.
+# NOT CARRIED (google_cloud_run_v2_service.server): template.labels — this setting belongs to the Google platform (health checks of the platform, GPU, service mesh, node selection, revision names, labels and annotations of the revision) and has no field in the manifests — copy what the workload still needs.
+# Cloud Run injects the variables K_SERVICE, K_REVISION and K_CONFIGURATION (CLOUD_RUN_JOB, CLOUD_RUN_EXECUTION, CLOUD_RUN_TASK_INDEX, CLOUD_RUN_TASK_COUNT and CLOUD_RUN_TASK_ATTEMPT for a job) into the container (https://docs.cloud.google.com/run/docs/container-contract); a pod gets only the PORT variable written above — an application that reads one of the others needs its value set in the ConfigMap (the index of a task is JOB_COMPLETION_INDEX in an indexed Kubernetes Job).
+# NOT CARRIED (google_cloud_run_v2_service.server): traffic — traffic splits between revisions and revision tags have no counterpart: a Deployment rolls out its pods with its own rolling update.
+# NOT CARRIED (google_cloud_run_v2_service.server): deletion_protection = false — deletion protection is a Google API guard against deleting the resource; the manifests carry no such guard — protect the workload with the access rules of the namespace.
+# NOT CARRIED (google_cloud_run_v2_service.server): template.labels — labels, tags and annotations of the resource are Google metadata; the manifests carry labels of their own — copy those you rely on.
+# NOT CARRIED (google_cloud_run_v2_service.server): template.volumes.cloud_sql_instance.instances — a Cloud Run setting with no counterpart in the draft manifests: Kubernetes has its own rollout, health, scheduling and exec behaviour.
+# TODO: the Cloud Run service has an HTTPS URL with a Google-managed certificate; the Service above is a ClusterIP and nothing is exposed — decide the exposure on SKE (a Service of type LoadBalancer or an Ingress with a certificate, and its DNS record).
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: server-env
+  labels:
+    app.kubernetes.io/name: server
+data:
+  DEPLOYMENT_SUFFIX: "" # fill in: the value is not copied from the source
+  DJANGO_SETTINGS_MODULE: "" # fill in: the value is not copied from the source
+  OTEL_METRICS_EXPORTER: "" # fill in: the value is not copied from the source
+  OTEL_PYTHON_EXCLUDED_URLS: "" # fill in: the value is not copied from the source
+  OTEL_TRACES_EXPORTER: "" # fill in: the value is not copied from the source
+  PYTHONPATH: "" # fill in: the value is not copied from the source
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server
+  labels:
+    app.kubernetes.io/name: server
+spec:
+  replicas: REQUIRED_SERVER_REPLICAS
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: server
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: server
+    spec:
+      containers:
+      - name: container-1
+        image: "us-docker.pkg.dev/hsa-public/containers/terraform-python-dynamic-webapp/server:v1.13.4"
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        env:
+        - name: PORT
+          value: "8080"
+        - name: DJANGO_ENV
+          valueFrom:
+            secretKeyRef:
+              name: server-secrets
+              key: DJANGO_ENV
+        - name: PYTHONPATH
+          valueFrom:
+            configMapKeyRef:
+              name: server-env
+              key: PYTHONPATH
+        - name: DJANGO_SETTINGS_MODULE
+          valueFrom:
+            configMapKeyRef:
+              name: server-env
+              key: DJANGO_SETTINGS_MODULE
+        - name: OTEL_METRICS_EXPORTER
+          valueFrom:
+            configMapKeyRef:
+              name: server-env
+              key: OTEL_METRICS_EXPORTER
+        - name: OTEL_TRACES_EXPORTER
+          valueFrom:
+            configMapKeyRef:
+              name: server-env
+              key: OTEL_TRACES_EXPORTER
+        - name: OTEL_PYTHON_EXCLUDED_URLS
+          valueFrom:
+            configMapKeyRef:
+              name: server-env
+              key: OTEL_PYTHON_EXCLUDED_URLS
+        - name: DEPLOYMENT_SUFFIX
+          valueFrom:
+            configMapKeyRef:
+              name: server-env
+              key: DEPLOYMENT_SUFFIX
+        livenessProbe:
+          httpGet:
+            path: "/healthy"
+            port: 8080
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: server
+  labels:
+    app.kubernetes.io/name: server
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: server
+  ports:
+  - name: p8080-tcp
+    port: 8080
+    targetPort: 8080
+    protocol: TCP

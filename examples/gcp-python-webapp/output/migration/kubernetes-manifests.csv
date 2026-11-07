@@ -1,0 +1,4 @@
+file,document,kind,name,namespace,relation,target,state
+metadata.display.yaml,0,BlueprintMetadata,terraform-dynamic-python-webapp-display,,declares,,KIND_NOT_READ
+metadata.yaml,0,BlueprintMetadata,terraform-dynamic-python-webapp,,declares,,KIND_NOT_READ
+,,SCAN,,,scope,"reads YAML under the source root only, offline, without rendering a template: at most 2000 files of at most 1048576 bytes (67108864 bytes in all), 500 documents per file, 50000 rows; skips vendor, node_modules, .terraform and .git; a Secret is listed by...",NOTE

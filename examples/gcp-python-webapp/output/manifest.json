@@ -1,0 +1,1861 @@
+{
+  "manifest_version": "0.4.0",
+  "run_id": "6f8f72b2-1c34-4cfc-8483-344c41245364",
+  "generated_at": "2026-11-07T04:24:17Z",
+  "status": "COMPLETE",
+  "source": "gcp-candidates/terraform-dynamic-python-webapp/infra",
+  "source_status": "RUNTIME_TOPOLOGY_PARTIAL",
+  "source_digest": "sha256:19bfed642d5789ccada81b91d5c36e33175dcafd66dc46b1644ffa105d020000",
+  "producer": {
+    "tool": "stacktoit",
+    "version": "0.6.0-13076-ga19ea28c64",
+    "commit": "a19ea28c64"
+  },
+  "kb_version": "0.394.0",
+  "kb_sha256": "480e323d0c501840bc553e30e3073fca5f51c5c45a9e7d91ed4a4ff36d6a50d0",
+  "schema_versions": {
+    "assessment": "0.24.0",
+    "cost-model": "0.2.1",
+    "data-movement-plan": "0.1.0",
+    "decisions": "0.6.0",
+    "execution-plan": "1.6.0",
+    "manifest": "0.4.0",
+    "review_csv": "1.3.0",
+    "target-plan-file": "0.1.0",
+    "work-items": "0.1.1",
+    "workspace": "0.16.0"
+  },
+  "stackit_provider": "0.121.0",
+  "draft": {
+    "written": true,
+    "path": "terraform"
+  },
+  "invalidation": {
+    "target_lock_sha256": "3c875f223de75122ebe3f733f1605217974e6839bfdb9a0e32349733adfa57e9",
+    "kb_sha256": "480e323d0c501840bc553e30e3073fca5f51c5c45a9e7d91ed4a4ff36d6a50d0",
+    "source_digest": "sha256:19bfed642d5789ccada81b91d5c36e33175dcafd66dc46b1644ffa105d020000",
+    "target_capability_catalog_sha256": "d8678a37cc850e945a05d76835399b5adf0135dbff18e58954113376d7342fc4",
+    "target_evidence_sha256": "0db98358567bf40ff32fa755de6a42fe399ffad3a25e889aa8cd612616baa266",
+    "target_evidence_covers": [
+      "the STACKIT framework assurance evidence",
+      "the STACKIT service certificate evidence",
+      "the STACKIT evidence conflicts",
+      "the STACKIT Kubernetes Engine version lifecycle",
+      "the STACKIT service API operability notices",
+      "the STACKIT Terraform provider operability notices",
+      "the STACKIT support options"
+    ],
+    "target_plan_sha256": "f50768a36461c3de5de3bb574c108bf5ce655c40d829f88e0878ef6cb8b67f38",
+    "inputs": {
+      "price_snapshot_sha256": "94244fec5b573614dcff15f79238ce4a0e60cf197768be287e45092d7e1e61ca",
+      "price_snapshots": [
+        "stackit@94244fec5b573614dcff15f79238ce4a0e60cf197768be287e45092d7e1e61ca"
+      ],
+      "kubernetes_manifests_sha256": "8f29a3ba290ce2193d79b3983d501cb9d61b81e338a21fa1fa11b880b2a933a4",
+      "code_scan_sha256": "8754e2138644f59139e1dc363d7af339d988f01591421210ef22dba603fc1fd0",
+      "convert": true,
+      "fetch_modules": true
+    },
+    "assessment_inputs_digest": "33440c90420d9ff4c75fba9c2ec47211dffe672071de9b87fdcdca269f5a211f"
+  },
+  "verification": [
+    {
+      "id": "GLOBAL_RESOURCE_UNIQUENESS",
+      "status": "PASS",
+      "checked": 55
+    },
+    {
+      "id": "NO_UNPLANNED_RESOURCE",
+      "status": "PASS",
+      "checked": 10
+    },
+    {
+      "id": "NO_UNPLANNED_REFERENCE",
+      "status": "PASS",
+      "checked": 9
+    },
+    {
+      "id": "NO_UNRESOLVED_REQUIRED_FIELD",
+      "status": "PASS",
+      "checked": 28
+    },
+    {
+      "id": "NO_SECURITY_WIDENING",
+      "status": "PASS",
+      "checked": 0
+    },
+    {
+      "id": "ALL_OUTPUTS_SAME_RUN",
+      "status": "PASS",
+      "checked": 48
+    },
+    {
+      "id": "VARIABLE_IDENTITY_PRESERVED",
+      "status": "PASS",
+      "checked": 0
+    },
+    {
+      "id": "NO_ORPHAN_MANUAL_ACTION",
+      "status": "PASS",
+      "checked": 4
+    },
+    {
+      "id": "SOURCE_PROVIDER_MATCHES_SCHEMA_OR_IS_UNVERIFIED",
+      "status": "PASS",
+      "checked": 16
+    },
+    {
+      "id": "APPLICATION_READY_IMPLIES_REQUIRED_ENV_SECRETS_DEPENDENCIES",
+      "status": "PASS",
+      "checked": 0
+    },
+    {
+      "id": "ALL_EMITTED_TARGET_TYPES_CLASSIFIED",
+      "status": "PASS",
+      "checked": 10
+    },
+    {
+      "id": "ALL_UNACCOUNTED_PROPERTIES_EXPLICIT",
+      "status": "PASS",
+      "checked": 69
+    }
+  ],
+  "validation": {
+    "tofu_validate": {
+      "state": "PASSED",
+      "tool_version": "1.13.1",
+      "scope": "static validation of the draft against the pinned provider schema — not target behaviour, not approval"
+    }
+  },
+  "price_snapshots": [
+    {
+      "provider": "stackit",
+      "retrieved_at": "2026-10-26T18:27:45Z",
+      "sha256": "94244fec5b573614dcff15f79238ce4a0e60cf197768be287e45092d7e1e61ca",
+      "currency": "EUR"
+    }
+  ],
+  "run_verification": {
+    "status": "PASSED",
+    "checks": [
+      {
+        "id": "EVIDENCE",
+        "state": "PASS"
+      },
+      {
+        "id": "SCHEMA",
+        "state": "PASS"
+      },
+      {
+        "id": "RUN_ID",
+        "state": "PASS"
+      },
+      {
+        "id": "BASIS",
+        "state": "PASS"
+      },
+      {
+        "id": "INPUTS_DIGEST",
+        "state": "PASS"
+      },
+      {
+        "id": "INVALIDATION_KEYS",
+        "state": "PASS"
+      },
+      {
+        "id": "EXECUTION_PLAN",
+        "state": "PASS"
+      }
+    ],
+    "at": "2026-11-07T04:24:27.630193Z"
+  },
+  "native_validation": {
+    "mode": "AUTO",
+    "status": "PASSED"
+  },
+  "source_snapshot": {
+    "format": "1",
+    "digest": "sha256:5c01dc57646c576844f0516b98bee804096a39bba8f26400c415f2c13ca349a2",
+    "root": {
+      "git": {
+        "commit": "7c9e8fb8f0d4d57f0564c70917ae06a07c176d17",
+        "tree": "ee5ee2c8235cda659bf0f4c022614925bba556dc",
+        "path_in_repo": "infra",
+        "dirty": false
+      }
+    },
+    "providers": [
+      {
+        "name": "google",
+        "address": "registry.terraform.io/hashicorp/google",
+        "constraints": [
+          "\u003e= 3.43, \u003c 7",
+          "\u003e= 6, \u003c 8"
+        ],
+        "provenance": "CONSTRAINT_ONLY"
+      },
+      {
+        "name": "google-beta",
+        "address": "registry.terraform.io/hashicorp/google-beta",
+        "constraints": [
+          "\u003e= 3.43, \u003c 7",
+          "\u003e= 6, \u003c 8"
+        ],
+        "provenance": "CONSTRAINT_ONLY"
+      },
+      {
+        "name": "http",
+        "address": "registry.terraform.io/hashicorp/http",
+        "provenance": "UNPINNED"
+      },
+      {
+        "name": "random",
+        "address": "registry.terraform.io/hashicorp/random",
+        "constraints": [
+          "\u003e= 2.2"
+        ],
+        "provenance": "CONSTRAINT_ONLY"
+      },
+      {
+        "name": "time",
+        "address": "registry.terraform.io/hashicorp/time",
+        "provenance": "UNPINNED"
+      }
+    ],
+    "module_calls": {
+      "total": 1,
+      "external": 1,
+      "local": 0,
+      "calls": [
+        {
+          "address": "module.project_services",
+          "kind": "other",
+          "source": "terraform-google-modules/project-factory/google//modules/project_services",
+          "version_constraint": "18.0.0",
+          "version_resolved": "18.0.0",
+          "state": "LOADED",
+          "origin": "download",
+          "sha256": "sha256:ccd4b49e256db30955b655ef2db5f37aa92fe4f89338baad95f416ac726b3a53",
+          "basis": "module_tree"
+        }
+      ]
+    }
+  },
+  "files": [
+    {
+      "path": "applications-template.yaml",
+      "sha256": "ee247762bcc4c89fe0141197695801ed8f98850dc11756b1d1b75c8cf97d6580",
+      "bytes": 2446,
+      "run_bound": true
+    },
+    {
+      "path": "architecture/current.mmd",
+      "sha256": "7807bf0a04c2b3379e04dd2f87af6695baa43c220a72a2af26dd53a644422283",
+      "bytes": 2533,
+      "run_bound": true
+    },
+    {
+      "path": "architecture/current.svg",
+      "sha256": "b748c88ce5102c3e482673fe9e1c29a2383242cb4823b1af36f509511961477d",
+      "bytes": 14582,
+      "run_bound": true
+    },
+    {
+      "path": "architecture/data-flows.mmd",
+      "sha256": "32ca41c448177f57c52eeacbfb7e7ab40d01b617d0befa958a3584c28598d3d5",
+      "bytes": 5476,
+      "run_bound": true
+    },
+    {
+      "path": "architecture/data-flows.svg",
+      "sha256": "b1c1314d484695210c466845c7df3d31f288974d5fd0a5003e3c1b1bc568404b",
+      "bytes": 7886,
+      "run_bound": true
+    },
+    {
+      "path": "architecture/delta.mmd",
+      "sha256": "18cfc415ad3a13212c2b496e5bf3a08308d83b852a20a5fb97d783c516c3592b",
+      "bytes": 3097,
+      "run_bound": true
+    },
+    {
+      "path": "architecture/delta.svg",
+      "sha256": "7b11fdedb416ee02db73cc05b062ee8d7bfe88517651c5ce1059fc24fcf2e3c2",
+      "bytes": 15216,
+      "run_bound": true
+    },
+    {
+      "path": "architecture/dependencies.mmd",
+      "sha256": "a65f43e86e7f50bc01e8cf2d79e64a871324dffa949748bec3c06a8f094f07e4",
+      "bytes": 5151,
+      "run_bound": true
+    },
+    {
+      "path": "architecture/identity.mmd",
+      "sha256": "fe72208208ca38e2ead34989018d60f04bf568586d2c64348cfb1b74c7c5b8af",
+      "bytes": 12010,
+      "run_bound": true
+    },
+    {
+      "path": "architecture/network-security.mmd",
+      "sha256": "e2d3331f02f12fe321404ad3dd618ef5249d7e3c8557472bf9e354d01d5b38f8",
+      "bytes": 3671,
+      "run_bound": true
+    },
+    {
+      "path": "architecture/network-security.svg",
+      "sha256": "de2e0d23f00055a1c3e284a1f58569003639336eaaa148f4a7ffd86b1b9479de",
+      "bytes": 5507,
+      "run_bound": true
+    },
+    {
+      "path": "architecture/target.mmd",
+      "sha256": "48779cfb695f15134a5d6688c5d5c8967b7b086f1b511ab61f92c4067cf17ba9",
+      "bytes": 3214,
+      "run_bound": true
+    },
+    {
+      "path": "architecture/target.svg",
+      "sha256": "18ded68c23ff3a35793ae83c499933898384168b0d0fe52502a69f919d1c67d4",
+      "bytes": 16010,
+      "run_bound": true
+    },
+    {
+      "path": "assessment.json",
+      "sha256": "d3401fa67f123940d780cf73b95dbf014987c6b10aca063c8eaa04c76219aa73",
+      "bytes": 310138,
+      "run_bound": true
+    },
+    {
+      "path": "assumptions-template.yaml",
+      "sha256": "121c3ce92d890015e07de765b0236449258fed82bf199a8e2b1e1bbbe3047ec8",
+      "bytes": 6223,
+      "run_bound": true
+    },
+    {
+      "path": "assurance/compliance-evidence.csv",
+      "sha256": "997563108256df7376f87dfe7dce0bb7353a48578373e2241ad0089b95230caa",
+      "bytes": 20426,
+      "run_bound": false
+    },
+    {
+      "path": "assurance/compliance-evidence.md",
+      "sha256": "f3f4b4113066aecce4d99a3a5b46596c81b017904b2231a79baee7097850b48f",
+      "bytes": 21596,
+      "run_bound": true
+    },
+    {
+      "path": "assurance/critical-semantics.json",
+      "sha256": "d0a506275551d7c28202b3d32b3cced020475015c9d76057e3197bdb72d67722",
+      "bytes": 75337,
+      "run_bound": true
+    },
+    {
+      "path": "assurance/equivalence-ledger.csv",
+      "sha256": "0f1c2c45e7be611dc6f9d1e5a79c185a4c10c32f41068989a0292c1111e26bf8",
+      "bytes": 111573,
+      "run_bound": false
+    },
+    {
+      "path": "assurance/evidence-ledger.csv",
+      "sha256": "8c3202ea6e1ec00c0a8b95a4a8698e3cea10b3eff939c6a289f2bac1c3674d43",
+      "bytes": 21671,
+      "run_bound": false
+    },
+    {
+      "path": "assurance/identity-transition.md",
+      "sha256": "38ca8ab9c5453b185cf710f557e1998062d3d46ad13c290b9b32d17008f8db41",
+      "bytes": 3320,
+      "run_bound": true
+    },
+    {
+      "path": "assurance/operational-readiness.md",
+      "sha256": "f94ba012d0956b66efe96fdec0e0817655a626c7bce5351a1e96b418fe6a1c1c",
+      "bytes": 8723,
+      "run_bound": true
+    },
+    {
+      "path": "assurance/resilience.json",
+      "sha256": "f7f67b3c5306c432b83efba2368f5ee7556a934fe9a15fa0d5587e81a8f2ad02",
+      "bytes": 3489,
+      "run_bound": true
+    },
+    {
+      "path": "assurance/resilience.md",
+      "sha256": "16bf51a645dbb5a5e0f3b1d8f8c554aa1a32a69c86cd58b67c2c0f9307d0550d",
+      "bytes": 3174,
+      "run_bound": true
+    },
+    {
+      "path": "assurance/safety.md",
+      "sha256": "ffb1a28fc6393e80060e327ba074ca0100cc7e88942f9ada51f1587fa33ece8d",
+      "bytes": 5797,
+      "run_bound": true
+    },
+    {
+      "path": "assurance/source-compatibility.md",
+      "sha256": "cab8edfeb8b0eeddcaabb5839d95a71b098ab41043dfb2eff8e9ac30a8be9dc0",
+      "bytes": 1949,
+      "run_bound": true
+    },
+    {
+      "path": "assurance/sovereignty.json",
+      "sha256": "3a2c7fffff6b02c0a074e3fbc1608c449f32eab96088a8c8650a20705a50ae19",
+      "bytes": 32229,
+      "run_bound": true
+    },
+    {
+      "path": "assurance/sovereignty.md",
+      "sha256": "676612aa682a1a3fecabf5a37b74cd4545a27b1bf2489f66bcea501099581ebf",
+      "bytes": 14976,
+      "run_bound": true
+    },
+    {
+      "path": "assurance/target-readiness.md",
+      "sha256": "e628a3e70f6990530e1de8046ef84cfad6a3b6324047cab2349ea13625f267df",
+      "bytes": 9427,
+      "run_bound": true
+    },
+    {
+      "path": "console.txt",
+      "sha256": "d16b102cf516f8867c80fdbd9a8166ac6ea7f75a331ce0380f4a3f7ab6062ba6",
+      "bytes": 17736,
+      "run_bound": true
+    },
+    {
+      "path": "decisions-template.yaml",
+      "sha256": "5c114756723e31375719514988c09f54ea31bbc8a0e167c36c176a3d9bb0e04a",
+      "bytes": 53558,
+      "run_bound": true
+    },
+    {
+      "path": "decisions.json",
+      "sha256": "b0b66ecf71eacca59695f9216a67c4a1979ee644948c2922e2dad16f7d673c07",
+      "bytes": 582159,
+      "run_bound": true
+    },
+    {
+      "path": "engineering/analysis-details.md",
+      "sha256": "a3d3315ae4505ac8f9336448ceaef4091c92bd6935f36c9094ad07aff1e5f27c",
+      "bytes": 78274,
+      "run_bound": true
+    },
+    {
+      "path": "engineering/architect-report.md",
+      "sha256": "c0c796f814ad84351d9453d674ae28aee7ec979118cc65228af9b2a0bacee562",
+      "bytes": 178132,
+      "run_bound": true
+    },
+    {
+      "path": "engineering/evidence-index.json",
+      "sha256": "3b15a7e431e0bdedfe1b3bcce485626139ad799d47a9da2e78b7955a538d7612",
+      "bytes": 12755,
+      "run_bound": true
+    },
+    {
+      "path": "engineering/explain-index.json",
+      "sha256": "48f79ab6d453edf3b9114c6e71bf59563c24b9c608a2a50daf7b2cc61f731a23",
+      "bytes": 13295,
+      "run_bound": true
+    },
+    {
+      "path": "engineering/not-carried-summary.csv",
+      "sha256": "0aa8e6b659712595e9702f0855442ba3173e11a49952ab1c6f44e338c8f142b1",
+      "bytes": 1060,
+      "run_bound": false
+    },
+    {
+      "path": "engineering/not-carried.csv",
+      "sha256": "043e38d13c770e22e8deb26cc3f1aad39be4f8a6f5b89874a206ce1bc26ef72a",
+      "bytes": 26552,
+      "run_bound": false
+    },
+    {
+      "path": "engineering/review-edges.csv",
+      "sha256": "f52c1b5a1485270e5643a0162030274d2d7b6a67bcd76993dc365d3c7bc900c0",
+      "bytes": 2136,
+      "run_bound": false
+    },
+    {
+      "path": "engineering/review.csv",
+      "sha256": "f8eae028cd69ed4c15a0eb6a4031f95bb1fc803996f9de01a077cd21767bee6c",
+      "bytes": 29568,
+      "run_bound": false
+    },
+    {
+      "path": "engineering/trace-index.csv",
+      "sha256": "1068c5ed35fd1c31544d66a787594b352d19e408e48e90f7fe687a2105cf7e8a",
+      "bytes": 1804,
+      "run_bound": false
+    },
+    {
+      "path": "engineering/trace/data.md",
+      "sha256": "f242a66a943a378c965957b535267db504692c3dec569577dbd52e615f14f7c2",
+      "bytes": 3628,
+      "run_bound": true
+    },
+    {
+      "path": "engineering/trace/identity.md",
+      "sha256": "35292b2459df2b322a05006df5af8c38e21ecb12b1fff3dbeedfe25e80a68b91",
+      "bytes": 8414,
+      "run_bound": true
+    },
+    {
+      "path": "engineering/trace/kubernetes.md",
+      "sha256": "dacf87991f77f90f270d0eee3e0e685d6ab780e2a3a42981fc51f8e1824accf9",
+      "bytes": 4050,
+      "run_bound": true
+    },
+    {
+      "path": "engineering/trace/messaging.md",
+      "sha256": "07aac652c2836d52721391eefef59c46b64e7a161bcd581de683c1786d7a4843",
+      "bytes": 1833,
+      "run_bound": true
+    },
+    {
+      "path": "engineering/trace/security.md",
+      "sha256": "328bf4d8981ebbb560d5f41b41944561ec36a3dd1af2e197bbb167dc82ac3c3d",
+      "bytes": 8628,
+      "run_bound": true
+    },
+    {
+      "path": "engineering/trace/storage.md",
+      "sha256": "24100e9659e6dbaf0df04d91be5d93aca162ce412e4b9560cd6f56a71db89dfd",
+      "bytes": 2917,
+      "run_bound": true
+    },
+    {
+      "path": "execution-plan.json",
+      "sha256": "ae8a2836f36d5936b9aa83994aa9624f9992852498dee7fc56db38247783c46b",
+      "bytes": 393997,
+      "run_bound": false,
+      "kind": "execution-plan",
+      "action_ids": [
+        "MAN/identity/facts:google_cloud_run_v2_job.migrate:google_cloud_run_v2_job.migrate.template.0.template.0.service_account-8dc3e1",
+        "MAN/identity/facts:google_cloud_run_v2_service.server:google_cloud_run_v2_service.server.template.0.service_account-5ccce9",
+        "MAN/identity/held:principal:google_service_account.automation",
+        "MAN/identity/held:principal:google_service_account.server",
+        "MAN/semantic/google_secret_manager_secret.django_admin_password/open-settings-security-architect",
+        "MAN/semantic/google_secret_manager_secret.django_admin_password/secret-settings",
+        "MAN/semantic/google_secret_manager_secret.django_settings/open-settings-security-architect",
+        "MAN/semantic/google_secret_manager_secret.django_settings/secret-settings",
+        "MAN/semantic/google_service_account.automation/open-settings",
+        "MAN/semantic/google_service_account.client/open-settings",
+        "MAN/semantic/google_service_account.init/open-settings",
+        "MAN/semantic/google_service_account.server/open-settings",
+        "TF/stackit_secretsmanager_instance.migrated_secrets",
+        "TF/stackit_secretsmanager_user.migration",
+        "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_admin_password",
+        "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_settings",
+        "MAN/path/secrets-migration/read-back",
+        "MAN/path/secrets-migration/retire-user",
+        "TF/stackit_service_account.automation",
+        "TF/stackit_service_account.client",
+        "TF/stackit_service_account.init",
+        "TF/stackit_service_account.server",
+        "MAN/estate/SOURCE_PROJECT_MAPPING",
+        "MAN/estate/SOURCE_REGION_MAPPING",
+        "MAN/semantic/google_sql_database_instance.postgres/database-users",
+        "MAN/semantic/google_sql_database_instance.postgres/open-settings-platform-architect",
+        "MAN/semantic/google_sql_database_instance.postgres/user-and-database-settings",
+        "MAN/semantic/google_storage_bucket.media/geo-replication",
+        "MAN/semantic/google_storage_bucket.media/iam-access",
+        "MAN/semantic/google_storage_bucket.media/open-settings-identity-architect",
+        "MAN/semantic/google_storage_bucket.media/tc-storage-bucket-name",
+        "MAN/unit/google_firebase_hosting_site.client",
+        "REF/semantic/google_storage_bucket.media/force-destroy",
+        "TF/stackit_objectstorage_bucket.media",
+        "MAN/data/google_storage_bucket.media/preflight",
+        "MAN/data/google_storage_bucket.media/rehearsal",
+        "MAN/data/google_storage_bucket.media/initial-copy/rclone-copy",
+        "MAN/data/google_storage_bucket.media/delta-sync/rclone-copy",
+        "TF/stackit_postgresflex_instance.postgres",
+        "MAN/data/google_sql_database_instance.postgres/preflight",
+        "MAN/data/google_sql_database_instance.postgres/rehearsal",
+        "MAN/data/google_sql_database_instance.postgres/initial-copy/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/delta-sync/logical-replication",
+        "MAN/pubsub.topic/name/google_pubsub_topic.faux",
+        "MAN/rabbitmq/topology",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/cloud-run-v2-job-network-exposure",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/open-settings-platform-architect",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/secrets",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/service-identity",
+        "MAN/semantic/google_cloud_run_v2_service.server/cloud-sql-connection",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-identity-architect",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-platform-architect",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-security-architect",
+        "MAN/semantic/google_pubsub_topic.faux/tc-name",
+        "REF/unit/google_firebase_project.default",
+        "TF/stackit_rabbitmq_instance.messaging",
+        "TF/stackit_ske_cluster.containers",
+        "MAN/draft/handover/cluster-access/kubeconfig-md",
+        "MAN/draft/kubernetes/migrate/manifests-yaml",
+        "MAN/draft/kubernetes/server/manifests-yaml",
+        "MAN/unit/google_cloudbuild_trigger.activategcb",
+        "MAN/unit/google_cloudbuild_trigger.init",
+        "MAN/unit/google_cloudbuild_trigger.placeholder",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/own-tool",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/own-tool",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/own-tool",
+        "MAN/data/google_storage_bucket.media/write-freeze/rclone-copy",
+        "MAN/data/google_storage_bucket.media/final-sync/rclone-copy",
+        "MAN/data/google_storage_bucket.media/reconcile/rclone-copy",
+        "MAN/data/google_sql_database_instance.postgres/cleanup/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/cleanup/logical-replication",
+        "MAN/data/google_storage_bucket.media/cleanup/rclone-copy"
+      ]
+    },
+    {
+      "path": "execution/README.md",
+      "sha256": "d601a34fe6b8bee580c6a1ae6d7656917b3921c128376fc80069603d5853eeb0",
+      "bytes": 128936,
+      "run_bound": false,
+      "kind": "execution-readme",
+      "action_ids": [
+        "MAN/identity/facts:google_cloud_run_v2_job.migrate:google_cloud_run_v2_job.migrate.template.0.template.0.service_account-8dc3e1",
+        "MAN/identity/facts:google_cloud_run_v2_service.server:google_cloud_run_v2_service.server.template.0.service_account-5ccce9",
+        "MAN/identity/held:principal:google_service_account.automation",
+        "MAN/identity/held:principal:google_service_account.server",
+        "MAN/semantic/google_secret_manager_secret.django_admin_password/open-settings-security-architect",
+        "MAN/semantic/google_secret_manager_secret.django_admin_password/secret-settings",
+        "MAN/semantic/google_secret_manager_secret.django_settings/open-settings-security-architect",
+        "MAN/semantic/google_secret_manager_secret.django_settings/secret-settings",
+        "MAN/semantic/google_service_account.automation/open-settings",
+        "MAN/semantic/google_service_account.client/open-settings",
+        "MAN/semantic/google_service_account.init/open-settings",
+        "MAN/semantic/google_service_account.server/open-settings",
+        "TF/stackit_secretsmanager_instance.migrated_secrets",
+        "TF/stackit_secretsmanager_user.migration",
+        "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_admin_password",
+        "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_settings",
+        "MAN/path/secrets-migration/read-back",
+        "MAN/path/secrets-migration/retire-user",
+        "TF/stackit_service_account.automation",
+        "TF/stackit_service_account.client",
+        "TF/stackit_service_account.init",
+        "TF/stackit_service_account.server",
+        "MAN/estate/SOURCE_PROJECT_MAPPING",
+        "MAN/estate/SOURCE_REGION_MAPPING",
+        "MAN/semantic/google_sql_database_instance.postgres/database-users",
+        "MAN/semantic/google_sql_database_instance.postgres/open-settings-platform-architect",
+        "MAN/semantic/google_sql_database_instance.postgres/user-and-database-settings",
+        "MAN/semantic/google_storage_bucket.media/geo-replication",
+        "MAN/semantic/google_storage_bucket.media/iam-access",
+        "MAN/semantic/google_storage_bucket.media/open-settings-identity-architect",
+        "MAN/semantic/google_storage_bucket.media/tc-storage-bucket-name",
+        "MAN/unit/google_firebase_hosting_site.client",
+        "REF/semantic/google_storage_bucket.media/force-destroy",
+        "TF/stackit_objectstorage_bucket.media",
+        "MAN/data/google_storage_bucket.media/preflight",
+        "MAN/data/google_storage_bucket.media/rehearsal",
+        "MAN/data/google_storage_bucket.media/initial-copy/rclone-copy",
+        "MAN/data/google_storage_bucket.media/delta-sync/rclone-copy",
+        "TF/stackit_postgresflex_instance.postgres",
+        "MAN/data/google_sql_database_instance.postgres/preflight",
+        "MAN/data/google_sql_database_instance.postgres/rehearsal",
+        "MAN/data/google_sql_database_instance.postgres/initial-copy/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/delta-sync/logical-replication",
+        "MAN/pubsub.topic/name/google_pubsub_topic.faux",
+        "MAN/rabbitmq/topology",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/cloud-run-v2-job-network-exposure",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/open-settings-platform-architect",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/secrets",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/service-identity",
+        "MAN/semantic/google_cloud_run_v2_service.server/cloud-sql-connection",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-identity-architect",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-platform-architect",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-security-architect",
+        "MAN/semantic/google_pubsub_topic.faux/tc-name",
+        "REF/unit/google_firebase_project.default",
+        "TF/stackit_rabbitmq_instance.messaging",
+        "TF/stackit_ske_cluster.containers",
+        "MAN/draft/handover/cluster-access/kubeconfig-md",
+        "MAN/draft/kubernetes/migrate/manifests-yaml",
+        "MAN/draft/kubernetes/server/manifests-yaml",
+        "MAN/unit/google_cloudbuild_trigger.activategcb",
+        "MAN/unit/google_cloudbuild_trigger.init",
+        "MAN/unit/google_cloudbuild_trigger.placeholder",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/own-tool",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/own-tool",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/own-tool",
+        "MAN/data/google_storage_bucket.media/write-freeze/rclone-copy",
+        "MAN/data/google_storage_bucket.media/final-sync/rclone-copy",
+        "MAN/data/google_storage_bucket.media/reconcile/rclone-copy",
+        "MAN/data/google_sql_database_instance.postgres/cleanup/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/cleanup/logical-replication",
+        "MAN/data/google_storage_bucket.media/cleanup/rclone-copy"
+      ]
+    },
+    {
+      "path": "execution/api/secrets-manager-vault/001-writesecret.json",
+      "sha256": "3ce9f9978252b6a655d4cefbd7f2b004ddc2aaa2b6c6ef71c14270605d008112",
+      "bytes": 5082,
+      "run_bound": false,
+      "kind": "api-request",
+      "action_ids": [
+        "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_admin_password"
+      ]
+    },
+    {
+      "path": "execution/api/secrets-manager-vault/001-writesecret.sh",
+      "sha256": "3300f23d1af80bb63af823139583b6e922014f45f9bc5916ff8b02b291356a49",
+      "bytes": 12934,
+      "run_bound": false,
+      "kind": "api-script",
+      "action_ids": [
+        "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_admin_password"
+      ]
+    },
+    {
+      "path": "execution/api/secrets-manager-vault/002-writesecret.json",
+      "sha256": "2ebfb278b3c3d78485f865d52efd5a51fb8b181453e9059dbaa10f969c0f0561",
+      "bytes": 5046,
+      "run_bound": false,
+      "kind": "api-request",
+      "action_ids": [
+        "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_settings"
+      ]
+    },
+    {
+      "path": "execution/api/secrets-manager-vault/002-writesecret.sh",
+      "sha256": "a30c8a68465d3d3c40d4b48b995281eed7e033e066115651c01da0d4bc5a6886",
+      "bytes": 12820,
+      "run_bound": false,
+      "kind": "api-script",
+      "action_ids": [
+        "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_settings"
+      ]
+    },
+    {
+      "path": "execution/backend.tf.template",
+      "sha256": "6dd2b38e8756893e6d3bdf1af5d52f64e08f053fcc30cfd2f7eed5734700cfc9",
+      "bytes": 1673,
+      "run_bound": false,
+      "kind": "deploy",
+      "action_ids": [
+        "MAN/identity/facts:google_cloud_run_v2_job.migrate:google_cloud_run_v2_job.migrate.template.0.template.0.service_account-8dc3e1",
+        "MAN/identity/facts:google_cloud_run_v2_service.server:google_cloud_run_v2_service.server.template.0.service_account-5ccce9",
+        "MAN/identity/held:principal:google_service_account.automation",
+        "MAN/identity/held:principal:google_service_account.server",
+        "MAN/semantic/google_secret_manager_secret.django_admin_password/open-settings-security-architect",
+        "MAN/semantic/google_secret_manager_secret.django_admin_password/secret-settings",
+        "MAN/semantic/google_secret_manager_secret.django_settings/open-settings-security-architect",
+        "MAN/semantic/google_secret_manager_secret.django_settings/secret-settings",
+        "MAN/semantic/google_service_account.automation/open-settings",
+        "MAN/semantic/google_service_account.client/open-settings",
+        "MAN/semantic/google_service_account.init/open-settings",
+        "MAN/semantic/google_service_account.server/open-settings",
+        "TF/stackit_secretsmanager_instance.migrated_secrets",
+        "TF/stackit_secretsmanager_user.migration",
+        "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_admin_password",
+        "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_settings",
+        "MAN/path/secrets-migration/read-back",
+        "MAN/path/secrets-migration/retire-user",
+        "TF/stackit_service_account.automation",
+        "TF/stackit_service_account.client",
+        "TF/stackit_service_account.init",
+        "TF/stackit_service_account.server",
+        "MAN/estate/SOURCE_PROJECT_MAPPING",
+        "MAN/estate/SOURCE_REGION_MAPPING",
+        "MAN/semantic/google_sql_database_instance.postgres/database-users",
+        "MAN/semantic/google_sql_database_instance.postgres/open-settings-platform-architect",
+        "MAN/semantic/google_sql_database_instance.postgres/user-and-database-settings",
+        "MAN/semantic/google_storage_bucket.media/geo-replication",
+        "MAN/semantic/google_storage_bucket.media/iam-access",
+        "MAN/semantic/google_storage_bucket.media/open-settings-identity-architect",
+        "MAN/semantic/google_storage_bucket.media/tc-storage-bucket-name",
+        "MAN/unit/google_firebase_hosting_site.client",
+        "REF/semantic/google_storage_bucket.media/force-destroy",
+        "TF/stackit_objectstorage_bucket.media",
+        "MAN/data/google_storage_bucket.media/preflight",
+        "MAN/data/google_storage_bucket.media/rehearsal",
+        "MAN/data/google_storage_bucket.media/initial-copy/rclone-copy",
+        "MAN/data/google_storage_bucket.media/delta-sync/rclone-copy",
+        "TF/stackit_postgresflex_instance.postgres",
+        "MAN/data/google_sql_database_instance.postgres/preflight",
+        "MAN/data/google_sql_database_instance.postgres/rehearsal",
+        "MAN/data/google_sql_database_instance.postgres/initial-copy/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/delta-sync/logical-replication",
+        "MAN/pubsub.topic/name/google_pubsub_topic.faux",
+        "MAN/rabbitmq/topology",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/cloud-run-v2-job-network-exposure",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/open-settings-platform-architect",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/secrets",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/service-identity",
+        "MAN/semantic/google_cloud_run_v2_service.server/cloud-sql-connection",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-identity-architect",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-platform-architect",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-security-architect",
+        "MAN/semantic/google_pubsub_topic.faux/tc-name",
+        "REF/unit/google_firebase_project.default",
+        "TF/stackit_rabbitmq_instance.messaging",
+        "TF/stackit_ske_cluster.containers",
+        "MAN/draft/handover/cluster-access/kubeconfig-md",
+        "MAN/draft/kubernetes/migrate/manifests-yaml",
+        "MAN/draft/kubernetes/server/manifests-yaml",
+        "MAN/unit/google_cloudbuild_trigger.activategcb",
+        "MAN/unit/google_cloudbuild_trigger.init",
+        "MAN/unit/google_cloudbuild_trigger.placeholder",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/own-tool",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/own-tool",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/own-tool",
+        "MAN/data/google_storage_bucket.media/write-freeze/rclone-copy",
+        "MAN/data/google_storage_bucket.media/final-sync/rclone-copy",
+        "MAN/data/google_storage_bucket.media/reconcile/rclone-copy",
+        "MAN/data/google_sql_database_instance.postgres/cleanup/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/cleanup/logical-replication",
+        "MAN/data/google_storage_bucket.media/cleanup/rclone-copy"
+      ]
+    },
+    {
+      "path": "execution/ci-pipeline.example.yml",
+      "sha256": "80277f923330aea2b34927a49732dda79c27445763c87d515e6f83eab95434f7",
+      "bytes": 3811,
+      "run_bound": false,
+      "kind": "deploy",
+      "action_ids": [
+        "MAN/identity/facts:google_cloud_run_v2_job.migrate:google_cloud_run_v2_job.migrate.template.0.template.0.service_account-8dc3e1",
+        "MAN/identity/facts:google_cloud_run_v2_service.server:google_cloud_run_v2_service.server.template.0.service_account-5ccce9",
+        "MAN/identity/held:principal:google_service_account.automation",
+        "MAN/identity/held:principal:google_service_account.server",
+        "MAN/semantic/google_secret_manager_secret.django_admin_password/open-settings-security-architect",
+        "MAN/semantic/google_secret_manager_secret.django_admin_password/secret-settings",
+        "MAN/semantic/google_secret_manager_secret.django_settings/open-settings-security-architect",
+        "MAN/semantic/google_secret_manager_secret.django_settings/secret-settings",
+        "MAN/semantic/google_service_account.automation/open-settings",
+        "MAN/semantic/google_service_account.client/open-settings",
+        "MAN/semantic/google_service_account.init/open-settings",
+        "MAN/semantic/google_service_account.server/open-settings",
+        "TF/stackit_secretsmanager_instance.migrated_secrets",
+        "TF/stackit_secretsmanager_user.migration",
+        "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_admin_password",
+        "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_settings",
+        "MAN/path/secrets-migration/read-back",
+        "MAN/path/secrets-migration/retire-user",
+        "TF/stackit_service_account.automation",
+        "TF/stackit_service_account.client",
+        "TF/stackit_service_account.init",
+        "TF/stackit_service_account.server",
+        "MAN/estate/SOURCE_PROJECT_MAPPING",
+        "MAN/estate/SOURCE_REGION_MAPPING",
+        "MAN/semantic/google_sql_database_instance.postgres/database-users",
+        "MAN/semantic/google_sql_database_instance.postgres/open-settings-platform-architect",
+        "MAN/semantic/google_sql_database_instance.postgres/user-and-database-settings",
+        "MAN/semantic/google_storage_bucket.media/geo-replication",
+        "MAN/semantic/google_storage_bucket.media/iam-access",
+        "MAN/semantic/google_storage_bucket.media/open-settings-identity-architect",
+        "MAN/semantic/google_storage_bucket.media/tc-storage-bucket-name",
+        "MAN/unit/google_firebase_hosting_site.client",
+        "REF/semantic/google_storage_bucket.media/force-destroy",
+        "TF/stackit_objectstorage_bucket.media",
+        "MAN/data/google_storage_bucket.media/preflight",
+        "MAN/data/google_storage_bucket.media/rehearsal",
+        "MAN/data/google_storage_bucket.media/initial-copy/rclone-copy",
+        "MAN/data/google_storage_bucket.media/delta-sync/rclone-copy",
+        "TF/stackit_postgresflex_instance.postgres",
+        "MAN/data/google_sql_database_instance.postgres/preflight",
+        "MAN/data/google_sql_database_instance.postgres/rehearsal",
+        "MAN/data/google_sql_database_instance.postgres/initial-copy/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/delta-sync/logical-replication",
+        "MAN/pubsub.topic/name/google_pubsub_topic.faux",
+        "MAN/rabbitmq/topology",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/cloud-run-v2-job-network-exposure",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/open-settings-platform-architect",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/secrets",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/service-identity",
+        "MAN/semantic/google_cloud_run_v2_service.server/cloud-sql-connection",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-identity-architect",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-platform-architect",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-security-architect",
+        "MAN/semantic/google_pubsub_topic.faux/tc-name",
+        "REF/unit/google_firebase_project.default",
+        "TF/stackit_rabbitmq_instance.messaging",
+        "TF/stackit_ske_cluster.containers",
+        "MAN/draft/handover/cluster-access/kubeconfig-md",
+        "MAN/draft/kubernetes/migrate/manifests-yaml",
+        "MAN/draft/kubernetes/server/manifests-yaml",
+        "MAN/unit/google_cloudbuild_trigger.activategcb",
+        "MAN/unit/google_cloudbuild_trigger.init",
+        "MAN/unit/google_cloudbuild_trigger.placeholder",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/own-tool",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/own-tool",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/own-tool",
+        "MAN/data/google_storage_bucket.media/write-freeze/rclone-copy",
+        "MAN/data/google_storage_bucket.media/final-sync/rclone-copy",
+        "MAN/data/google_storage_bucket.media/reconcile/rclone-copy",
+        "MAN/data/google_sql_database_instance.postgres/cleanup/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/cleanup/logical-replication",
+        "MAN/data/google_storage_bucket.media/cleanup/rclone-copy"
+      ]
+    },
+    {
+      "path": "execution/deploy.sh",
+      "sha256": "5fdb803f83147981ddfa8e49e50de867c9523d07a97e5a3b95ec79c860b3f4ad",
+      "bytes": 49340,
+      "run_bound": false,
+      "kind": "deploy",
+      "action_ids": [
+        "MAN/identity/facts:google_cloud_run_v2_job.migrate:google_cloud_run_v2_job.migrate.template.0.template.0.service_account-8dc3e1",
+        "MAN/identity/facts:google_cloud_run_v2_service.server:google_cloud_run_v2_service.server.template.0.service_account-5ccce9",
+        "MAN/identity/held:principal:google_service_account.automation",
+        "MAN/identity/held:principal:google_service_account.server",
+        "MAN/semantic/google_secret_manager_secret.django_admin_password/open-settings-security-architect",
+        "MAN/semantic/google_secret_manager_secret.django_admin_password/secret-settings",
+        "MAN/semantic/google_secret_manager_secret.django_settings/open-settings-security-architect",
+        "MAN/semantic/google_secret_manager_secret.django_settings/secret-settings",
+        "MAN/semantic/google_service_account.automation/open-settings",
+        "MAN/semantic/google_service_account.client/open-settings",
+        "MAN/semantic/google_service_account.init/open-settings",
+        "MAN/semantic/google_service_account.server/open-settings",
+        "TF/stackit_secretsmanager_instance.migrated_secrets",
+        "TF/stackit_secretsmanager_user.migration",
+        "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_admin_password",
+        "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_settings",
+        "MAN/path/secrets-migration/read-back",
+        "MAN/path/secrets-migration/retire-user",
+        "TF/stackit_service_account.automation",
+        "TF/stackit_service_account.client",
+        "TF/stackit_service_account.init",
+        "TF/stackit_service_account.server",
+        "MAN/estate/SOURCE_PROJECT_MAPPING",
+        "MAN/estate/SOURCE_REGION_MAPPING",
+        "MAN/semantic/google_sql_database_instance.postgres/database-users",
+        "MAN/semantic/google_sql_database_instance.postgres/open-settings-platform-architect",
+        "MAN/semantic/google_sql_database_instance.postgres/user-and-database-settings",
+        "MAN/semantic/google_storage_bucket.media/geo-replication",
+        "MAN/semantic/google_storage_bucket.media/iam-access",
+        "MAN/semantic/google_storage_bucket.media/open-settings-identity-architect",
+        "MAN/semantic/google_storage_bucket.media/tc-storage-bucket-name",
+        "MAN/unit/google_firebase_hosting_site.client",
+        "REF/semantic/google_storage_bucket.media/force-destroy",
+        "TF/stackit_objectstorage_bucket.media",
+        "MAN/data/google_storage_bucket.media/preflight",
+        "MAN/data/google_storage_bucket.media/rehearsal",
+        "MAN/data/google_storage_bucket.media/initial-copy/rclone-copy",
+        "MAN/data/google_storage_bucket.media/delta-sync/rclone-copy",
+        "TF/stackit_postgresflex_instance.postgres",
+        "MAN/data/google_sql_database_instance.postgres/preflight",
+        "MAN/data/google_sql_database_instance.postgres/rehearsal",
+        "MAN/data/google_sql_database_instance.postgres/initial-copy/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/delta-sync/logical-replication",
+        "MAN/pubsub.topic/name/google_pubsub_topic.faux",
+        "MAN/rabbitmq/topology",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/cloud-run-v2-job-network-exposure",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/open-settings-platform-architect",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/secrets",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/service-identity",
+        "MAN/semantic/google_cloud_run_v2_service.server/cloud-sql-connection",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-identity-architect",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-platform-architect",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-security-architect",
+        "MAN/semantic/google_pubsub_topic.faux/tc-name",
+        "REF/unit/google_firebase_project.default",
+        "TF/stackit_rabbitmq_instance.messaging",
+        "TF/stackit_ske_cluster.containers",
+        "MAN/draft/handover/cluster-access/kubeconfig-md",
+        "MAN/draft/kubernetes/migrate/manifests-yaml",
+        "MAN/draft/kubernetes/server/manifests-yaml",
+        "MAN/unit/google_cloudbuild_trigger.activategcb",
+        "MAN/unit/google_cloudbuild_trigger.init",
+        "MAN/unit/google_cloudbuild_trigger.placeholder",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/own-tool",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/own-tool",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/own-tool",
+        "MAN/data/google_storage_bucket.media/write-freeze/rclone-copy",
+        "MAN/data/google_storage_bucket.media/final-sync/rclone-copy",
+        "MAN/data/google_storage_bucket.media/reconcile/rclone-copy",
+        "MAN/data/google_sql_database_instance.postgres/cleanup/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/cleanup/logical-replication",
+        "MAN/data/google_storage_bucket.media/cleanup/rclone-copy"
+      ]
+    },
+    {
+      "path": "execution/manual/actions.md",
+      "sha256": "db910ce1441d13ce0721dc00a4e6d749e362c335c213d09247b309a379489697",
+      "bytes": 196529,
+      "run_bound": false,
+      "kind": "manual-actions",
+      "action_ids": [
+        "MAN/identity/facts:google_cloud_run_v2_job.migrate:google_cloud_run_v2_job.migrate.template.0.template.0.service_account-8dc3e1",
+        "MAN/identity/facts:google_cloud_run_v2_service.server:google_cloud_run_v2_service.server.template.0.service_account-5ccce9",
+        "MAN/identity/held:principal:google_service_account.automation",
+        "MAN/identity/held:principal:google_service_account.server",
+        "MAN/semantic/google_secret_manager_secret.django_admin_password/open-settings-security-architect",
+        "MAN/semantic/google_secret_manager_secret.django_admin_password/secret-settings",
+        "MAN/semantic/google_secret_manager_secret.django_settings/open-settings-security-architect",
+        "MAN/semantic/google_secret_manager_secret.django_settings/secret-settings",
+        "MAN/semantic/google_service_account.automation/open-settings",
+        "MAN/semantic/google_service_account.client/open-settings",
+        "MAN/semantic/google_service_account.init/open-settings",
+        "MAN/semantic/google_service_account.server/open-settings",
+        "MAN/path/secrets-migration/read-back",
+        "MAN/path/secrets-migration/retire-user",
+        "MAN/estate/SOURCE_PROJECT_MAPPING",
+        "MAN/estate/SOURCE_REGION_MAPPING",
+        "MAN/semantic/google_sql_database_instance.postgres/database-users",
+        "MAN/semantic/google_sql_database_instance.postgres/open-settings-platform-architect",
+        "MAN/semantic/google_sql_database_instance.postgres/user-and-database-settings",
+        "MAN/semantic/google_storage_bucket.media/geo-replication",
+        "MAN/semantic/google_storage_bucket.media/iam-access",
+        "MAN/semantic/google_storage_bucket.media/open-settings-identity-architect",
+        "MAN/semantic/google_storage_bucket.media/tc-storage-bucket-name",
+        "MAN/unit/google_firebase_hosting_site.client",
+        "REF/semantic/google_storage_bucket.media/force-destroy",
+        "MAN/data/google_storage_bucket.media/preflight",
+        "MAN/data/google_storage_bucket.media/rehearsal",
+        "MAN/data/google_storage_bucket.media/initial-copy/rclone-copy",
+        "MAN/data/google_storage_bucket.media/delta-sync/rclone-copy",
+        "MAN/data/google_sql_database_instance.postgres/preflight",
+        "MAN/data/google_sql_database_instance.postgres/rehearsal",
+        "MAN/data/google_sql_database_instance.postgres/initial-copy/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/delta-sync/logical-replication",
+        "MAN/pubsub.topic/name/google_pubsub_topic.faux",
+        "MAN/rabbitmq/topology",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/cloud-run-v2-job-network-exposure",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/open-settings-platform-architect",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/secrets",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/service-identity",
+        "MAN/semantic/google_cloud_run_v2_service.server/cloud-sql-connection",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-identity-architect",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-platform-architect",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-security-architect",
+        "MAN/semantic/google_pubsub_topic.faux/tc-name",
+        "REF/unit/google_firebase_project.default",
+        "MAN/draft/handover/cluster-access/kubeconfig-md",
+        "MAN/draft/kubernetes/migrate/manifests-yaml",
+        "MAN/draft/kubernetes/server/manifests-yaml",
+        "MAN/unit/google_cloudbuild_trigger.activategcb",
+        "MAN/unit/google_cloudbuild_trigger.init",
+        "MAN/unit/google_cloudbuild_trigger.placeholder",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/own-tool",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/own-tool",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/own-tool",
+        "MAN/data/google_storage_bucket.media/write-freeze/rclone-copy",
+        "MAN/data/google_storage_bucket.media/final-sync/rclone-copy",
+        "MAN/data/google_storage_bucket.media/reconcile/rclone-copy",
+        "MAN/data/google_sql_database_instance.postgres/cleanup/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/cleanup/logical-replication",
+        "MAN/data/google_storage_bucket.media/cleanup/rclone-copy"
+      ]
+    },
+    {
+      "path": "execution/terraform/apply.md",
+      "sha256": "333526e3e52aa520718214bd0773e640158812dc0cece40af4121f60095a14de",
+      "bytes": 9151,
+      "run_bound": false,
+      "kind": "terraform-guide",
+      "action_ids": [
+        "TF/stackit_secretsmanager_instance.migrated_secrets",
+        "TF/stackit_secretsmanager_user.migration",
+        "TF/stackit_service_account.automation",
+        "TF/stackit_service_account.client",
+        "TF/stackit_service_account.init",
+        "TF/stackit_service_account.server",
+        "TF/stackit_objectstorage_bucket.media",
+        "TF/stackit_postgresflex_instance.postgres",
+        "TF/stackit_rabbitmq_instance.messaging",
+        "TF/stackit_ske_cluster.containers"
+      ]
+    },
+    {
+      "path": "execution/verify/checks.md",
+      "sha256": "e6abf499e70c52d322bd8212bd41779f7bd3c916d9dfcd5add76bd93160e0f21",
+      "bytes": 20078,
+      "run_bound": false,
+      "kind": "verify-checks",
+      "action_ids": [
+        "TF/stackit_secretsmanager_instance.migrated_secrets",
+        "TF/stackit_secretsmanager_user.migration",
+        "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_admin_password",
+        "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_settings",
+        "MAN/path/secrets-migration/read-back",
+        "MAN/path/secrets-migration/retire-user",
+        "TF/stackit_service_account.automation",
+        "TF/stackit_service_account.client",
+        "TF/stackit_service_account.init",
+        "TF/stackit_service_account.server",
+        "MAN/estate/SOURCE_PROJECT_MAPPING",
+        "MAN/estate/SOURCE_REGION_MAPPING",
+        "MAN/unit/google_firebase_hosting_site.client",
+        "TF/stackit_objectstorage_bucket.media",
+        "MAN/data/google_storage_bucket.media/preflight",
+        "MAN/data/google_storage_bucket.media/rehearsal",
+        "MAN/data/google_storage_bucket.media/initial-copy/rclone-copy",
+        "MAN/data/google_storage_bucket.media/delta-sync/rclone-copy",
+        "TF/stackit_postgresflex_instance.postgres",
+        "MAN/data/google_sql_database_instance.postgres/preflight",
+        "MAN/data/google_sql_database_instance.postgres/rehearsal",
+        "MAN/data/google_sql_database_instance.postgres/initial-copy/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/delta-sync/logical-replication",
+        "MAN/pubsub.topic/name/google_pubsub_topic.faux",
+        "TF/stackit_rabbitmq_instance.messaging",
+        "TF/stackit_ske_cluster.containers",
+        "MAN/unit/google_cloudbuild_trigger.activategcb",
+        "MAN/unit/google_cloudbuild_trigger.init",
+        "MAN/unit/google_cloudbuild_trigger.placeholder",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/own-tool",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/own-tool",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/own-tool",
+        "MAN/data/google_storage_bucket.media/write-freeze/rclone-copy",
+        "MAN/data/google_storage_bucket.media/final-sync/rclone-copy",
+        "MAN/data/google_storage_bucket.media/reconcile/rclone-copy",
+        "MAN/data/google_sql_database_instance.postgres/cleanup/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/cleanup/logical-replication",
+        "MAN/data/google_storage_bucket.media/cleanup/rclone-copy"
+      ]
+    },
+    {
+      "path": "execution/verify/verify.sh",
+      "sha256": "6280b2c112f6938fa243b319395014ba94f81a9d809f1d37a63e0bb9ecb63980",
+      "bytes": 1561,
+      "run_bound": false,
+      "kind": "verify-checks",
+      "action_ids": [
+        "TF/stackit_secretsmanager_instance.migrated_secrets",
+        "TF/stackit_secretsmanager_user.migration",
+        "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_admin_password",
+        "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_settings",
+        "MAN/path/secrets-migration/read-back",
+        "MAN/path/secrets-migration/retire-user",
+        "TF/stackit_service_account.automation",
+        "TF/stackit_service_account.client",
+        "TF/stackit_service_account.init",
+        "TF/stackit_service_account.server",
+        "MAN/estate/SOURCE_PROJECT_MAPPING",
+        "MAN/estate/SOURCE_REGION_MAPPING",
+        "MAN/unit/google_firebase_hosting_site.client",
+        "TF/stackit_objectstorage_bucket.media",
+        "MAN/data/google_storage_bucket.media/preflight",
+        "MAN/data/google_storage_bucket.media/rehearsal",
+        "MAN/data/google_storage_bucket.media/initial-copy/rclone-copy",
+        "MAN/data/google_storage_bucket.media/delta-sync/rclone-copy",
+        "TF/stackit_postgresflex_instance.postgres",
+        "MAN/data/google_sql_database_instance.postgres/preflight",
+        "MAN/data/google_sql_database_instance.postgres/rehearsal",
+        "MAN/data/google_sql_database_instance.postgres/initial-copy/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/delta-sync/logical-replication",
+        "MAN/pubsub.topic/name/google_pubsub_topic.faux",
+        "TF/stackit_rabbitmq_instance.messaging",
+        "TF/stackit_ske_cluster.containers",
+        "MAN/unit/google_cloudbuild_trigger.activategcb",
+        "MAN/unit/google_cloudbuild_trigger.init",
+        "MAN/unit/google_cloudbuild_trigger.placeholder",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/own-tool",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/own-tool",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/own-tool",
+        "MAN/data/google_storage_bucket.media/write-freeze/rclone-copy",
+        "MAN/data/google_storage_bucket.media/final-sync/rclone-copy",
+        "MAN/data/google_storage_bucket.media/reconcile/rclone-copy",
+        "MAN/data/google_sql_database_instance.postgres/cleanup/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/cleanup/logical-replication",
+        "MAN/data/google_storage_bucket.media/cleanup/rclone-copy"
+      ]
+    },
+    {
+      "path": "executive/brief.md",
+      "sha256": "f4daaae37ee4ae27e7de4103ea4d9d3841291b98cef8a9d1b6a042f9350384d3",
+      "bytes": 22969,
+      "run_bound": true
+    },
+    {
+      "path": "executive/decisions.md",
+      "sha256": "463180abf59cc0a2ea6aa3daf17bc54d8664793c27e7576adc3089da37cac219",
+      "bytes": 162142,
+      "run_bound": true
+    },
+    {
+      "path": "financial/cost-coverage.md",
+      "sha256": "d717bb5af20a7cd799f4b65496bc54dd046645edd2b03161a328f49e783d3df2",
+      "bytes": 64157,
+      "run_bound": true
+    },
+    {
+      "path": "financial/cost-model.json",
+      "sha256": "8efc9559b999d4b8610e8d6092fbd1f94c61031613408cfb92d65faa6c3dfa89",
+      "bytes": 101745,
+      "run_bound": true
+    },
+    {
+      "path": "financial/mapping.csv",
+      "sha256": "46c1a77c68a5dd72c36bc05b4dc5e34b2cbbfb223edb075322d56495ee5998b3",
+      "bytes": 6396,
+      "run_bound": false
+    },
+    {
+      "path": "financial/price-snapshot.json",
+      "sha256": "d6ff93ea6abc1ce65ac9b8d409290d6d6123ac0d3a193a02801405726930df66",
+      "bytes": 2439,
+      "run_bound": true
+    },
+    {
+      "path": "financial/priced-resources.csv",
+      "sha256": "40b636cd2f83a8542a83d8b9bd0143af42c07f8e011391606db3bb11ebc6ed62",
+      "bytes": 21632,
+      "run_bound": false
+    },
+    {
+      "path": "index.html",
+      "sha256": "1637945646e93cca6f89a17349434c482d09f95527abb2f40abe61acc590f988",
+      "bytes": 98451,
+      "run_bound": true
+    },
+    {
+      "path": "inputs-template.yaml",
+      "sha256": "68f21553b377167884ed0e17f171adcbd014aa4422d9be28e4b0b177e190fca0",
+      "bytes": 27224,
+      "run_bound": true
+    },
+    {
+      "path": "migration/actions.csv",
+      "sha256": "c377e2de4e5a5a7606721d73d33ae4d8184f205633e8b0d536d96f63abd36d85",
+      "bytes": 106642,
+      "run_bound": false
+    },
+    {
+      "path": "migration/application-chain.csv",
+      "sha256": "9b3671e323878a43be817351e08bdaf11e9954e361d3477cee7b4ce168fa49fd",
+      "bytes": 4498,
+      "run_bound": false
+    },
+    {
+      "path": "migration/applications.csv",
+      "sha256": "ed4f765d3d545c3937acb4cd8141f6bcae3ab009100f1f66b7dbf6f93f23b145",
+      "bytes": 2924,
+      "run_bound": false
+    },
+    {
+      "path": "migration/data-movement-plan.json",
+      "sha256": "09335c38415ae4cb1d4ae87848252a7c7251d0518ab996bf1fd431d335439396",
+      "bytes": 106407,
+      "run_bound": true
+    },
+    {
+      "path": "migration/data-movement.csv",
+      "sha256": "2ea35d81f4596d91fad30ad395d5a2914726af6931cb83fd22ff9cf728e75b9c",
+      "bytes": 967,
+      "run_bound": false
+    },
+    {
+      "path": "migration/data-movement.json",
+      "sha256": "a7aff8af3f733302f0e0f8166d7ac0bf300f42d04360610d46b28a2ceb750b8a",
+      "bytes": 8949,
+      "run_bound": true
+    },
+    {
+      "path": "migration/data-movement.md",
+      "sha256": "2287689d9f731ba6085f8d2bd7e86579e53e007367a20c8526a8d0de1d4eb37c",
+      "bytes": 6997,
+      "run_bound": true
+    },
+    {
+      "path": "migration/decisions.csv",
+      "sha256": "a1f2175eb922a93b68055c9ad9be93551a9e76ca97dff61c0e9f6ad171e2cbce",
+      "bytes": 78354,
+      "run_bound": false
+    },
+    {
+      "path": "migration/execution-actions.csv",
+      "sha256": "287aad9d6dd8b03110626862cb8d520f7ed5e1716506bc201b0326d689926183",
+      "bytes": 62309,
+      "run_bound": false,
+      "kind": "actions-csv",
+      "action_ids": [
+        "MAN/identity/facts:google_cloud_run_v2_job.migrate:google_cloud_run_v2_job.migrate.template.0.template.0.service_account-8dc3e1",
+        "MAN/identity/facts:google_cloud_run_v2_service.server:google_cloud_run_v2_service.server.template.0.service_account-5ccce9",
+        "MAN/identity/held:principal:google_service_account.automation",
+        "MAN/identity/held:principal:google_service_account.server",
+        "MAN/semantic/google_secret_manager_secret.django_admin_password/open-settings-security-architect",
+        "MAN/semantic/google_secret_manager_secret.django_admin_password/secret-settings",
+        "MAN/semantic/google_secret_manager_secret.django_settings/open-settings-security-architect",
+        "MAN/semantic/google_secret_manager_secret.django_settings/secret-settings",
+        "MAN/semantic/google_service_account.automation/open-settings",
+        "MAN/semantic/google_service_account.client/open-settings",
+        "MAN/semantic/google_service_account.init/open-settings",
+        "MAN/semantic/google_service_account.server/open-settings",
+        "TF/stackit_secretsmanager_instance.migrated_secrets",
+        "TF/stackit_secretsmanager_user.migration",
+        "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_admin_password",
+        "API/secrets-manager-vault/WriteSecret/google_secret_manager_secret.django_settings",
+        "MAN/path/secrets-migration/read-back",
+        "MAN/path/secrets-migration/retire-user",
+        "TF/stackit_service_account.automation",
+        "TF/stackit_service_account.client",
+        "TF/stackit_service_account.init",
+        "TF/stackit_service_account.server",
+        "MAN/estate/SOURCE_PROJECT_MAPPING",
+        "MAN/estate/SOURCE_REGION_MAPPING",
+        "MAN/semantic/google_sql_database_instance.postgres/database-users",
+        "MAN/semantic/google_sql_database_instance.postgres/open-settings-platform-architect",
+        "MAN/semantic/google_sql_database_instance.postgres/user-and-database-settings",
+        "MAN/semantic/google_storage_bucket.media/geo-replication",
+        "MAN/semantic/google_storage_bucket.media/iam-access",
+        "MAN/semantic/google_storage_bucket.media/open-settings-identity-architect",
+        "MAN/semantic/google_storage_bucket.media/tc-storage-bucket-name",
+        "MAN/unit/google_firebase_hosting_site.client",
+        "REF/semantic/google_storage_bucket.media/force-destroy",
+        "TF/stackit_objectstorage_bucket.media",
+        "MAN/data/google_storage_bucket.media/preflight",
+        "MAN/data/google_storage_bucket.media/rehearsal",
+        "MAN/data/google_storage_bucket.media/initial-copy/rclone-copy",
+        "MAN/data/google_storage_bucket.media/delta-sync/rclone-copy",
+        "TF/stackit_postgresflex_instance.postgres",
+        "MAN/data/google_sql_database_instance.postgres/preflight",
+        "MAN/data/google_sql_database_instance.postgres/rehearsal",
+        "MAN/data/google_sql_database_instance.postgres/initial-copy/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/delta-sync/logical-replication",
+        "MAN/pubsub.topic/name/google_pubsub_topic.faux",
+        "MAN/rabbitmq/topology",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/cloud-run-v2-job-network-exposure",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/open-settings-platform-architect",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/secrets",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/service-identity",
+        "MAN/semantic/google_cloud_run_v2_service.server/cloud-sql-connection",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-identity-architect",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-platform-architect",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-security-architect",
+        "MAN/semantic/google_pubsub_topic.faux/tc-name",
+        "REF/unit/google_firebase_project.default",
+        "TF/stackit_rabbitmq_instance.messaging",
+        "TF/stackit_ske_cluster.containers",
+        "MAN/draft/handover/cluster-access/kubeconfig-md",
+        "MAN/draft/kubernetes/migrate/manifests-yaml",
+        "MAN/draft/kubernetes/server/manifests-yaml",
+        "MAN/unit/google_cloudbuild_trigger.activategcb",
+        "MAN/unit/google_cloudbuild_trigger.init",
+        "MAN/unit/google_cloudbuild_trigger.placeholder",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/own-tool",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/own-tool",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/own-tool",
+        "MAN/data/google_storage_bucket.media/write-freeze/rclone-copy",
+        "MAN/data/google_storage_bucket.media/final-sync/rclone-copy",
+        "MAN/data/google_storage_bucket.media/reconcile/rclone-copy",
+        "MAN/data/google_sql_database_instance.postgres/cleanup/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/cleanup/logical-replication",
+        "MAN/data/google_storage_bucket.media/cleanup/rclone-copy"
+      ]
+    },
+    {
+      "path": "migration/kubernetes-manifests.csv",
+      "sha256": "2a505e9ad43378bff7fc7cb22cc38e9c6b69a8c5abbfe836a41d1f46c6141444",
+      "bytes": 533,
+      "run_bound": false
+    },
+    {
+      "path": "migration/landing-zone-requirements.md",
+      "sha256": "0e4a1a2707d0037386a057c72c11006259ebdbd824b8b00ef62d35c8d17131cf",
+      "bytes": 21999,
+      "run_bound": true
+    },
+    {
+      "path": "migration/prerequisites.md",
+      "sha256": "872138962861d9f2d50d4624fe0092684f8c62dc15ee8314e9a2e05984e8c730",
+      "bytes": 24669,
+      "run_bound": true
+    },
+    {
+      "path": "migration/roadmap.md",
+      "sha256": "8fa29a385c2f75d4dc5e8fecb48816cc7ee857478b161edad89ccad3706dc0df",
+      "bytes": 66264,
+      "run_bound": true
+    },
+    {
+      "path": "migration/source-target.csv",
+      "sha256": "e87e6153dc1baab4167453a8445054cd06cdeccde461701dd9c4679be7c44f06",
+      "bytes": 4399,
+      "run_bound": false
+    },
+    {
+      "path": "migration/technical-sequencing.md",
+      "sha256": "a33fd503bb82fee9c1415b747bfc2665b5b01ee71fa6cfae045bb79296e6d2f9",
+      "bytes": 4205,
+      "run_bound": true
+    },
+    {
+      "path": "migration/waves.csv",
+      "sha256": "be846166da2928cf855d404c0d3770198a4c7d9df11831dba5a01135998462bc",
+      "bytes": 2015,
+      "run_bound": false
+    },
+    {
+      "path": "migration/work-board.csv",
+      "sha256": "00e77ea8e92788d677ceac2445c1a9626f5bfff150493d658b9929b55cad5b5a",
+      "bytes": 100416,
+      "run_bound": false
+    },
+    {
+      "path": "migration/work-items.json",
+      "sha256": "ddeac516db559fc9077ecc57cdde8908eab92871d228eb0fd08b668b24d798ac",
+      "bytes": 158160,
+      "run_bound": true
+    },
+    {
+      "path": "migration/work-packages.csv",
+      "sha256": "d2bd8c651140c03eefdea22a958521f72ecb7aed6d4dea3233c4e4c0d06aecb9",
+      "bytes": 19192,
+      "run_bound": false,
+      "kind": "work-packages-csv",
+      "action_ids": [
+        "MAN/identity/facts:google_cloud_run_v2_job.migrate:google_cloud_run_v2_job.migrate.template.0.template.0.service_account-8dc3e1",
+        "MAN/identity/facts:google_cloud_run_v2_service.server:google_cloud_run_v2_service.server.template.0.service_account-5ccce9",
+        "MAN/identity/held:principal:google_service_account.automation",
+        "MAN/identity/held:principal:google_service_account.server",
+        "MAN/semantic/google_secret_manager_secret.django_admin_password/open-settings-security-architect",
+        "MAN/semantic/google_secret_manager_secret.django_admin_password/secret-settings",
+        "MAN/semantic/google_secret_manager_secret.django_settings/open-settings-security-architect",
+        "MAN/semantic/google_secret_manager_secret.django_settings/secret-settings",
+        "MAN/semantic/google_service_account.automation/open-settings",
+        "MAN/semantic/google_service_account.client/open-settings",
+        "MAN/semantic/google_service_account.init/open-settings",
+        "MAN/semantic/google_service_account.server/open-settings",
+        "MAN/path/secrets-migration/read-back",
+        "MAN/path/secrets-migration/retire-user",
+        "MAN/estate/SOURCE_PROJECT_MAPPING",
+        "MAN/estate/SOURCE_REGION_MAPPING",
+        "MAN/semantic/google_sql_database_instance.postgres/database-users",
+        "MAN/semantic/google_sql_database_instance.postgres/open-settings-platform-architect",
+        "MAN/semantic/google_sql_database_instance.postgres/user-and-database-settings",
+        "MAN/semantic/google_storage_bucket.media/geo-replication",
+        "MAN/semantic/google_storage_bucket.media/iam-access",
+        "MAN/semantic/google_storage_bucket.media/open-settings-identity-architect",
+        "MAN/semantic/google_storage_bucket.media/tc-storage-bucket-name",
+        "MAN/unit/google_firebase_hosting_site.client",
+        "MAN/data/google_storage_bucket.media/preflight",
+        "MAN/data/google_storage_bucket.media/rehearsal",
+        "MAN/data/google_storage_bucket.media/initial-copy/rclone-copy",
+        "MAN/data/google_storage_bucket.media/delta-sync/rclone-copy",
+        "MAN/data/google_sql_database_instance.postgres/preflight",
+        "MAN/data/google_sql_database_instance.postgres/rehearsal",
+        "MAN/data/google_sql_database_instance.postgres/initial-copy/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/delta-sync/logical-replication",
+        "MAN/pubsub.topic/name/google_pubsub_topic.faux",
+        "MAN/rabbitmq/topology",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/cloud-run-v2-job-network-exposure",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/open-settings-platform-architect",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/secrets",
+        "MAN/semantic/google_cloud_run_v2_job.migrate/service-identity",
+        "MAN/semantic/google_cloud_run_v2_service.server/cloud-sql-connection",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-identity-architect",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-platform-architect",
+        "MAN/semantic/google_cloud_run_v2_service.server/open-settings-security-architect",
+        "MAN/semantic/google_pubsub_topic.faux/tc-name",
+        "MAN/draft/handover/cluster-access/kubeconfig-md",
+        "MAN/draft/kubernetes/migrate/manifests-yaml",
+        "MAN/draft/kubernetes/server/manifests-yaml",
+        "MAN/unit/google_cloudbuild_trigger.activategcb",
+        "MAN/unit/google_cloudbuild_trigger.init",
+        "MAN/unit/google_cloudbuild_trigger.placeholder",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/logical-replication",
+        "MAN/data/google_sql_database_instance.postgres/write-freeze/own-tool",
+        "MAN/data/google_sql_database_instance.postgres/final-sync/own-tool",
+        "MAN/data/google_sql_database_instance.postgres/reconcile/own-tool",
+        "MAN/data/google_storage_bucket.media/write-freeze/rclone-copy",
+        "MAN/data/google_storage_bucket.media/final-sync/rclone-copy",
+        "MAN/data/google_storage_bucket.media/reconcile/rclone-copy",
+        "MAN/data/google_sql_database_instance.postgres/cleanup/dump-restore",
+        "MAN/data/google_sql_database_instance.postgres/cleanup/logical-replication",
+        "MAN/data/google_storage_bucket.media/cleanup/rclone-copy"
+      ]
+    },
+    {
+      "path": "pages/applications.html",
+      "sha256": "6c82a2e238d0520d585272495880d446ef143ba5155fcdee658b9a04b4e6cf48",
+      "bytes": 49673,
+      "run_bound": true
+    },
+    {
+      "path": "pages/architecture.html",
+      "sha256": "fed8015a17ffca93af20991ea543a462deb988079c865d1ade164e47996ab384",
+      "bytes": 148880,
+      "run_bound": true
+    },
+    {
+      "path": "pages/cost.html",
+      "sha256": "b40d3b3f3b5f805622913305dde81e0b4e56936b27d8f0584b3d9d747719a2f0",
+      "bytes": 131725,
+      "run_bound": true
+    },
+    {
+      "path": "pages/decisions.html",
+      "sha256": "065daa3bf7330fa6d2c0e8c578a4541a3179181dc8a6286aca8e3b0c1159c057",
+      "bytes": 503894,
+      "run_bound": true
+    },
+    {
+      "path": "pages/engineering.html",
+      "sha256": "438ff0d3ca737d8b4e702ea3886c3a5f0cd2c1fe27e825df53f30857c826523e",
+      "bytes": 124959,
+      "run_bound": true
+    },
+    {
+      "path": "pages/evidence.html",
+      "sha256": "0209090b511f808ddfdb4e73ab209bfbbfcca99473f4a4be157697653b9bc9b9",
+      "bytes": 61693,
+      "run_bound": true
+    },
+    {
+      "path": "pages/migration.html",
+      "sha256": "cc4d03d13ffd5c243fa97512b706dec91cf39248a14e52b39fc31d8a1bd2ac12",
+      "bytes": 75684,
+      "run_bound": true
+    },
+    {
+      "path": "pages/operations.html",
+      "sha256": "488e9557636ab61cc9f6275aee57ad3da15d3f22876bbada85c75c2dc979e384",
+      "bytes": 51552,
+      "run_bound": true
+    },
+    {
+      "path": "pages/security-assurance.html",
+      "sha256": "074003dc765d9007aac5a6e2c4bf2ce2ad89f4fac3a7714a334800056908dcfb",
+      "bytes": 73077,
+      "run_bound": true
+    },
+    {
+      "path": "pages/sovereignty.html",
+      "sha256": "0188521de9f2769dee4742ed58b3f511418e1579b93a75f5a335822b4041dfec",
+      "bytes": 53990,
+      "run_bound": true
+    },
+    {
+      "path": "pages/target-fit.html",
+      "sha256": "355fd4ae9ddae2facde646b253a8482cb338f642fe3dd04445e81de06532e377",
+      "bytes": 137574,
+      "run_bound": true
+    },
+    {
+      "path": "pages/work-board.html",
+      "sha256": "c4237826cdf27e3f2a5af9732c2c0a72189321c851c97a4aff7cda16c2b7c5dc",
+      "bytes": 253796,
+      "run_bound": true
+    },
+    {
+      "path": "progress-template.yaml",
+      "sha256": "6f3fa2c80526d8dc62a9d701201df04d2704599310e305dea4fe9bf423684698",
+      "bytes": 26084,
+      "run_bound": true
+    },
+    {
+      "path": "target-plan.json",
+      "sha256": "dec5cfb41f2f5ba4e28db5d783b66f504f22ac622e0f929a01723a5496053eb6",
+      "bytes": 9655,
+      "run_bound": true
+    },
+    {
+      "path": "target-values-template.tfvars",
+      "sha256": "297813f61c960795104547fb27225b04a9598d61cdc419ef72c99fd44b05020d",
+      "bytes": 2639,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/README.md",
+      "sha256": "fb716b69dc074456ff8391c82758052b7b7aa958998eec93c9f2b7fdd94df2c2",
+      "bytes": 22234,
+      "run_bound": true
+    },
+    {
+      "path": "terraform/data.tf",
+      "sha256": "1d90a049be0aa0a28252ca981e076e77fdd805995d4ea8d6ffafccb24f1c3995",
+      "bytes": 2824,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/handover/bucket-media/data-copy.md",
+      "sha256": "6c5e80a387560365ccd445f074e8518b6db085da5e0c4083532e165380169207",
+      "bytes": 18011,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/handover/cluster-access/kubeconfig.md",
+      "sha256": "c7f10bb1a1df93bd77e4ba86a25ffed38eba4c30c40860090471a0e4458d598d",
+      "bytes": 5326,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/handover/database-postgres/data-move.md",
+      "sha256": "04c57759c292d442b21466e8a849c0d4a96a722a7ba72d9c8345578661ec5ed1",
+      "bytes": 46051,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/identity.tf",
+      "sha256": "e4b11cbce81575d4cbeda96b7b89d732533429da0fb659501d8932a12809e66f",
+      "bytes": 10383,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/kubernetes.tf",
+      "sha256": "c3437d727d537d2e09cd8b834ce7336674a883f8633a14b57b4094090f1e0f6b",
+      "bytes": 3549,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/kubernetes/migrate/manifests.yaml",
+      "sha256": "5f70df28b94e5801f0ae0918f64dff626c7cc11cd4da97e2f305e5dad6d7ec39",
+      "bytes": 5894,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/kubernetes/server/manifests.yaml",
+      "sha256": "c5c6f9b4e5bb6997ba49112c507b67302c56e78024cd0c110c6ad19b39e62599",
+      "bytes": 11017,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/messaging.tf",
+      "sha256": "b84a5c9f2fb940866ee10ad1290c2c7906277da70141b6171f0079078e32b9a4",
+      "bytes": 1052,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals.tf",
+      "sha256": "b92da30060a57bfd089bbccc52666d72fcafe4a810aa2dc7c1d7cba45f2f8d23",
+      "bytes": 20819,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_activategcb/main.tf",
+      "sha256": "bde35376e379ad7028f9aa80d3e596b222fc4196f81736db2dc1efd4b8c4a2d7",
+      "bytes": 4102,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_activategcb/variables.tf",
+      "sha256": "9be65bd773591c6838debda0e84e5f1621356112a78596ba5bd82a46848b3d29",
+      "bytes": 431,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_activategcb/versions.tf",
+      "sha256": "66f68cd90c001be381aa38af01f5ba7c29f91c448a8295018465a940e401b76b",
+      "bytes": 231,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_automation/main.tf",
+      "sha256": "b42e08c6383ff5e3dbbe76950bd2282c3c17f9a5966ee683d6241327c4b98fce",
+      "bytes": 3117,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_automation/variables.tf",
+      "sha256": "e4198d68f4ab01f113573383fadb0fdfd639dd991a10cec9d16aa986939ae51e",
+      "bytes": 429,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_automation/versions.tf",
+      "sha256": "66f68cd90c001be381aa38af01f5ba7c29f91c448a8295018465a940e401b76b",
+      "bytes": 231,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_client/main.tf",
+      "sha256": "f4b06ee4a92f40e1d83e4a5b26507c4ad9a7358c7a6f412b8ec9d2fd513b3f5d",
+      "bytes": 4672,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_client/variables.tf",
+      "sha256": "7820dbc0a47a28c4f30832d2f6ffd2f62aa21d8dd67d2f5992be3d982a99adac",
+      "bytes": 1861,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_client/versions.tf",
+      "sha256": "66f68cd90c001be381aa38af01f5ba7c29f91c448a8295018465a940e401b76b",
+      "bytes": 231,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_django_admin_password/main.tf",
+      "sha256": "1d2e1798c5620750625e5d14081d3d050311e0680bc91bc0220a31833dcaf72c",
+      "bytes": 12503,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_django_admin_password/variables.tf",
+      "sha256": "f329cff905e34a4cb416a916ff8d9b22cd8005c23f485f5652969a980081c24a",
+      "bytes": 4058,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_django_admin_password/versions.tf",
+      "sha256": "66f68cd90c001be381aa38af01f5ba7c29f91c448a8295018465a940e401b76b",
+      "bytes": 231,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_django_settings/main.tf",
+      "sha256": "5e544a33c970805216f8e40b8c9dfdbb4d30b8b5f9040c8686ea245c740be013",
+      "bytes": 12479,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_django_settings/variables.tf",
+      "sha256": "f329cff905e34a4cb416a916ff8d9b22cd8005c23f485f5652969a980081c24a",
+      "bytes": 4058,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_django_settings/versions.tf",
+      "sha256": "66f68cd90c001be381aa38af01f5ba7c29f91c448a8295018465a940e401b76b",
+      "bytes": 231,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_init/main.tf",
+      "sha256": "459e4a00fc0cdb197cdb7876a2dab9212c266feac6c4b5fa29d8048c73837aca",
+      "bytes": 4025,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_init/variables.tf",
+      "sha256": "9be65bd773591c6838debda0e84e5f1621356112a78596ba5bd82a46848b3d29",
+      "bytes": 431,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_init/versions.tf",
+      "sha256": "66f68cd90c001be381aa38af01f5ba7c29f91c448a8295018465a940e401b76b",
+      "bytes": 231,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_placeholder/main.tf",
+      "sha256": "cb6e0fe4d469b5d7791fd03147d78df5b7726046e6e5dbb02e9941a1c8ebffb1",
+      "bytes": 4099,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_placeholder/variables.tf",
+      "sha256": "9be65bd773591c6838debda0e84e5f1621356112a78596ba5bd82a46848b3d29",
+      "bytes": 431,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_placeholder/versions.tf",
+      "sha256": "66f68cd90c001be381aa38af01f5ba7c29f91c448a8295018465a940e401b76b",
+      "bytes": 231,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_server/main.tf",
+      "sha256": "02dc4d5f15db4ab72c19e246f4c96d611aa985d7663aae859ab4bf6eda4a92a3",
+      "bytes": 3105,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_server/variables.tf",
+      "sha256": "e4198d68f4ab01f113573383fadb0fdfd639dd991a10cec9d16aa986939ae51e",
+      "bytes": 429,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/proposals/proposal_server/versions.tf",
+      "sha256": "66f68cd90c001be381aa38af01f5ba7c29f91c448a8295018465a940e401b76b",
+      "bytes": 231,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/rabbitmq/apply-topology.sh",
+      "sha256": "ea1d65780d4098f712571743d91330082c061ef10e16262901bda6d59b60809a",
+      "bytes": 3324,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/rabbitmq/topology.json",
+      "sha256": "2a7d818e1c3c3ca2f872309fe4bcfdbaa65c9c3cdc1bbabb79f058ae850488d1",
+      "bytes": 219,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/security.tf",
+      "sha256": "ed704c65a9f51efb6dad054d0f5f54cb8825cc533b73a030a3a257e27a5712cd",
+      "bytes": 6073,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/storage.tf",
+      "sha256": "01c89ed6fe4012cc74e5f580c89e9580a25dd6b7b0692d9b54675911c3f536ce",
+      "bytes": 1881,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/terraform.tf",
+      "sha256": "103f8b936bd96d0190e230fb093563caec00c7bb70d8c46040e71a2a6d068974",
+      "bytes": 700,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/variables.tf",
+      "sha256": "095b461c2d21df9b3cc65c13808c281e824c1a71b34b5fe673687187786f1097",
+      "bytes": 4286,
+      "run_bound": false
+    },
+    {
+      "path": "workspace.json",
+      "sha256": "0a2a965f31c789f4be0f3d9ca7e391762732b59db106d7aa4d535c868926e277",
+      "bytes": 1029966,
+      "run_bound": true
+    }
+  ]
+}

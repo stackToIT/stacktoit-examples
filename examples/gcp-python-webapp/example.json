@@ -1,0 +1,274 @@
+{
+  "schema_version": "1.0.0",
+  "id": "gcp-python-webapp",
+  "title": "Google Cloud Dynamic Python Web App",
+  "summary": "Google's own Jump Start Solution for a dynamic Python web app: a Django API on Cloud Run with a migration job, Cloud SQL for PostgreSQL, Secret Manager, a Cloud Storage media bucket, Pub/Sub, service accounts and Firebase Hosting for the front end. StackToIT read the Terraform as published by Google Cloud and wrote a STACKIT migration package: 11 units assessed plus 5 decided at plan time, 11 drafted as 10 STACKIT resource blocks that pass OpenTofu validation, the open decisions named with an owner.",
+  "source": {
+    "cloud": "Google Cloud",
+    "iac": "Terraform (OpenTofu-readable)",
+    "origin": "upstream",
+    "project_name": "terraform-dynamic-python-webapp",
+    "maintainer": "Google Cloud (GoogleCloudPlatform)",
+    "repository_url": "https://github.com/GoogleCloudPlatform/terraform-dynamic-python-webapp",
+    "commit": "7c9e8fb8f0d4d57f0564c70917ae06a07c176d17",
+    "commit_url": "https://github.com/GoogleCloudPlatform/terraform-dynamic-python-webapp/tree/7c9e8fb8f0d4d57f0564c70917ae06a07c176d17",
+    "terraform_root": "infra",
+    "terraform_root_url": "https://github.com/GoogleCloudPlatform/terraform-dynamic-python-webapp/tree/7c9e8fb8f0d4d57f0564c70917ae06a07c176d17/infra",
+    "license": "Apache-2.0 (upstream LICENSE)",
+    "registry_modules": "1 registry module downloaded by the run (terraform-google-modules/project-factory/google//modules/project_services 18.0.0)",
+    "note": "The estate was assessed exactly as published upstream: nothing in it was edited. Its one required variable without a default, project_id, was given in a variable file holding the single line project_id = \"example-project\" (an invented name). It ships no .terraform.lock.hcl, so the OpenTofu validation of the source did not run and every unit is capped at MEDIUM confidence; its google constraint \">= 6, < 8\" also excludes 8.4.0, the release StackToIT's knowledge base was checked against, so the source provider is UNVERIFIED.",
+    "description": "terraform-dynamic-python-webapp is a Google Cloud Jump Start Solution: a Django REST API (\"server\") on Cloud Run, a Cloud Run job that runs the database migrations, Cloud SQL for PostgreSQL, two Secret Manager secrets (Django settings and admin password), a Cloud Storage bucket for media, a Pub/Sub topic, service accounts for the server, client and automation, Firebase Hosting for the JavaScript client, and Cloud Build triggers used for the first deployment. The estate assessed is its infra/ root module and the registry module it calls.",
+    "attribution": "The source estate is terraform-dynamic-python-webapp, published by Google Cloud under the Apache License 2.0."
+  },
+  "target": {
+    "provider": "stackitcloud/stackit 0.121.0",
+    "cloud": "STACKIT"
+  },
+  "tool": {
+    "name": "StackToIT",
+    "version": "0.6.0-13076-ga19ea28c64",
+    "commit": "a19ea28c64",
+    "kb_version": "0.394.0",
+    "kb_sha256": "480e323d0c501840bc553e30e3073fca5f51c5c45a9e7d91ed4a4ff36d6a50d0",
+    "assessment_schema": "0.24.0",
+    "manifest_version": "0.4.0",
+    "opentofu": "1.13.1"
+  },
+  "run": {
+    "run_id": "6f8f72b2-1c34-4cfc-8483-344c41245364",
+    "generated_at": "2026-11-07T04:24:17Z",
+    "date": "2026-11-07",
+    "source_digest": "sha256:19bfed642d5789ccada81b91d5c36e33175dcafd66dc46b1644ffa105d020000",
+    "command": "stacktoit assess . ../../run-python-webapp --var-file ../../example.tfvars",
+    "mode": "online (default options; the run downloaded the one registry module; no provider mirror; STACKIT list prices from the local price cache retrieved 2026-11-02; OpenTofu 1.13.1 validated the draft)",
+    "verify_result": "VERIFIED — 146 files match manifest.json (size and SHA-256); 7 of 7 checks PASS",
+    "command_note": "Run from the infra/ folder of a clone of the upstream repository at the pinned commit. ../../example.tfvars is the variable file with project_id = \"example-project\"; the run reads it after terraform.tfvars and *.auto.tfvars. The output directory is this example's output/ folder, unchanged; ../../run-python-webapp is the name it had when it was written.",
+    "verify_command": "stacktoit verify ../../run-python-webapp"
+  },
+  "metrics": {
+    "files_read": 18,
+    "resources": 37,
+    "units": 11,
+    "plan_time_units": 5,
+    "source_status": "RUNTIME_TOPOLOGY_PARTIAL",
+    "module_calls": 1,
+    "module_calls_external": 1,
+    "module_calls_local": 0,
+    "source_visibility": "Complete",
+    "by_class": {
+      "DIRECT": 0,
+      "RECONFIGURE": 6,
+      "REPLATFORM": 2,
+      "CONTAINERIZE": 2,
+      "REDESIGN": 0,
+      "MANUAL_REVIEW": 1,
+      "BLOCKED": 0
+    },
+    "by_confidence": {
+      "HIGH": 0,
+      "MEDIUM": 10,
+      "LOW": 1
+    },
+    "by_domain": {
+      "identity": 5,
+      "compute": 2,
+      "platform": 1,
+      "messaging": 1,
+      "data": 1,
+      "storage": 1
+    },
+    "draft": {
+      "generated": 11,
+      "no_resource_needed": 0,
+      "manual": 1,
+      "units_considered": 16,
+      "terraform_only": 9,
+      "hybrid": 2,
+      "variables": 13,
+      "proposed_switched_off": 4
+    },
+    "execution": {
+      "package_state": "PARTIALLY_EXECUTABLE",
+      "package_state_words": "Partially executable migration package",
+      "plan_steps": 78,
+      "automated_steps": 12,
+      "automated_free_of_decisions": 10,
+      "automated_runs_as_written": 0,
+      "automated_waiting_for_value": 10,
+      "automated_wait_manual_prerequisite": 0,
+      "automated_require_design_decision": 2,
+      "automated_on_unconfirmed_default": 0,
+      "automated_approved": 0,
+      "terraform_steps": 10,
+      "api_steps": 2,
+      "api_steps_waiting_opt_in": 2,
+      "manual_steps": 64,
+      "manual_can_start_now": 29,
+      "lifecycle_steps": 2,
+      "refused_steps": 2,
+      "steps_not_runnable_now": 26
+    },
+    "readiness": {
+      "migration_ready": "NO",
+      "approval": "NOT PROVIDED",
+      "automation_eligible_units": 0,
+      "automation_eligible_after_open_items": 8,
+      "cannot_be_automated_in_this_build": 9,
+      "critical_settings_total": 62,
+      "critical_settings_resolved": 12,
+      "mapping_confidence_high": 0,
+      "live_verification": "Never applied to STACKIT — no plan was run against a live project"
+    },
+    "decisions": {
+      "records_open": 43,
+      "decisions_to_make": 6,
+      "defaults_to_confirm": 1,
+      "open_input_requests": 27,
+      "input_requests_blocking_draft": 7,
+      "first_required_action": "Allow the calls of STACKIT APIs that are not generally available — Owner: Platform Architect",
+      "defaults_to_confirm_note": "1 record nobody has answered rests on a draft default that no step waits for (the STACKIT region the draft builds in); a person confirms it or changes it"
+    },
+    "applications": {
+      "total": 2,
+      "ready": 0,
+      "blocked": 0,
+      "redesign": 0,
+      "not_ready": 2,
+      "list": [
+        {
+          "name": "server",
+          "state": "NOT_READY",
+          "why": "proposed by StackToIT, not confirmed by anyone: the Cloud Run API service with what only it reaches; 2 automated steps wait for a value, 4 open security decisions to accept it"
+        },
+        {
+          "name": "migrate",
+          "state": "NOT_READY",
+          "why": "proposed by StackToIT, not confirmed by anyone: the Cloud Run migration job with what only it reaches; 4 automated steps wait for a value, 1 waits for a decision, 6 open security decisions to accept it"
+        }
+      ]
+    },
+    "cost": {
+      "comparison": "NOT AVAILABLE",
+      "why": "No price source for 5 lines (the price cache holds no Google Cloud record and stacktoit-prices was not installed); 6 of 8 STACKIT lines have no price; 13 source resources are outside the model and can carry a charge.",
+      "stackit_partial_eur": "164.67",
+      "stackit_lines_priced": "2 of 8",
+      "source_lines_priced": "0 of 14",
+      "price_source": "StackToIT price cache (STACKIT list prices, cache last filled 2026-11-02); no Google Cloud price was available"
+    },
+    "validation": {
+      "source_completeness": {
+        "state": "PARTIAL",
+        "detail": "source status RUNTIME_TOPOLOGY_PARTIAL: 5 unit(s) have a count/for_each that is not known statically; whether and how often they exist is decided at plan time"
+      },
+      "source_provider": {
+        "state": "UNVERIFIED",
+        "detail": "google constraints >= 6, < 8, tested against 8.4.0; no lock file records the version of registry.terraform.io/hashicorp/google, and the constraint \">= 6, < 8\" excludes it (pinned 8.4.0)"
+      },
+      "source_opentofu": {
+        "state": "NOT_RUN",
+        "reason": "LOCK_FILE — the source has no dependency lock file (.terraform.lock.hcl) and the validation runs the engine with the lock file read-only, so it never installs a provider without one: commit the lock file (tofu init writes it) and run again. Also not available from a provider mirror or cache: hashicorp/google, hashicorp/google-beta, hashicorp/http, hashicorp/random, hashicorp/time (Failed to query available provider packages); once the source has a lock file, run with network access so that the packages the lock file names are prepared, or give --provider-mirror DIR (an offline run needs it); nothing is downloaded by the validation. No validation result exists; this is neither a pass nor a failure of the source."
+      },
+      "draft_generation": {
+        "state": "GENERATED",
+        "detail": "the draft is in terraform/"
+      },
+      "draft_checks": {
+        "state": "PASSED",
+        "detail": "20 checks, none found a violation"
+      },
+      "global_invariants": {
+        "state": "PASSED",
+        "detail": "12 of 12 invariants PASS; vacuous, they checked nothing: NO_SECURITY_WIDENING, VARIABLE_IDENTITY_PRESERVED, APPLICATION_READY_IMPLIES_REQUIRED_ENV_SECRETS_DEPENDENCIES"
+      },
+      "draft_opentofu": {
+        "state": "PASSED",
+        "detail": "tofu init -backend=false and tofu validate accepted the draft; tofu 1.13.1 — static validation of the draft against the pinned provider schema — not target behaviour, not approval"
+      },
+      "manifest": {
+        "state": "VERIFIED",
+        "detail": "146 files match manifest.json; EVIDENCE, SCHEMA, RUN_ID, BASIS, INPUTS_DIGEST, INVALIDATION_KEYS, EXECUTION_PLAN PASS"
+      },
+      "not_established": [
+        {
+          "id": "STACKIT_PLAN",
+          "state": "NOT_RUN",
+          "detail": "this build runs no plan against a STACKIT project"
+        },
+        {
+          "id": "ARCHITECT_APPROVAL",
+          "state": "NOT_PROVIDED",
+          "detail": "no review decision is recorded for this run"
+        },
+        {
+          "id": "SEMANTIC_EQUIVALENCE",
+          "state": "NOT_ASSESSED",
+          "detail": "this build has no measure for it"
+        },
+        {
+          "id": "SAFE_TO_APPLY",
+          "state": "NOT_ASSERTED",
+          "detail": "StackToIT never asserts it"
+        }
+      ]
+    },
+    "confidence_note": "capped at MEDIUM: the source provider version is not verified (no lock file, and its constraint excludes the release the knowledge base was checked against)"
+  },
+  "key_findings": [
+    {
+      "title": "Every unit gets a verdict",
+      "text": "All 11 units are assessed: 6 RECONFIGURE (service accounts, secrets, the media bucket), 2 REPLATFORM (Cloud SQL to STACKIT PostgreSQL Flex, Pub/Sub to STACKIT RabbitMQ), 2 CONTAINERIZE (the Cloud Run service and job to STACKIT Kubernetes Engine) and 1 MANUAL_REVIEW (the Firebase project). 5 more units (three Cloud Build triggers, the Firebase Hosting site and an init service account) exist only if a variable holds at plan time; they are assessed too and marked as such."
+    },
+    {
+      "title": "Serverless becomes containers on Kubernetes",
+      "text": "STACKIT has no Cloud Run, so the API service and the migration job become workloads on a STACKIT Kubernetes Engine cluster. The draft writes the cluster and Kubernetes manifests and asks for the machine type and node counts instead of guessing them."
+    },
+    {
+      "title": "A draft that passes OpenTofu validation",
+      "text": "11 of the 16 units considered are drafted as 10 STACKIT resource blocks with 13 variables; 4 are proposed and switched off until someone decides; the Firebase project is left to the architect. tofu init and tofu validate (OpenTofu 1.13.1) accepted the draft. That is static validation, not a plan against STACKIT."
+    },
+    {
+      "title": "The first required action has an owner",
+      "text": "6 decisions are open. The first is to allow STACKIT APIs that are not generally available (Pub/Sub v1beta for RabbitMQ, Secrets Manager): Owner: Platform Architect. 10 of the 12 automated steps are free of decisions and wait only for values such as project_id; none can run as written, none is approved."
+    },
+    {
+      "title": "The source provider is not pinned",
+      "text": "The repository commits no .terraform.lock.hcl and constrains google to \">= 6, < 8\", which excludes the 8.4.0 release the knowledge base was checked against. StackToIT caps every unit at MEDIUM confidence, marks none automation-eligible and names the remedy: commit a lock file."
+    },
+    {
+      "title": "No cost comparison is stated",
+      "text": "The price cache holds no Google Cloud record and no price tool was installed next to the binary. 2 of 8 STACKIT lines are priced (164.67 EUR partial, list prices); the report refuses to call a one-sided subtotal a saving and prints the commands that fill the missing prices."
+    }
+  ],
+  "report": {
+    "entry": "index.html",
+    "architecture_dir": "architecture",
+    "terraform_dir": "terraform",
+    "executive_brief": "executive/brief.md",
+    "decisions": "executive/decisions.md",
+    "execution_plan": "execution/README.md",
+    "manual_actions": "execution/manual/actions.md",
+    "roadmap": "migration/roadmap.md",
+    "data_movement": "migration/data-movement.md",
+    "manifest": "manifest.json",
+    "console": "console.txt"
+  },
+  "case_study": {
+    "lede": "Explore how StackToIT analyzed Google Cloud's own dynamic Python web app, a Cloud Run and Cloud SQL estate published by Google, and generated a structured migration assessment, proposed STACKIT infrastructure, architecture diagrams and a detailed migration plan."
+  },
+  "publication": {
+    "published_files": 151,
+    "manifest_files": 145,
+    "outside_manifest": [
+      "manifest.json",
+      "review/applications.yaml",
+      "review/decisions.yaml",
+      "review/inputs.yaml",
+      "review/progress.yaml",
+      "review/target-values.tfvars"
+    ],
+    "outside_manifest_note": "review/ is the customer's answer area the run writes beside its files; it is excluded from the manifest by design. manifest.json lists every other file.",
+    "excluded": [],
+    "modified": [],
+    "statement": "The output folder is published exactly as StackToIT wrote it. No file was removed, edited or redacted; stacktoit verify passes on the published copy. The source code is not republished here; the links point to the exact upstream revision."
+  }
+}

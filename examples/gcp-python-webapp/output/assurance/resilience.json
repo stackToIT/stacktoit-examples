@@ -1,0 +1,63 @@
+{
+  "run_id": "6f8f72b2-1c34-4cfc-8483-344c41245364",
+  "source_digest": "sha256:19bfed642d5789ccada81b91d5c36e33175dcafd66dc46b1644ffa105d020000",
+  "resilience": {
+    "requirement": {
+      "state": "BUSINESS_REQUIREMENT_NOT_PROVIDED",
+      "statement": "No RTO or RPO was stated (BUSINESS_REQUIREMENT_NOT_PROVIDED): no architecture is called resilient against it, and no value is assumed.",
+      "applications": []
+    },
+    "units": [
+      {
+        "source_unit": "google_sql_database_instance.postgres",
+        "source_type": "google_sql_database_instance",
+        "source_facts": [
+          {
+            "path": "zone of google_sql_database_instance.postgres",
+            "value": "not stated in the source",
+            "label": "an absent zone is not read as a default zone"
+          }
+        ],
+        "intent": "UNKNOWN",
+        "state": "EVIDENCE_REQUIRED",
+        "detail": "Intent UNKNOWN: decision requires evidence. No applications file was given, so no RTO or RPO is stated. The availability-zone and metro placement of the target are NOT_ASSESSED: this build holds no evidence for them.",
+        "derived_from": [
+          "assessment.json#/units/5"
+        ]
+      },
+      {
+        "source_unit": "google_storage_bucket.media",
+        "source_type": "google_storage_bucket",
+        "source_facts": [
+          {
+            "path": "availability zone",
+            "value": "NOT_ASSESSED: no placement adapter reads this source type in this build",
+            "label": "not read, which is not the same as not stated"
+          },
+          {
+            "path": "contract item geo-replication",
+            "value": "observed unknown; disposition REVIEW",
+            "label": "the state of the contract item, not a setting of the target"
+          }
+        ],
+        "intent": "UNKNOWN",
+        "state": "EVIDENCE_REQUIRED",
+        "detail": "Intent UNKNOWN: decision requires evidence. No applications file was given, so no RTO or RPO is stated. The availability-zone and metro placement of the target are NOT_ASSESSED: this build holds no evidence for them.",
+        "derived_from": [
+          "assessment.json#/units/7",
+          "assessment.json#/units/7/result/semantics/items/4"
+        ],
+        "items": [
+          "claim:google_storage_bucket.media#geo-replication"
+        ]
+      }
+    ],
+    "limits": [
+      "No unit is called resilient and no resilience intent is chosen: the intent of every unit is UNKNOWN until a person decides it from a stated requirement and the facts of the source.",
+      "No RTO or RPO is defaulted or inferred from a resource name; the requirement is what the applications file states, word for word, or it is not provided.",
+      "The zone facts of the source are read by the AWS and the Google Cloud placement adapters; for every other source they are NOT_ASSESSED, which does not mean that the source states none.",
+      "The availability zones and metro placement of the STACKIT target are NOT_ASSESSED: this build holds no evidence for them, so nothing here compares the source with the target.",
+      "A unit is listed when it holds state or states a failure-domain, replication or backup fact; a unit that states none and holds no data is not looked at, and the network a unit stands in (a subnet, a route table, a security group) is not a unit with an intent of its own: 14 of the 16 units present in the source are not listed here, and the block says nothing about them."
+    ]
+  }
+}

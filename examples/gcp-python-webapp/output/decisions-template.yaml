@@ -1,0 +1,788 @@
+# Review template of run 6f8f72b2-1c34-4cfc-8483-344c41245364 (written by stacktoit; copy this file, fill the `resolution`, `rationale`, `evidence_refs` and `reviewed_at` lines of the records you review, pass it with --decisions).
+# A review RECORDS that an architect looked at a decision and what the architect decided. It does not regenerate the draft and, by itself, frees no step:
+#   - one exception: a review that declines a default of the draft (an option whose line below says that the run that reads it writes the draft without the default) is read before the draft is written, so the draft of the run that reads it has no default and the value it stood for is yours to set.
+#   - to ANSWER a question of the draft (the network of the load balancer, a zone, an image, ...) write the answer in the inputs file (inputs-template.yaml, --inputs):
+#     only a rerun with the answer regenerates the draft. A review that chooses another option that changes the draft keeps its steps held; the line of the option says whether an answer of the inputs file writes it or nothing of this build does.
+#   - a review of a record whose draft already carries the choice out (ACK_CURRENT_ARTIFACT) frees the steps that wait for it, bound to this draft by artifact_sha256.
+# id, the digests and profile bind the review to this run, this draft and this knowledge base: do not edit them. `reviewed_by` is a role, not a person.
+# Delete the stubs you do not review. This file loads with the stubs you answer filled: a stub left unfilled is no review (its record stays open), no stub is filled in for you (the option the draft already carries out is marked, which is not an answer), and REJECTED (the decline) is a review you write.
+# Write no secret in `rationale`: it is copied into the run's files. `evidence_refs` (a ticket, a document) are counted, never copied or opened.
+# The lines of a stub, the same in every stub:
+#   resolution: one of RESOLVED_BY_ARCHITECT | ACCEPTED_DIFFERENCE | ACCEPTED_LOSS | ACCEPTED_REDESIGN | REJECTED  (REJECTED: you do not accept the proposal; the decision stays open)
+#   chosen_option: where the stub has the line, remove the # and name the option you chose; without it the review names no option
+#   rationale: why (for REJECTED: why the proposal is not accepted); no secret
+#   evidence_refs: at least one for every resolution but REJECTED: a ticket, a document
+#   reviewed_by: a role, not a person; reviewed_at: the day you review (a placeholder: set it)
+# members: add the ids of some members (decisions.json lists them) to review only those; without it the entry reviews the whole record
+# settings of the unit: the review record of a unit lists the settings it holds, each by the id an entry gives it in members:; an option is chosen only for the settings that state it
+# A record whose comment says DEFAULT (change if wrong) is open: StackToIT carried that option out in the draft for you, nobody answered it. To change it, review the record with another chosen_option, or with REJECTED, and run again: the draft is then written without the default.
+schema_version: "0.4.0"
+source_digest: sha256:19bfed642d5789ccada81b91d5c36e33175dcafd66dc46b1644ffa105d020000
+kb_version: 0.394.0
+kb_sha256: 480e323d0c501840bc553e30e3073fca5f51c5c45a9e7d91ed4a4ff36d6a50d0
+decisions:
+
+  # DEC-GEN-CONVERT-API-OPT-IN
+  # API_OPT_IN (PLAN_DECISION, status OPEN, 2 members)
+  # affects: google_pubsub_topic.faux, google_secret_manager_secret.django_admin_password, google_secret_manager_secret.django_settings
+  # options (name one in chosen_option):
+  #   allow-calls-of-the-api: the draft already carries it out: a review frees the steps that wait for it
+  - id: DEC-GEN-CONVERT-API-OPT-IN
+    resolution: ""
+    # chosen_option: <one of the options above>
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Platform Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:ad0b4646256d69e513051c7a948486002928b0d8da0e8c103efc9f267ec3d9fe
+    artifact_sha256: sha256:4dcc4d547c199508ac6d33000affd676431fd849c5ce9b11aefb886b2717ff5f
+    kb_dependencies_sha256: sha256:03735a47b22c84235c95ed16b33e929eb21e905431c7a1c2103a67e6c13f9395
+    # This record holds 2 questions, one per unit. An answer applies only to the members it names (members: in the decisions file; a member is named by the record id, a slash and its unit); an entry that names none answers every member, and that blanket answer is yours to write: the template never writes it.
+    # members: remove the # of the next line and of the members the answer applies to; delete the others (a member is named by its id below)
+    # members:
+    #   - "DEC-GEN-CONVERT-API-OPT-IN/google_pubsub_topic.faux"
+    #       unit: google_pubsub_topic.faux
+    #       the plan says: the pubsub API v1beta is beta: the execution plan executes no call of an API that is not generally available without an explicit opt-in, so the calls of it and the steps of its path for google_pubsub_topic.faux wait for this decision; the draft's own blocks do not
+    #       allow-calls-of-the-api: the draft already carries it out for this unit
+    #   - "DEC-GEN-CONVERT-API-OPT-IN/google_secret_manager_secret.django_admin_password"
+    #       unit: google_secret_manager_secret.django_admin_password
+    #       the plan says: the Secrets Manager Vault-compatible API is of a maturity that is not established (its documentation states no release status and its product documentation does not establish it as generally available): the execution plan executes no call of an API that is not generally available without an explicit opt-in, so the calls of it and the steps of its path for google_secret_manager_secret.django_admin_password, google_secret_manager_secret.django_settings wait for this decision; the draft's own blocks do not
+    #       allow-calls-of-the-api: the draft already carries it out for this unit
+
+  # DEC-GEN-CONVERT-DATA-MOVEMENT
+  # DATA_MOVEMENT (PLAN_DECISION, status OPEN, 1 member)
+  # affects: google_sql_database_instance.postgres
+  # options (name one in chosen_option):
+  #   export-and-import-with-the-engine-clients: a manual alternative: a review frees only the manual step that carries it out
+  #   replicate-with-the-engine-replication: a manual alternative: a review frees only the manual step that carries it out
+  #   copy-the-objects-with-rclone: a manual alternative: a review frees only the manual step that carries it out
+  #   copy-the-objects-with-the-aws-cli: a manual alternative: a review frees only the manual step that carries it out
+  #   migrate-with-a-tool-of-my-own: a manual alternative: a review frees only the manual step that carries it out
+  - id: DEC-GEN-CONVERT-DATA-MOVEMENT
+    resolution: ""
+    # chosen_option: <one of the options above>
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Data Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:84bb3ebfd40276eeeabadf6428f1d880feb76324d64e689f3269ad76bb2b327d
+    artifact_sha256: sha256:a4f94232ca78f136bc3cea3ddd554e90886d26cf333ee677b940028baa86d050
+    kb_dependencies_sha256: sha256:610870c4321b580122859ef332af5301a6bd3a8973057240bd04c7d631e03a41
+    # members: add the ids of some members (decisions.json lists them) to review only those; without it the entry reviews the whole record
+
+  # DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE
+  # PROPOSED_ALTERNATIVE (PLAN_DECISION, status OPEN, 8 members)
+  # affects: google_cloudbuild_trigger.activategcb, google_cloudbuild_trigger.init, google_cloudbuild_trigger.placeholder, google_firebase_hosting_site.client, google_secret_manager_secret.django_admin_password, 2 more in decisions.json
+  # options (name one in chosen_option):
+  #   use-the-proposed-module: the draft already carries it out: a review frees the steps that wait for it
+  #   design-it-another-way: a manual alternative: a review frees only the manual step that carries it out
+  - id: DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE
+    resolution: ""
+    # chosen_option: <one of the options above>
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Platform Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:af35ed50b2c8832725ee5a41a11f947f09e19ee3a5aad77e3417356fd0bd96e9
+    artifact_sha256: sha256:1faf18cdde50f305c706a8770f6ab7e3fdc8ea913deff4b820878f73ad61058a
+    kb_dependencies_sha256: sha256:4e2f49836dda938009c1e17d3985cef438eb78acb823da060a7d4677f36dd7f9
+    # This record holds 8 questions, one per unit. An answer applies only to the members it names (members: in the decisions file; a member is named by the record id, a slash and its unit); an entry that names none answers every member, and that blanket answer is yours to write: the template never writes it.
+    # members: remove the # of the next line and of the members the answer applies to; delete the others (a member is named by its id below)
+    # members:
+    #   - "DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE/google_cloudbuild_trigger.activategcb"
+    #       unit: google_cloudbuild_trigger.activategcb
+    #       the plan says: the target has no equal of this Cloud Build trigger: starts a build on a source event, a Pub/Sub message, a webhook or by hand, with its steps, substitutions, artifacts, secrets and optional approval: Nothing is converted. The same delivery is a workflow of STACKIT Git Pipelines (written for GitHub Actions; STACKIT-managed or custom runners; secrets from Secrets Manager or the repository; a manual-approval action) or the customer's own CI/CD. Trigger conditions, steps, secrets (created again, never copied), the service account (replaced by the credentials the workflow uses against STACKIT), the log destination and the approval are written again by a person. To decide: Which pipelines are still needed, where they run (STACKIT Git Pipelines or the customer's own CI/CD), how each trigger, step, secret and approval is written again, and who owns the workflow files.
+    #       use-the-proposed-module: the draft already carries it out for this unit
+    #       design-it-another-way: a manual alternative: a person carries it out for this unit
+    #   - "DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE/google_cloudbuild_trigger.init"
+    #       unit: google_cloudbuild_trigger.init
+    #       the plan says: the same as for the first member that names it
+    #       use-the-proposed-module: the draft already carries it out for this unit
+    #       design-it-another-way: a manual alternative: a person carries it out for this unit
+    #   - "DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE/google_cloudbuild_trigger.placeholder"
+    #       unit: google_cloudbuild_trigger.placeholder
+    #       the plan says: the same as for the first member that names it
+    #       use-the-proposed-module: the draft already carries it out for this unit
+    #       design-it-another-way: a manual alternative: a person carries it out for this unit
+    #   - "DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE/google_firebase_hosting_site.client"
+    #       unit: google_firebase_hosting_site.client
+    #       the plan says: the target has no equal of this static web hosting site: Static files are published into an Object Storage bucket by a pipeline, and a CDN distribution (a beta resource) with the bucket as origin serves them on a custom domain; the redirects of the site become redirect rules of the distribution. Custom response headers, rewrites to Cloud Run services or Cloud Functions, preview channels and the release history have no counterpart and are restated in the pipeline or in the application. To decide: Which bucket is the origin, which domain the distribution serves, and how rewrites and previews are replaced. The CDN resources are beta.
+    #       use-the-proposed-module: the draft already carries it out for this unit
+    #       design-it-another-way: a manual alternative: a person carries it out for this unit
+    #   - "DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE/google_secret_manager_secret_iam_binding.django_admin_password"
+    #       unit: google_secret_manager_secret_iam_binding.django_admin_password
+    #       the plan says: the target has no equal of this the members of one role on the Secret Manager secret: A STACKIT role assignment is not a grant on the Secret Manager secret. It gives one user, group or service account one STACKIT role on a whole project, folder or organisation. The role is a set of STACKIT permissions, not the Google role, and no table maps one to the other. It has no condition and no public member, so what the grant gave to a Google group, a domain, a federated identity or everyone is named again, and the access reaches more than the Secret Manager secret. A binding on a secret group applies to every secret in the group, so it is wider than a grant on one secret unless the secret has a group of its own, and its roles are Secrets Manager roles. The binding was authoritative for its role: STACKIT role assignments are additive, so a person who holds the role through another assignment keeps it, and removing such people is a step of a person. To decide: Which STACKIT role, on which project, folder or organisation, gives the same people the access they need on the Secret Manager secret, knowing it covers everything in that scope; which STACKIT users, groups or service accounts take the place of Google groups, domains, federated identities and a public member; and whether the grant ends with the Secret Manager secret when it has no replacement. For secrets: which secret group holds the secret, who else shares that group, and which Secrets Manager role and subject take the grant. Whether people who hold the role through another assignment keep it. The draft of google_secret_manager_secret.django_admin_password stands as it is: this answer decides the module and nothing of that draft.
+    #       use-the-proposed-module: the draft already carries it out for this unit
+    #       design-it-another-way: a manual alternative: a person carries it out for this unit
+    #   - "DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE/google_secret_manager_secret_iam_binding.django_settings"
+    #       unit: google_secret_manager_secret_iam_binding.django_settings
+    #       the plan says: the target has no equal of this the members of one role on the Secret Manager secret: A STACKIT role assignment is not a grant on the Secret Manager secret. It gives one user, group or service account one STACKIT role on a whole project, folder or organisation. The role is a set of STACKIT permissions, not the Google role, and no table maps one to the other. It has no condition and no public member, so what the grant gave to a Google group, a domain, a federated identity or everyone is named again, and the access reaches more than the Secret Manager secret. A binding on a secret group applies to every secret in the group, so it is wider than a grant on one secret unless the secret has a group of its own, and its roles are Secrets Manager roles. The binding was authoritative for its role: STACKIT role assignments are additive, so a person who holds the role through another assignment keeps it, and removing such people is a step of a person. To decide: Which STACKIT role, on which project, folder or organisation, gives the same people the access they need on the Secret Manager secret, knowing it covers everything in that scope; which STACKIT users, groups or service accounts take the place of Google groups, domains, federated identities and a public member; and whether the grant ends with the Secret Manager secret when it has no replacement. For secrets: which secret group holds the secret, who else shares that group, and which Secrets Manager role and subject take the grant. Whether people who hold the role through another assignment keep it. The draft of google_secret_manager_secret.django_settings stands as it is: this answer decides the module and nothing of that draft.
+    #       use-the-proposed-module: the draft already carries it out for this unit
+    #       design-it-another-way: a manual alternative: a person carries it out for this unit
+    #   - "DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE/google_storage_bucket_iam_member.automation"
+    #       unit: google_storage_bucket_iam_member.automation
+    #       the plan says: the target has no equal of this one member's role on the Cloud Storage bucket: A STACKIT credentials group is not a grant on the Cloud Storage bucket. It is the principal that a bucket policy names, a set of S3 keys with no Google identity behind it, and by itself it gives no access to the bucket and takes none away. The statement that grants it something is a statement of the bucket policy, in the policy language of STACKIT (a credentials group or * as the principal, S3 actions, five condition keys), which no Terraform resource sets. The Google role is not mapped to S3 actions by any table, the condition of the grant has no counterpart unless it can be written with those five condition keys, and a Google group, a domain, a federated identity and allUsers or allAuthenticatedUsers are named again as credentials groups or as *. To decide: Which credentials group stands for each member of the grant, which S3 actions of the bucket policy give the same people the access they need and no more than the Google role gave, what becomes of the condition, of public members (allUsers, allAuthenticatedUsers), of Google groups, domains and federated identities, and whether the grant ends with the Cloud Storage bucket when it has no replacement. Which bucket the grant is on, because the scan does not hold it. The draft of google_storage_bucket.media stands as it is: this answer decides the module and nothing of that draft.
+    #       use-the-proposed-module: the draft already carries it out for this unit
+    #       design-it-another-way: a manual alternative: a person carries it out for this unit
+    #   - "DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE/google_storage_bucket_iam_member.server"
+    #       unit: google_storage_bucket_iam_member.server
+    #       the plan says: the same as for the first member that names it
+    #       use-the-proposed-module: the draft already carries it out for this unit
+    #       design-it-another-way: a manual alternative: a person carries it out for this unit
+
+  # DEC-GEN-CONVERT-SOURCE-PROJECT-MAPPING
+  # SOURCE_PROJECT_MAPPING (PLAN_DECISION, status OPEN, 5 members)
+  # affects: google_cloudbuild_trigger.activategcb, google_cloudbuild_trigger.init, google_cloudbuild_trigger.placeholder, google_sql_database_instance.postgres
+  # options (name one in chosen_option):
+  #   units-go-to-the-project-variable: a person's statement: answer target.project.source_project in the inputs file (--inputs) for each project: it closes the settings of the project and does not change the draft, which keeps its own project resolver; a review closes no setting
+  #   units-go-to-the-project-of-their-network: a person's statement: answer target.project.source_project in the inputs file (--inputs) for each project: it closes the settings of the project and does not change the draft, which keeps its own project resolver; a review closes no setting
+  - id: DEC-GEN-CONVERT-SOURCE-PROJECT-MAPPING
+    resolution: ""
+    # chosen_option: <one of the options above>
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Platform Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:bfe72ff4b84be59f91d62c726bb588d393af2d2beebf6f921538125bffe5ffd9
+    artifact_sha256: sha256:5f13672461ff52c8812ef8689225bfb97acab9d2c4a3a7e6671a24c17ea663c2
+    kb_dependencies_sha256: sha256:499099d550b6e4222fa317976fd0988578b8321f689feaf564abc70903c02d1d
+    # members: see the head
+
+  # DEC-GEN-CONVERT-SOURCE-REGION-MAPPING
+  # SOURCE_REGION_MAPPING (PLAN_DECISION, status OPEN, 5 members)
+  # affects: google_cloud_run_v2_job.migrate, google_cloud_run_v2_service.server, google_sql_database_instance.postgres, google_storage_bucket.media
+  # options (name one in chosen_option):
+  #   map-source-locations-to-the-draft-region: DEFAULT (change if wrong): the draft carries this option out and the record stays open; where the draft builds with no answer; a review records the confirmation and closes no setting: an answer of target.region.source_location in the inputs file does
+  #   choose-the-region-of-each-location: answer target.region.source_location in the inputs file (--inputs) for each location: the region the draft builds in closes the settings of the location, another is recorded and closes nothing, and the draft does not change
+  # DEFAULT (change if wrong) of DEC-GEN-CONVERT-SOURCE-REGION-MAPPING: the draft builds every unit in the STACKIT region eu01, which is what it does with no answer. That is a region the catalogue of this build lists and no claim that it holds the residency of the source: only an answer of target.region.source_location closes the settings this decision holds.
+  - id: DEC-GEN-CONVERT-SOURCE-REGION-MAPPING
+    resolution: ""
+    # An option above that changes the draft frees no step by a review alone: its line says how the draft comes to carry it. A review that names none of the options frees nothing either.
+    # chosen_option: <one of the options above>
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Platform Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:1be5810bd6bed11fb1fc02fe831c232fd9d2b9eaa1ed6c2f21eb8923722e1372
+    artifact_sha256: sha256:1b7845371e8d741cb3eef090a161d6679f6d28d298bea24c1f5186e5204d1f24
+    kb_dependencies_sha256: sha256:9f089fa98bc5213252824480f45d48fce25196a42c1a14b903267ac4cf2bf279
+    # members: see the head
+
+  # DEC-IAM-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # affects: google_cloud_run_v2_job.migrate
+  # settings of the unit (see members: in the head):
+  #   - "google_cloud_run_v2_job.migrate|service-identity"  Review the service identity setting
+  - id: DEC-IAM-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Identity Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:6d8e764691c2b3f560403316def3586a0b4f7662f6b183ca8a876e22b4f6ad93
+    kb_dependencies_sha256: sha256:de5130d930b3443183d5b28e0b451069a044b7f2102cdc526edd3df9e6e63492
+    # members: see the head
+
+  # DEC-NET-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # affects: google_cloud_run_v2_job.migrate
+  # settings of the unit (see members: in the head):
+  #   - "google_cloud_run_v2_job.migrate|cloud-run-v2-job-network-exposure"  Review the cloud run v2 job network exposure setting
+  #       derived-carry-on-the-target-ae560c1053b1: its effect on the steps is not stated: a review frees nothing
+  #       derived-accept-the-difference-ae560c1053b1: its effect on the steps is not stated: a review frees nothing
+  - id: DEC-NET-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE
+    resolution: ""
+    # chosen_option: <one of the options above>
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Network Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:5f61f359aed7bddb0e87466e258be5e63147063c19a9cd13dbb420ae4128c575
+    kb_dependencies_sha256: sha256:7619947cac69513468f065e085ea96fa41d749d90aa2164661afc29a1d27bf20
+    # members: see the head
+
+  # DEC-OPS-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 7 members)
+  # affects: google_cloud_run_v2_job.migrate
+  # settings of the unit (see members: in the head):
+  #   - "google_cloud_run_v2_job.migrate|deployment-artifact"  Choose the container image or artifact
+  #       workload-on-ske: its effect on the steps is not stated: a review frees nothing
+  #       app-on-cloud-foundry: its effect on the steps is not stated: a review frees nothing
+  #   - "google_cloud_run_v2_job.migrate|entry-point"  Confirm the entry point of the function
+  #       derived-carry-on-the-target-ae560c1053b1: as under the first setting that lists it
+  #       derived-accept-the-difference-ae560c1053b1: as under the first setting that lists it
+  #   - "google_cloud_run_v2_job.migrate|k4-cloud-run-volume-mount-cloud-run-v2-job"  Review the k4 cloud run volume mount cloud run v2 job setting
+  #   - "google_cloud_run_v2_job.migrate|tc-cloud-run-v2-job-name"  Confirm the name of the cloud run v2 job
+  #   - "google_cloud_run_v2_job.migrate|tc-cloud-run-v2-job-template--template--containers--env--name"  Confirm the name of the env entry of the containers of the template of the template of the cloud run v2 job
+  #   - "google_cloud_run_v2_job.migrate|tc-cloud-run-v2-job-template--template--volumes--name"  Confirm the name of the volumes entry of the template of the template of the cloud run v2 job
+  #   - "google_cloud_run_v2_job.migrate|terraform-destroy-guard"  Review the terraform destroy guard setting
+  - id: DEC-OPS-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE
+    resolution: ""
+    # chosen_option: <one of the options above>
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Platform Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:685b77a28b897320d29a0b28c3f0b7ecff0c3c23f08ebf48e4fb10892434a8c7
+    kb_dependencies_sha256: sha256:23f816d8acde4a1b38467d66e94c81af79e843f510e81614686937b327b047f7
+    # members: see the head
+
+  # DEC-SEC-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # affects: google_cloud_run_v2_job.migrate
+  # settings of the unit (see members: in the head):
+  #   - "google_cloud_run_v2_job.migrate|secrets"  Create the Kubernetes Secrets for the Secret Manager references
+  - id: DEC-SEC-GOOGLE-CLOUD-RUN-V2-JOB-MIGRATE
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Security Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:eb72d924ef3dca3df509ae9675b4cd2374b14119b591b9ae674c3cc242c6ba62
+    kb_dependencies_sha256: sha256:05323ded731a64941b628473bd15b5e2f03fe0f884b06d9feceb4f924f902e4c
+    # members: see the head
+
+  # DEC-GEN-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # affects: google_cloud_run_v2_service.server
+  # settings of the unit (see members: in the head):
+  #   - "google_cloud_run_v2_service.server|iam-policy-grant"  Review the IAM policy grant setting
+  - id: DEC-GEN-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: NOT_STATED
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:15f679b726862e403a8aaf12cc8a1b31c16dcc0b586ea26fffb4621d0bd2fcc2
+    kb_dependencies_sha256: sha256:a283a1e6a981f35147d6eb1ac11a22014607c92e729f0c07719a27e656f74bb8
+    # members: see the head
+
+  # DEC-IAM-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 2 members)
+  # affects: google_cloud_run_v2_service.server
+  # settings of the unit (see members: in the head):
+  #   - "google_cloud_run_v2_service.server|iam-invocation"  Decide who may invoke the service
+  #   - "google_cloud_run_v2_service.server|service-identity"  Review the service identity setting
+  - id: DEC-IAM-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Identity Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:49a9627d2f1d15f305b977c86b73db0162a769ecd453b5b1fca71650bba2a2e8
+    kb_dependencies_sha256: sha256:769e45c36ad1371d92358ae5dfa9a3e7cdc8cd60355fbc338219885964f449c1
+    # members: see the head
+
+  # DEC-NET-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # affects: google_cloud_run_v2_service.server
+  # settings of the unit (see members: in the head):
+  #   - "google_cloud_run_v2_service.server|cloud-sql-connection"  Decide how the service connects to the database
+  - id: DEC-NET-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Network Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:7ffdff9c041378f4eae6d4342c8775fd97bc2eb295a39ce01f24caa6e06208ea
+    kb_dependencies_sha256: sha256:7cbc235f3121e16aeb96bb232707c733562215e218571c70a5a63316998d150b
+    # members: see the head
+
+  # DEC-OPS-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 5 members)
+  # affects: google_cloud_run_v2_service.server
+  # settings of the unit (see members: in the head):
+  #   - "google_cloud_run_v2_service.server|deployment-artifact"  Choose the container image or artifact
+  #       workload-on-ske: as under the first setting that lists it
+  #       app-on-cloud-foundry: as under the first setting that lists it
+  #   - "google_cloud_run_v2_service.server|k4-cloud-run-volume-mount-cloud-run-v2-service"  Decide how the volume mounts are carried
+  #   - "google_cloud_run_v2_service.server|tc-cloud-run-v2-service-name"  Confirm the name of the Cloud Run service
+  #   - "google_cloud_run_v2_service.server|tc-cloud-run-v2-service-template--volumes--name"  Confirm the name of the volumes entry of the template of the Cloud Run service
+  #   - "google_cloud_run_v2_service.server|terraform-destroy-guard"  Review the terraform destroy guard setting
+  - id: DEC-OPS-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER
+    resolution: ""
+    # chosen_option: <one of the options above>
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Platform Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:49a225e8454b013cae4c0796f19f24dec5d3c80788ef6189addeeb19bbb5467c
+    kb_dependencies_sha256: sha256:08117121d8baf3feb598399602f00521c4c81fe308e9a86a19db79824e6c6be8
+    # members: see the head
+
+  # DEC-SEC-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 2 members)
+  # affects: google_cloud_run_v2_service.server
+  # settings of the unit (see members: in the head):
+  #   - "google_cloud_run_v2_service.server|environment"  Confirm the environment settings
+  #   - "google_cloud_run_v2_service.server|secrets"  Create the Kubernetes Secrets for the Secret Manager references
+  - id: DEC-SEC-GOOGLE-CLOUD-RUN-V2-SERVICE-SERVER
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Security Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:a62c4ae04e476e59d71bcc934c792968379d2bec15964708b153e580e7b3c411
+    kb_dependencies_sha256: sha256:9ba3a1bd3e61762c99157e16ecf5d4927ed883e672aa19e0399f56143c69420a
+    # members: see the head
+
+  # DEC-IAM-GOOGLE-CLOUDBUILD-TRIGGER-ACTIVATEGCB
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # affects: google_cloudbuild_trigger.activategcb
+  # settings of the unit (see members: in the head):
+  #   - "google_cloudbuild_trigger.activategcb|build-identity"  Review the build identity setting
+  - id: DEC-IAM-GOOGLE-CLOUDBUILD-TRIGGER-ACTIVATEGCB
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Identity Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:9386141c388d58e556657d741dad4f3973d0a7917c12094e76ed87729a78a697
+    kb_dependencies_sha256: sha256:986fe167bf9a329368f8430b5da2276a3dcf5c4bd1b79fc22533a56446154eac
+    # members: see the head
+
+  # DEC-OPS-GOOGLE-CLOUDBUILD-TRIGGER-ACTIVATEGCB
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 4 members)
+  # affects: google_cloudbuild_trigger.activategcb
+  # settings of the unit (see members: in the head):
+  #   - "google_cloudbuild_trigger.activategcb|dep-references"  Confirm its dependency on the references
+  #   - "google_cloudbuild_trigger.activategcb|deployment-artifact"  Choose the container image or artifact
+  #   - "google_cloudbuild_trigger.activategcb|entry-point"  Confirm the entry point of the function
+  #   - "google_cloudbuild_trigger.activategcb|log-destination"  Review the log destination setting
+  - id: DEC-OPS-GOOGLE-CLOUDBUILD-TRIGGER-ACTIVATEGCB
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Platform Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:e0143295cfa5a05eb32a3e9cb7e67db7ffdee678b9d8576c04505e0b9c53e0d6
+    kb_dependencies_sha256: sha256:4eb8ef0b5ba6b230afae8df04c4c76d948a60d07ff869cc7c621ad2b16b82e9e
+    # members: see the head
+
+  # DEC-IAM-GOOGLE-CLOUDBUILD-TRIGGER-INIT
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # affects: google_cloudbuild_trigger.init
+  # settings of the unit (see members: in the head):
+  #   - "google_cloudbuild_trigger.init|build-identity"  Review the build identity setting
+  - id: DEC-IAM-GOOGLE-CLOUDBUILD-TRIGGER-INIT
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Identity Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:983aef1e0dd9bd041a79bd51beb04d5a8ac24a45e1c9a2a46cefc90d25ee7eb3
+    kb_dependencies_sha256: sha256:986fe167bf9a329368f8430b5da2276a3dcf5c4bd1b79fc22533a56446154eac
+    # members: see the head
+
+  # DEC-OPS-GOOGLE-CLOUDBUILD-TRIGGER-INIT
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 4 members)
+  # affects: google_cloudbuild_trigger.init
+  # settings of the unit (see members: in the head):
+  #   - "google_cloudbuild_trigger.init|dep-references"  Confirm its dependency on the references
+  #   - "google_cloudbuild_trigger.init|deployment-artifact"  Choose the container image or artifact
+  #   - "google_cloudbuild_trigger.init|entry-point"  Confirm the entry point of the function
+  #   - "google_cloudbuild_trigger.init|log-destination"  Review the log destination setting
+  - id: DEC-OPS-GOOGLE-CLOUDBUILD-TRIGGER-INIT
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Platform Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:dde8057fbf100190ede422135467b4944298a15361db3dab48d0eac6ec929497
+    kb_dependencies_sha256: sha256:4eb8ef0b5ba6b230afae8df04c4c76d948a60d07ff869cc7c621ad2b16b82e9e
+    # members: see the head
+
+  # DEC-GEN-GOOGLE-CLOUDBUILD-TRIGGER-PLACEHOLDER
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # affects: google_cloudbuild_trigger.placeholder
+  # settings of the unit (see members: in the head):
+  #   - "google_cloudbuild_trigger.placeholder|linked-dependency:google_firebase_hosting_site"  Decide which firebase hosting site this resource depends on
+  - id: DEC-GEN-GOOGLE-CLOUDBUILD-TRIGGER-PLACEHOLDER
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: NOT_STATED
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:c674d845100b6fe50690bf19a8f6cb6e1c75ac37f81d12554d22665ec6b82793
+    kb_dependencies_sha256: sha256:2263f44dd94d80de252fce492c6264ad809d936ed18332bf0c4dab3747e0a1d8
+    # members: see the head
+
+  # DEC-IAM-GOOGLE-CLOUDBUILD-TRIGGER-PLACEHOLDER
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # affects: google_cloudbuild_trigger.placeholder
+  # settings of the unit (see members: in the head):
+  #   - "google_cloudbuild_trigger.placeholder|build-identity"  Review the build identity setting
+  - id: DEC-IAM-GOOGLE-CLOUDBUILD-TRIGGER-PLACEHOLDER
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Identity Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:5dd6517fac6668ddfc41409b0b481e67806d0e95fb9a8fcb6d7ed6132d67439b
+    kb_dependencies_sha256: sha256:986fe167bf9a329368f8430b5da2276a3dcf5c4bd1b79fc22533a56446154eac
+    # members: see the head
+
+  # DEC-OPS-GOOGLE-CLOUDBUILD-TRIGGER-PLACEHOLDER
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 3 members)
+  # affects: google_cloudbuild_trigger.placeholder
+  # settings of the unit (see members: in the head):
+  #   - "google_cloudbuild_trigger.placeholder|dep-references"  Confirm its dependency on the references
+  #   - "google_cloudbuild_trigger.placeholder|deployment-artifact"  Choose the container image or artifact
+  #   - "google_cloudbuild_trigger.placeholder|log-destination"  Review the log destination setting
+  - id: DEC-OPS-GOOGLE-CLOUDBUILD-TRIGGER-PLACEHOLDER
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Platform Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:7e70eed61a6fa17edd718e38dd29074b9b3e25e7abd5fc99b629828000c689a8
+    kb_dependencies_sha256: sha256:08f216fcd85c9d6305f60978415fc1d136a6daf9270b7b52bd96a0bf9a3fb4af
+    # members: see the head
+
+  # DEC-IAM-GOOGLE-FIREBASE-HOSTING-SITE-CLIENT
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # affects: google_firebase_hosting_site.client
+  # settings of the unit (see members: in the head):
+  #   - "google_firebase_hosting_site.client|tc-firebase-hosting-site-project"  Confirm the project of the firebase hosting site
+  - id: DEC-IAM-GOOGLE-FIREBASE-HOSTING-SITE-CLIENT
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Identity Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:b4097e90369c69fe115b52f7ba297fa1a8a151b2f4e4cb927a2477eb7449550e
+    kb_dependencies_sha256: sha256:f55dba7d6b49141ce72d8f9e08bc07f99cb4ee36e013de7545c9e78dec5243be
+    # members: see the head
+
+  # DEC-OPS-GOOGLE-FIREBASE-HOSTING-SITE-CLIENT
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # affects: google_firebase_hosting_site.client
+  # settings of the unit (see members: in the head):
+  #   - "google_firebase_hosting_site.client|tcr-firebase-hosting-site-site-id"  Confirm the site ID of the firebase hosting site
+  - id: DEC-OPS-GOOGLE-FIREBASE-HOSTING-SITE-CLIENT
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Platform Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:f1335c383712c8d9a2d9e320a1daa4839dab4858facb100fc6012ff529d7cacc
+    kb_dependencies_sha256: sha256:a631a25906c03485dfab5b0a0a312fc9b2555f35bf1744f986183dd81745237c
+    # members: see the head
+
+  # DEC-IAM-GOOGLE-FIREBASE-PROJECT-DEFAULT
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # affects: google_firebase_project.default
+  # settings of the unit (see members: in the head):
+  #   - "google_firebase_project.default|tc-firebase-project-project"  Confirm the project of the firebase project
+  - id: DEC-IAM-GOOGLE-FIREBASE-PROJECT-DEFAULT
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Identity Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:667031dd2b2502bc1c1caca38c963530b561e9cde073a8b3faae85c068978e91
+    kb_dependencies_sha256: sha256:85daa99d61e711d84e649385b5c149432e234a88bdc0a8c525deb5ca3a0ef7e7
+    # members: see the head
+
+  # DEC-OPS-GOOGLE-PUBSUB-TOPIC-FAUX
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # affects: google_pubsub_topic.faux
+  # settings of the unit (see members: in the head):
+  #   - "google_pubsub_topic.faux|tc-name"  Confirm the name of the resource on the target
+  - id: DEC-OPS-GOOGLE-PUBSUB-TOPIC-FAUX
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Platform Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:a7d8918bd3887e9683ef3e8136ed581b298c98a4bd2f2c70d955d19659e55ff8
+    kb_dependencies_sha256: sha256:9141875ce7743ffec157132a09b478d7c4c66adccff8d3fc37212a6edbf027de
+    # members: see the head
+
+  # DEC-IAM-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-ADMIN-PASSWORD
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # affects: google_secret_manager_secret.django_admin_password
+  # settings of the unit (see members: in the head):
+  #   - "google_secret_manager_secret.django_admin_password|secret-settings"  Decide how the secrets are carried
+  - id: DEC-IAM-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-ADMIN-PASSWORD
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Identity Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:3e09fec2b3fabb25d58fdb484b8b5ab923f9e3ab186d861af6d5dcf041d7659b
+    kb_dependencies_sha256: sha256:0ccd16d2e735b9486466e3d6dbe99987df23297d09511b6cab689cdb4854aa41
+    # members: see the head
+
+  # DEC-SEC-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-ADMIN-PASSWORD
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 2 members)
+  # affects: google_secret_manager_secret.django_admin_password
+  # settings of the unit (see members: in the head):
+  #   - "google_secret_manager_secret.django_admin_password|secret-value"  Provide the values of the secrets
+  #   - "google_secret_manager_secret.django_admin_password|tcr-secret-id"  Confirm the name of the secret
+  - id: DEC-SEC-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-ADMIN-PASSWORD
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Security Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:eb29f1eaa95c211eb17973b5c3e485f452884068952077daaa1918823c3c8cf2
+    kb_dependencies_sha256: sha256:3e006b8a81c0ca3b70d5261345ffc7f78b9801324130cf812092e2bf2d4267d2
+    # members: see the head
+
+  # DEC-IAM-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-SETTINGS
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # affects: google_secret_manager_secret.django_settings
+  # settings of the unit (see members: in the head):
+  #   - "google_secret_manager_secret.django_settings|secret-settings"  Decide how the secrets are carried
+  - id: DEC-IAM-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-SETTINGS
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Identity Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:6d6b7e816d8d4ad7005954dceeadfb922b3abfaa5ba54c8f6ea046dc1ee92c0a
+    kb_dependencies_sha256: sha256:0ccd16d2e735b9486466e3d6dbe99987df23297d09511b6cab689cdb4854aa41
+    # members: see the head
+
+  # DEC-SEC-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-SETTINGS
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 2 members)
+  # affects: google_secret_manager_secret.django_settings
+  # settings of the unit (see members: in the head):
+  #   - "google_secret_manager_secret.django_settings|secret-value"  Provide the values of the secrets
+  #   - "google_secret_manager_secret.django_settings|tcr-secret-id"  Confirm the name of the secret
+  - id: DEC-SEC-GOOGLE-SECRET-MANAGER-SECRET-DJANGO-SETTINGS
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Security Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:716b1b457e427774c0a7f4b650e4c1b35931c304d406b6d687462a336a072224
+    kb_dependencies_sha256: sha256:3e006b8a81c0ca3b70d5261345ffc7f78b9801324130cf812092e2bf2d4267d2
+    # members: see the head
+
+  # DEC-IAM-GOOGLE-SERVICE-ACCOUNT-AUTOMATION
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 2 members)
+  # affects: google_service_account.automation
+  # settings of the unit (see members: in the head):
+  #   - "google_service_account.automation|account-name"  Review the account name setting
+  #   - "google_service_account.automation|role-bindings"  Map the IAM roles of the service account to STACKIT roles
+  #       bind-a-role-on-the-service-account: its effect on the steps is not stated: a review frees nothing
+  - id: DEC-IAM-GOOGLE-SERVICE-ACCOUNT-AUTOMATION
+    resolution: ""
+    # chosen_option: <one of the options above>
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Identity Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:274ca0dfef1c6eb06c78eb115a723bfb517013ac6392e727915c50ba200a2ff8
+    kb_dependencies_sha256: sha256:a2f32f0b19e4dd60b79173e9fabcf5021c17aa2d1102ae21c5a9f31db479c9b6
+    # members: see the head
+
+  # DEC-IAM-GOOGLE-SERVICE-ACCOUNT-CLIENT
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 2 members)
+  # affects: google_service_account.client
+  # settings of the unit (see members: in the head):
+  #   - "google_service_account.client|account-name"  Review the account name setting
+  #   - "google_service_account.client|role-bindings"  Map the IAM roles of the service account to STACKIT roles
+  #       bind-a-role-on-the-service-account: as under the first setting that lists it
+  - id: DEC-IAM-GOOGLE-SERVICE-ACCOUNT-CLIENT
+    resolution: ""
+    # chosen_option: <one of the options above>
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Identity Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:88ae4b1b16dcb159b368f4323b539cbf6d141a882787af854f5db4709ec45ac9
+    kb_dependencies_sha256: sha256:a2f32f0b19e4dd60b79173e9fabcf5021c17aa2d1102ae21c5a9f31db479c9b6
+    # members: see the head
+
+  # DEC-IAM-GOOGLE-SERVICE-ACCOUNT-INIT
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 2 members)
+  # affects: google_service_account.init
+  # settings of the unit (see members: in the head):
+  #   - "google_service_account.init|account-name"  Review the account name setting
+  #   - "google_service_account.init|role-bindings"  Map the IAM roles of the service account to STACKIT roles
+  #       bind-a-role-on-the-service-account: as under the first setting that lists it
+  - id: DEC-IAM-GOOGLE-SERVICE-ACCOUNT-INIT
+    resolution: ""
+    # chosen_option: <one of the options above>
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Identity Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:fbe36a66702026998a663181d81729b5b25573a82351a71f48bca28a9039d33d
+    kb_dependencies_sha256: sha256:a2f32f0b19e4dd60b79173e9fabcf5021c17aa2d1102ae21c5a9f31db479c9b6
+    # members: see the head
+
+  # DEC-IAM-GOOGLE-SERVICE-ACCOUNT-SERVER
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 2 members)
+  # affects: google_service_account.server
+  # settings of the unit (see members: in the head):
+  #   - "google_service_account.server|account-name"  Review the account name setting
+  #   - "google_service_account.server|role-bindings"  Map the IAM roles of the service account to STACKIT roles
+  #       bind-a-role-on-the-service-account: as under the first setting that lists it
+  - id: DEC-IAM-GOOGLE-SERVICE-ACCOUNT-SERVER
+    resolution: ""
+    # chosen_option: <one of the options above>
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Identity Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:7036953ced621ef3845bebb3c9ebfeb20a65a2b923fb82cebde5066f39687853
+    kb_dependencies_sha256: sha256:a2f32f0b19e4dd60b79173e9fabcf5021c17aa2d1102ae21c5a9f31db479c9b6
+    # members: see the head
+
+  # DEC-IAM-GOOGLE-SQL-DATABASE-INSTANCE-POSTGRES
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # affects: google_sql_database_instance.postgres
+  # settings of the unit (see members: in the head):
+  #   - "google_sql_database_instance.postgres|database-users"  Review the database users setting
+  - id: DEC-IAM-GOOGLE-SQL-DATABASE-INSTANCE-POSTGRES
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Identity Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:0a35e53fc17ee2be1fc2c0e5230f1a06bc8fc2064d3432154f560454ac3d7bf1
+    kb_dependencies_sha256: sha256:786401fe2bf3a93712af592b39f26370dffdc000473a1ca2590b6505bbb4e338
+    # members: see the head
+
+  # DEC-NET-GOOGLE-SQL-DATABASE-INSTANCE-POSTGRES
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # affects: google_sql_database_instance.postgres
+  # settings of the unit (see members: in the head):
+  #   - "google_sql_database_instance.postgres|user-and-database-settings"  Review the user and database settings setting
+  #       derived-carry-on-the-target-25abe723033e: its effect on the steps is not stated: a review frees nothing
+  #       derived-accept-the-difference-25abe723033e: its effect on the steps is not stated: a review frees nothing
+  - id: DEC-NET-GOOGLE-SQL-DATABASE-INSTANCE-POSTGRES
+    resolution: ""
+    # chosen_option: <one of the options above>
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Network Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:ccd4c92d365d49d5bb933ef5ad8b7cc3397c53a84b5773808f2bac8cf9beb0a5
+    kb_dependencies_sha256: sha256:05ec37deefc9709dd4094cc43443e5ea4161bb0fb883d0c31b14f7eab9c97734
+    # members: see the head
+
+  # DEC-OPS-GOOGLE-SQL-DATABASE-INSTANCE-POSTGRES
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 2 members)
+  # affects: google_sql_database_instance.postgres
+  # settings of the unit (see members: in the head):
+  #   - "google_sql_database_instance.postgres|tc-name"  Confirm the name of the resource on the target
+  #   - "google_sql_database_instance.postgres|tcf-sql-database--name"  Confirm the name of the SQL database
+  - id: DEC-OPS-GOOGLE-SQL-DATABASE-INSTANCE-POSTGRES
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Platform Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:b13cd08f1d5978440b0dece1471faff3802205881397bcf65829f41bc7f89a47
+    kb_dependencies_sha256: sha256:78bf9d5ee89c911cfef7286217a3cc65b58d8c90bd4528ac2ff20b4162d37bc7
+    # members: see the head
+
+  # DEC-DATA-GOOGLE-STORAGE-BUCKET-MEDIA
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # affects: google_storage_bucket.media
+  # settings of the unit (see members: in the head):
+  #   - "google_storage_bucket.media|force-destroy"  Confirm whether the bucket may be deleted with its contents
+  #       derived-accept-the-loss-5d7d37005886: its effect on the steps is not stated: a review frees nothing
+  #       derived-rebuild-by-hand-5d7d37005886: its effect on the steps is not stated: a review frees nothing
+  - id: DEC-DATA-GOOGLE-STORAGE-BUCKET-MEDIA
+    resolution: ""
+    # chosen_option: <one of the options above>
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Storage Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:cee2afe3415694523ba90f77fa2e9a367eed61a79003c85f938f4e026e843f95
+    kb_dependencies_sha256: sha256:ff6ca5d3176c5f7bc2f6bb8c2946b4c21f8220ca742aa0d2a5362aa5669dd82b
+    # members: see the head
+
+  # DEC-GEN-GOOGLE-STORAGE-BUCKET-MEDIA
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # affects: google_storage_bucket.media
+  # settings of the unit (see members: in the head):
+  #   - "google_storage_bucket.media|iam-access"  Review the IAM access setting
+  - id: DEC-GEN-GOOGLE-STORAGE-BUCKET-MEDIA
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: NOT_STATED
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:4c80dda543fb5e78f94213c2419ad6da54bf1b98a1df79c0ac2a8e5fe8555ac4
+    kb_dependencies_sha256: sha256:b7eeaba8b9c0d94e36ddc3359a7d737791e673d022999d650c4d0d686a4ff250
+    # members: see the head
+
+  # DEC-IAM-GOOGLE-STORAGE-BUCKET-MEDIA
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 2 members)
+  # affects: google_storage_bucket.media
+  # settings of the unit (see members: in the head):
+  #   - "google_storage_bucket.media|iam-grant"  Review the IAM grant setting
+  #   - "google_storage_bucket.media|public-access"  Review the public access setting
+  - id: DEC-IAM-GOOGLE-STORAGE-BUCKET-MEDIA
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Identity Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:82968eacb6f72cd72fd95b5501daf787d5707e72dd3c66366c44080dc700a319
+    kb_dependencies_sha256: sha256:501308cb054c71c8e9dff6e445f4fa5dc02da316cf0e5a6cfaf3261af9ec4576
+    # members: see the head
+
+  # DEC-OPS-GOOGLE-STORAGE-BUCKET-MEDIA
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # affects: google_storage_bucket.media
+  # settings of the unit (see members: in the head):
+  #   - "google_storage_bucket.media|tc-storage-bucket-name"  Confirm the name of the Cloud Storage bucket
+  - id: DEC-OPS-GOOGLE-STORAGE-BUCKET-MEDIA
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Platform Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:ce1bb38d4159e6f1cc5ae1511fe2069c51d893d88b71471ec81e111114565ccd
+    kb_dependencies_sha256: sha256:2e055e5ac4d1a1ac28d8e2cf788d5ee9377a16e102dec0ccf86614ea88b70e93
+    # members: see the head
+
+  # DEC-SEC-GOOGLE-STORAGE-BUCKET-MEDIA
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # affects: google_storage_bucket.media
+  # settings of the unit (see members: in the head):
+  #   - "google_storage_bucket.media|geo-replication"  Decide the geo-replication
+  - id: DEC-SEC-GOOGLE-STORAGE-BUCKET-MEDIA
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Security Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:218dbf4d063d925c3ec13dcee5b71559568345f3441e250c6353827928621501
+    kb_dependencies_sha256: sha256:23b6a8ae451f9999dffe60eb24069fa7f6a0d1e9462633f32326666d793fe4f4
+    # members: see the head
+
+  # DEC-IAM-STACKITSA-STATEMENT-MANUAL-REVIEW
+  # MANUAL_REVIEW (PLAN_STATEMENT, status OPEN, 2 members)
+  # affects: google_cloud_run_v2_job.migrate, google_cloud_run_v2_service.server
+  - id: DEC-IAM-STACKITSA-STATEMENT-MANUAL-REVIEW
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Identity Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:0d87407edba569bfdd79c86e92e517831a240259de9e18c935cbb2e383da0a46
+    kb_dependencies_sha256: sha256:83a8f6eef89167b4a870555fd2ffcf930e8e1486e7893eb941efdfcf7f52cb49
+    # members: see the head
+
+  # DEC-IAM-STACKITSA-STATEMENT-NOT-DRAFTED
+  # NOT_DRAFTED (PLAN_STATEMENT, status OPEN, 2 members)
+  # affects: google_service_account.automation, google_service_account.server
+  - id: DEC-IAM-STACKITSA-STATEMENT-NOT-DRAFTED
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Identity Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:e85552354c4f233c6960ca13d2ae813bf9758092a5a48d836f0839a1cb81ab87
+    kb_dependencies_sha256: sha256:fe3be1b899466063f75cf0424168230d97d3a1492d8dd1b68db6325ffa70ccdf
+    # members: see the head

@@ -1,0 +1,141 @@
+{
+  "run_id": "6f8f72b2-1c34-4cfc-8483-344c41245364",
+  "source_digest": "sha256:19bfed642d5789ccada81b91d5c36e33175dcafd66dc46b1644ffa105d020000",
+  "data_movement": {
+    "state": "DECISION_REQUIRED",
+    "statement": "StackToIT never moves data. 2 stateful source units are listed here: a person must choose a data-movement mechanism for each. The execution plan takes a method for 1 of them (the only method open, or the one an answered decision took; migration/data-movement-plan.json), and this file names no mechanism class for any (the mechanism is UNKNOWN).",
+    "units": [
+      {
+        "source_unit": "google_sql_database_instance.postgres",
+        "source_type": "google_sql_database_instance",
+        "target_service": "STACKIT PostgreSQL Flex",
+        "state": "DECISION_REQUIRED",
+        "plan_data_step": "IN_PLAN",
+        "mechanism": "UNKNOWN",
+        "reason": "No mechanism is chosen: it depends on the size of the data, the downtime the business tolerates and the consistency the application needs, and the source states none of them. The execution plan holds the typed steps of each method of the move (migration/data-movement-plan.json) behind the decision DEC-GEN-CONVERT-DATA-MOVEMENT; no method is taken until it is answered.",
+        "data_class": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "rpo": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "downtime_tolerance": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "facets": [
+          {
+            "id": "consistency_requirements",
+            "state": "NOT_ASSESSED",
+            "detail": "No consistency requirement is stated by the source or by this build; whether the application tolerates a copy that lags the original is a decision for a person."
+          },
+          {
+            "id": "validation_requirement",
+            "state": "OBSERVED",
+            "detail": "The execution plan states how the moved data is validated: 3 manual reconcile steps compare the source and the target with the writers stopped, and the move is accepted only on a recorded GO; the checks after the transfer are row-counts, table-checksums, sequences, restore-log, extensions, roles-and-grants, application-check, rollback-limit, replication-lag, last-sync-time, subscription-state (execution-plan.json: the steps of the move of this unit; migration/data-movement-plan.json: the move in full)."
+          },
+          {
+            "id": "cutover_dependency",
+            "state": "OBSERVED",
+            "detail": "The unit is in wave 1 of the dependency order. It depends on no other unit.",
+            "derived_from": [
+              "workspace.json#/units/14/wave"
+            ]
+          },
+          {
+            "id": "rollback_consideration",
+            "state": "OBSERVED",
+            "detail": "The execution plan states the way back of the move: on NO-GO take the rollback without switching anything: the clients still point at the source, which is current to the freeze. The point after which a rollback loses data is a check of the reconcile step (rollback-limit) that the owner records before the window."
+          },
+          {
+            "id": "encryption_requirement",
+            "state": "NOT_ASSESSED",
+            "detail": "The source does not state tls-enforcement; an absent setting is not read as a requirement.",
+            "derived_from": [
+              "assessment.json#/units/5/result/semantics/items/12"
+            ],
+            "items": [
+              "claim:google_sql_database_instance.postgres#tls-enforcement"
+            ]
+          }
+        ],
+        "unknowns": [
+          "The size of the data is not in the source.",
+          "The rate at which the data changes is not in the source.",
+          "The downtime the business tolerates is not provided.",
+          "The recovery point the business requires is not provided.",
+          "The classification of the data is not provided."
+        ],
+        "derived_from": [
+          "assessment.json#/units/5",
+          "workspace.json#/units/14"
+        ]
+      },
+      {
+        "source_unit": "google_storage_bucket.media",
+        "source_type": "google_storage_bucket",
+        "target_service": "STACKIT Object Storage",
+        "state": "DECISION_REQUIRED",
+        "plan_data_step": "IN_PLAN",
+        "mechanism": "UNKNOWN",
+        "reason": "This file chooses no mechanism class: it depends on the size of the data, the downtime the business tolerates and the consistency the application needs, and the source states none of them. The execution plan takes the only method open, rclone-copy (migration/data-movement-plan.json, chosen_method); this file names no mechanism class.",
+        "data_class": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "rpo": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "downtime_tolerance": {
+          "provenance": "NOT_PROVIDED"
+        },
+        "facets": [
+          {
+            "id": "consistency_requirements",
+            "state": "NOT_ASSESSED",
+            "detail": "No consistency requirement is stated by the source or by this build; whether the application tolerates a copy that lags the original is a decision for a person."
+          },
+          {
+            "id": "validation_requirement",
+            "state": "OBSERVED",
+            "detail": "The execution plan states how the moved data is validated: 1 manual reconcile step compares the source and the target with the writers stopped, and the move is accepted only on a recorded GO; the checks after the transfer are object-count-and-bytes, key-lists, content, application-check, rollback-limit (execution-plan.json: the steps of the move of this unit; migration/data-movement-plan.json: the move in full)."
+          },
+          {
+            "id": "cutover_dependency",
+            "state": "OBSERVED",
+            "detail": "The unit is in wave 2 of the dependency order. It depends on: google_service_account.automation, google_service_account.server.",
+            "derived_from": [
+              "workspace.json#/units/15/wave",
+              "assessment.json#/units/7/depends_on"
+            ]
+          },
+          {
+            "id": "rollback_consideration",
+            "state": "OBSERVED",
+            "detail": "The execution plan states the way back of the move: on NO-GO take the rollback without switching anything: the clients still point at the source, which is current to the freeze. The point after which a rollback loses data is a check of the reconcile step (rollback-limit) that the owner records before the window."
+          },
+          {
+            "id": "encryption_requirement",
+            "state": "NOT_ASSESSED",
+            "detail": "This build reads no in-transit encryption requirement for this kind of unit, so the source may state one that is not shown here."
+          }
+        ],
+        "unknowns": [
+          "The size of the data is not in the source.",
+          "The rate at which the data changes is not in the source.",
+          "The downtime the business tolerates is not provided.",
+          "The recovery point the business requires is not provided.",
+          "The classification of the data is not provided."
+        ],
+        "derived_from": [
+          "assessment.json#/units/7",
+          "workspace.json#/units/15"
+        ]
+      }
+    ],
+    "limits": [
+      "The size of the data, its change rate, the duration of a transfer, the transfer rate and the downtime are never stated: the source does not state them and this build has no way to measure them. A provisioned capacity quoted beside a unit is the size of what was provisioned, not the size of the data.",
+      "No mechanism is chosen and nothing is executed: StackToIT is out of scope for actual data movement, and a mechanism class is a recommendation a person makes from the size, the downtime tolerated and the consistency the application needs.",
+      "A unit is listed when its catalogue kind holds data of its own (a database, a cache, a search domain, a warehouse, a block volume, a file share, an object store). A Kubernetes storage class that provisions volumes, a persistent volume and a persistent volume claim are listed too: the volumes behind a class, and the data on any volume, are in the source cloud and not in the Terraform, so a class is a row of what is not known, never a statement that the cluster holds data. A queue or topic service, and a system installed on a server's disk, are not read as stateful and are not listed. A message broker and a container registry repository are not listed: this build has no definitions export and no image-move steps for the ones of this source's cloud.",
+      "The data class, RPO and downtime tolerance are the customer's, from the applications file, word for word; without one, or for a unit outside an application, they are NOT_PROVIDED and no default is assumed."
+    ]
+  }
+}

@@ -1,6 +1,6 @@
 # StackToIT Examples
 
-Real migration assessments produced by StackToIT on public AWS Terraform projects.
+Real migration assessments produced by StackToIT on AWS and Google Cloud Terraform estates.
 
 StackToIT reads a Terraform estate and writes a migration package for STACKIT: the assessment of every resource, a STACKIT Terraform draft, an ordered execution plan and the decisions that are still open. This repository publishes such runs exactly as the tool wrote them, with the metadata needed to check them.
 
@@ -11,6 +11,7 @@ StackToIT reads a Terraform estate and writes a migration package for STACKIT: t
 | Example | Source | Assessed | Result |
 |---|---|---|---|
 | [AWS Retail Store Sample App](examples/aws-retail-store/) | [aws-containers/retail-store-sample-app](https://github.com/aws-containers/retail-store-sample-app) @ `d7a380b8`, `terraform/ecs/default` | 2026-11-03 | 282 resources, 44 units · 34 RECONFIGURE / 9 REPLATFORM / 1 REDESIGN · 38 units drafted · migration ready: **NO** · [full assessment](https://stacktoit.com/examples/aws-retail-store/report/) |
+| [Google Cloud Dynamic Python Web App](examples/gcp-python-webapp/) | [GoogleCloudPlatform/terraform-dynamic-python-webapp](https://github.com/GoogleCloudPlatform/terraform-dynamic-python-webapp) @ `7c9e8fb8`, `infra` | 2026-11-07 | 37 resources, 11 units · 6 RECONFIGURE / 2 REPLATFORM / 2 CONTAINERIZE / 1 MANUAL_REVIEW · 11 units drafted as 10 STACKIT resource blocks, OpenTofu validation passed · migration ready: **NO** · [full assessment](https://stacktoit.com/examples/gcp-python-webapp/report/) |
 
 ## What a run produces
 
@@ -28,12 +29,25 @@ Each example's `output/` folder is one StackToIT run, unchanged:
 
 ## How the runs were made
 
+AWS Retail Store:
+
 ```sh
 stacktoit assess terraform/ecs/default ./aws-retail-store --provider-mirror DIR   # default options: full package, OpenTofu validation, online prices
 stacktoit verify ./aws-retail-store                                                 # the folder matches its manifest
 ```
 
 No `--no-validate`, no `--analysis-only`. `DIR` is a local OpenTofu provider mirror prepared beforehand with `tofu providers mirror`; StackToIT downloads nothing during validation. Where a check could not run, the run says `NOT_RUN` and why; that is kept as it is (here: the upstream estate has no lock file, so its source was not validated).
+
+Google Cloud Dynamic Python Web App:
+
+```sh
+printf 'project_id = "example-project"\n' > example.tfvars   # the one required variable without a default; an invented name
+cd terraform-dynamic-python-webapp/infra                     # a clone at the pinned commit
+stacktoit assess . ../../run-python-webapp --var-file ../../example.tfvars
+stacktoit verify ../../run-python-webapp
+```
+
+Default options: online, full package, OpenTofu validation. The draft passed `tofu validate`; the source was not validated because the upstream estate has no lock file (`NOT_RUN`, kept as it is).
 
 ## What these results are
 
@@ -48,11 +62,11 @@ examples/<id>/output/        the run, byte for byte
 scripts/validate.py          schema, manifest integrity, metadata-vs-output cross-checks
 ```
 
-Adding an example means adding `examples/<id>/` with `example.json`, `README.md` and `output/`; the site, its routes and navigation follow from that.
+Adding an example means adding `examples/<id>/` with `example.json`, `README.md` and `output/` (plus `source/` when an estate is written by StackToIT rather than taken from a public project: `source.origin` is then `authored`); the site, its routes and navigation follow from that.
 
 ## Licence
 
-All rights reserved — see [LICENSE.md](LICENSE.md). The source estate of each example keeps its upstream licence (the Retail Store Sample App is published by AWS under MIT-0).
+All rights reserved — see [LICENSE.md](LICENSE.md). The source estate of each example keeps its upstream licence (the Retail Store Sample App is published by AWS under MIT-0, the Dynamic Python Web App by Google under Apache-2.0).
 
 ## Publishing
 
