@@ -217,7 +217,9 @@
       "kind": "SERVICE_CONNECT_ALIAS",
       "name": "catalog",
       "source": "a Service Connect alias in the Cloud Map private DNS namespace retailstore.local (module.retail_app_ecs.aws_service_discovery_private_dns_namespace.this): the clients of the namespace resolve it through the Service Connect proxy of their tasks",
-      "consumers": [],
+      "consumers": [
+        "ui ui-service/RETAIL_UI_ENDPOINTS_CATALOG"
+      ],
       "provision": "CLUSTER_SERVICE",
       "target": "catalog.<namespace>.svc.cluster.local (the Kubernetes Service catalog; catalog from a pod of the same namespace)",
       "verification": "resolve, from a pod of a client of catalog, catalog and catalog.<namespace>.svc.cluster.local: expect the ClusterIP of the Kubernetes Service catalog (kubectl get service catalog)"

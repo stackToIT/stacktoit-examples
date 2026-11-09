@@ -1,27 +1,28 @@
 {
   "manifest_version": "0.4.0",
-  "run_id": "80199dc3-8108-42fe-a0b9-030ac0f7777b",
-  "generated_at": "2026-11-03T19:59:06Z",
+  "run_id": "6fa04223-b825-429e-a52e-360fa841d7b8",
+  "generated_at": "2026-11-09T23:46:19Z",
   "status": "COMPLETE",
   "source": "terraform/ecs/default",
   "source_status": "RUNTIME_TOPOLOGY_PARTIAL",
-  "source_digest": "sha256:5ce8b8f8868f3b3214b2dddebe87e3f04291bf5ceac46dc0d95624215d020000",
+  "source_digest": "sha256:9289ba9abd2e1e953630f7ab62d12070ed65ca36d687d125b7e6cf755d020000",
   "producer": {
     "tool": "stacktoit",
-    "version": "0.6.0-11994-g560ca88251",
-    "commit": "560ca88251"
+    "version": "0.6.0-14341-g8183bbe919",
+    "commit": "8183bbe919"
   },
-  "kb_version": "0.385.0",
-  "kb_sha256": "f65894def83d867061199e09d4bcdffd1f3772ada7c4d474180544275af4dd1b",
+  "kb_version": "0.420.0",
+  "kb_sha256": "28ca6db2f3fa8711d7f1ecbb002d4b9faa7153fce7e394d64e6d1c37b1bd1930",
   "schema_versions": {
-    "assessment": "0.24.0",
+    "assessment": "0.25.0",
     "cost-model": "0.2.1",
     "data-movement-plan": "0.1.0",
-    "decisions": "0.5.0",
-    "execution-plan": "1.4.0",
+    "decisions": "0.6.0",
+    "execution-plan": "1.6.0",
     "manifest": "0.4.0",
     "review_csv": "1.3.0",
     "target-plan-file": "0.1.0",
+    "work-items": "0.1.1",
     "workspace": "0.16.0"
   },
   "stackit_provider": "0.121.0",
@@ -31,10 +32,10 @@
   },
   "invalidation": {
     "target_lock_sha256": "3c875f223de75122ebe3f733f1605217974e6839bfdb9a0e32349733adfa57e9",
-    "kb_sha256": "f65894def83d867061199e09d4bcdffd1f3772ada7c4d474180544275af4dd1b",
-    "source_digest": "sha256:5ce8b8f8868f3b3214b2dddebe87e3f04291bf5ceac46dc0d95624215d020000",
-    "target_capability_catalog_sha256": "0f19f991fc707c10f1658628b9b59f26435d25ccc8533d003e47363930d3f79f",
-    "target_evidence_sha256": "0db98358567bf40ff32fa755de6a42fe399ffad3a25e889aa8cd612616baa266",
+    "kb_sha256": "28ca6db2f3fa8711d7f1ecbb002d4b9faa7153fce7e394d64e6d1c37b1bd1930",
+    "source_digest": "sha256:9289ba9abd2e1e953630f7ab62d12070ed65ca36d687d125b7e6cf755d020000",
+    "target_capability_catalog_sha256": "5cce6660949db895676f2b40032a4828c4bae9154e985cd7b3d2a52845aeae8a",
+    "target_evidence_sha256": "da7946238ed8221e49d690997091342393822caa5a12a55d108684713a25fb6c",
     "target_evidence_covers": [
       "the STACKIT framework assurance evidence",
       "the STACKIT service certificate evidence",
@@ -44,56 +45,57 @@
       "the STACKIT Terraform provider operability notices",
       "the STACKIT support options"
     ],
-    "target_plan_sha256": "8bfbf8f6e9c5f3b4919a655873011ffe74e5ff487ef4d19266a7db699b7e6104",
+    "target_plan_sha256": "1781ac3c796fecbd527e5d7ccd9070a3d8ae6b9be1e6c12298a6b1e442b7f5bb",
     "inputs": {
       "price_snapshot_sha256": "94244fec5b573614dcff15f79238ce4a0e60cf197768be287e45092d7e1e61ca",
       "price_snapshots": [
         "stackit@94244fec5b573614dcff15f79238ce4a0e60cf197768be287e45092d7e1e61ca"
       ],
-      "convert": true
+      "convert": true,
+      "fetch_modules": true
     },
-    "assessment_inputs_digest": "cffa620f22d45434dcf8277f741dd9eaf1ba4989e1bcbb2a7b370b014c710ae5"
+    "assessment_inputs_digest": "73d88c9cf54f43184fc10073656857bc68fb2a6411dea254810cb5fbe97e514e"
   },
   "verification": [
     {
       "id": "GLOBAL_RESOURCE_UNIQUENESS",
       "status": "PASS",
-      "checked": 137
+      "checked": 134
     },
     {
       "id": "NO_UNPLANNED_RESOURCE",
       "status": "PASS",
-      "checked": 53
+      "checked": 44
     },
     {
       "id": "NO_UNPLANNED_REFERENCE",
       "status": "PASS",
-      "checked": 40
+      "checked": 41
     },
     {
       "id": "NO_UNRESOLVED_REQUIRED_FIELD",
       "status": "PASS",
-      "checked": 155
+      "checked": 134
     },
     {
       "id": "NO_SECURITY_WIDENING",
-      "status": "PASS",
+      "status": "PENDING",
       "checked": 35
     },
     {
       "id": "ALL_OUTPUTS_SAME_RUN",
       "status": "PASS",
-      "checked": 47
+      "checked": 48
     },
     {
       "id": "VARIABLE_IDENTITY_PRESERVED",
       "status": "PASS",
-      "checked": 29
+      "checked": 31
     },
     {
       "id": "NO_ORPHAN_MANUAL_ACTION",
       "status": "PASS",
-      "checked": 21
+      "checked": 16
     },
     {
       "id": "SOURCE_PROVIDER_MATCHES_SCHEMA_OR_IS_UNVERIFIED",
@@ -108,12 +110,12 @@
     {
       "id": "ALL_EMITTED_TARGET_TYPES_CLASSIFIED",
       "status": "PASS",
-      "checked": 53
+      "checked": 44
     },
     {
       "id": "ALL_UNACCOUNTED_PROPERTIES_EXPLICIT",
       "status": "PASS",
-      "checked": 404
+      "checked": 387
     }
   ],
   "validation": {
@@ -163,7 +165,7 @@
         "state": "PASS"
       }
     ],
-    "at": "2026-11-03T19:59:12.303888Z"
+    "at": "2026-11-09T23:46:27.543521Z"
   },
   "native_validation": {
     "mode": "AUTO",
@@ -171,7 +173,7 @@
   },
   "source_snapshot": {
     "format": "1",
-    "digest": "sha256:e4dc9b9bf0e08bd2c251734eccf2a1aad8c007689ffda9ecdde151a3222761c4",
+    "digest": "sha256:d9f002d09416796b37594410158fa04102ae1906baa8096ab8930ad6f9babefb",
     "root": {
       "git_note": "the source is not in a git checkout, or git does not trust its directory"
     },
@@ -221,8 +223,8 @@
           "version_constraint": "1.5.0",
           "version_resolved": "1.5.0",
           "state": "LOADED",
-          "origin": "source_tree",
-          "sha256": "sha256:650158a9901f35807133bcae77b26d225c9a96122ef9913cbdd89fb59852839f",
+          "origin": "managed_cache",
+          "sha256": "sha256:de3785e8be14cf6034e4e03b8303b4aeb48e3d4611a209a42577906a71a5ea9e",
           "basis": "module_tree"
         },
         {
@@ -233,8 +235,8 @@
           "version_constraint": "7.7.1",
           "version_resolved": "7.7.1",
           "state": "LOADED",
-          "origin": "source_tree",
-          "sha256": "sha256:b09ba0a50d0c20cd7cab7a0418262c99d7b4df826023bba77a0ca5385a825102",
+          "origin": "managed_cache",
+          "sha256": "sha256:ab57552e578f5366e1d7f91f52aa89185093c912d3d60f65981f0f0a0e58ea34",
           "basis": "module_tree"
         },
         {
@@ -245,8 +247,8 @@
           "version_constraint": "0.53.0",
           "version_resolved": "0.53.0",
           "state": "LOADED",
-          "origin": "source_tree",
-          "sha256": "sha256:1531c5af40e470357dfd79c63a3834b2e9437b0c021c257497d26402f2589e86",
+          "origin": "managed_cache",
+          "sha256": "sha256:8f20ffd4c5ccc9d3b66a2c6a930eab873018c804ac09ea1ce3825d72123889cf",
           "basis": "module_tree"
         },
         {
@@ -257,8 +259,8 @@
           "version_constraint": "1.0.1",
           "version_resolved": "1.0.1",
           "state": "LOADED",
-          "origin": "source_tree",
-          "sha256": "sha256:f2fd0f0c19f88fba6fa840d852824e0ec8c0ea4bd77626c1bfb2eeaba004290f",
+          "origin": "managed_cache",
+          "sha256": "sha256:744a55fcd3feaffc7474783988a5df631f439215178c521dbd2232e886f7716e",
           "basis": "module_tree"
         },
         {
@@ -269,8 +271,8 @@
           "version_constraint": "0.25.0",
           "version_resolved": "0.25.0",
           "state": "LOADED",
-          "origin": "source_tree",
-          "sha256": "sha256:621fc570e1fab578fd61c394567dd1e71409ac7ecbae6a86e572680cc16f3fc0",
+          "origin": "managed_cache",
+          "sha256": "sha256:f862d2c3dd65a88c36e3059ad13e4863a37b47d263c7fbc6afda5f4b23cc6715",
           "basis": "module_tree"
         },
         {
@@ -281,8 +283,8 @@
           "version_constraint": "0.12.2",
           "version_resolved": "0.12.2",
           "state": "LOADED",
-          "origin": "source_tree",
-          "sha256": "sha256:8e4f8f76213826d05b5187a12a9404a4d22376ffefdc4f94a223f1f3d1544dc0",
+          "origin": "managed_cache",
+          "sha256": "sha256:b8b947b8760875e5e082b9ba63982eeb1e6b924f2fe479e061c91b9c2e28996e",
           "basis": "module_tree"
         },
         {
@@ -293,8 +295,8 @@
           "version_constraint": "0.25.0",
           "version_resolved": "0.25.0",
           "state": "LOADED",
-          "origin": "source_tree",
-          "sha256": "sha256:621fc570e1fab578fd61c394567dd1e71409ac7ecbae6a86e572680cc16f3fc0",
+          "origin": "managed_cache",
+          "sha256": "sha256:f862d2c3dd65a88c36e3059ad13e4863a37b47d263c7fbc6afda5f4b23cc6715",
           "basis": "module_tree"
         },
         {
@@ -305,8 +307,8 @@
           "version_constraint": "0.25.0",
           "version_resolved": "0.25.0",
           "state": "LOADED",
-          "origin": "source_tree",
-          "sha256": "sha256:621fc570e1fab578fd61c394567dd1e71409ac7ecbae6a86e572680cc16f3fc0",
+          "origin": "managed_cache",
+          "sha256": "sha256:f862d2c3dd65a88c36e3059ad13e4863a37b47d263c7fbc6afda5f4b23cc6715",
           "basis": "module_tree"
         },
         {
@@ -317,8 +319,8 @@
           "version_constraint": "3.3.0",
           "version_resolved": "3.3.0",
           "state": "LOADED",
-          "origin": "source_tree",
-          "sha256": "sha256:a184f0a41bba1c1b8fca981b02b4b63073b4b1ded5334e73a69c8de9917c6c8b",
+          "origin": "managed_cache",
+          "sha256": "sha256:dd54647773368c6a5ff23ee707f4a975298cf30be8d7e0f9059897797e5c3542",
           "basis": "module_tree"
         },
         {
@@ -329,8 +331,8 @@
           "version_constraint": "7.7.1",
           "version_resolved": "7.7.1",
           "state": "LOADED",
-          "origin": "source_tree",
-          "sha256": "sha256:b09ba0a50d0c20cd7cab7a0418262c99d7b4df826023bba77a0ca5385a825102",
+          "origin": "managed_cache",
+          "sha256": "sha256:ab57552e578f5366e1d7f91f52aa89185093c912d3d60f65981f0f0a0e58ea34",
           "basis": "module_tree"
         },
         {
@@ -348,8 +350,8 @@
           "version_constraint": "~\u003e 8.0",
           "version_resolved": "8.7.0",
           "state": "LOADED",
-          "origin": "source_tree",
-          "sha256": "sha256:fb5e0d6ff6d83bbe9385718f16af5be2bc44a722483430b74caa07a84610a81a",
+          "origin": "download",
+          "sha256": "sha256:1d0bd2f325c65ef9dc2842a52d59815696691a047ccfcad594bf50693e5a9dea",
           "basis": "module_tree"
         },
         {
@@ -360,8 +362,8 @@
           "version_constraint": "~\u003e 4.0",
           "version_resolved": "4.17.2",
           "state": "LOADED",
-          "origin": "source_tree",
-          "sha256": "sha256:444a19c901cc4f72ee8883191cc8fd73ff8f9ee467c3742224850e3a0d0c9f40",
+          "origin": "download",
+          "sha256": "sha256:c0050e5ec9edf5e48c14f3c006f74eb8eb3747f60081631fd146162fa33714e4",
           "basis": "module_tree"
         },
         {
@@ -434,8 +436,8 @@
           "version_constraint": "5.21.0",
           "version_resolved": "5.21.0",
           "state": "LOADED",
-          "origin": "source_tree",
-          "sha256": "sha256:a17b56114a6dde3585e623bab4536dc490dd0db4f657ae203f2ea9a661c62b02",
+          "origin": "managed_cache",
+          "sha256": "sha256:1afa0a3b7dd6e1052502c91fad2cc7e372adb7cf67cf224e66b85cdb5309c447",
           "basis": "module_tree"
         }
       ]
@@ -443,18 +445,14 @@
   },
   "action_id_lists": [
     {
-      "id": "AL-db33b924041c",
+      "id": "AL-a1ba3049be40",
       "action_ids": [
-        "DEC/routing/stackitroute:module.vpc.module.vpc.aws_route_table.private:NAT_FIXED_EGRESS_ADDRESS_LOST",
-        "MAN/identity/facts:module.retail_app_ecs.module.carts_service.aws_ecs_service.this:module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this.execution_role_arn-586451",
+        "API/service-enablement/EnableServiceRegional/cloud.stackit.loadbalancer",
+        "DEC/routing/module.vpc.module.vpc.aws_route_table.private:NAT_FIXED_EGRESS_ADDRESS_LOST",
         "MAN/identity/facts:module.retail_app_ecs.module.carts_service.aws_ecs_service.this:module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this.task_role_arn-686488",
-        "MAN/identity/facts:module.retail_app_ecs.module.catalog_service.aws_ecs_service.this:module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this.execution_role_arn-dedc98",
         "MAN/identity/facts:module.retail_app_ecs.module.catalog_service.aws_ecs_service.this:module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this.task_role_arn-15a967",
-        "MAN/identity/facts:module.retail_app_ecs.module.checkout_service.aws_ecs_service.this:module.retail_app_ecs.module.checkout_service.aws_ecs_task_definition.this.execution_role_arn-b70bc2",
         "MAN/identity/facts:module.retail_app_ecs.module.checkout_service.aws_ecs_service.this:module.retail_app_ecs.module.checkout_service.aws_ecs_task_definition.this.task_role_arn-9651e2",
-        "MAN/identity/facts:module.retail_app_ecs.module.orders_service.aws_ecs_service.this:module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this.execution_role_arn-eacc48",
         "MAN/identity/facts:module.retail_app_ecs.module.orders_service.aws_ecs_service.this:module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this.task_role_arn-d0b927",
-        "MAN/identity/facts:module.retail_app_ecs.module.ui_service.aws_ecs_service.this:module.retail_app_ecs.module.ui_service.aws_ecs_task_definition.this.execution_role_arn-2d22d2",
         "MAN/identity/facts:module.retail_app_ecs.module.ui_service.aws_ecs_service.this:module.retail_app_ecs.module.ui_service.aws_ecs_task_definition.this.task_role_arn-0c66b7",
         "MAN/routing/precondition-outside-area:module.vpc.module.vpc.aws_route_table.private",
         "MAN/routing/precondition-outside-area:module.vpc.module.vpc.aws_route_table.public",
@@ -514,6 +512,11 @@
         "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role/open-settings",
         "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_iam_role.task_role/open-settings",
         "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_security_group.this/open-settings",
+        "MAN/unit/module.retail_app_ecs.module.carts_service.aws_iam_role.task_role",
+        "MAN/unit/module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role",
+        "MAN/unit/module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role",
+        "MAN/unit/module.retail_app_ecs.module.orders_service.aws_iam_role.task_role",
+        "MAN/unit/module.retail_app_ecs.module.ui_service.aws_iam_role.task_role",
         "TF/stackit_kms_keyring.migrated",
         "TF/stackit_kms_key.retail_app_ecs_cmk",
         "TF/stackit_secretsmanager_instance.migrated_secrets",
@@ -534,24 +537,14 @@
         "TF/stackit_security_group_rule.retail_app_ecs_checkout_service_this_ingress_1",
         "TF/stackit_security_group_rule.retail_app_ecs_orders_service_this_ingress_1",
         "TF/stackit_security_group_rule.retail_app_ecs_ui_service_this_ingress_1",
-        "TF/stackit_service_account.retail_app_ecs_carts_service_task_execution_role",
-        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_carts_service_task_execution_role",
         "TF/stackit_service_account.retail_app_ecs_carts_service_task_role",
         "TF/stackit_authorization_project_role_assignment.retail_app_ecs_carts_service_task_role",
-        "TF/stackit_service_account.retail_app_ecs_catalog_service_task_execution_role",
-        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_catalog_service_task_execution_role",
         "TF/stackit_service_account.retail_app_ecs_catalog_service_task_role",
         "TF/stackit_authorization_project_role_assignment.retail_app_ecs_catalog_service_task_role",
-        "TF/stackit_service_account.retail_app_ecs_checkout_service_task_execution_role",
-        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_checkout_service_task_execution_role",
         "TF/stackit_service_account.retail_app_ecs_checkout_service_task_role",
         "TF/stackit_authorization_project_role_assignment.retail_app_ecs_checkout_service_task_role",
-        "TF/stackit_service_account.retail_app_ecs_orders_service_task_execution_role",
-        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_orders_service_task_execution_role",
         "TF/stackit_service_account.retail_app_ecs_orders_service_task_role",
         "TF/stackit_authorization_project_role_assignment.retail_app_ecs_orders_service_task_role",
-        "TF/stackit_service_account.retail_app_ecs_ui_service_task_execution_role",
-        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_ui_service_task_execution_role",
         "TF/stackit_service_account.retail_app_ecs_ui_service_task_role",
         "TF/stackit_authorization_project_role_assignment.retail_app_ecs_ui_service_task_role",
         "MAN/semantic/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/encryption-at-rest",
@@ -582,10 +575,26 @@
         "TF/stackit_valkey_credential.dependencies_checkout_elasticache_redis_default",
         "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/preflight",
         "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/rehearsal",
+        "MAN/draft/handover/ecs-execution-retail-app-ecs-carts-service-task-execution-role/logs-md",
+        "MAN/draft/handover/ecs-execution-retail-app-ecs-carts-service-task-execution-role/pull-md",
+        "MAN/draft/handover/ecs-execution-retail-app-ecs-carts-service-task-execution-role/secrets-md",
+        "MAN/draft/handover/ecs-execution-retail-app-ecs-catalog-service-task-execution-role/logs-md",
+        "MAN/draft/handover/ecs-execution-retail-app-ecs-catalog-service-task-execution-role/pull-md",
+        "MAN/draft/handover/ecs-execution-retail-app-ecs-catalog-service-task-execution-role/secrets-md",
+        "MAN/draft/handover/ecs-execution-retail-app-ecs-checkout-service-task-execution-role/logs-md",
+        "MAN/draft/handover/ecs-execution-retail-app-ecs-checkout-service-task-execution-role/pull-md",
+        "MAN/draft/handover/ecs-execution-retail-app-ecs-checkout-service-task-execution-role/secrets-md",
+        "MAN/draft/handover/ecs-execution-retail-app-ecs-orders-service-task-execution-role/logs-md",
+        "MAN/draft/handover/ecs-execution-retail-app-ecs-orders-service-task-execution-role/pull-md",
+        "MAN/draft/handover/ecs-execution-retail-app-ecs-orders-service-task-execution-role/secrets-md",
+        "MAN/draft/handover/ecs-execution-retail-app-ecs-ui-service-task-execution-role/logs-md",
+        "MAN/draft/handover/ecs-execution-retail-app-ecs-ui-service-task-execution-role/pull-md",
+        "MAN/draft/handover/ecs-execution-retail-app-ecs-ui-service-task-execution-role/secrets-md",
         "MAN/semantic/module.dependencies.aws_mq_broker.mq/broker-network",
         "MAN/semantic/module.dependencies.aws_mq_broker.mq/open-settings-identity-architect",
         "MAN/semantic/module.dependencies.aws_mq_broker.mq/open-settings-platform-architect",
         "MAN/semantic/module.dependencies.aws_mq_broker.mq/open-settings-security-architect",
+        "MAN/semantic/module.retail_app_ecs.aws_cloudwatch_log_resource_policy.eventbridge_ecs/open-settings",
         "MAN/semantic/module.retail_app_ecs.module.alb.aws_lb.this/open-settings-network-architect",
         "MAN/semantic/module.retail_app_ecs.module.alb.aws_lb.this/open-settings-platform-architect",
         "MAN/semantic/module.retail_app_ecs.module.carts_service.aws_ecs_service.this/open-settings-identity-architect",
@@ -610,8 +619,7 @@
         "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_ecs_service.this/open-settings-security-architect",
         "MAN/unit/module.retail_app_ecs.aws_cloudwatch_event_rule.ecs_events",
         "MAN/unit/module.retail_app_ecs.aws_cloudwatch_log_group.ecs_container_insights",
-        "MAN/unit/module.retail_app_ecs.aws_cloudwatch_log_resource_policy.eventbridge_ecs",
-        "TF/stackit_application_load_balancer.retail_app_ecs_alb_this",
+        "TF/stackit_logs_access_token.retail_app_ecs_eventbridge_ecs",
         "TF/stackit_logs_instance.logs_retention_180d",
         "MAN/logs/archive:module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks",
         "MAN/logs/token:stackit_logs_instance.logs_retention_180d",
@@ -646,7 +654,8 @@
         "MAN/draft/kubernetes/checkout/manifests-yaml",
         "MAN/draft/kubernetes/orders/manifests-yaml",
         "MAN/draft/kubernetes/ui/manifests-yaml",
-        "MAN/path/module.retail_app_ecs.module.alb.aws_lb.this/target-network/routing-and-security-groups",
+        "MAN/path/module.retail_app_ecs.module.alb.aws_lb.this/target-network/network-of-the-cluster",
+        "TF/stackit_application_load_balancer.retail_app_ecs_alb_this",
         "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/write-freeze/client-import",
         "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/final-sync/client-import",
         "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/reconcile/client-import",
@@ -717,6 +726,7 @@
         "MAN/verify/endpoint/module.dependencies.aws_mq_broker.mq",
         "MAN/verify/endpoint/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
         "MAN/verify/endpoint/module.retail_app_ecs.module.alb.aws_lb.this",
+        "MAN/verify/restore/module.dependencies.module.catalog_rds.aws_rds_cluster.this",
         "MAN/verify/restore/module.dependencies.module.orders_rds.aws_rds_cluster.this",
         "MAN/verify/rollback-decision",
         "MAN/data/module.dependencies.aws_mq_broker.mq/cleanup/definitions-and-drain",
@@ -782,91 +792,91 @@
   "files": [
     {
       "path": "applications-template.yaml",
-      "sha256": "98bb34493b3f00de965f850cb780c1ba0faae8e63a12174fcecde819d0ec3440",
-      "bytes": 6588,
+      "sha256": "7dfda08cd022f3c9a4391861c2ea5d2d0792c934d1d01bb5ddedaf256490ae1b",
+      "bytes": 6678,
       "run_bound": true
     },
     {
       "path": "architecture/current.mmd",
-      "sha256": "c02b5b9a273929df757c0213cf9c9ebbc3c7be348002925d0faa0828a6e38595",
-      "bytes": 7411,
+      "sha256": "67c3e8c5b40ba96e840c11f128fd514ca7355f91e0c3e428eb9a217d4ef2b873",
+      "bytes": 7413,
       "run_bound": true
     },
     {
       "path": "architecture/current.svg",
-      "sha256": "d3a5a670fc9569a615b3d80ea58e9427fd4987b1c2975eb7f4763ba74e209b6d",
-      "bytes": 42589,
+      "sha256": "1bc27882bbfb40e65d401d123b4518df4350ca3f17a8db354712faa31792e18a",
+      "bytes": 42591,
       "run_bound": true
     },
     {
       "path": "architecture/data-flows.mmd",
-      "sha256": "239ce622bae9ccdffbc27197a9162ff8d1b50492ca8f56a2ea5dca06ea374e06",
-      "bytes": 6676,
+      "sha256": "62c0a6957b22c952088008cf78b7c62f4da970ec4a3dbf21573067427334b533",
+      "bytes": 6711,
       "run_bound": true
     },
     {
       "path": "architecture/data-flows.svg",
-      "sha256": "6abb089ee523e79f459d2ef03ddd72be21d1fb62a73300e8e00fb13496f7bc27",
-      "bytes": 13325,
+      "sha256": "0f1c46ff86537e235e23164065cb2134d1b61084f1ac4a78897f7aabada11b8f",
+      "bytes": 13327,
       "run_bound": true
     },
     {
       "path": "architecture/delta.mmd",
-      "sha256": "07ef12865e36399a3ce2c6e6072bf63877d7d0e7ec8c56f88f52f264d164879c",
-      "bytes": 9022,
+      "sha256": "14d7a9c3a3ed52b871d7816813f2e01c4b4c9e807c9401659b88d089e8f4a50d",
+      "bytes": 9069,
       "run_bound": true
     },
     {
       "path": "architecture/delta.svg",
-      "sha256": "6bbd2efe6d17d731cfd3413f52650b900bf349332e1792ad22fdc6e24a07669d",
-      "bytes": 42502,
+      "sha256": "dabf06b54fe4bb3caaa9c27e50d680e9b6c74b4bb5f102b3a2d5dcadd4147a21",
+      "bytes": 42484,
       "run_bound": true
     },
     {
       "path": "architecture/dependencies.mmd",
-      "sha256": "ed7da208beed45595207a29d24af99ded2926800c7dbfc7ef8a3cfad757320a6",
-      "bytes": 15682,
+      "sha256": "7fe515967de2eb4845198cd745c11d37ddc21c1ab474bc0fd5e3f3098b1dc029",
+      "bytes": 16121,
       "run_bound": true
     },
     {
       "path": "architecture/identity.mmd",
-      "sha256": "3c2551dbb6f4839bed51f5db40eacd87b75a550ad335622710d4b94a05c31b11",
-      "bytes": 27001,
+      "sha256": "232652e4203de57a0b3fc3040f41e4de255f88bb4ad2827007e47cd1069bd30a",
+      "bytes": 24847,
       "run_bound": true
     },
     {
       "path": "architecture/network-security.mmd",
-      "sha256": "96cc87fcb807a7adaa04648a588dbcf50ccf1affd8d6b8785f2dc8200840c45e",
-      "bytes": 18842,
+      "sha256": "b3ff5a88d0809c412dd6a7faf6cb2672cb3a7049040b3383059ae3e07952f6e8",
+      "bytes": 18846,
       "run_bound": true
     },
     {
       "path": "architecture/network-security.svg",
-      "sha256": "0bfd894f274d684fe28d312d8ba48c3ce26124153b0733aabfd184dfac1a99b6",
-      "bytes": 47120,
+      "sha256": "6a2362f5a3a82c1abe22843f78c37ada75bddb488d4ca91e7a8d9d3909da68d7",
+      "bytes": 47122,
       "run_bound": true
     },
     {
       "path": "architecture/target.mmd",
-      "sha256": "8d85e17516545ccef6324d82cccd5b5f6cd2f0cdc4b405e775f407672215133a",
-      "bytes": 7496,
+      "sha256": "7a625ffa32a5e64cff203293441e8a11cc6f300d0d94b5a1fcf0013c516030a1",
+      "bytes": 7933,
       "run_bound": true
     },
     {
       "path": "architecture/target.svg",
-      "sha256": "18a1c80faffa8b993dd95c87025a7dcb70ef5347b8e91b240c3f72ef66a1c63c",
-      "bytes": 44434,
+      "sha256": "d904c973f26de08bcc08e3942fb5f1447bcfdacbd0d608c4e8632a2c004d150e",
+      "bytes": 44871,
       "run_bound": true
     },
     {
       "path": "assessment.json",
-      "sha256": "f8414f23e79bcee99c4449971fafede35dfa5229498b579530e44850d43b89f0",
-      "bytes": 1819809,
+      "sha256": "025ca41ab1ae5cc80cd74f207b22864057650ba69781e2aa6db232e8326c1bf7",
+      "bytes": 1860517,
       "run_bound": true
     },
     {
       "path": "assumptions-template.yaml",
-      "sha256": "6638cd988f2448bd9dfc65e692e47dcdcec0ef831e5d5235ff0d55948c2e4014",
+      "sha256": "dce4bcd34df5102c42f5123463295dfff93f632993376fc54bb1d81aa8541924",
       "bytes": 6621,
       "run_bound": true
     },
@@ -878,134 +888,134 @@
     },
     {
       "path": "assurance/compliance-evidence.md",
-      "sha256": "7adf3124b074b9970a657d33017f196b377f44892c840c551287e3995600e159",
-      "bytes": 44169,
+      "sha256": "2b938f11826a8975acbfb2c9399b1bb78134a63de4e656acea60b7f52e6683d6",
+      "bytes": 44171,
       "run_bound": true
     },
     {
       "path": "assurance/critical-semantics.json",
-      "sha256": "22eb5d466c3eca01d04e3d0201bc1b3087d736e967fe9086a6c51a0221d7d489",
-      "bytes": 307040,
+      "sha256": "b08a05f1d8b23b081bea980a46c70a8f6e9ac480ecf8ec6d87456141b4755dca",
+      "bytes": 343716,
       "run_bound": true
     },
     {
       "path": "assurance/equivalence-ledger.csv",
-      "sha256": "8b96a7946664d7bcc4a7fbbf306fa44afc286dd9578d11030f4b583810cda5e1",
-      "bytes": 878397,
+      "sha256": "115fde215e22d29e21c399c3309562c6aac2e79d257b4e25b55e657de2a86b80",
+      "bytes": 926164,
       "run_bound": false
     },
     {
       "path": "assurance/evidence-ledger.csv",
-      "sha256": "b2531cea962cfbd82444b0544d54ef754376e86ad20aca8813840331d3ef2835",
-      "bytes": 335206,
+      "sha256": "db077600a21ce9c625a3ecca799934561b06c5f6d29876a0c99dea4ea63ffefe",
+      "bytes": 339611,
       "run_bound": false
     },
     {
       "path": "assurance/identity-transition.md",
-      "sha256": "e553d00d1480381f9ae3ee2db127b4d75c4f9238d97829d6047d2d274940196f",
-      "bytes": 8210,
+      "sha256": "2adfd8bf783638650a69d8cc295a8b2d76e9853df433e8b28f496c4c4bb60d49",
+      "bytes": 6917,
       "run_bound": true
     },
     {
       "path": "assurance/operational-readiness.md",
-      "sha256": "0d42fb43af6cfb0b9fda7f92847037e4baead43e14711fb27b66f021ccfe66c1",
-      "bytes": 8879,
+      "sha256": "e8f7b89c66952326341de7fcf9cad24c9e2cbcc69ea66f11228b23d549d55f97",
+      "bytes": 8881,
       "run_bound": true
     },
     {
       "path": "assurance/resilience.json",
-      "sha256": "59cbee08ccda93dd99fe34d9fd8e180840ecd194512da0e82b1e1c78d3308394",
-      "bytes": 8097,
+      "sha256": "0c5e2c3378fd1c7f5458aadfb53ff45372a1bba6f3572dc55923dd94a22e319d",
+      "bytes": 8212,
       "run_bound": true
     },
     {
       "path": "assurance/resilience.md",
-      "sha256": "7cee0839e4345685f49a4ed73a14d2c6b55ebf472eb3669114e1fa7927d355c5",
-      "bytes": 6090,
+      "sha256": "1ecbabd2b7da37837ec582c1752f6a4d54a1df11ae8c9310bb0bacb26ff55800",
+      "bytes": 6207,
       "run_bound": true
     },
     {
       "path": "assurance/safety.md",
-      "sha256": "eb2610cc3a65e7b5c05f5f6d7f15861d233bcda1b291f03c829081e27330627b",
-      "bytes": 22817,
+      "sha256": "191cb3c29e24a76984894df8385387e7f6eddf83440f6ea50936d0f9a969f5e9",
+      "bytes": 22259,
       "run_bound": true
     },
     {
       "path": "assurance/source-compatibility.md",
-      "sha256": "7ab63e3aee9aeb734f7cfbb88b2854b0147a1cea6785b3130b403e2f3718199e",
-      "bytes": 1454,
+      "sha256": "8c9f2a609efff5b1afd17e0b2d5bc5eee437697a06a2ac8a95874eed3685f79a",
+      "bytes": 1456,
       "run_bound": true
     },
     {
       "path": "assurance/sovereignty.json",
-      "sha256": "2243e753008b4cdb5cd7149ef6bf0025d8789336f55ae01f2ce8a1846f9e03be",
-      "bytes": 80256,
+      "sha256": "e50661b42c55ff00b55696bf3bfc2ffd3287de69175d09d5e1c5b4400dd7a270",
+      "bytes": 70667,
       "run_bound": true
     },
     {
       "path": "assurance/sovereignty.md",
-      "sha256": "d367fbd9a21ba5232f24dbb8eba9fa4a22828d280f1c8f959fbe107393f57805",
-      "bytes": 27849,
+      "sha256": "cdd85f28378eb28eba337ac9bcf53fb9c04e4fc45b456f7d4da08047b9350d1b",
+      "bytes": 24770,
       "run_bound": true
     },
     {
       "path": "assurance/target-readiness.md",
-      "sha256": "7af7732d0e5c43c40e38bc6f7fad2d55be3b3d86e20b4d37d2eab89005f127a4",
-      "bytes": 22841,
+      "sha256": "81d7d9162634d523ab7189de299a111214c6df1f308b857e21875a5c5ae8dcf7",
+      "bytes": 22289,
       "run_bound": true
     },
     {
       "path": "console.txt",
-      "sha256": "02b05d9cb1da6058637288f25eff9234b9ae7b440d838e95b7ae6aadcc9f7792",
-      "bytes": 19193,
+      "sha256": "f79238b8757b24face9bdcc60665f5882bb26a334d2e6afefd5b581c9383a204",
+      "bytes": 21932,
       "run_bound": true
     },
     {
       "path": "decisions-template.yaml",
-      "sha256": "034f0d8e7a4afc5901197140982de54c9c6eb68cf1f0e3f423e8e9d27ebca80d",
-      "bytes": 159496,
+      "sha256": "67137fb2f9773433a17b86eac8b0f9538b61d883147ab89f76ad36db0d006584",
+      "bytes": 173557,
       "run_bound": true
     },
     {
       "path": "decisions.json",
-      "sha256": "a105a85be4c792b4e39c171998c8dffdebc664d9bd77e07e4b92da90f64f203e",
-      "bytes": 2007271,
+      "sha256": "ff6fce3e9149eb61fcd36cd7dd109c2a5d106244df945917107bcd0decbfafe9",
+      "bytes": 2079872,
       "run_bound": true
     },
     {
       "path": "engineering/analysis-details.md",
-      "sha256": "30687dd9cdc88fb5c2cae6b1fbeb96a5c8f9cbfa130f27586b71ef5e9c12a951",
-      "bytes": 359919,
+      "sha256": "5666f9da29a4d7b7891d65dc3926b81eaa828e874c324a1b45ecc1262e203029",
+      "bytes": 390790,
       "run_bound": true
     },
     {
       "path": "engineering/architect-report.md",
-      "sha256": "3017a4a7161c3f90745ba942cd071e410d1ea0ba363cf3d300e6295ca1ef30e4",
-      "bytes": 556833,
+      "sha256": "dc221b2d141e80f86acc62ba9d8e2b7a20eff7d6b70dd743cd1170dfdd4f79ee",
+      "bytes": 571898,
       "run_bound": true
     },
     {
       "path": "engineering/evidence-index.json",
-      "sha256": "d4f45c1038d9578f5549995d8a7e3a6ff496e1b308adce409a99a239058ce59f",
-      "bytes": 43313,
+      "sha256": "4e91464c8c8fd1d82fe6f4393ce74eb9103c3caca2ca44023488bc4ab6c303f7",
+      "bytes": 37554,
       "run_bound": true
     },
     {
       "path": "engineering/explain-index.json",
-      "sha256": "90ed5918180278a4ea065481d7b203278d48b87e167121cf551a13e42fef4d14",
-      "bytes": 60890,
+      "sha256": "20fbd5e00b9c87128f9cc6c86f05eeb6cc2c0c5c6a5caf6530249cf9ddf5a4e6",
+      "bytes": 62568,
       "run_bound": true
     },
     {
       "path": "engineering/not-carried-summary.csv",
-      "sha256": "c44fcfba911bdd5e821254fb25f07cfa73dc36fde5845aea95e6309560f74a63",
-      "bytes": 4681,
+      "sha256": "b29aeb16131a901c60c40e85a5cc96284e4390cbb5bcc62bf46a584e5509abb8",
+      "bytes": 4671,
       "run_bound": false
     },
     {
       "path": "engineering/not-carried.csv",
-      "sha256": "1235f094a03f1bbe496546f0e53a95dfd6c0bf8b237331057bda5254a630649c",
-      "bytes": 129856,
+      "sha256": "86f411703c5bef5a16503579b97581d88c190822ab2f265a96addc4735ed86c2",
+      "bytes": 133363,
       "run_bound": false
     },
     {
@@ -1016,79 +1026,79 @@
     },
     {
       "path": "engineering/review.csv",
-      "sha256": "6008eb1bc73cd65ab9d8435d0b50d5f7cfd38028f350cbef059a4864f4512eb6",
-      "bytes": 63343,
+      "sha256": "22becad5af47c4da5bfd0f51497e935f9da960e0232500d51394ed8db32c5a22",
+      "bytes": 64273,
       "run_bound": false
     },
     {
       "path": "engineering/trace-index.csv",
-      "sha256": "3b458b63c4918ff02a14eb0f14939c5aabfe4c155d10cea679b7a4363bbcc40c",
-      "bytes": 11129,
+      "sha256": "5f5a1ec0e9c95426cff3fbec0c8cca67804b020accaa7b5fd020ce01b509dd7d",
+      "bytes": 8861,
       "run_bound": false
     },
     {
       "path": "engineering/trace/data.md",
-      "sha256": "95d64cebfe8a0258a4e083b134a9629389bee6516c16da61c512e19df6578987",
-      "bytes": 46478,
+      "sha256": "a609149ed1f320291c4574c3d96fe6bca76f7cd3d22df0aa5458ede7cbaa8751",
+      "bytes": 47596,
       "run_bound": true
     },
     {
       "path": "engineering/trace/identity.md",
-      "sha256": "88d38b1bd8cd2c1bf8a8d4ec8a90c174cfb989a21cb0f04cb550a829c01a49bf",
-      "bytes": 40547,
+      "sha256": "27cf343466c9def1a288a4a31af61aeaf94994b4b0c8545b3000a9a94a27c59c",
+      "bytes": 19079,
       "run_bound": true
     },
     {
       "path": "engineering/trace/kubernetes.md",
-      "sha256": "47ecae306811d0bf11f8eb6bcd55347ef1cc387ac0e651231d1f4127b2847ccb",
-      "bytes": 13989,
+      "sha256": "4005cb5e4b46949e01498dffd9f6cd3c1e9b5a9758b851d1f3702050f6f86821",
+      "bytes": 14030,
       "run_bound": true
     },
     {
       "path": "engineering/trace/loadbalancing.md",
-      "sha256": "49fde9045aab4839660824a4d4aa488204b56e32ef015253a11441432ea0677f",
-      "bytes": 13042,
+      "sha256": "0117c2ec1ef07a13222cfc6bcf53b44fde031fb4257b8f5626f53b87d5242c0a",
+      "bytes": 11341,
       "run_bound": true
     },
     {
       "path": "engineering/trace/messaging.md",
-      "sha256": "dcd611e80fe0a969a1f5b55d482d1ec220f7b5e9be2fc19aeafe3666a4ebda5f",
-      "bytes": 8812,
+      "sha256": "d6b842a651949e08b4b375545cd47058ac6d5b367af71150604ce723ae1a74d9",
+      "bytes": 8797,
       "run_bound": true
     },
     {
       "path": "engineering/trace/network.md",
-      "sha256": "2db4bc3731f3720a78968e0c4694e40a408bb2a94b1aa393cde606f804a4a2f4",
-      "bytes": 8596,
+      "sha256": "83b17859d4949fdda3696dbbcea18b923db135ed51c757406e6d87e7051d2761",
+      "bytes": 8018,
       "run_bound": true
     },
     {
       "path": "engineering/trace/observability.md",
-      "sha256": "7923fe1d72a226d9aa40994aeec358b67f6b89c7b11101de6109a63c31a33c82",
-      "bytes": 6249,
+      "sha256": "7a2f3bc6f990ed7d88b1a6f565b788ef57e01efa6a9bd1c00760df26481e42d6",
+      "bytes": 8620,
       "run_bound": true
     },
     {
       "path": "engineering/trace/security.md",
-      "sha256": "202a740958feb30b831bcdca3ecb339afb0de5e874ed68ce4e14f849876f4932",
-      "bytes": 77783,
+      "sha256": "7df0c228f56baf0631ef94ba6bb0ba592c0f2226f7504c6be2e1f83633fac2c1",
+      "bytes": 77280,
       "run_bound": true
     },
     {
       "path": "execution-plan.json",
-      "sha256": "7f43b567012a85b8feaec590b8859e0a3dd8c0bcaa6e7789558f41816e5cc6f6",
-      "bytes": 1833944,
+      "sha256": "448033a604698198c1853447dbb1676f3cf1042441dd088be4e5b40218c99c7b",
+      "bytes": 1965915,
       "run_bound": false,
       "kind": "execution-plan",
-      "action_ids_list": "AL-db33b924041c"
+      "action_ids_list": "AL-a1ba3049be40"
     },
     {
       "path": "execution/README.md",
-      "sha256": "4e133b79a31d2526d5083f9522f9659cb45a64330786695408f868e36b5510b3",
-      "bytes": 450456,
+      "sha256": "1904d5aa13e10892f80c0c7238998b3847dca2b3af2b6f648711c4b975fb2352",
+      "bytes": 426928,
       "run_bound": false,
       "kind": "execution-readme",
-      "action_ids_list": "AL-db33b924041c"
+      "action_ids_list": "AL-a1ba3049be40"
     },
     {
       "path": "execution/api/secrets-manager-vault/001-writesecret.json",
@@ -1102,8 +1112,8 @@
     },
     {
       "path": "execution/api/secrets-manager-vault/001-writesecret.sh",
-      "sha256": "f61e53237703b75836416f1ee8ba661ce6036e37ecb76627c383924e64abc6a3",
-      "bytes": 12821,
+      "sha256": "9215c431836f7b3f9c6a0d9c8911e4e21a374aa447d5f9af4ccb104d4cba295c",
+      "bytes": 13073,
       "run_bound": false,
       "kind": "api-script",
       "action_ids": [
@@ -1122,8 +1132,8 @@
     },
     {
       "path": "execution/api/secrets-manager-vault/002-writesecret.sh",
-      "sha256": "1defdc105d8a5a2ecc58711334b93967fded7cceda926e36d7797f8dfd2bf41c",
-      "bytes": 12517,
+      "sha256": "177df52748de0b849cbf66b1728c664699ab96ae379bab242a8fd67be88799a7",
+      "bytes": 12769,
       "run_bound": false,
       "kind": "api-script",
       "action_ids": [
@@ -1132,8 +1142,8 @@
     },
     {
       "path": "execution/api/secrets-manager-vault/003-writesecret.json",
-      "sha256": "a1afb2e6c4380b8d4212c1c8ba45205b04951ea9cf087bae53db4c0e1c7a22b9",
-      "bytes": 5152,
+      "sha256": "d26655d67844c79f59b43419d94aebd59fddd82703c6e4cb4b241d7b5b1d9d38",
+      "bytes": 5252,
       "run_bound": false,
       "kind": "api-request",
       "action_ids": [
@@ -1142,8 +1152,8 @@
     },
     {
       "path": "execution/api/secrets-manager-vault/003-writesecret.sh",
-      "sha256": "369e839e3a07a2eefe9bc1139d0e7b6ed94338302cfec75e8426ea41193c1b7a",
-      "bytes": 12669,
+      "sha256": "5c5d0e39a7ebb59242a4cb6e997967970aeb4bfca3990133ee8d38937bb971c9",
+      "bytes": 13017,
       "run_bound": false,
       "kind": "api-script",
       "action_ids": [
@@ -1152,8 +1162,8 @@
     },
     {
       "path": "execution/api/secrets-manager-vault/004-writesecret.json",
-      "sha256": "bab77d45e6c8ed56c59d13010c37bd37a7cb7d6a7dd7be0fcc90815b110ada7c",
-      "bytes": 5142,
+      "sha256": "0d66758317889d3b3ffdeb434ceea4e3b5e9beca0c949d99b2b4cd4a8ebae289",
+      "bytes": 5241,
       "run_bound": false,
       "kind": "api-request",
       "action_ids": [
@@ -1162,8 +1172,8 @@
     },
     {
       "path": "execution/api/secrets-manager-vault/004-writesecret.sh",
-      "sha256": "92433c8bb1be17764fe4bb186ea8c303653703c6b3fdf42dccbdeac35e9cf99b",
-      "bytes": 12650,
+      "sha256": "f6bc8283c9401a0e671aa9e0e4f575e91cf4453b0b580a75dbea3aa77b4ad77e",
+      "bytes": 12997,
       "run_bound": false,
       "kind": "api-script",
       "action_ids": [
@@ -1171,13 +1181,58 @@
       ]
     },
     {
+      "path": "execution/api/service-enablement/001-enableserviceregional.json",
+      "sha256": "ae279009d55fd7ab8bff8fceaa5fad87b159026943da3aa46344a72976154fdf",
+      "bytes": 2864,
+      "run_bound": false,
+      "kind": "api-request",
+      "action_ids": [
+        "API/service-enablement/EnableServiceRegional/cloud.stackit.loadbalancer"
+      ]
+    },
+    {
+      "path": "execution/api/service-enablement/001-enableserviceregional.sh",
+      "sha256": "6bd72a652c5685b6f0f1875c6b2275156ba9b497eb5a7f2fdc31a3e9caac02be",
+      "bytes": 7945,
+      "run_bound": false,
+      "kind": "api-script",
+      "action_ids": [
+        "API/service-enablement/EnableServiceRegional/cloud.stackit.loadbalancer"
+      ]
+    },
+    {
+      "path": "execution/backend.tf.template",
+      "sha256": "6dd2b38e8756893e6d3bdf1af5d52f64e08f053fcc30cfd2f7eed5734700cfc9",
+      "bytes": 1673,
+      "run_bound": false,
+      "kind": "deploy",
+      "action_ids_list": "AL-a1ba3049be40"
+    },
+    {
+      "path": "execution/ci-pipeline.example.yml",
+      "sha256": "80277f923330aea2b34927a49732dda79c27445763c87d515e6f83eab95434f7",
+      "bytes": 3811,
+      "run_bound": false,
+      "kind": "deploy",
+      "action_ids_list": "AL-a1ba3049be40"
+    },
+    {
+      "path": "execution/deploy.sh",
+      "sha256": "8ab3dd534be5d171659780c0609a9257e67e174ac20f36b3bb61e3bba50d5761",
+      "bytes": 137544,
+      "run_bound": false,
+      "kind": "deploy",
+      "action_ids_list": "AL-a1ba3049be40"
+    },
+    {
       "path": "execution/manual/actions.md",
-      "sha256": "407192eaa974b23007bc0d4a2f878bbbb08d19de3a47f88ddc8459417d8a6f14",
-      "bytes": 1005357,
+      "sha256": "6c88b8bae48109b90df6ddef3095974b0f177630cd1f77b6a4889df3ce4a0ed3",
+      "bytes": 991712,
       "run_bound": false,
       "kind": "manual-actions",
-      "action_ids_list": "AL-db33b924041c",
+      "action_ids_list": "AL-a1ba3049be40",
       "action_ids_except": [
+        "API/service-enablement/EnableServiceRegional/cloud.stackit.loadbalancer",
         "TF/stackit_network.vpc_vpc_private",
         "TF/stackit_network.vpc_vpc_public",
         "TF/stackit_kms_keyring.migrated",
@@ -1198,30 +1253,20 @@
         "TF/stackit_security_group_rule.retail_app_ecs_checkout_service_this_ingress_1",
         "TF/stackit_security_group_rule.retail_app_ecs_orders_service_this_ingress_1",
         "TF/stackit_security_group_rule.retail_app_ecs_ui_service_this_ingress_1",
-        "TF/stackit_service_account.retail_app_ecs_carts_service_task_execution_role",
-        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_carts_service_task_execution_role",
         "TF/stackit_service_account.retail_app_ecs_carts_service_task_role",
         "TF/stackit_authorization_project_role_assignment.retail_app_ecs_carts_service_task_role",
-        "TF/stackit_service_account.retail_app_ecs_catalog_service_task_execution_role",
-        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_catalog_service_task_execution_role",
         "TF/stackit_service_account.retail_app_ecs_catalog_service_task_role",
         "TF/stackit_authorization_project_role_assignment.retail_app_ecs_catalog_service_task_role",
-        "TF/stackit_service_account.retail_app_ecs_checkout_service_task_execution_role",
-        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_checkout_service_task_execution_role",
         "TF/stackit_service_account.retail_app_ecs_checkout_service_task_role",
         "TF/stackit_authorization_project_role_assignment.retail_app_ecs_checkout_service_task_role",
-        "TF/stackit_service_account.retail_app_ecs_orders_service_task_execution_role",
-        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_orders_service_task_execution_role",
         "TF/stackit_service_account.retail_app_ecs_orders_service_task_role",
         "TF/stackit_authorization_project_role_assignment.retail_app_ecs_orders_service_task_role",
-        "TF/stackit_service_account.retail_app_ecs_ui_service_task_execution_role",
-        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_ui_service_task_execution_role",
         "TF/stackit_service_account.retail_app_ecs_ui_service_task_role",
         "TF/stackit_authorization_project_role_assignment.retail_app_ecs_ui_service_task_role",
         "TF/stackit_mongodbflex_instance.dynamodb_tables",
         "TF/stackit_valkey_instance.dependencies_checkout_elasticache_redis_default",
         "TF/stackit_valkey_credential.dependencies_checkout_elasticache_redis_default",
-        "TF/stackit_application_load_balancer.retail_app_ecs_alb_this",
+        "TF/stackit_logs_access_token.retail_app_ecs_eventbridge_ecs",
         "TF/stackit_logs_instance.logs_retention_180d",
         "TF/stackit_ske_cluster.retail_app_ecs_cluster",
         "TF/stackit_mariadb_instance.dependencies_catalog_rds_this",
@@ -1234,13 +1279,34 @@
         "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.orders_db",
         "TF/stackit_postgresflex_database.dependencies_orders_rds_this_orders",
         "TF/stackit_rabbitmq_instance.dependencies_mq",
-        "TF/stackit_rabbitmq_credential.dependencies_mq"
+        "TF/stackit_rabbitmq_credential.dependencies_mq",
+        "TF/stackit_application_load_balancer.retail_app_ecs_alb_this"
+      ]
+    },
+    {
+      "path": "execution/stages/stage-1/stage.tf",
+      "sha256": "d88dc6248d68baff853195dd845c99792c8c4c226e4bb95770b2636c589d4f3d",
+      "bytes": 4408,
+      "run_bound": false,
+      "kind": "deploy",
+      "action_ids": [
+        "TF/stackit_ske_cluster.retail_app_ecs_cluster"
+      ]
+    },
+    {
+      "path": "execution/stages/stage-1/terraform.tf",
+      "sha256": "5c8c3cdcd633f7b3673fc49de0e77b5541b1de3e5a41f8986c3a9def09a7d094",
+      "bytes": 760,
+      "run_bound": false,
+      "kind": "deploy",
+      "action_ids": [
+        "TF/stackit_ske_cluster.retail_app_ecs_cluster"
       ]
     },
     {
       "path": "execution/terraform/apply.md",
-      "sha256": "7f096d579ed0a7a2262553b368e380098711aeb056045ddd8ec34d5138cc6298",
-      "bytes": 78053,
+      "sha256": "4f8d5566c2a25ecf32ec58f905e2ed6b7e772b9751e6242107f88d67f534ac35",
+      "bytes": 79795,
       "run_bound": false,
       "kind": "terraform-guide",
       "action_ids": [
@@ -1262,30 +1328,20 @@
         "TF/stackit_security_group_rule.retail_app_ecs_checkout_service_this_ingress_1",
         "TF/stackit_security_group_rule.retail_app_ecs_orders_service_this_ingress_1",
         "TF/stackit_security_group_rule.retail_app_ecs_ui_service_this_ingress_1",
-        "TF/stackit_service_account.retail_app_ecs_carts_service_task_execution_role",
-        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_carts_service_task_execution_role",
         "TF/stackit_service_account.retail_app_ecs_carts_service_task_role",
         "TF/stackit_authorization_project_role_assignment.retail_app_ecs_carts_service_task_role",
-        "TF/stackit_service_account.retail_app_ecs_catalog_service_task_execution_role",
-        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_catalog_service_task_execution_role",
         "TF/stackit_service_account.retail_app_ecs_catalog_service_task_role",
         "TF/stackit_authorization_project_role_assignment.retail_app_ecs_catalog_service_task_role",
-        "TF/stackit_service_account.retail_app_ecs_checkout_service_task_execution_role",
-        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_checkout_service_task_execution_role",
         "TF/stackit_service_account.retail_app_ecs_checkout_service_task_role",
         "TF/stackit_authorization_project_role_assignment.retail_app_ecs_checkout_service_task_role",
-        "TF/stackit_service_account.retail_app_ecs_orders_service_task_execution_role",
-        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_orders_service_task_execution_role",
         "TF/stackit_service_account.retail_app_ecs_orders_service_task_role",
         "TF/stackit_authorization_project_role_assignment.retail_app_ecs_orders_service_task_role",
-        "TF/stackit_service_account.retail_app_ecs_ui_service_task_execution_role",
-        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_ui_service_task_execution_role",
         "TF/stackit_service_account.retail_app_ecs_ui_service_task_role",
         "TF/stackit_authorization_project_role_assignment.retail_app_ecs_ui_service_task_role",
         "TF/stackit_mongodbflex_instance.dynamodb_tables",
         "TF/stackit_valkey_instance.dependencies_checkout_elasticache_redis_default",
         "TF/stackit_valkey_credential.dependencies_checkout_elasticache_redis_default",
-        "TF/stackit_application_load_balancer.retail_app_ecs_alb_this",
+        "TF/stackit_logs_access_token.retail_app_ecs_eventbridge_ecs",
         "TF/stackit_logs_instance.logs_retention_180d",
         "TF/stackit_ske_cluster.retail_app_ecs_cluster",
         "TF/stackit_mariadb_instance.dependencies_catalog_rds_this",
@@ -1296,251 +1352,450 @@
         "TF/stackit_postgresflex_user.dependencies_orders_rds_this",
         "TF/stackit_postgresflex_database.dependencies_orders_rds_this_orders",
         "TF/stackit_rabbitmq_instance.dependencies_mq",
-        "TF/stackit_rabbitmq_credential.dependencies_mq"
+        "TF/stackit_rabbitmq_credential.dependencies_mq",
+        "TF/stackit_application_load_balancer.retail_app_ecs_alb_this"
+      ]
+    },
+    {
+      "path": "execution/terraform/fill-cluster-values.sh",
+      "sha256": "b066fc7577171b81a49e4c8a446cf6c3dd018e3ac559c9464600e7706b9edc5f",
+      "bytes": 5659,
+      "run_bound": false,
+      "kind": "terraform-guide",
+      "action_ids": [
+        "MAN/path/module.retail_app_ecs.module.alb.aws_lb.this/target-network/network-of-the-cluster"
       ]
     },
     {
       "path": "execution/verify/checks.md",
-      "sha256": "847087b7f13e3c53dac059b79a5d5be4364741af59e56f7108a2eef1a1c8ccd3",
-      "bytes": 89921,
+      "sha256": "46c9d6eae8077f16f6dba15baa9126110a3c61776b607ced09b64c7200106e69",
+      "bytes": 90945,
       "run_bound": false,
       "kind": "verify-checks",
-      "action_ids_list": "AL-db33b924041c",
-      "action_ids_except": [
-        "MAN/identity/facts:module.retail_app_ecs.module.carts_service.aws_ecs_service.this:module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this.execution_role_arn-586451",
-        "MAN/identity/facts:module.retail_app_ecs.module.carts_service.aws_ecs_service.this:module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this.task_role_arn-686488",
-        "MAN/identity/facts:module.retail_app_ecs.module.catalog_service.aws_ecs_service.this:module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this.execution_role_arn-dedc98",
-        "MAN/identity/facts:module.retail_app_ecs.module.catalog_service.aws_ecs_service.this:module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this.task_role_arn-15a967",
-        "MAN/identity/facts:module.retail_app_ecs.module.checkout_service.aws_ecs_service.this:module.retail_app_ecs.module.checkout_service.aws_ecs_task_definition.this.execution_role_arn-b70bc2",
-        "MAN/identity/facts:module.retail_app_ecs.module.checkout_service.aws_ecs_service.this:module.retail_app_ecs.module.checkout_service.aws_ecs_task_definition.this.task_role_arn-9651e2",
-        "MAN/identity/facts:module.retail_app_ecs.module.orders_service.aws_ecs_service.this:module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this.execution_role_arn-eacc48",
-        "MAN/identity/facts:module.retail_app_ecs.module.orders_service.aws_ecs_service.this:module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this.task_role_arn-d0b927",
-        "MAN/identity/facts:module.retail_app_ecs.module.ui_service.aws_ecs_service.this:module.retail_app_ecs.module.ui_service.aws_ecs_task_definition.this.execution_role_arn-2d22d2",
-        "MAN/identity/facts:module.retail_app_ecs.module.ui_service.aws_ecs_service.this:module.retail_app_ecs.module.ui_service.aws_ecs_task_definition.this.task_role_arn-0c66b7",
-        "MAN/routing/precondition-outside-area:module.vpc.module.vpc.aws_route_table.private",
-        "MAN/routing/precondition-outside-area:module.vpc.module.vpc.aws_route_table.public",
-        "MAN/security/aws/unplaced:module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix:module.retail_app_ecs.module.alb_sg.aws_security_group_rule.egress_rules.0-217968",
-        "MAN/security/aws/unplaced:module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix:module.retail_app_ecs.module.alb_sg.aws_security_group_rule.ingress_rules.0-f26028",
-        "MAN/semantic/module.vpc.module.vpc.aws_eip.nat/public-address",
-        "MAN/semantic/module.vpc.module.vpc.aws_nat_gateway.this/open-settings",
-        "MAN/semantic/module.vpc.module.vpc.aws_route_table.private/open-settings",
-        "MAN/semantic/module.vpc.module.vpc.aws_route_table.public/open-settings",
-        "MAN/semantic/module.vpc.module.vpc.aws_subnet.private/availability-zone",
-        "MAN/semantic/module.vpc.module.vpc.aws_subnet.private/open-settings-network-architect",
-        "MAN/semantic/module.vpc.module.vpc.aws_subnet.public/availability-zone",
-        "MAN/semantic/module.vpc.module.vpc.aws_subnet.public/open-settings-network-architect",
-        "MAN/semantic/module.vpc.module.vpc.aws_vpc.this/dns-settings",
-        "MAN/semantic/module.vpc.module.vpc.aws_vpc.this/open-settings-network-architect",
-        "MAN/security/accept/module.retail_app_ecs.module.alb.aws_lb.this:plaintext-public-listener",
-        "MAN/security/accept/module.retail_app_ecs.module.carts_service.aws_security_group.this:open-ingress-application-port",
-        "MAN/security/accept/module.retail_app_ecs.module.catalog_service.aws_security_group.this:open-ingress-application-port",
-        "MAN/security/accept/module.retail_app_ecs.module.checkout_service.aws_security_group.this:open-ingress-application-port",
-        "MAN/security/accept/module.retail_app_ecs.module.orders_service.aws_security_group.this:open-ingress-application-port",
-        "MAN/security/accept/module.retail_app_ecs.module.ui_service.aws_security_group.this:open-ingress-application-port",
-        "MAN/semantic/module.dependencies.aws_security_group.catalog_opensearch_sg/open-settings",
-        "MAN/semantic/module.dependencies.aws_security_group.mq/open-settings",
-        "MAN/semantic/module.dependencies.module.catalog_rds.aws_security_group.this/open-settings",
-        "MAN/semantic/module.dependencies.module.checkout_elasticache_redis.module.aws_security_group.aws_security_group.cbd/open-settings",
-        "MAN/semantic/module.dependencies.module.orders_rds.aws_security_group.this/open-settings",
-        "MAN/semantic/module.retail_app_ecs.aws_kms_key.cmk/deletion-window",
-        "MAN/semantic/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db/open-settings-security-architect",
-        "MAN/semantic/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db/tc-secretsmanager-secret-name",
-        "MAN/semantic/module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch/open-settings-security-architect",
-        "MAN/semantic/module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch/tc-secretsmanager-secret-name",
-        "MAN/semantic/module.retail_app_ecs.aws_secretsmanager_secret.mq/secret-value",
-        "MAN/semantic/module.retail_app_ecs.aws_secretsmanager_secret.mq/tc-secretsmanager-secret-name",
-        "MAN/semantic/module.retail_app_ecs.aws_secretsmanager_secret.orders_db/secret-value",
-        "MAN/semantic/module.retail_app_ecs.aws_secretsmanager_secret.orders_db/tc-secretsmanager-secret-name",
-        "MAN/semantic/module.retail_app_ecs.module.alb.aws_security_group.this/open-settings",
-        "MAN/semantic/module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix/open-settings",
-        "MAN/semantic/module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role/open-settings",
-        "MAN/semantic/module.retail_app_ecs.module.carts_service.aws_iam_role.task_role/open-settings",
-        "MAN/semantic/module.retail_app_ecs.module.carts_service.aws_security_group.this/open-settings",
-        "MAN/semantic/module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role/open-settings",
-        "MAN/semantic/module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role/open-settings",
-        "MAN/semantic/module.retail_app_ecs.module.catalog_service.aws_security_group.this/open-settings",
-        "MAN/semantic/module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role/open-settings",
-        "MAN/semantic/module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role/open-settings",
-        "MAN/semantic/module.retail_app_ecs.module.checkout_service.aws_security_group.this/open-settings",
-        "MAN/semantic/module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role/open-settings",
-        "MAN/semantic/module.retail_app_ecs.module.orders_service.aws_iam_role.task_role/open-settings",
-        "MAN/semantic/module.retail_app_ecs.module.orders_service.aws_security_group.this/open-settings",
-        "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role/open-settings",
-        "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_iam_role.task_role/open-settings",
-        "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_security_group.this/open-settings",
-        "MAN/security/aws/incomplete:module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix:group-module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix.0.:rules:module.retail_app_ecs.module.alb_sg.aws_security_group_rule.egress_rules-b506f3",
-        "MAN/security/aws/incomplete:module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix:group-module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix.0.:rules:module.retail_app_ecs.module.alb_sg.aws_security_group_rule.ingress_rules-a538f6",
-        "MAN/semantic/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/encryption-at-rest",
-        "MAN/semantic/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/open-settings-identity-architect",
-        "MAN/semantic/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/open-settings-network-architect",
-        "MAN/semantic/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/open-settings-platform-architect",
-        "MAN/semantic/module.dependencies.module.catalog_rds.aws_rds_cluster.this/admin-username-not-carried",
-        "MAN/semantic/module.dependencies.module.catalog_rds.aws_rds_cluster.this/open-settings-data-architect",
-        "MAN/semantic/module.dependencies.module.catalog_rds.aws_rds_cluster.this/open-settings-network-architect",
-        "MAN/semantic/module.dependencies.module.catalog_rds.aws_rds_cluster.this/open-settings-platform-architect",
-        "MAN/semantic/module.dependencies.module.catalog_rds.aws_rds_cluster.this/open-settings-security-architect",
-        "MAN/semantic/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/network-placement",
-        "MAN/semantic/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/open-settings-data-architect",
-        "MAN/semantic/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/open-settings-platform-architect",
-        "MAN/semantic/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/open-settings-security-architect",
-        "MAN/semantic/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/encryption-at-rest",
-        "MAN/semantic/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/open-settings-data-architect",
-        "MAN/semantic/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/open-settings-platform-architect",
-        "MAN/semantic/module.dependencies.module.orders_rds.aws_rds_cluster.this/admin-username-not-carried",
-        "MAN/semantic/module.dependencies.module.orders_rds.aws_rds_cluster.this/final-snapshot",
-        "MAN/semantic/module.dependencies.module.orders_rds.aws_rds_cluster.this/open-settings-network-architect",
-        "MAN/semantic/module.dependencies.module.orders_rds.aws_rds_cluster.this/open-settings-security-architect",
-        "MAN/semantic/module.dependencies.module.orders_rds.aws_rds_cluster.this/tcf-rds-cluster-instance--identifier",
-        "REF/semantic/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/credentials-and-keys-settings",
-        "REF/semantic/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/domain-credentials-and-keys",
-        "MAN/semantic/module.dependencies.aws_mq_broker.mq/broker-network",
-        "MAN/semantic/module.dependencies.aws_mq_broker.mq/open-settings-identity-architect",
-        "MAN/semantic/module.dependencies.aws_mq_broker.mq/open-settings-platform-architect",
-        "MAN/semantic/module.dependencies.aws_mq_broker.mq/open-settings-security-architect",
-        "MAN/semantic/module.retail_app_ecs.module.alb.aws_lb.this/open-settings-network-architect",
-        "MAN/semantic/module.retail_app_ecs.module.alb.aws_lb.this/open-settings-platform-architect",
-        "MAN/semantic/module.retail_app_ecs.module.carts_service.aws_ecs_service.this/open-settings-identity-architect",
-        "MAN/semantic/module.retail_app_ecs.module.carts_service.aws_ecs_service.this/open-settings-network-architect",
-        "MAN/semantic/module.retail_app_ecs.module.carts_service.aws_ecs_service.this/open-settings-platform-architect",
-        "MAN/semantic/module.retail_app_ecs.module.carts_service.aws_ecs_service.this/open-settings-security-architect",
-        "MAN/semantic/module.retail_app_ecs.module.catalog_service.aws_ecs_service.this/open-settings-identity-architect",
-        "MAN/semantic/module.retail_app_ecs.module.catalog_service.aws_ecs_service.this/open-settings-network-architect",
-        "MAN/semantic/module.retail_app_ecs.module.catalog_service.aws_ecs_service.this/open-settings-platform-architect",
-        "MAN/semantic/module.retail_app_ecs.module.catalog_service.aws_ecs_service.this/open-settings-security-architect",
-        "MAN/semantic/module.retail_app_ecs.module.checkout_service.aws_ecs_service.this/open-settings-identity-architect",
-        "MAN/semantic/module.retail_app_ecs.module.checkout_service.aws_ecs_service.this/open-settings-network-architect",
-        "MAN/semantic/module.retail_app_ecs.module.checkout_service.aws_ecs_service.this/open-settings-platform-architect",
-        "MAN/semantic/module.retail_app_ecs.module.checkout_service.aws_ecs_service.this/open-settings-security-architect",
-        "MAN/semantic/module.retail_app_ecs.module.orders_service.aws_ecs_service.this/open-settings-identity-architect",
-        "MAN/semantic/module.retail_app_ecs.module.orders_service.aws_ecs_service.this/open-settings-network-architect",
-        "MAN/semantic/module.retail_app_ecs.module.orders_service.aws_ecs_service.this/open-settings-platform-architect",
-        "MAN/semantic/module.retail_app_ecs.module.orders_service.aws_ecs_service.this/open-settings-security-architect",
-        "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_ecs_service.this/open-settings-identity-architect",
-        "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_ecs_service.this/open-settings-network-architect",
-        "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_ecs_service.this/open-settings-platform-architect",
-        "MAN/semantic/module.retail_app_ecs.module.ui_service.aws_ecs_service.this/open-settings-security-architect",
+      "action_ids": [
+        "API/service-enablement/EnableServiceRegional/cloud.stackit.loadbalancer",
+        "DEC/routing/module.vpc.module.vpc.aws_route_table.private:NAT_FIXED_EGRESS_ADDRESS_LOST",
+        "TF/stackit_network.vpc_vpc_private",
+        "TF/stackit_network.vpc_vpc_public",
+        "MAN/security/attachment-design:module.retail_app_ecs.module.carts_service.aws_security_group.this",
+        "MAN/security/attachment-design:module.retail_app_ecs.module.catalog_service.aws_security_group.this",
+        "MAN/security/attachment-design:module.retail_app_ecs.module.checkout_service.aws_security_group.this",
+        "MAN/security/attachment-design:module.retail_app_ecs.module.orders_service.aws_security_group.this",
+        "MAN/security/attachment-design:module.retail_app_ecs.module.ui_service.aws_security_group.this",
+        "TF/stackit_kms_keyring.migrated",
+        "TF/stackit_kms_key.retail_app_ecs_cmk",
+        "TF/stackit_secretsmanager_instance.migrated_secrets",
+        "TF/stackit_secretsmanager_user.migration",
+        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch",
+        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.mq",
+        "TF/stackit_security_group.retail_app_ecs_alb_sg_this_name_prefix",
+        "TF/stackit_security_group.retail_app_ecs_alb_this",
+        "TF/stackit_security_group.retail_app_ecs_carts_service_this",
+        "TF/stackit_security_group.retail_app_ecs_catalog_service_this",
+        "TF/stackit_security_group.retail_app_ecs_checkout_service_this",
+        "TF/stackit_security_group.retail_app_ecs_orders_service_this",
+        "TF/stackit_security_group.retail_app_ecs_ui_service_this",
+        "TF/stackit_security_group_rule.retail_app_ecs_carts_service_this_ingress_1",
+        "TF/stackit_security_group_rule.retail_app_ecs_catalog_service_this_ingress_1",
+        "TF/stackit_security_group_rule.retail_app_ecs_checkout_service_this_ingress_1",
+        "TF/stackit_security_group_rule.retail_app_ecs_orders_service_this_ingress_1",
+        "TF/stackit_security_group_rule.retail_app_ecs_ui_service_this_ingress_1",
+        "TF/stackit_service_account.retail_app_ecs_carts_service_task_role",
+        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_carts_service_task_role",
+        "TF/stackit_service_account.retail_app_ecs_catalog_service_task_role",
+        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_catalog_service_task_role",
+        "TF/stackit_service_account.retail_app_ecs_checkout_service_task_role",
+        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_checkout_service_task_role",
+        "TF/stackit_service_account.retail_app_ecs_orders_service_task_role",
+        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_orders_service_task_role",
+        "TF/stackit_service_account.retail_app_ecs_ui_service_task_role",
+        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_ui_service_task_role",
+        "TF/stackit_mongodbflex_instance.dynamodb_tables",
+        "TF/stackit_valkey_instance.dependencies_checkout_elasticache_redis_default",
+        "TF/stackit_valkey_credential.dependencies_checkout_elasticache_redis_default",
+        "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/preflight",
+        "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/rehearsal",
         "MAN/unit/module.retail_app_ecs.aws_cloudwatch_event_rule.ecs_events",
-        "MAN/unit/module.retail_app_ecs.aws_cloudwatch_log_group.ecs_container_insights",
-        "MAN/unit/module.retail_app_ecs.aws_cloudwatch_log_resource_policy.eventbridge_ecs",
-        "MAN/logs/token:stackit_logs_instance.logs_retention_180d",
-        "MAN/logs/label-convention:module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks",
-        "MAN/draft/handover/cluster-access/kubeconfig-md",
-        "MAN/draft/kubernetes/carts/manifests-yaml",
-        "MAN/draft/kubernetes/catalog/manifests-yaml",
-        "MAN/draft/kubernetes/checkout/manifests-yaml",
-        "MAN/draft/kubernetes/orders/manifests-yaml",
-        "MAN/draft/kubernetes/ui/manifests-yaml",
-        "MAN/cutover/readiness",
-        "MAN/cutover/connection/module.dependencies.module.catalog_rds.aws_rds_cluster.this",
-        "MAN/cutover/connection/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default",
-        "MAN/cutover/connection/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this",
-        "MAN/cutover/connection/module.dependencies.module.orders_rds.aws_rds_cluster.this",
-        "MAN/cutover/connection/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db",
-        "MAN/cutover/connection/module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch",
-        "MAN/cutover/connection/module.retail_app_ecs.aws_secretsmanager_secret.mq",
-        "MAN/cutover/connection/module.retail_app_ecs.aws_secretsmanager_secret.orders_db",
-        "MAN/cutover/module.dependencies.aws_mq_broker.mq",
-        "MAN/cutover/messaging-drain/module.dependencies.aws_mq_broker.mq",
-        "MAN/cutover/messaging-consumers/module.dependencies.aws_mq_broker.mq",
-        "MAN/cutover/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
-        "MAN/cutover/start/kubernetes/carts/manifests-yaml",
-        "MAN/cutover/service/kubernetes/carts/manifests-yaml",
-        "MAN/cutover/start/kubernetes/catalog/manifests-yaml",
-        "MAN/cutover/service/kubernetes/catalog/manifests-yaml",
-        "MAN/cutover/start/kubernetes/checkout/manifests-yaml",
-        "MAN/cutover/service/kubernetes/checkout/manifests-yaml",
-        "MAN/cutover/start/kubernetes/orders/manifests-yaml",
-        "MAN/cutover/service/kubernetes/orders/manifests-yaml",
-        "MAN/cutover/start/kubernetes/ui/manifests-yaml",
-        "MAN/cutover/service/kubernetes/ui/manifests-yaml",
-        "MAN/cutover/module.retail_app_ecs.module.alb.aws_lb.this",
-        "MAN/cutover/complete",
-        "MAN/verify/dns/module.retail_app_ecs.module.carts_service.aws_ecs_service.this",
-        "MAN/verify/dns/module.retail_app_ecs.module.catalog_service.aws_ecs_service.this",
-        "MAN/verify/dns/module.retail_app_ecs.module.checkout_service.aws_ecs_service.this",
-        "MAN/verify/dns/module.retail_app_ecs.module.orders_service.aws_ecs_service.this",
-        "MAN/verify/dns/module.retail_app_ecs.module.ui_service.aws_ecs_service.this",
-        "MAN/verify/endpoint/module.dependencies.aws_mq_broker.mq",
-        "MAN/verify/endpoint/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
-        "MAN/verify/restore/module.dependencies.module.orders_rds.aws_rds_cluster.this"
+        "TF/stackit_logs_access_token.retail_app_ecs_eventbridge_ecs",
+        "TF/stackit_logs_instance.logs_retention_180d",
+        "MAN/logs/archive:module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks",
+        "TF/stackit_ske_cluster.retail_app_ecs_cluster",
+        "TF/stackit_mariadb_instance.dependencies_catalog_rds_this",
+        "TF/stackit_mariadb_credential.dependencies_catalog_rds_this",
+        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db",
+        "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/preflight",
+        "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/rehearsal",
+        "TF/stackit_opensearch_instance.dependencies_catalog_opensearch_this",
+        "TF/stackit_opensearch_credential.dependencies_catalog_opensearch_this",
+        "TF/stackit_postgresflex_instance.dependencies_orders_rds_this",
+        "TF/stackit_postgresflex_user.dependencies_orders_rds_this",
+        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.orders_db",
+        "MAN/path/secrets-migration/read-back",
+        "MAN/path/secrets-migration/retire-user",
+        "TF/stackit_postgresflex_database.dependencies_orders_rds_this_orders",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/preflight",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/rehearsal",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/initial-copy/logical-replication",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/delta-sync/logical-replication",
+        "TF/stackit_rabbitmq_instance.dependencies_mq",
+        "TF/stackit_rabbitmq_credential.dependencies_mq",
+        "MAN/data/module.dependencies.aws_mq_broker.mq/preflight",
+        "MAN/data/module.dependencies.aws_mq_broker.mq/rehearsal",
+        "MAN/data/module.dependencies.aws_mq_broker.mq/initial-copy/definitions-and-drain",
+        "MAN/data/module.dependencies.aws_mq_broker.mq/reconcile/definitions-and-drain",
+        "MAN/path/module.retail_app_ecs.module.alb.aws_lb.this/target-network/network-of-the-cluster",
+        "TF/stackit_application_load_balancer.retail_app_ecs_alb_this",
+        "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/write-freeze/client-import",
+        "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/final-sync/client-import",
+        "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/reconcile/client-import",
+        "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/write-freeze/own-tool",
+        "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/final-sync/own-tool",
+        "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/reconcile/own-tool",
+        "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/write-freeze/dump-restore",
+        "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/final-sync/dump-restore",
+        "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/reconcile/dump-restore",
+        "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/write-freeze/own-tool",
+        "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/final-sync/own-tool",
+        "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/reconcile/own-tool",
+        "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/write-freeze/client-import",
+        "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/final-sync/client-import",
+        "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/reconcile/client-import",
+        "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/write-freeze/own-tool",
+        "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/final-sync/own-tool",
+        "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/reconcile/own-tool",
+        "MAN/data/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/write-freeze/own-tool",
+        "MAN/data/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/export/own-tool",
+        "MAN/data/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/transform/own-tool",
+        "MAN/data/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/final-sync/own-tool",
+        "MAN/data/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/reconcile/own-tool",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/write-freeze/dump-restore",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/final-sync/dump-restore",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/reconcile/dump-restore",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/write-freeze/logical-replication",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/final-sync/logical-replication",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/reconcile/logical-replication",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/write-freeze/own-tool",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/final-sync/own-tool",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/reconcile/own-tool",
+        "MAN/verify/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
+        "MAN/verify/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this",
+        "MAN/verify/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default",
+        "MAN/verify/data/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this",
+        "MAN/verify/data/module.dependencies.module.orders_rds.aws_rds_cluster.this",
+        "MAN/verify/endpoint/module.retail_app_ecs.module.alb.aws_lb.this",
+        "MAN/verify/rollback-decision",
+        "MAN/data/module.dependencies.aws_mq_broker.mq/cleanup/definitions-and-drain",
+        "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/cleanup/dump-restore",
+        "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/cleanup/client-import",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/cleanup/dump-restore",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/cleanup/logical-replication",
+        "MAN/decommission/module.retail_app_ecs.aws_cloudwatch_event_rule.ecs_events",
+        "MAN/decommission/module.retail_app_ecs.aws_cloudwatch_log_group.ecs_container_insights",
+        "MAN/decommission/module.retail_app_ecs.aws_cloudwatch_log_resource_policy.eventbridge_ecs",
+        "MAN/decommission/module.retail_app_ecs.module.alb.aws_lb.this",
+        "MAN/decommission/module.retail_app_ecs.module.alb.aws_security_group.this",
+        "MAN/decommission/module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix",
+        "MAN/decommission/module.retail_app_ecs.module.ui_service.aws_ecs_service.this",
+        "MAN/decommission/module.retail_app_ecs.module.carts_service.aws_ecs_service.this",
+        "MAN/decommission/module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role",
+        "MAN/decommission/module.retail_app_ecs.module.carts_service.aws_iam_role.task_role",
+        "MAN/decommission/module.retail_app_ecs.module.carts_service.aws_security_group.this",
+        "MAN/decommission/module.retail_app_ecs.module.catalog_service.aws_ecs_service.this",
+        "MAN/decommission/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
+        "MAN/decommission/module.dependencies.aws_security_group.catalog_opensearch_sg",
+        "MAN/decommission/module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role",
+        "MAN/decommission/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db",
+        "MAN/decommission/module.dependencies.module.catalog_rds.aws_rds_cluster.this",
+        "MAN/decommission/module.dependencies.module.catalog_rds.aws_security_group.this",
+        "MAN/decommission/module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch",
+        "MAN/decommission/module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role",
+        "MAN/decommission/module.retail_app_ecs.module.catalog_service.aws_security_group.this",
+        "MAN/decommission/module.retail_app_ecs.module.checkout_service.aws_ecs_service.this",
+        "MAN/decommission/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default",
+        "MAN/decommission/module.dependencies.module.checkout_elasticache_redis.module.aws_security_group.aws_security_group.cbd",
+        "MAN/decommission/module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role",
+        "MAN/decommission/module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role",
+        "MAN/decommission/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this",
+        "MAN/decommission/module.retail_app_ecs.module.checkout_service.aws_security_group.this",
+        "MAN/decommission/module.retail_app_ecs.module.orders_service.aws_ecs_service.this",
+        "MAN/decommission/module.retail_app_ecs.aws_ecs_cluster.cluster",
+        "MAN/decommission/module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role",
+        "MAN/decommission/module.retail_app_ecs.aws_kms_key.cmk",
+        "MAN/decommission/module.retail_app_ecs.aws_secretsmanager_secret.mq",
+        "MAN/decommission/module.dependencies.aws_mq_broker.mq",
+        "MAN/decommission/module.dependencies.aws_security_group.mq",
+        "MAN/decommission/module.retail_app_ecs.aws_secretsmanager_secret.orders_db",
+        "MAN/decommission/module.dependencies.module.orders_rds.aws_rds_cluster.this",
+        "MAN/decommission/module.dependencies.module.orders_rds.aws_security_group.this",
+        "MAN/decommission/module.retail_app_ecs.module.orders_service.aws_iam_role.task_role",
+        "MAN/decommission/module.retail_app_ecs.module.orders_service.aws_security_group.this",
+        "MAN/decommission/module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role",
+        "MAN/decommission/module.retail_app_ecs.module.ui_service.aws_iam_role.task_role",
+        "MAN/decommission/module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks",
+        "MAN/decommission/module.retail_app_ecs.module.ui_service.aws_security_group.this",
+        "MAN/decommission/module.vpc.module.vpc.aws_route_table.private",
+        "MAN/decommission/module.vpc.module.vpc.aws_nat_gateway.this",
+        "MAN/decommission/module.vpc.module.vpc.aws_eip.nat",
+        "MAN/decommission/module.vpc.module.vpc.aws_route_table.public",
+        "MAN/decommission/module.vpc.module.vpc.aws_internet_gateway.this",
+        "MAN/decommission/module.vpc.module.vpc.aws_subnet.private",
+        "MAN/decommission/module.vpc.module.vpc.aws_subnet.public",
+        "MAN/decommission/module.vpc.module.vpc.aws_vpc.this"
+      ]
+    },
+    {
+      "path": "execution/verify/verify.sh",
+      "sha256": "832de4ffd90bdee5b1e4bfce527636bf287622a923d81ecb850d7463d755141b",
+      "bytes": 3481,
+      "run_bound": false,
+      "kind": "verify-checks",
+      "action_ids": [
+        "API/service-enablement/EnableServiceRegional/cloud.stackit.loadbalancer",
+        "DEC/routing/module.vpc.module.vpc.aws_route_table.private:NAT_FIXED_EGRESS_ADDRESS_LOST",
+        "TF/stackit_network.vpc_vpc_private",
+        "TF/stackit_network.vpc_vpc_public",
+        "MAN/security/attachment-design:module.retail_app_ecs.module.carts_service.aws_security_group.this",
+        "MAN/security/attachment-design:module.retail_app_ecs.module.catalog_service.aws_security_group.this",
+        "MAN/security/attachment-design:module.retail_app_ecs.module.checkout_service.aws_security_group.this",
+        "MAN/security/attachment-design:module.retail_app_ecs.module.orders_service.aws_security_group.this",
+        "MAN/security/attachment-design:module.retail_app_ecs.module.ui_service.aws_security_group.this",
+        "TF/stackit_kms_keyring.migrated",
+        "TF/stackit_kms_key.retail_app_ecs_cmk",
+        "TF/stackit_secretsmanager_instance.migrated_secrets",
+        "TF/stackit_secretsmanager_user.migration",
+        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch",
+        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.mq",
+        "TF/stackit_security_group.retail_app_ecs_alb_sg_this_name_prefix",
+        "TF/stackit_security_group.retail_app_ecs_alb_this",
+        "TF/stackit_security_group.retail_app_ecs_carts_service_this",
+        "TF/stackit_security_group.retail_app_ecs_catalog_service_this",
+        "TF/stackit_security_group.retail_app_ecs_checkout_service_this",
+        "TF/stackit_security_group.retail_app_ecs_orders_service_this",
+        "TF/stackit_security_group.retail_app_ecs_ui_service_this",
+        "TF/stackit_security_group_rule.retail_app_ecs_carts_service_this_ingress_1",
+        "TF/stackit_security_group_rule.retail_app_ecs_catalog_service_this_ingress_1",
+        "TF/stackit_security_group_rule.retail_app_ecs_checkout_service_this_ingress_1",
+        "TF/stackit_security_group_rule.retail_app_ecs_orders_service_this_ingress_1",
+        "TF/stackit_security_group_rule.retail_app_ecs_ui_service_this_ingress_1",
+        "TF/stackit_service_account.retail_app_ecs_carts_service_task_role",
+        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_carts_service_task_role",
+        "TF/stackit_service_account.retail_app_ecs_catalog_service_task_role",
+        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_catalog_service_task_role",
+        "TF/stackit_service_account.retail_app_ecs_checkout_service_task_role",
+        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_checkout_service_task_role",
+        "TF/stackit_service_account.retail_app_ecs_orders_service_task_role",
+        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_orders_service_task_role",
+        "TF/stackit_service_account.retail_app_ecs_ui_service_task_role",
+        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_ui_service_task_role",
+        "TF/stackit_mongodbflex_instance.dynamodb_tables",
+        "TF/stackit_valkey_instance.dependencies_checkout_elasticache_redis_default",
+        "TF/stackit_valkey_credential.dependencies_checkout_elasticache_redis_default",
+        "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/preflight",
+        "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/rehearsal",
+        "MAN/unit/module.retail_app_ecs.aws_cloudwatch_event_rule.ecs_events",
+        "TF/stackit_logs_access_token.retail_app_ecs_eventbridge_ecs",
+        "TF/stackit_logs_instance.logs_retention_180d",
+        "MAN/logs/archive:module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks",
+        "TF/stackit_ske_cluster.retail_app_ecs_cluster",
+        "TF/stackit_mariadb_instance.dependencies_catalog_rds_this",
+        "TF/stackit_mariadb_credential.dependencies_catalog_rds_this",
+        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db",
+        "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/preflight",
+        "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/rehearsal",
+        "TF/stackit_opensearch_instance.dependencies_catalog_opensearch_this",
+        "TF/stackit_opensearch_credential.dependencies_catalog_opensearch_this",
+        "TF/stackit_postgresflex_instance.dependencies_orders_rds_this",
+        "TF/stackit_postgresflex_user.dependencies_orders_rds_this",
+        "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.orders_db",
+        "MAN/path/secrets-migration/read-back",
+        "MAN/path/secrets-migration/retire-user",
+        "TF/stackit_postgresflex_database.dependencies_orders_rds_this_orders",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/preflight",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/rehearsal",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/initial-copy/logical-replication",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/delta-sync/logical-replication",
+        "TF/stackit_rabbitmq_instance.dependencies_mq",
+        "TF/stackit_rabbitmq_credential.dependencies_mq",
+        "MAN/data/module.dependencies.aws_mq_broker.mq/preflight",
+        "MAN/data/module.dependencies.aws_mq_broker.mq/rehearsal",
+        "MAN/data/module.dependencies.aws_mq_broker.mq/initial-copy/definitions-and-drain",
+        "MAN/data/module.dependencies.aws_mq_broker.mq/reconcile/definitions-and-drain",
+        "MAN/path/module.retail_app_ecs.module.alb.aws_lb.this/target-network/network-of-the-cluster",
+        "TF/stackit_application_load_balancer.retail_app_ecs_alb_this",
+        "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/write-freeze/client-import",
+        "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/final-sync/client-import",
+        "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/reconcile/client-import",
+        "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/write-freeze/own-tool",
+        "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/final-sync/own-tool",
+        "MAN/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/reconcile/own-tool",
+        "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/write-freeze/dump-restore",
+        "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/final-sync/dump-restore",
+        "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/reconcile/dump-restore",
+        "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/write-freeze/own-tool",
+        "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/final-sync/own-tool",
+        "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/reconcile/own-tool",
+        "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/write-freeze/client-import",
+        "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/final-sync/client-import",
+        "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/reconcile/client-import",
+        "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/write-freeze/own-tool",
+        "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/final-sync/own-tool",
+        "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/reconcile/own-tool",
+        "MAN/data/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/write-freeze/own-tool",
+        "MAN/data/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/export/own-tool",
+        "MAN/data/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/transform/own-tool",
+        "MAN/data/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/final-sync/own-tool",
+        "MAN/data/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this/reconcile/own-tool",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/write-freeze/dump-restore",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/final-sync/dump-restore",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/reconcile/dump-restore",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/write-freeze/logical-replication",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/final-sync/logical-replication",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/reconcile/logical-replication",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/write-freeze/own-tool",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/final-sync/own-tool",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/reconcile/own-tool",
+        "MAN/verify/data/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
+        "MAN/verify/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this",
+        "MAN/verify/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default",
+        "MAN/verify/data/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this",
+        "MAN/verify/data/module.dependencies.module.orders_rds.aws_rds_cluster.this",
+        "MAN/verify/endpoint/module.retail_app_ecs.module.alb.aws_lb.this",
+        "MAN/verify/rollback-decision",
+        "MAN/data/module.dependencies.aws_mq_broker.mq/cleanup/definitions-and-drain",
+        "MAN/data/module.dependencies.module.catalog_rds.aws_rds_cluster.this/cleanup/dump-restore",
+        "MAN/data/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default/cleanup/client-import",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/cleanup/dump-restore",
+        "MAN/data/module.dependencies.module.orders_rds.aws_rds_cluster.this/cleanup/logical-replication",
+        "MAN/decommission/module.retail_app_ecs.aws_cloudwatch_event_rule.ecs_events",
+        "MAN/decommission/module.retail_app_ecs.aws_cloudwatch_log_group.ecs_container_insights",
+        "MAN/decommission/module.retail_app_ecs.aws_cloudwatch_log_resource_policy.eventbridge_ecs",
+        "MAN/decommission/module.retail_app_ecs.module.alb.aws_lb.this",
+        "MAN/decommission/module.retail_app_ecs.module.alb.aws_security_group.this",
+        "MAN/decommission/module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix",
+        "MAN/decommission/module.retail_app_ecs.module.ui_service.aws_ecs_service.this",
+        "MAN/decommission/module.retail_app_ecs.module.carts_service.aws_ecs_service.this",
+        "MAN/decommission/module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role",
+        "MAN/decommission/module.retail_app_ecs.module.carts_service.aws_iam_role.task_role",
+        "MAN/decommission/module.retail_app_ecs.module.carts_service.aws_security_group.this",
+        "MAN/decommission/module.retail_app_ecs.module.catalog_service.aws_ecs_service.this",
+        "MAN/decommission/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this",
+        "MAN/decommission/module.dependencies.aws_security_group.catalog_opensearch_sg",
+        "MAN/decommission/module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role",
+        "MAN/decommission/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db",
+        "MAN/decommission/module.dependencies.module.catalog_rds.aws_rds_cluster.this",
+        "MAN/decommission/module.dependencies.module.catalog_rds.aws_security_group.this",
+        "MAN/decommission/module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch",
+        "MAN/decommission/module.retail_app_ecs.module.catalog_service.aws_iam_role.task_role",
+        "MAN/decommission/module.retail_app_ecs.module.catalog_service.aws_security_group.this",
+        "MAN/decommission/module.retail_app_ecs.module.checkout_service.aws_ecs_service.this",
+        "MAN/decommission/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default",
+        "MAN/decommission/module.dependencies.module.checkout_elasticache_redis.module.aws_security_group.aws_security_group.cbd",
+        "MAN/decommission/module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role",
+        "MAN/decommission/module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role",
+        "MAN/decommission/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this",
+        "MAN/decommission/module.retail_app_ecs.module.checkout_service.aws_security_group.this",
+        "MAN/decommission/module.retail_app_ecs.module.orders_service.aws_ecs_service.this",
+        "MAN/decommission/module.retail_app_ecs.aws_ecs_cluster.cluster",
+        "MAN/decommission/module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role",
+        "MAN/decommission/module.retail_app_ecs.aws_kms_key.cmk",
+        "MAN/decommission/module.retail_app_ecs.aws_secretsmanager_secret.mq",
+        "MAN/decommission/module.dependencies.aws_mq_broker.mq",
+        "MAN/decommission/module.dependencies.aws_security_group.mq",
+        "MAN/decommission/module.retail_app_ecs.aws_secretsmanager_secret.orders_db",
+        "MAN/decommission/module.dependencies.module.orders_rds.aws_rds_cluster.this",
+        "MAN/decommission/module.dependencies.module.orders_rds.aws_security_group.this",
+        "MAN/decommission/module.retail_app_ecs.module.orders_service.aws_iam_role.task_role",
+        "MAN/decommission/module.retail_app_ecs.module.orders_service.aws_security_group.this",
+        "MAN/decommission/module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role",
+        "MAN/decommission/module.retail_app_ecs.module.ui_service.aws_iam_role.task_role",
+        "MAN/decommission/module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks",
+        "MAN/decommission/module.retail_app_ecs.module.ui_service.aws_security_group.this",
+        "MAN/decommission/module.vpc.module.vpc.aws_route_table.private",
+        "MAN/decommission/module.vpc.module.vpc.aws_nat_gateway.this",
+        "MAN/decommission/module.vpc.module.vpc.aws_eip.nat",
+        "MAN/decommission/module.vpc.module.vpc.aws_route_table.public",
+        "MAN/decommission/module.vpc.module.vpc.aws_internet_gateway.this",
+        "MAN/decommission/module.vpc.module.vpc.aws_subnet.private",
+        "MAN/decommission/module.vpc.module.vpc.aws_subnet.public",
+        "MAN/decommission/module.vpc.module.vpc.aws_vpc.this"
       ]
     },
     {
       "path": "executive/brief.md",
-      "sha256": "bce855e2d8975bf23ad99a59764feb2cb32cdcc00593b7fe0b32f8abf9e54ea0",
-      "bytes": 36101,
+      "sha256": "9f9e7e9543d37e36941bf5cc7a520205bfa46680e046076899753754579510ad",
+      "bytes": 36269,
       "run_bound": true
     },
     {
       "path": "executive/decisions.md",
-      "sha256": "6ea4ab6cfbb1a71bcc8bebbb2d5238a21e1c30c14726153aac945b0332ff9115",
-      "bytes": 457230,
+      "sha256": "f82fa0b36018378552eb14470aceb95b6e4a28a1c038ada8d6e6b797294e63c7",
+      "bytes": 549090,
       "run_bound": true
     },
     {
       "path": "financial/cost-coverage.md",
-      "sha256": "1b1f3c2fd455d50f9a1c7ce08948ae57e4b8904dc3ce479621eadd6dba277d80",
-      "bytes": 95145,
+      "sha256": "592ce3f8a43692a83c7a0ee9eab391bf418147c275c2c8c43a7fa4a4b5f273f7",
+      "bytes": 95205,
       "run_bound": true
     },
     {
       "path": "financial/cost-model.json",
-      "sha256": "84d462c7320d8c075f92dcf9ef05919c45a220a8cdbe7fc198e7eade1815b81b",
-      "bytes": 186224,
+      "sha256": "79ccec9d81479d7cdb39b3bef95048da00dceee4a4303c61837ae4deaaed885d",
+      "bytes": 186372,
       "run_bound": true
     },
     {
       "path": "financial/mapping.csv",
-      "sha256": "8923d7b0aa0c17e5f2a5c7e088a5a3112d55b51c9e80d1772dae14d4871ff2c8",
-      "bytes": 16523,
+      "sha256": "44b825428008c1b5567c53fb7bb8950ec1cb828965cd0c8f9106eb6e1378d8a6",
+      "bytes": 30842,
       "run_bound": false
     },
     {
       "path": "financial/price-snapshot.json",
-      "sha256": "908362fac52b424d0162ea10694b69f9bb10a13cd5801c6cd93e549b65eb755c",
+      "sha256": "3e9d6e542aca43f6490b01422e8ffa7d9953df986a09c0a5c0eb3a070a399b84",
       "bytes": 2441,
       "run_bound": true
     },
     {
       "path": "financial/priced-resources.csv",
-      "sha256": "24a74122c89d54f5d0246b3ce808480c2039cee7827e5a5f720f0fe1652a9814",
-      "bytes": 34948,
+      "sha256": "33491b6249a6aa408166f46e24c739a9878e8358d17b0b8b07ec95067a253d01",
+      "bytes": 34974,
       "run_bound": false
     },
     {
       "path": "index.html",
-      "sha256": "c23b3826866016511b042c754a689735a0b4372741b20e74de6c4bf9aaf95975",
-      "bytes": 115430,
+      "sha256": "b7bf4db3fb1c0f9823e735beaecdaba87d17ad1dee5b751708422cecb74b4ef0",
+      "bytes": 116195,
       "run_bound": true
     },
     {
       "path": "inputs-template.yaml",
-      "sha256": "36364d632beb0c7df22b73582714f1c1b86a71b35fa57043d7bf2ed5f19b947a",
-      "bytes": 51701,
+      "sha256": "90618e3b36a9b172882e70f7870b2e8ff3362dd8eb90cb3d0f42f021c94f5602",
+      "bytes": 77186,
       "run_bound": true
     },
     {
       "path": "migration/actions.csv",
-      "sha256": "6368f64df9dbf9d551593c9fe3fbc38d29c663308efff9626167b666d51ef6d9",
-      "bytes": 398137,
+      "sha256": "b99873a07091a7b6cd0ae90469455f5e72dd9266f9dd2adff620d98728380892",
+      "bytes": 441602,
       "run_bound": false
     },
     {
       "path": "migration/application-chain.csv",
-      "sha256": "5bc5b317891228e622ac3a4910918cbc60836d4094de6da0ca526a0bc8433db8",
-      "bytes": 45809,
+      "sha256": "4458a8bec8607e7ec3b8086784e5d8bed000ac9aeb091a86b6862b11428c208f",
+      "bytes": 46001,
       "run_bound": false
     },
     {
       "path": "migration/applications.csv",
-      "sha256": "45b79e3a67b155d64bd1df5c7112dda21affe76a2bb4b8a0029fd69889df21b3",
-      "bytes": 16027,
+      "sha256": "77b9bd3200396f2e0624afedadd4a4132d217731a4b245a022d5aa86f3a9bdfe",
+      "bytes": 17758,
       "run_bound": false
     },
     {
       "path": "migration/data-movement-plan.json",
-      "sha256": "fb47e739c78b3a1c8159de7072b946ded9121374b71736b13f9deb47598d56b4",
-      "bytes": 227994,
+      "sha256": "543fd903ee3ca18617a49bb8f331357710173f41a277032bdb2cd36d290ca29b",
+      "bytes": 228316,
       "run_bound": true
     },
     {
@@ -1551,58 +1806,58 @@
     },
     {
       "path": "migration/data-movement.json",
-      "sha256": "05b434b60050aed6eac0ec342fc5831853468e7b646d822334fbb79a0f9b09ed",
-      "bytes": 23548,
+      "sha256": "eda9278c5b22937b8ccf9c71e7c05c5843df95a0b62e48f56f286bbf89588456",
+      "bytes": 23862,
       "run_bound": true
     },
     {
       "path": "migration/data-movement.md",
-      "sha256": "e793377b51dfcf294dffec3d86bfe01a0cb870e8b20e21c4ecf9851768613e0b",
-      "bytes": 17249,
+      "sha256": "b7cd636590b630a28ee435ba054ea71a7d24233dc8627c30a0957ad7f4df7211",
+      "bytes": 17565,
       "run_bound": true
     },
     {
       "path": "migration/decisions.csv",
-      "sha256": "743999c23620463024b2e312f345d9a42e5dd296ce1ba00d68418d88f05dca25",
-      "bytes": 153293,
+      "sha256": "2719e8d40121cfd3e24c42e0bbc01d8a714439c3ddb7c14dd91d0705ee335928",
+      "bytes": 291596,
       "run_bound": false
     },
     {
       "path": "migration/execution-actions.csv",
-      "sha256": "d5d902a71689bd4d132e8f30c73ad574722db4c41357a00e93a757a421c2cf2e",
-      "bytes": 468593,
+      "sha256": "b492e00853fb0255f3e12be48bb7c91b173e6ff3769788faf3eb6f2575466433",
+      "bytes": 382985,
       "run_bound": false,
       "kind": "actions-csv",
-      "action_ids_list": "AL-db33b924041c"
+      "action_ids_list": "AL-a1ba3049be40"
     },
     {
       "path": "migration/landing-zone-requirements.md",
-      "sha256": "5820c161bcfeb638cfd5311c69bde4b1b14c917b0cd6ae39a561e3af7025cc7d",
-      "bytes": 55403,
+      "sha256": "e4adc1f79d2466d1b4fb9950d7532ec9fffb97a72650bf8c802f3fe689edace5",
+      "bytes": 62037,
       "run_bound": true
     },
     {
       "path": "migration/prerequisites.md",
-      "sha256": "a58e4c6a51be5a1430dfa1d545c0eee01253df90cd81e5a3ce3bc52e476939a1",
-      "bytes": 43570,
+      "sha256": "9ca873bc924dd4593b2a103c223201f7d9ca89ec85d79d0b03a31c9541af76aa",
+      "bytes": 43072,
       "run_bound": true
     },
     {
       "path": "migration/roadmap.md",
-      "sha256": "dc6d21d47976ae92749a4f5a6531e0c0185c09cafb9aa42b33577e9007d59f32",
-      "bytes": 379652,
+      "sha256": "85ed46ead868695e3b952642401f696086d766cad954ad7d6fafc20fdfa99d8d",
+      "bytes": 338419,
       "run_bound": true
     },
     {
       "path": "migration/source-target.csv",
-      "sha256": "68e50a5b2a0f0f98cc27d9062f1d4dd9fb32c17405185a8294314fb7c9408349",
-      "bytes": 20667,
+      "sha256": "d28e626fe3a559bfad0ea26cbb33c633e6d3fba1c2a7a25f8177d730f60b0cf6",
+      "bytes": 20809,
       "run_bound": false
     },
     {
       "path": "migration/technical-sequencing.md",
-      "sha256": "aae35a9862bf6d7ad018e78be6346178c02726aad8fa1b7781971afaaf5beb36",
-      "bytes": 16525,
+      "sha256": "021a42b30690dcf6fb182b7b0ba623a832851175d78649c77032a2423ae87c4d",
+      "bytes": 16962,
       "run_bound": true
     },
     {
@@ -1613,18 +1868,25 @@
     },
     {
       "path": "migration/work-board.csv",
-      "sha256": "fc5e0e96aedb98b0abf5f03da6226e5530dd189b71f27982723d348449c52597",
-      "bytes": 428655,
+      "sha256": "df67830a6145937f63a2ec20e2bec40e5001bb550f33fbe0e179e818f5ba71de",
+      "bytes": 484247,
       "run_bound": false
     },
     {
+      "path": "migration/work-items.json",
+      "sha256": "dd3bf92fefe9dff96df17f0ecf008ca438cf442b052a9e777e841eb412ec6c37",
+      "bytes": 722845,
+      "run_bound": true
+    },
+    {
       "path": "migration/work-packages.csv",
-      "sha256": "0f8d99422b37fa44375e8479686a4a5d33d74a32f3d28414613b10d6d86f0754",
-      "bytes": 106137,
+      "sha256": "6252809a7baae9a5b6341a894960576c58810760d366bee6c5ee111afdde0c74",
+      "bytes": 118378,
       "run_bound": false,
       "kind": "work-packages-csv",
-      "action_ids_list": "AL-db33b924041c",
+      "action_ids_list": "AL-a1ba3049be40",
       "action_ids_except": [
+        "API/service-enablement/EnableServiceRegional/cloud.stackit.loadbalancer",
         "TF/stackit_network.vpc_vpc_private",
         "TF/stackit_network.vpc_vpc_public",
         "TF/stackit_kms_keyring.migrated",
@@ -1645,24 +1907,14 @@
         "TF/stackit_security_group_rule.retail_app_ecs_checkout_service_this_ingress_1",
         "TF/stackit_security_group_rule.retail_app_ecs_orders_service_this_ingress_1",
         "TF/stackit_security_group_rule.retail_app_ecs_ui_service_this_ingress_1",
-        "TF/stackit_service_account.retail_app_ecs_carts_service_task_execution_role",
-        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_carts_service_task_execution_role",
         "TF/stackit_service_account.retail_app_ecs_carts_service_task_role",
         "TF/stackit_authorization_project_role_assignment.retail_app_ecs_carts_service_task_role",
-        "TF/stackit_service_account.retail_app_ecs_catalog_service_task_execution_role",
-        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_catalog_service_task_execution_role",
         "TF/stackit_service_account.retail_app_ecs_catalog_service_task_role",
         "TF/stackit_authorization_project_role_assignment.retail_app_ecs_catalog_service_task_role",
-        "TF/stackit_service_account.retail_app_ecs_checkout_service_task_execution_role",
-        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_checkout_service_task_execution_role",
         "TF/stackit_service_account.retail_app_ecs_checkout_service_task_role",
         "TF/stackit_authorization_project_role_assignment.retail_app_ecs_checkout_service_task_role",
-        "TF/stackit_service_account.retail_app_ecs_orders_service_task_execution_role",
-        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_orders_service_task_execution_role",
         "TF/stackit_service_account.retail_app_ecs_orders_service_task_role",
         "TF/stackit_authorization_project_role_assignment.retail_app_ecs_orders_service_task_role",
-        "TF/stackit_service_account.retail_app_ecs_ui_service_task_execution_role",
-        "TF/stackit_authorization_project_role_assignment.retail_app_ecs_ui_service_task_execution_role",
         "TF/stackit_service_account.retail_app_ecs_ui_service_task_role",
         "TF/stackit_authorization_project_role_assignment.retail_app_ecs_ui_service_task_role",
         "REF/semantic/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this/credentials-and-keys-settings",
@@ -1670,7 +1922,7 @@
         "TF/stackit_mongodbflex_instance.dynamodb_tables",
         "TF/stackit_valkey_instance.dependencies_checkout_elasticache_redis_default",
         "TF/stackit_valkey_credential.dependencies_checkout_elasticache_redis_default",
-        "TF/stackit_application_load_balancer.retail_app_ecs_alb_this",
+        "TF/stackit_logs_access_token.retail_app_ecs_eventbridge_ecs",
         "TF/stackit_logs_instance.logs_retention_180d",
         "TF/stackit_ske_cluster.retail_app_ecs_cluster",
         "TF/stackit_mariadb_instance.dependencies_catalog_rds_this",
@@ -1683,223 +1935,236 @@
         "API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.orders_db",
         "TF/stackit_postgresflex_database.dependencies_orders_rds_this_orders",
         "TF/stackit_rabbitmq_instance.dependencies_mq",
-        "TF/stackit_rabbitmq_credential.dependencies_mq"
+        "TF/stackit_rabbitmq_credential.dependencies_mq",
+        "TF/stackit_application_load_balancer.retail_app_ecs_alb_this"
       ]
     },
     {
       "path": "pages/applications.html",
-      "sha256": "353d0340c11ac14cfaf5e74556356ff5d10d467f17404891610f0ba9b62776bc",
-      "bytes": 138377,
+      "sha256": "77e6fe0964d4874b9e2dedb92e5f30ed894c0078edb126e6e67ba8a4e92624c0",
+      "bytes": 142224,
       "run_bound": true
     },
     {
       "path": "pages/architecture.html",
-      "sha256": "b85b8d31f7cb6beedbfc4599f311873905b42fdffa28c9c6e0b4fb826b770d23",
-      "bytes": 751907,
+      "sha256": "a0e4cc8911dab0f35fb2d3718fa09ce08433b1d0167135e454f5917a2a90c2e5",
+      "bytes": 753070,
       "run_bound": true
     },
     {
       "path": "pages/cost.html",
-      "sha256": "06c8c22a00e65f6d7cdcbf2ebee56aacc3004d217667e36d8d05ef8e84fbb94e",
-      "bytes": 193249,
+      "sha256": "f5023154e0fc842761743b4d156206e65e4fa66f9508aabbc07d456016929f01",
+      "bytes": 206163,
       "run_bound": true
     },
     {
       "path": "pages/decisions.html",
-      "sha256": "7e3b5365273a18cf4204704276c15f698764109a92ea16f6c742f8f5de0e7201",
-      "bytes": 1034940,
+      "sha256": "abb2e3a021a9f43e8469ca89be533808f384f6c5c52c22753b0cc5daea99d785",
+      "bytes": 1115021,
       "run_bound": true
     },
     {
       "path": "pages/decisions/g01.html",
-      "sha256": "a72df7952a889305c1860b5445264afbc0b1005623dafa844698e5b2da7769ed",
-      "bytes": 376188,
+      "sha256": "7d996b01737b29c4a572c19934689affbe5a66ac25d4eaa8e468c58404ebda6d",
+      "bytes": 391358,
       "run_bound": true
     },
     {
       "path": "pages/decisions/g02.html",
-      "sha256": "c435427c04ba627df4ceda4e347eb02cc7804aff8eb393575c88858bba5f8ebe",
-      "bytes": 84035,
+      "sha256": "6270056933de664b080778ca7e318773ef38b5c4317554e8d6a377135d3a1219",
+      "bytes": 89755,
       "run_bound": true
     },
     {
       "path": "pages/decisions/g03.html",
-      "sha256": "e374fc6f043e7da20f545bfc1eb1ed734e857c3fb5dca6359d03c00ccb2a4e03",
-      "bytes": 58806,
+      "sha256": "ff2c94f089b75c42fd847bf5ad5f1054844d6d0c831a5fcc9f830e1e8dd8b8bd",
+      "bytes": 62264,
       "run_bound": true
     },
     {
       "path": "pages/decisions/g04.html",
-      "sha256": "5ebd8ce53889a2f227e43ffa806d7b26c751b658e59ef0e7fbfd1f881677a17c",
-      "bytes": 50361,
+      "sha256": "dcac6f9425bc37f4bf7a808b6852e8ce646505fc66f0bb7d74b31d5cb1220efe",
+      "bytes": 51473,
       "run_bound": true
     },
     {
       "path": "pages/decisions/g05.html",
-      "sha256": "f4213a94b32ec8fac0bd25a96b702d2349a62336146a59fdf15349ec3bec92de",
-      "bytes": 38442,
+      "sha256": "2f296c165d00135fa18bc89a48989273d56c7d13daa41b00f17e1c2efd312f76",
+      "bytes": 47283,
       "run_bound": true
     },
     {
       "path": "pages/decisions/g06.html",
-      "sha256": "4b23a616ca653dd8c7e23528eebb3d86461b1be9d7738974069184e77c61769e",
-      "bytes": 69033,
+      "sha256": "c6ee9ac0de49ea144af6f2ef27297a22c7e909ec37597ae8ee53193955374cf2",
+      "bytes": 69329,
       "run_bound": true
     },
     {
       "path": "pages/decisions/g07.html",
-      "sha256": "66cadc6fb659c1233b740654de982bfcbdae297ec537d99da4d8ae58324f8f7b",
-      "bytes": 138858,
+      "sha256": "449213e736315975438c2a189195fabe7c6bdfdd78a5a2be570c47b125ecf637",
+      "bytes": 38090,
       "run_bound": true
     },
     {
       "path": "pages/decisions/g08.html",
-      "sha256": "9af6772f089a0d734799acb2d5aa491907adc1de3255e940fd1b46118090cda8",
-      "bytes": 46277,
+      "sha256": "daca27af0ba51da9768a9c31a4e471bc7af943f6990344f194440ce9bfc64d9b",
+      "bytes": 144034,
+      "run_bound": true
+    },
+    {
+      "path": "pages/decisions/g09.html",
+      "sha256": "485530b38fd225d585955974f091a7149828883671f2ce1b6488ff4a6b812559",
+      "bytes": 47750,
       "run_bound": true
     },
     {
       "path": "pages/engineering.html",
-      "sha256": "4c1796f9c66e63386edf6df81383c8a9514931c4b63f562321903bce0ea13c51",
-      "bytes": 640495,
+      "sha256": "f3ed4f01da364fcf132a6e8f85197f938b495695c354ee4ddb69bf47fad0bc45",
+      "bytes": 619561,
       "run_bound": true
     },
     {
       "path": "pages/evidence.html",
-      "sha256": "dc5f490baab4ce21dabf86ac8f09b39d0e18d439f0b5f67b2d0a6c2e2eb1a796",
-      "bytes": 103218,
+      "sha256": "ddd830cbe66076f6d3d193ca21657f254de2688900e74ffd79d49111eed678c2",
+      "bytes": 104818,
       "run_bound": true
     },
     {
       "path": "pages/migration.html",
-      "sha256": "7a81a5a663208f7e39cc7d06ab546cac535ed091aab8059c9ef8ba132d0cbd5a",
-      "bytes": 119576,
+      "sha256": "b99736f761d1e7bbd439f4ef464faf5f42d2723e29f8b38195e5d89a3905ba91",
+      "bytes": 131443,
       "run_bound": true
     },
     {
       "path": "pages/operations.html",
-      "sha256": "721b9dfd2622e89c489bc46ab5840096c2c687ab3d5888178a68a683751917b4",
-      "bytes": 69937,
+      "sha256": "f448a756a739a586a13aeb54a7bfe234a57e7ecd08b5712e4aa5f6dfe63b072b",
+      "bytes": 70564,
       "run_bound": true
     },
     {
       "path": "pages/security-assurance.html",
-      "sha256": "52c52718f3a84e62580f3fbf3945d5a35a8d5e69e5130f021b89ac09171c225b",
-      "bytes": 135172,
+      "sha256": "89ebd6798f5dfaddd580a30256887b7942268f398d519ac9f397b39091aeb166",
+      "bytes": 133596,
       "run_bound": true
     },
     {
       "path": "pages/sovereignty.html",
-      "sha256": "a6b63d93352e1f65069f75c5b0f33fd62e99d9ed69431e05dfa82840cca9ef50",
-      "bytes": 78828,
+      "sha256": "4d73d68ed904ef1dbf78368ce73f19ff667ecad298d9166339a0d1910a1c115b",
+      "bytes": 73520,
       "run_bound": true
     },
     {
       "path": "pages/target-fit.html",
-      "sha256": "290fe16319013f1bf6fe57dc03f325488d078e119c92497492377e0bb2a97926",
-      "bytes": 212753,
+      "sha256": "01b82e5676d842d5bf7aa7a3b2dffeb4c5baf13ecb985783b1ae3b7a5ed10271",
+      "bytes": 222226,
       "run_bound": true
     },
     {
       "path": "pages/work-board.html",
-      "sha256": "ac8dcb86c2291a2b47e729e31fe1a05a078bb84233f61d06cdf3f993bd0d24e3",
-      "bytes": 858045,
+      "sha256": "055f02e6cc587fbf8635d3ccad94d3b24ca33b4c2e760167d583e50edf2d74da",
+      "bytes": 989867,
       "run_bound": true
     },
     {
       "path": "progress-template.yaml",
-      "sha256": "ba8bca84219fb2be067eed2df2ab7e03ebcd82d13700e3c7a8c315ad667e8c60",
-      "bytes": 113746,
+      "sha256": "5823075858140299e0167cfe67bdd0091220ff43aea9afba833d93c587566e13",
+      "bytes": 115744,
       "run_bound": true
     },
     {
       "path": "target-plan.json",
-      "sha256": "29cde1ab3c243d1cd28f30eed2800974a7715a687c24596cf22b51ba72b6efc4",
-      "bytes": 292482,
+      "sha256": "c514691ccb6167c2d0f32934b46b8e2d460c6b15a69eb9174ea3f93f18018c34",
+      "bytes": 274281,
       "run_bound": true
     },
     {
+      "path": "target-values-template.tfvars",
+      "sha256": "335f78f7aa0a1ac9e1b083d900d8056d8da72df4968005c878e7aaf96e0c3832",
+      "bytes": 19727,
+      "run_bound": false
+    },
+    {
       "path": "terraform/README.md",
-      "sha256": "2f4c71a61f02436c14fee3301bf2d371fe2e3c409619e082217e102e2d2cc8fb",
-      "bytes": 45260,
+      "sha256": "a5e41b2c8c4ade553cee522e69b58cc0c65e8d1a89c3d6086630f3bfab3a70d7",
+      "bytes": 47834,
       "run_bound": true
     },
     {
       "path": "terraform/applications/carts.json",
-      "sha256": "5ff6766d146c67e08c6be144b503ca2af70a60226d1270493a43e18f22d62c43",
-      "bytes": 10792,
+      "sha256": "1679f350788c1229d9c0ee287e83c2859f1ab4362fb5cdb0af2f2be240e50e31",
+      "bytes": 10849,
       "run_bound": false
     },
     {
       "path": "terraform/applications/carts.templates.yaml",
-      "sha256": "3b75036d84126a1d3bcc6d1891e8e70ad9b07a0042a4c4cc76bb3e6cc52bd68d",
-      "bytes": 2222,
+      "sha256": "799d3ff62d99ab70072da87cc96be9c3d134600f87e5c16cb5d901b44b65919b",
+      "bytes": 2311,
       "run_bound": false
     },
     {
       "path": "terraform/applications/catalog.json",
-      "sha256": "cbe8b753328cd757ac0f78b1973ae29c39c6123db47bb6459f3eebe20ceecde9",
-      "bytes": 26170,
+      "sha256": "0640ac1d964213cee0735685def0c7420bc5d39370bcd9484b251bed448ba55a",
+      "bytes": 26229,
       "run_bound": false
     },
     {
       "path": "terraform/applications/catalog.templates.yaml",
-      "sha256": "bcd29cd3ea30feb41572767f8b8e61d06b609902bf56c13d3ca7a6d0f1e80b0f",
-      "bytes": 4188,
+      "sha256": "abf92bfd8e8190b64ec3869cdc81ca013d3caae927c7a79f231bc2b61765df61",
+      "bytes": 4277,
       "run_bound": false
     },
     {
       "path": "terraform/applications/checkout.json",
-      "sha256": "e76b9c53e058a27029360b5ef99e4d7b8cbfd10d52f10f4b411b102389360b01",
-      "bytes": 13810,
+      "sha256": "c86777257879dca7de1ff4eac38b70d6b0635be8ba4a08e480feb65e9c8520a2",
+      "bytes": 14860,
       "run_bound": false
     },
     {
       "path": "terraform/applications/checkout.templates.yaml",
-      "sha256": "91052ba8b1bf52693422b34f43a35a3a0dff2d21f12a73a5a61c0ef14edec30e",
-      "bytes": 2451,
+      "sha256": "b0d2432b46e1407ef8780e5336bf0645f9aea349eebdf85314eb1b7735d6221d",
+      "bytes": 2721,
       "run_bound": false
     },
     {
       "path": "terraform/applications/orders.json",
-      "sha256": "5e9930f6869992d657ce1b2a9cd2e6dff2650ae8724a95232263861780ba7a66",
-      "bytes": 20593,
+      "sha256": "2b935eaf0700ef63330caaae19a92042220418b0ee3dbed45749f611bc880714",
+      "bytes": 20721,
       "run_bound": false
     },
     {
       "path": "terraform/applications/orders.templates.yaml",
-      "sha256": "00660341f995d79838d021bad63838a660a1ff71ddeb96c9dfd1e6017ad2893d",
-      "bytes": 4075,
+      "sha256": "90e8d407285857d07f6dd91182d74b7c00efe5736877a6132b4596913381118b",
+      "bytes": 4164,
       "run_bound": false
     },
     {
       "path": "terraform/applications/ui.json",
-      "sha256": "ea0e4d2cfd54265a1906ce7642e6c757c37394919f8bed0c568c42f6a076b866",
-      "bytes": 11101,
+      "sha256": "035d041001e86d1b06f616203a40ec10467a11026b534e38e18fca13ab2a6f04",
+      "bytes": 15089,
       "run_bound": false
     },
     {
       "path": "terraform/applications/ui.templates.yaml",
-      "sha256": "794695851af87cec7710f08dde42f245bcc3e8e92590d29d390b6d8a212ae7fc",
-      "bytes": 2716,
+      "sha256": "f6450f75596b2c7c98cef71d157db9bd2948e2af52ead85deea1a79087896376",
+      "bytes": 2422,
       "run_bound": false
     },
     {
       "path": "terraform/data.tf",
-      "sha256": "140b567f0208f2b2bec26cebe2a71aae32515e908b9200a2ec8c08072489c555",
-      "bytes": 41779,
+      "sha256": "415b7fe5edc944a55c0f0b1420939389f8995e2b5ea4b9c45997e9ca592e94dd",
+      "bytes": 43333,
       "run_bound": false
     },
     {
       "path": "terraform/handover/broker-dependencies_mq/data-move.md",
-      "sha256": "50dd002f692498f241b6d4490d576b53705bc28b735b09b3046e97fa2f7e12b5",
-      "bytes": 15511,
+      "sha256": "dbf1303ba76466e2b846989e1aefee788ce60574b52ed6a7e7c9eba53d95c3a5",
+      "bytes": 15537,
       "run_bound": false
     },
     {
       "path": "terraform/handover/cache-dependencies_checkout_elasticache_redis_default/data-move.md",
-      "sha256": "2d5b9aa78fce9987afa474025be503a16759317dc32e9c7bb63b70326d3e46c4",
-      "bytes": 30372,
+      "sha256": "ecd3a364a0a510aa6fc0530b9e57e717ff3824891d86e74a8b84842e11e5773a",
+      "bytes": 30427,
       "run_bound": false
     },
     {
@@ -1910,20 +2175,110 @@
     },
     {
       "path": "terraform/handover/database-dependencies_catalog_rds_this/data-move.md",
-      "sha256": "dc649607d4d41d61914216d0fe49a465666ce7903c80c41c0895b1df063835c1",
-      "bytes": 30820,
+      "sha256": "8b30275325d94d5a5a6834f17d0b5c6ae161bb61be5398abc31e01c64fb69d39",
+      "bytes": 30875,
       "run_bound": false
     },
     {
       "path": "terraform/handover/database-dependencies_orders_rds_this/data-move.md",
-      "sha256": "2eb08b9f7bec3d7c58fb91eab62918e050d3dd6a4d4fef9539e66930dd26b841",
-      "bytes": 24529,
+      "sha256": "e30547b6c4841836f4a1052e2aa9b2eefb8a4d90b517f29790fa8c48a91def41",
+      "bytes": 24531,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/handover/ecs-execution-retail-app-ecs-carts-service-task-execution-role/logs.md",
+      "sha256": "8e7f319efdf1357ede0948fb5e4428ab4404cfaaa2fb36b4cf895a11dcf65967",
+      "bytes": 1507,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/handover/ecs-execution-retail-app-ecs-carts-service-task-execution-role/pull.md",
+      "sha256": "46e4a88f6f15b344ec4728defde287b49fcebf42be87fb8256e820af0d1638c4",
+      "bytes": 1823,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/handover/ecs-execution-retail-app-ecs-carts-service-task-execution-role/secrets.md",
+      "sha256": "b0cf3fed75ff299ea248b62b92717703197813a79efa8381401e49c31729b578",
+      "bytes": 1581,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/handover/ecs-execution-retail-app-ecs-catalog-service-task-execution-role/logs.md",
+      "sha256": "4a500d12c430cc00e524d1c034df3e2340e9cd805dfef2b29aefa601b9ba127c",
+      "bytes": 1517,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/handover/ecs-execution-retail-app-ecs-catalog-service-task-execution-role/pull.md",
+      "sha256": "28b15b060c49d650f8a39d49167a3908343fd7bcac073202441360763f6df563",
+      "bytes": 1840,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/handover/ecs-execution-retail-app-ecs-catalog-service-task-execution-role/secrets.md",
+      "sha256": "bd3000d531c89ac914c454e1f89f7b69272f6f10f29d0f1c763b79c64865ebf3",
+      "bytes": 2624,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/handover/ecs-execution-retail-app-ecs-checkout-service-task-execution-role/logs.md",
+      "sha256": "32e898bb1592e2053960c876bc0f9e3e6000f8d7486dbd1aaa60b8c1a91a7de3",
+      "bytes": 1522,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/handover/ecs-execution-retail-app-ecs-checkout-service-task-execution-role/pull.md",
+      "sha256": "f5de60d83892126a4e696e7ea6edff731100a123201c4e8a18f15db84635cec6",
+      "bytes": 1848,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/handover/ecs-execution-retail-app-ecs-checkout-service-task-execution-role/secrets.md",
+      "sha256": "30e77483e1afd3fae86814605504cbf51d3d50a9301d9f8f5187e8649405d0bc",
+      "bytes": 1590,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/handover/ecs-execution-retail-app-ecs-orders-service-task-execution-role/logs.md",
+      "sha256": "a68a0c1102b43ee392a93a0b3d4b50a0712946919e5326f7a0962f01ffef6b0f",
+      "bytes": 1512,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/handover/ecs-execution-retail-app-ecs-orders-service-task-execution-role/pull.md",
+      "sha256": "92c5403b864da5cf168c053879b5429a1f57ba28bbef47a2443d1b4bd64666b2",
+      "bytes": 1832,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/handover/ecs-execution-retail-app-ecs-orders-service-task-execution-role/secrets.md",
+      "sha256": "c89e8e836ca2ebb75d27e6a41ae86f5e3ed82065522e275b8205bb58e214e1a8",
+      "bytes": 2842,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/handover/ecs-execution-retail-app-ecs-ui-service-task-execution-role/logs.md",
+      "sha256": "c6a65b631ba4367e539759d30a801f44041e38938a6a2efa0578559884c66765",
+      "bytes": 1492,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/handover/ecs-execution-retail-app-ecs-ui-service-task-execution-role/pull.md",
+      "sha256": "2554a63644aa664198a8d750d28ec8ed3c191cace747474d6aad37e42a19637a",
+      "bytes": 1800,
+      "run_bound": false
+    },
+    {
+      "path": "terraform/handover/ecs-execution-retail-app-ecs-ui-service-task-execution-role/secrets.md",
+      "sha256": "3044ff988b4466a61959b99d0424c691f9489e3393ac2f854be4af205035ec71",
+      "bytes": 1572,
       "run_bound": false
     },
     {
       "path": "terraform/handover/search-dependencies_catalog_opensearch_this/data-move.md",
-      "sha256": "89dd836aadd3964639ac101899de0ad7a82d136541fd893029a19317adf6c381",
-      "bytes": 16387,
+      "sha256": "a529abf9e6ab5e259015654f1376ffb68c36bc65f5fb6a71efb556faadecc655",
+      "bytes": 16416,
       "run_bound": false
     },
     {
@@ -1934,74 +2289,74 @@
     },
     {
       "path": "terraform/identity.tf",
-      "sha256": "8accc8e3f1f8d387764c8bdf2ce01dc11a628bce9d3089be1e07bf6fa785c371",
-      "bytes": 41626,
+      "sha256": "cdb7c998e1a0497ecf9d036b9a15e697ae46fb1d2e0b72bdd2dc1964c69cd55b",
+      "bytes": 42765,
       "run_bound": false
     },
     {
       "path": "terraform/kubernetes.tf",
-      "sha256": "aafaf9a9fd902fd0e91e8e1045fb50dc043f8cdc9c3728d66e4656daa7ff086d",
-      "bytes": 12696,
+      "sha256": "ec83d387dca9ae7e76ac7fe419a7272aebf9fa3dafb46ac4e969899008c517fb",
+      "bytes": 13392,
       "run_bound": false
     },
     {
       "path": "terraform/kubernetes/carts/manifests.yaml",
-      "sha256": "a43a91c4b6936943be229cd8100b666c51e83d5efdc8b9eba4a61cadc434fa0c",
-      "bytes": 11840,
+      "sha256": "a9c9bcdff5e4ba86b73e88724cd79ad7065a59df91539813713ebc21509ee84b",
+      "bytes": 12632,
       "run_bound": false
     },
     {
       "path": "terraform/kubernetes/catalog/manifests.yaml",
-      "sha256": "860ffccf0bb2337e1cdc9ed94eccd9f26fd751c375980fab49d17ede6b84ad4d",
-      "bytes": 14013,
+      "sha256": "f705f0f35ad0eccdfae06d5208973b58958d028a0a57fb420817f11d6decc0fe",
+      "bytes": 14815,
       "run_bound": false
     },
     {
       "path": "terraform/kubernetes/checkout/manifests.yaml",
-      "sha256": "6454af89e8899b3fedff87d965d351c242160162054e4acaf36983ab898c75b4",
-      "bytes": 12147,
+      "sha256": "891705f5a808bcebdbb979adf59b26f28428594de596cf6b918d710601c836bd",
+      "bytes": 14053,
       "run_bound": false
     },
     {
       "path": "terraform/kubernetes/orders/manifests.yaml",
-      "sha256": "6eece4670d6f899b1c39f503edb873bcf7c8de523908d85ad9aaafab13fb9eee",
-      "bytes": 13860,
+      "sha256": "f6e5e3f011ce8a74fd439335aa2b3cdac6d9d0bcbd0c57e21fbf96a62485875d",
+      "bytes": 14657,
       "run_bound": false
     },
     {
       "path": "terraform/kubernetes/ui/manifests.yaml",
-      "sha256": "87eea4cc000296df2724ae474a9c5965aa652c34fa844b3c97111655f41ef44f",
-      "bytes": 14606,
+      "sha256": "7a3c785c3f986a4a6731b16c8e8994c741c8a8170523a7f60fad10f6cdcced5d",
+      "bytes": 17976,
       "run_bound": false
     },
     {
       "path": "terraform/loadbalancing.tf",
-      "sha256": "4332e4e4335372f049d09395af4928811692a1dd6ad5bba5e27c7ef5d9d6bd07",
-      "bytes": 8847,
+      "sha256": "a819de441d22b2f8599315d27af5f1b5328911c72ede3be72c951cce8776fbd2",
+      "bytes": 7726,
       "run_bound": false
     },
     {
       "path": "terraform/messaging.tf",
-      "sha256": "0c1a6feb6a6efbfb3abfbd42d474752566efc04e2e3d9bf9474851f94fba4fe3",
-      "bytes": 7900,
+      "sha256": "59588b42c0f429b73c09dc8d9466990212e881f6705501ded7a8e39fc090ea47",
+      "bytes": 8083,
       "run_bound": false
     },
     {
       "path": "terraform/network.tf",
-      "sha256": "413caed5a371063dbf54220fb566d53d983f9f6b67d31f507feff39840dac044",
-      "bytes": 11576,
+      "sha256": "a3014239df66f97311d1567121aa7bcba3d8655a67f2d73b0c70e7c28962719c",
+      "bytes": 11061,
       "run_bound": false
     },
     {
       "path": "terraform/observability.tf",
-      "sha256": "9aa63ca3f2213679df70487bfc34b25892d77cc25dc06f4f8fbfe1ebcd852e3d",
-      "bytes": 5182,
+      "sha256": "64627f6121449ad5e3b71c4e74146e9b98bfc086be97f107ab303bf4d45412c5",
+      "bytes": 7289,
       "run_bound": false
     },
     {
       "path": "terraform/security.tf",
-      "sha256": "273c41065fe41182ae6debaec73c875d772fdc6b9e1b1b5794977815da64ddc7",
-      "bytes": 44735,
+      "sha256": "63af33a932de86a15bf226c913b62fb5c19d3ba2f7ebc9f1986186eff0bc1c9c",
+      "bytes": 45847,
       "run_bound": false
     },
     {
@@ -2012,14 +2367,14 @@
     },
     {
       "path": "terraform/variables.tf",
-      "sha256": "7c84d633758fab58cf329b2fb64a238be9d28c422db7ec9a0dfb19abb7ec2091",
-      "bytes": 39900,
+      "sha256": "c3feba686c98a9e0b9cb6e66c1617774df349f7699027d379e21702bf3ef3aa9",
+      "bytes": 40942,
       "run_bound": false
     },
     {
       "path": "workspace.json",
-      "sha256": "9c8c9f6cad3863f9d23af5ce2e85ed42514cc01adf528f28bf4e99434765c34e",
-      "bytes": 2817808,
+      "sha256": "a3e31e331bc4afb7d15b56cf92f2f9ab45ba2d0e21762404ad331a368a64b6cc",
+      "bytes": 2821798,
       "run_bound": true
     }
   ]

@@ -8,7 +8,7 @@ Source: `module.dependencies.module.catalog_opensearch.aws_opensearch_domain.thi
 
 | # | Step | Method | Owner |
 |---|---|---|---|
-| 1 | **Method decision.** The methods `client-import` (branch A) and `own-tool` (branch B) are both defined below and none is chosen here: the decision `DEC-GEN-CONVERT-DATA-MOVEMENT` of the plan chooses <!-- kind: DECISION --> | every method | not stated |
+| 1 | **Method decision.** The methods `client-import` (branch A) and `own-tool` (branch B) are both defined below and none is chosen here: the decision `DEC-GEN-CONVERT-DATA-MOVEMENT` of the plan chooses between them. <!-- kind: DECISION --> | every method | Owner assignment required |
 | 2 | Write freeze <!-- kind: EXTERNAL; branch: A --> | client-import | Migration Owner |
 | 3 | Final sync <!-- kind: TARGET; branch: A --> | client-import | Data Architect |
 | 4 | Reconcile <!-- kind: TARGET; branch: A --> | client-import | Data Architect |

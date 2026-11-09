@@ -1,0 +1,95 @@
+{
+  "tool": "stacktoit",
+  "action_id": "API/service-enablement/EnableServiceRegional/cloud.stackit.loadbalancer",
+  "mode": "STACKIT_API",
+  "phase": "PREPARE",
+  "operation": {
+    "spec": "STACKIT_OPENAPI",
+    "service": "service-enablement",
+    "api_version": "v2",
+    "operation_id": "EnableServiceRegional",
+    "method": "POST",
+    "path_template": "/v2/projects/{projectId}/regions/{region}/services/{serviceId}",
+    "base_url": "https://service-enablement.api.stackit.cloud",
+    "inputs": [
+      {
+        "name": "projectId",
+        "in": "PATH",
+        "source": "VARIABLE",
+        "value": "TF_VAR_project_id"
+      },
+      {
+        "name": "region",
+        "in": "PATH",
+        "source": "VARIABLE",
+        "value": "TF_VAR_region"
+      },
+      {
+        "name": "serviceId",
+        "in": "PATH",
+        "source": "LITERAL",
+        "value": "cloud.stackit.loadbalancer"
+      }
+    ],
+    "expected_response": {
+      "status": 202
+    },
+    "idempotency": "READ_BEFORE_CREATE",
+    "lookup": {
+      "operation_id": "ListServiceStatusRegional",
+      "method": "GET",
+      "path_template": "/v2/projects/{projectId}/regions/{region}/services",
+      "found_status": 200,
+      "absent_status": 200,
+      "match": {
+        "list": "items",
+        "field": "serviceId",
+        "equals": "cloud.stackit.loadbalancer",
+        "page_query": "cursor",
+        "next_page": "nextCursor",
+        "also": {
+          "field": "state",
+          "in": [
+            "ENABLED",
+            "ENABLING"
+          ]
+        }
+      }
+    },
+    "auth": "the permissions service-enablement.service-state.get (ListServiceStatusRegional, the read first) and service-enablement.service-state.edit (EnableServiceRegional) on the project (x-stackit-authorization of the two operations)",
+    "maturity": "GA"
+  },
+  "depends_on": [],
+  "preconditions": [
+    {
+      "kind": "project-exists"
+    }
+  ],
+  "postconditions": [
+    {
+      "kind": "property-matches",
+      "params": {
+        "property": "state (GetServiceStatusRegional, GET /v2/projects/{projectId}/regions/{region}/services/{serviceId})",
+        "service": "cloud.stackit.loadbalancer",
+        "value": "ENABLED"
+      },
+      "execution": "MANUAL"
+    }
+  ],
+  "rollback": [
+    {
+      "capability": "MANUAL",
+      "how": "DisableServiceRegional (DELETE /v2/projects/{projectId}/regions/{region}/services/{serviceId}) switches the service off again; do it only when nothing in the project uses cloud.stackit.loadbalancer any more, a person decides before it runs"
+    }
+  ],
+  "free_of_decisions": true,
+  "runs_as_written": true,
+  "blocked_by": [],
+  "script": "execution/api/service-enablement/001-enableserviceregional.sh",
+  "environment": [
+    "STACKIT_ACCESS_TOKEN",
+    "STACKIT_API_URL_SERVICE_ENABLEMENT",
+    "TF_VAR_project_id",
+    "TF_VAR_region"
+  ]
+}

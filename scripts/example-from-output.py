@@ -76,12 +76,13 @@ def main() -> int:
 
     # draft line of the console: "Migration     38 drafted · 11 need no resource · 3 manual (of 52 units ..."
     # draft line of the console. Older builds: "Migration     38 drafted · 11 need no resource · 3 manual (of 52 units ...";
-    # newer builds add "· 4 proposed, switched off" and may leave out the "need no resource" part when it is 0.
+    # newer builds add "· 4 proposed, switched off" and may leave out the "need no resource" part when it is 0; builds since #468 add
+    # "(15 of them carry steps)" after it.
     proposed = r"(?: · (?P<off>\d+) proposed, switched off)?"
-    md = re.search(r"Migration\s+(?P<gen>\d+) drafted" + proposed + r"(?: · (?P<none>\d+) need no resource)? · (?P<man>\d+) manual \(of (?P<units>\d+) units", console)
+    md = re.search(r"Migration\s+(?P<gen>\d+) drafted" + proposed + r"(?: · (?P<none>\d+) need no resource(?: \((?P<carry>\d+) of them carry steps\))?)? · (?P<man>\d+) manual \(of (?P<units>\d+) units", console)
     if not md:
         md = re.search(r"STACKIT draft \([^)]*\): (?P<gen>\d+) units generated" + proposed
-                       + r" · (?P<none>\d+) need no resource · (?P<man>\d+) left for the architect", console)
+                       + r" · (?P<none>\d+) need no resource(?: \((?P<carry>\d+) of them carry steps\))? · (?P<man>\d+) left for the architect", console)
         ul = re.search(r"\(of (\d+) units the draft considered", console)
         if md and not ul:
             md = None

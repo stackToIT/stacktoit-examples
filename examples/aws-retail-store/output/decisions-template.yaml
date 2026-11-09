@@ -1,4 +1,4 @@
-# Review template of run 80199dc3-8108-42fe-a0b9-030ac0f7777b (written by stacktoit; copy this file, fill the `resolution`, `rationale`, `evidence_refs` and `reviewed_at` lines of the records you review, pass it with --decisions).
+# Review template of run 6fa04223-b825-429e-a52e-360fa841d7b8 (written by stacktoit; copy this file, fill the `resolution`, `rationale`, `evidence_refs` and `reviewed_at` lines of the records you review, pass it with --decisions).
 # A review RECORDS that an architect looked at a decision and what the architect decided. It does not regenerate the draft and, by itself, frees no step:
 #   - one exception: a review that declines a default of the draft (an option whose line below says that the run that reads it writes the draft without the default) is read before the draft is written, so the draft of the run that reads it has no default and the value it stood for is yours to set.
 #   - to ANSWER a question of the draft (the network of the load balancer, a zone, an image, ...) write the answer in the inputs file (inputs-template.yaml, --inputs):
@@ -29,29 +29,10 @@
 # A record whose comment says DEFAULT (change if wrong) is open: StackToIT carried that option out in the draft for you, nobody answered it. To change it, review the record with another chosen_option, or with REJECTED, and run again: the draft is then written without the default.
 # An option whose comment says DEFAULT (confirm or change) is what the draft already carries out; nobody answered it and nothing is accepted by it. To confirm it, review the record with that chosen_option; to change it, name another option (an option that changes the draft needs the answer in the inputs file and a rerun).
 schema_version: "0.4.0"
-source_digest: sha256:5ce8b8f8868f3b3214b2dddebe87e3f04291bf5ceac46dc0d95624215d020000
-kb_version: 0.385.0
-kb_sha256: f65894def83d867061199e09d4bcdffd1f3772ada7c4d474180544275af4dd1b
+source_digest: sha256:9289ba9abd2e1e953630f7ab62d12070ed65ca36d687d125b7e6cf755d020000
+kb_version: 0.420.0
+kb_sha256: 28ca6db2f3fa8711d7f1ecbb002d4b9faa7153fce7e394d64e6d1c37b1bd1930
 decisions:
-
-  # DEC-GEN-CONVERT-AMBIGUOUS-INSTANCE-SELECTION
-  # AMBIGUOUS_INSTANCE_SELECTION (PLAN_DECISION, status OPEN, 1 member)
-  # affects: module.retail_app_ecs.module.alb.aws_lb.this
-  # options (name one in chosen_option):
-  #   set-the-selector-to-one-instance: the draft already carries it out: a review frees the steps that wait for it
-  #   reference-another-resource: changes the draft, and no answer of this build writes it: change the source (or the draft by hand) and run again; a review frees nothing
-  - id: DEC-GEN-CONVERT-AMBIGUOUS-INSTANCE-SELECTION
-    resolution: ""
-    # An option above that changes the draft frees no step by a review alone: its line says how the draft comes to carry it. A review that names none of the options frees nothing either.
-    # chosen_option: <one of the options above>
-    rationale: ""
-    evidence_refs: []
-    reviewed_by: Platform Architect
-    reviewed_at: "<YYYY-MM-DD>"
-    members_sha256: sha256:7d4ce9ee9ce1f3acbba48c88c829f6eb66a62259ada1ad27007786228edd5d9d
-    artifact_sha256: sha256:27b52c6b5261453e4cbf492d1c4a2d6fb14bca41de23bcdb8b92b0d179347009
-    kb_dependencies_sha256: sha256:3cff130385543c2c208d88b90edeb0c1f0fe7d19da8e60e6420d1f8dfd5b3f07
-    # members: add the ids of some members (decisions.json lists them) to review only those; without it the entry reviews the whole record
 
   # DEC-GEN-CONVERT-API-OPT-IN
   # API_OPT_IN (PLAN_DECISION, status OPEN, 1 member)
@@ -68,7 +49,7 @@ decisions:
     members_sha256: sha256:e38398c0e3d250ba5bc2f41d119954b6cca973ef84267dcb555af7fa66082039
     artifact_sha256: sha256:74c8c9f1a5f21f96f699c4d831595d13655046088cc63930e3c1a5de367d3234
     kb_dependencies_sha256: sha256:03735a47b22c84235c95ed16b33e929eb21e905431c7a1c2103a67e6c13f9395
-    # members: see the head
+    # members: add the ids of some members (decisions.json lists them) to review only those; without it the entry reviews the whole record
 
   # DEC-GEN-CONVERT-DATA-MOVEMENT
   # DATA_MOVEMENT (PLAN_DECISION, status OPEN, 5 members)
@@ -85,7 +66,7 @@ decisions:
     reviewed_by: Data Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:bd6dc33bd3777ba67c03a89361624334a25a61983906190c138fe87904c08a32
-    artifact_sha256: sha256:78f5479229aa7d6b7d5c31eebe18292093bddef1b97bd721b64cf0ec008b1a72
+    artifact_sha256: sha256:3e6d157c9958d61c30592e944653df4280148084db6049589ffe8e05b96f13e0
     kb_dependencies_sha256: sha256:610870c4321b580122859ef332af5301a6bd3a8973057240bd04c7d631e03a41
     # This record holds 5 questions, one per unit. An answer applies only to the members it names (members: in the decisions file; a member is named by the record id, a slash and its unit); an entry that names none answers every member, and that blanket answer is yours to write: the template never writes it.
     # members: remove the # of the next line and of the members the answer applies to; delete the others (a member is named by its id below)
@@ -94,25 +75,20 @@ decisions:
     #       unit: module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this
     #       the plan says: StackToIT moves no data and writes no runbook for aws_opensearch_domain to STACKIT OpenSearch; the data-movement register lists module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this with the mechanism UNKNOWN, and the source states neither the size of the data nor the downtime the business tolerates nor the consistency the application needs
     #       export-and-import-with-the-engine-clients: a manual alternative: a person carries it out for this unit
-    #       replicate-with-the-engine-replication: a manual alternative: a person carries it out for this unit
     #       migrate-with-a-tool-of-my-own: a manual alternative: a person carries it out for this unit
     #   - "DEC-GEN-CONVERT-DATA-MOVEMENT/module.dependencies.module.catalog_rds.aws_rds_cluster.this"
     #       unit: module.dependencies.module.catalog_rds.aws_rds_cluster.this
     #       the plan says: the plan defines the one method the STACKIT MariaDB pages document, a dump loaded with the mysql client into the empty instance, and the customer's own tool; the replication of the binary log is refused because no STACKIT page documents it; STACKIT has no managed MySQL, so a MySQL source is an engine change whose collations, DEFINER accounts, accounts and settings the checks of the plan name, and the size of the data, the downtime the business accepts and the consistency the application needs are not in the source; the steps wait for the answer
     #       export-and-import-with-the-engine-clients: a manual alternative: a person carries it out for this unit
-    #       replicate-with-the-engine-replication: a manual alternative: a person carries it out for this unit
     #       migrate-with-a-tool-of-my-own: a manual alternative: a person carries it out for this unit
     #   - "DEC-GEN-CONVERT-DATA-MOVEMENT/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default"
     #       unit: module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
     #       the plan says: the plan defines the one method the STACKIT pages and the ElastiCache pages allow together, a copy of the keys by a client (SCAN, DUMP, PTTL, RESTORE) inside the write freeze, and the customer's own tool; loading an exported snapshot is refused because no STACKIT page or API takes an RDB file, and following the source as a replica is refused because neither end offers it; the source does not say whether the cache holds only what the application rebuilds, the size of the data, the downtime the business accepts or the shards the keys are spread over, and the Key Value Store has no sharding; the steps wait for the answer
     #       export-and-import-with-the-engine-clients: a manual alternative: a person carries it out for this unit
-    #       replicate-with-the-engine-replication: a manual alternative: a person carries it out for this unit
     #       migrate-with-a-tool-of-my-own: a manual alternative: a person carries it out for this unit
     #   - "DEC-GEN-CONVERT-DATA-MOVEMENT/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this"
     #       unit: module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this
     #       the plan says: StackToIT moves no data and writes no runbook for aws_dynamodb_table to STACKIT MongoDB Flex; the data-movement register lists module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this with the mechanism UNKNOWN, and the source states neither the size of the data nor the downtime the business tolerates nor the consistency the application needs
-    #       export-and-import-with-the-engine-clients: a manual alternative: a person carries it out for this unit
-    #       replicate-with-the-engine-replication: a manual alternative: a person carries it out for this unit
     #       migrate-with-a-tool-of-my-own: a manual alternative: a person carries it out for this unit
     #   - "DEC-GEN-CONVERT-DATA-MOVEMENT/module.dependencies.module.orders_rds.aws_rds_cluster.this"
     #       unit: module.dependencies.module.orders_rds.aws_rds_cluster.this
@@ -137,7 +113,7 @@ decisions:
     reviewed_by: Data Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:da0e0583e3f086831a47b05396b1d30756583e8d7f3d4dd2b89e37050a55f030
-    artifact_sha256: sha256:f90b9d1029c8b8795f53a5798aceeb2715a711b904df4bf628b8d2b0c2b26880
+    artifact_sha256: sha256:4201a43e80203cb049300db58c1c5a01714aca625aeb9f4fd005761c58190e44
     kb_dependencies_sha256: sha256:df6451f6350a2b971c09bbf5ecf6ab18b5750dd81cbfa67f5af0282c74b4283b
     # members: see the head
 
@@ -148,11 +124,11 @@ decisions:
   #   accept-the-public-endpoint: DEFAULT (change if wrong): the draft carries this option out and the record stays open; the draft already carries it out: a review frees the steps that wait for it
   #   use-the-network-area-only-scope: changes the draft, and no answer of this build writes it: change the source (or the draft by hand) and run again; a review frees nothing
   #   redesign-the-endpoint: a manual alternative: a review frees only the manual step that carries it out
-  # DEFAULT (change if wrong) of DEC-GEN-CONVERT-EXPOSURE-WIDENED/module.dependencies.aws_mq_broker.mq: StackToIT carried out the option accept-the-public-endpoint for stackit_rabbitmq_instance.dependencies_mq by default: the RabbitMQ instance keeps its own STACKIT endpoint and its access list is the egress addresses of stackit_ske_cluster.retail_app_ecs_cluster (its pods), the clients the source's security group(s) module.retail_app_ecs.module.orders_service.aws_security_group.this admit; no other address is admitted. To change it, give another list in var.mq_allowed_cidrs, or answer this decision in decisions.yaml with redesign-the-endpoint (or reject the proposal): the next run then writes no default.
-  # DEFAULT (change if wrong) of DEC-GEN-CONVERT-EXPOSURE-WIDENED/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this: StackToIT carried out the option accept-the-public-endpoint for stackit_opensearch_instance.dependencies_catalog_opensearch_this by default: the OpenSearch instance keeps its own STACKIT endpoint and its access list is the egress addresses of stackit_ske_cluster.retail_app_ecs_cluster (its pods), the clients the source's security group(s) module.retail_app_ecs.module.catalog_service.aws_security_group.this admit; no other address is admitted. To change it, give another list in var.catalog_opensearch_allowed_cidrs, or answer this decision in decisions.yaml with redesign-the-endpoint (or reject the proposal): the next run then writes no default.
-  # DEFAULT (change if wrong) of DEC-GEN-CONVERT-EXPOSURE-WIDENED/module.dependencies.module.catalog_rds.aws_rds_cluster.this: StackToIT carried out the option accept-the-public-endpoint for stackit_mariadb_instance.dependencies_catalog_rds_this by default: the MariaDB instance keeps its own STACKIT endpoint and its access list is the egress addresses of stackit_ske_cluster.retail_app_ecs_cluster (its pods), the clients the source's security group(s) module.retail_app_ecs.module.catalog_service.aws_security_group.this admit; no other address is admitted. To change it, give another list in var.catalog_rds_allowed_cidrs, or answer this decision in decisions.yaml with redesign-the-endpoint (or reject the proposal): the next run then writes no default.
-  # DEFAULT (change if wrong) of DEC-GEN-CONVERT-EXPOSURE-WIDENED/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default: StackToIT carried out the option accept-the-public-endpoint for stackit_valkey_instance.dependencies_checkout_elasticache_redis_default by default: the Valkey instance keeps its own public STACKIT endpoint, and only the CIDRs of var.elasticache_redis_allowed_cidrs may connect; the clients of the source could not be mapped to addresses, no CIDR is invented, so the variable has no default and the step waits for the networks you list. The draft writes no default list of the clients' addresses: the rule module.dependencies.module.checkout_elasticache_redis.module.aws_security_group.aws_security_group_rule.keyed["in#in#sg#0"] is no plain allow of a complete list of clients. Name the networks the clients connect from. To change it, answer this decision in decisions.yaml with redesign-the-endpoint (or reject the proposal): the next run then writes no default.
-  # DEFAULT (change if wrong) of DEC-GEN-CONVERT-EXPOSURE-WIDENED/module.dependencies.module.orders_rds.aws_rds_cluster.this: StackToIT carried out the option accept-the-public-endpoint for stackit_postgresflex_instance.dependencies_orders_rds_this by default: the PostgreSQL Flex instance keeps its own STACKIT endpoint and its access list is the egress addresses of stackit_ske_cluster.retail_app_ecs_cluster (its pods), the clients the source's security group(s) module.retail_app_ecs.module.orders_service.aws_security_group.this admit; no other address is admitted. To change it, give another list in var.orders_rds_allowed_cidrs, or answer this decision in decisions.yaml with use-the-network-area-only-scope or redesign-the-endpoint (or reject the proposal): the next run then writes no default.
+  # DEFAULT (change if wrong) of DEC-GEN-CONVERT-EXPOSURE-WIDENED/module.dependencies.aws_mq_broker.mq: StackToIT carried out the option accept-the-public-endpoint for stackit_rabbitmq_instance.dependencies_mq by default: the RabbitMQ instance keeps its own STACKIT endpoint and its access list is the egress addresses of stackit_ske_cluster.retail_app_ecs_cluster (its pods), the clients the source's security group(s) module.retail_app_ecs.module.orders_service.aws_security_group.this admit; no other address is admitted. The endpoint is wider than the source's, so the step that creates it waits for a person to accept this option in decisions.yaml. To change it, give another list in var.mq_allowed_cidrs, or answer this decision in decisions.yaml with redesign-the-endpoint (or reject the proposal): the next run then writes no default.
+  # DEFAULT (change if wrong) of DEC-GEN-CONVERT-EXPOSURE-WIDENED/module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this: StackToIT carried out the option accept-the-public-endpoint for stackit_opensearch_instance.dependencies_catalog_opensearch_this by default: the OpenSearch instance keeps its own STACKIT endpoint and its access list is the egress addresses of stackit_ske_cluster.retail_app_ecs_cluster (its pods), the clients the source's security group(s) module.retail_app_ecs.module.catalog_service.aws_security_group.this admit; no other address is admitted. The endpoint is wider than the source's, so the step that creates it waits for a person to accept this option in decisions.yaml. To change it, give another list in var.catalog_opensearch_allowed_cidrs, or answer this decision in decisions.yaml with redesign-the-endpoint (or reject the proposal): the next run then writes no default.
+  # DEFAULT (change if wrong) of DEC-GEN-CONVERT-EXPOSURE-WIDENED/module.dependencies.module.catalog_rds.aws_rds_cluster.this: StackToIT carried out the option accept-the-public-endpoint for stackit_mariadb_instance.dependencies_catalog_rds_this by default: the MariaDB instance keeps its own STACKIT endpoint and its access list is the egress addresses of stackit_ske_cluster.retail_app_ecs_cluster (its pods), the clients the source's security group(s) module.retail_app_ecs.module.catalog_service.aws_security_group.this admit; no other address is admitted. The endpoint is wider than the source's, so the step that creates it waits for a person to accept this option in decisions.yaml. To change it, give another list in var.catalog_rds_allowed_cidrs, or answer this decision in decisions.yaml with redesign-the-endpoint (or reject the proposal): the next run then writes no default.
+  # DEFAULT (change if wrong) of DEC-GEN-CONVERT-EXPOSURE-WIDENED/module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default: StackToIT carried out the option accept-the-public-endpoint for stackit_valkey_instance.dependencies_checkout_elasticache_redis_default by default: the Valkey instance keeps its own public STACKIT endpoint, and only the CIDRs of var.elasticache_redis_allowed_cidrs may connect; the clients of the source could not be mapped to addresses, no CIDR is invented, so the variable has no default. The endpoint is wider than the source's, so the step that creates it waits for a person to accept this option in decisions.yaml and for the networks you list. The draft writes no default list of the clients' addresses: the rule module.dependencies.module.checkout_elasticache_redis.module.aws_security_group.aws_security_group_rule.keyed["in#in#sg#0"] is no plain allow of a complete list of clients. Name the networks the clients connect from. To change it, answer this decision in decisions.yaml with redesign-the-endpoint (or reject the proposal): the next run then writes no default.
+  # DEFAULT (change if wrong) of DEC-GEN-CONVERT-EXPOSURE-WIDENED/module.dependencies.module.orders_rds.aws_rds_cluster.this: StackToIT carried out the option accept-the-public-endpoint for stackit_postgresflex_instance.dependencies_orders_rds_this by default: the PostgreSQL Flex instance keeps its own STACKIT endpoint and its access list is the egress addresses of stackit_ske_cluster.retail_app_ecs_cluster (its pods), the clients the source's security group(s) module.retail_app_ecs.module.orders_service.aws_security_group.this admit; no other address is admitted. The endpoint is wider than the source's, so the step that creates it waits for a person to accept this option in decisions.yaml. To change it, give another list in var.orders_rds_allowed_cidrs, or answer this decision in decisions.yaml with use-the-network-area-only-scope or redesign-the-endpoint (or reject the proposal): the next run then writes no default.
   - id: DEC-GEN-CONVERT-EXPOSURE-WIDENED
     resolution: ""
     # An option above that changes the draft frees no step by a review alone: its line says how the draft comes to carry it. A review that names none of the options frees nothing either.
@@ -162,7 +138,7 @@ decisions:
     reviewed_by: Security Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:423e4ba2d45f712b067c92f5838a736429f1ad4d536c2a73854bfed78e11de19
-    artifact_sha256: sha256:d20a5d405ed14e1053120dee16beb3b3a07cd2243109049c944e7ec3df0bd4de
+    artifact_sha256: sha256:10dd9c61c84abf27e840aa5f592363d698ba0380abbc804c746e010cc81ff24b
     kb_dependencies_sha256: sha256:e7090661d6ca5eefa041c01060934af2abe00051f15c6b559bf34af210a59e94
     # This record holds 5 questions, one per unit. An answer applies only to the members it names (members: in the decisions file; a member is named by the record id, a slash and its unit); an entry that names none answers every member, and that blanket answer is yours to write: the template never writes it. A public endpoint needs a security approval (Security Architect) and its own access list for each unit it names, not for the record as a whole.
     # members: remove the # of the next line and of the members the answer applies to; delete the others (a member is named by its id below)
@@ -214,7 +190,7 @@ decisions:
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:d7bf04a14592c56905fb4aaaf64310c4a399ab5a50cefaace7cdb6f7435abf4a
-    artifact_sha256: sha256:2d31a5a865a468b31d796401f3d78231af5c852a7a6888f871c3473b3c6d3767
+    artifact_sha256: sha256:69e4f7b72250f872377a6606c9b30f080199d86ed020f6b4a699e05762531589
     kb_dependencies_sha256: sha256:9a087b808a89168f09e6e245d0b89524c03ac3e758f07e554c71661a6068b367
     # members: see the head
 
@@ -287,7 +263,7 @@ decisions:
     reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:63464848480e3d5019f9e206006b15606cd3910260d39ac483d56dbab9fe848e
-    artifact_sha256: sha256:e3782cc9770cfab6f0207b67a604df8bfeac2344f3e4869407f2ff10b3ae6896
+    artifact_sha256: sha256:3ed090ccfb07e70714b3c48df0eaad40ae7ef36c003dc73d03d612a371effd29
     kb_dependencies_sha256: sha256:4aefcdb4f8cff3c728aa8535ac7777fa49c3c4576077a04da8978b2e25bb606e
     # This record holds 3 questions, one per unit. An answer applies only to the members it names (members: in the decisions file; a member is named by the record id, a slash and its unit); an entry that names none answers every member, and that blanket answer is yours to write: the template never writes it.
     # members: remove the # of the next line and of the members the answer applies to; delete the others (a member is named by its id below)
@@ -324,7 +300,7 @@ decisions:
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:8423085c8f163f8f11a333347eb7eb7897eac61922c9c6cd69a52a5a7a6893f9
-    artifact_sha256: sha256:3285b89020fa1f68ee8c20817a9747225a4fd60dd6bff5425a7a8336461d5755
+    artifact_sha256: sha256:6d1d91424681ce0747fff5c00e5ef26af99a6f1fd51d0932d01e448a97573218
     kb_dependencies_sha256: sha256:bf8b1a74b9af3006bff3fdbd5579c5d953ccadafcdfefcf59bee748eb6c1e230
     # members: see the head
 
@@ -361,8 +337,23 @@ decisions:
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:cbfcbf1e12e98cb3608485caffc5de82e33e3517a0845fc9ca14cbcf7e207d0e
-    artifact_sha256: sha256:37a4992d7cb1b57ebe73b1567f6fec7b6f2f3de527370a9ba50c9d2e600bccea
+    artifact_sha256: sha256:291432e20122a68f79db8925ab11e46e65c75a46aa41392a3bd915542dc7a1a2
     kb_dependencies_sha256: sha256:b7b1559abec6cce3207e0a1fc245a3c875b27a798d1bb922309519ace4b7642c
+    # members: see the head
+
+  # DEC-OPS-MODULE-RETAIL-APP-ECS-AWS-CLOUDWATCH-LOG-GROUP-ECS-CONT-0104E398
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # affects: module.retail_app_ecs.aws_cloudwatch_log_group.ecs_container_insights
+  # settings of the unit (see members: in the head):
+  #   - "module.retail_app_ecs.aws_cloudwatch_log_group.ecs_container_insights|tc-name"  Confirm the name of the log group
+  - id: DEC-OPS-MODULE-RETAIL-APP-ECS-AWS-CLOUDWATCH-LOG-GROUP-ECS-CONT-0104E398
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Platform Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:bbefe35d817dfb9f9d2ce899cac39fa7b68c271ff728a6339647033037a89971
+    kb_dependencies_sha256: sha256:5774655a1d63aa238425b6099fc69a5a26fd5b9b39b1bcac21ee61ed7f554738
     # members: see the head
 
   # DEC-OPS-MODULE-RETAIL-APP-ECS-AWS-CLOUDWATCH-LOG-GROUP-ECS-TASKS
@@ -378,6 +369,22 @@ decisions:
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:e71bb0607c0a5ebb2ed51336e2dafb83d87e2ea428ba9c2c59f10bff5d5552d6
     kb_dependencies_sha256: sha256:5774655a1d63aa238425b6099fc69a5a26fd5b9b39b1bcac21ee61ed7f554738
+    # members: see the head
+
+  # DEC-IAM-MODULE-RETAIL-APP-ECS-AWS-CLOUDWATCH-LOG-RESOURCE-POLIC-8047ED92
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 2 members)
+  # affects: module.retail_app_ecs.aws_cloudwatch_log_resource_policy.eventbridge_ecs
+  # settings of the unit (see members: in the head):
+  #   - "module.retail_app_ecs.aws_cloudwatch_log_resource_policy.eventbridge_ecs|access-grant"  Review the access grant setting
+  #   - "module.retail_app_ecs.aws_cloudwatch_log_resource_policy.eventbridge_ecs|tcp-policy-document"  Review the access grant setting
+  - id: DEC-IAM-MODULE-RETAIL-APP-ECS-AWS-CLOUDWATCH-LOG-RESOURCE-POLIC-8047ED92
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Identity Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:faf4c74d100203c3ac67888e1a29e21feacb8013a3247eeb92297ef5db8de2c9
+    kb_dependencies_sha256: sha256:8e20e7ef219bdfe7097c68a5222f67d9e959f8773374253e62bdcf72a29ebf31
     # members: see the head
 
   # DEC-DATA-MODULE-DEPENDENCIES-MODULE-DYNAMODB-CARTS-AWS-DYNAMODB-2133F4BE
@@ -466,12 +473,15 @@ decisions:
   # affects: module.retail_app_ecs.module.carts_service.aws_ecs_service.this
   # settings of the unit (see members: in the head):
   #   - "module.retail_app_ecs.module.carts_service.aws_ecs_service.this|service-connect-values"  Review the service connect values setting
+  #       derived-carry-on-the-target-17f46d7ea451: its effect on the steps is not stated: a review frees nothing
+  #       derived-accept-the-difference-17f46d7ea451: its effect on the steps is not stated: a review frees nothing
   #   - "module.retail_app_ecs.module.carts_service.aws_ecs_service.this|service-discovery"  Review the service discovery setting
   #   - "module.retail_app_ecs.module.carts_service.aws_ecs_service.this|service-network-placement"  Review the service network placement setting
   #   - "module.retail_app_ecs.module.carts_service.aws_ecs_service.this|service-public-ip-setting"  Review the service public IP setting setting
   #   - "module.retail_app_ecs.module.carts_service.aws_ecs_service.this|td-network-mode"  Confirm the network mode of the ECS task definition
   - id: DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-CARTS-SERVICE-AWS-ECS-SERVICE-THIS
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Network Architect
@@ -481,18 +491,22 @@ decisions:
     # members: see the head
 
   # DEC-OPS-MODULE-RETAIL-APP-ECS-MODULE-CARTS-SERVICE-AWS-ECS-SERVICE-THIS
-  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 5 members)
   # affects: module.retail_app_ecs.module.carts_service.aws_ecs_service.this
   # settings of the unit (see members: in the head):
   #   - "module.retail_app_ecs.module.carts_service.aws_ecs_service.this|service-desired-count"  Review the service desired count setting
+  #   - "module.retail_app_ecs.module.carts_service.aws_ecs_service.this|twin-ecs-service--launch-type"  Review the twin ECS service launch type setting
+  #   - "module.retail_app_ecs.module.carts_service.aws_ecs_service.this|twin-ecs-task-definition--cpu"  Review the twin ECS task definition cpu setting
+  #   - "module.retail_app_ecs.module.carts_service.aws_ecs_service.this|twin-ecs-task-definition--memory"  Review the twin ECS task definition memory setting
+  #   - "module.retail_app_ecs.module.carts_service.aws_ecs_service.this|twin-ecs-task-definition--requires-compatibilities"  Review the twin ECS task definition requires compatibilities setting
   - id: DEC-OPS-MODULE-RETAIL-APP-ECS-MODULE-CARTS-SERVICE-AWS-ECS-SERVICE-THIS
     resolution: ""
     rationale: ""
     evidence_refs: []
     reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
-    members_sha256: sha256:ad056df0eb4026158ba41d1e9bd51c3acb82966bbafea534e35a1c48bcc88e3c
-    kb_dependencies_sha256: sha256:0e2ad9ffa4b2f512b402a8d8839b056708aeffe471d723e5fd310d331771f3f2
+    members_sha256: sha256:3c59a6d51ba5ac073bb3c2b1b54edc5cd7a2bd9f4ba507dc0e523fa937218e0d
+    kb_dependencies_sha256: sha256:988426a2201584c1fcf6f1ccc6541861c81e273e98f9b704dddcdaf61403fda9
     # members: see the head
 
   # DEC-SEC-MODULE-RETAIL-APP-ECS-MODULE-CARTS-SERVICE-AWS-ECS-SERVICE-THIS
@@ -551,12 +565,15 @@ decisions:
   # affects: module.retail_app_ecs.module.catalog_service.aws_ecs_service.this
   # settings of the unit (see members: in the head):
   #   - "module.retail_app_ecs.module.catalog_service.aws_ecs_service.this|service-connect-values"  Review the service connect values setting
+  #       derived-carry-on-the-target-17f46d7ea451: as under the first setting that lists it
+  #       derived-accept-the-difference-17f46d7ea451: as under the first setting that lists it
   #   - "module.retail_app_ecs.module.catalog_service.aws_ecs_service.this|service-discovery"  Review the service discovery setting
   #   - "module.retail_app_ecs.module.catalog_service.aws_ecs_service.this|service-network-placement"  Review the service network placement setting
   #   - "module.retail_app_ecs.module.catalog_service.aws_ecs_service.this|service-public-ip-setting"  Review the service public IP setting setting
   #   - "module.retail_app_ecs.module.catalog_service.aws_ecs_service.this|td-network-mode"  Confirm the network mode of the ECS task definition
   - id: DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-CATALOG-SERVICE-AWS-ECS-SE-865F7883
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Network Architect
@@ -566,18 +583,22 @@ decisions:
     # members: see the head
 
   # DEC-OPS-MODULE-RETAIL-APP-ECS-MODULE-CATALOG-SERVICE-AWS-ECS-SE-865F7883
-  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 5 members)
   # affects: module.retail_app_ecs.module.catalog_service.aws_ecs_service.this
   # settings of the unit (see members: in the head):
   #   - "module.retail_app_ecs.module.catalog_service.aws_ecs_service.this|service-desired-count"  Review the service desired count setting
+  #   - "module.retail_app_ecs.module.catalog_service.aws_ecs_service.this|twin-ecs-service--launch-type"  Review the twin ECS service launch type setting
+  #   - "module.retail_app_ecs.module.catalog_service.aws_ecs_service.this|twin-ecs-task-definition--cpu"  Review the twin ECS task definition cpu setting
+  #   - "module.retail_app_ecs.module.catalog_service.aws_ecs_service.this|twin-ecs-task-definition--memory"  Review the twin ECS task definition memory setting
+  #   - "module.retail_app_ecs.module.catalog_service.aws_ecs_service.this|twin-ecs-task-definition--requires-compatibilities"  Review the twin ECS task definition requires compatibilities setting
   - id: DEC-OPS-MODULE-RETAIL-APP-ECS-MODULE-CATALOG-SERVICE-AWS-ECS-SE-865F7883
     resolution: ""
     rationale: ""
     evidence_refs: []
     reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
-    members_sha256: sha256:73e2e43b1b9a4861741108c4c531cf9c63a53c75ee5e01b4b73dff8acf27e7f2
-    kb_dependencies_sha256: sha256:0e2ad9ffa4b2f512b402a8d8839b056708aeffe471d723e5fd310d331771f3f2
+    members_sha256: sha256:6a318925146593684eb181f412ad2dd51bdfc3185a03c356b13eedce95b80756
+    kb_dependencies_sha256: sha256:988426a2201584c1fcf6f1ccc6541861c81e273e98f9b704dddcdaf61403fda9
     # members: see the head
 
   # DEC-SEC-MODULE-RETAIL-APP-ECS-MODULE-CATALOG-SERVICE-AWS-ECS-SE-865F7883
@@ -636,12 +657,15 @@ decisions:
   # affects: module.retail_app_ecs.module.checkout_service.aws_ecs_service.this
   # settings of the unit (see members: in the head):
   #   - "module.retail_app_ecs.module.checkout_service.aws_ecs_service.this|service-connect-values"  Review the service connect values setting
+  #       derived-carry-on-the-target-17f46d7ea451: as under the first setting that lists it
+  #       derived-accept-the-difference-17f46d7ea451: as under the first setting that lists it
   #   - "module.retail_app_ecs.module.checkout_service.aws_ecs_service.this|service-discovery"  Review the service discovery setting
   #   - "module.retail_app_ecs.module.checkout_service.aws_ecs_service.this|service-network-placement"  Review the service network placement setting
   #   - "module.retail_app_ecs.module.checkout_service.aws_ecs_service.this|service-public-ip-setting"  Review the service public IP setting setting
   #   - "module.retail_app_ecs.module.checkout_service.aws_ecs_service.this|td-network-mode"  Confirm the network mode of the ECS task definition
   - id: DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-CHECKOUT-SERVICE-AWS-ECS-S-3DCDC7C6
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Network Architect
@@ -651,18 +675,22 @@ decisions:
     # members: see the head
 
   # DEC-OPS-MODULE-RETAIL-APP-ECS-MODULE-CHECKOUT-SERVICE-AWS-ECS-S-3DCDC7C6
-  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 5 members)
   # affects: module.retail_app_ecs.module.checkout_service.aws_ecs_service.this
   # settings of the unit (see members: in the head):
   #   - "module.retail_app_ecs.module.checkout_service.aws_ecs_service.this|service-desired-count"  Review the service desired count setting
+  #   - "module.retail_app_ecs.module.checkout_service.aws_ecs_service.this|twin-ecs-service--launch-type"  Review the twin ECS service launch type setting
+  #   - "module.retail_app_ecs.module.checkout_service.aws_ecs_service.this|twin-ecs-task-definition--cpu"  Review the twin ECS task definition cpu setting
+  #   - "module.retail_app_ecs.module.checkout_service.aws_ecs_service.this|twin-ecs-task-definition--memory"  Review the twin ECS task definition memory setting
+  #   - "module.retail_app_ecs.module.checkout_service.aws_ecs_service.this|twin-ecs-task-definition--requires-compatibilities"  Review the twin ECS task definition requires compatibilities setting
   - id: DEC-OPS-MODULE-RETAIL-APP-ECS-MODULE-CHECKOUT-SERVICE-AWS-ECS-S-3DCDC7C6
     resolution: ""
     rationale: ""
     evidence_refs: []
     reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
-    members_sha256: sha256:2a81745ad63beb643a056962323f1bed54efeeb2e2761acae2698f863e5ffbb2
-    kb_dependencies_sha256: sha256:0e2ad9ffa4b2f512b402a8d8839b056708aeffe471d723e5fd310d331771f3f2
+    members_sha256: sha256:049eb6007a22f376d42ca5e9883b047203ba2d9eefab8f83b96dd2ad8a4deefc
+    kb_dependencies_sha256: sha256:988426a2201584c1fcf6f1ccc6541861c81e273e98f9b704dddcdaf61403fda9
     # members: see the head
 
   # DEC-SEC-MODULE-RETAIL-APP-ECS-MODULE-CHECKOUT-SERVICE-AWS-ECS-S-3DCDC7C6
@@ -721,12 +749,15 @@ decisions:
   # affects: module.retail_app_ecs.module.orders_service.aws_ecs_service.this
   # settings of the unit (see members: in the head):
   #   - "module.retail_app_ecs.module.orders_service.aws_ecs_service.this|service-connect-values"  Review the service connect values setting
+  #       derived-carry-on-the-target-17f46d7ea451: as under the first setting that lists it
+  #       derived-accept-the-difference-17f46d7ea451: as under the first setting that lists it
   #   - "module.retail_app_ecs.module.orders_service.aws_ecs_service.this|service-discovery"  Review the service discovery setting
   #   - "module.retail_app_ecs.module.orders_service.aws_ecs_service.this|service-network-placement"  Review the service network placement setting
   #   - "module.retail_app_ecs.module.orders_service.aws_ecs_service.this|service-public-ip-setting"  Review the service public IP setting setting
   #   - "module.retail_app_ecs.module.orders_service.aws_ecs_service.this|td-network-mode"  Confirm the network mode of the ECS task definition
   - id: DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-ORDERS-SERVICE-AWS-ECS-SERVICE-THIS
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Network Architect
@@ -736,18 +767,22 @@ decisions:
     # members: see the head
 
   # DEC-OPS-MODULE-RETAIL-APP-ECS-MODULE-ORDERS-SERVICE-AWS-ECS-SERVICE-THIS
-  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 5 members)
   # affects: module.retail_app_ecs.module.orders_service.aws_ecs_service.this
   # settings of the unit (see members: in the head):
   #   - "module.retail_app_ecs.module.orders_service.aws_ecs_service.this|service-desired-count"  Review the service desired count setting
+  #   - "module.retail_app_ecs.module.orders_service.aws_ecs_service.this|twin-ecs-service--launch-type"  Review the twin ECS service launch type setting
+  #   - "module.retail_app_ecs.module.orders_service.aws_ecs_service.this|twin-ecs-task-definition--cpu"  Review the twin ECS task definition cpu setting
+  #   - "module.retail_app_ecs.module.orders_service.aws_ecs_service.this|twin-ecs-task-definition--memory"  Review the twin ECS task definition memory setting
+  #   - "module.retail_app_ecs.module.orders_service.aws_ecs_service.this|twin-ecs-task-definition--requires-compatibilities"  Review the twin ECS task definition requires compatibilities setting
   - id: DEC-OPS-MODULE-RETAIL-APP-ECS-MODULE-ORDERS-SERVICE-AWS-ECS-SERVICE-THIS
     resolution: ""
     rationale: ""
     evidence_refs: []
     reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
-    members_sha256: sha256:a99af72e26244afeba9183b468016c2f97d481f9ef9e344f8b0cd66bc4f96e85
-    kb_dependencies_sha256: sha256:0e2ad9ffa4b2f512b402a8d8839b056708aeffe471d723e5fd310d331771f3f2
+    members_sha256: sha256:7c7be984f5173b0fd9f19735523c8f88dc746070be8abe9fc7fc79b84d9f0986
+    kb_dependencies_sha256: sha256:988426a2201584c1fcf6f1ccc6541861c81e273e98f9b704dddcdaf61403fda9
     # members: see the head
 
   # DEC-SEC-MODULE-RETAIL-APP-ECS-MODULE-ORDERS-SERVICE-AWS-ECS-SERVICE-THIS
@@ -806,6 +841,8 @@ decisions:
   # affects: module.retail_app_ecs.module.ui_service.aws_ecs_service.this
   # settings of the unit (see members: in the head):
   #   - "module.retail_app_ecs.module.ui_service.aws_ecs_service.this|service-connect-values"  Review the service connect values setting
+  #       derived-carry-on-the-target-17f46d7ea451: as under the first setting that lists it
+  #       derived-accept-the-difference-17f46d7ea451: as under the first setting that lists it
   #   - "module.retail_app_ecs.module.ui_service.aws_ecs_service.this|service-discovery"  Review the service discovery setting
   #   - "module.retail_app_ecs.module.ui_service.aws_ecs_service.this|service-load-balancer-target"  Review the service load balancer target setting
   #   - "module.retail_app_ecs.module.ui_service.aws_ecs_service.this|service-network-placement"  Review the service network placement setting
@@ -813,6 +850,7 @@ decisions:
   #   - "module.retail_app_ecs.module.ui_service.aws_ecs_service.this|td-network-mode"  Confirm the network mode of the ECS task definition
   - id: DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-UI-SERVICE-AWS-ECS-SERVICE-THIS
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Network Architect
@@ -822,18 +860,22 @@ decisions:
     # members: see the head
 
   # DEC-OPS-MODULE-RETAIL-APP-ECS-MODULE-UI-SERVICE-AWS-ECS-SERVICE-THIS
-  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 5 members)
   # affects: module.retail_app_ecs.module.ui_service.aws_ecs_service.this
   # settings of the unit (see members: in the head):
   #   - "module.retail_app_ecs.module.ui_service.aws_ecs_service.this|service-desired-count"  Review the service desired count setting
+  #   - "module.retail_app_ecs.module.ui_service.aws_ecs_service.this|twin-ecs-service--launch-type"  Review the twin ECS service launch type setting
+  #   - "module.retail_app_ecs.module.ui_service.aws_ecs_service.this|twin-ecs-task-definition--cpu"  Review the twin ECS task definition cpu setting
+  #   - "module.retail_app_ecs.module.ui_service.aws_ecs_service.this|twin-ecs-task-definition--memory"  Review the twin ECS task definition memory setting
+  #   - "module.retail_app_ecs.module.ui_service.aws_ecs_service.this|twin-ecs-task-definition--requires-compatibilities"  Review the twin ECS task definition requires compatibilities setting
   - id: DEC-OPS-MODULE-RETAIL-APP-ECS-MODULE-UI-SERVICE-AWS-ECS-SERVICE-THIS
     resolution: ""
     rationale: ""
     evidence_refs: []
     reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
-    members_sha256: sha256:892d8be364574bea145cb905c22d892bdcf013b62b24306a5e72cfd27f92bb59
-    kb_dependencies_sha256: sha256:0e2ad9ffa4b2f512b402a8d8839b056708aeffe471d723e5fd310d331771f3f2
+    members_sha256: sha256:0e7194ba0ea68f59540ceb49d1d55cb3c23addc7159416d6891adaecdf49c6ce
+    kb_dependencies_sha256: sha256:988426a2201584c1fcf6f1ccc6541861c81e273e98f9b704dddcdaf61403fda9
     # members: see the head
 
   # DEC-SEC-MODULE-RETAIL-APP-ECS-MODULE-UI-SERVICE-AWS-ECS-SERVICE-THIS
@@ -874,9 +916,14 @@ decisions:
   # affects: module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
   # settings of the unit (see members: in the head):
   #   - "module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default|seed-snapshot"  Review the seed snapshot setting
+  #       derived-carry-on-the-target-e8da7c3cb7f7: its effect on the steps is not stated: a review frees nothing
+  #       derived-accept-the-difference-e8da7c3cb7f7: its effect on the steps is not stated: a review frees nothing
   #   - "module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default|snapshots-off"  Review the snapshots off setting
+  #       derived-carry-on-the-target-e8da7c3cb7f7: as under the first setting that lists it
+  #       derived-accept-the-difference-e8da7c3cb7f7: as under the first setting that lists it
   - id: DEC-DATA-MODULE-DEPENDENCIES-MODULE-CHECKOUT-ELASTICACHE-REDIS-A-D6A5B374
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Data Architect
@@ -915,7 +962,7 @@ decisions:
     reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:22903c56db5911aeb017374334c4c459471b44cc52549e1be5fc3e282b7f0382
-    kb_dependencies_sha256: sha256:cd530887efa57e95dcd9eaacb2494cdb1fa84d1c1ce36bbee08e56515a5b46c6
+    kb_dependencies_sha256: sha256:4b6c080d9c54fe5efe1d48b4e047be580fc75e3272f48a115e0f4f784255eb98
     # members: see the head
 
   # DEC-SEC-MODULE-DEPENDENCIES-MODULE-CHECKOUT-ELASTICACHE-REDIS-A-D6A5B374
@@ -923,6 +970,8 @@ decisions:
   # affects: module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
   # settings of the unit (see members: in the head):
   #   - "module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default|at-rest-encryption-off"  Review the at rest encryption off setting
+  #       derived-carry-on-the-target-e8da7c3cb7f7: as under the first setting that lists it
+  #       derived-accept-the-difference-e8da7c3cb7f7: as under the first setting that lists it
   #   - "module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default|tcp-elasticache-replication-group-transit-encryption-enabled"  Confirm the transit encryption enabled setting of the ElastiCache replication group
   #       clients-connect-with-tls: its effect on the steps is not stated: a review frees nothing
   - id: DEC-SEC-MODULE-DEPENDENCIES-MODULE-CHECKOUT-ELASTICACHE-REDIS-A-D6A5B374
@@ -934,6 +983,21 @@ decisions:
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:7a84420d04b71d9952e3521b09fbde28030d59bd2678d039f0ea48f4d8c6eec5
     kb_dependencies_sha256: sha256:3a86507bf5c06fa0b3338767a4f17cdfe46f49db8a9460b0764ac230a388b62c
+    # members: see the head
+
+  # DEC-OPS-MODULE-RETAIL-APP-ECS-AWS-CLOUDWATCH-EVENT-RULE-ECS-EVENTS
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
+  # affects: module.retail_app_ecs.aws_cloudwatch_event_rule.ecs_events
+  # settings of the unit (see members: in the head):
+  #   - "module.retail_app_ecs.aws_cloudwatch_event_rule.ecs_events|event-pattern"  Review the event pattern setting
+  - id: DEC-OPS-MODULE-RETAIL-APP-ECS-AWS-CLOUDWATCH-EVENT-RULE-ECS-EVENTS
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Platform Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:0c7ac66b611a81d2bff0b32006af0ed27eeda1b40bbf25d4827fb79bb72fbef0
+    kb_dependencies_sha256: sha256:3ed02e4bc97ab1b17c730374eace9f8bd31225b1cb9420c33cd0f9e02a327016
     # members: see the head
 
   # DEC-IAM-MODULE-RETAIL-APP-ECS-MODULE-CARTS-SERVICE-AWS-IAM-ROLE-0AE33885
@@ -1152,22 +1216,25 @@ decisions:
     # members: see the head
 
   # DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-ALB-AWS-LB-THIS
-  # unit-review (CRITICAL_SEMANTIC, status OPEN, 5 members)
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 4 members)
   # affects: module.retail_app_ecs.module.alb.aws_lb.this
   # settings of the unit (see members: in the head):
   #   - "module.retail_app_ecs.module.alb.aws_lb.this|client-restriction"  Decide the ALB client access
+  #       derived-restrict-the-clients-by-hand-797aa252bf97: its effect on the steps is not stated: a review frees nothing
+  #       derived-keep-the-network-private-1ed7f5deb5da: its effect on the steps is not stated: a review frees nothing
+  #       derived-accept-the-wider-exposure-59a8d20423b7: its effect on the steps is not stated: a review frees nothing
   #   - "module.retail_app_ecs.module.alb.aws_lb.this|lb-routing-and-addressing"  Review the LB routing and addressing setting
   #   - "module.retail_app_ecs.module.alb.aws_lb.this|lb-subnets"  Review the LB subnets setting
-  #   - "module.retail_app_ecs.module.alb.aws_lb.this|network-exposure"  Decide who may reach the service over the network
   #   - "module.retail_app_ecs.module.alb.aws_lb.this|request-handling"  Review the request handling setting
   - id: DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-ALB-AWS-LB-THIS
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
-    members_sha256: sha256:f757f9ce3f4966d7d8803d03f11e2b3a0e09c8f5cfa0e4a9c5081c4883698607
-    kb_dependencies_sha256: sha256:ddcf6e6a242b2d5dfe5aae8e00904e05e839215e95782b4cdf84013b73814c1a
+    members_sha256: sha256:fdc79f089407dc7588dac9d82cc2203e9dbdafda32f1822593ddcaad65d50d8f
+    kb_dependencies_sha256: sha256:9b4cffcded758e308cda331973101a16fcaf0af6d7ddda22e3b4af8a0616335b
     # members: see the head
 
   # DEC-OPS-MODULE-RETAIL-APP-ECS-MODULE-ALB-AWS-LB-THIS
@@ -1175,10 +1242,13 @@ decisions:
   # affects: module.retail_app_ecs.module.alb.aws_lb.this
   # settings of the unit (see members: in the head):
   #   - "module.retail_app_ecs.module.alb.aws_lb.this|lb-connection-timeouts"  Review the LB connection timeouts setting
+  #       derived-carry-on-the-target-5ece1a4e4eae: its effect on the steps is not stated: a review frees nothing
+  #       derived-accept-the-difference-5ece1a4e4eae: its effect on the steps is not stated: a review frees nothing
   #   - "module.retail_app_ecs.module.alb.aws_lb.this|request-header-options"  Review the request header options setting
   #   - "module.retail_app_ecs.module.alb.aws_lb.this|tc-lb-name"  Confirm the name of the load balancer
   - id: DEC-OPS-MODULE-RETAIL-APP-ECS-MODULE-ALB-AWS-LB-THIS
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Platform Architect
@@ -1274,11 +1344,14 @@ decisions:
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|credentials-and-keys-settings"  Review the credentials and keys settings setting
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|domain-credentials-and-keys"  Review the domain credentials and keys setting
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|domain-settings"  Review the domain settings setting
+  #       derived-carry-on-the-target-c95be7496624: its effect on the steps is not stated: a review frees nothing
+  #       derived-accept-the-difference-c95be7496624: its effect on the steps is not stated: a review frees nothing
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|fine-grained-access"  Review the fine grained access setting
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|nbr-aws-opensearch-domain-policy"  Confirm the effect of a neighbouring OpenSearch domain policy
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|opensearch-domain-policy-resource"  Review the OpenSearch domain policy resource setting
   - id: DEC-IAM-MODULE-DEPENDENCIES-MODULE-CATALOG-OPENSEARCH-AWS-OPENS-0034548E
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Identity Architect
@@ -1292,9 +1365,12 @@ decisions:
   # affects: module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this
   # settings of the unit (see members: in the head):
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|network-settings"  Review the network settings setting
+  #       derived-carry-on-the-target-c95be7496624: as under the first setting that lists it
+  #       derived-accept-the-difference-c95be7496624: as under the first setting that lists it
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|private-endpoint"  Review the private endpoint setting
   - id: DEC-NET-MODULE-DEPENDENCIES-MODULE-CATALOG-OPENSEARCH-AWS-OPENS-0034548E
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Network Architect
@@ -1308,11 +1384,16 @@ decisions:
   # affects: module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this
   # settings of the unit (see members: in the head):
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|cluster-layout-settings"  Review the cluster layout settings setting
+  #       derived-carry-on-the-target-c95be7496624: as under the first setting that lists it
+  #       derived-accept-the-difference-c95be7496624: as under the first setting that lists it
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|engine-version"  Choose the database engine version
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|storage-settings"  Review the storage settings setting
+  #       derived-carry-on-the-target-c95be7496624: as under the first setting that lists it
+  #       derived-accept-the-difference-c95be7496624: as under the first setting that lists it
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|tc-opensearch-domain-domain-name"  Confirm the domain name of the OpenSearch domain
   - id: DEC-OPS-MODULE-DEPENDENCIES-MODULE-CATALOG-OPENSEARCH-AWS-OPENS-0034548E
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Platform Architect
@@ -1341,9 +1422,14 @@ decisions:
   # affects: module.dependencies.module.catalog_rds.aws_rds_cluster.this
   # settings of the unit (see members: in the head):
   #   - "module.dependencies.module.catalog_rds.aws_rds_cluster.this|backup-retention"  Review the backup retention setting
+  #       derived-carry-on-the-target-861a36cbfb39: its effect on the steps is not stated: a review frees nothing
+  #       derived-accept-the-difference-861a36cbfb39: its effect on the steps is not stated: a review frees nothing
   #   - "module.dependencies.module.catalog_rds.aws_rds_cluster.this|final-snapshot"  Review the final snapshot setting
+  #       derived-carry-on-the-target-861a36cbfb39: as under the first setting that lists it
+  #       derived-accept-the-difference-861a36cbfb39: as under the first setting that lists it
   - id: DEC-DATA-MODULE-DEPENDENCIES-MODULE-CATALOG-RDS-AWS-RDS-CLUSTER-THIS
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Data Architect
@@ -1391,10 +1477,13 @@ decisions:
   #   - "module.dependencies.module.catalog_rds.aws_rds_cluster.this|engine"  Choose the database engine
   #   - "module.dependencies.module.catalog_rds.aws_rds_cluster.this|engine-version"  Choose the database engine version
   #   - "module.dependencies.module.catalog_rds.aws_rds_cluster.this|member-engine"  Review the member engine setting
+  #       derived-carry-on-the-target-861a36cbfb39: as under the first setting that lists it
+  #       derived-accept-the-difference-861a36cbfb39: as under the first setting that lists it
   #   - "module.dependencies.module.catalog_rds.aws_rds_cluster.this|tc-database-name"  Confirm the database name of the RDS cluster
   #   - "module.dependencies.module.catalog_rds.aws_rds_cluster.this|tcf-rds-cluster-instance--identifier"  Confirm the identifier of the RDS cluster instance
   - id: DEC-OPS-MODULE-DEPENDENCIES-MODULE-CATALOG-RDS-AWS-RDS-CLUSTER-THIS
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Platform Architect
@@ -1428,8 +1517,11 @@ decisions:
   # affects: module.dependencies.module.orders_rds.aws_rds_cluster.this
   # settings of the unit (see members: in the head):
   #   - "module.dependencies.module.orders_rds.aws_rds_cluster.this|final-snapshot"  Review the final snapshot setting
+  #       derived-carry-on-the-target-738f510bfff4: its effect on the steps is not stated: a review frees nothing
+  #       derived-accept-the-difference-738f510bfff4: its effect on the steps is not stated: a review frees nothing
   - id: DEC-DATA-MODULE-DEPENDENCIES-MODULE-ORDERS-RDS-AWS-RDS-CLUSTER-THIS
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Data Architect
@@ -1513,12 +1605,21 @@ decisions:
   #   - "module.vpc.module.vpc.aws_route_table.private|egress-restriction"  Decide the outbound (egress) rules of the security group
   #   - "module.vpc.module.vpc.aws_route_table.private|nat-fixed-egress-address"  Review the NAT fixed egress address setting
   #   - "module.vpc.module.vpc.aws_route_table.private|route-destinations"  Confirm the destinations of the routes
+  #       derived-keep-default-routing-outside-area-149419fdf854: its effect on the steps is not stated: a review frees nothing
+  #       derived-draft-a-routing-table-in-a-network-area-874184e9560d: its effect on the steps is not stated: a review frees nothing
   #   - "module.vpc.module.vpc.aws_route_table.private|route-targets"  Confirm the targets of the routes
+  #       derived-keep-default-routing-outside-area-87a6bba411de: its effect on the steps is not stated: a review frees nothing
+  #       derived-draft-a-routing-table-in-a-network-area-fc885a550b51: its effect on the steps is not stated: a review frees nothing
   #   - "module.vpc.module.vpc.aws_route_table.private|routes"  Re-create the routes with STACKIT next hops
+  #       derived-keep-default-routing-outside-area-91f787d440ef: its effect on the steps is not stated: a review frees nothing
+  #       derived-draft-a-routing-table-in-a-network-area-da4872cf364f: its effect on the steps is not stated: a review frees nothing
   #   - "module.vpc.module.vpc.aws_route_table.private|subnet-association-target"  Confirm what each route table is associated with
   #   - "module.vpc.module.vpc.aws_route_table.private|tcr-route-table-vpc-id"  Confirm the network of the route table
+  #       derived-one-project-per-vpc-331cd68008d5: its effect on the steps is not stated: a review frees nothing
+  #       derived-assign-the-table-to-networks-86ec14b61ea7: its effect on the steps is not stated: a review frees nothing
   - id: DEC-NET-MODULE-VPC-MODULE-VPC-AWS-ROUTE-TABLE-PRIVATE
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Network Architect
@@ -1532,11 +1633,20 @@ decisions:
   # affects: module.vpc.module.vpc.aws_route_table.public
   # settings of the unit (see members: in the head):
   #   - "module.vpc.module.vpc.aws_route_table.public|route-destinations"  Confirm the destinations of the routes
+  #       derived-keep-default-routing-outside-area-149419fdf854: as under the first setting that lists it
+  #       derived-draft-a-routing-table-in-a-network-area-874184e9560d: as under the first setting that lists it
   #   - "module.vpc.module.vpc.aws_route_table.public|route-targets"  Confirm the targets of the routes
+  #       derived-keep-default-routing-outside-area-87a6bba411de: as under the first setting that lists it
+  #       derived-draft-a-routing-table-in-a-network-area-fc885a550b51: as under the first setting that lists it
   #   - "module.vpc.module.vpc.aws_route_table.public|routes"  Re-create the routes with STACKIT next hops
+  #       derived-keep-default-routing-outside-area-91f787d440ef: as under the first setting that lists it
+  #       derived-draft-a-routing-table-in-a-network-area-da4872cf364f: as under the first setting that lists it
   #   - "module.vpc.module.vpc.aws_route_table.public|tcr-route-table-vpc-id"  Confirm the network of the route table
+  #       derived-one-project-per-vpc-331cd68008d5: as under the first setting that lists it
+  #       derived-assign-the-table-to-networks-86ec14b61ea7: as under the first setting that lists it
   - id: DEC-NET-MODULE-VPC-MODULE-VPC-AWS-ROUTE-TABLE-PUBLIC
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Network Architect
@@ -1567,7 +1677,7 @@ decisions:
   #   - "module.retail_app_ecs.aws_secretsmanager_secret.catalog_db|customer-managed-key"  Confirm the customer-managed encryption key
   #       kms-key-on-the-secrets-manager-instance: its effect on the steps is not stated: a review frees nothing
   #       accept-an-instance-without-a-customer-key: its effect on the steps is not stated: a review frees nothing
-  #   - "module.retail_app_ecs.aws_secretsmanager_secret.catalog_db|secret-value"  Review the secret value setting
+  #   - "module.retail_app_ecs.aws_secretsmanager_secret.catalog_db|secret-value"  Provide the values of the secrets
   - id: DEC-SEC-MODULE-RETAIL-APP-ECS-AWS-SECRETSMANAGER-SECRET-CATALOG-DB
     resolution: ""
     # chosen_option: <one of the options above>
@@ -1576,7 +1686,7 @@ decisions:
     reviewed_by: Security Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:3648ebb527da2bc96efc5425a387853eeeef8b1af4da2208b4326214e2fe9417
-    kb_dependencies_sha256: sha256:78742954fe6dab86c51d83509ed0f5019df417f550f7490b99d91c52b676823d
+    kb_dependencies_sha256: sha256:08db6074914a167e7fe7013ed3f4ae490388fce4107476414ba191aaa14d2de4
     # members: see the head
 
   # DEC-OPS-MODULE-RETAIL-APP-ECS-AWS-SECRETSMANAGER-SECRET-CATALOG-F9E3300E
@@ -1601,7 +1711,7 @@ decisions:
   #   - "module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch|customer-managed-key"  Confirm the customer-managed encryption key
   #       kms-key-on-the-secrets-manager-instance: as under the first setting that lists it
   #       accept-an-instance-without-a-customer-key: as under the first setting that lists it
-  #   - "module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch|secret-value"  Review the secret value setting
+  #   - "module.retail_app_ecs.aws_secretsmanager_secret.catalog_opensearch|secret-value"  Provide the values of the secrets
   - id: DEC-SEC-MODULE-RETAIL-APP-ECS-AWS-SECRETSMANAGER-SECRET-CATALOG-F9E3300E
     resolution: ""
     # chosen_option: <one of the options above>
@@ -1610,7 +1720,7 @@ decisions:
     reviewed_by: Security Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:ae17628c8cbe0ab8697ae4bb2880130aeee40989541c8f0376736190f705f513
-    kb_dependencies_sha256: sha256:78742954fe6dab86c51d83509ed0f5019df417f550f7490b99d91c52b676823d
+    kb_dependencies_sha256: sha256:08db6074914a167e7fe7013ed3f4ae490388fce4107476414ba191aaa14d2de4
     # members: see the head
 
   # DEC-OPS-MODULE-RETAIL-APP-ECS-AWS-SECRETSMANAGER-SECRET-MQ
@@ -1632,7 +1742,7 @@ decisions:
   # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
   # affects: module.retail_app_ecs.aws_secretsmanager_secret.mq
   # settings of the unit (see members: in the head):
-  #   - "module.retail_app_ecs.aws_secretsmanager_secret.mq|secret-value"  Review the secret value setting
+  #   - "module.retail_app_ecs.aws_secretsmanager_secret.mq|secret-value"  Provide the values of the secrets
   - id: DEC-SEC-MODULE-RETAIL-APP-ECS-AWS-SECRETSMANAGER-SECRET-MQ
     resolution: ""
     rationale: ""
@@ -1640,7 +1750,7 @@ decisions:
     reviewed_by: Security Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:3ae1d83437aa0047401e57a727c9c83c53c975e37cb2489aa208cb01e090a9e2
-    kb_dependencies_sha256: sha256:2cb4b0d96b051195c608023373e582242e4e572c53cb74b1e20d6dda98e3ac19
+    kb_dependencies_sha256: sha256:a7028af37e96fed1dc1ca31c3eb3b00f30f0dec3d18adaf6398805d9f6882f4a
     # members: see the head
 
   # DEC-OPS-MODULE-RETAIL-APP-ECS-AWS-SECRETSMANAGER-SECRET-ORDERS-DB
@@ -1662,7 +1772,7 @@ decisions:
   # unit-review (CRITICAL_SEMANTIC, status OPEN, 1 member)
   # affects: module.retail_app_ecs.aws_secretsmanager_secret.orders_db
   # settings of the unit (see members: in the head):
-  #   - "module.retail_app_ecs.aws_secretsmanager_secret.orders_db|secret-value"  Review the secret value setting
+  #   - "module.retail_app_ecs.aws_secretsmanager_secret.orders_db|secret-value"  Provide the values of the secrets
   - id: DEC-SEC-MODULE-RETAIL-APP-ECS-AWS-SECRETSMANAGER-SECRET-ORDERS-DB
     resolution: ""
     rationale: ""
@@ -1670,7 +1780,7 @@ decisions:
     reviewed_by: Security Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:d75d1a13db1394da7b51b43ba4b0a2e89b879d6a844416890877de4f2206469c
-    kb_dependencies_sha256: sha256:2cb4b0d96b051195c608023373e582242e4e572c53cb74b1e20d6dda98e3ac19
+    kb_dependencies_sha256: sha256:a7028af37e96fed1dc1ca31c3eb3b00f30f0dec3d18adaf6398805d9f6882f4a
     # members: see the head
 
   # DEC-NET-MODULE-DEPENDENCIES-AWS-SECURITY-GROUP-CATALOG-OPENSEARCH-SG
@@ -1812,11 +1922,16 @@ decisions:
   #   - "module.retail_app_ecs.module.carts_service.aws_security_group.this|egress-rule-protocol"  Decide how the target enforces the protocol of the outbound rules of the security group
   #   - "module.retail_app_ecs.module.carts_service.aws_security_group.this|egress-sources"  Decide how the target enforces the destinations the outbound rules of the security group allow
   #   - "module.retail_app_ecs.module.carts_service.aws_security_group.this|ingress-sources"  Confirm the sources the inbound rules of the security group allow
+  #       derived-carry-on-the-target-d9e8bac03052: its effect on the steps is not stated: a review frees nothing
+  #       derived-accept-the-difference-d9e8bac03052: its effect on the steps is not stated: a review frees nothing
   #   - "module.retail_app_ecs.module.carts_service.aws_security_group.this|rule-ports"  Confirm the ports of the rules of the security group
+  #       derived-carry-on-the-target-d9e8bac03052: as under the first setting that lists it
+  #       derived-accept-the-difference-d9e8bac03052: as under the first setting that lists it
   #   - "module.retail_app_ecs.module.carts_service.aws_security_group.this|security-group-vpc-membership"  Decide which networks the security group may be attached to (a STACKIT group has no network scope)
   #   - "module.retail_app_ecs.module.carts_service.aws_security_group.this|stateful"  Confirm whether the rules are stateful
   - id: DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-CARTS-SERVICE-AWS-SECURITY-6B55ABCF
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Network Architect
@@ -1832,11 +1947,16 @@ decisions:
   #   - "module.retail_app_ecs.module.catalog_service.aws_security_group.this|egress-rule-protocol"  Decide how the target enforces the protocol of the outbound rules of the security group
   #   - "module.retail_app_ecs.module.catalog_service.aws_security_group.this|egress-sources"  Decide how the target enforces the destinations the outbound rules of the security group allow
   #   - "module.retail_app_ecs.module.catalog_service.aws_security_group.this|ingress-sources"  Confirm the sources the inbound rules of the security group allow
+  #       derived-carry-on-the-target-d9e8bac03052: as under the first setting that lists it
+  #       derived-accept-the-difference-d9e8bac03052: as under the first setting that lists it
   #   - "module.retail_app_ecs.module.catalog_service.aws_security_group.this|rule-ports"  Confirm the ports of the rules of the security group
+  #       derived-carry-on-the-target-d9e8bac03052: as under the first setting that lists it
+  #       derived-accept-the-difference-d9e8bac03052: as under the first setting that lists it
   #   - "module.retail_app_ecs.module.catalog_service.aws_security_group.this|security-group-vpc-membership"  Decide which networks the security group may be attached to (a STACKIT group has no network scope)
   #   - "module.retail_app_ecs.module.catalog_service.aws_security_group.this|stateful"  Confirm whether the rules are stateful
   - id: DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-CATALOG-SERVICE-AWS-SECURI-ACC9368F
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Network Architect
@@ -1852,11 +1972,16 @@ decisions:
   #   - "module.retail_app_ecs.module.checkout_service.aws_security_group.this|egress-rule-protocol"  Decide how the target enforces the protocol of the outbound rules of the security group
   #   - "module.retail_app_ecs.module.checkout_service.aws_security_group.this|egress-sources"  Decide how the target enforces the destinations the outbound rules of the security group allow
   #   - "module.retail_app_ecs.module.checkout_service.aws_security_group.this|ingress-sources"  Confirm the sources the inbound rules of the security group allow
+  #       derived-carry-on-the-target-d9e8bac03052: as under the first setting that lists it
+  #       derived-accept-the-difference-d9e8bac03052: as under the first setting that lists it
   #   - "module.retail_app_ecs.module.checkout_service.aws_security_group.this|rule-ports"  Confirm the ports of the rules of the security group
+  #       derived-carry-on-the-target-d9e8bac03052: as under the first setting that lists it
+  #       derived-accept-the-difference-d9e8bac03052: as under the first setting that lists it
   #   - "module.retail_app_ecs.module.checkout_service.aws_security_group.this|security-group-vpc-membership"  Decide which networks the security group may be attached to (a STACKIT group has no network scope)
   #   - "module.retail_app_ecs.module.checkout_service.aws_security_group.this|stateful"  Confirm whether the rules are stateful
   - id: DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-CHECKOUT-SERVICE-AWS-SECUR-2F7B1E2F
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Network Architect
@@ -1872,11 +1997,16 @@ decisions:
   #   - "module.retail_app_ecs.module.orders_service.aws_security_group.this|egress-rule-protocol"  Decide how the target enforces the protocol of the outbound rules of the security group
   #   - "module.retail_app_ecs.module.orders_service.aws_security_group.this|egress-sources"  Decide how the target enforces the destinations the outbound rules of the security group allow
   #   - "module.retail_app_ecs.module.orders_service.aws_security_group.this|ingress-sources"  Confirm the sources the inbound rules of the security group allow
+  #       derived-carry-on-the-target-d9e8bac03052: as under the first setting that lists it
+  #       derived-accept-the-difference-d9e8bac03052: as under the first setting that lists it
   #   - "module.retail_app_ecs.module.orders_service.aws_security_group.this|rule-ports"  Confirm the ports of the rules of the security group
+  #       derived-carry-on-the-target-d9e8bac03052: as under the first setting that lists it
+  #       derived-accept-the-difference-d9e8bac03052: as under the first setting that lists it
   #   - "module.retail_app_ecs.module.orders_service.aws_security_group.this|security-group-vpc-membership"  Decide which networks the security group may be attached to (a STACKIT group has no network scope)
   #   - "module.retail_app_ecs.module.orders_service.aws_security_group.this|stateful"  Confirm whether the rules are stateful
   - id: DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-ORDERS-SERVICE-AWS-SECURIT-D4CC95B3
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Network Architect
@@ -1892,11 +2022,16 @@ decisions:
   #   - "module.retail_app_ecs.module.ui_service.aws_security_group.this|egress-rule-protocol"  Decide how the target enforces the protocol of the outbound rules of the security group
   #   - "module.retail_app_ecs.module.ui_service.aws_security_group.this|egress-sources"  Decide how the target enforces the destinations the outbound rules of the security group allow
   #   - "module.retail_app_ecs.module.ui_service.aws_security_group.this|ingress-sources"  Confirm the sources the inbound rules of the security group allow
+  #       derived-carry-on-the-target-d9e8bac03052: as under the first setting that lists it
+  #       derived-accept-the-difference-d9e8bac03052: as under the first setting that lists it
   #   - "module.retail_app_ecs.module.ui_service.aws_security_group.this|rule-ports"  Confirm the ports of the rules of the security group
+  #       derived-carry-on-the-target-d9e8bac03052: as under the first setting that lists it
+  #       derived-accept-the-difference-d9e8bac03052: as under the first setting that lists it
   #   - "module.retail_app_ecs.module.ui_service.aws_security_group.this|security-group-vpc-membership"  Decide which networks the security group may be attached to (a STACKIT group has no network scope)
   #   - "module.retail_app_ecs.module.ui_service.aws_security_group.this|stateful"  Confirm whether the rules are stateful
   - id: DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-UI-SERVICE-AWS-SECURITY-GROUP-THIS
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Network Architect
@@ -1911,8 +2046,12 @@ decisions:
   # settings of the unit (see members: in the head):
   #   - "module.vpc.module.vpc.aws_subnet.private|prefix"  Review the prefix setting
   #   - "module.vpc.module.vpc.aws_subnet.private|private-egress-ipv4"  Decide how private servers reach the internet (outbound IPv4)
+  #       derived-prove-what-the-source-subnet-reaches-d4da05d67c08: its effect on the steps is not stated: a review frees nothing
+  #       derived-limit-egress-with-security-groups-006f330103e3: its effect on the steps is not stated: a review frees nothing
+  #       derived-isolate-through-the-target-environment-8e47c09d3034: its effect on the steps is not stated: a review frees nothing
   - id: DEC-NET-MODULE-VPC-MODULE-VPC-AWS-SUBNET-PRIVATE
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Network Architect
@@ -1946,8 +2085,12 @@ decisions:
   #   - "module.vpc.module.vpc.aws_subnet.public|effective-route-table"  Confirm which route table each subnet really uses
   #   - "module.vpc.module.vpc.aws_subnet.public|prefix"  Review the prefix setting
   #   - "module.vpc.module.vpc.aws_subnet.public|private-egress-ipv4"  Decide how private servers reach the internet (outbound IPv4)
+  #       derived-prove-what-the-source-subnet-reaches-d4da05d67c08: as under the first setting that lists it
+  #       derived-limit-egress-with-security-groups-006f330103e3: as under the first setting that lists it
+  #       derived-isolate-through-the-target-environment-8e47c09d3034: as under the first setting that lists it
   - id: DEC-NET-MODULE-VPC-MODULE-VPC-AWS-SUBNET-PUBLIC
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Network Architect

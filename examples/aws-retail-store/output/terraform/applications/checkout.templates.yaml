@@ -1,7 +1,8 @@
 # TEMPLATE of the environment and secrets of checkout (applications/checkout.templates.yaml): NAMES ONLY.
 # Written from the application compatibility contract applications/checkout.json, which says for every key where its value comes from and what to do.
-# No string value is copied from the source: an environment value can carry a secret under any name, so each key holds a REQUIRED_ placeholder that you
+# No string value is copied from the source, except a key marked DERIVED (the name and port of a Service of this manifest set): an environment value can carry a secret under any name, so each other key holds a REQUIRED_ placeholder that you
 # replace with the value the running service uses (a secret from your own secret store, never from this file or the repository).
+# Not listed below, DERIVED: RETAIL_CHECKOUT_ENDPOINTS_ORDERS (DERIVED: http://${module.orders_service.ecs_service_name} → Service orders port 80 of this manifest set) — the source states the name of an ECS service that the draft writes as a Kubernetes Service, so the ConfigMap checkout-env of the manifest holds the value; those keys are in the ConfigMap, not here.
 # StackToIT applies nothing: this is a list of what to create, bound to the manifest kubernetes/checkout/manifests.yaml, which reads these keys.
 ---
 # This is a LIST of keys, not the ConfigMap the pods read: the pods read checkout-env, which kubernetes/checkout/manifests.yaml defines (its data holds the keys it copies). Put each key below,
@@ -11,7 +12,6 @@ kind: ConfigMap
 metadata:
   name: checkout-env-keys
 data:
-  RETAIL_CHECKOUT_ENDPOINTS_ORDERS: "REQUIRED_CHECKOUT_ENV_RETAIL_CHECKOUT_ENDPOINTS_ORDERS" # NOT_VISIBLE: the source value is not visible statically; set the value the running service uses
   RETAIL_CHECKOUT_PERSISTENCE_PROVIDER: "REQUIRED_CHECKOUT_ENV_RETAIL_CHECKOUT_PERSISTENCE_PROVIDER" # LITERAL: set the value the running service uses (not copied from the source)
   RETAIL_CHECKOUT_PERSISTENCE_REDIS_URL: "REQUIRED_CHECKOUT_ENV_RETAIL_CHECKOUT_PERSISTENCE_REDIS_URL" # NOT_VISIBLE: the source value is not visible statically; set the value the running service uses
 ---

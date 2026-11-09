@@ -1,6 +1,6 @@
 {
-  "run_id": "80199dc3-8108-42fe-a0b9-030ac0f7777b",
-  "source_digest": "sha256:5ce8b8f8868f3b3214b2dddebe87e3f04291bf5ceac46dc0d95624215d020000",
+  "run_id": "6fa04223-b825-429e-a52e-360fa841d7b8",
+  "source_digest": "sha256:9289ba9abd2e1e953630f7ab62d12070ed65ca36d687d125b7e6cf755d020000",
   "price_snapshot": {
     "statement": "These are list prices only: no quantity is read and no total is built from them here; the quantities, amounts and totals of the priced families are in financial/cost-model.json, which computes a usage or an egress only where the assumption file states it. This block names the snapshot of the public STACKIT price list the run cites and, for each drafted resource of a kind the price rules list, the list price of the one SKU a tested rule joins it to, or why it has none.",
     "source_url": "https://pim.api.stackit.cloud/v2/skus?pageSize=100\u0026language=en",
@@ -17,7 +17,7 @@
       "unpriced": 0,
       "not_assessed": 5
     },
-    "other_drafted_resources": 42,
+    "other_drafted_resources": 33,
     "unowned_resources": 0,
     "limits": [
       "A list price is the price of one unit of one SKU. It is not a cost: this block reads no quantity and builds no total; the quantities, amounts and totals of the priced families are in financial/cost-model.json.",

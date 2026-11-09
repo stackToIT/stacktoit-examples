@@ -1,6 +1,6 @@
 # TEMPLATE of the environment and secrets of orders (applications/orders.templates.yaml): NAMES ONLY.
 # Written from the application compatibility contract applications/orders.json, which says for every key where its value comes from and what to do.
-# No string value is copied from the source: an environment value can carry a secret under any name, so each key holds a REQUIRED_ placeholder that you
+# No string value is copied from the source, except a key marked DERIVED (the name and port of a Service of this manifest set): an environment value can carry a secret under any name, so each other key holds a REQUIRED_ placeholder that you
 # replace with the value the running service uses (a secret from your own secret store, never from this file or the repository).
 # StackToIT applies nothing: this is a list of what to create, bound to the manifest kubernetes/orders/manifests.yaml, which reads these keys.
 ---

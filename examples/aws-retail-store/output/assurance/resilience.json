@@ -1,10 +1,10 @@
 {
-  "run_id": "80199dc3-8108-42fe-a0b9-030ac0f7777b",
-  "source_digest": "sha256:5ce8b8f8868f3b3214b2dddebe87e3f04291bf5ceac46dc0d95624215d020000",
+  "run_id": "6fa04223-b825-429e-a52e-360fa841d7b8",
+  "source_digest": "sha256:9289ba9abd2e1e953630f7ab62d12070ed65ca36d687d125b7e6cf755d020000",
   "resilience": {
     "requirement": {
       "state": "BUSINESS_REQUIREMENT_NOT_PROVIDED",
-      "statement": "No RTO or RPO was stated (BUSINESS_REQUIREMENT_NOT_PROVIDED): no architecture is called resilient against it, and no value is assumed.",
+      "statement": "No RTO or RPO was stated: no architecture is called resilient against it, and no value is assumed.",
       "applications": []
     },
     "units": [
@@ -20,7 +20,7 @@
         ],
         "intent": "UNKNOWN",
         "state": "EVIDENCE_REQUIRED",
-        "detail": "Intent UNKNOWN: decision requires evidence. No applications file was given, so no RTO or RPO is stated. The availability-zone and metro placement of the target are NOT_ASSESSED: this build holds no evidence for them.",
+        "detail": "The resilience intent is not known: a decision requires evidence. No applications file was given, so no RTO or RPO is stated. The availability-zone and metro placement of the target are not assessed: this build holds no evidence for them.",
         "derived_from": [
           "assessment.json#/units/31"
         ]
@@ -47,7 +47,7 @@
         ],
         "intent": "UNKNOWN",
         "state": "EVIDENCE_REQUIRED",
-        "detail": "Intent UNKNOWN: decision requires evidence. No applications file was given, so no RTO or RPO is stated. The availability-zone and metro placement of the target are NOT_ASSESSED: this build holds no evidence for them.",
+        "detail": "The resilience intent is not known: a decision requires evidence. No applications file was given, so no RTO or RPO is stated. The availability-zone and metro placement of the target are not assessed: this build holds no evidence for them.",
         "derived_from": [
           "assessment.json#/units/32",
           "assessment.json#/units/32/result/semantics/items/4",
@@ -70,7 +70,7 @@
         ],
         "intent": "UNKNOWN",
         "state": "EVIDENCE_REQUIRED",
-        "detail": "Intent UNKNOWN: decision requires evidence. No applications file was given, so no RTO or RPO is stated. The availability-zone and metro placement of the target are NOT_ASSESSED: this build holds no evidence for them.",
+        "detail": "The resilience intent is not known: a decision requires evidence. No applications file was given, so no RTO or RPO is stated. The availability-zone and metro placement of the target are not assessed: this build holds no evidence for them.",
         "derived_from": [
           "assessment.json#/units/33"
         ]
@@ -81,13 +81,13 @@
         "source_facts": [
           {
             "path": "availability zone",
-            "value": "NOT_ASSESSED: no placement adapter reads this source type in this build",
+            "value": "not assessed: no placement adapter reads this source type in this build",
             "label": "not read, which is not the same as not stated"
           }
         ],
         "intent": "UNKNOWN",
         "state": "EVIDENCE_REQUIRED",
-        "detail": "Intent UNKNOWN: decision requires evidence. No applications file was given, so no RTO or RPO is stated. The availability-zone and metro placement of the target are NOT_ASSESSED: this build holds no evidence for them.",
+        "detail": "The resilience intent is not known: a decision requires evidence. No applications file was given, so no RTO or RPO is stated. The availability-zone and metro placement of the target are not assessed: this build holds no evidence for them.",
         "derived_from": [
           "assessment.json#/units/0"
         ]
@@ -114,7 +114,7 @@
         ],
         "intent": "UNKNOWN",
         "state": "EVIDENCE_REQUIRED",
-        "detail": "Intent UNKNOWN: decision requires evidence. No applications file was given, so no RTO or RPO is stated. The availability-zone and metro placement of the target are NOT_ASSESSED: this build holds no evidence for them.",
+        "detail": "The resilience intent is not known: a decision requires evidence. No applications file was given, so no RTO or RPO is stated. The availability-zone and metro placement of the target are not assessed: this build holds no evidence for them.",
         "derived_from": [
           "assessment.json#/units/34",
           "assessment.json#/units/34/result/semantics/items/4",
@@ -142,7 +142,7 @@
         ],
         "intent": "UNKNOWN",
         "state": "EVIDENCE_REQUIRED",
-        "detail": "Intent UNKNOWN: decision requires evidence. No applications file was given, so no RTO or RPO is stated. The availability-zone and metro placement of the target are NOT_ASSESSED: this build holds no evidence for them.",
+        "detail": "The resilience intent is not known: a decision requires evidence. No applications file was given, so no RTO or RPO is stated. The availability-zone and metro placement of the target are not assessed: this build holds no evidence for them.",
         "derived_from": [
           "assessment.json#/units/28",
           "assessment.json#/units/28/result/semantics/items/27"
@@ -153,10 +153,10 @@
       }
     ],
     "limits": [
-      "No unit is called resilient and no resilience intent is chosen: the intent of every unit is UNKNOWN until a person decides it from a stated requirement and the facts of the source.",
+      "No unit is called resilient and no resilience intent is chosen: the intent of every unit is not known until a person decides it from a stated requirement and the facts of the source.",
       "No RTO or RPO is defaulted or inferred from a resource name; the requirement is what the applications file states, word for word, or it is not provided.",
-      "The zone facts of the source are read by the AWS placement adapter only; for every other source they are NOT_ASSESSED, which does not mean that the source states none.",
-      "The availability zones and metro placement of the STACKIT target are NOT_ASSESSED: this build holds no evidence for them, so nothing here compares the source with the target.",
+      "The zone facts of the source are read by the AWS and the Google Cloud placement adapters; for every other source they are not assessed, which does not mean that the source states none.",
+      "The availability zones and metro placement of the STACKIT target are not assessed: this build holds no evidence for them, so nothing here compares the source with the target.",
       "A unit is listed when it holds state or states a failure-domain, replication or backup fact; a unit that states none and holds no data is not looked at, and the network a unit stands in (a subnet, a route table, a security group) is not a unit with an intent of its own: 46 of the 52 units present in the source are not listed here, and the block says nothing about them."
     ]
   }

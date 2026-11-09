@@ -1,8 +1,8 @@
-# Suggested application groups of the run (written by stacktoit). Run 80199dc3-8108-42fe-a0b9-030ac0f7777b · source digest sha256:5ce8b8f8868f3b3214b2dddebe87e3f04291bf5ceac46dc0d95624215d020000
+# Suggested application groups of the run (written by stacktoit). Run 6fa04223-b825-429e-a52e-360fa841d7b8 · source digest sha256:9289ba9abd2e1e953630f7ab62d12070ed65ca36d687d125b7e6cf755d020000
 # These groups are a reading of the source (workloads, references, application tags), NOT a statement of yours. Every entry is `review: proposed`,
 # and nothing in this file is applied until you edit it: a proposed entry claims no unit and counts as no answer.
 #   - to ADOPT a group change `review: proposed` to `review: confirmed` (you may rename it, correct the selectors, add owners or an environment);
-#   - to DISMISS a group change it to `review: rejected`, or delete the entry;
+#   - to DISMISS a group change it to `review: rejected` and leave its `proposals` as written; a deleted entry dismisses nothing, the next run proposes the group again;
 #   - then pass the file back with --applications, or keep it as review/applications.yaml.
 # Selectors list the addresses of the group's members. A unit that more than one group reaches is shared: it is listed in a comment, never as a member.
 # `proposals` records which suggestion an entry came from (id and the digest of its members); do not edit it.

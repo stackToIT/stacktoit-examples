@@ -101,7 +101,9 @@
       "kind": "SERVICE_CONNECT_ALIAS",
       "name": "carts",
       "source": "a Service Connect alias in the Cloud Map private DNS namespace retailstore.local (module.retail_app_ecs.aws_service_discovery_private_dns_namespace.this): the clients of the namespace resolve it through the Service Connect proxy of their tasks",
-      "consumers": [],
+      "consumers": [
+        "ui ui-service/RETAIL_UI_ENDPOINTS_CARTS"
+      ],
       "provision": "CLUSTER_SERVICE",
       "target": "carts.<namespace>.svc.cluster.local (the Kubernetes Service carts; carts from a pod of the same namespace)",
       "verification": "resolve, from a pod of a client of carts, carts and carts.<namespace>.svc.cluster.local: expect the ClusterIP of the Kubernetes Service carts (kubectl get service carts)"

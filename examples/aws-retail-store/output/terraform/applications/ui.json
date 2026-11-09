@@ -13,7 +13,7 @@
     "FUNCTIONAL_CHECK_NOT_RUN"
   ],
   "readiness_words": "Checklist items are open: StackToIT lists the work and counts an item done only when the customer marks it in the decisions file (application_checklists); StackToIT never deploys the application.",
-  "checklist_sha256": "sha256:6378f0d6a0b648c677f3e079e80e2ee1868f47efd96b59567b341fa2e24ffecb",
+  "checklist_sha256": "sha256:f39a0eeb2315aee811b6118699f8247f17bee73cf3ff3822dad16fd484086e63",
   "templates": "applications/ui.templates.yaml",
   "validation_scope": "A kubeconform check or a kubectl apply --dry-run of the manifest establishes YAML validity only, not behaviour: it accepts a REQUIRED_ token in a string field, an empty ConfigMap and a Secret that does not exist, and runs nothing; the checklist of the application compatibility contract and an application smoke test on the target are what show that the workload works.",
   "containers": [
@@ -32,27 +32,35 @@
       "env": [
         {
           "name": "RETAIL_UI_ENDPOINTS_CARTS",
-          "class": "NOT_VISIBLE",
-          "value_copied": false,
-          "work": "the value is not visible statically (a variable or an expression): set the key in the ConfigMap to the value the running service uses"
+          "class": "REFERENCE",
+          "value_copied": true,
+          "source": "DERIVED: http://${module.carts_service.ecs_service_name} → Service carts port 80 of this manifest set",
+          "target": "http://carts (the Kubernetes Service carts, port 80, written into the ConfigMap by the manifest)",
+          "work": "the ConfigMap of the manifest already holds http://carts, derived from the source (http://${module.carts_service.ecs_service_name} is the name of module.retail_app_ecs.module.carts_service.aws_ecs_service.this, which the draft writes as the Kubernetes Service carts port 80 in the same cluster): nothing to set; apply the manifests of both services into one namespace (the bare name resolves only there; across namespaces write carts.<namespace>.svc.cluster.local) and check that the Service answers"
         },
         {
           "name": "RETAIL_UI_ENDPOINTS_CATALOG",
-          "class": "NOT_VISIBLE",
-          "value_copied": false,
-          "work": "the value is not visible statically (a variable or an expression): set the key in the ConfigMap to the value the running service uses"
+          "class": "REFERENCE",
+          "value_copied": true,
+          "source": "DERIVED: http://${module.catalog_service.ecs_service_name} → Service catalog port 80 of this manifest set",
+          "target": "http://catalog (the Kubernetes Service catalog, port 80, written into the ConfigMap by the manifest)",
+          "work": "the ConfigMap of the manifest already holds http://catalog, derived from the source (http://${module.catalog_service.ecs_service_name} is the name of module.retail_app_ecs.module.catalog_service.aws_ecs_service.this, which the draft writes as the Kubernetes Service catalog port 80 in the same cluster): nothing to set; apply the manifests of both services into one namespace (the bare name resolves only there; across namespaces write catalog.<namespace>.svc.cluster.local) and check that the Service answers"
         },
         {
           "name": "RETAIL_UI_ENDPOINTS_CHECKOUT",
-          "class": "NOT_VISIBLE",
-          "value_copied": false,
-          "work": "the value is not visible statically (a variable or an expression): set the key in the ConfigMap to the value the running service uses"
+          "class": "REFERENCE",
+          "value_copied": true,
+          "source": "DERIVED: http://${module.checkout_service.ecs_service_name} → Service checkout port 80 of this manifest set",
+          "target": "http://checkout (the Kubernetes Service checkout, port 80, written into the ConfigMap by the manifest)",
+          "work": "the ConfigMap of the manifest already holds http://checkout, derived from the source (http://${module.checkout_service.ecs_service_name} is the name of module.retail_app_ecs.module.checkout_service.aws_ecs_service.this, which the draft writes as the Kubernetes Service checkout port 80 in the same cluster): nothing to set; apply the manifests of both services into one namespace (the bare name resolves only there; across namespaces write checkout.<namespace>.svc.cluster.local) and check that the Service answers"
         },
         {
           "name": "RETAIL_UI_ENDPOINTS_ORDERS",
-          "class": "NOT_VISIBLE",
-          "value_copied": false,
-          "work": "the value is not visible statically (a variable or an expression): set the key in the ConfigMap to the value the running service uses"
+          "class": "REFERENCE",
+          "value_copied": true,
+          "source": "DERIVED: http://${module.orders_service.ecs_service_name} → Service orders port 80 of this manifest set",
+          "target": "http://orders (the Kubernetes Service orders, port 80, written into the ConfigMap by the manifest)",
+          "work": "the ConfigMap of the manifest already holds http://orders, derived from the source (http://${module.orders_service.ecs_service_name} is the name of module.retail_app_ecs.module.orders_service.aws_ecs_service.this, which the draft writes as the Kubernetes Service orders port 80 in the same cluster): nothing to set; apply the manifests of both services into one namespace (the bare name resolves only there; across namespaces write orders.<namespace>.svc.cluster.local) and check that the Service answers"
         },
         {
           "name": "RETAIL_UI_SEARCH_ENABLED",
@@ -107,36 +115,36 @@
       "kind": "ENV_VALUE",
       "subject": "ui-service/RETAIL_UI_ENDPOINTS_CARTS",
       "blocking": true,
-      "sha256": "sha256:b0fe90b1cb7b4c90337cfd00cc0e7d6194b0ce8dddd701e8fecb97f344ee3a11",
+      "sha256": "sha256:7b2b001c09a40a4fb0b6d5ad1af82bf197f52fd77bcaccbd36b4c1a62f91ae22",
       "state": "OPEN",
-      "work": "the value is not visible statically (a variable or an expression): set the key in the ConfigMap to the value the running service uses"
+      "work": "the ConfigMap of the manifest already holds http://carts, derived from the source (http://${module.carts_service.ecs_service_name} is the name of module.retail_app_ecs.module.carts_service.aws_ecs_service.this, which the draft writes as the Kubernetes Service carts port 80 in the same cluster): nothing to set; apply the manifests of both services into one namespace (the bare name resolves only there; across namespaces write carts.<namespace>.svc.cluster.local) and check that the Service answers"
     },
     {
       "id": "env_value:ui-service/RETAIL_UI_ENDPOINTS_CATALOG",
       "kind": "ENV_VALUE",
       "subject": "ui-service/RETAIL_UI_ENDPOINTS_CATALOG",
       "blocking": true,
-      "sha256": "sha256:ad8097b1c886ce3ceb1a5b7d8c49c13c63fe1619476e96f8aaee7fed7863efc0",
+      "sha256": "sha256:3a2ff9ae742a768355432de884ac7afb0e7e2e76645998b633e1e44f88eaaa49",
       "state": "OPEN",
-      "work": "the value is not visible statically (a variable or an expression): set the key in the ConfigMap to the value the running service uses"
+      "work": "the ConfigMap of the manifest already holds http://catalog, derived from the source (http://${module.catalog_service.ecs_service_name} is the name of module.retail_app_ecs.module.catalog_service.aws_ecs_service.this, which the draft writes as the Kubernetes Service catalog port 80 in the same cluster): nothing to set; apply the manifests of both services into one namespace (the bare name resolves only there; across namespaces write catalog.<namespace>.svc.cluster.local) and check that the Service answers"
     },
     {
       "id": "env_value:ui-service/RETAIL_UI_ENDPOINTS_CHECKOUT",
       "kind": "ENV_VALUE",
       "subject": "ui-service/RETAIL_UI_ENDPOINTS_CHECKOUT",
       "blocking": true,
-      "sha256": "sha256:6db12f8a12a83a67d0ea632d348b13e9f3202af6e78f43149ce258ee5fc6f749",
+      "sha256": "sha256:a724a9a7aec41473917ecb55303ac4ad396f4fe3cbdcd58c522352e6f4dd1672",
       "state": "OPEN",
-      "work": "the value is not visible statically (a variable or an expression): set the key in the ConfigMap to the value the running service uses"
+      "work": "the ConfigMap of the manifest already holds http://checkout, derived from the source (http://${module.checkout_service.ecs_service_name} is the name of module.retail_app_ecs.module.checkout_service.aws_ecs_service.this, which the draft writes as the Kubernetes Service checkout port 80 in the same cluster): nothing to set; apply the manifests of both services into one namespace (the bare name resolves only there; across namespaces write checkout.<namespace>.svc.cluster.local) and check that the Service answers"
     },
     {
       "id": "env_value:ui-service/RETAIL_UI_ENDPOINTS_ORDERS",
       "kind": "ENV_VALUE",
       "subject": "ui-service/RETAIL_UI_ENDPOINTS_ORDERS",
       "blocking": true,
-      "sha256": "sha256:d871da022f3a489645dd3541689ffd6abb6455ae1420e62f242bce15de5c4c26",
+      "sha256": "sha256:f6b513b61421d6ff1391a969b2ccb7c1aa914a81998f830cebc99b80570fa590",
       "state": "OPEN",
-      "work": "the value is not visible statically (a variable or an expression): set the key in the ConfigMap to the value the running service uses"
+      "work": "the ConfigMap of the manifest already holds http://orders, derived from the source (http://${module.orders_service.ecs_service_name} is the name of module.retail_app_ecs.module.orders_service.aws_ecs_service.this, which the draft writes as the Kubernetes Service orders port 80 in the same cluster): nothing to set; apply the manifests of both services into one namespace (the bare name resolves only there; across namespaces write orders.<namespace>.svc.cluster.local) and check that the Service answers"
     },
     {
       "id": "env_value:ui-service/RETAIL_UI_SEARCH_ENABLED",

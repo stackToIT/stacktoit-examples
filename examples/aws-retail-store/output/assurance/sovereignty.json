@@ -1,6 +1,6 @@
 {
-  "run_id": "80199dc3-8108-42fe-a0b9-030ac0f7777b",
-  "source_digest": "sha256:5ce8b8f8868f3b3214b2dddebe87e3f04291bf5ceac46dc0d95624215d020000",
+  "run_id": "6fa04223-b825-429e-a52e-360fa841d7b8",
+  "source_digest": "sha256:9289ba9abd2e1e953630f7ab62d12070ed65ca36d687d125b7e6cf755d020000",
   "sovereignty": {
     "requirement": {
       "state": "NOT_PROVIDED",
@@ -145,15 +145,10 @@
           "The privilege delta between the source identities and the target roles is not assessed."
         ],
         "actions": [
-          "action:stackitsa:facts:module.retail_app_ecs.module.carts_service.aws_ecs_service.this:module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this#execution_role_arn",
           "action:stackitsa:facts:module.retail_app_ecs.module.carts_service.aws_ecs_service.this:module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this#task_role_arn",
-          "action:stackitsa:facts:module.retail_app_ecs.module.catalog_service.aws_ecs_service.this:module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this#execution_role_arn",
           "action:stackitsa:facts:module.retail_app_ecs.module.catalog_service.aws_ecs_service.this:module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this#task_role_arn",
-          "action:stackitsa:facts:module.retail_app_ecs.module.checkout_service.aws_ecs_service.this:module.retail_app_ecs.module.checkout_service.aws_ecs_task_definition.this#execution_role_arn",
           "action:stackitsa:facts:module.retail_app_ecs.module.checkout_service.aws_ecs_service.this:module.retail_app_ecs.module.checkout_service.aws_ecs_task_definition.this#task_role_arn",
-          "action:stackitsa:facts:module.retail_app_ecs.module.orders_service.aws_ecs_service.this:module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this#execution_role_arn",
           "action:stackitsa:facts:module.retail_app_ecs.module.orders_service.aws_ecs_service.this:module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this#task_role_arn",
-          "action:stackitsa:facts:module.retail_app_ecs.module.ui_service.aws_ecs_service.this:module.retail_app_ecs.module.ui_service.aws_ecs_task_definition.this#execution_role_arn",
           "action:stackitsa:facts:module.retail_app_ecs.module.ui_service.aws_ecs_service.this:module.retail_app_ecs.module.ui_service.aws_ecs_task_definition.this#task_role_arn"
         ]
       },
@@ -644,21 +639,6 @@
         "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
       },
       {
-        "id": "unit:module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role",
-        "source_unit": "module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role",
-        "source_type": "aws_iam_role",
-        "target_service": "STACKIT service account for the workload",
-        "change": "REPLACED",
-        "dimensions": [
-          "DATA_LOCATION",
-          "EXITABILITY"
-        ],
-        "evidence": [
-          "unit:module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role"
-        ],
-        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
-      },
-      {
         "id": "unit:module.retail_app_ecs.module.carts_service.aws_iam_role.task_role",
         "source_unit": "module.retail_app_ecs.module.carts_service.aws_iam_role.task_role",
         "source_type": "aws_iam_role",
@@ -701,21 +681,6 @@
         ],
         "evidence": [
           "unit:module.retail_app_ecs.module.catalog_service.aws_ecs_service.this"
-        ],
-        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
-      },
-      {
-        "id": "unit:module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role",
-        "source_unit": "module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role",
-        "source_type": "aws_iam_role",
-        "target_service": "STACKIT service account for the workload",
-        "change": "REPLACED",
-        "dimensions": [
-          "DATA_LOCATION",
-          "EXITABILITY"
-        ],
-        "evidence": [
-          "unit:module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role"
         ],
         "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
       },
@@ -766,21 +731,6 @@
         "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
       },
       {
-        "id": "unit:module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role",
-        "source_unit": "module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role",
-        "source_type": "aws_iam_role",
-        "target_service": "STACKIT service account for the workload",
-        "change": "REPLACED",
-        "dimensions": [
-          "DATA_LOCATION",
-          "EXITABILITY"
-        ],
-        "evidence": [
-          "unit:module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role"
-        ],
-        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
-      },
-      {
         "id": "unit:module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role",
         "source_unit": "module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role",
         "source_type": "aws_iam_role",
@@ -827,21 +777,6 @@
         "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
       },
       {
-        "id": "unit:module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role",
-        "source_unit": "module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role",
-        "source_type": "aws_iam_role",
-        "target_service": "STACKIT service account for the workload",
-        "change": "REPLACED",
-        "dimensions": [
-          "DATA_LOCATION",
-          "EXITABILITY"
-        ],
-        "evidence": [
-          "unit:module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role"
-        ],
-        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
-      },
-      {
         "id": "unit:module.retail_app_ecs.module.orders_service.aws_iam_role.task_role",
         "source_unit": "module.retail_app_ecs.module.orders_service.aws_iam_role.task_role",
         "source_type": "aws_iam_role",
@@ -884,21 +819,6 @@
         ],
         "evidence": [
           "unit:module.retail_app_ecs.module.ui_service.aws_ecs_service.this"
-        ],
-        "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
-      },
-      {
-        "id": "unit:module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role",
-        "source_unit": "module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role",
-        "source_type": "aws_iam_role",
-        "target_service": "STACKIT service account for the workload",
-        "change": "REPLACED",
-        "dimensions": [
-          "DATA_LOCATION",
-          "EXITABILITY"
-        ],
-        "evidence": [
-          "unit:module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role"
         ],
         "detail": "The knowledge base maps this unit to the STACKIT service named; whether the draft writes it is stated in the plan of the unit."
       },
@@ -1256,24 +1176,6 @@
         ]
       },
       {
-        "dependency": "unit:module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role",
-        "source_unit": "module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role",
-        "target_service": "STACKIT service account for the workload",
-        "state": "PROVIDER_SPECIFIC",
-        "interface": "NOT_ASSESSED",
-        "data_format": "NOT_ASSESSED",
-        "provider_specific_code": "NOT_ASSESSED",
-        "iac_coupling": "PROVIDER_SPECIFIC",
-        "replacement_complexity": "NOT_ASSESSED",
-        "data_extraction_path": "NOT_ASSESSED",
-        "alternative_implementation": "NOT_ASSESSED",
-        "exit_evidence": "NOT_ASSESSED",
-        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
-        "evidence": [
-          "unit:module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role"
-        ]
-      },
-      {
         "dependency": "unit:module.retail_app_ecs.module.carts_service.aws_iam_role.task_role",
         "source_unit": "module.retail_app_ecs.module.carts_service.aws_iam_role.task_role",
         "target_service": "STACKIT service account for the workload",
@@ -1325,24 +1227,6 @@
         "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
         "evidence": [
           "unit:module.retail_app_ecs.module.catalog_service.aws_ecs_service.this"
-        ]
-      },
-      {
-        "dependency": "unit:module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role",
-        "source_unit": "module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role",
-        "target_service": "STACKIT service account for the workload",
-        "state": "PROVIDER_SPECIFIC",
-        "interface": "NOT_ASSESSED",
-        "data_format": "NOT_ASSESSED",
-        "provider_specific_code": "NOT_ASSESSED",
-        "iac_coupling": "PROVIDER_SPECIFIC",
-        "replacement_complexity": "NOT_ASSESSED",
-        "data_extraction_path": "NOT_ASSESSED",
-        "alternative_implementation": "NOT_ASSESSED",
-        "exit_evidence": "NOT_ASSESSED",
-        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
-        "evidence": [
-          "unit:module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role"
         ]
       },
       {
@@ -1400,24 +1284,6 @@
         ]
       },
       {
-        "dependency": "unit:module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role",
-        "source_unit": "module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role",
-        "target_service": "STACKIT service account for the workload",
-        "state": "PROVIDER_SPECIFIC",
-        "interface": "NOT_ASSESSED",
-        "data_format": "NOT_ASSESSED",
-        "provider_specific_code": "NOT_ASSESSED",
-        "iac_coupling": "PROVIDER_SPECIFIC",
-        "replacement_complexity": "NOT_ASSESSED",
-        "data_extraction_path": "NOT_ASSESSED",
-        "alternative_implementation": "NOT_ASSESSED",
-        "exit_evidence": "NOT_ASSESSED",
-        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
-        "evidence": [
-          "unit:module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role"
-        ]
-      },
-      {
         "dependency": "unit:module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role",
         "source_unit": "module.retail_app_ecs.module.checkout_service.aws_iam_role.task_role",
         "target_service": "STACKIT service account for the workload",
@@ -1472,24 +1338,6 @@
         ]
       },
       {
-        "dependency": "unit:module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role",
-        "source_unit": "module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role",
-        "target_service": "STACKIT service account for the workload",
-        "state": "PROVIDER_SPECIFIC",
-        "interface": "NOT_ASSESSED",
-        "data_format": "NOT_ASSESSED",
-        "provider_specific_code": "NOT_ASSESSED",
-        "iac_coupling": "PROVIDER_SPECIFIC",
-        "replacement_complexity": "NOT_ASSESSED",
-        "data_extraction_path": "NOT_ASSESSED",
-        "alternative_implementation": "NOT_ASSESSED",
-        "exit_evidence": "NOT_ASSESSED",
-        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
-        "evidence": [
-          "unit:module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role"
-        ]
-      },
-      {
         "dependency": "unit:module.retail_app_ecs.module.orders_service.aws_iam_role.task_role",
         "source_unit": "module.retail_app_ecs.module.orders_service.aws_iam_role.task_role",
         "target_service": "STACKIT service account for the workload",
@@ -1541,24 +1389,6 @@
         "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
         "evidence": [
           "unit:module.retail_app_ecs.module.ui_service.aws_ecs_service.this"
-        ]
-      },
-      {
-        "dependency": "unit:module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role",
-        "source_unit": "module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role",
-        "target_service": "STACKIT service account for the workload",
-        "state": "PROVIDER_SPECIFIC",
-        "interface": "NOT_ASSESSED",
-        "data_format": "NOT_ASSESSED",
-        "provider_specific_code": "NOT_ASSESSED",
-        "iac_coupling": "PROVIDER_SPECIFIC",
-        "replacement_complexity": "NOT_ASSESSED",
-        "data_extraction_path": "NOT_ASSESSED",
-        "alternative_implementation": "NOT_ASSESSED",
-        "exit_evidence": "NOT_ASSESSED",
-        "detail": "The Terraform for this dependency is a provider-specific draft: it is written for the STACKIT provider. Every other field of the exitability model is not assessed.",
-        "evidence": [
-          "unit:module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role"
         ]
       },
       {

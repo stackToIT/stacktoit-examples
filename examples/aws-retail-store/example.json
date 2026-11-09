@@ -25,24 +25,24 @@
   },
   "tool": {
     "name": "StackToIT",
-    "version": "0.6.0-11994-g560ca88251",
-    "commit": "560ca88251",
-    "kb_version": "0.385.0",
-    "kb_sha256": "f65894def83d867061199e09d4bcdffd1f3772ada7c4d474180544275af4dd1b",
-    "assessment_schema": "0.24.0",
+    "version": "0.6.0-14341-g8183bbe919",
+    "commit": "8183bbe919",
+    "kb_version": "0.420.0",
+    "kb_sha256": "28ca6db2f3fa8711d7f1ecbb002d4b9faa7153fce7e394d64e6d1c37b1bd1930",
+    "assessment_schema": "0.25.0",
     "manifest_version": "0.4.0",
     "opentofu": "1.13.1"
   },
   "run": {
-    "run_id": "80199dc3-8108-42fe-a0b9-030ac0f7777b",
-    "generated_at": "2026-11-03T19:59:06Z",
-    "date": "2026-11-03",
+    "run_id": "6fa04223-b825-429e-a52e-360fa841d7b8",
+    "generated_at": "2026-11-09T23:46:19Z",
+    "date": "2026-11-09",
     "mode": "online (default options; a local OpenTofu provider mirror with hashicorp/aws 5.100.0 was prepared beforehand as the console suggests; prices from the local price cache retrieved 2026-10-26)",
     "command": "stacktoit assess terraform/ecs/default ./aws-retail-store --provider-mirror /path/to/mirror",
     "command_note": "Run from the vendored copy of the upstream repository. A local OpenTofu provider mirror (hashicorp/aws 5.100.0, the version the constraints resolve to) was prepared first with `tofu providers mirror`, as the first run's console suggested; the source validation still did not run because the source has no lock file. The output directory is this example's output/ folder, unchanged.",
     "verify_command": "stacktoit verify ./aws-retail-store",
-    "verify_result": "VERIFIED — 145 files match manifest.json (size and SHA-256); 7 of 7 checks PASS",
-    "source_digest": "sha256:5ce8b8f8868f3b3214b2dddebe87e3f04291bf5ceac46dc0d95624215d020000"
+    "verify_result": "VERIFIED — 172 files match manifest.json (size and SHA-256); 7 of 7 checks PASS",
+    "source_digest": "sha256:9289ba9abd2e1e953630f7ab62d12070ed65ca36d687d125b7e6cf755d020000"
   },
   "metrics": {
     "files_read": 105,
@@ -78,34 +78,34 @@
     },
     "draft": {
       "units_considered": 52,
-      "generated": 38,
-      "no_resource_needed": 11,
-      "manual": 3,
-      "variables": 60,
-      "terraform_only": 34,
-      "hybrid": 4,
+      "generated": 34,
+      "no_resource_needed": 16,
+      "manual": 2,
+      "variables": 59,
+      "terraform_only": 29,
+      "hybrid": 5,
       "proposed_switched_off": 0
     },
     "execution": {
       "package_state": "PARTIALLY_EXECUTABLE",
       "package_state_words": "Partially executable migration package",
-      "plan_steps": 331,
-      "automated_steps": 57,
-      "automated_free_of_decisions": 48,
-      "automated_runs_as_written": 0,
-      "automated_waiting_for_value": 48,
+      "plan_steps": 339,
+      "automated_steps": 49,
+      "automated_free_of_decisions": 31,
+      "automated_runs_as_written": 1,
+      "automated_waiting_for_value": 30,
       "automated_wait_manual_prerequisite": 1,
-      "automated_require_design_decision": 8,
-      "automated_on_unconfirmed_default": 9,
+      "automated_require_design_decision": 17,
+      "automated_on_unconfirmed_default": 0,
       "automated_approved": 0,
-      "terraform_steps": 49,
-      "api_steps": 4,
+      "terraform_steps": 31,
+      "api_steps": 5,
       "api_steps_waiting_opt_in": 4,
-      "manual_steps": 272,
-      "manual_can_start_now": 115,
-      "lifecycle_steps": 96,
+      "manual_steps": 288,
+      "manual_can_start_now": 120,
+      "lifecycle_steps": 97,
       "refused_steps": 2,
-      "steps_not_runnable_now": 160
+      "steps_not_runnable_now": 181
     },
     "readiness": {
       "migration_ready": "NO",
@@ -113,19 +113,19 @@
       "automation_eligible_units": 0,
       "automation_eligible_after_open_items": 29,
       "cannot_be_automated_in_this_build": 15,
-      "critical_settings_total": 305,
-      "critical_settings_resolved": 36,
+      "critical_settings_total": 325,
+      "critical_settings_resolved": 37,
       "mapping_confidence_high": 0,
       "live_verification": "Never applied to STACKIT — no plan was run against a live project"
     },
     "decisions": {
-      "records_open": 112,
+      "records_open": 114,
       "decisions_to_make": 16,
-      "defaults_to_confirm": 2,
-      "defaults_to_confirm_note": "4 records nobody has answered rest on a draft default: 2 of the decisions to make, and 2 more records to confirm (public endpoint, size derived from the source)",
-      "open_input_requests": 49,
-      "input_requests_blocking_draft": 16,
-      "first_required_action": "Allow the calls of STACKIT APIs that are not generally available — Owner: Platform Architect"
+      "defaults_to_confirm": 1,
+      "defaults_to_confirm_note": "1 record nobody has answered rests on a draft default: the size derived from the source. The public endpoint of the four data services is no longer a default to confirm: it holds their steps until a person accepts it.",
+      "open_input_requests": 87,
+      "input_requests_blocking_draft": 11,
+      "first_required_action": "Decide how the clients reach an endpoint the draft exposes more widely — Owner: Security Architect"
     },
     "applications": {
       "total": 5,
@@ -152,12 +152,12 @@
         {
           "name": "orders",
           "state": "NOT_READY",
-          "why": "environment values required; workload identity undecided"
+          "why": "environment values and secrets required; workload identity undecided"
         },
         {
           "name": "ui",
           "state": "NOT_READY",
-          "why": "workload identity undecided; functional check not run"
+          "why": "environment values required; workload identity undecided"
         }
       ]
     },
@@ -191,8 +191,8 @@
         "detail": "100 checks, none found a violation"
       },
       "global_invariants": {
-        "state": "PASSED",
-        "detail": "12 of 12 invariants PASS"
+        "state": "PENDING",
+        "detail": "11 of 12 invariants PASS"
       },
       "draft_opentofu": {
         "state": "PASSED",
@@ -200,7 +200,7 @@
       },
       "manifest": {
         "state": "VERIFIED",
-        "detail": "145 files match manifest.json; EVIDENCE, SCHEMA, RUN_ID, BASIS, INPUTS_DIGEST, INVALIDATION_KEYS, EXECUTION_PLAN PASS"
+        "detail": "172 files match manifest.json; EVIDENCE, SCHEMA, RUN_ID, BASIS, INPUTS_DIGEST, INVALIDATION_KEYS, EXECUTION_PLAN PASS"
       },
       "not_established": [
         {
@@ -242,11 +242,15 @@
     },
     {
       "title": "Four STACKIT API steps wait for an opt-in",
-      "text": "Secrets Manager steps call a STACKIT API whose release status is not established. The plan does not make the calls until the customer allows them in the decisions file; this is the first required action of the run."
+      "text": "The draft gives the four data services (Aurora → MariaDB and PostgreSQL Flex, Amazon MQ → RabbitMQ, ElastiCache → Valkey) a public STACKIT endpoint limited by an access list, where the source kept them private. That widening is not carried out by default: their steps wait until a Security Architect accepts the exposure or chooses another way in. This is the first required action of the run."
     },
     {
       "title": "No cost comparison is stated",
       "text": "The source does not name its AWS region, so no AWS price was fetched. 5 of 14 STACKIT lines are priced (878.34 EUR partial, list prices); the report refuses to call a one-sided subtotal a saving."
+    },
+    {
+      "title": "No cost comparison is stated",
+      "text": "11 of the 12 global checks pass; the one that stays open is that no rule, route or role assignment allows more than the source did. The five ECS task roles become STACKIT project role assignments whose roles a person fills, and what a STACKIT project role allows is not stated in any public source, so StackToIT does not call the access equal."
     }
   ],
   "report": {
@@ -263,14 +267,15 @@
     "console": "console.txt"
   },
   "publication": {
-    "published_files": 149,
-    "manifest_files": 144,
+    "published_files": 177,
+    "manifest_files": 171,
     "outside_manifest": [
       "manifest.json",
       "review/applications.yaml",
       "review/decisions.yaml",
       "review/inputs.yaml",
-      "review/progress.yaml"
+      "review/progress.yaml",
+      "review/target-values.tfvars"
     ],
     "outside_manifest_note": "review/ is the customer's answer area the run writes beside its files; it is excluded from the manifest by design. manifest.json lists every other file.",
     "excluded": [],

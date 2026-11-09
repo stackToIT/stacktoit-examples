@@ -9,7 +9,7 @@
 # Operator checks before running: (1) the endpoint: STACKIT_API_URL_SECRETS_MANAGER_VAULT, https://prod.sm.eu01.stackit.cloud when it is not set; (2) the project: the Secrets Manager instance (instanceId) and the user of the call are those the draft creates in the target project (the call carries no project id: the instance id names the instance); (3) the read before the write: what the read before the write finds (ReadSecret): a secret that already has a current version stops the script unless STACKIT_CONFIRM_REPLACE names it, so read what it reports.
 set -euo pipefail
 
-printf '%s\n' 'Step API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db is blocked: it waits for the decision DEC-GEN-CONVERT-API-OPT-IN. Answer the decision and generate the package again; nothing was called.' >&2
+printf '%s\n' 'Step API/secrets-manager-vault/WriteSecret/module.retail_app_ecs.aws_secretsmanager_secret.catalog_db is blocked: it waits for the decisions DEC-GEN-CONVERT-API-OPT-IN, DEC-GEN-CONVERT-EXPOSURE-WIDENED/module.dependencies.module.catalog_rds.aws_rds_cluster.this. Answer the decisions and generate the package again; nothing was called.' >&2
 exit 3
 # The call logs in as the Secrets Manager user of the draft (its username and password are inputs of this script), not with a STACKIT access token.
 base="${STACKIT_API_URL_SECRETS_MANAGER_VAULT:-https://prod.sm.eu01.stackit.cloud}"
@@ -40,8 +40,15 @@ if ! command -v jq >/dev/null 2>&1; then
 fi
 here="${BASH_SOURCE[0]%/*}"
 if [ "$here" = "${BASH_SOURCE[0]}" ]; then here=.; fi
+stackit_tofu() {
+  if [ -n "${STACKIT_BACKEND_ACCESS_KEY_ID:-}" ]; then
+    AWS_ACCESS_KEY_ID="$STACKIT_BACKEND_ACCESS_KEY_ID" AWS_SECRET_ACCESS_KEY="${STACKIT_BACKEND_SECRET_ACCESS_KEY:-}" tofu "$@"
+  else
+    tofu "$@"
+  fi
+}
 if [ -z "${STACKIT_INPUT_INSTANCEID:-}" ] && command -v tofu >/dev/null 2>&1; then
-  tofu_out="$(tofu -chdir="$here/../../../terraform" output -no-color -raw stackit_secretsmanager_instance_migrated_secrets_instance_id 2>/dev/null)" || tofu_out=''
+  tofu_out="$(stackit_tofu -chdir="$here/../../../terraform" output -no-color -raw stackit_secretsmanager_instance_migrated_secrets_instance_id 2>/dev/null)" || tofu_out=''
   case "$tofu_out" in ''|*[!A-Za-z0-9._~:@/+=-]*) tofu_out='';; esac
   if [ -n "$tofu_out" ]; then
     STACKIT_INPUT_INSTANCEID="$tofu_out"
@@ -51,7 +58,7 @@ fi
 in_0="${STACKIT_INPUT_INSTANCEID:?set STACKIT_INPUT_INSTANCEID to the output TF/stackit_secretsmanager_instance.migrated_secrets#instance_id, or apply the draft in terraform/ so that tofu output -raw stackit_secretsmanager_instance_migrated_secrets_instance_id answers}"
 in_1="${STACKIT_INPUT_SECRET_NAME_CATALOG_DB:?set STACKIT_INPUT_SECRET_NAME_CATALOG_DB to the path of the secret in the Secrets Manager instance (the source does not state it as a literal)}"
 if [ -z "${STACKIT_INPUT_USERNAME:-}" ] && command -v tofu >/dev/null 2>&1; then
-  tofu_out="$(tofu -chdir="$here/../../../terraform" output -no-color -raw stackit_secretsmanager_user_migration_username 2>/dev/null)" || tofu_out=''
+  tofu_out="$(stackit_tofu -chdir="$here/../../../terraform" output -no-color -raw stackit_secretsmanager_user_migration_username 2>/dev/null)" || tofu_out=''
   case "$tofu_out" in ''|*[!A-Za-z0-9._~:@/+=-]*) tofu_out='';; esac
   if [ -n "$tofu_out" ]; then
     STACKIT_INPUT_USERNAME="$tofu_out"
@@ -60,7 +67,7 @@ if [ -z "${STACKIT_INPUT_USERNAME:-}" ] && command -v tofu >/dev/null 2>&1; then
 fi
 in_2="${STACKIT_INPUT_USERNAME:?set STACKIT_INPUT_USERNAME to the output TF/stackit_secretsmanager_user.migration#username, or apply the draft in terraform/ so that tofu output -raw stackit_secretsmanager_user_migration_username answers}"
 if [ -z "${STACKIT_INPUT_PASSWORD:-}" ] && command -v tofu >/dev/null 2>&1; then
-  tofu_secret="$(tofu -chdir="$here/../../../terraform" output -no-color -json stackit_secretsmanager_user_migration_password 2>/dev/null | jq -er 'select(type == "string" and length > 0)' 2>/dev/null)" || tofu_secret=''
+  tofu_secret="$(stackit_tofu -chdir="$here/../../../terraform" output -no-color -json stackit_secretsmanager_user_migration_password 2>/dev/null | jq -er 'select(type == "string" and length > 0)' 2>/dev/null)" || tofu_secret=''
   if [ -n "$tofu_secret" ]; then
     STACKIT_INPUT_PASSWORD="${tofu_secret}"
     unset tofu_secret

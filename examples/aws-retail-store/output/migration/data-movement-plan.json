@@ -1,8 +1,8 @@
 {
   "schema_version": "0.1.0",
-  "run_id": "80199dc3-8108-42fe-a0b9-030ac0f7777b",
-  "source_digest": "sha256:5ce8b8f8868f3b3214b2dddebe87e3f04291bf5ceac46dc0d95624215d020000",
-  "statement": "This file plans how the data of the stateful units the draft moves is carried to STACKIT, for the families of data stores that have a planner (families). It moves no data and opens no connection: every step is for a person. A number in it is the customer's own statement (origin CUSTOMER_INPUT, with the answer it came from) or it is UNKNOWN; a quantity nobody stated is never zero. A duration is a lower bound of the transfer alone and a comparison with the accepted downtime says only whether that bound exceeds it, never that the window fits. Stateful units of other families have no plan here.",
+  "run_id": "6fa04223-b825-429e-a52e-360fa841d7b8",
+  "source_digest": "sha256:9289ba9abd2e1e953630f7ab62d12070ed65ca36d687d125b7e6cf755d020000",
+  "statement": "This file plans how the data of the stateful units the draft moves is carried to STACKIT, for the families of data stores that have a planner (families). It moves no data and opens no connection: every step is for a person. A number in it is the customer's own statement (with the answer it came from) or it is not known; a quantity nobody stated is never zero. A duration is a lower bound of the transfer alone and a comparison with the accepted downtime says only whether that bound exceeds it, never that the window fits. Stateful units of other families have no plan here.",
   "families": [
     "rds-postgresql-to-postgresflex",
     "s3-to-objectstorage",
@@ -14,7 +14,16 @@
     "ecr-to-harbor",
     "elasticache-to-keyvalue",
     "dsql-to-postgresflex",
-    "amazonmq-to-rabbitmq"
+    "amazonmq-to-rabbitmq",
+    "cloudsql-postgresql-to-postgresflex",
+    "alloydb-to-postgresflex",
+    "cloudsql-mysql-to-mariadb",
+    "cloudsql-sqlserver-to-sqlserverflex",
+    "gcs-to-objectstorage",
+    "filestore-to-file-storage",
+    "gce-disk-to-block-storage",
+    "memorystore-to-keyvalue",
+    "artifact-registry-to-harbor"
   ],
   "assets": [
     {
@@ -669,7 +678,7 @@
       "limits": [
         "StackToIT moves no data and opens no connection: every step is defined for a person to run; none is applied or verified by this plan",
         "allocated_storage is the capacity provisioned, not the size of the data: the size is the customer's input (source.dataset.size)",
-        "the databases, tables, collations, routines, triggers, events, accounts and grants of the source are not in the Terraform: the checks are UNKNOWN until the preflight closes them, and what a linked parameter group does not state is not assumed",
+        "the databases, tables, collations, routines, triggers, events, accounts and grants of the source are not in the Terraform: the plan cannot decide the checks until the preflight closes them, and what a linked parameter group does not state is not assumed",
         "the STACKIT MariaDB pages and the commands are read as documentation, not run: no dump was loaded into a STACKIT MariaDB instance by this build, and the settings of the target (collations, sql_mode, time zone, the privileges of the service key's user) are not stated by STACKIT",
         "the replication of a binary log into the target is refused: no STACKIT page read documents a way to attach a STACKIT MariaDB instance to an external source as a replica: the instance pages (introduction, architecture, cluster setup, backup and restore, credentials) describe replication only between the nodes of the instance itself (a Galera cluster) and a restore of the instance's own backups, the credential is a service key whose privileges the page does not state (a replica needs a privileged account for CHANGE MASTER), and the MariaDB documentation states \"MariaDB's GTID is not compatible with MySQL's\" and that Galera replicates InnoDB only; the knowledge base records the same absence for every service other than PostgreSQL Flex",
         "the source is a MySQL line engine and the target is MariaDB: the comparison the plan has read is MariaDB 10.11 against MySQL 8.0; how far the application works against MariaDB is a test of the application, not a statement of this plan",
@@ -2031,7 +2040,7 @@
       "limits": [
         "StackToIT moves no data and opens no connection: every step is defined for a person to run; none is applied or verified by this plan",
         "the node memory and the provisioned capacity of the source are not the size of the data: the size is the customer's input (source.dataset.size)",
-        "the keys, their types, their sizes and their expiry are not in the Terraform: the checks are UNKNOWN until the preflight closes them; a key of a type the client of the copy has no branch for is found by the preflight, not by this plan",
+        "the keys, their types, their sizes and their expiry are not in the Terraform: the plan cannot decide the checks until the preflight closes them; a key of a type the client of the copy has no branch for is found by the preflight, not by this plan",
         "the commands and the pages are read as documentation, not run: no key was copied into a STACKIT Key Value Store instance by this build, and that the service accepts RESTORE is inferred from the tutorial's MIGRATE ... COPY",
         "loading an exported snapshot is refused: ElastiCache can export a backup of a node-based Valkey or Redis OSS cluster to an Amazon S3 bucket of its region as .rdb file(s) (AWS, Exporting a backup, read 2026-10-31; not for a cluster with data tiering), but no STACKIT page or API read documents loading such a file into a Key Value Store instance: the backup how-to restores a backup \"to the same instance\" and \"to a separate instance\" only by downloading the backup \"and restore it manually\", a way it describes for the service's own encrypted backups and not for a file from another service (last updated Oct 19, 2026); the API (version 2.1) has operations to create, list, download and restore the instance's own backups and none that uploads one; the provider's stackit_valkey_instance (0.119.0) has no restore attribute. A Valkey server you run yourself reads the RDB file of a Redis OSS 7.2 or earlier (valkey.io, Migration), and copying its keys from there with the client copy of this plan is a variant that adds a server the draft does not provision: the plan does not write it as steps",
         "following the source as a replica is refused: no STACKIT page or API read documents attaching a Key Value Store instance as a replica of an external primary: the instance parameters of the API (version 2.1) and of the provider (0.119.0) hold no replica-of, sync or import setting, and the replication the pages describe is between the nodes of the instance itself. The source side does not offer it either: ElastiCache lists replicaof, sync, psync, bgsave and save among the commands unavailable for caches running Redis OSS (AWS, read 2026-10-31) and states that restriction for no Valkey cache. The Valkey Migration page describes REPLICAOF between servers you operate yourself",
@@ -2410,7 +2419,7 @@
       "rollback": "Before the producers are switched nothing is switched: the source broker was neither stopped nor changed, and the instance only received definitions; delete what the import created on the instance and carry on with the source. After the producers moved, what they sent to the instance is not on the source broker: the point of no return is the first message the instance accepts. The way back is to point the producers at the source broker again (the switch of the producers says how) and to replay or accept the loss of what the instance received in between; take that decision before the window. The consumers stay on the source broker until its queues are drained, and the source broker is kept until the GO.",
       "limits": [
         "StackToIT moves no data and opens no connection: every step is defined for a person to run; none is applied or verified by this plan",
-        "the definitions, the depth of the queues, the clients and the permissions of the users are not in the Terraform: the checks are UNKNOWN until the preflight closes them",
+        "the definitions, the depth of the queues, the clients and the permissions of the users are not in the Terraform: the plan cannot decide the checks until the preflight closes them",
         "the messages are drained, never copied: the drain and the switch of the producers and of the consumers are the steps of the cutover, and the plan states no duration for the drain, which depends on the depth of the queues and the rate of their consumers",
         "the pages are read as documentation, not run: no definition was imported into a STACKIT RabbitMQ instance by this build, and the permissions of the credential of the instance are not stated by any page read",
         "moving the messages with the Shovel or the federation plugin is a method of your own: the STACKIT page lists both plugins as ones that can be activated, and the plan writes no step for it and does not state that it works between an Amazon MQ broker and the instance",
