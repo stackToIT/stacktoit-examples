@@ -23,9 +23,9 @@ The source code itself is not republished here; the links above point to the exa
 
 | | |
 |---|---|
-| StackToIT | `0.6.0-14341-g8183bbe919` (commit `8183bbe919`) |
-| Knowledge base | `0.420.0` (sha256 `28ca6db2f3fa8711d7f1ecbb002d4b9faa7153fce7e394d64e6d1c37b1bd1930`) |
-| Assessment schema · manifest | `0.25.0` · `0.4.0` |
+| StackToIT | `0.6.0-14852-ge0bf936cda` (commit `e0bf936cda`) |
+| Knowledge base | `0.428.0` (sha256 `269b6fb01d33e7b35c499690a7dc997b27fb67834e6ea10318bcc645927bf696`) |
+| Assessment schema · manifest | `0.26.0` · `0.4.0` |
 | STACKIT provider | `0.121.0` |
 | OpenTofu | `1.13.1` |
 
@@ -33,11 +33,11 @@ The source code itself is not republished here; the links above point to the exa
 
 | | |
 |---|---|
-| Date | 2026-11-09 (`generated_at` 2026-11-09T23:46:19Z) |
-| Run id | `6fa04223-b825-429e-a52e-360fa841d7b8` |
+| Date | 2026-11-12 (`generated_at` 2026-11-12T05:04:15Z) |
+| Run id | `20b9b72e-9147-46e6-a2d7-0782ad201937` |
 | Source digest | `sha256:9289ba9abd2e1e953630f7ab62d12070ed65ca36d687d125b7e6cf755d020000` |
 | Command | `stacktoit assess terraform/ecs/default ./aws-retail-store --provider-mirror DIR` — default options (online; prices from the local price cache retrieved 2026-10-26). `DIR` is a local OpenTofu provider mirror prepared first with `tofu providers mirror -platform=darwin_arm64 DIR` in the Terraform root (hashicorp/aws 5.100.0, hashicorp/random 3.7.x), as the first run's console suggested. |
-| Verification | `stacktoit verify ./aws-retail-store` → **VERIFIED**: 172 files match `manifest.json` (size and SHA-256); 7 of 7 checks PASS (EVIDENCE, SCHEMA, RUN_ID, BASIS, INPUTS_DIGEST, INVALIDATION_KEYS, EXECUTION_PLAN) |
+| Verification | `stacktoit verify ./aws-retail-store` → **VERIFIED**: 175 files match `manifest.json` (size and SHA-256); 7 of 7 checks PASS (EVIDENCE, SCHEMA, RUN_ID, BASIS, INPUTS_DIGEST, INVALIDATION_KEYS, EXECUTION_PLAN) |
 
 ## Validation, as the run recorded it
 
@@ -56,26 +56,28 @@ The source code itself is not republished here; the links above point to the exa
 
 ## Result in one paragraph
 
-282 resources in 105 files, 44 migration units present (8 more decided at plan time). Classification: 34 RECONFIGURE, 9 REPLATFORM, 1 REDESIGN, 0 DIRECT, 0 MANUAL_REVIEW, 0 BLOCKED; confidence 35 MEDIUM, 9 LOW. The draft generates 34 units (29 Terraform only, 5 Terraform plus STACKIT API), 16 need no resource (15 of them carry steps), 2 are left to the architect; 59 variables. Package state **PARTIALLY_EXECUTABLE**: 31 of 49 automated steps are free of decisions and manual prerequisites, 17 require a design decision, 1 can run as written, 0 approved; 288 manual steps; 2 refused. **Migration ready: NO**, 0 of 44 units automation-eligible. 16 decisions to make, 87 open input requests (11 block the draft, 37 block the apply). Cost comparison NOT AVAILABLE (the source names no AWS region; 5 of 14 STACKIT lines priced). Applications: 0 of 5 ready (catalog blocked by the OpenSearch engine version; carts and checkout redesign because DynamoDB has no counterpart; orders and ui not ready).
+282 resources in 105 files, 44 migration units present (8 more decided at plan time). Classification: 34 RECONFIGURE, 9 REPLATFORM, 1 REDESIGN, 0 DIRECT, 0 MANUAL_REVIEW, 0 BLOCKED; confidence 35 MEDIUM, 9 LOW. The draft generates 34 units (29 Terraform only, 5 Terraform plus STACKIT API), 16 need no resource (15 of them carry steps), 2 are left to the architect; 59 variables. Package state **PARTIALLY_EXECUTABLE**: 29 of 49 automated steps are free of decisions and manual prerequisites, 19 require a design decision, 1 can run as written, 0 approved; 283 manual steps; 2 refused. **Migration ready: NO**, 0 of 44 units automation-eligible. 19 decisions to make, 87 open input requests (11 block the draft, 37 block the apply). Cost comparison NOT AVAILABLE (the source names no AWS region; 5 of 14 STACKIT lines priced). Applications: 0 of 5 ready (catalog blocked by the OpenSearch engine version; carts and checkout redesign because DynamoDB has no counterpart; orders and ui not ready).
 
-## What changed since the previous version of this example (build 560ca88251, knowledge base 0.385.0)
+## What changed since the previous version of this example (build 8183bbe919, knowledge base 0.420.0)
 
-The source is the same; the tool reads it more strictly. Most figures move in the pessimistic direction because a safeguard now holds where it used to pass:
+The source is the same and so is every unit's classification and confidence (282 resources, 44 units, 49 automated steps, 87 open requests). What moved:
 
-- **The public endpoints of the data services wait for a person.** Aurora, Amazon MQ and ElastiCache are private in the source; the draft gives their STACKIT counterparts a public endpoint limited by an access list. That widening used to count as a default carried out by itself; now the steps of the four instances and their credentials wait until a Security Architect accepts it (the first required action). The sizes derived from the source are a decision of their own too. This is why 17 automated steps now require a design decision, against 8 before.
-- **ECS task execution roles get no stand-in identity.** The draft no longer writes a service account and a role assignment for the five execution roles (10 Terraform blocks fewer): STACKIT has no counterpart for what they do, so they appear as credential steps instead.
-- **The security-widening check reads role assignments.** The previous 12 of 12 did not cover them. The five ECS task roles become STACKIT project role assignments whose roles a person fills, and what a STACKIT project role allows is stated in no public source, so the check stays PENDING instead of claiming the access is not wider.
-- **Every value is asked for where it is used.** Plain variables are now requested per unit: 87 open requests, against 49, of which fewer block the draft (11, against 16) and more block the apply (37).
-- **The customer texts say things in words.** Internal class tokens, labels and evidence classes in sentences are replaced by words; the machine fields keep their values.
+- **Two steps wait for a person's choice of strategy.** The SKE cluster that replaces the ECS services and the MongoDB Flex instance that replaces the DynamoDB tables are alternatives StackToIT proposes, not counterparts. Their OpenTofu steps now wait until a person chooses the way the capability moves (container runtime, NoSQL table), and choosing the way the draft writes frees them. Steps free of decisions go from 31 to 29 and steps that require a design decision from 17 to 19. This is a correctness gain: the draft no longer writes a replacement nobody has chosen.
+- **One strategy decision per capability.** The proposed alternatives are decided per capability (container runtime, NoSQL table, event rule): three new decision records; 19 decisions to make, against 16.
+- **The EventBridge rule of the ECS events is a reviewed critical setting.** One more decision record for it.
+- **Fewer separate manual steps for the task roles.** The CloudWatch agent attachment a plan-time input switches off is now read as part of each task role's own review, so the five separate manual steps for it are gone (283 manual steps, against 288).
+- **New pages for the steering group.** `executive/steering-decisions.md` and `executive/accepted-differences.md` list the decisions and the accepted differences in the words of a steering paper.
+
+The security-widening check is unchanged: it stays PENDING because what a STACKIT project role allows has no public source.
 
 ## What is in `output/`
 
 | Folder / file | Content |
 |---|---|
-| `index.html`, `pages/` | the HTML Workspace (12 pages) |
-| `assessment.json`, `workspace.json`, `target-plan.json`, `execution-plan.json`, `decisions.json`, `inputs.json`, `preflight.json` | machine-readable results |
+| `index.html`, `pages/` | the HTML Workspace (12 pages, plus 10 decision-group pages in `pages/decisions/`) |
+| `assessment.json`, `workspace.json`, `target-plan.json`, `execution-plan.json`, `decisions.json` | machine-readable results; the `*-template.yaml` and `target-values-template.tfvars` files are the answer templates |
 | `architecture/` | current, target, delta, network-security, data-flows (SVG + Mermaid); dependencies, identity (Mermaid) |
-| `executive/` | `brief.md`, `decisions.md` |
+| `executive/` | `brief.md`, `decisions.md`, `steering-decisions.md`, `accepted-differences.md` |
 | `terraform/` | the STACKIT draft: `terraform.tf`, `variables.tf`, `network.tf`, `security.tf`, `identity.tf`, `data.tf`, `kubernetes.tf`, `loadbalancing.tf`, `messaging.tf`, `observability.tf`, `kubernetes/`, `applications/`, `handover/` |
 | `execution/` | `README.md`, `terraform/apply.md`, `api/` (STACKIT API scripts), `manual/actions.md`, `verify/checks.md` |
 | `migration/` | waves, work board, work packages, data movement (CSV, Markdown, JSON), roadmap, landing-zone requirements |
@@ -84,4 +86,4 @@ The source is the same; the tool reads it more strictly. Most figures move in th
 | `review/` | `inputs.yaml`, `decisions.yaml`, `applications.yaml`, `progress.yaml`, `target-values.tfvars` — unanswered |
 | `manifest.json`, `console.txt` | file manifest with hashes; the console output of the run |
 
-177 files; 171 are listed in `manifest.json`, the manifest itself and the five `review/` files are outside it by the tool's own rule. Nothing was removed, edited or redacted for publication.
+180 files; 174 are listed in `manifest.json`, the manifest itself and the five `review/` files are outside it by the tool's own rule. Nothing was removed, edited or redacted for publication.

@@ -71,7 +71,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 </style>
 </head>
 <body data-lens="all" data-pages="">
-<dl hidden data-run><div><dt>Run</dt><dd>6fa04223-b825-429e-a52e-360fa841d7b8 &middot; source digest sha256:9289ba9abd2e1e953630f7ab62d12070ed65ca36d687d125b7e6cf755d020000</dd></div></dl>
+<dl hidden data-run><div><dt>Run</dt><dd>20b9b72e-9147-46e6-a2d7-0782ad201937 &middot; source digest sha256:9289ba9abd2e1e953630f7ab62d12070ed65ca36d687d125b7e6cf755d020000</dd></div></dl>
 <a class="skip" href="#main">Skip to the content</a>
 <noscript><p>Scripts are switched off. Nothing in this workspace needs them: every page is shown in full. A script would only add buttons: one that opens or closes every group of details, the lenses that put the navigation in another order, and the filters and sorts of the decision records and of the Target Fit rows.</p></noscript>
 <header>
@@ -101,16 +101,16 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <summary>Technical details: run, versions, digest and evidence freshness</summary>
 <h2>Assessment</h2>
 <dl class="topbar">
-<div><dt>Assessment</dt><dd>terraform/ecs/default (assessment format 0.25.0)</dd></div>
-<div><dt>Assessment timestamp</dt><dd>Generated 2026-11-09 23:46 UTC by stacktoit 0.6.0-14341-g8183bbe919 (8183bbe919)</dd></div>
-<div><dt>Run</dt><dd>6fa04223-b825-429e-a52e-360fa841d7b8 &middot; source digest sha256:9289ba9abd2e1e953630f7ab62d12070ed65ca36d687d125b7e6cf755d020000</dd></div>
+<div><dt>Assessment</dt><dd>terraform/ecs/default (assessment format 0.26.0)</dd></div>
+<div><dt>Assessment timestamp</dt><dd>Generated 2026-11-12 05:04 UTC by stacktoit 0.6.0-14852-ge0bf936cda (e0bf936cda)</dd></div>
+<div><dt>Run</dt><dd>20b9b72e-9147-46e6-a2d7-0782ad201937 &middot; source digest sha256:9289ba9abd2e1e953630f7ab62d12070ed65ca36d687d125b7e6cf755d020000</dd></div>
 <div><dt>Source snapshot</dt><dd>partly decided only at plan time &middot; aws not locked; random not locked</dd></div>
 <div><dt>STACKIT target profile</dt><dd>Stable network model: the experimental STACKIT VPC resources are not used (STACKIT_STABLE)</dd></div>
 <div><dt>STACKIT provider version</dt><dd>0.121.0</dd></div>
-<div><dt>Knowledge base version</dt><dd>0.420.0</dd></div>
+<div><dt>Knowledge base version</dt><dd>0.428.0</dd></div>
 <div><dt>Evidence freshness</dt><dd><span class="state"><span aria-hidden="true">○</span> Not assessed</span> &mdash; Evidence freshness as one measure is not assessed in this build. Dated evidence is shown where it is used: each STACKIT support option and each assurance row states when it was verified (verified_at, and recheck_after for support), in support_suitability and assurance. The date beside a readiness dimension is the assessment date, not a retrieval date.</dd></div>
 </dl>
-<p role="status"><strong>Staleness:</strong> <span class="state"><span aria-hidden="true">○</span> Not assessed</span> &mdash; This build has no change detection, so there has been no re-check since the assessment was made (Generated 2026-11-09 23:46 UTC). The source may have changed since.</p>
+<p role="status"><strong>Staleness:</strong> <span class="state"><span aria-hidden="true">○</span> Not assessed</span> &mdash; This build has no change detection, so there has been no re-check since the assessment was made (Generated 2026-11-12 05:04 UTC). The source may have changed since.</p>
 </details>
 <p role="status"><strong>Source checks:</strong> Built-in source checks passed — OpenTofu validation of the source did not run (LOCK_FILE)</p>
 <p role="status"><strong>Run status:</strong> COMPLETE (report published). Source: partly decided only at plan time. Draft: GENERATED. The report was written whole; this is not a statement that the migration is ready.</p>
@@ -176,6 +176,8 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <tr><th scope="row"><a href="../migration/decisions.csv"><code>migration/decisions.csv</code></a></th><td>The decision records as rows for a spreadsheet.</td><td>Yes</td><td>&ndash;</td></tr>
 <tr><th scope="row"><a href="../executive/decisions.md"><code>executive/decisions.md</code></a></th><td>The decision records in words.</td><td>Yes</td><td>&ndash;</td></tr>
 <tr><th scope="row"><a href="../executive/brief.md"><code>executive/brief.md</code></a></th><td>The five-minute answer as a document: the run summary, what holds the estate back, what people must decide, the shape of the target and what has and has not been established. It restates numbers this file holds and scores nothing.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../executive/accepted-differences.md"><code>executive/accepted-differences.md</code></a></th><td>What the architecture board is asked to accept, once for each kind of setting: what the source does, what STACKIT does instead or cannot do, the units, the consequence and the records that hold it, with a resolution the board can adopt as a whole. It closes nothing in the run.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../executive/steering-decisions.md"><code>executive/steering-decisions.md</code></a></th><td>The decisions of the steering level as short decision papers: the subject, the facts, the options with what each means for the plan, the recommendation where the record states one, and a resolution line for each option.</td><td>Yes</td><td>&ndash;</td></tr>
 <tr><th scope="row"><a href="../migration/applications.csv"><code>migration/applications.csv</code></a></th><td>One row per application of the applications file you gave, with the values as you wrote them (a value you did not write is marked not provided), and one row per unit claimed by several applications. Header only without an applications file.</td><td>Yes</td><td>&ndash;</td></tr>
 <tr><th scope="row"><a href="../migration/waves.csv"><code>migration/waves.csv</code></a></th><td>The dependency order of the units, one row per unit: the wave, WITHHELD when a part of the source was not read in full, or REFUSED for a unit the partial draft refuses for a missing input (in no wave). An order of work, not a schedule.</td><td>Yes</td><td>&ndash;</td></tr>
 <tr><th scope="row"><a href="../migration/actions.csv"><code>migration/actions.csv</code></a></th><td>The register of what a person has to do, decide or establish before the draft is deployed, one typed row per item: gaps in the reading of the source, critical semantics left open, open decisions and manual actions of the plans, workload items that wait for evidence, and validation rows not yet established. Every member of decisions.json is a row; each row names the decision record that holds it. It lists what is open and decides nothing.</td><td>Yes</td><td>&ndash;</td></tr>
@@ -184,7 +186,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <tr><th scope="row"><a href="../migration/source-target.csv"><code>migration/source-target.csv</code></a></th><td>Each source unit beside its STACKIT target, one row per unit (the standing column says what the knowledge base and the run state of the unit&#39;s target; the drafted and manual counts of the console and of the draft&#39;s README partition what the draft did, and are another count): the target service and its resources (the knowledge base&#39;s candidate resource types), the resource types the draft really writes for the unit (drafted_resources: empty when it writes none, marked not assessed when no draft was read), or in words that there is no target, that the unit is refused or that the source switches it off, and how many of its settings are kept (PRESERVED), changed (TRANSFORMED), accepted (ACCEPTED_*) or still to do (everything else, including anything not known). Counted from the rows of assurance/equivalence-ledger.csv; a unit with no ledger row has four zeros, which says nothing was counted, not that nothing is left to do. Header only when the Workspace holds no counts.</td><td>Yes</td><td>&ndash;</td></tr>
 <tr><th scope="row"><a href="../migration/application-chain.csv"><code>migration/application-chain.csv</code></a></th><td>The drill-down from each application of the customer&#39;s file and each group the run suggested (PROPOSED: a reading of the source, not confirmed by anyone), one row per member unit: the AWS resource, the STACKIT target in the words of migration/source-target.csv, the ids of the decisions that still ask something about the unit, the steps of the execution plan that carry it with the number an answer leaves not taken, the Kubernetes manifest objects that tie to it by an exact literal match, and what the code scan says of the application. A run that read no plan or built no register marks those cells as not assessed, which is not an empty list. Header only when the Workspace holds none.</td><td>Yes</td><td>&ndash;</td></tr>
 <tr><th scope="row"><a href="../migration/prerequisites.md"><code>migration/prerequisites.md</code></a></th><td>For each unit, the open decisions and manual actions that stand between its draft and its deployment, as its plan states them.</td><td>Yes</td><td>&ndash;</td></tr>
-<tr><th scope="row"><a href="../migration/data-movement.csv"><code>migration/data-movement.csv</code></a></th><td>One row per stateful source unit (a database, a cache, a volume, a file share, an object store): its source and target service, the data class, RPO and downtime tolerance you stated (or marked not provided), the provisioned capacity the source states (not the size of the data) and the cutover dependency. The mechanism of every unit is UNKNOWN: StackToIT never moves data.</td><td>Yes</td><td>&ndash;</td></tr>
+<tr><th scope="row"><a href="../migration/data-movement.csv"><code>migration/data-movement.csv</code></a></th><td>One row per stateful source unit (a database, a cache, a volume, a file share, an object store): its source and target service, the data class, RPO and downtime tolerance you stated (or marked not provided), the provisioned capacity the source states (not the size of the data) and the cutover dependency. The mechanism of every unit is not known: a person chooses it from the size of the data, the downtime tolerated and the consistency the application needs, none of which the source states. StackToIT never moves data.</td><td>Yes</td><td>&ndash;</td></tr>
 <tr><th scope="row"><a href="../migration/data-movement.md"><code>migration/data-movement.md</code></a></th><td>The same units in words, with what the source and the plans do and do not state about each. No size, change rate, duration, transfer rate or downtime is ever stated, and no mechanism is chosen.</td><td>Yes</td><td>&ndash;</td></tr>
 <tr><th scope="row"><a href="../migration/data-movement.json"><code>migration/data-movement.json</code></a></th><td>The data_movement block of workspace.json with every stateful source unit (the facets, the unknowns, the provisioned capacity and where each fact is read from), as a file of its own, with the run it belongs to. workspace.json carries the tally of the units.</td><td>Yes</td><td>&ndash;</td></tr>
 <tr><th scope="row"><a href="../architecture/current.mmd"><code>architecture/current.mmd</code></a></th><td>The units of the estate and the dependencies among them as a Mermaid flowchart, with the units of each application drawn together.</td><td>Yes</td><td>&ndash;</td></tr>
@@ -229,7 +231,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <tr><th scope="row"><a href="../terraform/applications/orders.templates.yaml"><code>terraform/applications/orders.templates.yaml</code></a></th><td>A file of the STACKIT Terraform draft.</td><td>Yes</td><td>4164</td></tr>
 <tr><th scope="row"><a href="../terraform/applications/ui.json"><code>terraform/applications/ui.json</code></a></th><td>A file of the STACKIT Terraform draft.</td><td>Yes</td><td>15089</td></tr>
 <tr><th scope="row"><a href="../terraform/applications/ui.templates.yaml"><code>terraform/applications/ui.templates.yaml</code></a></th><td>A file of the STACKIT Terraform draft.</td><td>Yes</td><td>2422</td></tr>
-<tr><th scope="row"><a href="../terraform/data.tf"><code>terraform/data.tf</code></a></th><td>The STACKIT resources the draft writes for one area of the target (data).</td><td>Yes</td><td>43333</td></tr>
+<tr><th scope="row"><a href="../terraform/data.tf"><code>terraform/data.tf</code></a></th><td>The STACKIT resources the draft writes for one area of the target (data).</td><td>Yes</td><td>43412</td></tr>
 <tr><th scope="row"><a href="../terraform/handover/broker-dependencies_mq/data-move.md"><code>terraform/handover/broker-dependencies_mq/data-move.md</code></a></th><td>A file of the STACKIT Terraform draft.</td><td>Yes</td><td>15537</td></tr>
 <tr><th scope="row"><a href="../terraform/handover/cache-dependencies_checkout_elasticache_redis_default/data-move.md"><code>terraform/handover/cache-dependencies_checkout_elasticache_redis_default/data-move.md</code></a></th><td>A file of the STACKIT Terraform draft.</td><td>Yes</td><td>30427</td></tr>
 <tr><th scope="row"><a href="../terraform/handover/cluster-access/kubeconfig.md"><code>terraform/handover/cluster-access/kubeconfig.md</code></a></th><td>A file of the STACKIT Terraform draft.</td><td>Yes</td><td>5344</td></tr>
@@ -260,12 +262,12 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <tr><th scope="row"><a href="../terraform/kubernetes/orders/manifests.yaml"><code>terraform/kubernetes/orders/manifests.yaml</code></a></th><td>A file of the STACKIT Terraform draft.</td><td>Yes</td><td>14657</td></tr>
 <tr><th scope="row"><a href="../terraform/kubernetes/ui/manifests.yaml"><code>terraform/kubernetes/ui/manifests.yaml</code></a></th><td>A file of the STACKIT Terraform draft.</td><td>Yes</td><td>17976</td></tr>
 <tr><th scope="row"><a href="../terraform/loadbalancing.tf"><code>terraform/loadbalancing.tf</code></a></th><td>The STACKIT resources the draft writes for one area of the target (loadbalancing).</td><td>Yes</td><td>7726</td></tr>
-<tr><th scope="row"><a href="../terraform/messaging.tf"><code>terraform/messaging.tf</code></a></th><td>The STACKIT resources the draft writes for one area of the target (messaging).</td><td>Yes</td><td>8083</td></tr>
+<tr><th scope="row"><a href="../terraform/messaging.tf"><code>terraform/messaging.tf</code></a></th><td>The STACKIT resources the draft writes for one area of the target (messaging).</td><td>Yes</td><td>8066</td></tr>
 <tr><th scope="row"><a href="../terraform/network.tf"><code>terraform/network.tf</code></a></th><td>The STACKIT resources the draft writes for one area of the target (network).</td><td>Yes</td><td>11061</td></tr>
 <tr><th scope="row"><a href="../terraform/observability.tf"><code>terraform/observability.tf</code></a></th><td>The STACKIT resources the draft writes for one area of the target (observability).</td><td>Yes</td><td>7289</td></tr>
 <tr><th scope="row"><a href="../terraform/security.tf"><code>terraform/security.tf</code></a></th><td>The STACKIT resources the draft writes for one area of the target (security).</td><td>Yes</td><td>45847</td></tr>
 <tr><th scope="row"><a href="../terraform/terraform.tf"><code>terraform/terraform.tf</code></a></th><td>The OpenTofu and provider version requirements of the draft.</td><td>Yes</td><td>439</td></tr>
-<tr><th scope="row"><a href="../terraform/variables.tf"><code>terraform/variables.tf</code></a></th><td>The input variables of the draft: the values a person fills in.</td><td>Yes</td><td>40942</td></tr>
+<tr><th scope="row"><a href="../terraform/variables.tf"><code>terraform/variables.tf</code></a></th><td>The input variables of the draft: the values a person fills in.</td><td>Yes</td><td>40908</td></tr>
 <tr><th scope="row"><a href="../target-plan.json"><code>target-plan.json</code></a></th><td>The canonical TargetPlans the draft was generated from, machine-readable: one plan for each family of the draft that is written from a plan (the security groups of each source cloud, routing, identity, log sources, servers), each with how the draft wrote every resource of it (a resource, a comment only, or a statement about a block another generator writes). The run read it back against the draft before it was published: every resource of a plan is, or is not, a block of the draft as the file says. Present only when the run produced the draft.</td><td>Yes</td><td>&ndash;</td></tr>
 <tr><th scope="row"><a href="../execution/"><code>execution/</code></a></th><td>The execution package: execution/README.md is the entry point for carrying the migration out (the verdict for the resources with a typed plan and the draft files it does not cover, what is created, what is not migrated, the decisions, the credentials, the order of the steps, the OpenTofu and API commands, the manual steps, the checks and the rollback); execution/terraform/apply.md, one request file and one script per STACKIT API call under execution/api/, execution/manual/actions.md and execution/verify/checks.md beside it; execution/deploy.sh, the one entry point that carries the steps out in the order of the plan, up to the verification (no argument: a dry run that prints the order; --run: stops at each step that waits, and resumes from review/progress.yaml), with the template of the remote state (execution/backend.tf.template), one example of a pipeline (execution/ci-pipeline.example.yml) and, when a step sits between OpenTofu blocks, the generated roots of the stages before the draft (execution/stages/); a run whose plan holds checks that are commands, or a load balancer in the network of a cluster, also holds the scripts that run those checks and fill the values of the cluster, this entry names them when the run wrote them. A rendering of execution-plan.json and of the facts of the staged draft (the variables, outputs and manifests the scripts read); nothing in it has been run, and a script stops before it calls anything when its step waits for a decision. Present only when the run produced the draft. This run also wrote the scripts execution/deploy.sh, execution/terraform/fill-cluster-values.sh, execution/verify/verify.sh.</td><td>Yes</td><td>&ndash;</td></tr>
 <tr><th scope="row"><a href="../migration/execution-actions.csv"><code>migration/execution-actions.csv</code></a></th><td>One row per step of execution-plan.json for a spreadsheet: id, phase, mode, source, target, dependencies, owner, status, file, risks, rollback, whether it is executable and the decisions it waits for. The steps to carry out, not the register of open items (migration/actions.csv). Present only when the run produced the draft.</td><td>Yes</td><td>&ndash;</td></tr>
@@ -330,7 +332,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <li>recorded: finding: engine-version-upgrade</li>
 <li>recorded: finding: mq-rabbitmq-major-version</li>
 <li>recorded: finding: source-provider-unpinned</li>
-<li>recorded: rule line: rule aws.mq_broker/rabbitmq · KB 0.420.0 · target maturity GA · lifecycle active · evidence internal · review required</li>
+<li>recorded: rule line: rule aws.mq_broker/rabbitmq · KB 0.428.0 · target maturity GA · lifecycle active · evidence internal · review required</li>
 <li>recorded: trace: TR-6212f52df434</li>
 <li>recorded: trace: TR-9aa24821e695</li>
 </ul>
@@ -395,7 +397,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <li>NOT CARRIED (module.dependencies.aws_mq_broker.mq): auto_minor_version_upgrade = true — the minor-version upgrade policy is not carried: Amazon MQ upgrades the broker to new minor versions as it releases them when auto_minor_version_upgrade is true (aws provider 6.66.0, aws_mq_broker), while … (full text: engineering/trace/messaging.md)</li>
 <li>warning: The broker runs RabbitMQ 3.x and STACKIT RabbitMQ is 4.x: classic queue mirroring (the ha-mode policies) was removed in 4.0, so a mirrored classic queue becomes a quorum queue.</li>
 <li>warning: No lock file entry pins aws (&gt;= 3.0, &gt;= 3.29, &gt;= 4.18, &gt;= 4.30, &gt;= 4.59, &gt;= 5.64, &gt;= 5.79, ~&gt; 5.0): the version the plan would use is not proven (stated once for the whole estate)</li>
-<li>warning: Engine version UPGRADE: the source runs RabbitMQ 3.13 (engine_version); STACKIT RabbitMQ in eu01 offers 4.1 (service catalogue of eu01, read 2026-10-18), none of them the source&#39;s version.</li>
+<li>warning: Engine version UPGRADE: the source runs RabbitMQ 3.13 (engine_version); STACKIT RabbitMQ in eu01 offers 4.1 (service catalogue of eu01), none of them the source&#39;s version.</li>
 <li>2 open decisions of the converter wait for a person: the unit is not ready to deploy until each is decided</li>
 </ul>
 <p><small>Held in memory in this build; no file contains it.</small></p>
@@ -905,7 +907,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <ul>
 <li>recorded: finding: engine-version-downgrade</li>
 <li>recorded: finding: source-provider-unpinned</li>
-<li>recorded: rule line: rule aws.opensearch/opensearch · KB 0.420.0 · target maturity GA · lifecycle active · evidence internal · review required</li>
+<li>recorded: rule line: rule aws.opensearch/opensearch · KB 0.428.0 · target maturity GA · lifecycle active · evidence internal · review required</li>
 <li>recorded: trace: TR-5efbbe752c59</li>
 <li>recorded: trace: TR-71c158d59d3e</li>
 </ul>
@@ -968,7 +970,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <li>NOT CARRIED (module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this): advanced_options, advanced_security_options, domain_endpoint_options, ebs_options, encrypt_at_rest, engine_version = OpenSearch_3.3, node_to_node_encryption, vpc_options — a stackit_opensearch_instance takes a … (full text: engineering/trace/data.md)</li>
 <li>NOT CARRIED (module.dependencies.module.catalog_opensearch.aws_opensearch_domain_policy.this): access_policies — the access policy of the domain: Statement[0] allows any principal es:* (with a condition or a part that is not visible statically): a stackit_opensearch_instance grants access by … (full text: engineering/trace/data.md)</li>
 <li>warning: No lock file entry pins aws (&gt;= 3.0, &gt;= 3.29, &gt;= 4.18, &gt;= 4.30, &gt;= 4.59, &gt;= 5.64, &gt;= 5.79, ~&gt; 5.0): the version the plan would use is not proven (stated once for the whole estate)</li>
-<li>critical: Engine version DOWNGRADE: the source runs OpenSearch 3.3 (engine_version); STACKIT OpenSearch in eu01 offers 2 (service catalogue of eu01, read 2026-10-18), older than the source.</li>
+<li>critical: Engine version DOWNGRADE: the source runs OpenSearch 3.3 (engine_version); STACKIT OpenSearch in eu01 offers 2 (service catalogue of eu01), older than the source.</li>
 <li>3 open decisions of the converter wait for a person: the unit is not ready to deploy until each is decided</li>
 </ul>
 <p><small>Held in memory in this build; no file contains it.</small></p>
@@ -1288,7 +1290,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <li>recorded: finding: aurora-mysql-mariadb-sql-mode</li>
 <li>recorded: finding: aurora-storage-encrypted-mariadb</li>
 <li>recorded: finding: source-provider-unpinned</li>
-<li>recorded: rule line: rule aws.rds_cluster/aurora-mysql · KB 0.420.0 · target maturity GA · lifecycle active · evidence internal · review required</li>
+<li>recorded: rule line: rule aws.rds_cluster/aurora-mysql · KB 0.428.0 · target maturity GA · lifecycle active · evidence internal · review required</li>
 <li>recorded: trace: TR-2fa350496480</li>
 <li>recorded: trace: TR-c392beafd341</li>
 </ul>
@@ -1595,7 +1597,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <li>recorded: finding: engine-version-upgrade</li>
 <li>recorded: finding: redis-transit-encryption-off</li>
 <li>recorded: finding: source-provider-unpinned</li>
-<li>recorded: rule line: rule aws.elasticache/redis-valkey · KB 0.420.0 · target maturity GA · lifecycle active · evidence internal · review required</li>
+<li>recorded: rule line: rule aws.elasticache/redis-valkey · KB 0.428.0 · target maturity GA · lifecycle active · evidence internal · review required</li>
 <li>recorded: trace: TR-31aa12c1dfa8</li>
 <li>recorded: trace: TR-6a8844a36ea2</li>
 </ul>
@@ -1661,7 +1663,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <li>NOT CARRIED (module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default): parameter_group_name — the parameter group is not translated: stackit_valkey_instance takes selected settings under parameters (maxmemory_policy, maxclients, notify_keyspace_events, …; … (full text: engineering/trace/data.md)</li>
 <li>warning: The source cache runs without TLS (transit_encryption_enabled = false).</li>
 <li>warning: No lock file entry pins aws (&gt;= 3.0, &gt;= 3.29, &gt;= 4.18, &gt;= 4.30, &gt;= 4.59, &gt;= 5.64, &gt;= 5.79, ~&gt; 5.0): the version the plan would use is not proven (stated once for the whole estate)</li>
-<li>warning: Engine version UPGRADE: the source runs Redis OSS 4.0.10 (engine_version); STACKIT Valkey in eu01 offers 8 (service catalogue of eu01, read 2026-10-18), none of them the source&#39;s version.</li>
+<li>warning: Engine version UPGRADE: the source runs Redis OSS 4.0.10 (engine_version); STACKIT Valkey in eu01 offers 8 (service catalogue of eu01), none of them the source&#39;s version.</li>
 <li>Open: parameters.sgw_acl is set from var.elasticache_redis_allowed_cidrs, which has no default: without a list STACKIT applies its default ACL, every STACKIT customer&#39;s addresses. List the clients&#39; CIDRs before planning.</li>
 <li>3 open decisions of the converter wait for a person: the unit is not ready to deploy until each is decided</li>
 </ul>
@@ -2000,7 +2002,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <p class="arrow-head"><strong>Evidence</strong> <span class="state"><span aria-hidden="true">✓</span> Established</span></p>
 <p>The generator that writes this unit&#39;s block states, above the block, why its values are what they are. These are the generator&#39;s own statements in the draft, not checks of the draft.</p>
 <ul>
-<li>ALTERNATIVE, NOT AN EQUIVALENT: DynamoDB (1 table(s)) → one MongoDB Flex instance, each table a collection — rule aws.dynamodb_table/dynamodb · REDESIGN / MEDIUM · KB 0.420.0 · review required.</li>
+<li>ALTERNATIVE, NOT AN EQUIVALENT: DynamoDB (1 table(s)) → one MongoDB Flex instance, each table a collection — rule aws.dynamodb_table/dynamodb · REDESIGN / MEDIUM · KB 0.428.0 · review required.</li>
 <li>The data access layer is rewritten against the MongoDB API; move the data with an export (DynamoDB export to S3 → mongoimport) — nothing replicates it.</li>
 <li>replicas = 3 / Replica: DynamoDB replicates every table across several availability zones of its region; a 3-member replica set keeps redundancy within the STACKIT region.</li>
 <li>backup_schedule is a default (02:00 daily): DynamoDB on-demand backups and AWS Backup plans do not map one to one.</li>
@@ -2056,17 +2058,18 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 </li>
 <li>
 <p class="arrow-head"><strong>Residual difference</strong> <span class="state"><span aria-hidden="true">◐</span> Open items</span></p>
-<p>The draft states, for this unit: 1 property it does not carry, 1 finding, 1 open decision of the converter. That is what the draft states, not a proof that the block and the source are equivalent.</p>
+<p>The draft states, for this unit: 1 property it does not carry, 1 finding, 2 open decisions of the converter. That is what the draft states, not a proof that the block and the source are equivalent.</p>
 <ul>
 <li>NOT CARRIED: capacity modes (provisioned/on-demand, auto scaling — size the flavor instead), DynamoDB Streams (use change streams or an outbox), transaction semantics (TransactWriteItems limits; MongoDB multi-document transactions behave differently), conditional-write expressions, PartiQL, table … (full text: engineering/trace/data.md)</li>
 <li>warning: No lock file entry pins aws (&gt;= 3.0, &gt;= 3.29, &gt;= 4.18, &gt;= 4.30, &gt;= 4.59, &gt;= 5.64, &gt;= 5.79, ~&gt; 5.0): the version the plan would use is not proven (stated once for the whole estate)</li>
-<li>1 open decision of the converter wait for a person: the unit is not ready to deploy until each is decided</li>
+<li>2 open decisions of the converter wait for a person: the unit is not ready to deploy until each is decided</li>
 </ul>
 <p><small>Held in memory in this build; no file contains it.</small></p>
 <details class="expert"><summary>Expert: identifiers</summary>
 <p>Artefact: IN_MEMORY</p>
 <ul>
 <li>decision: <code>DEC-GEN-CONVERT-DATA-MOVEMENT/module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this</code> (alias <code>convert:module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this:data:DATA_MOVEMENT</code>)</li>
+<li>decision: <code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE-DATA-NOSQL-TABLE</code> (alias <code>convert:module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this:proposal:PROPOSED_ALTERNATIVE__data.nosql-table</code>)</li>
 </ul>
 </details>
 </li>
@@ -2240,7 +2243,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <ul>
 <li>recorded: finding: aurora-storage-encrypted</li>
 <li>recorded: finding: source-provider-unpinned</li>
-<li>recorded: rule line: rule aws.rds_cluster/aurora-postgres · KB 0.420.0 · target maturity GA · lifecycle active · evidence internal · review required</li>
+<li>recorded: rule line: rule aws.rds_cluster/aurora-postgres · KB 0.428.0 · target maturity GA · lifecycle active · evidence internal · review required</li>
 <li>recorded: trace: TR-7bc47518665f</li>
 <li>recorded: trace: TR-8ede34dda579</li>
 <li>recorded: trace: TR-e7d38d4bcda5</li>
@@ -2869,7 +2872,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <p>Artefact: IN_MEMORY</p>
 <ul>
 <li>recorded: finding: source-provider-unpinned</li>
-<li>recorded: rule line: rule aws.cloudwatch_log_resource_policy/log-resource-policy · KB 0.420.0 · target maturity GA · lifecycle active · evidence internal · review required</li>
+<li>recorded: rule line: rule aws.cloudwatch_log_resource_policy/log-resource-policy · KB 0.428.0 · target maturity GA · lifecycle active · evidence internal · review required</li>
 <li>recorded: trace: TR-91d13053b855</li>
 </ul>
 </details>
@@ -3031,7 +3034,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <p>Artefact: IN_MEMORY</p>
 <ul>
 <li>recorded: finding: source-provider-unpinned</li>
-<li>recorded: rule line: rule aws.kms_key/kms · KB 0.420.0 · target maturity GA · lifecycle active · evidence internal · review required</li>
+<li>recorded: rule line: rule aws.kms_key/kms · KB 0.428.0 · target maturity GA · lifecycle active · evidence internal · review required</li>
 <li>recorded: trace: TR-af9e2a025af8</li>
 <li>recorded: trace: TR-e47c9c2d3326</li>
 </ul>
@@ -3475,7 +3478,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <p>Artefact: IN_MEMORY</p>
 <ul>
 <li>recorded: finding: source-provider-unpinned</li>
-<li>recorded: rule line: rule aws.lb/alb · KB 0.420.0 · target maturity GA · lifecycle active · evidence internal · review required</li>
+<li>recorded: rule line: rule aws.lb/alb · KB 0.428.0 · target maturity GA · lifecycle active · evidence internal · review required</li>
 <li>recorded: trace: TR-c243e261bc0d</li>
 </ul>
 </details>
@@ -4241,6 +4244,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <details class="expert"><summary>Expert: identifiers</summary>
 <p>Artefact: REPORT_FILE target-plan.json /plans</p>
 <ul>
+<li>decision: <code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE-CONTAINER-RUNTIME/module.retail_app_ecs.module.carts_service.aws_ecs_service.this</code> (alias <code>convert:module.retail_app_ecs.module.carts_service.aws_ecs_service.this:proposal:PROPOSED_ALTERNATIVE__container.runtime</code>)</li>
 <li>manual action: alias <code>stackitsa:facts:module.retail_app_ecs.module.carts_service.aws_ecs_service.this:module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this#task_role_arn</code> (BEFORE_PILOT): The application identity of module.retail_app_ecs.module.carts_service.aws_ecs_service.this on STACKIT is decided by the request of the inputs file: target.workload.identity for module.retail_app_ecs.module.carts_service.aws_ecs_service.this. Answer each open one with federated_service_account (a federated identity provider of the account of the task role, for the Kubernetes ServiceAccount of the workload), service_account_key (a key of that account that a person creates and keeps as a secret) or no_workload_identity: until it is answered the draft writes no identity for the pods it is about</li>
 <li>no target: MANUAL_REVIEW: module.retail_app_ecs.module.carts_service.aws_ecs_service.this is a container service: its 1 identity binding(s) are facts only, and no service account is attached for it (the draft writes service accounts for servers (the EC2 family); the identities of containers, functions and clusters are stated as facts and left to a person); 1 binding(s) are the role of the platform agent only (execution_role_arn of module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this names module.retail_app_ecs.module.carts_service.aws_iam_role.task_execution_role), whose jobs (pulling the images, writing the logs, reading the secrets) are typed platform-credential steps of the draft and have no row here</li>
 <li>plan producer: stacktoit-stackitsa 0.1.0</li>
@@ -4318,7 +4322,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <ul>
 <li>recorded: finding: linked-dependency-unread</li>
 <li>recorded: finding: source-provider-unpinned</li>
-<li>recorded: rule line: rule aws.iam_role/role-workload-execution · KB 0.420.0 · target maturity EXPERIMENTAL · lifecycle active · evidence internal · review required</li>
+<li>recorded: rule line: rule aws.iam_role/role-workload-execution · KB 0.428.0 · target maturity EXPERIMENTAL · lifecycle active · evidence internal · review required</li>
 <li>recorded: trace: TR-74ede57c41f1</li>
 <li>recorded: trace: TR-eb88a52a7e37</li>
 </ul>
@@ -4730,6 +4734,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <details class="expert"><summary>Expert: identifiers</summary>
 <p>Artefact: REPORT_FILE target-plan.json /plans</p>
 <ul>
+<li>decision: <code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE-CONTAINER-RUNTIME/module.retail_app_ecs.module.catalog_service.aws_ecs_service.this</code> (alias <code>convert:module.retail_app_ecs.module.catalog_service.aws_ecs_service.this:proposal:PROPOSED_ALTERNATIVE__container.runtime</code>)</li>
 <li>manual action: alias <code>stackitsa:facts:module.retail_app_ecs.module.catalog_service.aws_ecs_service.this:module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this#task_role_arn</code> (BEFORE_PILOT): The application identity of module.retail_app_ecs.module.catalog_service.aws_ecs_service.this on STACKIT is decided by the request of the inputs file: target.workload.identity for module.retail_app_ecs.module.catalog_service.aws_ecs_service.this. Answer each open one with federated_service_account (a federated identity provider of the account of the task role, for the Kubernetes ServiceAccount of the workload), service_account_key (a key of that account that a person creates and keeps as a secret) or no_workload_identity: until it is answered the draft writes no identity for the pods it is about</li>
 <li>no target: MANUAL_REVIEW: module.retail_app_ecs.module.catalog_service.aws_ecs_service.this is a container service: its 1 identity binding(s) are facts only, and no service account is attached for it (the draft writes service accounts for servers (the EC2 family); the identities of containers, functions and clusters are stated as facts and left to a person); 1 binding(s) are the role of the platform agent only (execution_role_arn of module.retail_app_ecs.module.catalog_service.aws_ecs_task_definition.this names module.retail_app_ecs.module.catalog_service.aws_iam_role.task_execution_role), whose jobs (pulling the images, writing the logs, reading the secrets) are typed platform-credential steps of the draft and have no row here</li>
 <li>plan producer: stacktoit-stackitsa 0.1.0</li>
@@ -4806,7 +4811,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <p>Artefact: IN_MEMORY</p>
 <ul>
 <li>recorded: finding: source-provider-unpinned</li>
-<li>recorded: rule line: rule aws.iam_role/role-workload-execution · KB 0.420.0 · target maturity EXPERIMENTAL · lifecycle active · evidence internal · review required</li>
+<li>recorded: rule line: rule aws.iam_role/role-workload-execution · KB 0.428.0 · target maturity EXPERIMENTAL · lifecycle active · evidence internal · review required</li>
 <li>recorded: trace: TR-cf63149db4be</li>
 <li>recorded: trace: TR-e48f32c8ead8</li>
 </ul>
@@ -4827,7 +4832,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <li>claim: facet-link-role = KNOWN, CRITICAL, NOT_APPLICABLE</li>
 <li>claim: iam-managed-customer-policy = KNOWN, CRITICAL, REVIEW</li>
 <li>claim: iam-trust-service-workload = KNOWN, CRITICAL, REVIEW</li>
-<li>claim: permissions = KNOWN, CRITICAL, REVIEW</li>
+<li>claim: permissions = UNKNOWN, CRITICAL, REVIEW</li>
 <li>claim: tcfp-iam-role-policy-attachment--policy-arn = KNOWN, CRITICAL, REVIEW</li>
 <li>claim: trust = KNOWN, CRITICAL, REVIEW</li>
 </ul>
@@ -5215,6 +5220,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <details class="expert"><summary>Expert: identifiers</summary>
 <p>Artefact: REPORT_FILE target-plan.json /plans</p>
 <ul>
+<li>decision: <code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE-CONTAINER-RUNTIME/module.retail_app_ecs.module.checkout_service.aws_ecs_service.this</code> (alias <code>convert:module.retail_app_ecs.module.checkout_service.aws_ecs_service.this:proposal:PROPOSED_ALTERNATIVE__container.runtime</code>)</li>
 <li>manual action: alias <code>stackitsa:facts:module.retail_app_ecs.module.checkout_service.aws_ecs_service.this:module.retail_app_ecs.module.checkout_service.aws_ecs_task_definition.this#task_role_arn</code> (BEFORE_PILOT): The application identity of module.retail_app_ecs.module.checkout_service.aws_ecs_service.this on STACKIT is decided by the request of the inputs file: target.workload.identity for module.retail_app_ecs.module.checkout_service.aws_ecs_service.this. Answer each open one with federated_service_account (a federated identity provider of the account of the task role, for the Kubernetes ServiceAccount of the workload), service_account_key (a key of that account that a person creates and keeps as a secret) or no_workload_identity: until it is answered the draft writes no identity for the pods it is about</li>
 <li>no target: MANUAL_REVIEW: module.retail_app_ecs.module.checkout_service.aws_ecs_service.this is a container service: its 1 identity binding(s) are facts only, and no service account is attached for it (the draft writes service accounts for servers (the EC2 family); the identities of containers, functions and clusters are stated as facts and left to a person); 1 binding(s) are the role of the platform agent only (execution_role_arn of module.retail_app_ecs.module.checkout_service.aws_ecs_task_definition.this names module.retail_app_ecs.module.checkout_service.aws_iam_role.task_execution_role), whose jobs (pulling the images, writing the logs, reading the secrets) are typed platform-credential steps of the draft and have no row here</li>
 <li>plan producer: stacktoit-stackitsa 0.1.0</li>
@@ -5292,7 +5298,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <ul>
 <li>recorded: finding: linked-dependency-unread</li>
 <li>recorded: finding: source-provider-unpinned</li>
-<li>recorded: rule line: rule aws.iam_role/role-workload-execution · KB 0.420.0 · target maturity EXPERIMENTAL · lifecycle active · evidence internal · review required</li>
+<li>recorded: rule line: rule aws.iam_role/role-workload-execution · KB 0.428.0 · target maturity EXPERIMENTAL · lifecycle active · evidence internal · review required</li>
 <li>recorded: trace: TR-822b8a98ff0d</li>
 <li>recorded: trace: TR-8e7b4456f29a</li>
 </ul>
@@ -5704,6 +5710,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <details class="expert"><summary>Expert: identifiers</summary>
 <p>Artefact: REPORT_FILE target-plan.json /plans</p>
 <ul>
+<li>decision: <code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE-CONTAINER-RUNTIME/module.retail_app_ecs.module.orders_service.aws_ecs_service.this</code> (alias <code>convert:module.retail_app_ecs.module.orders_service.aws_ecs_service.this:proposal:PROPOSED_ALTERNATIVE__container.runtime</code>)</li>
 <li>manual action: alias <code>stackitsa:facts:module.retail_app_ecs.module.orders_service.aws_ecs_service.this:module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this#task_role_arn</code> (BEFORE_PILOT): The application identity of module.retail_app_ecs.module.orders_service.aws_ecs_service.this on STACKIT is decided by the request of the inputs file: target.workload.identity for module.retail_app_ecs.module.orders_service.aws_ecs_service.this. Answer each open one with federated_service_account (a federated identity provider of the account of the task role, for the Kubernetes ServiceAccount of the workload), service_account_key (a key of that account that a person creates and keeps as a secret) or no_workload_identity: until it is answered the draft writes no identity for the pods it is about</li>
 <li>no target: MANUAL_REVIEW: module.retail_app_ecs.module.orders_service.aws_ecs_service.this is a container service: its 1 identity binding(s) are facts only, and no service account is attached for it (the draft writes service accounts for servers (the EC2 family); the identities of containers, functions and clusters are stated as facts and left to a person); 1 binding(s) are the role of the platform agent only (execution_role_arn of module.retail_app_ecs.module.orders_service.aws_ecs_task_definition.this names module.retail_app_ecs.module.orders_service.aws_iam_role.task_execution_role), whose jobs (pulling the images, writing the logs, reading the secrets) are typed platform-credential steps of the draft and have no row here</li>
 <li>plan producer: stacktoit-stackitsa 0.1.0</li>
@@ -5780,7 +5787,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <p>Artefact: IN_MEMORY</p>
 <ul>
 <li>recorded: finding: source-provider-unpinned</li>
-<li>recorded: rule line: rule aws.iam_role/role-workload-execution · KB 0.420.0 · target maturity EXPERIMENTAL · lifecycle active · evidence internal · review required</li>
+<li>recorded: rule line: rule aws.iam_role/role-workload-execution · KB 0.428.0 · target maturity EXPERIMENTAL · lifecycle active · evidence internal · review required</li>
 <li>recorded: trace: TR-60af0bd02bd2</li>
 <li>recorded: trace: TR-cf173263597f</li>
 </ul>
@@ -5801,7 +5808,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <li>claim: facet-link-role = KNOWN, CRITICAL, NOT_APPLICABLE</li>
 <li>claim: iam-managed-customer-policy = KNOWN, CRITICAL, REVIEW</li>
 <li>claim: iam-trust-service-workload = KNOWN, CRITICAL, REVIEW</li>
-<li>claim: permissions = KNOWN, CRITICAL, REVIEW</li>
+<li>claim: permissions = UNKNOWN, CRITICAL, REVIEW</li>
 <li>claim: tcfp-iam-role-policy-attachment--policy-arn = KNOWN, CRITICAL, REVIEW</li>
 <li>claim: trust = KNOWN, CRITICAL, REVIEW</li>
 </ul>
@@ -6190,6 +6197,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <details class="expert"><summary>Expert: identifiers</summary>
 <p>Artefact: REPORT_FILE target-plan.json /plans</p>
 <ul>
+<li>decision: <code>DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE-CONTAINER-RUNTIME/module.retail_app_ecs.module.ui_service.aws_ecs_service.this</code> (alias <code>convert:module.retail_app_ecs.module.ui_service.aws_ecs_service.this:proposal:PROPOSED_ALTERNATIVE__container.runtime</code>)</li>
 <li>manual action: alias <code>stackitsa:facts:module.retail_app_ecs.module.ui_service.aws_ecs_service.this:module.retail_app_ecs.module.ui_service.aws_ecs_task_definition.this#task_role_arn</code> (BEFORE_PILOT): The application identity of module.retail_app_ecs.module.ui_service.aws_ecs_service.this on STACKIT is decided by the request of the inputs file: target.workload.identity for module.retail_app_ecs.module.ui_service.aws_ecs_service.this. Answer each open one with federated_service_account (a federated identity provider of the account of the task role, for the Kubernetes ServiceAccount of the workload), service_account_key (a key of that account that a person creates and keeps as a secret) or no_workload_identity: until it is answered the draft writes no identity for the pods it is about</li>
 <li>no target: MANUAL_REVIEW: module.retail_app_ecs.module.ui_service.aws_ecs_service.this is a container service: its 1 identity binding(s) are facts only, and no service account is attached for it (the draft writes service accounts for servers (the EC2 family); the identities of containers, functions and clusters are stated as facts and left to a person); 1 binding(s) are the role of the platform agent only (execution_role_arn of module.retail_app_ecs.module.ui_service.aws_ecs_task_definition.this names module.retail_app_ecs.module.ui_service.aws_iam_role.task_execution_role), whose jobs (pulling the images, writing the logs, reading the secrets) are typed platform-credential steps of the draft and have no row here</li>
 <li>plan producer: stacktoit-stackitsa 0.1.0</li>
@@ -6266,7 +6274,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <p>Artefact: IN_MEMORY</p>
 <ul>
 <li>recorded: finding: source-provider-unpinned</li>
-<li>recorded: rule line: rule aws.iam_role/role-workload-execution · KB 0.420.0 · target maturity EXPERIMENTAL · lifecycle active · evidence internal · review required</li>
+<li>recorded: rule line: rule aws.iam_role/role-workload-execution · KB 0.428.0 · target maturity EXPERIMENTAL · lifecycle active · evidence internal · review required</li>
 <li>recorded: trace: TR-14c0a005bdbf</li>
 <li>recorded: trace: TR-759ef9228645</li>
 </ul>
@@ -6287,7 +6295,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <li>claim: facet-link-role = KNOWN, CRITICAL, NOT_APPLICABLE</li>
 <li>claim: iam-managed-customer-policy = KNOWN, CRITICAL, REVIEW</li>
 <li>claim: iam-trust-service-workload = KNOWN, CRITICAL, REVIEW</li>
-<li>claim: permissions = KNOWN, CRITICAL, REVIEW</li>
+<li>claim: permissions = UNKNOWN, CRITICAL, REVIEW</li>
 <li>claim: tcfp-iam-role-policy-attachment--policy-arn = KNOWN, CRITICAL, REVIEW</li>
 <li>claim: trust = KNOWN, CRITICAL, REVIEW</li>
 </ul>
@@ -7619,7 +7627,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <ul>
 <li>recorded: finding: source-provider-unpinned</li>
 <li>recorded: finding: subnet-egress-ipv4-unproven</li>
-<li>recorded: rule line: rule aws.subnet/subnet · KB 0.420.0 · target maturity GA · lifecycle active · evidence internal · review required</li>
+<li>recorded: rule line: rule aws.subnet/subnet · KB 0.428.0 · target maturity GA · lifecycle active · evidence internal · review required</li>
 <li>recorded: trace: TR-d39d5b78739a</li>
 </ul>
 </details>
@@ -7720,7 +7728,7 @@ details.expert code{overflow-wrap:anywhere;white-space:pre-wrap}
 <li>recorded: finding: source-provider-unpinned</li>
 <li>recorded: finding: subnet-egress-ipv4-unproven</li>
 <li>recorded: finding: subnet-route-table-undecided</li>
-<li>recorded: rule line: rule aws.subnet/subnet · KB 0.420.0 · target maturity GA · lifecycle active · evidence internal · review required</li>
+<li>recorded: rule line: rule aws.subnet/subnet · KB 0.428.0 · target maturity GA · lifecycle active · evidence internal · review required</li>
 <li>recorded: trace: TR-ca04594a2ad9</li>
 </ul>
 </details>

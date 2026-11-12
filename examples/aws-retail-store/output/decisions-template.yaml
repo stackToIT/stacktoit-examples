@@ -1,4 +1,4 @@
-# Review template of run 6fa04223-b825-429e-a52e-360fa841d7b8 (written by stacktoit; copy this file, fill the `resolution`, `rationale`, `evidence_refs` and `reviewed_at` lines of the records you review, pass it with --decisions).
+# Review template of run 20b9b72e-9147-46e6-a2d7-0782ad201937 (written by stacktoit; copy this file, fill the `resolution`, `rationale`, `evidence_refs` and `reviewed_at` lines of the records you review, pass it with --decisions).
 # A review RECORDS that an architect looked at a decision and what the architect decided. It does not regenerate the draft and, by itself, frees no step:
 #   - one exception: a review that declines a default of the draft (an option whose line below says that the run that reads it writes the draft without the default) is read before the draft is written, so the draft of the run that reads it has no default and the value it stood for is yours to set.
 #   - to ANSWER a question of the draft (the network of the load balancer, a zone, an image, ...) write the answer in the inputs file (inputs-template.yaml, --inputs):
@@ -28,10 +28,10 @@
 # without exposure_acceptance the review accepts nothing more than it always did (the critical network exposure of the unit stays open); with it, a data service's or a Kubernetes API's exposure check reads as an accepted difference naming reviewed_by
 # A record whose comment says DEFAULT (change if wrong) is open: StackToIT carried that option out in the draft for you, nobody answered it. To change it, review the record with another chosen_option, or with REJECTED, and run again: the draft is then written without the default.
 # An option whose comment says DEFAULT (confirm or change) is what the draft already carries out; nobody answered it and nothing is accepted by it. To confirm it, review the record with that chosen_option; to change it, name another option (an option that changes the draft needs the answer in the inputs file and a rerun).
-schema_version: "0.4.0"
+schema_version: "0.5.0"
 source_digest: sha256:9289ba9abd2e1e953630f7ab62d12070ed65ca36d687d125b7e6cf755d020000
-kb_version: 0.420.0
-kb_sha256: 28ca6db2f3fa8711d7f1ecbb002d4b9faa7153fce7e394d64e6d1c37b1bd1930
+kb_version: 0.428.0
+kb_sha256: 269b6fb01d33e7b35c499690a7dc997b27fb67834e6ea10318bcc645927bf696
 decisions:
 
   # DEC-GEN-CONVERT-API-OPT-IN
@@ -66,7 +66,7 @@ decisions:
     reviewed_by: Data Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:bd6dc33bd3777ba67c03a89361624334a25a61983906190c138fe87904c08a32
-    artifact_sha256: sha256:3e6d157c9958d61c30592e944653df4280148084db6049589ffe8e05b96f13e0
+    artifact_sha256: sha256:fe1ecd502ff257f983c7fb0428b52bcdce5ba1b17e5e49e3d340c7161ea00450
     kb_dependencies_sha256: sha256:610870c4321b580122859ef332af5301a6bd3a8973057240bd04c7d631e03a41
     # This record holds 5 questions, one per unit. An answer applies only to the members it names (members: in the decisions file; a member is named by the record id, a slash and its unit); an entry that names none answers every member, and that blanket answer is yours to write: the template never writes it.
     # members: remove the # of the next line and of the members the answer applies to; delete the others (a member is named by its id below)
@@ -113,7 +113,7 @@ decisions:
     reviewed_by: Data Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:da0e0583e3f086831a47b05396b1d30756583e8d7f3d4dd2b89e37050a55f030
-    artifact_sha256: sha256:4201a43e80203cb049300db58c1c5a01714aca625aeb9f4fd005761c58190e44
+    artifact_sha256: sha256:21698f0b07627bfdf5adefd94dc97d197b02076a7f98fe1ecbbd58fa62bd0355
     kb_dependencies_sha256: sha256:df6451f6350a2b971c09bbf5ecf6ab18b5750dd81cbfa67f5af0282c74b4283b
     # members: see the head
 
@@ -138,8 +138,8 @@ decisions:
     reviewed_by: Security Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:423e4ba2d45f712b067c92f5838a736429f1ad4d536c2a73854bfed78e11de19
-    artifact_sha256: sha256:10dd9c61c84abf27e840aa5f592363d698ba0380abbc804c746e010cc81ff24b
-    kb_dependencies_sha256: sha256:e7090661d6ca5eefa041c01060934af2abe00051f15c6b559bf34af210a59e94
+    artifact_sha256: sha256:08cfb54336f08b37fc382c3568802c58ad70c05a80965a107bd98586c9c24e2a
+    kb_dependencies_sha256: sha256:590f1275b46818b80b141606b016eb096030e518c631e248fb081d3e620817a1
     # This record holds 5 questions, one per unit. An answer applies only to the members it names (members: in the decisions file; a member is named by the record id, a slash and its unit); an entry that names none answers every member, and that blanket answer is yours to write: the template never writes it. A public endpoint needs a security approval (Security Architect) and its own access list for each unit it names, not for the record as a whole.
     # members: remove the # of the next line and of the members the answer applies to; delete the others (a member is named by its id below)
     # members:
@@ -245,6 +245,123 @@ decisions:
     #       security-group-on-the-nodes: a manual alternative: a person carries it out for this unit
     #       accept-no-segmentation: the draft already carries it out for this unit
 
+  # DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE-CONTAINER-RUNTIME
+  # PROPOSED_ALTERNATIVE (PLAN_DECISION, status OPEN, 5 members)
+  # affects: module.retail_app_ecs.module.carts_service.aws_ecs_service.this, module.retail_app_ecs.module.catalog_service.aws_ecs_service.this, module.retail_app_ecs.module.checkout_service.aws_ecs_service.this, module.retail_app_ecs.module.orders_service.aws_ecs_service.this, module.retail_app_ecs.module.ui_service.aws_ecs_service.this
+  # options (name one in chosen_option):
+  #   native:container.runtime.ske-workload: records the choice of this solution for the unit: for a unit whose draft writes it, a review that names the draft it read accepts the draft as written and releases the steps that write it; for any other unit the draft does not hold it and nothing of this build writes the draft with it yet, so a review frees no step and the unit stays as the plan states it
+  #   native:container.runtime.container-applications-api: records the choice of this solution for the unit: the draft does not hold it and nothing of this build writes the draft with it yet, so a review frees no step and the unit stays as the plan states it
+  #   keep-it-at-the-source: chosen by a review that accepts the difference (the resolution accepted difference), with a role in reviewed_by, a rationale, at least one evidence reference and artifact_sha256 of the draft the review read, the unit leaves the migration: its steps are not taken, its settings are listed as not migrated and counted apart, and nothing replaces it on STACKIT; a manual step connects the target estate to it; chosen without all of them, or for a unit whose replacement the draft writes as an active block, it is recorded and a review frees no step
+  #   retire-it: chosen by a review that accepts the loss of the capability (the resolution accepted loss), with a role in reviewed_by, a rationale, at least one evidence reference and artifact_sha256 of the draft the review read, the unit leaves the migration: its steps are not taken, its settings are listed as not migrated and counted apart, and nothing replaces it on STACKIT; retiring the source stays a person's step; chosen without all of them, or for a unit whose replacement the draft writes as an active block, it is recorded and a review frees no step
+  #   use-a-product-you-name: records that a product you name meets the capability: StackToIT drafts nothing for it and states no equivalence, the unit's steps stay as the plan states them, and a review frees no step
+  #   design-it-another-way: a manual alternative: a review frees only the manual step that carries it out
+  - id: DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE-CONTAINER-RUNTIME
+    resolution: ""
+    # An option above that changes the draft frees no step by a review alone: its line says how the draft comes to carry it. A review that names none of the options frees nothing either.
+    # chosen_option: <one of the options above>
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Platform Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:90ec5e786ab92ae5f8f828d7f7a193f38ec007789053919be94c1f899f2d36b9
+    artifact_sha256: sha256:1477895edfc365d96bb4f7ed313c0212b73853e1406f113b594c1367f43ac975
+    kb_dependencies_sha256: sha256:835972498932ac6dc72fa46649a57adc9c6f3e31ff72e9f6f02c40901a016edc
+    # This record holds 5 questions, one per unit. An answer applies only to the members it names (members: in the decisions file; a member is named by the record id, a slash and its unit); an entry that names none answers every member, and that blanket answer is yours to write: the template never writes it.
+    # members: remove the # of the next line and of the members the answer applies to; delete the others (a member is named by its id below)
+    # members:
+    #   - "DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE-CONTAINER-RUNTIME/module.retail_app_ecs.module.carts_service.aws_ecs_service.this"
+    #       unit: module.retail_app_ecs.module.carts_service.aws_ecs_service.this
+    #       the plan says: the target has no equal of this managed service that runs container tasks without a cluster to operate: The draft writes a Kubernetes cluster and the manifests of the service's workloads; the cluster is operated by the customer (node pools, upgrades, ingress) and the manifests are applied with kubectl. To decide: Whether the service runs on a Kubernetes cluster or in Container Applications, and how its placement, scaling and discovery are rebuilt.
+    #       native:container.runtime.ske-workload: records the choice of this solution for the unit: for a unit whose draft writes it, a review that names the draft it read accepts the draft as written and releases the steps that write it; for any other unit the draft does not hold it and nothing of this build writes the draft with it yet, so a review frees no step and the unit stays as the plan states it
+    #       native:container.runtime.container-applications-api: records the choice of this solution for the unit: the draft does not hold it and nothing of this build writes the draft with it yet, so a review frees no step and the unit stays as the plan states it
+    #       keep-it-at-the-source: chosen by a review that accepts the difference (the resolution accepted difference), with a role in reviewed_by, a rationale, at least one evidence reference and artifact_sha256 of the draft the review read, the unit leaves the migration: its steps are not taken, its settings are listed as not migrated and counted apart, and nothing replaces it on STACKIT; a manual step connects the target estate to it; chosen without all of them, or for a unit whose replacement the draft writes as an active block, it is recorded and a review frees no step
+    #       retire-it: chosen by a review that accepts the loss of the capability (the resolution accepted loss), with a role in reviewed_by, a rationale, at least one evidence reference and artifact_sha256 of the draft the review read, the unit leaves the migration: its steps are not taken, its settings are listed as not migrated and counted apart, and nothing replaces it on STACKIT; retiring the source stays a person's step; chosen without all of them, or for a unit whose replacement the draft writes as an active block, it is recorded and a review frees no step
+    #       use-a-product-you-name: records that a product you name meets the capability: StackToIT drafts nothing for it and states no equivalence, the unit's steps stay as the plan states them, and a review frees no step
+    #       design-it-another-way: a manual alternative: a person carries it out for this unit
+    #   - "DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE-CONTAINER-RUNTIME/module.retail_app_ecs.module.catalog_service.aws_ecs_service.this"
+    #       unit: module.retail_app_ecs.module.catalog_service.aws_ecs_service.this
+    #       the plan says: the same as for the first member that names it
+    #       native:container.runtime.ske-workload: records the choice of this solution for the unit: for a unit whose draft writes it, a review that names the draft it read accepts the draft as written and releases the steps that write it; for any other unit the draft does not hold it and nothing of this build writes the draft with it yet, so a review frees no step and the unit stays as the plan states it
+    #       native:container.runtime.container-applications-api: records the choice of this solution for the unit: the draft does not hold it and nothing of this build writes the draft with it yet, so a review frees no step and the unit stays as the plan states it
+    #       keep-it-at-the-source: chosen by a review that accepts the difference (the resolution accepted difference), with a role in reviewed_by, a rationale, at least one evidence reference and artifact_sha256 of the draft the review read, the unit leaves the migration: its steps are not taken, its settings are listed as not migrated and counted apart, and nothing replaces it on STACKIT; a manual step connects the target estate to it; chosen without all of them, or for a unit whose replacement the draft writes as an active block, it is recorded and a review frees no step
+    #       retire-it: chosen by a review that accepts the loss of the capability (the resolution accepted loss), with a role in reviewed_by, a rationale, at least one evidence reference and artifact_sha256 of the draft the review read, the unit leaves the migration: its steps are not taken, its settings are listed as not migrated and counted apart, and nothing replaces it on STACKIT; retiring the source stays a person's step; chosen without all of them, or for a unit whose replacement the draft writes as an active block, it is recorded and a review frees no step
+    #       use-a-product-you-name: records that a product you name meets the capability: StackToIT drafts nothing for it and states no equivalence, the unit's steps stay as the plan states them, and a review frees no step
+    #       design-it-another-way: a manual alternative: a person carries it out for this unit
+    #   - "DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE-CONTAINER-RUNTIME/module.retail_app_ecs.module.checkout_service.aws_ecs_service.this"
+    #       unit: module.retail_app_ecs.module.checkout_service.aws_ecs_service.this
+    #       the plan says: the same as for the first member that names it
+    #       native:container.runtime.ske-workload: records the choice of this solution for the unit: for a unit whose draft writes it, a review that names the draft it read accepts the draft as written and releases the steps that write it; for any other unit the draft does not hold it and nothing of this build writes the draft with it yet, so a review frees no step and the unit stays as the plan states it
+    #       native:container.runtime.container-applications-api: records the choice of this solution for the unit: the draft does not hold it and nothing of this build writes the draft with it yet, so a review frees no step and the unit stays as the plan states it
+    #       keep-it-at-the-source: chosen by a review that accepts the difference (the resolution accepted difference), with a role in reviewed_by, a rationale, at least one evidence reference and artifact_sha256 of the draft the review read, the unit leaves the migration: its steps are not taken, its settings are listed as not migrated and counted apart, and nothing replaces it on STACKIT; a manual step connects the target estate to it; chosen without all of them, or for a unit whose replacement the draft writes as an active block, it is recorded and a review frees no step
+    #       retire-it: chosen by a review that accepts the loss of the capability (the resolution accepted loss), with a role in reviewed_by, a rationale, at least one evidence reference and artifact_sha256 of the draft the review read, the unit leaves the migration: its steps are not taken, its settings are listed as not migrated and counted apart, and nothing replaces it on STACKIT; retiring the source stays a person's step; chosen without all of them, or for a unit whose replacement the draft writes as an active block, it is recorded and a review frees no step
+    #       use-a-product-you-name: records that a product you name meets the capability: StackToIT drafts nothing for it and states no equivalence, the unit's steps stay as the plan states them, and a review frees no step
+    #       design-it-another-way: a manual alternative: a person carries it out for this unit
+    #   - "DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE-CONTAINER-RUNTIME/module.retail_app_ecs.module.orders_service.aws_ecs_service.this"
+    #       unit: module.retail_app_ecs.module.orders_service.aws_ecs_service.this
+    #       the plan says: the same as for the first member that names it
+    #       native:container.runtime.ske-workload: records the choice of this solution for the unit: for a unit whose draft writes it, a review that names the draft it read accepts the draft as written and releases the steps that write it; for any other unit the draft does not hold it and nothing of this build writes the draft with it yet, so a review frees no step and the unit stays as the plan states it
+    #       native:container.runtime.container-applications-api: records the choice of this solution for the unit: the draft does not hold it and nothing of this build writes the draft with it yet, so a review frees no step and the unit stays as the plan states it
+    #       keep-it-at-the-source: chosen by a review that accepts the difference (the resolution accepted difference), with a role in reviewed_by, a rationale, at least one evidence reference and artifact_sha256 of the draft the review read, the unit leaves the migration: its steps are not taken, its settings are listed as not migrated and counted apart, and nothing replaces it on STACKIT; a manual step connects the target estate to it; chosen without all of them, or for a unit whose replacement the draft writes as an active block, it is recorded and a review frees no step
+    #       retire-it: chosen by a review that accepts the loss of the capability (the resolution accepted loss), with a role in reviewed_by, a rationale, at least one evidence reference and artifact_sha256 of the draft the review read, the unit leaves the migration: its steps are not taken, its settings are listed as not migrated and counted apart, and nothing replaces it on STACKIT; retiring the source stays a person's step; chosen without all of them, or for a unit whose replacement the draft writes as an active block, it is recorded and a review frees no step
+    #       use-a-product-you-name: records that a product you name meets the capability: StackToIT drafts nothing for it and states no equivalence, the unit's steps stay as the plan states them, and a review frees no step
+    #       design-it-another-way: a manual alternative: a person carries it out for this unit
+    #   - "DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE-CONTAINER-RUNTIME/module.retail_app_ecs.module.ui_service.aws_ecs_service.this"
+    #       unit: module.retail_app_ecs.module.ui_service.aws_ecs_service.this
+    #       the plan says: the same as for the first member that names it
+    #       native:container.runtime.ske-workload: records the choice of this solution for the unit: for a unit whose draft writes it, a review that names the draft it read accepts the draft as written and releases the steps that write it; for any other unit the draft does not hold it and nothing of this build writes the draft with it yet, so a review frees no step and the unit stays as the plan states it
+    #       native:container.runtime.container-applications-api: records the choice of this solution for the unit: the draft does not hold it and nothing of this build writes the draft with it yet, so a review frees no step and the unit stays as the plan states it
+    #       keep-it-at-the-source: chosen by a review that accepts the difference (the resolution accepted difference), with a role in reviewed_by, a rationale, at least one evidence reference and artifact_sha256 of the draft the review read, the unit leaves the migration: its steps are not taken, its settings are listed as not migrated and counted apart, and nothing replaces it on STACKIT; a manual step connects the target estate to it; chosen without all of them, or for a unit whose replacement the draft writes as an active block, it is recorded and a review frees no step
+    #       retire-it: chosen by a review that accepts the loss of the capability (the resolution accepted loss), with a role in reviewed_by, a rationale, at least one evidence reference and artifact_sha256 of the draft the review read, the unit leaves the migration: its steps are not taken, its settings are listed as not migrated and counted apart, and nothing replaces it on STACKIT; retiring the source stays a person's step; chosen without all of them, or for a unit whose replacement the draft writes as an active block, it is recorded and a review frees no step
+    #       use-a-product-you-name: records that a product you name meets the capability: StackToIT drafts nothing for it and states no equivalence, the unit's steps stay as the plan states them, and a review frees no step
+    #       design-it-another-way: a manual alternative: a person carries it out for this unit
+
+  # DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE-DATA-NOSQL-TABLE
+  # PROPOSED_ALTERNATIVE (PLAN_DECISION, status OPEN, 1 member)
+  # affects: module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this
+  # options (name one in chosen_option):
+  #   native:data.nosql-table.mongodb-flex: records the choice of this solution for the unit: for a unit whose draft writes it, a review that names the draft it read accepts the draft as written and releases the steps that write it; for any other unit the draft does not hold it and nothing of this build writes the draft with it yet, so a review frees no step and the unit stays as the plan states it
+  #   keep-it-at-the-source: chosen by a review that accepts the difference (the resolution accepted difference), with a role in reviewed_by, a rationale, at least one evidence reference and artifact_sha256 of the draft the review read, the unit leaves the migration: its steps are not taken, its settings are listed as not migrated and counted apart, and nothing replaces it on STACKIT; a manual step connects the target estate to it; chosen without all of them, or for a unit whose replacement the draft writes as an active block, it is recorded and a review frees no step
+  #   retire-it: chosen by a review that accepts the loss of the capability (the resolution accepted loss), with a role in reviewed_by, a rationale, at least one evidence reference and artifact_sha256 of the draft the review read, the unit leaves the migration: its steps are not taken, its settings are listed as not migrated and counted apart, and nothing replaces it on STACKIT; retiring the source stays a person's step; chosen without all of them, or for a unit whose replacement the draft writes as an active block, it is recorded and a review frees no step
+  #   use-a-product-you-name: records that a product you name meets the capability: StackToIT drafts nothing for it and states no equivalence, the unit's steps stay as the plan states them, and a review frees no step
+  #   design-it-another-way: a manual alternative: a review frees only the manual step that carries it out
+  - id: DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE-DATA-NOSQL-TABLE
+    resolution: ""
+    # An option above that changes the draft frees no step by a review alone: its line says how the draft comes to carry it. A review that names none of the options frees nothing either.
+    # chosen_option: <one of the options above>
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Data Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:f55afcd986de2cca85b1dfcf4261244e07ca946daf554edf9e39f0b7f88eddd5
+    artifact_sha256: sha256:8ee09a8511bcb9f9b2a868dfd4832b9c0faf21ffbfc2c6af35d015c7bec439ac
+    kb_dependencies_sha256: sha256:835972498932ac6dc72fa46649a57adc9c6f3e31ff72e9f6f02c40901a016edc
+    # members: see the head
+
+  # DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE-EVENTS-RULE
+  # PROPOSED_ALTERNATIVE (PLAN_DECISION, status OPEN, 1 member)
+  # affects: module.retail_app_ecs.aws_cloudwatch_event_rule.ecs_events
+  # options (name one in chosen_option):
+  #   native:events.rule.pubsub-topic: records the choice of this solution for the unit: the draft does not hold it and nothing of this build writes the draft with it yet, so a review frees no step and the unit stays as the plan states it
+  #   native:events.rule.rabbitmq-instance: records the choice of this solution for the unit: the draft does not hold it and nothing of this build writes the draft with it yet, so a review frees no step and the unit stays as the plan states it
+  #   native:events.rule.ske-consumer: records the choice of this solution for the unit: the draft does not hold it and nothing of this build writes the draft with it yet, so a review frees no step and the unit stays as the plan states it
+  #   solution:knative-eventing: records the choice of this solution for the unit: the run that reads this review writes its install package under execution/solutions/ and a manual step that installs it, and what the solution does not carry stays open on the unit
+  #   keep-it-at-the-source: chosen by a review that accepts the difference (the resolution accepted difference), with a role in reviewed_by, a rationale, at least one evidence reference and artifact_sha256 of the draft the review read, the unit leaves the migration: its steps are not taken, its settings are listed as not migrated and counted apart, and nothing replaces it on STACKIT; a manual step connects the target estate to it; chosen without all of them, or for a unit whose replacement the draft writes as an active block, it is recorded and a review frees no step
+  #   retire-it: chosen by a review that accepts the loss of the capability (the resolution accepted loss), with a role in reviewed_by, a rationale, at least one evidence reference and artifact_sha256 of the draft the review read, the unit leaves the migration: its steps are not taken, its settings are listed as not migrated and counted apart, and nothing replaces it on STACKIT; retiring the source stays a person's step; chosen without all of them, or for a unit whose replacement the draft writes as an active block, it is recorded and a review frees no step
+  #   use-a-product-you-name: records that a product you name meets the capability: StackToIT drafts nothing for it and states no equivalence, the unit's steps stay as the plan states them, and a review frees no step
+  #   design-it-another-way: a manual alternative: a review frees only the manual step that carries it out
+  - id: DEC-GEN-CONVERT-PROPOSED-ALTERNATIVE-EVENTS-RULE
+    resolution: ""
+    # An option above that changes the draft frees no step by a review alone: its line says how the draft comes to carry it. A review that names none of the options frees nothing either.
+    # chosen_option: <one of the options above>
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Platform Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:7bc1b80c39b5b530dc4a5872a88716bda75e5749afa14544b59a27c2ec8846b8
+    artifact_sha256: sha256:fbb9cbc42e7903cd3a592f94b34ef4d6741f4b7e5ba4824846fec8f0fd065aa4
+    kb_dependencies_sha256: sha256:835972498932ac6dc72fa46649a57adc9c6f3e31ff72e9f6f02c40901a016edc
+    # members: see the head
+
   # DEC-GEN-CONVERT-SIZE-FROM-SOURCE
   # SIZE_FROM_SOURCE (PLAN_DECISION, status OPEN, 3 members)
   # affects: module.dependencies.aws_mq_broker.mq, module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default, module.dependencies.module.orders_rds.aws_rds_cluster.this
@@ -263,7 +380,7 @@ decisions:
     reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:63464848480e3d5019f9e206006b15606cd3910260d39ac483d56dbab9fe848e
-    artifact_sha256: sha256:3ed090ccfb07e70714b3c48df0eaad40ae7ef36c003dc73d03d612a371effd29
+    artifact_sha256: sha256:372bbf4b5c24c093963da87b10d2909452e79e1f5c4f8ca927e151dd5c68a119
     kb_dependencies_sha256: sha256:4aefcdb4f8cff3c728aa8535ac7777fa49c3c4576077a04da8978b2e25bb606e
     # This record holds 3 questions, one per unit. An answer applies only to the members it names (members: in the decisions file; a member is named by the record id, a slash and its unit); an entry that names none answers every member, and that blanket answer is yours to write: the template never writes it.
     # members: remove the # of the next line and of the members the answer applies to; delete the others (a member is named by its id below)
@@ -394,14 +511,17 @@ decisions:
   #   - "module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this|key-schema"  Review the key schema setting
   #   - "module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this|point-in-time-recovery"  Review the point in time recovery setting
   #   - "module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this|ttl"  Review the TTL setting
+  #       derived-carry-on-the-target-9e86204bd692: its effect on the steps is not stated: a review frees nothing
+  #       derived-accept-the-difference-9e86204bd692: its effect on the steps is not stated: a review frees nothing
   - id: DEC-DATA-MODULE-DEPENDENCIES-MODULE-DYNAMODB-CARTS-AWS-DYNAMODB-2133F4BE
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Data Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:be230134eb933993e87d2acca45d6600aaef296e10ea3f5acfe1bc2868503c4c
-    kb_dependencies_sha256: sha256:0ef0a98c0e614e70c35d82e2b26e19893117800f8abd5eb5955580c413645b1a
+    kb_dependencies_sha256: sha256:f0b9a79c915bd07ab361a320f3b233549bb988b4d99d8fa70d3a862c2538dd90
     # members: see the head
 
   # DEC-OPS-MODULE-DEPENDENCIES-MODULE-DYNAMODB-CARTS-AWS-DYNAMODB-2133F4BE
@@ -409,15 +529,18 @@ decisions:
   # affects: module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this
   # settings of the unit (see members: in the head):
   #   - "module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this|index-projection-and-name"  Review the index projection and name setting
+  #       derived-carry-on-the-target-9e86204bd692: as under the first setting that lists it
+  #       derived-accept-the-difference-9e86204bd692: as under the first setting that lists it
   #   - "module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this|tc-dynamodb-table-name"  Confirm the name of the DynamoDB table
   - id: DEC-OPS-MODULE-DEPENDENCIES-MODULE-DYNAMODB-CARTS-AWS-DYNAMODB-2133F4BE
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:376e1fb33723b9c06d87ddd508b5b8413291ae6a06d048c7410dbf9c03e42876
-    kb_dependencies_sha256: sha256:bc69719ca67a8a6cb0a7dbb03987ea3abd9d872b00f99be4b5c8a2db76828a44
+    kb_dependencies_sha256: sha256:ce30f02715fa1493ed9c506c2cf90557d9c1df5760803d9efea240f171bade24
     # members: see the head
 
   # DEC-SEC-MODULE-DEPENDENCIES-MODULE-DYNAMODB-CARTS-AWS-DYNAMODB-2133F4BE
@@ -425,14 +548,17 @@ decisions:
   # affects: module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this
   # settings of the unit (see members: in the head):
   #   - "module.dependencies.module.dynamodb_carts.aws_dynamodb_table.this|encryption-at-rest"  Review the encryption at rest setting
+  #       derived-carry-on-the-target-9e86204bd692: as under the first setting that lists it
+  #       derived-accept-the-difference-9e86204bd692: as under the first setting that lists it
   - id: DEC-SEC-MODULE-DEPENDENCIES-MODULE-DYNAMODB-CARTS-AWS-DYNAMODB-2133F4BE
     resolution: ""
+    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Security Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:d1f3a830429052e0e3744c4e3ab5b71cad9aa7b33241a35e16b57107591f512f
-    kb_dependencies_sha256: sha256:6c34d3ca5f92fe1a1fe2ecbb48b9debfdfa82ea1d7512faa7ab7dd98db1e5a09
+    kb_dependencies_sha256: sha256:0d3b9e6ae511d55d084e14499436371ec27363c8f4acc7bb4930cce9ce0c46d5
     # members: see the head
 
   # DEC-GEN-MODULE-RETAIL-APP-ECS-MODULE-CARTS-SERVICE-AWS-ECS-SERVICE-THIS
@@ -444,7 +570,7 @@ decisions:
     resolution: ""
     rationale: ""
     evidence_refs: []
-    reviewed_by: NOT_STATED
+    reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:5049a4a2c775c1575d3ddd82422180bceb433bf018864e226e722dd02283029d
     kb_dependencies_sha256: sha256:2031816290b03c34a1327dd99d3e9e227ccb2fe1ffb7feaa61aca6b9e8fff8c6
@@ -487,7 +613,7 @@ decisions:
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:2884efd954f2c3166b542350df1a4b1da31abe480928a9ae49c5b5ec6e816f03
-    kb_dependencies_sha256: sha256:740b2adc13bea6b71c5b1d64e72ccad5fc1c818dc112516074cfe17a9241851e
+    kb_dependencies_sha256: sha256:a4bfa27b45fd14fe78b2aab9db2c7bb3b82b12bd36e1e9f96d9bcc3c343e662a
     # members: see the head
 
   # DEC-OPS-MODULE-RETAIL-APP-ECS-MODULE-CARTS-SERVICE-AWS-ECS-SERVICE-THIS
@@ -506,7 +632,7 @@ decisions:
     reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:3c59a6d51ba5ac073bb3c2b1b54edc5cd7a2bd9f4ba507dc0e523fa937218e0d
-    kb_dependencies_sha256: sha256:988426a2201584c1fcf6f1ccc6541861c81e273e98f9b704dddcdaf61403fda9
+    kb_dependencies_sha256: sha256:7c3984c19f8f4b4a00268df8f5d6010e179151a9a0fa6f258bd66f33b30e42c8
     # members: see the head
 
   # DEC-SEC-MODULE-RETAIL-APP-ECS-MODULE-CARTS-SERVICE-AWS-ECS-SERVICE-THIS
@@ -524,7 +650,7 @@ decisions:
     reviewed_by: Security Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:8fc8c7f0b478f96951ae2ef830884975f85854c85e40dc0f90397cfd96fe7297
-    kb_dependencies_sha256: sha256:af385e730e68e0815b00c9b5c09f6faad30b0026deb1d73a8c37c815dbb11f5c
+    kb_dependencies_sha256: sha256:80f71cd744c2ba410a4c4e1bde18c5178bd413eb113205dea74b8ead165469ef
     # members: see the head
 
   # DEC-GEN-MODULE-RETAIL-APP-ECS-MODULE-CATALOG-SERVICE-AWS-ECS-SE-865F7883
@@ -536,7 +662,7 @@ decisions:
     resolution: ""
     rationale: ""
     evidence_refs: []
-    reviewed_by: NOT_STATED
+    reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:bd5bc5f42f2ccdd48a73d45fd65cc7d9a1889bd33e8ed34e32675b48cd9d43a6
     kb_dependencies_sha256: sha256:2031816290b03c34a1327dd99d3e9e227ccb2fe1ffb7feaa61aca6b9e8fff8c6
@@ -579,7 +705,7 @@ decisions:
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:a7b1d712f11c89a96ee56918ef329084ce43708b20a3f11098a99baba0b9f33c
-    kb_dependencies_sha256: sha256:740b2adc13bea6b71c5b1d64e72ccad5fc1c818dc112516074cfe17a9241851e
+    kb_dependencies_sha256: sha256:a4bfa27b45fd14fe78b2aab9db2c7bb3b82b12bd36e1e9f96d9bcc3c343e662a
     # members: see the head
 
   # DEC-OPS-MODULE-RETAIL-APP-ECS-MODULE-CATALOG-SERVICE-AWS-ECS-SE-865F7883
@@ -598,7 +724,7 @@ decisions:
     reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:6a318925146593684eb181f412ad2dd51bdfc3185a03c356b13eedce95b80756
-    kb_dependencies_sha256: sha256:988426a2201584c1fcf6f1ccc6541861c81e273e98f9b704dddcdaf61403fda9
+    kb_dependencies_sha256: sha256:7c3984c19f8f4b4a00268df8f5d6010e179151a9a0fa6f258bd66f33b30e42c8
     # members: see the head
 
   # DEC-SEC-MODULE-RETAIL-APP-ECS-MODULE-CATALOG-SERVICE-AWS-ECS-SE-865F7883
@@ -616,7 +742,7 @@ decisions:
     reviewed_by: Security Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:12a0c54a0723669691b414ab9cfc18d1b7c1a075bd4a331607a44ac5ce805152
-    kb_dependencies_sha256: sha256:af385e730e68e0815b00c9b5c09f6faad30b0026deb1d73a8c37c815dbb11f5c
+    kb_dependencies_sha256: sha256:80f71cd744c2ba410a4c4e1bde18c5178bd413eb113205dea74b8ead165469ef
     # members: see the head
 
   # DEC-GEN-MODULE-RETAIL-APP-ECS-MODULE-CHECKOUT-SERVICE-AWS-ECS-S-3DCDC7C6
@@ -628,7 +754,7 @@ decisions:
     resolution: ""
     rationale: ""
     evidence_refs: []
-    reviewed_by: NOT_STATED
+    reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:623898041d449cd3e3c2d56f8809be431447e9c525cd8532005e86be1b16a734
     kb_dependencies_sha256: sha256:2031816290b03c34a1327dd99d3e9e227ccb2fe1ffb7feaa61aca6b9e8fff8c6
@@ -671,7 +797,7 @@ decisions:
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:182803b416e449e90a1a14eb9db44d8d5c0bef7a7f4e34722f4e90a13b95e587
-    kb_dependencies_sha256: sha256:740b2adc13bea6b71c5b1d64e72ccad5fc1c818dc112516074cfe17a9241851e
+    kb_dependencies_sha256: sha256:a4bfa27b45fd14fe78b2aab9db2c7bb3b82b12bd36e1e9f96d9bcc3c343e662a
     # members: see the head
 
   # DEC-OPS-MODULE-RETAIL-APP-ECS-MODULE-CHECKOUT-SERVICE-AWS-ECS-S-3DCDC7C6
@@ -690,7 +816,7 @@ decisions:
     reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:049eb6007a22f376d42ca5e9883b047203ba2d9eefab8f83b96dd2ad8a4deefc
-    kb_dependencies_sha256: sha256:988426a2201584c1fcf6f1ccc6541861c81e273e98f9b704dddcdaf61403fda9
+    kb_dependencies_sha256: sha256:7c3984c19f8f4b4a00268df8f5d6010e179151a9a0fa6f258bd66f33b30e42c8
     # members: see the head
 
   # DEC-SEC-MODULE-RETAIL-APP-ECS-MODULE-CHECKOUT-SERVICE-AWS-ECS-S-3DCDC7C6
@@ -708,7 +834,7 @@ decisions:
     reviewed_by: Security Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:e14fe5e69f14c70daaa5e1cb8fb1b01b17f0cf1b730d6634665513ae538a7be6
-    kb_dependencies_sha256: sha256:af385e730e68e0815b00c9b5c09f6faad30b0026deb1d73a8c37c815dbb11f5c
+    kb_dependencies_sha256: sha256:80f71cd744c2ba410a4c4e1bde18c5178bd413eb113205dea74b8ead165469ef
     # members: see the head
 
   # DEC-GEN-MODULE-RETAIL-APP-ECS-MODULE-ORDERS-SERVICE-AWS-ECS-SERVICE-THIS
@@ -720,7 +846,7 @@ decisions:
     resolution: ""
     rationale: ""
     evidence_refs: []
-    reviewed_by: NOT_STATED
+    reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:c0df273c3ce35360ad2de7275bf8232309dfe3548560c2d2bf71e5f5209e4108
     kb_dependencies_sha256: sha256:2031816290b03c34a1327dd99d3e9e227ccb2fe1ffb7feaa61aca6b9e8fff8c6
@@ -763,7 +889,7 @@ decisions:
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:c3fbe4584e6bfa97ed29b1ba37ed5b2284ee1bf2f21e5df2d762845bfcc9bcce
-    kb_dependencies_sha256: sha256:740b2adc13bea6b71c5b1d64e72ccad5fc1c818dc112516074cfe17a9241851e
+    kb_dependencies_sha256: sha256:a4bfa27b45fd14fe78b2aab9db2c7bb3b82b12bd36e1e9f96d9bcc3c343e662a
     # members: see the head
 
   # DEC-OPS-MODULE-RETAIL-APP-ECS-MODULE-ORDERS-SERVICE-AWS-ECS-SERVICE-THIS
@@ -782,7 +908,7 @@ decisions:
     reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:7c7be984f5173b0fd9f19735523c8f88dc746070be8abe9fc7fc79b84d9f0986
-    kb_dependencies_sha256: sha256:988426a2201584c1fcf6f1ccc6541861c81e273e98f9b704dddcdaf61403fda9
+    kb_dependencies_sha256: sha256:7c3984c19f8f4b4a00268df8f5d6010e179151a9a0fa6f258bd66f33b30e42c8
     # members: see the head
 
   # DEC-SEC-MODULE-RETAIL-APP-ECS-MODULE-ORDERS-SERVICE-AWS-ECS-SERVICE-THIS
@@ -800,7 +926,7 @@ decisions:
     reviewed_by: Security Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:be34e739bc39a8d7f9a75ec54e4a06207f7b84000f5f784e735bcc8fac34a2be
-    kb_dependencies_sha256: sha256:af385e730e68e0815b00c9b5c09f6faad30b0026deb1d73a8c37c815dbb11f5c
+    kb_dependencies_sha256: sha256:80f71cd744c2ba410a4c4e1bde18c5178bd413eb113205dea74b8ead165469ef
     # members: see the head
 
   # DEC-GEN-MODULE-RETAIL-APP-ECS-MODULE-UI-SERVICE-AWS-ECS-SERVICE-THIS
@@ -812,7 +938,7 @@ decisions:
     resolution: ""
     rationale: ""
     evidence_refs: []
-    reviewed_by: NOT_STATED
+    reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:cd84cdba0aa722b0700f256589172631f462ab3a79939d8703d4dcf136e51830
     kb_dependencies_sha256: sha256:2031816290b03c34a1327dd99d3e9e227ccb2fe1ffb7feaa61aca6b9e8fff8c6
@@ -856,7 +982,7 @@ decisions:
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:a803971360a7c14f2d1f59ef457345625b6b24b4ab02a4c951935921fa6b197c
-    kb_dependencies_sha256: sha256:e7d39dd26d25e95decbc7941cd521cd27187f04056ac8fbb3d6a588d2780ea49
+    kb_dependencies_sha256: sha256:bfa21b1972865a51e8f03f8ed34fe1d22cd40dc9fcd05f4481cdc63aa71934ad
     # members: see the head
 
   # DEC-OPS-MODULE-RETAIL-APP-ECS-MODULE-UI-SERVICE-AWS-ECS-SERVICE-THIS
@@ -875,7 +1001,7 @@ decisions:
     reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:0e7194ba0ea68f59540ceb49d1d55cb3c23addc7159416d6891adaecdf49c6ce
-    kb_dependencies_sha256: sha256:988426a2201584c1fcf6f1ccc6541861c81e273e98f9b704dddcdaf61403fda9
+    kb_dependencies_sha256: sha256:7c3984c19f8f4b4a00268df8f5d6010e179151a9a0fa6f258bd66f33b30e42c8
     # members: see the head
 
   # DEC-SEC-MODULE-RETAIL-APP-ECS-MODULE-UI-SERVICE-AWS-ECS-SERVICE-THIS
@@ -893,7 +1019,7 @@ decisions:
     reviewed_by: Security Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:e4bca6f80507db70550fa30296dcb1663d180045b12ab84aef82f90af4d4591f
-    kb_dependencies_sha256: sha256:af385e730e68e0815b00c9b5c09f6faad30b0026deb1d73a8c37c815dbb11f5c
+    kb_dependencies_sha256: sha256:80f71cd744c2ba410a4c4e1bde18c5178bd413eb113205dea74b8ead165469ef
     # members: see the head
 
   # DEC-NET-MODULE-VPC-MODULE-VPC-AWS-EIP-NAT
@@ -916,20 +1042,15 @@ decisions:
   # affects: module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
   # settings of the unit (see members: in the head):
   #   - "module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default|seed-snapshot"  Review the seed snapshot setting
-  #       derived-carry-on-the-target-e8da7c3cb7f7: its effect on the steps is not stated: a review frees nothing
-  #       derived-accept-the-difference-e8da7c3cb7f7: its effect on the steps is not stated: a review frees nothing
   #   - "module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default|snapshots-off"  Review the snapshots off setting
-  #       derived-carry-on-the-target-e8da7c3cb7f7: as under the first setting that lists it
-  #       derived-accept-the-difference-e8da7c3cb7f7: as under the first setting that lists it
   - id: DEC-DATA-MODULE-DEPENDENCIES-MODULE-CHECKOUT-ELASTICACHE-REDIS-A-D6A5B374
     resolution: ""
-    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Data Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:a81099a7a19d0a70e93099ba046b0f6ffe0b067d5d7d330a726223a11b4a8a71
-    kb_dependencies_sha256: sha256:ebcf8346d6c1a5ab702c45c8655a0f6b5a3448f0cb963d86859006c86374fdb0
+    kb_dependencies_sha256: sha256:53d4a034ba078dd134d0a449f62c8be8bbd03d2fc8272e796a34f953c83f5b4e
     # members: see the head
 
   # DEC-NET-MODULE-DEPENDENCIES-MODULE-CHECKOUT-ELASTICACHE-REDIS-A-D6A5B374
@@ -944,7 +1065,7 @@ decisions:
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:6a0885338cdc784fa0469bff7f3e328048bdf0779f8fe6695463e4f84db89ece
-    kb_dependencies_sha256: sha256:4922de2968d38e9549a98bc95dce7abb8327f97b21033b2ac01dbe4fa0b366f0
+    kb_dependencies_sha256: sha256:6eff9e56df3971333c64a3621c72ccd0b72292c6353feb776ca4fff9f869fbb3
     # members: see the head
 
   # DEC-OPS-MODULE-DEPENDENCIES-MODULE-CHECKOUT-ELASTICACHE-REDIS-A-D6A5B374
@@ -962,7 +1083,7 @@ decisions:
     reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:22903c56db5911aeb017374334c4c459471b44cc52549e1be5fc3e282b7f0382
-    kb_dependencies_sha256: sha256:4b6c080d9c54fe5efe1d48b4e047be580fc75e3272f48a115e0f4f784255eb98
+    kb_dependencies_sha256: sha256:26d450b16f1849b1d48a14fd004026eb23d7b4c796204ee2197510a4d27a61bb
     # members: see the head
 
   # DEC-SEC-MODULE-DEPENDENCIES-MODULE-CHECKOUT-ELASTICACHE-REDIS-A-D6A5B374
@@ -970,8 +1091,6 @@ decisions:
   # affects: module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default
   # settings of the unit (see members: in the head):
   #   - "module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default|at-rest-encryption-off"  Review the at rest encryption off setting
-  #       derived-carry-on-the-target-e8da7c3cb7f7: as under the first setting that lists it
-  #       derived-accept-the-difference-e8da7c3cb7f7: as under the first setting that lists it
   #   - "module.dependencies.module.checkout_elasticache_redis.aws_elasticache_replication_group.default|tcp-elasticache-replication-group-transit-encryption-enabled"  Confirm the transit encryption enabled setting of the ElastiCache replication group
   #       clients-connect-with-tls: its effect on the steps is not stated: a review frees nothing
   - id: DEC-SEC-MODULE-DEPENDENCIES-MODULE-CHECKOUT-ELASTICACHE-REDIS-A-D6A5B374
@@ -982,7 +1101,23 @@ decisions:
     reviewed_by: Security Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:7a84420d04b71d9952e3521b09fbde28030d59bd2678d039f0ea48f4d8c6eec5
-    kb_dependencies_sha256: sha256:3a86507bf5c06fa0b3338767a4f17cdfe46f49db8a9460b0764ac230a388b62c
+    kb_dependencies_sha256: sha256:72b6f14d8bf627b2090be1c6f9dbcc9b4defb540e6e4342a2d43cb5387777ee9
+    # members: see the head
+
+  # DEC-IAM-MODULE-RETAIL-APP-ECS-AWS-CLOUDWATCH-EVENT-RULE-ECS-EVENTS
+  # unit-review (CRITICAL_SEMANTIC, status OPEN, 2 members)
+  # affects: module.retail_app_ecs.aws_cloudwatch_event_rule.ecs_events
+  # settings of the unit (see members: in the head):
+  #   - "module.retail_app_ecs.aws_cloudwatch_event_rule.ecs_events|target-arn"  Review the target ARN setting
+  #   - "module.retail_app_ecs.aws_cloudwatch_event_rule.ecs_events|targets"  Review the targets setting
+  - id: DEC-IAM-MODULE-RETAIL-APP-ECS-AWS-CLOUDWATCH-EVENT-RULE-ECS-EVENTS
+    resolution: ""
+    rationale: ""
+    evidence_refs: []
+    reviewed_by: Identity Architect
+    reviewed_at: "<YYYY-MM-DD>"
+    members_sha256: sha256:de03ff541837471038984c18e1cf4e8bc0adfbe731230710cc1557a796608960
+    kb_dependencies_sha256: sha256:95e69ae973934c072f2bd54688be6fe05695f5aaa1d79eb3aa34b3a96eccaf9c
     # members: see the head
 
   # DEC-OPS-MODULE-RETAIL-APP-ECS-AWS-CLOUDWATCH-EVENT-RULE-ECS-EVENTS
@@ -997,7 +1132,7 @@ decisions:
     reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:0c7ac66b611a81d2bff0b32006af0ed27eeda1b40bbf25d4827fb79bb72fbef0
-    kb_dependencies_sha256: sha256:3ed02e4bc97ab1b17c730374eace9f8bd31225b1cb9420c33cd0f9e02a327016
+    kb_dependencies_sha256: sha256:5bd5290f300894e343e9a104ec74633d435865ed3327b1fb150109e12df26660
     # members: see the head
 
   # DEC-IAM-MODULE-RETAIL-APP-ECS-MODULE-CARTS-SERVICE-AWS-IAM-ROLE-0AE33885
@@ -1037,7 +1172,7 @@ decisions:
     reviewed_by: Identity Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:51ceb0018ab2bfda815b7e25eead649fca3447af44bcb92f28bf7b0af815f4a4
-    kb_dependencies_sha256: sha256:25511588da91a4bc932c6ded70031e9c95fc80d66256a417f72385a023ad54be
+    kb_dependencies_sha256: sha256:7e0344e2678116562bff67d39c513c908fa29e9f52b773c0ab0f7ac946570473
     # members: see the head
 
   # DEC-IAM-MODULE-RETAIL-APP-ECS-MODULE-CATALOG-SERVICE-AWS-IAM-RO-88D16913
@@ -1077,7 +1212,7 @@ decisions:
     reviewed_by: Identity Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:4c1cdaf163c1329c050b9bb8c155cd2416b67516dfdcc85c9ebc37487c1c62ec
-    kb_dependencies_sha256: sha256:25511588da91a4bc932c6ded70031e9c95fc80d66256a417f72385a023ad54be
+    kb_dependencies_sha256: sha256:d22155eb59b1da183620f5c985ee29513c7ec5b1409efdfb87e2770d088ffe5d
     # members: see the head
 
   # DEC-IAM-MODULE-RETAIL-APP-ECS-MODULE-CHECKOUT-SERVICE-AWS-IAM-R-7A7D9673
@@ -1117,7 +1252,7 @@ decisions:
     reviewed_by: Identity Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:4cc70f00b75b15f677d467aad39fca316ea2386384bb118334f60d1b56671a18
-    kb_dependencies_sha256: sha256:25511588da91a4bc932c6ded70031e9c95fc80d66256a417f72385a023ad54be
+    kb_dependencies_sha256: sha256:7e0344e2678116562bff67d39c513c908fa29e9f52b773c0ab0f7ac946570473
     # members: see the head
 
   # DEC-IAM-MODULE-RETAIL-APP-ECS-MODULE-ORDERS-SERVICE-AWS-IAM-ROL-05049202
@@ -1157,7 +1292,7 @@ decisions:
     reviewed_by: Identity Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:2f0bb0ed7fec154e45a2cb12fe4064f9f20b82d2c47f71a7c542e4a2c02b85d2
-    kb_dependencies_sha256: sha256:25511588da91a4bc932c6ded70031e9c95fc80d66256a417f72385a023ad54be
+    kb_dependencies_sha256: sha256:d22155eb59b1da183620f5c985ee29513c7ec5b1409efdfb87e2770d088ffe5d
     # members: see the head
 
   # DEC-IAM-MODULE-RETAIL-APP-ECS-MODULE-UI-SERVICE-AWS-IAM-ROLE-TA-E93926D0
@@ -1197,7 +1332,7 @@ decisions:
     reviewed_by: Identity Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:c2be12d3d2e2fb732e8477e43439fd19dffa3bc19f7641e8a62de8194da707fb
-    kb_dependencies_sha256: sha256:25511588da91a4bc932c6ded70031e9c95fc80d66256a417f72385a023ad54be
+    kb_dependencies_sha256: sha256:d22155eb59b1da183620f5c985ee29513c7ec5b1409efdfb87e2770d088ffe5d
     # members: see the head
 
   # DEC-IAM-MODULE-RETAIL-APP-ECS-AWS-KMS-KEY-CMK
@@ -1234,7 +1369,7 @@ decisions:
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:fdc79f089407dc7588dac9d82cc2203e9dbdafda32f1822593ddcaad65d50d8f
-    kb_dependencies_sha256: sha256:9b4cffcded758e308cda331973101a16fcaf0af6d7ddda22e3b4af8a0616335b
+    kb_dependencies_sha256: sha256:0d63401bfcaa31d76dfe6e452b494f061884fc63330cfae9780514fdb4937997
     # members: see the head
 
   # DEC-OPS-MODULE-RETAIL-APP-ECS-MODULE-ALB-AWS-LB-THIS
@@ -1254,7 +1389,7 @@ decisions:
     reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:1f886639d618968c583259189057db4e9560ece36778f6e9a6944d4309935aca
-    kb_dependencies_sha256: sha256:7043acb60936099ccf2d02a9579423b35351e6dd828273b9d3ca0e98be258b2e
+    kb_dependencies_sha256: sha256:e6a0b35e7d0bb4ea04f13b24ca8bc697fa634531c24c0f3389697c166d1fecdb
     # members: see the head
 
   # DEC-IAM-MODULE-DEPENDENCIES-AWS-MQ-BROKER-MQ
@@ -1270,7 +1405,7 @@ decisions:
     reviewed_by: Identity Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:1d010c1b6ab6c30f34ff7ae81cdd495a8a439b7de14ec99385aea80975a5725b
-    kb_dependencies_sha256: sha256:7f55df750e73533a88c1aed0516c93e797876555abf819daa609bb68258d8832
+    kb_dependencies_sha256: sha256:b6f96e4dc919e10b07bbe4badb0f32cd2275f36f667db7f45d2d67c798092bf0
     # members: see the head
 
   # DEC-NET-MODULE-DEPENDENCIES-AWS-MQ-BROKER-MQ
@@ -1285,7 +1420,7 @@ decisions:
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:0677d3c44629dc255384d38daf4d1be95731a7b0f973c9589d4bbae60eb3321a
-    kb_dependencies_sha256: sha256:94c22a51f18d659d149c5fc1f611c6a805619aacd4ff90436516a12fec1c4907
+    kb_dependencies_sha256: sha256:ff0fff95e74bf949e900c56f2e6a55e5ee6c4746884435e7ef9ba75590287e8d
     # members: see the head
 
   # DEC-OPS-MODULE-DEPENDENCIES-AWS-MQ-BROKER-MQ
@@ -1302,7 +1437,7 @@ decisions:
     reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:ef3bdbf036354a9489578e8cc7954091c560180b4f5f81788a824d645c25a480
-    kb_dependencies_sha256: sha256:76b109c7830716894fc2e4f3df2bf5447cfb5717e269bcf2ab801413842c127d
+    kb_dependencies_sha256: sha256:9da72af67833eb29d825f653182872279ac8e1979c07f78317238a985c94f689
     # members: see the head
 
   # DEC-SEC-MODULE-DEPENDENCIES-AWS-MQ-BROKER-MQ
@@ -1344,20 +1479,17 @@ decisions:
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|credentials-and-keys-settings"  Review the credentials and keys settings setting
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|domain-credentials-and-keys"  Review the domain credentials and keys setting
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|domain-settings"  Review the domain settings setting
-  #       derived-carry-on-the-target-c95be7496624: its effect on the steps is not stated: a review frees nothing
-  #       derived-accept-the-difference-c95be7496624: its effect on the steps is not stated: a review frees nothing
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|fine-grained-access"  Review the fine grained access setting
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|nbr-aws-opensearch-domain-policy"  Confirm the effect of a neighbouring OpenSearch domain policy
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|opensearch-domain-policy-resource"  Review the OpenSearch domain policy resource setting
   - id: DEC-IAM-MODULE-DEPENDENCIES-MODULE-CATALOG-OPENSEARCH-AWS-OPENS-0034548E
     resolution: ""
-    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Identity Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:a9e0ee79957045c23a463b07a97b52afc357b86ed2311d9024f40b66f15e8e40
-    kb_dependencies_sha256: sha256:015d35ebcb41585433b3b03ff85346e2bb1ce130ac85ae7e90a2f4f6eeeef8d2
+    kb_dependencies_sha256: sha256:bc6df01822f3abcc233ba0fc46308d224ff60ef793a4cc0e98e070f2f9fa0e9e
     # members: see the head
 
   # DEC-NET-MODULE-DEPENDENCIES-MODULE-CATALOG-OPENSEARCH-AWS-OPENS-0034548E
@@ -1365,8 +1497,8 @@ decisions:
   # affects: module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this
   # settings of the unit (see members: in the head):
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|network-settings"  Review the network settings setting
-  #       derived-carry-on-the-target-c95be7496624: as under the first setting that lists it
-  #       derived-accept-the-difference-c95be7496624: as under the first setting that lists it
+  #       derived-carry-on-the-target-c95be7496624: its effect on the steps is not stated: a review frees nothing
+  #       derived-accept-the-difference-c95be7496624: its effect on the steps is not stated: a review frees nothing
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|private-endpoint"  Review the private endpoint setting
   - id: DEC-NET-MODULE-DEPENDENCIES-MODULE-CATALOG-OPENSEARCH-AWS-OPENS-0034548E
     resolution: ""
@@ -1376,7 +1508,7 @@ decisions:
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:efd09ed3163fcd2d1f8f02ae26a7794ec875cfcd3748cbee1def5e930d468b24
-    kb_dependencies_sha256: sha256:75be6c240904ea2183ff076fce9ad6f41158d5bfba70b5f029090b67a9cf1315
+    kb_dependencies_sha256: sha256:6b309850dcf9011cdd5d9fafc40f7953545bf0b8ac1b698dfa2e7c311927fcab
     # members: see the head
 
   # DEC-OPS-MODULE-DEPENDENCIES-MODULE-CATALOG-OPENSEARCH-AWS-OPENS-0034548E
@@ -1384,22 +1516,17 @@ decisions:
   # affects: module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this
   # settings of the unit (see members: in the head):
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|cluster-layout-settings"  Review the cluster layout settings setting
-  #       derived-carry-on-the-target-c95be7496624: as under the first setting that lists it
-  #       derived-accept-the-difference-c95be7496624: as under the first setting that lists it
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|engine-version"  Choose the database engine version
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|storage-settings"  Review the storage settings setting
-  #       derived-carry-on-the-target-c95be7496624: as under the first setting that lists it
-  #       derived-accept-the-difference-c95be7496624: as under the first setting that lists it
   #   - "module.dependencies.module.catalog_opensearch.aws_opensearch_domain.this|tc-opensearch-domain-domain-name"  Confirm the domain name of the OpenSearch domain
   - id: DEC-OPS-MODULE-DEPENDENCIES-MODULE-CATALOG-OPENSEARCH-AWS-OPENS-0034548E
     resolution: ""
-    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:6624c3ac7454bc6f7584654b5457e914db689e9b03564a6ef798e8fd91f4c794
-    kb_dependencies_sha256: sha256:b373a18848a30ad0874a5fec861e8845077b85460e746a25d0b9d44985e18101
+    kb_dependencies_sha256: sha256:eccb8f2d774abf473f06e26b854fefa46e362f1179066c21096f288840c9a6e7
     # members: see the head
 
   # DEC-SEC-MODULE-DEPENDENCIES-MODULE-CATALOG-OPENSEARCH-AWS-OPENS-0034548E
@@ -1414,7 +1541,7 @@ decisions:
     reviewed_by: Security Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:caf9581bf513722f70799201583927c9f7d2aad376462690c78884ffb3e7913a
-    kb_dependencies_sha256: sha256:b5e10b2382a319f48047d0166c4f698c92a41acf6803429131b6c8cb00c3f98e
+    kb_dependencies_sha256: sha256:74f2166c545641b7a0360321b0cfe098e8735bb235e5fcbdec1a16a195eee5b2
     # members: see the head
 
   # DEC-DATA-MODULE-DEPENDENCIES-MODULE-CATALOG-RDS-AWS-RDS-CLUSTER-THIS
@@ -1422,11 +1549,9 @@ decisions:
   # affects: module.dependencies.module.catalog_rds.aws_rds_cluster.this
   # settings of the unit (see members: in the head):
   #   - "module.dependencies.module.catalog_rds.aws_rds_cluster.this|backup-retention"  Review the backup retention setting
+  #   - "module.dependencies.module.catalog_rds.aws_rds_cluster.this|final-snapshot"  Review the final snapshot setting
   #       derived-carry-on-the-target-861a36cbfb39: its effect on the steps is not stated: a review frees nothing
   #       derived-accept-the-difference-861a36cbfb39: its effect on the steps is not stated: a review frees nothing
-  #   - "module.dependencies.module.catalog_rds.aws_rds_cluster.this|final-snapshot"  Review the final snapshot setting
-  #       derived-carry-on-the-target-861a36cbfb39: as under the first setting that lists it
-  #       derived-accept-the-difference-861a36cbfb39: as under the first setting that lists it
   - id: DEC-DATA-MODULE-DEPENDENCIES-MODULE-CATALOG-RDS-AWS-RDS-CLUSTER-THIS
     resolution: ""
     # chosen_option: <one of the options above>
@@ -1435,7 +1560,7 @@ decisions:
     reviewed_by: Data Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:3ac0ea2fe4b2c89a0ba32b318fb09555b19d7908dee3884848002f6aaab52ca2
-    kb_dependencies_sha256: sha256:b4c55807bbdc4429cbca50c683514ae8a86f7a9771dbf2391c5e88d45b7446a5
+    kb_dependencies_sha256: sha256:f3b316b77839a5b51ac9b8deac4369da26918410fe9cfa6c2475463969e8757b
     # members: see the head
 
   # DEC-IAM-MODULE-DEPENDENCIES-MODULE-CATALOG-RDS-AWS-RDS-CLUSTER-THIS
@@ -1450,7 +1575,7 @@ decisions:
     reviewed_by: Identity Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:30cbded70d6861ce65a80938e1025f6e3f6b4b28ba08fb7268b5246df0f1c22b
-    kb_dependencies_sha256: sha256:59d02174795bd97da7b36e630c47a7afda8f9d06d07055fdba2af9406c36fbdb
+    kb_dependencies_sha256: sha256:8cf5ec2a1c0ecf1ec0caa29964f10703da359457301b4dd101a34dd1b79cd675
     # members: see the head
 
   # DEC-NET-MODULE-DEPENDENCIES-MODULE-CATALOG-RDS-AWS-RDS-CLUSTER-THIS
@@ -1467,7 +1592,7 @@ decisions:
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:08ef1795fb2ca2f1693f6c9f9ca0f87f030551d26b59f47d9f5e242c34a5a85d
-    kb_dependencies_sha256: sha256:d975e71967df708b0e7ad59e9cb7e9f1fb11323978a116dae69931978f474cc0
+    kb_dependencies_sha256: sha256:17354e9fe6a12d23250476f6b1efa8bc7ae36e812de78b7cc7225a1b6c15334a
     # members: see the head
 
   # DEC-OPS-MODULE-DEPENDENCIES-MODULE-CATALOG-RDS-AWS-RDS-CLUSTER-THIS
@@ -1477,19 +1602,16 @@ decisions:
   #   - "module.dependencies.module.catalog_rds.aws_rds_cluster.this|engine"  Choose the database engine
   #   - "module.dependencies.module.catalog_rds.aws_rds_cluster.this|engine-version"  Choose the database engine version
   #   - "module.dependencies.module.catalog_rds.aws_rds_cluster.this|member-engine"  Review the member engine setting
-  #       derived-carry-on-the-target-861a36cbfb39: as under the first setting that lists it
-  #       derived-accept-the-difference-861a36cbfb39: as under the first setting that lists it
   #   - "module.dependencies.module.catalog_rds.aws_rds_cluster.this|tc-database-name"  Confirm the database name of the RDS cluster
   #   - "module.dependencies.module.catalog_rds.aws_rds_cluster.this|tcf-rds-cluster-instance--identifier"  Confirm the identifier of the RDS cluster instance
   - id: DEC-OPS-MODULE-DEPENDENCIES-MODULE-CATALOG-RDS-AWS-RDS-CLUSTER-THIS
     resolution: ""
-    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:04c13bb75bcc4b3f06e8a9be6649f1aa33f1783b80e228945967077a7b7f440d
-    kb_dependencies_sha256: sha256:3af5fe36e4f42874e8319175ad1c37291462d5c057188d52a92d004594ff6dd0
+    kb_dependencies_sha256: sha256:5ac4684ea9c5d2b3523bfa6a6f300ebe8f7cd4a4b11495073d49b8042786c55a
     # members: see the head
 
   # DEC-SEC-MODULE-DEPENDENCIES-MODULE-CATALOG-RDS-AWS-RDS-CLUSTER-THIS
@@ -1509,7 +1631,7 @@ decisions:
     reviewed_by: Security Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:83e2e9a6dde82e51cd66d9801c1c5f0f3264133cdd53c48904171583c84daf89
-    kb_dependencies_sha256: sha256:fd300e007e319cf18814a35633b686264c0583067ba7dca9ea59838d8a5e555e
+    kb_dependencies_sha256: sha256:ab0b4ef9ef8c53d0fcd0baf7e57180e7410037ad722bd61c24427874d7a843bc
     # members: see the head
 
   # DEC-DATA-MODULE-DEPENDENCIES-MODULE-ORDERS-RDS-AWS-RDS-CLUSTER-THIS
@@ -1542,7 +1664,7 @@ decisions:
     reviewed_by: Identity Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:56a8b21cfab709656b73f9d44bc0f7560aad7fc1566c66d5cd5addcb8bd1753c
-    kb_dependencies_sha256: sha256:59d02174795bd97da7b36e630c47a7afda8f9d06d07055fdba2af9406c36fbdb
+    kb_dependencies_sha256: sha256:8cf5ec2a1c0ecf1ec0caa29964f10703da359457301b4dd101a34dd1b79cd675
     # members: see the head
 
   # DEC-NET-MODULE-DEPENDENCIES-MODULE-ORDERS-RDS-AWS-RDS-CLUSTER-THIS
@@ -1559,7 +1681,7 @@ decisions:
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:b3c81382b03c6c736acc4d26ff3e92a4345e4df4789e0623bd0f59c9b345b926
-    kb_dependencies_sha256: sha256:d975e71967df708b0e7ad59e9cb7e9f1fb11323978a116dae69931978f474cc0
+    kb_dependencies_sha256: sha256:17354e9fe6a12d23250476f6b1efa8bc7ae36e812de78b7cc7225a1b6c15334a
     # members: see the head
 
   # DEC-OPS-MODULE-DEPENDENCIES-MODULE-ORDERS-RDS-AWS-RDS-CLUSTER-THIS
@@ -1595,7 +1717,7 @@ decisions:
     reviewed_by: Security Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:ab8f2937699001b60dad6a667cbc1e25d1e136bd735d58b05008f2a9eb3b0d60
-    kb_dependencies_sha256: sha256:fd300e007e319cf18814a35633b686264c0583067ba7dca9ea59838d8a5e555e
+    kb_dependencies_sha256: sha256:ab0b4ef9ef8c53d0fcd0baf7e57180e7410037ad722bd61c24427874d7a843bc
     # members: see the head
 
   # DEC-NET-MODULE-VPC-MODULE-VPC-AWS-ROUTE-TABLE-PRIVATE
@@ -1686,7 +1808,7 @@ decisions:
     reviewed_by: Security Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:3648ebb527da2bc96efc5425a387853eeeef8b1af4da2208b4326214e2fe9417
-    kb_dependencies_sha256: sha256:08db6074914a167e7fe7013ed3f4ae490388fce4107476414ba191aaa14d2de4
+    kb_dependencies_sha256: sha256:d46e0c015c61eb792973f72b0124e63571ae5b33805391c598dece6aa9972a17
     # members: see the head
 
   # DEC-OPS-MODULE-RETAIL-APP-ECS-AWS-SECRETSMANAGER-SECRET-CATALOG-F9E3300E
@@ -1720,7 +1842,7 @@ decisions:
     reviewed_by: Security Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:ae17628c8cbe0ab8697ae4bb2880130aeee40989541c8f0376736190f705f513
-    kb_dependencies_sha256: sha256:08db6074914a167e7fe7013ed3f4ae490388fce4107476414ba191aaa14d2de4
+    kb_dependencies_sha256: sha256:d46e0c015c61eb792973f72b0124e63571ae5b33805391c598dece6aa9972a17
     # members: see the head
 
   # DEC-OPS-MODULE-RETAIL-APP-ECS-AWS-SECRETSMANAGER-SECRET-MQ
@@ -1799,7 +1921,7 @@ decisions:
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:e5b8396cf42136f1bec546cae0040c85cfce4ea63185fc4f3e21f8bffd362949
-    kb_dependencies_sha256: sha256:c3cc4debfc46830322b19ed819a670e1a2fa0157c15902cefa443b1ad6f5b7fd
+    kb_dependencies_sha256: sha256:c325cac82e037d4d0e025f1a7738bd66e6a35376080f554e24c73968dc5cc14e
     # members: see the head
 
   # DEC-NET-MODULE-DEPENDENCIES-AWS-SECURITY-GROUP-MQ
@@ -1817,7 +1939,7 @@ decisions:
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:91bd254cf590e4d63d52164548fb1009314918c4f5ed347c9a75341ac07229f1
-    kb_dependencies_sha256: sha256:c0528be03d066d51841c90198eba8a1b7bdb92e5cdb5f2d1130279a3128b6d0f
+    kb_dependencies_sha256: sha256:cdfd47c3f8f0de9bf4525232127c3133a9ef8eaffb4dda8b9ac0a75af8cbb469
     # members: see the head
 
   # DEC-NET-MODULE-DEPENDENCIES-MODULE-CATALOG-RDS-AWS-SECURITY-GROUP-THIS
@@ -1836,7 +1958,7 @@ decisions:
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:143412b50f3b8f7f704c359f031a6aa3fa236b2bd8520ddba1eebb8918ffbde3
-    kb_dependencies_sha256: sha256:78d18ad4e9faee74b7a36641438cad9af17e13e0ef0a4e484eb08b00465a3e34
+    kb_dependencies_sha256: sha256:79df4960b0eaa782696794439b5c32466da5468365f10b278bcf711f356cccc1
     # members: see the head
 
   # DEC-NET-MODULE-DEPENDENCIES-MODULE-CHECKOUT-ELASTICACHE-REDIS-M-D58733D0
@@ -1856,7 +1978,7 @@ decisions:
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:09303393b7d8d5ab2b1691b6b24f525d784a126470634b32eec378a35fef3e31
-    kb_dependencies_sha256: sha256:54261cad52373d25f5a9026d3f3514478ee841870b72810a5048218e9a360d80
+    kb_dependencies_sha256: sha256:0d133f620104b423298a0f4947487fff908d7313929e91cd200df8158cab84c0
     # members: see the head
 
   # DEC-NET-MODULE-DEPENDENCIES-MODULE-ORDERS-RDS-AWS-SECURITY-GROUP-THIS
@@ -1875,7 +1997,7 @@ decisions:
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:cb208aa168787e6bf13bf556c97b9cb297c25eedd4cd3a9c5eaf4c022cbcc5b8
-    kb_dependencies_sha256: sha256:78d18ad4e9faee74b7a36641438cad9af17e13e0ef0a4e484eb08b00465a3e34
+    kb_dependencies_sha256: sha256:79df4960b0eaa782696794439b5c32466da5468365f10b278bcf711f356cccc1
     # members: see the head
 
   # DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-ALB-AWS-SECURITY-GROUP-THIS
@@ -1892,7 +2014,7 @@ decisions:
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:2d1574717328fb1e081e54b4a7e6219874b93309f0c5b95703bf9eed89948bb7
-    kb_dependencies_sha256: sha256:bcb4a9c3e94b8aaadcd8b3942b7df50d0a5b6bfbfc7f0167869126d75a58b4b9
+    kb_dependencies_sha256: sha256:653abddf7009462b02544d819fb2fed8b3e1f94b758a6c95f69dc6b8bb7c9a5b
     # members: see the head
 
   # DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-ALB-SG-AWS-SECURITY-GROUP-68F6B862
@@ -1912,7 +2034,7 @@ decisions:
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:18b4735a43f62d27a8e2239030fb97588583c5ac8da1c3686d991957f435f26e
-    kb_dependencies_sha256: sha256:54261cad52373d25f5a9026d3f3514478ee841870b72810a5048218e9a360d80
+    kb_dependencies_sha256: sha256:0d133f620104b423298a0f4947487fff908d7313929e91cd200df8158cab84c0
     # members: see the head
 
   # DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-CARTS-SERVICE-AWS-SECURITY-6B55ABCF
@@ -1922,22 +2044,17 @@ decisions:
   #   - "module.retail_app_ecs.module.carts_service.aws_security_group.this|egress-rule-protocol"  Decide how the target enforces the protocol of the outbound rules of the security group
   #   - "module.retail_app_ecs.module.carts_service.aws_security_group.this|egress-sources"  Decide how the target enforces the destinations the outbound rules of the security group allow
   #   - "module.retail_app_ecs.module.carts_service.aws_security_group.this|ingress-sources"  Confirm the sources the inbound rules of the security group allow
-  #       derived-carry-on-the-target-d9e8bac03052: its effect on the steps is not stated: a review frees nothing
-  #       derived-accept-the-difference-d9e8bac03052: its effect on the steps is not stated: a review frees nothing
   #   - "module.retail_app_ecs.module.carts_service.aws_security_group.this|rule-ports"  Confirm the ports of the rules of the security group
-  #       derived-carry-on-the-target-d9e8bac03052: as under the first setting that lists it
-  #       derived-accept-the-difference-d9e8bac03052: as under the first setting that lists it
   #   - "module.retail_app_ecs.module.carts_service.aws_security_group.this|security-group-vpc-membership"  Decide which networks the security group may be attached to (a STACKIT group has no network scope)
   #   - "module.retail_app_ecs.module.carts_service.aws_security_group.this|stateful"  Confirm whether the rules are stateful
   - id: DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-CARTS-SERVICE-AWS-SECURITY-6B55ABCF
     resolution: ""
-    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:019480cc0d106386977956611af6031dfc8168599f2549c20ad1a4bd21137f67
-    kb_dependencies_sha256: sha256:bf4f472fd6c0a7e2640f1e3d76cf5439e7d93c5293726af5f28cdb7c4cde6df0
+    kb_dependencies_sha256: sha256:f47845e3aff4d90438bdd71e14ec74985c68ad1191537737166eb0dce6153109
     # members: see the head
 
   # DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-CATALOG-SERVICE-AWS-SECURI-ACC9368F
@@ -1947,22 +2064,17 @@ decisions:
   #   - "module.retail_app_ecs.module.catalog_service.aws_security_group.this|egress-rule-protocol"  Decide how the target enforces the protocol of the outbound rules of the security group
   #   - "module.retail_app_ecs.module.catalog_service.aws_security_group.this|egress-sources"  Decide how the target enforces the destinations the outbound rules of the security group allow
   #   - "module.retail_app_ecs.module.catalog_service.aws_security_group.this|ingress-sources"  Confirm the sources the inbound rules of the security group allow
-  #       derived-carry-on-the-target-d9e8bac03052: as under the first setting that lists it
-  #       derived-accept-the-difference-d9e8bac03052: as under the first setting that lists it
   #   - "module.retail_app_ecs.module.catalog_service.aws_security_group.this|rule-ports"  Confirm the ports of the rules of the security group
-  #       derived-carry-on-the-target-d9e8bac03052: as under the first setting that lists it
-  #       derived-accept-the-difference-d9e8bac03052: as under the first setting that lists it
   #   - "module.retail_app_ecs.module.catalog_service.aws_security_group.this|security-group-vpc-membership"  Decide which networks the security group may be attached to (a STACKIT group has no network scope)
   #   - "module.retail_app_ecs.module.catalog_service.aws_security_group.this|stateful"  Confirm whether the rules are stateful
   - id: DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-CATALOG-SERVICE-AWS-SECURI-ACC9368F
     resolution: ""
-    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:8bc153d174aeaa1766b456a3af9965fba68e4b80064c0611c9e35c0a7e02930b
-    kb_dependencies_sha256: sha256:bf4f472fd6c0a7e2640f1e3d76cf5439e7d93c5293726af5f28cdb7c4cde6df0
+    kb_dependencies_sha256: sha256:f47845e3aff4d90438bdd71e14ec74985c68ad1191537737166eb0dce6153109
     # members: see the head
 
   # DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-CHECKOUT-SERVICE-AWS-SECUR-2F7B1E2F
@@ -1972,22 +2084,17 @@ decisions:
   #   - "module.retail_app_ecs.module.checkout_service.aws_security_group.this|egress-rule-protocol"  Decide how the target enforces the protocol of the outbound rules of the security group
   #   - "module.retail_app_ecs.module.checkout_service.aws_security_group.this|egress-sources"  Decide how the target enforces the destinations the outbound rules of the security group allow
   #   - "module.retail_app_ecs.module.checkout_service.aws_security_group.this|ingress-sources"  Confirm the sources the inbound rules of the security group allow
-  #       derived-carry-on-the-target-d9e8bac03052: as under the first setting that lists it
-  #       derived-accept-the-difference-d9e8bac03052: as under the first setting that lists it
   #   - "module.retail_app_ecs.module.checkout_service.aws_security_group.this|rule-ports"  Confirm the ports of the rules of the security group
-  #       derived-carry-on-the-target-d9e8bac03052: as under the first setting that lists it
-  #       derived-accept-the-difference-d9e8bac03052: as under the first setting that lists it
   #   - "module.retail_app_ecs.module.checkout_service.aws_security_group.this|security-group-vpc-membership"  Decide which networks the security group may be attached to (a STACKIT group has no network scope)
   #   - "module.retail_app_ecs.module.checkout_service.aws_security_group.this|stateful"  Confirm whether the rules are stateful
   - id: DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-CHECKOUT-SERVICE-AWS-SECUR-2F7B1E2F
     resolution: ""
-    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:7915043e3f20b229017fefb189c638d4b93698c63e72b85f1882e430e2947d02
-    kb_dependencies_sha256: sha256:bf4f472fd6c0a7e2640f1e3d76cf5439e7d93c5293726af5f28cdb7c4cde6df0
+    kb_dependencies_sha256: sha256:f47845e3aff4d90438bdd71e14ec74985c68ad1191537737166eb0dce6153109
     # members: see the head
 
   # DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-ORDERS-SERVICE-AWS-SECURIT-D4CC95B3
@@ -1997,22 +2104,17 @@ decisions:
   #   - "module.retail_app_ecs.module.orders_service.aws_security_group.this|egress-rule-protocol"  Decide how the target enforces the protocol of the outbound rules of the security group
   #   - "module.retail_app_ecs.module.orders_service.aws_security_group.this|egress-sources"  Decide how the target enforces the destinations the outbound rules of the security group allow
   #   - "module.retail_app_ecs.module.orders_service.aws_security_group.this|ingress-sources"  Confirm the sources the inbound rules of the security group allow
-  #       derived-carry-on-the-target-d9e8bac03052: as under the first setting that lists it
-  #       derived-accept-the-difference-d9e8bac03052: as under the first setting that lists it
   #   - "module.retail_app_ecs.module.orders_service.aws_security_group.this|rule-ports"  Confirm the ports of the rules of the security group
-  #       derived-carry-on-the-target-d9e8bac03052: as under the first setting that lists it
-  #       derived-accept-the-difference-d9e8bac03052: as under the first setting that lists it
   #   - "module.retail_app_ecs.module.orders_service.aws_security_group.this|security-group-vpc-membership"  Decide which networks the security group may be attached to (a STACKIT group has no network scope)
   #   - "module.retail_app_ecs.module.orders_service.aws_security_group.this|stateful"  Confirm whether the rules are stateful
   - id: DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-ORDERS-SERVICE-AWS-SECURIT-D4CC95B3
     resolution: ""
-    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:ab41fea25fa12ba2965098cf997510280dfaf806f46b0c2e990bd98c8833579b
-    kb_dependencies_sha256: sha256:bf4f472fd6c0a7e2640f1e3d76cf5439e7d93c5293726af5f28cdb7c4cde6df0
+    kb_dependencies_sha256: sha256:f47845e3aff4d90438bdd71e14ec74985c68ad1191537737166eb0dce6153109
     # members: see the head
 
   # DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-UI-SERVICE-AWS-SECURITY-GROUP-THIS
@@ -2022,22 +2124,17 @@ decisions:
   #   - "module.retail_app_ecs.module.ui_service.aws_security_group.this|egress-rule-protocol"  Decide how the target enforces the protocol of the outbound rules of the security group
   #   - "module.retail_app_ecs.module.ui_service.aws_security_group.this|egress-sources"  Decide how the target enforces the destinations the outbound rules of the security group allow
   #   - "module.retail_app_ecs.module.ui_service.aws_security_group.this|ingress-sources"  Confirm the sources the inbound rules of the security group allow
-  #       derived-carry-on-the-target-d9e8bac03052: as under the first setting that lists it
-  #       derived-accept-the-difference-d9e8bac03052: as under the first setting that lists it
   #   - "module.retail_app_ecs.module.ui_service.aws_security_group.this|rule-ports"  Confirm the ports of the rules of the security group
-  #       derived-carry-on-the-target-d9e8bac03052: as under the first setting that lists it
-  #       derived-accept-the-difference-d9e8bac03052: as under the first setting that lists it
   #   - "module.retail_app_ecs.module.ui_service.aws_security_group.this|security-group-vpc-membership"  Decide which networks the security group may be attached to (a STACKIT group has no network scope)
   #   - "module.retail_app_ecs.module.ui_service.aws_security_group.this|stateful"  Confirm whether the rules are stateful
   - id: DEC-NET-MODULE-RETAIL-APP-ECS-MODULE-UI-SERVICE-AWS-SECURITY-GROUP-THIS
     resolution: ""
-    # chosen_option: <one of the options above>
     rationale: ""
     evidence_refs: []
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:0085dba5a619805454d5b6ab642bd496eb7b9512a9e337f808896b3c2f1e0651
-    kb_dependencies_sha256: sha256:bf4f472fd6c0a7e2640f1e3d76cf5439e7d93c5293726af5f28cdb7c4cde6df0
+    kb_dependencies_sha256: sha256:f47845e3aff4d90438bdd71e14ec74985c68ad1191537737166eb0dce6153109
     # members: see the head
 
   # DEC-NET-MODULE-VPC-MODULE-VPC-AWS-SUBNET-PRIVATE
@@ -2057,7 +2154,7 @@ decisions:
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:2e324c0e008b636ffafdf8ff44871defcebfc7098dc9e7446015bb1b733cfbb7
-    kb_dependencies_sha256: sha256:2697c8c4ac4afb256eb25dc4ed8904514395bfeb83ec6266ed162eba6fa1fa26
+    kb_dependencies_sha256: sha256:697c532ac10cec23a1c2cdee90dffdde2b9db47be67127966aef6124d1881500
     # members: see the head
 
   # DEC-OPS-MODULE-VPC-MODULE-VPC-AWS-SUBNET-PRIVATE
@@ -2074,7 +2171,7 @@ decisions:
     reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:5f69f9a245d1ee7220cd5f7ae8dd7d6c63754281e22d38e57ece0dd324c9f7ca
-    kb_dependencies_sha256: sha256:b7c227d12f16960b694c76edaebeaa4eb6e1c2ce904c0f48e83f794a07fe3138
+    kb_dependencies_sha256: sha256:ff20a5a370584f23c50985e2aadc134710cf985da23963b13fb4b5cf57c45ada
     # members: see the head
     # acceptance: its fields are listed in the head of this file
 
@@ -2096,7 +2193,7 @@ decisions:
     reviewed_by: Network Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:8200cd683bd0486d0f2ee5e6f2ac4b95ccc4e5e814804d6504c0430b13f06191
-    kb_dependencies_sha256: sha256:3b6d5c09be0096d1e9e55dbd643b1a09a05df3de0c69fbd11d19d71d8a7fc803
+    kb_dependencies_sha256: sha256:02df59ad3120e8ec3d97c39770061f585fdbd8ab649eda5fc7aff94956753360
     # members: see the head
 
   # DEC-OPS-MODULE-VPC-MODULE-VPC-AWS-SUBNET-PUBLIC
@@ -2113,7 +2210,7 @@ decisions:
     reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:011643d2054f5f8478b444cf7895470f87a6d43d3f75c6ef3ff169fcdffdbdc3
-    kb_dependencies_sha256: sha256:b7c227d12f16960b694c76edaebeaa4eb6e1c2ce904c0f48e83f794a07fe3138
+    kb_dependencies_sha256: sha256:ff20a5a370584f23c50985e2aadc134710cf985da23963b13fb4b5cf57c45ada
     # members: see the head
     # acceptance: its fields are listed in the head of this file
 
@@ -2147,7 +2244,7 @@ decisions:
     reviewed_by: Platform Architect
     reviewed_at: "<YYYY-MM-DD>"
     members_sha256: sha256:922a8c15b2b7499818c932ef55606b1e59f94f004ed39d782da13bce247b427c
-    kb_dependencies_sha256: sha256:cf773f243b88c0f4a074eff319871c3bb5787549b954a01a750246bcb33248c9
+    kb_dependencies_sha256: sha256:0461188311f360ce228f9f587f53267fd3b812cc933f6243fa9a394ba1244de2
     # members: see the head
 
   # DEC-OPS-STACKITLOGS-ACTION-ARCHIVE-FLOW

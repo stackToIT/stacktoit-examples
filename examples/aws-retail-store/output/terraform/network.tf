@@ -48,7 +48,7 @@ resource "stackit_network" "vpc_vpc_public" {
 }
 
 # from module.vpc.module.vpc.aws_route_table.private (.terraform/modules/vpc.vpc/main.tf:296) — RECONFIGURE / LOW
-# rule aws.route_table/rt-default-only-nat · KB 0.420.0 · evidence internal · review required
+# rule aws.route_table/rt-default-only-nat · KB 0.428.0 · evidence internal · review required
 # WARNING topology-route-table-not-drafted: This route table is created with count or for_each.
 # WARNING rt-private-subnet-association: A subnet uses a route table whose default route goes through a NAT gateway — a private subnet in AWS.
 # WARNING source-provider-unpinned: No lock file entry pins aws (>= 3.0, >= 3.29, >= 4.18, >= 4.30, >= 4.59, >= 5.64, >= 5.79, ~> 5.0): the version the plan would use is not proven (stated once for the whole estate)
@@ -57,7 +57,7 @@ resource "stackit_network" "vpc_vpc_public" {
 # TODO: decision DEC-NET-STACKITROUTE-NAT-FIXED-EGRESS-ADDRESS-LOST (alias `stackitroute:module.vpc.module.vpc.aws_route_table.private:NAT_FIXED_EGRESS_ADDRESS_LOST`) — Decide the egress address of module.vpc.module.vpc.aws_route_table.private: keep the changing address of the STACKIT network, or give each server that an allow-list names a STACKIT public IP — a NAT gateway's fixed egress address is lost on STACKIT: the address a routed network leaves by is the network's own, shared by every routed network of the project, not fixed and not settable (phase BEFORE_PILOT)
 
 # from module.vpc.module.vpc.aws_route_table.public (.terraform/modules/vpc.vpc/main.tf:164) — RECONFIGURE / MEDIUM
-# rule aws.route_table/rt-default-only · KB 0.420.0 · evidence internal · review required
+# rule aws.route_table/rt-default-only · KB 0.428.0 · evidence internal · review required
 # WARNING topology-route-table-not-drafted: This route table is created with count or for_each.
 # WARNING source-provider-unpinned: No lock file entry pins aws (>= 3.0, >= 3.29, >= 4.18, >= 4.30, >= 4.59, >= 5.64, >= 5.79, ~> 5.0): the version the plan would use is not proven (stated once for the whole estate)
 # TODO: Create the target project outside a Network Area: module.vpc.module.vpc.aws_route_table.public is replaced by STACKIT's default routing, which was observed to give a routed network the same reachability only in a project outside a Network Area — STACKIT's default routing was observed to give a routed network the same reachability only in a project outside a Network Area (tested on STACKIT in eu01 on 2026-10-10);

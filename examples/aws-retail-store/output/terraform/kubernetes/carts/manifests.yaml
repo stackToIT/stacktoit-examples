@@ -1,6 +1,6 @@
 # Generated migration draft by StackToIT — architect review required. Not for apply without review.
 # AWS ECS service module.retail_app_ecs.module.carts_service.aws_ecs_service.this (../../lib/ecs/service/ecs.tf:136) as Kubernetes manifests for STACKIT SKE — a draft, not Terraform.
-# rule aws.ecs/ecs-to-ske · REPLATFORM / LOW · task definition module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this · KB 0.420.0
+# rule aws.ecs/ecs-to-ske · REPLATFORM / LOW · task definition module.retail_app_ecs.module.carts_service.aws_ecs_task_definition.this · KB 0.428.0
 # Target cluster: the SKE cluster stackit_ske_cluster.retail_app_ecs_cluster (kubernetes.tf) the ECS cluster module.retail_app_ecs.aws_ecs_cluster.cluster becomes. Apply with the cluster's kubeconfig into the namespace you choose: kubectl apply -n <namespace> -f manifests.yaml
 # Kind: Deployment (scheduling_strategy REPLICA).
 # APPLICATION COMPATIBILITY: applications/carts.json lists every environment value, secret, rebinding, data store change and placeholder this manifest needs, as a blocking checklist; the workload is not ready before every item is done. A kubeconform check or a kubectl apply --dry-run of the manifest establishes YAML validity only, not behaviour: it accepts a REQUIRED_ token in a string field, an empty ConfigMap and a Secret that does not exist, and runs nothing; the checklist of the application compatibility contract and an application smoke test on the target are what show that the workload works.

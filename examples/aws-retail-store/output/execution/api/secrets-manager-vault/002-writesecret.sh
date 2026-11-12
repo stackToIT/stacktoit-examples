@@ -5,7 +5,7 @@
 # Request: 002-writesecret.json (this script is a rendering of it)
 # Idempotency: READ_BEFORE_CREATE. Authorisation: the username and password of a Secrets Manager user of the instance with write access (the stackit_secretsmanager_user the draft creates, write_enabled = true), which the script exchanges for a token (login) and sends as X-Vault-Token.
 # Expected response: HTTP 200 (the script stops (exit 7) when the answer has another status).
-# Step state: generated, tested offline. A test of StackToIT ran a script of this call under a real shell against a local stub that answers as the API is documented to; it was not run against the live STACKIT API.
+# Step state: written, tested offline. A test of StackToIT ran a script of this call under a real shell against a local stub that answers as the API is documented to; it was not run against the live STACKIT API.
 # Operator checks before running: (1) the endpoint: STACKIT_API_URL_SECRETS_MANAGER_VAULT, https://prod.sm.eu01.stackit.cloud when it is not set; (2) the project: the Secrets Manager instance (instanceId) and the user of the call are those the draft creates in the target project (the call carries no project id: the instance id names the instance); (3) the read before the write: what the read before the write finds (ReadSecret): a secret that already has a current version stops the script unless STACKIT_CONFIRM_REPLACE names it, so read what it reports.
 set -euo pipefail
 

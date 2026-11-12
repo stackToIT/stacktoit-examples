@@ -5,7 +5,7 @@
 # Request: 001-enableserviceregional.json (this script is a rendering of it)
 # Idempotency: READ_BEFORE_CREATE. Authorisation: the permissions service-enablement.service-state.get (ListServiceStatusRegional, the read first) and service-enablement.service-state.edit (EnableServiceRegional) on the project (x-stackit-authorization of the two operations).
 # Expected response: HTTP 202 (the script stops (exit 7) when the answer has another status).
-# Step state: generated, not yet tested offline. StackToIT wrote this call as a script, but no test has run a script of this call against a local stub that answers as the API does (a test with a stand-in program for the aws CLI or curl does not count), and it was not run against the live STACKIT API: the operator checks it before running it.
+# Step state: written, not yet tested offline. StackToIT wrote this call as a script, but no test has run a script of this call against a local stub that answers as the API does (a test with a stand-in program for the aws CLI or curl does not count), and it was not run against the live STACKIT API: the operator checks it before running it.
 # Operator checks before running: (1) the endpoint: STACKIT_API_URL_SERVICE_ENABLEMENT, https://service-enablement.api.stackit.cloud when it is not set; (2) the project: the project id (projectId is read from TF_VAR_project_id and must be the target project's id); (3) the read before the write: what the read before the write finds (ListServiceStatusRegional): the script creates nothing when the object exists, so read what it reports.
 set -euo pipefail
 

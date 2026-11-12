@@ -1,6 +1,6 @@
 {
   "schema_version": "0.2.1",
-  "run_id": "6fa04223-b825-429e-a52e-360fa841d7b8",
+  "run_id": "20b9b72e-9147-46e6-a2d7-0782ad201937",
   "source_digest": "sha256:9289ba9abd2e1e953630f7ab62d12070ed65ca36d687d125b7e6cf755d020000",
   "statement": "An initial infrastructure cost estimate under explicit assumptions (the scenario and the assumption file this model names), not a bill: list prices (net, no discount, no Spot, no savings plan, no private price) times quantities the source or the assumption file states. A total is FULL only when every line of its scope is priced; a line that cannot be priced says why and is never filled in, and an unknown quantity is neither 0 nor 1. A savings percentage is given only for the same scope, in one currency (or with an exchange rate that names its source and date), with every line of both sides priced. No usage, traffic, request or egress cost is computed unless the assumption file states the use of one month: a line priced on a stated use is an assumption and says so, and without it the line has its price and no amount. No support, licence, operations or migration labour cost is computed. The one one-off item the model states is what both estates cost while they run side by side during the cutover (parallel_run_months of the assumption file): it is stated apart and is in no total, comparison or saving.",
   "file": "financial/cost-model.json",

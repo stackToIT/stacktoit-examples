@@ -1,4 +1,4 @@
-# Answer template of run 6fa04223-b825-429e-a52e-360fa841d7b8 (written by stacktoit; copy this file, fill the `value:` lines, pass it with --inputs).
+# Answer template of run 20b9b72e-9147-46e6-a2d7-0782ad201937 (written by stacktoit; copy this file, fill the `value:` lines, pass it with --inputs).
 # Every request this run derives that this build can take an answer of (groups 1 and 2 below) is one stub. id, kind, topic, scope and recorded_with bind the answer to this source and this knowledge base:
 # do not edit them. Fill `value` (the options of the request are listed above it) and, if you like, `explanation`; set `answered_by` to
 # your role (it is a role, not a person) and `answered_at` to the day you answer. You may delete the stubs you do not answer.
@@ -32,8 +32,8 @@ answers:
     # options: eu01 | eu02
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: PLATFORM_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:94a1663bf63dd33750f12f962a5adedcc2bf291ebf4b101eee03238a48e95e54
 
@@ -50,8 +50,8 @@ answers:
     # options: stackit-opensearch-1.2.10-replica | stackit-opensearch-1.4.10-single | stackit-opensearch-1.4.10-replica | stackit-opensearch-1.4.50-replica | stackit-opensearch-2.4.10-single | stackit-opensearch-2.4.10-replica | stackit-opensearch-2.4.50-replica | stackit-opensearch-2.8.10-replica | stackit-opensearch-2.8.50-single | stackit-opensearch-2.8.50-replica | stackit-opensearch-2.8.100-replica | stackit-opensearch-2.8.250-replica | stackit-opensearch-4.8.10-replica | stackit-opensearch-4.8.50-single | stackit-opensearch-4.8.50-replica | stackit-opensearch-4.8.100-replica | stackit-opensearch-4.8.250-replica | stackit-opensearch-4.8.250-replica-HiPerf | stackit-opensearch-4.16.50-replica | stackit-opensearch-4.16.100-replica | stackit-opensearch-4.16.250-replica | stackit-opensearch-4.16.500-replica | stackit-opensearch-4.16.500-replica-HiPerf | stackit-opensearch-8.16.50-replica | stackit-opensearch-8.16.100-replica | stackit-opensearch-8.16.250-replica | stackit-opensearch-8.16.500-replica | stackit-opensearch-8.16.500-replica-HiPerf | stackit-opensearch-8.32.100-replica | stackit-opensearch-8.32.250-replica | stackit-opensearch-8.32.500-replica | stackit-opensearch-8.32.1000-replica | stackit-opensearch-8.32.1000-replica-HiPerf | stackit-opensearch-16.32.100-replica | stackit-opensearch-16.32.250-replica | stackit-opensearch-16.32.500-replica | stackit-opensearch-16.32.1000-replica | stackit-opensearch-16.32.1000-replica-HiPerf | stackit-opensearch-16.64.500-replica | stackit-opensearch-16.64.1000-replica
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: DATA_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:82af07ece74ae8085178c6c8d20ded7ddeec6f6a4fd22915a5c04702b249cd3b
 
@@ -68,8 +68,8 @@ answers:
     # options: 2.4 | 2.16 | 4.8 | 4.32 | 8.16 | 8.32 | 16.32 | 16.64 | 16.128
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: DATA_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:0a934b54b104e3c9ddc427526a5f773a0172caecaf2c6750d339c79404f8f8b7
 
@@ -86,8 +86,8 @@ answers:
     # options: premium-perf2-stackit | premium-perf4-stackit | premium-perf6-stackit | premium-perf8-stackit | premium-perf10-stackit | premium-perf12-stackit
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: DATA_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:09eff9c55806186f5175b05473a7040d027f31d6b4d6d80f4616671ee889f4ac
 
@@ -104,8 +104,8 @@ answers:
     # options: stackit-rabbitmq-8.16.50-replica | stackit-rabbitmq-8.16.100-replica | stackit-rabbitmq-8.16.100-replica-HiPerf | stackit-rabbitmq-16.32.100-replica | stackit-rabbitmq-16.32.100-replica-HiPerf | stackit-rabbitmq-4.8.10-replica | stackit-rabbitmq-4.8.50-single | stackit-rabbitmq-4.8.50-replica | stackit-rabbitmq-4.8.100-replica | stackit-rabbitmq-4.8.100-replica-HiPerf
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: DATA_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:b06c165cc1a95471d3cd9575953a988446c51faa373a556a1ab9dbba46a4f396
 
@@ -122,8 +122,8 @@ answers:
     # options: c1a.2d | c2a.2d | c2i.2 | c3i.2 | c1.2 | g1a.2d | g1r.2d | g2a.2d | g2i.2 | g3i.2 | g1.2 | m1a.2d | m2a.2d | m2i.2 | m3i.2 | m1.2 | b1a.2d | b2a.2d | b2i.2d | b3i.2 | b1.2 | s1a.4d | s3i.4 | s1.3 | c1a.4d | c2a.4d | c2i.4 | c3i.4 | c1.3 | g1a.4d | g1r.4d | g2a.4d | g2i.4 | g3i.4 | g1.3 | m1a.4d | m2a.4d | m2i.4 | m3i.4 | m1.3
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: PLATFORM_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:47b2623c36924c08da890054036d16ccde55e31bbd5b6dea9f1c583fed29f311
 
@@ -140,8 +140,8 @@ answers:
     # options: stackit-keyvalue-1.2.10-replica | stackit-keyvalue-1.4.10-single | stackit-keyvalue-1.4.10-replica | stackit-keyvalue-1.4.50-replica | stackit-keyvalue-2.8.10-replica | stackit-keyvalue-2.8.50-single | stackit-keyvalue-2.8.50-replica | stackit-keyvalue-2.8.100-replica | stackit-keyvalue-2.8.250-replica | stackit-keyvalue-2.8.250-replica-HiPerf | stackit-keyvalue-4.16.50-replica | stackit-keyvalue-4.16.100-replica | stackit-keyvalue-4.16.250-replica | stackit-keyvalue-4.16.250-replica-HiPerf | stackit-keyvalue-8.32.100-replica | stackit-keyvalue-8.32.250-replica | stackit-keyvalue-8.32.250-replica-HiPerf
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: DATA_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:850488819a2df9157c911a00eaf4a8fd3228ad24d20202fc548dc67864cfb426
 
@@ -156,7 +156,7 @@ answers:
     value: {}                # write your answer in the form above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: OPERATIONS   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:c243579aedc0b33b4e901d364a3e4d63f0376b182fc676cff74369257162b8a4
 
@@ -171,7 +171,7 @@ answers:
     value: ""                # fill one value
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: COST_OWNER   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:df16cb939930342f9cb5a5110ec3cfc06e8f66023103ce3fe571588cdb0e7d90
 
@@ -187,7 +187,7 @@ answers:
     value: {}                # write your answer in the form above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:f4fbad519a8f73e960f1cc69fc2e806507aca838476d5d47d01b78777060c08f
 
@@ -203,7 +203,7 @@ answers:
     value: {}                # write your answer in the form above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:0c37d1616657fddefb00aab8c3ec882470c29187bff69098e6913a86a60d39e8
 
@@ -219,7 +219,7 @@ answers:
     value: {}                # write your answer in the form above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:5635f9a61f8498392872bd4c273ad82c2bb303b7ece7d8ec684c44b5a5a021fc
 
@@ -235,7 +235,7 @@ answers:
     value: {}                # write your answer in the form above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:725a0fe5e25e77291a99875cfeb29aed9b71a5ea3dd435c3b99608490182a7eb
 
@@ -251,7 +251,7 @@ answers:
     value: {}                # write your answer in the form above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:e82c1e83b71339874f28d87795462a8edddbb095c46dca29fa90dafd08cb3672
 
@@ -267,7 +267,7 @@ answers:
     value: {}                # write your answer in the form above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:e54bc556906da0218fa7da5c51e61a5ac6fe97a937cb59d62498202e8cde3bc5
 
@@ -283,7 +283,7 @@ answers:
     value: {}                # write your answer in the form above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:6d5d26e0be20afef239e7c06fb9bfb736e1172312209b7d9b9507d5b5ef48bc7
 
@@ -299,7 +299,7 @@ answers:
     value: {}                # write your answer in the form above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:603595baca3dc00ff899dfbc31d633e841fd22bac750751c23f78f53a8990764
 
@@ -315,7 +315,7 @@ answers:
     value: {}                # write your answer in the form above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:a61df340650742329731105039538c1f06f0097f352bcad1b94167874ff2fe6d
 
@@ -331,7 +331,7 @@ answers:
     value: {}                # write your answer in the form above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:52248141a3d113bd454ed5035a881096c4b1b82a0c9864be26ec89c826ced242
 
@@ -347,7 +347,7 @@ answers:
     value: {}                # write your answer in the form above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:38cc4a3a11b51fa0731ecce5857d90ea5f2b6a6e1f3b9115050254e7c2ba8bdc
 
@@ -363,7 +363,7 @@ answers:
     value: {}                # write your answer in the form above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:60faef9d823ebdd266bf26dc2f689b60a1d56cdce734c67fc45e28bf06b3137b
 
@@ -379,7 +379,7 @@ answers:
     value: {}                # write your answer in the form above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:2cc2ac61754648bdd4429eb631ec44ba769b78c46007d39d8cc2ab5a1da88103
 
@@ -395,7 +395,7 @@ answers:
     value: {}                # write your answer in the form above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:4f3202530e04d83f04b174f50657bb59e96a1f46ed0a5a76a5c854649e31eb5b
 
@@ -411,7 +411,7 @@ answers:
     value: {}                # write your answer in the form above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:d7f5f8f6d50899622ebe819b1e42bd76b9a56105d0494140a60594a032b6be2f
 
@@ -427,7 +427,7 @@ answers:
     value: {}                # write your answer in the form above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:5f31b92c93a9b44f5ff35e7a1856c5e0e88b997a77d584415b403d4bf127230f
 
@@ -443,7 +443,7 @@ answers:
     value: {}                # write your answer in the form above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:cb79ba203f99b43ca8bed13ed64cc014304927731ee46f92fcd0625912bfd500
 
@@ -459,7 +459,7 @@ answers:
     value: {}                # write your answer in the form above
     # explanation: why you chose this (optional; remove the # to write it)
     answered_by: APPLICATION_OWNER   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:61545a44ae2001e58c916e5ae252d62e1b78d63f17c5e357fa28eace382fb41a
 
@@ -474,8 +474,8 @@ answers:
       subject: container_insights_setting
     value: ""                # fill one value
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: PLATFORM_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:109f02d752a98ac6baff38ef564ef011d372eca070ea7a8d219c365cf527e718
 
@@ -490,8 +490,8 @@ answers:
       subject: lifecycle_events_enabled
     value: ""                # fill one value
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: PLATFORM_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:0267f4114f892fbbf3e58167532f779aa0041d6b23e3a6366ef7dd5724fc8d11
 
@@ -506,8 +506,8 @@ answers:
       subject: opentelemetry_enabled
     value: ""                # fill one value
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: PLATFORM_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:954525fafc0d6e87e6d9eeb6da80e8ba39a703af5695f01839f7fa28f00453b8
 
@@ -523,8 +523,8 @@ answers:
     # options: SNA | PUBLIC
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: SECURITY_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:4f79dd419e7b68c13cc708d153eeb404d33ba7ba307cdd0587ec2815e722e4e6
 
@@ -539,8 +539,8 @@ answers:
       profile: default
     value: []                # fill a list of values
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: SECURITY_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:e32a4b156631e3ce4c601fb0d2c5e29c473dd54b0f4a554a57650c16e2faa821
 
@@ -555,8 +555,8 @@ answers:
       profile: default
     value: []                # fill a list of values
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: SECURITY_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:6fb4864b0e432d33e54f0352c3628c0892fea0235923c0a570e2ffecf6341f82
 
@@ -571,8 +571,8 @@ answers:
     # options: CREATE | REUSE_EXISTING:<network id> | IMPORT_EXISTING:<network id> | MANUAL_BIND | REFUSE
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: NETWORK_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:028f63fab88654de2cada478c3b0a6abd78b47244fb5ecd7e0f73f8265b8f2cc
 
@@ -586,8 +586,8 @@ answers:
     # options: CREATE | REUSE_EXISTING:<instance id> | MANUAL_BIND | REFUSE
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: PLATFORM_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:fc0777d11df0a9e95d3dbe4cb563e3e497d952d38e2d13181aa6f3964279ff34
 
@@ -602,8 +602,8 @@ answers:
     # options: CREATE | REUSE_EXISTING:<security group id> | IMPORT_EXISTING:<security group id> | MANUAL_BIND | REFUSE
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: SECURITY_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:3275c219b0f2ba86158a6c8b97c213bf185ffb70a12a53b24106987b14cda1c3
 
@@ -618,8 +618,8 @@ answers:
     # options: CREATE | REUSE_EXISTING:<security group id> | IMPORT_EXISTING:<security group id> | MANUAL_BIND | REFUSE
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: SECURITY_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:8ee2d31f63edcd018760117e62b075dc1b6026ad9ec169b169aca12c082220bc
 
@@ -634,8 +634,8 @@ answers:
     # options: CREATE | REUSE_EXISTING:<security group id> | IMPORT_EXISTING:<security group id> | MANUAL_BIND | REFUSE
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: SECURITY_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:6e23e7d6257652a555d06720806377bb4271650b80e362eb07282ae2f7e55a9d
 
@@ -650,8 +650,8 @@ answers:
     # options: CREATE | REUSE_EXISTING:<security group id> | IMPORT_EXISTING:<security group id> | MANUAL_BIND | REFUSE
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: SECURITY_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:17de2dcda40ae0c0950f128269b5d87f9eb7d7dec524ceef66e3a5193d7e0cf4
 
@@ -666,8 +666,8 @@ answers:
     # options: CREATE | REUSE_EXISTING:<security group id> | IMPORT_EXISTING:<security group id> | MANUAL_BIND | REFUSE
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: SECURITY_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:745d127d0e294cfa2b7be0dc39b7de2fa1fb595f4fb884a627dbffb76c1c0363
 
@@ -682,8 +682,8 @@ answers:
     # options: CREATE | REUSE_EXISTING:<security group id> | IMPORT_EXISTING:<security group id> | MANUAL_BIND | REFUSE
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: SECURITY_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:4959eb36539725db94c2600c73d55f04429e4b088f4e2f1ad581336a18b089b0
 
@@ -698,8 +698,8 @@ answers:
     # options: CREATE | REUSE_EXISTING:<security group id> | IMPORT_EXISTING:<security group id> | MANUAL_BIND | REFUSE
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: SECURITY_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:979df01c3d9bb75b36c4f5f7309d0f344620ef4fb2a2b70064cd1ce7c65deef7
 
@@ -715,8 +715,8 @@ answers:
     # options: federated_service_account | service_account_key | no_workload_identity
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: IDENTITY_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:e277e3ab4098270ede3e75001185a904a7b1f441fcc7ffdcb5c4735d63b8f0eb
 
@@ -732,8 +732,8 @@ answers:
     # options: federated_service_account | service_account_key | no_workload_identity
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: IDENTITY_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:67f33800e6339a5e12131709597c8a9c148abc1cb45e93efb13d2da3b64882b4
 
@@ -749,8 +749,8 @@ answers:
     # options: federated_service_account | service_account_key | no_workload_identity
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: IDENTITY_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:de2d00f9f5d32a7466de1d2bdf07b2f71a96e844c0ffa606cbeab013e33fdb32
 
@@ -766,8 +766,8 @@ answers:
     # options: federated_service_account | service_account_key | no_workload_identity
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: IDENTITY_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:45fa85af86d70d62372acebb01c4f44e6100cebb364e8eb31caae953a542480a
 
@@ -783,8 +783,8 @@ answers:
     # options: federated_service_account | service_account_key | no_workload_identity
     value: ""                # pick one of the options above
     # explanation: why you chose this (optional; remove the # to write it)
-    answered_by: CUSTOMER_ARCHITECT   # a role, not a person
-    answered_at: "2026-11-09"   # YYYY-MM-DD
+    answered_by: IDENTITY_ARCHITECT   # a role, not a person
+    answered_at: "2026-11-12"   # YYYY-MM-DD
     recorded_with:
       basis_digest: sha256:4bab08b59c664ec66accc8660131851e0746a5551db2d2f07c740f510e7800c3
 

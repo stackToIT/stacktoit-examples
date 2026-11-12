@@ -6,7 +6,7 @@
 # stackit_routing_table is a Network Area resource (organization_id and network_area_id, pinned provider), so the draft puts the
 # routing tables it makes in the Network Area, and only STACKIT's default routing is the project's. The experimental STACKIT VPC
 # (stackit_vpc, pinned provider) is not used.
-# Target: stackit provider 0.121.0; knowledge base 0.420.0
+# Target: stackit provider 0.121.0; knowledge base 0.428.0
 
 # from module.retail_app_ecs.module.alb_sg.aws_security_group.this_name_prefix (.terraform/modules/retail_app_ecs.alb_sg/main.tf:37) — RECONFIGURE / MEDIUM
 # WARNING source-provider-unpinned: No lock file entry pins aws (>= 3.0, >= 3.29, >= 4.18, >= 4.30, >= 4.59, >= 5.64, >= 5.79, ~> 5.0): the version the plan would use is not proven (stated once for the whole estate)
@@ -207,7 +207,7 @@ resource "stackit_security_group_rule" "retail_app_ecs_ui_service_this_ingress_1
 }
 
 # from module.dependencies.aws_security_group.catalog_opensearch_sg (../../lib/dependencies/catalog_opensearch.tf:14) — RECONFIGURE / MEDIUM
-# rule aws.security_group/sg · KB 0.420.0 · target maturity GA · lifecycle active · evidence internal · review required
+# rule aws.security_group/sg · KB 0.428.0 · target maturity GA · lifecycle active · evidence internal · review required
 # WARNING sg-egress-restricted: The source restricts egress (the AWS provider removes AWS's default allow-all egress rule; only the listed egress rules apply).
 # WARNING source-provider-unpinned: No lock file entry pins aws (>= 3.0, >= 3.29, >= 4.18, >= 4.30, >= 4.59, >= 5.64, >= 5.79, ~> 5.0): the version the plan would use is not proven (stated once for the whole estate)
 # WARNING sg-rule-not-rendered: At least one rule of this group is not in the draft as the source has it.
@@ -216,7 +216,7 @@ resource "stackit_security_group_rule" "retail_app_ecs_ui_service_this_ingress_1
 #   The egress rules of the group are about the outbound traffic of the instance itself, which a managed data service exposes no filter for: they are not carried (source: an aws_security_group unit with 1 ingress, 0 egress and 0 other rules)
 
 # from module.dependencies.aws_security_group.mq (../../lib/dependencies/mq.tf:33) — RECONFIGURE / MEDIUM
-# rule aws.security_group/sg · KB 0.420.0 · target maturity GA · lifecycle active · evidence internal · review required
+# rule aws.security_group/sg · KB 0.428.0 · target maturity GA · lifecycle active · evidence internal · review required
 # WARNING sg-egress-restricted: The source restricts egress (the AWS provider removes AWS's default allow-all egress rule; only the listed egress rules apply).
 # WARNING source-provider-unpinned: No lock file entry pins aws (>= 3.0, >= 3.29, >= 4.18, >= 4.30, >= 4.59, >= 5.64, >= 5.79, ~> 5.0): the version the plan would use is not proven (stated once for the whole estate)
 # WARNING sg-rule-not-rendered: At least one rule of this group is not in the draft as the source has it.
@@ -225,7 +225,7 @@ resource "stackit_security_group_rule" "retail_app_ecs_ui_service_this_ingress_1
 #   The egress rules of the group are about the outbound traffic of the instance itself, which a managed data service exposes no filter for: they are not carried (source: an aws_security_group unit with 1 ingress, 0 egress and 0 other rules)
 
 # from module.dependencies.module.catalog_rds.aws_security_group.this (.terraform/modules/dependencies.catalog_rds/main.tf:321) — RECONFIGURE / MEDIUM
-# rule aws.security_group/sg · KB 0.420.0 · target maturity GA · lifecycle active · evidence internal · review required
+# rule aws.security_group/sg · KB 0.428.0 · target maturity GA · lifecycle active · evidence internal · review required
 # WARNING sg-egress-restricted: The source restricts egress (the AWS provider removes AWS's default allow-all egress rule; only the listed egress rules apply).
 # WARNING source-provider-unpinned: No lock file entry pins aws (>= 3.0, >= 3.29, >= 4.18, >= 4.30, >= 4.59, >= 5.64, >= 5.79, ~> 5.0): the version the plan would use is not proven (stated once for the whole estate)
 # WARNING sg-rule-not-rendered: At least one rule of this group is not in the draft as the source has it.
@@ -234,7 +234,7 @@ resource "stackit_security_group_rule" "retail_app_ecs_ui_service_this_ingress_1
 #   The egress rules of the group are about the outbound traffic of the instance itself, which a managed data service exposes no filter for: they are not carried (source: an aws_security_group unit with 1 ingress, 0 egress and 0 other rules)
 
 # from module.dependencies.module.checkout_elasticache_redis.module.aws_security_group.aws_security_group.cbd (.terraform/modules/dependencies.checkout_elasticache_redis.aws_security_group/main.tf:81) — RECONFIGURE / MEDIUM
-# rule aws.security_group/sg · KB 0.420.0 · target maturity GA · lifecycle active · evidence internal · review required
+# rule aws.security_group/sg · KB 0.428.0 · target maturity GA · lifecycle active · evidence internal · review required
 # WARNING source-provider-unpinned: No lock file entry pins aws (>= 3.0, >= 3.29, >= 4.18, >= 4.30, >= 4.59, >= 5.64, >= 5.79, ~> 5.0): the version the plan would use is not proven (stated once for the whole estate)
 # WARNING sg-rule-not-rendered: At least one rule of this group is not in the draft as the source has it.
 # NOT CARRIED (module.dependencies.module.checkout_elasticache_redis.module.aws_security_group.aws_security_group.cbd): module.dependencies.module.checkout_elasticache_redis.module.aws_security_group.aws_security_group.cbd — group not produced: no stackit_security_group and no rule is produced: every unit that names the group is a managed data service of STACKIT,
@@ -243,7 +243,7 @@ resource "stackit_security_group_rule" "retail_app_ecs_ui_service_this_ingress_1
 #   The egress rules of the group are about the outbound traffic of the instance itself, which a managed data service exposes no filter for: they are not carried (source: an aws_security_group unit with 1 ingress, 1 egress and 0 other rules)
 
 # from module.dependencies.module.orders_rds.aws_security_group.this (.terraform/modules/dependencies.orders_rds/main.tf:321) — RECONFIGURE / MEDIUM
-# rule aws.security_group/sg · KB 0.420.0 · target maturity GA · lifecycle active · evidence internal · review required
+# rule aws.security_group/sg · KB 0.428.0 · target maturity GA · lifecycle active · evidence internal · review required
 # WARNING sg-egress-restricted: The source restricts egress (the AWS provider removes AWS's default allow-all egress rule; only the listed egress rules apply).
 # WARNING source-provider-unpinned: No lock file entry pins aws (>= 3.0, >= 3.29, >= 4.18, >= 4.30, >= 4.59, >= 5.64, >= 5.79, ~> 5.0): the version the plan would use is not proven (stated once for the whole estate)
 # WARNING sg-rule-not-rendered: At least one rule of this group is not in the draft as the source has it.

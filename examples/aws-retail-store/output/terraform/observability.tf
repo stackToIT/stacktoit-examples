@@ -1,5 +1,5 @@
 # Generated migration draft by StackToIT — architect review required. Not for apply without review.
-# Target: stackit provider 0.121.0; knowledge base 0.420.0
+# Target: stackit provider 0.121.0; knowledge base 0.428.0
 
 # TODO: node[module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks].name: Choose a static label and send the name of module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks (and of its streams) from its log producers as the value of that label (the manual action below)
 # NOT CARRIED (module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks): node[module.retail_app_ecs.aws_cloudwatch_log_group.ecs_tasks].retention_in_days — the source keeps its logs for ever (it states no period, or 0); a Logs instance keeps at most 180 days, so the logs of this source are kept for 180 days here and anything older has to be archived elsewhere (for example in Object Storage) if it must be kept

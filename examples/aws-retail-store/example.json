@@ -25,23 +25,23 @@
   },
   "tool": {
     "name": "StackToIT",
-    "version": "0.6.0-14341-g8183bbe919",
-    "commit": "8183bbe919",
-    "kb_version": "0.420.0",
-    "kb_sha256": "28ca6db2f3fa8711d7f1ecbb002d4b9faa7153fce7e394d64e6d1c37b1bd1930",
-    "assessment_schema": "0.25.0",
+    "version": "0.6.0-14852-ge0bf936cda",
+    "commit": "e0bf936cda",
+    "kb_version": "0.428.0",
+    "kb_sha256": "269b6fb01d33e7b35c499690a7dc997b27fb67834e6ea10318bcc645927bf696",
+    "assessment_schema": "0.26.0",
     "manifest_version": "0.4.0",
     "opentofu": "1.13.1"
   },
   "run": {
-    "run_id": "6fa04223-b825-429e-a52e-360fa841d7b8",
-    "generated_at": "2026-11-09T23:46:19Z",
-    "date": "2026-11-09",
+    "run_id": "20b9b72e-9147-46e6-a2d7-0782ad201937",
+    "generated_at": "2026-11-12T05:04:15Z",
+    "date": "2026-11-12",
     "mode": "online (default options; a local OpenTofu provider mirror with hashicorp/aws 5.100.0 was prepared beforehand as the console suggests; prices from the local price cache retrieved 2026-10-26)",
     "command": "stacktoit assess terraform/ecs/default ./aws-retail-store --provider-mirror /path/to/mirror",
     "command_note": "Run from the vendored copy of the upstream repository. A local OpenTofu provider mirror (hashicorp/aws 5.100.0, the version the constraints resolve to) was prepared first with `tofu providers mirror`, as the first run's console suggested; the source validation still did not run because the source has no lock file. The output directory is this example's output/ folder, unchanged.",
     "verify_command": "stacktoit verify ./aws-retail-store",
-    "verify_result": "VERIFIED — 172 files match manifest.json (size and SHA-256); 7 of 7 checks PASS",
+    "verify_result": "VERIFIED — 175 files match manifest.json (size and SHA-256); 7 of 7 checks PASS",
     "source_digest": "sha256:9289ba9abd2e1e953630f7ab62d12070ed65ca36d687d125b7e6cf755d020000"
   },
   "metrics": {
@@ -89,23 +89,23 @@
     "execution": {
       "package_state": "PARTIALLY_EXECUTABLE",
       "package_state_words": "Partially executable migration package",
-      "plan_steps": 339,
+      "plan_steps": 334,
       "automated_steps": 49,
-      "automated_free_of_decisions": 31,
+      "automated_free_of_decisions": 29,
       "automated_runs_as_written": 1,
-      "automated_waiting_for_value": 30,
+      "automated_waiting_for_value": 28,
       "automated_wait_manual_prerequisite": 1,
-      "automated_require_design_decision": 17,
+      "automated_require_design_decision": 19,
       "automated_on_unconfirmed_default": 0,
       "automated_approved": 0,
-      "terraform_steps": 31,
+      "terraform_steps": 29,
       "api_steps": 5,
       "api_steps_waiting_opt_in": 4,
-      "manual_steps": 288,
-      "manual_can_start_now": 120,
+      "manual_steps": 283,
+      "manual_can_start_now": 115,
       "lifecycle_steps": 97,
       "refused_steps": 2,
-      "steps_not_runnable_now": 181
+      "steps_not_runnable_now": 185
     },
     "readiness": {
       "migration_ready": "NO",
@@ -119,8 +119,8 @@
       "live_verification": "Never applied to STACKIT — no plan was run against a live project"
     },
     "decisions": {
-      "records_open": 114,
-      "decisions_to_make": 16,
+      "records_open": 118,
+      "decisions_to_make": 19,
       "defaults_to_confirm": 1,
       "defaults_to_confirm_note": "1 record nobody has answered rests on a draft default: the size derived from the source. The public endpoint of the four data services is no longer a default to confirm: it holds their steps until a person accepts it.",
       "open_input_requests": 87,
@@ -200,7 +200,7 @@
       },
       "manifest": {
         "state": "VERIFIED",
-        "detail": "172 files match manifest.json; EVIDENCE, SCHEMA, RUN_ID, BASIS, INPUTS_DIGEST, INVALIDATION_KEYS, EXECUTION_PLAN PASS"
+        "detail": "175 files match manifest.json; EVIDENCE, SCHEMA, RUN_ID, BASIS, INPUTS_DIGEST, INVALIDATION_KEYS, EXECUTION_PLAN PASS"
       },
       "not_established": [
         {
@@ -245,11 +245,15 @@
       "text": "The draft gives the four data services (Aurora → MariaDB and PostgreSQL Flex, Amazon MQ → RabbitMQ, ElastiCache → Valkey) a public STACKIT endpoint limited by an access list, where the source kept them private. That widening is not carried out by default: their steps wait until a Security Architect accepts the exposure or chooses another way in. This is the first required action of the run."
     },
     {
+      "title": "Two replacements wait for a person's choice",
+      "text": "The SKE cluster that replaces the ECS services and the MongoDB Flex instance that replaces the DynamoDB tables are proposed alternatives. Their OpenTofu steps wait until a person chooses how the container runtime and the NoSQL tables move, so 29 of the 49 automated steps are free of decisions, against 31 in the previous version. That is a correctness gain, not a regression: the draft does not write a replacement nobody has chosen."
+    },
+    {
       "title": "No cost comparison is stated",
       "text": "The source does not name its AWS region, so no AWS price was fetched. 5 of 14 STACKIT lines are priced (878.34 EUR partial, list prices); the report refuses to call a one-sided subtotal a saving."
     },
     {
-      "title": "No cost comparison is stated",
+      "title": "The security-widening check stays open",
       "text": "11 of the 12 global checks pass; the one that stays open is that no rule, route or role assignment allows more than the source did. The five ECS task roles become STACKIT project role assignments whose roles a person fills, and what a STACKIT project role allows is not stated in any public source, so StackToIT does not call the access equal."
     }
   ],
@@ -267,8 +271,8 @@
     "console": "console.txt"
   },
   "publication": {
-    "published_files": 177,
-    "manifest_files": 171,
+    "published_files": 180,
+    "manifest_files": 174,
     "outside_manifest": [
       "manifest.json",
       "review/applications.yaml",
